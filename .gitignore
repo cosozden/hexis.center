@@ -1,0 +1,27 @@
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Editor directories and files
+.idea/
+.vscode/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Logs
+*.log
+
+# Dependency directories (if you ever add a build step)
+node_modules/
+
+# Environment files
+.env
+.env.local
+.env.*.local
+
+# Cloudflare
+.wrangler/
