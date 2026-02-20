@@ -188,8 +188,21 @@ footer a:hover{color:var(--white)}
 .modal p{font-size:12px;color:var(--gray);line-height:1.6;margin-bottom:18px}
 .modal-acts{display:flex;gap:10px;justify-content:center}
 
+/* HAMBURGER */
+.hamburger{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:4px}
+.hamburger span{display:block;width:22px;height:2px;background:var(--white);border-radius:2px;transition:all .3s}
+.hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.hamburger.open span:nth-child(2){opacity:0}
+.hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+.mobile-menu{display:none;position:fixed;top:57px;left:0;right:0;background:rgba(10,22,40,.97);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);flex-direction:column;padding:16px 24px;gap:4px;z-index:99}
+.mobile-menu.open{display:flex}
+.mobile-menu a{color:var(--gray);text-decoration:none;font-size:14px;font-weight:500;padding:11px 0;border-bottom:1px solid rgba(255,255,255,.05);transition:color .2s}
+.mobile-menu a:last-child{border-bottom:none}
+.mobile-menu a:hover{color:var(--white)}
+.mobile-menu .nav-cta{color:var(--white)!important;background:var(--blue);padding:10px 18px;border-radius:8px;text-align:center;margin-top:4px;border-bottom:none}
+
 @media(max-width:768px){
-  nav{padding:12px 20px} .nav-links{display:none}
+  nav{padding:12px 20px} .nav-links{display:none} .hamburger{display:flex}
   .hero,.tl-wrap,.ol-wrap,.prog-wrap,.cl-wrap,.cmp-wrap,.blog-wrap,.cta-wrap{padding-left:20px;padding-right:20px}
   .ol-grid,.blog-grid{grid-template-columns:1fr}
   .cta-inner{flex-direction:column;text-align:center}
@@ -216,9 +229,21 @@ footer a:hover{color:var(--white)}
     <a href="#checklist">Checklist</a>
     <a href="#comparison">KVKK Karş.</a>
     <a href="#blog">Blog</a>
-    <a href="https://linkedin.com" target="_blank" class="nav-cta" rel="noopener noreferrer">LinkedIn</a>
+    <a href="https://www.linkedin.com/in/ozden-coskun-8728a1301" target="_blank" class="nav-cta" rel="noopener noreferrer">LinkedIn</a>
   </div>
+  <button class="hamburger" id="hamburger" onclick="toggleMenu()" aria-label="Menü">
+    <span></span><span></span><span></span>
+  </button>
 </nav>
+
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#timeline" onclick="closeMenu()">Takvim</a>
+  <a href="#sources" onclick="closeMenu()">Kaynaklar</a>
+  <a href="#checklist" onclick="closeMenu()">Checklist</a>
+  <a href="#comparison" onclick="closeMenu()">KVKK Karş.</a>
+  <a href="#blog" onclick="closeMenu()">Blog</a>
+  <a href="https://www.linkedin.com/in/ozden-coskun-8728a1301" target="_blank" class="nav-cta" rel="noopener noreferrer" onclick="closeMenu()">LinkedIn</a>
+</div>
 
 <!-- STATUS BANNER -->
 <div class="status-banner">
@@ -450,7 +475,7 @@ footer a:hover{color:var(--white)}
 <section class="blog-wrap" id="blog">
   <div class="blog-hdr">
     <div><div class="sec-lbl">İçerik / Blog</div><h2>AI Governance Rehberi</h2></div>
-    <button class="btn-secondary" style="font-size:12px;padding:9px 18px">Tümünü Gör →</button>
+    <a href="https://www.linkedin.com/in/ozden-coskun-8728a1301" target="_blank" rel="noopener noreferrer" class="btn-secondary" style="font-size:12px;padding:9px 18px;text-decoration:none;display:inline-block">LinkedIn'de Gör →</a>
   </div>
   <div class="blog-grid">
     <div class="bc"><span class="btag" style="background:rgba(240,68,56,.14);color:#F04438">EU AI Act</span><h3>Türk KOBİ'leri için AB Yapay Zeka Yasası: 2026'ya Hazırlanma Rehberi</h3><p>AB pazarında faaliyet gösteren Türk şirketleri için kapsamlı uyumluluk yol haritası.</p><div class="bmeta"><span>8 dk</span><span class="bmore">Oku →</span></div></div>
@@ -496,6 +521,20 @@ footer a:hover{color:var(--white)}
 </div>
 
 <script>
+function toggleMenu(){
+  document.getElementById('hamburger').classList.toggle('open');
+  document.getElementById('mobileMenu').classList.toggle('open');
+}
+function closeMenu(){
+  document.getElementById('hamburger').classList.remove('open');
+  document.getElementById('mobileMenu').classList.remove('open');
+}
+document.addEventListener('click',function(e){
+  const nav=document.querySelector('nav');
+  const menu=document.getElementById('mobileMenu');
+  if(!nav.contains(e.target)&&!menu.contains(e.target)){closeMenu();}
+});
+
 const TOTALS=[4,3,4,3,5,4];
 function toggleSec(h){h.closest('.sc').classList.toggle('open')}
 function toggleItem(i){i.classList.toggle('checked');updateProg()}
