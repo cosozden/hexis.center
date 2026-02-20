@@ -441,58 +441,47 @@ footer{
 #model{}
 .model-label{
   font-family:'Syne',sans-serif;font-size:10px;font-weight:700;
-  letter-spacing:2.5px;text-transform:uppercase;color:var(--gold);margin-bottom:14px;
+  letter-spacing:2.5px;text-transform:uppercase;color:var(--gold);margin-bottom:10px;
 }
-.model-hdr{margin-bottom:40px}
-.model-hdr h2{font-family:'Syne',sans-serif;font-size:clamp(24px,3.5vw,36px);font-weight:800;letter-spacing:-1px;line-height:1.1}
-.model-hdr h2 em{color:var(--gold);font-style:normal}
-.model-sub{font-size:14px;color:var(--text2);margin-top:10px;max-width:60ch;line-height:1.65}
+.model-subtitle{
+  font-size:13px;color:var(--muted);font-style:italic;
+  line-height:1.5;margin-bottom:32px;font-weight:300;
+}
 .model-grid{
-  display:grid;grid-template-columns:repeat(2,1fr);gap:14px;
+  display:grid;grid-template-columns:repeat(2,1fr);gap:1px;
+  border:1px solid var(--border);border-radius:16px;overflow:hidden;
 }
 @media(max-width:640px){.model-grid{grid-template-columns:1fr}}
 .model-card{
   background:rgba(255,255,255,.04);
-  border:1px solid var(--border);
-  border-radius:16px;
   padding:28px 26px;
-  display:flex;flex-direction:column;gap:12px;
-  transition:all .25s;
-  position:relative;overflow:hidden;
+  display:flex;flex-direction:column;gap:10px;
+  transition:background .2s;
 }
-.model-card::before{
-  content:'';position:absolute;top:0;left:0;right:0;height:2px;
-  border-radius:16px 16px 0 0;
-  background:linear-gradient(90deg,transparent,rgba(232,160,32,.4),transparent);
-  opacity:0;transition:opacity .3s;
-}
-.model-card:hover{border-color:var(--border2);background:rgba(255,255,255,.06)}
-.model-card:hover::before{opacity:1}
+.model-card:hover{background:rgba(255,255,255,.065)}
 .model-step{
   display:inline-flex;align-items:center;gap:7px;
   font-family:'Syne',sans-serif;font-size:9px;font-weight:700;
   letter-spacing:1.5px;text-transform:uppercase;
-  color:var(--gold);margin-bottom:4px;
+  color:var(--gold);
 }
 .model-step-num{
-  width:20px;height:20px;border-radius:6px;
-  background:rgba(232,160,32,.15);border:1px solid rgba(232,160,32,.25);
+  width:18px;height:18px;border-radius:5px;
+  background:rgba(232,160,32,.12);border:1px solid rgba(232,160,32,.2);
   display:flex;align-items:center;justify-content:center;
-  font-size:10px;font-weight:800;color:var(--gold);
+  font-size:9px;font-weight:800;color:var(--gold);
 }
 .model-card h3{
   font-family:'Syne',sans-serif;font-weight:700;
-  font-size:16px;line-height:1.3;color:var(--text);
+  font-size:15px;line-height:1.3;color:var(--text);
 }
 .model-card p{
-  font-size:13px;color:var(--text2);line-height:1.7;
+  font-size:13px;color:rgba(184,204,220,.88);line-height:1.72;margin-bottom:0;
 }
-.model-connector{
-  display:flex;justify-content:center;align-items:center;
-  gap:8px;margin:20px 0 10px;
-  font-size:11px;color:var(--muted);letter-spacing:.5px;
+.model-footer-note{
+  font-size:11.5px;color:var(--muted);margin-top:20px;
+  font-style:italic;letter-spacing:.1px;
 }
-.model-connector-line{flex:1;height:1px;background:linear-gradient(90deg,transparent,var(--border2),transparent)}
 
 /* ─── RESPONSIVE ─────────────────────────────────── */
 @media(max-width:860px){
@@ -683,76 +672,38 @@ footer{
 <!-- ══════════ HEXIS MODEL ══════════ -->
 <section id="model">
   <div class="section-inner">
-    <div class="model-hdr">
-      <div class="model-label">Hexis Modeli / Framework</div>
-      <h2>Dört Katmanlı<br><em>Governance Çerçevesi</em></h2>
-      <p class="model-sub">
-        Hexis, AI yönetişimini dört birbirine bağlı adımda ele alır.
-        Her adım bir öncekinin üzerine inşa edilir — soyut uyumdan sürdürülebilir bir kurumsal duruşa.
-      </p>
-    </div>
+    <div class="model-label">Hexis Model</div>
+    <p class="model-subtitle">A structured lifecycle approach to accountable AI.</p>
 
     <div class="model-grid">
 
       <div class="model-card">
-        <div class="model-step">
-          <span class="model-step-num">1</span>
-          Giriş Noktası
-        </div>
+        <div class="model-step"><span class="model-step-num">1</span>Risk Identification</div>
         <h3>Risk Identification</h3>
-        <p>
-          Hangi sistemlerin düzenleme kapsamına girdiğini ve hangi risk katmanında yer aldığını belirlemek,
-          yönetişimin başlangıç adımıdır. EU AI Act Annex III ve Madde 6 çerçevesinde yapılandırılmış
-          bir sınıflandırma, gereksiz yükü önler ve doğru önceliklendirmeyi mümkün kılar.
-        </p>
+        <p>AI sisteminin operasyonel, hukuki, veri ve insan etkisi risklerini netleştirir; karmaşıklığı değil açıklığı hedefler.</p>
       </div>
 
       <div class="model-card">
-        <div class="model-step">
-          <span class="model-step-num">2</span>
-          Sorumluluk Haritası
-        </div>
+        <div class="model-step"><span class="model-step-num">2</span>Responsibility Mapping</div>
         <h3>Responsibility Mapping</h3>
-        <p>
-          Kim neyin sahibi? Hangi rol, hangi yükümlülükten sorumlu?
-          İnsan gözetimi yalnızca teknik bir gereklilik değil, kurumsal bir tasarım sorusudur.
-          RACI benzeri bir sorumluluk haritası, hesap verebilirliği somut kılar.
-        </p>
+        <p>Her AI işlevi için açık sahiplik tanımlar; sorumluluğu varsayılan değil yapısal hale getirir.</p>
       </div>
 
       <div class="model-card">
-        <div class="model-step">
-          <span class="model-step-num">3</span>
-          Yaşam Döngüsü
-        </div>
+        <div class="model-step"><span class="model-step-num">3</span>Lifecycle Oversight</div>
         <h3>Lifecycle Oversight</h3>
-        <p>
-          AI sistemleri gelişir, veri kayar, bağlamlar değişir. Yönetişim yalnızca devreye alma
-          anında değil, sistemin tüm yaşam döngüsü boyunca aktif olmalıdır.
-          ISO/IEC 42001 bu yapıyı kurumsal olgunluk düzeyinde destekler.
-        </p>
+        <p>Governance'ı tasarımdan izlemeye kadar tüm yaşam döngüsüne yayar; insan denetimini kalıcı kılar.</p>
       </div>
 
       <div class="model-card">
-        <div class="model-step">
-          <span class="model-step-num">4</span>
-          Kapanış Döngüsü
-        </div>
+        <div class="model-step"><span class="model-step-num">4</span>Sustainability Loop</div>
         <h3>Sustainability Loop</h3>
-        <p>
-          Tek seferlik uyum yeterli değil. Governance'ın sürdürülebilir olması için
-          periyodik gözden geçirme, iç denetim mekanizmaları ve kurum içi AI okuryazarlığı
-          bir döngü oluşturmalıdır — kural olarak değil, kültür olarak.
-        </p>
+        <p>Düzenli gözden geçirme ve güncelleme döngüsüyle governance'ın sistemle birlikte evrilmesini sağlar.</p>
       </div>
 
     </div>
 
-    <div class="model-connector">
-      <span class="model-connector-line"></span>
-      <span>Döngüsel · Yapısal · İnsan Merkezli</span>
-      <span class="model-connector-line"></span>
-    </div>
+    <p class="model-footer-note">Hexis Tools, bu modelin pratik uzantılarıdır.</p>
 
   </div>
 </section>
