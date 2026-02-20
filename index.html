@@ -271,6 +271,9 @@ section{position:relative;z-index:1;padding-block:72px}
   display:flex;flex-direction:column;gap:12px;
 }
 .thinking-card:hover{border-color:var(--border2);background:var(--card2);transform:translateY(-3px);box-shadow:0 8px 28px rgba(0,0,0,.2)}
+.thinking-card--soon{cursor:default;pointer-events:none;opacity:.72}
+.thinking-card--soon:hover{transform:none;box-shadow:none;border-color:var(--border);background:rgba(255,255,255,.055)}
+.thinking-soon-badge{display:inline-flex;align-items:center;font-size:9px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;color:var(--muted);background:rgba(255,255,255,.06);border:1px solid var(--border);border-radius:100px;padding:2px 8px}
 .thinking-card-tag{
   display:inline-flex;align-items:center;gap:6px;
   background:rgba(96,165,250,.1);border:1px solid rgba(96,165,250,.2);
@@ -522,6 +525,8 @@ footer{
     <a href="#thinking">Düşünce</a>
     <a href="#tools">Araçlar</a>
     <a href="eu-ai-act-checklist.html" style="color:var(--gold2);font-weight:600">Checklist ↗</a>
+    <a href="/methodology/" style="color:var(--teal2);font-weight:600">Methodology ↗</a>
+    <a href="/generator/" style="color:var(--teal2);font-weight:600">Generator ↗</a>
     <a href="#contact">İletişim</a>
   </div>
   <button class="hamburger" id="hamburger" onclick="toggleMenu()" aria-label="Menü">
@@ -535,6 +540,8 @@ footer{
   <a href="#thinking" onclick="closeMenu()">Düşünce</a>
   <a href="#tools" onclick="closeMenu()">Araçlar</a>
   <a href="eu-ai-act-checklist.html" onclick="closeMenu()" style="color:var(--gold2);font-weight:600">EU AI Act Checklist ↗</a>
+  <a href="/methodology/" onclick="closeMenu()" style="color:var(--teal2);font-weight:600">Methodology ↗</a>
+  <a href="/generator/" onclick="closeMenu()" style="color:var(--teal2);font-weight:600">Generator ↗</a>
   <a href="#contact" onclick="closeMenu()">İletişim</a>
 </div>
 
@@ -561,11 +568,14 @@ footer{
     </p>
 
     <div class="hero-actions">
-      <a href="#tools" class="btn-primary">
-        Araçları İncele →
+      <a href="/methodology/" class="btn-primary">
+        Open Methodology →
       </a>
-      <a href="#model" class="btn-outline">
-        Hexis Modeli
+      <a href="/generator/" class="btn-primary" style="background:var(--teal);box-shadow:0 6px 20px rgba(26,173,160,.3)">
+        Generate a Preliminary Governance Finding →
+      </a>
+      <a href="#tools" class="btn-outline">
+        Araçları İncele
       </a>
       <a href="#about" class="btn-outline">
         Misyon
@@ -727,43 +737,39 @@ footer{
 
     <div class="thinking-grid">
 
-      <a href="https://www.linkedin.com/in/ozden-coskun-8728a1301" target="_blank" rel="noopener noreferrer" class="thinking-card">
+      <div class="thinking-card thinking-card--soon">
         <div class="thinking-card-tag">EU AI Act</div>
         <h3>EU AI Act: Risk Sınıflandırması Rehberi</h3>
         <p>Yasaklı, yüksek riskli, sınırlı riskli ve minimum riskli sistemlerin nasıl ayrıştırıldığı ve bu sınıflandırmanın Türk şirketleri için ne anlama geldiği üzerine yapılandırılmış bir analiz.</p>
         <div class="thinking-card-footer">
-          <span>LinkedIn Yazısı</span>
-          <span class="thinking-card-arrow">→</span>
+          <span class="thinking-soon-badge">Yakında</span>
         </div>
-      </a>
+      </div>
 
-      <a href="https://www.linkedin.com/in/ozden-coskun-8728a1301" target="_blank" rel="noopener noreferrer" class="thinking-card">
+      <div class="thinking-card thinking-card--soon">
         <div class="thinking-card-tag">GPAI</div>
         <h3>GPAI Kuralları: Madde 51–56 Ne Değişti?</h3>
         <p>Genel amaçlı yapay zekâ modelleri için Ağustos 2025'te devreye giren kuralların kapsamı, yükümlülük hiyerarşisi ve şirketlerin alması gereken pozisyon üzerine notlar.</p>
         <div class="thinking-card-footer">
-          <span>LinkedIn Yazısı</span>
-          <span class="thinking-card-arrow">→</span>
+          <span class="thinking-soon-badge">Yakında</span>
         </div>
-      </a>
+      </div>
 
-      <a href="https://www.linkedin.com/in/ozden-coskun-8728a1301" target="_blank" rel="noopener noreferrer" class="thinking-card">
+      <div class="thinking-card thinking-card--soon">
         <div class="thinking-card-tag">ISO 42001</div>
         <h3>ISO 42001 ve Governance Olgunluğu</h3>
         <p>ISO/IEC 42001 yapısı, EU AI Act ve KVKK çerçeveleriyle örtüşme noktaları ve bir AI yönetim sistemini sıfırdan kurmak için pratik başlangıç adımları.</p>
         <div class="thinking-card-footer">
-          <span>LinkedIn Yazısı</span>
-          <span class="thinking-card-arrow">→</span>
+          <span class="thinking-soon-badge">Yakında</span>
         </div>
-      </a>
+      </div>
 
-      <a href="https://www.linkedin.com/in/ozden-coskun-8728a1301" target="_blank" rel="noopener noreferrer" class="thinking-card">
+      <div class="thinking-card thinking-card--soon">
         <div class="thinking-card-tag">Yönetişim</div>
         <h3>AI Okuryazarlığı: Mad.4 Yükümlülüğü Ne Gerektirir?</h3>
         <p>EU AI Act Madde 4 kapsamındaki AI okuryazarlığı zorunluluğu Şubat 2025'ten itibaren uygulamada. Bu yükümlülük hangi pozisyonları ve hangi içerikleri kapsıyor?</p>
         <div class="thinking-card-footer">
-          <span>LinkedIn Yazısı</span>
-          <span class="thinking-card-arrow">→</span>
+          <span class="thinking-soon-badge">Yakında</span>
         </div>
       </a>
 
@@ -824,8 +830,35 @@ footer{
       </div>
     </a>
 
-    <!-- TOOL GRID -->
-    <div class="res-grid">
+    <!-- HEXIS V1 TOOLS -->
+    <div class="res-grid" style="margin-top:24px">
+
+      <a href="/methodology/" class="res-card" style="text-decoration:none;display:block">
+        <div class="tool-badge-soon" style="background:rgba(45,184,122,.15);color:var(--green);border-color:rgba(45,184,122,.3)">Live</div>
+        <div class="res-card-icon" style="font-size:28px">📐</div>
+        <h3>Hexis Methodology v1.0</h3>
+        <p>AI governance risk assessment için normatif önceliklendirme çerçevesi. Düzenleyici etki × Yönetişim olgunluğu matris modeli.</p>
+        <div class="rc-footer">
+          <span class="rc-src" style="background:rgba(45,184,122,.12);color:var(--green)">Methodology</span>
+          <span class="rc-arr">→</span>
+        </div>
+      </a>
+
+      <a href="/generator/" class="res-card" style="text-decoration:none;display:block">
+        <div class="tool-badge-soon" style="background:rgba(45,184,122,.15);color:var(--green);border-color:rgba(45,184,122,.3)">Live</div>
+        <div class="res-card-icon" style="font-size:28px">⚙️</div>
+        <h3>Contextual Matrix Generator</h3>
+        <p>Hexis metodolojisine dayalı ön yönetişim bulgusu üret. Bağlamı gir, matris hesapla, PDF rapor al.</p>
+        <div class="rc-footer">
+          <span class="rc-src" style="background:rgba(45,184,122,.12);color:var(--green)">Generator</span>
+          <span class="rc-arr">→</span>
+        </div>
+      </a>
+
+    </div>
+
+    <!-- OTHER TOOLS (coming soon) -->
+    <div class="res-grid" style="margin-top:16px">
 
       <div class="res-card disabled">
         <div class="tool-badge-soon">Yakında</div>
@@ -871,7 +904,7 @@ footer{
 
       <div class="contact-left">
         <div class="res-label">İletişim / Contact</div>
-        <h2>İletişim &amp;<br><em>İş Birliği</em></h2>
+        <h2><em>İşbirliği</em> &amp; İletişim</h2>
         <p>
           Hexis, AI yönetişimi alanında kurumlarla, araştırmacılarla ve politika yapıcılarla
           temas noktaları kurmayı amaçlar.
@@ -910,7 +943,7 @@ footer{
           <div class="cc-body">
             <div class="cc-label email">E-posta</div>
             <div class="cc-val">contact@hexis.center</div>
-            <div class="cc-desc">İş birliği · Danışmanlık · Kurumsal temas</div>
+            <div class="cc-desc">İş birliği · Kurumsal temas</div>
           </div>
           <div class="cc-arr">→</div>
         </a>

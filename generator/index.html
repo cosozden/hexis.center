@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hexis — Contextual Matrix Generator</title>
+<link rel="canonical" href="https://hexis.center/generator/">
+<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --ink: #1a1a1a; --ink-soft: #4a4a4a; --ink-muted: #8a8a8a;
+    --paper: #f9f7f4; --rule: #d8d4cc;
+    --absent: #c8c4bc; --adhoc: #b8b0a4; --structured: #6b7c8a;
+    --continuous: #3d5a70; --embedded: #1e3648;
+    --cell-low: #edf5e4; --cell-moderate: #fdf5dc;
+    --cell-elevated: #fce8d0; --cell-high: #f8dbd6;
+    --focal-border: #c0392b; --dim: 0.28;
+  }
+
+  /* ── CONFIGURATOR UI ── */
+  body { background: #f0ede8; font-family: 'DM Mono', monospace; }
+
+  .configurator {
+    background: #1e3648; color: #f9f7f4;
+    padding: 24px 32px; margin-bottom: 0;
+    display: flex; gap: 32px; align-items: flex-end; flex-wrap: wrap;
+  }
+
+  .cfg-title {
+    font-family: 'Libre Baskerville', serif;
+    font-size: 16px; font-weight: 700; margin-bottom: 16px;
+    width: 100%;
+  }
+
+  .cfg-group { display: flex; flex-direction: column; gap: 6px; min-width: 160px; }
+  .cfg-label { font-size: 9px; letter-spacing: 0.12em; text-transform: uppercase; opacity: 0.6; }
+
+  .cfg-select, .cfg-input {
+    background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2);
+    color: #f9f7f4; font-family: 'DM Mono', monospace; font-size: 11px;
+    padding: 7px 10px; border-radius: 2px; letter-spacing: 0.04em;
+    appearance: none; cursor: pointer;
+  }
+
+  .cfg-input { min-width: 220px; }
+  .cfg-select:focus, .cfg-input:focus { outline: none; border-color: rgba(255,255,255,0.5); }
+
+  .cfg-btn {
+    background: #c0392b; color: white; border: none; cursor: pointer;
+    font-family: 'DM Mono', monospace; font-size: 10px;
+    letter-spacing: 0.1em; text-transform: uppercase;
+    padding: 9px 20px; border-radius: 2px; align-self: flex-end;
+    transition: background 0.15s;
+  }
+  .cfg-btn:hover { background: #e74c3c; }
+  .cfg-btn.print-btn { background: #2c3e50; margin-left: auto; }
+  .cfg-btn.print-btn:hover { background: #34495e; }
+
+  /* ── REPORT PAGE ── */
+  .report-wrap {
+    background: var(--paper); padding: 0;
+    min-height: calc(100vh - 160px);
+  }
+
+  .page { width: 100%; max-width: 960px; margin: 0 auto; padding: 0 24px 48px; }
+
+  /* Context banner */
+  .context-banner {
+    background: #1e3648; color: #f9f7f4;
+    padding: 14px 20px; display: flex;
+    justify-content: space-between; align-items: center;
+    margin-bottom: 0;
+  }
+  .ctx-label { font-size: 9px; letter-spacing: 0.14em; text-transform: uppercase; opacity: 0.55; }
+  .ctx-name { font-family: 'Libre Baskerville', serif; font-size: 14px; font-weight: 700; margin-top: 2px; }
+  .ctx-right { text-align: right; }
+  .ctx-coords { font-size: 11px; font-weight: 500; margin-top: 2px; }
+  .ctx-dims { display: flex; gap: 6px; margin-top: 5px; flex-wrap: wrap; justify-content: flex-end; }
+  .dim-tag {
+    font-size: 9px; letter-spacing: 0.08em; text-transform: uppercase;
+    padding: 2px 7px; border-radius: 2px; font-weight: 500;
+  }
+  .dim-critical { background: rgba(192,57,43,0.9); color: white; }
+  .dim-soft { background: rgba(255,255,255,0.15); color: rgba(249,247,244,0.9); border: 1px solid rgba(255,255,255,0.25); }
+  .ctx-safeguard {
+    display: inline-block; background: rgba(240,185,122,0.9); color: #1a1a1a;
+    font-size: 9px; letter-spacing: 0.08em; text-transform: uppercase;
+    padding: 2px 8px; border-radius: 2px; margin-top: 4px; margin-left: 6px;
+    font-weight: 500;
+  }
+  .ctx-badge {
+    display: inline-block; background: var(--focal-border); color: white;
+    font-size: 9px; letter-spacing: 0.1em; text-transform: uppercase;
+    padding: 2px 8px; border-radius: 2px; margin-top: 5px;
+  }
+
+  /* Header */
+  .header {
+    display: flex; justify-content: space-between; align-items: flex-end;
+    border-bottom: 2px solid var(--ink); padding: 18px 0 14px; margin-bottom: 28px;
+  }
+  .brand { font-family: 'Libre Baskerville', serif; font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-muted); }
+  .title { font-family: 'Libre Baskerville', serif; font-size: 20px; font-weight: 700; letter-spacing: -0.01em; line-height: 1.2; }
+  .subtitle { font-size: 11px; color: var(--ink-muted); letter-spacing: 0.08em; text-transform: uppercase; margin-top: 4px; }
+  .version-tag { font-size: 10px; color: var(--ink-muted); letter-spacing: 0.1em; text-transform: uppercase; text-align: right; line-height: 1.6; }
+
+  /* Matrix */
+  .matrix-connector { font-size: 10px; color: var(--ink-muted); letter-spacing: 0.08em; font-style: italic; margin-bottom: 14px; padding-left: 2px; }
+  .axis-x-label { text-align: center; font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-muted); margin-bottom: 10px; padding-left: 140px; }
+  .axis-y-wrap { display: flex; align-items: stretch; gap: 12px; }
+  .axis-y-label { writing-mode: vertical-rl; transform: rotate(180deg); font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-muted); white-space: nowrap; display: flex; align-items: center; justify-content: center; width: 14px; }
+
+  .grid { display: grid; grid-template-columns: 130px repeat(4, 1fr); border: 1.5px solid var(--ink); width: 100%; flex: 1; }
+
+  .exp-h { padding: 10px 12px; text-align: center; border-left: 1.5px solid var(--ink); border-bottom: 1.5px solid var(--ink); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; }
+  .exp-h:first-child { border-left: none; }
+  .exp-dot { width: 8px; height: 8px; border-radius: 50%; }
+  .exp-label { font-size: 10px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; }
+  .exp-h.dim { opacity: var(--dim); }
+  .exp-h.lit { background: rgba(192,57,43,0.07); }
+
+  .corner { border-bottom: 1.5px solid var(--ink); padding: 10px; display: flex; align-items: flex-end; }
+  .corner span { font-size: 9px; color: var(--ink-muted); letter-spacing: 0.06em; }
+
+  .mat-h { padding: 0 12px; border-right: 1.5px solid var(--ink); border-bottom: 1px solid var(--rule); display: flex; flex-direction: column; justify-content: center; gap: 2px; min-height: 84px; }
+  .mat-h.dim { opacity: var(--dim); }
+  .mat-h.lit { background: rgba(192,57,43,0.05); border-right-color: var(--focal-border); }
+  .mat-level { font-size: 11px; font-weight: 500; letter-spacing: 0.04em; }
+  .mat-bar { height: 3px; border-radius: 2px; margin-top: 5px; width: 60%; }
+
+  .cell { padding: 10px 12px; border-left: 1px solid var(--rule); border-bottom: 1px solid var(--rule); display: flex; flex-direction: column; justify-content: center; min-height: 84px; position: relative; }
+  .cell.dim { opacity: var(--dim); }
+  .cell.focal { background: #fff8f6 !important; border: 2.5px solid var(--focal-border) !important; z-index: 2; box-shadow: 0 2px 12px rgba(192,57,43,0.12); }
+  .cell.focal .c-action { color: var(--focal-border); font-weight: 700; font-size: 11px; }
+  .cell.focal .c-tag { color: var(--ink-soft); }
+  .cell.focal .u-bar { width: 5px; background: var(--focal-border) !important; }
+
+  .focal-pin { position: absolute; top: 7px; right: 7px; width: 16px; height: 16px; background: var(--focal-border); border-radius: 50%; display: flex; align-items: center; justify-content: center; }
+  .focal-pin::after { content: ''; width: 5px; height: 5px; background: white; border-radius: 50%; }
+
+  .u-bar { position: absolute; left: 0; top: 0; bottom: 0; width: 3px; }
+  .urg-critical { background: #c0392b; } .urg-high { background: #e07060; }
+  .urg-moderate { background: #f0b97a; } .urg-low { background: #8eb89a; }
+  .urg-minimal  { background: #c8e0c8; }
+
+  .col-low { background: var(--cell-low); } .col-moderate { background: var(--cell-moderate); }
+  .col-elevated { background: var(--cell-elevated); } .col-high { background: var(--cell-high); }
+  .row-last .cell, .row-last .mat-h { border-bottom: none; }
+  .c-action { font-size: 10.5px; font-weight: 500; line-height: 1.4; letter-spacing: 0.01em; }
+  .c-tag { font-size: 9px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-muted); margin-top: 5px; }
+  .bar-absent { background: var(--absent); } .bar-adhoc { background: var(--adhoc); }
+  .bar-structured { background: var(--structured); } .bar-continuous { background: var(--continuous); }
+  .bar-embedded { background: var(--embedded); }
+
+  /* Why this position */
+  .why-section {
+    margin-top: 20px; border: 1px solid var(--rule); border-radius: 2px;
+    padding: 16px 20px; background: #fdfcfa;
+  }
+  .why-label {
+    font-size: 9px; letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--ink-muted); margin-bottom: 8px;
+  }
+  .why-text {
+    font-size: 11px; line-height: 1.7; color: var(--ink-soft);
+    font-family: 'Libre Baskerville', serif; font-style: italic;
+  }
+  .why-loading { color: var(--ink-muted); font-style: italic; font-size: 10px; }
+  .why-error { color: #c0392b; font-size: 10px; font-style: normal; }
+
+  /* Callout */
+  .callout { margin-top: 20px; border: 1.5px solid var(--focal-border); border-radius: 2px; display: flex; overflow: hidden; }
+  .callout-stripe { width: 5px; background: var(--focal-border); flex-shrink: 0; }
+  .callout-inner { padding: 14px 18px; display: flex; gap: 28px; flex: 1; align-items: flex-start; }
+  .co-sec { flex: 1; }
+  .co-label { font-size: 9px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-muted); margin-bottom: 4px; }
+  .co-val { font-size: 11px; font-weight: 500; line-height: 1.5; }
+  .co-div { width: 1px; background: var(--rule); align-self: stretch; }
+
+  .weight-note { font-size: 9px; color: var(--ink-muted); letter-spacing: 0.06em; margin-top: 14px; padding: 8px 12px; border-left: 2px solid var(--rule); line-height: 1.6; }
+  .footer { display: flex; justify-content: space-between; align-items: flex-start; margin-top: 18px; padding-top: 14px; border-top: 1px solid var(--rule); }
+  .legend { display: flex; gap: 20px; }
+  .leg-item { display: flex; align-items: center; gap: 6px; font-size: 9px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-muted); }
+  .leg-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+  .footnote { font-size: 9px; color: var(--ink-muted); letter-spacing: 0.06em; text-align: right; line-height: 1.6; max-width: 280px; }
+
+
+  /* ── PRINT STYLESHEET ── */
+  @media print {
+    .configurator { display: none !important; }
+
+    body { background: white !important; padding: 0; margin: 0; }
+    .report-wrap { background: white !important; min-height: unset; }
+    .page { max-width: 100% !important; padding: 0 !important; }
+
+    /* Preserve color in print */
+    .context-banner, .cell, .exp-h, .mat-h,
+    .callout-stripe, .why-section, .dim-tag,
+    .ctx-badge, .ctx-safeguard, .phase-bar,
+    .mat-bar, .urgency-bar, .u-bar {
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+
+    /* Page break control */
+    .callout      { page-break-inside: avoid; }
+    .why-section  { page-break-inside: avoid; }
+    .grid         { page-break-inside: avoid; }
+    .footer       { page-break-inside: avoid; }
+
+    /* A4 font scaling */
+    .c-action     { font-size: 10px; }
+    .c-tag        { font-size: 8px; }
+    .cell, .mat-h { min-height: 72px; }
+    .weight-note  { font-size: 8px; }
+    .footer       { margin-top: 12px; }
+
+    a[href]:after { content: none !important; }
+  }
+
+  @page {
+    size: A4;
+    margin: 18mm 16mm;
+  }
+</style>
+</head>
+<body>
+
+<!-- ── CONFIGURATOR ── -->
+<div class="configurator">
+  <div class="cfg-title">Hexis · Contextual Matrix Generator</div>
+
+  <div class="cfg-group">
+    <div class="cfg-label">System Name</div>
+    <input class="cfg-input" id="cfg-name" type="text" value="HR Candidate Pre-Screening System" placeholder="System name...">
+  </div>
+
+  <div class="cfg-group">
+    <div class="cfg-label">Risk Exposure</div>
+    <select class="cfg-select" id="cfg-exposure">
+      <option value="low">Low</option>
+      <option value="moderate">Moderate</option>
+      <option value="elevated" selected>Elevated</option>
+      <option value="high">High</option>
+    </select>
+  </div>
+
+  <div class="cfg-group">
+    <div class="cfg-label">Oversight</div>
+    <select class="cfg-select" id="cfg-oversight">
+      <option value="absent">Absent</option>
+      <option value="adhoc" selected>Ad Hoc</option>
+      <option value="structured">Structured</option>
+      <option value="continuous">Continuous</option>
+      <option value="embedded">Embedded</option>
+    </select>
+  </div>
+
+  <div class="cfg-group">
+    <div class="cfg-label">Monitoring</div>
+    <select class="cfg-select" id="cfg-monitoring">
+      <option value="absent" selected>Absent</option>
+      <option value="adhoc">Ad Hoc</option>
+      <option value="structured">Structured</option>
+      <option value="continuous">Continuous</option>
+      <option value="embedded">Embedded</option>
+    </select>
+  </div>
+
+  <div class="cfg-group">
+    <div class="cfg-label">Documentation</div>
+    <select class="cfg-select" id="cfg-documentation">
+      <option value="absent">Absent</option>
+      <option value="adhoc" selected>Ad Hoc</option>
+      <option value="structured">Structured</option>
+      <option value="continuous">Continuous</option>
+      <option value="embedded">Embedded</option>
+    </select>
+  </div>
+
+  <a href="/methodology/" style="font-size:9px;letter-spacing:0.1em;text-transform:uppercase;color:rgba(249,247,244,0.6);text-decoration:none;align-self:flex-end;padding-bottom:10px;">← Methodology</a>
+  <button class="cfg-btn" onclick="generateMatrix()">Generate →</button>
+  <button class="cfg-btn print-btn" onclick="window.print()">Export PDF</button>
+</div>
+
+<!-- ── REPORT OUTPUT ── -->
+<div class="report-wrap">
+  <div id="report-output"></div>
+</div>
+
+<script>
+// ── DATA MODEL ──
+
+const MATURITY_LEVELS = ['absent','adhoc','structured','continuous','embedded'];
+const MATURITY_LABELS = { absent:'Absent', adhoc:'Ad Hoc', structured:'Structured', continuous:'Continuous', embedded:'Embedded' };
+const EXPOSURE_LEVELS = ['low','moderate','elevated','high'];
+const EXPOSURE_LABELS = { low:'Low', moderate:'Moderate', elevated:'Elevated', high:'High' };
+
+// Weighted maturity scoring: Oversight 1.5, Monitoring 1.4, Documentation 1.0
+// Minimum safeguard principle: if ANY dimension is Absent, overall maturity cannot exceed Ad Hoc.
+// This prevents false confidence from averaging away a critical governance gap.
+function computeWeightedMaturity(oversight, monitoring, documentation) {
+  const dims = [oversight, monitoring, documentation];
+  const hasAbsent = dims.some(d => d === 'absent');
+
+  const raw = (
+    MATURITY_LEVELS.indexOf(oversight) * 1.5 +
+    MATURITY_LEVELS.indexOf(monitoring) * 1.4 +
+    MATURITY_LEVELS.indexOf(documentation) * 1.0
+  ) / (1.5 + 1.4 + 1.0);
+
+  const idx = Math.round(Math.max(0, Math.min(4, raw)));
+  const computed = MATURITY_LEVELS[idx];
+
+  if (hasAbsent && MATURITY_LEVELS.indexOf(computed) > 1) return 'adhoc';
+  return computed;
+}
+
+// Activation postures per cell [maturity][exposure]
+const POSTURES = {
+  absent: {
+    low:      { action: 'Define Governance Scope',           hint: 'Map system boundaries & impact' },
+    moderate: { action: 'Initiate Minimum Governance',       hint: 'Establish ownership & basic controls' },
+    elevated: { action: 'Assign Risk Owner Immediately',     hint: 'Structure accountability before next cycle' },
+    high:     { action: 'Intervene — Suspend or Constrain',  hint: 'Do not operate without oversight layer' },
+  },
+  adhoc: {
+    low:      { action: 'Begin Light Structuring',           hint: 'Document existing practices' },
+    moderate: { action: 'Define Repeatable Processes',       hint: 'Assign ownership, start documentation' },
+    elevated: { action: 'Formalize Oversight Structure',     hint: 'Set roles, review cadence & escalation path' },
+    high:     { action: 'Activate Formal Governance Now',    hint: 'Mandate human oversight at every decision point' },
+  },
+  structured: {
+    low:      { action: 'Observe & Stabilize',               hint: 'Confirm coverage at periodic review' },
+    moderate: { action: 'Define & Track Metrics',            hint: 'Build monitoring baseline' },
+    elevated: { action: 'Activate Monitoring Cadence',       hint: 'Schedule regular review cycles' },
+    high:     { action: 'Intensify Monitoring & Clarify Roles', hint: 'Define escalation path & decision authority' },
+  },
+  continuous: {
+    low:      { action: 'Run Periodic Checks',               hint: 'Verify controls remain efficient' },
+    moderate: { action: 'Optimize Coverage & Efficiency',    hint: 'Review scope against system changes' },
+    elevated: { action: 'Track Performance & Detect Drift',  hint: 'Enable automated drift alerting' },
+    high:     { action: 'Run Audit & Stress Test',           hint: 'Review bias signals & failure modes' },
+  },
+  embedded: {
+    low:      { action: 'Maintain Standard Operations',      hint: 'No immediate action required' },
+    moderate: { action: 'Maintain & Schedule Reassessment',  hint: 'Annual review against regulatory updates' },
+    elevated: { action: 'Sustain & Verify Regulatory Alignment', hint: 'Check for scope or context changes' },
+    high:     { action: 'Maintain Continuous Assurance',     hint: 'Commission external audit annually' },
+  },
+};
+
+// Urgency index is a proportional heuristic reflecting regulatory exposure dominance
+// over governance maturity. Exposure weight (1.6) exceeds maturity mitigation (0.8)
+// because unmanaged risk scales faster than governance matures.
+function getUrgency(maturity, exposure) {
+  const mIdx = MATURITY_LEVELS.indexOf(maturity);
+  const eIdx = EXPOSURE_LEVELS.indexOf(exposure);
+  const score = eIdx * 1.6 - mIdx * 0.8;
+  if (score >= 4.5) return 'critical';
+  if (score >= 3)   return 'high';
+  if (score >= 1.5) return 'moderate';
+  if (score >= 0.5) return 'low';
+  return 'minimal';
+}
+
+// 30-day target: move each dim up one level if not already embedded
+function targetState(oversight, monitoring, documentation) {
+  const up = (l) => {
+    const i = MATURITY_LEVELS.indexOf(l);
+    return MATURITY_LABELS[MATURITY_LEVELS[Math.min(4, i + 1)]];
+  };
+  return `Oversight: ${up(oversight)} · Monitoring: ${up(monitoring)} · Documentation: ${up(documentation)}`;
+}
+
+// Immediate action descriptions
+const IMMEDIATE = {
+  absent:     { elevated: 'Structure accountability before next operating cycle. Establish oversight layer prior to continued system use.', high: 'Suspend or constrain system operation until governance layer is in place.' },
+  adhoc:      { elevated: 'Formalize roles and review cadence. Ensure escalation path is documented and tested.', high: 'Mandate human review at every model decision point immediately.' },
+  structured: { elevated: 'Activate scheduled monitoring cadence. Assign metric ownership.', high: 'Escalate to senior oversight. Initiate intensive review cycle.' },
+  continuous: { elevated: 'Enable automated drift alerting. Review performance against baseline.', high: 'Commission external audit. Test failure modes and bias signals.' },
+  embedded:   { elevated: 'Verify regulatory alignment. Check for scope or context changes.', high: 'Engage external auditor for annual assurance review.' },
+};
+
+function getImmediateAction(maturity, exposure) {
+  const m = IMMEDIATE[maturity];
+  if (!m) return 'Review governance posture and assign accountable owner.';
+  return m[exposure] || m['elevated'] || 'Review governance posture and assign accountable owner.';
+}
+
+// ── RENDER ──
+
+function generateMatrix() {
+  const name         = document.getElementById('cfg-name').value || 'AI System';
+  const exposure     = document.getElementById('cfg-exposure').value;
+  const oversight    = document.getElementById('cfg-oversight').value;
+  const monitoring   = document.getElementById('cfg-monitoring').value;
+  const documentation= document.getElementById('cfg-documentation').value;
+
+  const maturity = computeWeightedMaturity(oversight, monitoring, documentation);
+  const rawIdx = Math.round(Math.max(0, Math.min(4, (
+    MATURITY_LEVELS.indexOf(oversight) * 1.5 +
+    MATURITY_LEVELS.indexOf(monitoring) * 1.4 +
+    MATURITY_LEVELS.indexOf(documentation) * 1.0
+  ) / 3.9)));
+  const guardrailApplied = [oversight, monitoring, documentation].some(d => d === 'absent') && rawIdx > 1;
+  const focalPosture = POSTURES[maturity][exposure];
+  const today = new Date().toLocaleDateString('en-GB', { year:'numeric', month:'long', day:'numeric' });
+
+  // Build dim tag for each dimension
+  function dimTag(label, level) {
+    const isCritical = level === 'absent';
+    return `<span class="dim-tag ${isCritical ? 'dim-critical' : 'dim-soft'}">${label}: ${MATURITY_LABELS[level]}</span>`;
+  }
+
+  // Build grid rows
+  let gridRows = '';
+  MATURITY_LEVELS.forEach((mat, mIdx) => {
+    const isLastRow = mIdx === MATURITY_LEVELS.length - 1;
+    const rowLit = mat === maturity;
+
+    gridRows += `<div class="mat-h ${rowLit ? 'lit' : 'dim'} ${isLastRow ? 'row-last' : ''}">
+      <div class="mat-level">${MATURITY_LABELS[mat]}</div>
+      <div class="mat-bar bar-${mat}"></div>
+    </div>`;
+
+    EXPOSURE_LEVELS.forEach(exp => {
+      const isFocal = mat === maturity && exp === exposure;
+      const isDim   = !isFocal;
+      const urgency = getUrgency(mat, exp);
+      const posture = POSTURES[mat][exp];
+      const colClass = `col-${exp}`;
+      const lastClass = isLastRow ? 'row-last' : '';
+
+      gridRows += `<div class="cell ${colClass} ${isDim ? 'dim' : ''} ${isFocal ? 'focal' : ''} ${lastClass}">
+        ${isFocal ? '<div class="focal-pin"></div>' : `<div class="u-bar urg-${urgency}"></div>`}
+        <div class="c-action">${posture.action}</div>
+        <div class="c-tag">${posture.hint}</div>
+      </div>`;
+    });
+  });
+
+  const html = `
+<div class="context-banner">
+  <div>
+    <div class="ctx-label">System under assessment</div>
+    <div class="ctx-name">${name}</div>
+  </div>
+  <div class="ctx-right">
+    <div class="ctx-label">Identified coordinates · ${today}</div>
+    <div class="ctx-coords">Exposure: ${EXPOSURE_LABELS[exposure]}</div>
+    <div class="ctx-dims">
+      ${dimTag('Oversight', oversight)}
+      ${dimTag('Monitoring', monitoring)}
+      ${dimTag('Documentation', documentation)}
+    </div>
+    <div>
+      <span class="ctx-badge">● Active position · Maturity: ${MATURITY_LABELS[maturity]}</span>
+      ${guardrailApplied ? '<span class="ctx-safeguard" title="Overall maturity capped due to Absent dimension(s). A critical governance gap in any single dimension prevents a higher overall rating.">⚠ Minimum safeguard principle applied</span>' : ''}
+    </div>
+  </div>
+</div>
+
+<div class="page">
+  <div class="header">
+    <div>
+      <div class="brand">Hexis · Governance Activation Matrix</div>
+      <div class="title">Risk Exposure × Governance Maturity</div>
+      <div class="subtitle">Contextual view — system position highlighted</div>
+    </div>
+    <div class="version-tag">Hexis Methodology v1.0<br>February 2026</div>
+  </div>
+
+  <div class="matrix-connector">Position derived from the following governance coordinates:</div>
+  <div class="axis-x-label">← Risk Exposure →</div>
+  <div class="axis-y-wrap">
+    <div class="axis-y-label">← Governance Maturity →</div>
+    <div class="grid">
+      <div class="corner"><span>maturity ↓ / exposure →</span></div>
+      ${EXPOSURE_LEVELS.map(exp => `
+        <div class="exp-h ${exp === exposure ? 'lit' : 'dim'}">
+          <div class="exp-dot" style="background:var(--cell-${exp})"></div>
+          <div class="exp-label">${EXPOSURE_LABELS[exp]}</div>
+        </div>`).join('')}
+      ${gridRows}
+    </div>
+  </div>
+
+  <div class="callout">
+    <div class="callout-stripe"></div>
+    <div class="callout-inner">
+      <div class="co-sec">
+        <div class="co-label">Activation posture</div>
+        <div class="co-val">${focalPosture.action}</div>
+      </div>
+      <div class="co-div"></div>
+      <div class="co-sec">
+        <div class="co-label">Immediate action required</div>
+        <div class="co-val">${getImmediateAction(maturity, exposure)}</div>
+      </div>
+      <div class="co-div"></div>
+      <div class="co-sec">
+        <div class="co-label">30-day target state</div>
+        <div class="co-val">${targetState(oversight, monitoring, documentation)}</div>
+      </div>
+    </div>
+  </div>
+
+  <div id="why-position-${exposure}-${maturity}" class="why-section">
+    <div class="why-label">Why this position?</div>
+    <div class="why-text" id="why-text-output">
+      <span class="why-loading">Generating reasoning...</span>
+    </div>
+  </div>
+
+  <div class="weight-note">
+    Governance maturity dimensions are weighted according to regulatory impact priority
+    (Oversight 1.5 · Monitoring 1.4 · Documentation 1.0). Overall maturity computed as
+    weighted average${guardrailApplied ? '; <strong>minimum safeguard principle applied</strong> — one or more dimensions scored Absent, capping overall maturity at Ad Hoc to prevent false confidence' : ''}.
+    Urgency index is a proportional heuristic reflecting regulatory exposure dominance over governance maturity.
+    See <a href="/methodology/" style="color:inherit;text-decoration:underline;">hexis.center/methodology</a>.
+  </div>
+
+  <div class="footer">
+    <div class="legend">
+      <div class="leg-item"><div class="leg-dot" style="background:var(--cell-low);border:1px solid var(--rule)"></div>Low exposure</div>
+      <div class="leg-item"><div class="leg-dot" style="background:var(--cell-moderate)"></div>Moderate exposure</div>
+      <div class="leg-item"><div class="leg-dot" style="background:var(--cell-elevated)"></div>Elevated exposure</div>
+      <div class="leg-item"><div class="leg-dot" style="background:var(--cell-high)"></div>High exposure</div>
+    </div>
+    <div class="footnote">
+      <strong style=\"font-size:9px;letter-spacing:0.06em;text-transform:uppercase;\">Preliminary Governance Finding</strong><br>
+      Activation postures are normative recommendations.<br>
+      Not legal advice. Context-specific assessment required.<br>
+      <a href="/methodology/" style=\"color:inherit;text-decoration:underline;\">hexis.center/methodology</a>
+      <div style=\"margin-top:6px;font-size:8px;opacity:0.55;\">Generated via Hexis Contextual Matrix Generator &middot; ${today}</div>
+    </div>
+  </div>
+</div>`;
+
+  document.getElementById('report-output').innerHTML = html;
+  // Populate "Why this position?" — rule-based now, API-ready
+  updateWhySection(name, exposure, maturity, oversight, monitoring, documentation, guardrailApplied);
+}
+
+// ── WHY THIS POSITION — Rule-based engine (API-ready architecture) ──
+
+// Regulatory signals per exposure level
+const REG_SIGNALS = {
+  high:     'Under EU AI Act Annex III, this system category is designated high-risk, requiring traceable oversight, human review mechanisms, and documented accountability chains.',
+  elevated: 'Systems at this exposure level carry direct human impact. EU AI Act Article 14 mandates effective human oversight, and ISO/IEC 42001 requires documented governance accountability.',
+  moderate: 'At moderate exposure, governance structures should be preventive rather than reactive. NIST AI RMF Govern function recommends defined roles and review cycles before incidents occur.',
+  low:      'Low exposure reduces urgency but does not eliminate governance obligations. Foundational documentation and scope definition establish the baseline for future oversight.',
+};
+
+// Maturity gap descriptions
+const MATURITY_GAP = {
+  absent: 'No governance layer is currently in place. This creates an accountability vacuum where risk decisions are made without defined authority or review mechanisms.',
+  adhoc:  'Governance exists but is reactive and person-dependent. Without repeatable processes, coverage is inconsistent and gaps emerge under operational pressure.',
+  structured: 'Processes are defined but monitoring is not yet continuous. The system operates within a governance framework, but drift and emerging risks may go undetected between review cycles.',
+  continuous: 'Monitoring is active but stress-tested infrequently. The governance posture is strong; remaining risk lies in edge cases and regulatory evolution.',
+  embedded: 'Governance is deeply integrated. Ongoing obligation is to maintain alignment as the system, context, and regulatory environment evolve.',
+};
+
+// Dimension-specific flags
+function getDimensionFlags(oversight, monitoring, documentation) {
+  const flags = [];
+  if (monitoring === 'absent') flags.push('The absence of monitoring creates operational blindness — the system cannot detect performance degradation, bias emergence, or drift in real time.');
+  if (oversight === 'absent')  flags.push('Without a defined oversight structure, there is no accountable party to authorize decisions or respond to incidents.');
+  if (documentation === 'absent') flags.push('Missing documentation undermines audit readiness and prevents regulators or reviewers from reconstructing decision logic.');
+  return flags.join(' ');
+}
+
+function generateWhyText(name, exposure, maturity, oversight, monitoring, documentation, guardrailApplied) {
+  const reg = REG_SIGNALS[exposure] || '';
+  const gap = MATURITY_GAP[maturity] || '';
+  const flags = getDimensionFlags(oversight, monitoring, documentation);
+  const guardrailNote = guardrailApplied
+    ? ' Note: overall maturity has been capped at Ad Hoc by the minimum safeguard principle — a critical governance gap in one or more dimensions prevents a higher rating despite partial coverage elsewhere.'
+    : '';
+
+  return [reg, gap, flags, guardrailNote].filter(Boolean).join(' ');
+}
+
+// API-ready architecture: swap generateWhyText() for API call when ready
+// To enable: replace generateWhyText() call below with fetchWhyTextFromAPI()
+// ── API ARCHITECTURE NOTE ──
+// Browser-to-Anthropic direct calls are intentionally disabled in V1.
+// Reasons: CORS restrictions, API key exposure, model string volatility.
+// Correct V2 architecture:
+//   Frontend  → POST /api/why  (no API key in browser)
+//   Backend   → Anthropic API with:
+//     headers: { 'x-api-key': process.env.ANTHROPIC_API_KEY, 'anthropic-version': '2023-06-01' }
+//   Backend handles prompt construction, key rotation, model versioning.
+// This pattern keeps the key server-side and makes model upgrades transparent to the frontend.
+
+async function fetchWhyTextFromAPI(name, exposure, maturity, oversight, monitoring, documentation) {
+  // V1: disabled — rule-based engine is authoritative
+  // V2: replace this with:
+  //   const res = await fetch('/api/why', { method:'POST',
+  //     headers:{'Content-Type':'application/json'},
+  //     body: JSON.stringify({ name, exposure, maturity, oversight, monitoring, documentation }) });
+  //   const data = await res.json();
+  //   return data.text || null;
+  return null; // Falls through to rule-based engine
+}
+
+async function updateWhySection(name, exposure, maturity, oversight, monitoring, documentation, guardrailApplied) {
+  const el = document.getElementById('why-text-output');
+  if (!el) return;
+
+  // Use API if available, fall back to rule-based
+  let text = null;
+  try {
+    text = await fetchWhyTextFromAPI(name, exposure, maturity, oversight, monitoring, documentation);
+  } catch(e) {}
+
+  if (!text) {
+    text = generateWhyText(name, exposure, maturity, oversight, monitoring, documentation, guardrailApplied);
+  }
+
+  el.innerHTML = text
+    ? `<span>${text}</span>`
+    : `<span class="why-error">Reasoning unavailable. Check hexis.center/methodology for manual interpretation.</span>`;
+}
+
+// Auto-generate on load
+generateMatrix();
+</script>
+</body>
+</html>

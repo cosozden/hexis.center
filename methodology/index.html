@@ -1,0 +1,1032 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hexis · Methodology v1.0</title>
+<link rel="canonical" href="https://hexis.center/methodology/">
+<meta name="description" content="Hexis Governance Methodology v1.0 — Normative prioritization framework for AI governance risk assessment.">
+<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --ink: #1a1a1a;
+    --ink-soft: #4a4a4a;
+    --ink-muted: #8a8a8a;
+    --paper: #f9f7f4;
+    --rule: #d8d4cc;
+    --navy: #1e3648;
+    --d-color: #2c5f4a;
+    --s-color: #4a6741;
+    --g-color: #7a5c3a;
+    --su-color: #1e3648;
+    --absent: #c8c4bc; --adhoc: #b8b0a4; --structured: #6b7c8a;
+    --continuous: #3d5a70; --embedded: #1e3648;
+    --cell-low: #edf5e4; --cell-moderate: #fdf5dc;
+    --cell-elevated: #fce8d0; --cell-high: #f8dbd6;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'DM Mono', monospace;
+    line-height: 1.6;
+  }
+
+  /* ── NAV ── */
+  .nav {
+    position: sticky;
+    top: 0;
+    background: var(--navy);
+    color: #f9f7f4;
+    z-index: 100;
+    padding: 0 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 48px;
+    border-bottom: 2px solid rgba(255,255,255,0.08);
+  }
+
+  .nav-brand {
+    font-family: 'Libre Baskerville', serif;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 28px;
+    list-style: none;
+  }
+
+  .nav-links a {
+    font-size: 9px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgba(249,247,244,0.6);
+    text-decoration: none;
+    transition: color 0.15s;
+  }
+
+  .nav-links a:hover { color: #f9f7f4; }
+  a:focus { outline: 2px solid rgba(249,247,244,0.6); outline-offset: 2px; }
+  a:focus:not(:focus-visible) { outline: none; }
+
+  .nav-cta {
+    font-size: 9px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    background: transparent;
+    color: #f9f7f4;
+    border: 1px solid rgba(249,247,244,0.35);
+    padding: 6px 14px;
+    border-radius: 2px;
+    cursor: pointer;
+    text-decoration: none;
+    transition: border-color 0.15s, color 0.15s;
+  }
+  .nav-cta:hover { border-color: rgba(249,247,244,0.7); }
+
+  /* ── LAYOUT ── */
+  .container {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 0 40px;
+  }
+
+  section {
+    padding: 64px 0;
+    border-bottom: 1px solid var(--rule);
+  }
+
+  section:last-of-type { border-bottom: none; }
+
+  /* ── SECTION HEADERS ── */
+  .sec-label {
+    font-size: 9px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+    margin-bottom: 8px;
+  }
+
+  .sec-title {
+    font-family: 'Libre Baskerville', serif;
+    font-size: 26px;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    line-height: 1.2;
+    margin-bottom: 16px;
+  }
+
+  .sec-lead {
+    font-size: 12px;
+    line-height: 1.7;
+    color: var(--ink-soft);
+    max-width: 640px;
+    margin-bottom: 40px;
+  }
+
+  /* ── §1 HERO ── */
+  .hero {
+    padding: 72px 0 56px;
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .hero-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 32px;
+  }
+
+  .hero-badge {
+    display: inline-block;
+    font-size: 9px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    border: 1px solid var(--rule);
+    padding: 4px 10px;
+    border-radius: 2px;
+    color: var(--ink-muted);
+    margin-bottom: 16px;
+  }
+
+  .hero-title {
+    font-family: 'Libre Baskerville', serif;
+    font-size: 36px;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1.15;
+    max-width: 560px;
+  }
+
+  .hero-sub {
+    font-size: 12px;
+    color: var(--ink-muted);
+    letter-spacing: 0.06em;
+    margin-top: 12px;
+    font-style: italic;
+    font-family: 'Libre Baskerville', serif;
+  }
+
+  .version-block {
+    text-align: right;
+  }
+
+  .version-main {
+    font-family: 'Libre Baskerville', serif;
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--navy);
+  }
+
+  .version-meta {
+    font-size: 10px;
+    color: var(--ink-muted);
+    letter-spacing: 0.08em;
+    line-height: 1.8;
+    margin-top: 4px;
+  }
+
+  .normative-note {
+    display: inline-block;
+    background: var(--navy);
+    color: #f9f7f4;
+    font-size: 10px;
+    letter-spacing: 0.08em;
+    padding: 10px 18px;
+    margin-top: 24px;
+    border-radius: 2px;
+    font-style: italic;
+    font-family: 'Libre Baskerville', serif;
+  }
+
+  /* ── §2 FRAMEWORK FLOW ── */
+  .flow {
+    display: grid;
+    grid-template-columns: 1fr 28px 1fr 28px 1fr 28px 1fr;
+    align-items: stretch;
+  }
+
+  .arrow {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    padding-top: 32px;
+    color: var(--ink-muted);
+    font-size: 16px;
+    opacity: 0.4;
+  }
+
+  .phase {
+    border: 1.5px solid var(--ink);
+    display: flex;
+    flex-direction: column;
+  }
+
+  .phase-bar { height: 4px; width: 100%; }
+
+  .phase-head {
+    padding: 18px 18px 14px;
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .phase-number {
+    font-size: 9px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+    margin-bottom: 5px;
+  }
+
+  .phase-name {
+    font-family: 'Libre Baskerville', serif;
+    font-size: 17px;
+    font-weight: 700;
+  }
+
+  .phase-tagline {
+    font-size: 9px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+    margin-top: 5px;
+  }
+
+  .phase-body {
+    padding: 14px 18px 18px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .phase-desc {
+    font-size: 10.5px;
+    line-height: 1.6;
+    font-style: italic;
+    font-family: 'Libre Baskerville', serif;
+    color: var(--ink);
+  }
+
+  .phase-items {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .phase-item {
+    font-size: 9.5px;
+    line-height: 1.4;
+    color: var(--ink-muted);
+    padding-left: 10px;
+    position: relative;
+  }
+
+  .phase-item::before { content: '—'; position: absolute; left: 0; color: var(--rule); }
+
+  .phase-anchor {
+    margin-top: auto;
+    padding-top: 10px;
+    border-top: 1px solid var(--rule);
+    font-size: 8.5px;
+    letter-spacing: 0.07em;
+    color: var(--ink-muted);
+  }
+
+  /* Phase color bars only — names stay readable */
+  .phase-d  .phase-bar  { background: var(--d-color); }
+  .phase-s  .phase-bar  { background: var(--s-color); }
+  .phase-g  .phase-bar  { background: var(--g-color); }
+  .phase-su .phase-bar  { background: var(--su-color); }
+  .phase-name { color: var(--ink); background: transparent; }
+  .phase-name { color: var(--ink); background: transparent; }
+
+  .cycle-note {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-top: 32px;
+    font-size: 9px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+  }
+
+  .cycle-line { flex: 1; height: 1px; background: var(--rule); }
+  .cycle-badge { border: 1px solid var(--rule); padding: 4px 12px; border-radius: 2px; white-space: nowrap; }
+
+  .outputs-row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    border: 1.5px solid var(--rule);
+    margin-top: 20px;
+  }
+
+  .out-cell {
+    padding: 10px 14px;
+    border-right: 1px solid var(--rule);
+  }
+
+  .out-cell:last-child { border-right: none; }
+  .out-label { font-size: 8px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-muted); margin-bottom: 3px; }
+  .out-val   { font-size: 10px; font-weight: 500; }
+
+  /* ── §3 REFERENCE MATRIX ── */
+  .matrix-intro {
+    font-size: 11px;
+    line-height: 1.7;
+    color: var(--ink-soft);
+    max-width: 640px;
+    margin-bottom: 32px;
+    font-family: 'Libre Baskerville', serif;
+    font-style: italic;
+  }
+
+  .axis-x-label {
+    text-align: center;
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+    margin-bottom: 10px;
+    padding-left: 130px;
+  }
+
+  .axis-y-wrap { display: flex; align-items: stretch; gap: 10px; }
+
+  .axis-y-label {
+    writing-mode: vertical-rl;
+    transform: rotate(180deg);
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+    white-space: nowrap;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 14px;
+  }
+
+  .m-grid {
+    display: grid;
+    grid-template-columns: 120px repeat(4, 1fr);
+    border: 1.5px solid var(--ink);
+    flex: 1;
+  }
+
+  .exp-h {
+    padding: 8px 10px;
+    text-align: center;
+    border-left: 1.5px solid var(--ink);
+    border-bottom: 1.5px solid var(--ink);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 3px;
+  }
+
+  .exp-h:first-child { border-left: none; }
+  .exp-dot { width: 7px; height: 7px; border-radius: 50%; }
+  .exp-lbl { font-size: 9px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; }
+
+  .corner {
+    border-bottom: 1.5px solid var(--ink);
+    padding: 8px;
+    display: flex;
+    align-items: flex-end;
+  }
+
+  .corner span { font-size: 8px; color: var(--ink-muted); letter-spacing: 0.06em; }
+
+  .mat-h {
+    padding: 0 10px;
+    border-right: 1.5px solid var(--ink);
+    border-bottom: 1px solid var(--rule);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 2px;
+    min-height: 76px;
+  }
+
+  .mat-lbl { font-size: 10px; font-weight: 500; letter-spacing: 0.04em; }
+  .mat-bar-line { height: 3px; border-radius: 2px; margin-top: 4px; width: 55%; }
+
+  .mcell {
+    padding: 8px 10px;
+    border-left: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-height: 76px;
+    position: relative;
+  }
+
+  .row-last .mcell, .row-last .mat-h { border-bottom: none; }
+
+  .mc-action { font-size: 9.5px; font-weight: 500; line-height: 1.4; }
+  .mc-tag    { font-size: 8px; letter-spacing: 0.07em; text-transform: uppercase; color: var(--ink-muted); margin-top: 4px; }
+
+  .u-bar { position: absolute; left: 0; top: 0; bottom: 0; width: 3px; }
+  .urg-critical { background: #c0392b; }
+  .urg-high     { background: #e07060; }
+  .urg-moderate { background: #f0b97a; }
+  .urg-low      { background: #8eb89a; }
+  .urg-minimal  { background: #c8e0c8; }
+
+  .col-low      { background: var(--cell-low); }
+  .col-moderate { background: var(--cell-moderate); }
+  .col-elevated { background: var(--cell-elevated); }
+  .col-high     { background: var(--cell-high); }
+
+  .bar-absent     { background: var(--absent); }
+  .bar-adhoc      { background: var(--adhoc); }
+  .bar-structured { background: var(--structured); }
+  .bar-continuous { background: var(--continuous); }
+  .bar-embedded   { background: var(--embedded); }
+
+  .matrix-weight-note {
+    font-size: 9px;
+    color: var(--ink-muted);
+    letter-spacing: 0.06em;
+    margin-top: 12px;
+    padding: 8px 12px;
+    border-left: 2px solid var(--rule);
+    line-height: 1.6;
+  }
+
+  .m-legend { display: flex; gap: 18px; margin-top: 16px; }
+  .m-leg-item { display: flex; align-items: center; gap: 6px; font-size: 9px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-muted); }
+  .m-leg-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+
+  /* ── §4 ENGINE REASONING ── */
+  .engine-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    margin-bottom: 32px;
+  }
+
+  .engine-block {
+    border: 1.5px solid var(--rule);
+    padding: 20px 22px;
+  }
+
+  .engine-label {
+    font-size: 9px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+    margin-bottom: 10px;
+  }
+
+  .engine-title {
+    font-family: 'Libre Baskerville', serif;
+    font-size: 14px;
+    font-weight: 700;
+    margin-bottom: 12px;
+  }
+
+  .engine-items {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .engine-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    font-size: 10px;
+    line-height: 1.5;
+  }
+
+  .e-key {
+    font-weight: 500;
+    min-width: 80px;
+    flex-shrink: 0;
+  }
+
+  .e-val { color: var(--ink-soft); }
+
+  .weight-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 8px;
+  }
+
+  .weight-table th, .weight-table td {
+    padding: 7px 12px;
+    text-align: left;
+    font-size: 10px;
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .weight-table th {
+    font-size: 8.5px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+    font-weight: 400;
+  }
+
+  .weight-table td:last-child { color: var(--ink-muted); font-size: 9px; }
+
+  .w-badge {
+    display: inline-block;
+    background: var(--navy);
+    color: white;
+    font-size: 9px;
+    padding: 1px 7px;
+    border-radius: 2px;
+    letter-spacing: 0.06em;
+  }
+
+  .guardrail-note {
+    margin-top: 14px;
+    padding: 10px 14px;
+    background: rgba(240,185,122,0.15);
+    border-left: 3px solid #f0b97a;
+    font-size: 10px;
+    line-height: 1.5;
+    color: var(--ink-soft);
+  }
+
+  .urgency-note {
+    margin-top: 14px;
+    padding: 10px 14px;
+    background: rgba(30,54,72,0.05);
+    border-left: 3px solid var(--navy);
+    font-size: 10px;
+    line-height: 1.5;
+    color: var(--ink-soft);
+    font-style: italic;
+    font-family: 'Libre Baskerville', serif;
+  }
+
+  /* ── §5 LIMITATIONS + FEEDBACK ── */
+  .limits-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+    border: 1.5px solid var(--rule);
+    margin-bottom: 32px;
+  }
+
+  .limit-cell {
+    padding: 18px 22px;
+    border-right: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .limit-cell:nth-child(2n) { border-right: none; }
+  .limit-cell:nth-last-child(-n+2) { border-bottom: none; }
+
+  .limit-label {
+    font-size: 8.5px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+    margin-bottom: 6px;
+  }
+
+  .limit-text {
+    font-size: 10.5px;
+    line-height: 1.6;
+    color: var(--ink-soft);
+  }
+
+  .feedback-block {
+    border: 1.5px solid var(--navy);
+    padding: 22px 26px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 24px;
+  }
+
+  .fb-left {}
+
+  .fb-title {
+    font-family: 'Libre Baskerville', serif;
+    font-size: 14px;
+    font-weight: 700;
+    margin-bottom: 6px;
+  }
+
+  .fb-text {
+    font-size: 10px;
+    color: var(--ink-soft);
+    line-height: 1.5;
+    max-width: 480px;
+  }
+
+  .fb-link {
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--navy);
+    text-decoration: none;
+    border-bottom: 1px solid var(--navy);
+    white-space: nowrap;
+    flex-shrink: 0;
+    letter-spacing: 0.04em;
+  }
+
+  /* ── §6 CTA ── */
+  .cta-section {
+    padding: 56px 0;
+    background: var(--navy);
+    margin: 0 -40px;
+    padding-left: 40px;
+    padding-right: 40px;
+    text-align: center;
+    border-bottom: none;
+  }
+
+  .cta-label {
+    font-size: 9px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: rgba(249,247,244,0.5);
+    margin-bottom: 12px;
+  }
+
+  .cta-title {
+    font-family: 'Libre Baskerville', serif;
+    font-size: 24px;
+    font-weight: 700;
+    color: #f9f7f4;
+    margin-bottom: 10px;
+  }
+
+  .cta-sub {
+    font-size: 11px;
+    color: rgba(249,247,244,0.6);
+    margin-bottom: 28px;
+    font-style: italic;
+    font-family: 'Libre Baskerville', serif;
+  }
+
+  .cta-btn {
+    display: inline-block;
+    background: #c0392b;
+    color: white;
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 12px 28px;
+    border-radius: 2px;
+    text-decoration: none;
+    transition: background 0.15s;
+  }
+
+  .cta-btn:hover { background: #e74c3c; }
+
+  /* ── PAGE FOOTER ── */
+  .page-footer {
+    padding: 28px 40px;
+    border-top: 1px solid var(--rule);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 100%;
+  }
+
+  .pf-brand {
+    font-family: 'Libre Baskerville', serif;
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--navy);
+  }
+
+  .pf-meta {
+    font-size: 9px;
+    color: var(--ink-muted);
+    letter-spacing: 0.08em;
+    text-align: right;
+    line-height: 1.6;
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-brand">Hexis</div>
+  <ul class="nav-links">
+    <li><a href="#framework">Framework</a></li>
+    <li><a href="#matrix">Matrix</a></li>
+    <li><a href="#engine">How It Reasons</a></li>
+    <li><a href="#limitations">Limitations</a></li>
+  </ul>
+  <a href="/generator/" class="nav-cta">Generate a Finding →</a>
+</nav>
+
+<!-- §1 HERO -->
+<section class="hero">
+  <div class="container">
+    <div class="hero-top">
+      <div>
+        <div class="hero-badge">Public Methodology Document</div>
+        <div class="hero-title">Hexis Governance<br>Methodology</div>
+        <div class="hero-sub">Normative prioritization framework for AI governance risk assessment.</div>
+        <div class="normative-note">"This is a normative prioritization model aligned with regulatory signals. It is not a statistical model."</div>
+      </div>
+      <div class="version-block">
+        <div class="version-main">Version 1.0</div>
+        <div class="version-meta">
+          Published: February 2026<br>
+          Last reviewed: February 2026<br>
+          Next scheduled review: February 2027<br>
+          Update model: Internal review<br>
+          Feedback: <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="9ff2faebf7f0fbf0f3f0f8e6dff7fae7f6ecb1fcfaf1ebfaed">[email&#160;protected]</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- §2 FRAMEWORK FLOW -->
+<section id="framework">
+  <div class="container">
+    <div class="sec-label">Section 01</div>
+    <div class="sec-title">Framework Flow</div>
+    <div class="sec-lead">Hexis applies governance reasoning in four sequential phases. Each phase produces a traceable output that feeds the next. The cycle is continuous — Sustain feeds back into Diagnose as systems, contexts, and regulations evolve.</div>
+
+    <div class="flow">
+      <div class="phase phase-d">
+        <div class="phase-bar"></div>
+        <div class="phase-head">
+          <div class="phase-number">Phase 01</div>
+          <div class="phase-name">Diagnose</div>
+          <div class="phase-tagline">Identify & profile risk</div>
+        </div>
+        <div class="phase-body">
+          <div class="phase-desc">Establish what the system does, who it affects, and what can go wrong.</div>
+          <div class="phase-items">
+            <div class="phase-item">System scope & function</div>
+            <div class="phase-item">Human impact classification</div>
+            <div class="phase-item">Regulatory sensitivity</div>
+            <div class="phase-item">Technical uncertainty</div>
+            <div class="phase-item">Exposure determination</div>
+          </div>
+          <div class="phase-anchor">EU AI Act Art. 9 · ISO 42001 §6 · NIST Map</div>
+        </div>
+      </div>
+      <div class="arrow">→</div>
+      <div class="phase phase-s">
+        <div class="phase-bar"></div>
+        <div class="phase-head">
+          <div class="phase-number">Phase 02</div>
+          <div class="phase-name">Structure</div>
+          <div class="phase-tagline">Score governance capacity</div>
+        </div>
+        <div class="phase-body">
+          <div class="phase-desc">Measure the organization's current ability to govern the identified risk.</div>
+          <div class="phase-items">
+            <div class="phase-item">Oversight scoring</div>
+            <div class="phase-item">Monitoring scoring</div>
+            <div class="phase-item">Documentation scoring</div>
+            <div class="phase-item">Weighted maturity</div>
+            <div class="phase-item">Safeguard principle</div>
+          </div>
+          <div class="phase-anchor">EU AI Act Art. 14 · ISO 42001 §8 · NIST Govern</div>
+        </div>
+      </div>
+      <div class="arrow">→</div>
+      <div class="phase phase-g">
+        <div class="phase-bar"></div>
+        <div class="phase-head">
+          <div class="phase-number">Phase 03</div>
+          <div class="phase-name">Govern</div>
+          <div class="phase-tagline">Position & activate</div>
+        </div>
+        <div class="phase-body">
+          <div class="phase-desc">Map coordinates to the activation matrix and derive the required posture.</div>
+          <div class="phase-items">
+            <div class="phase-item">Exposure × Maturity position</div>
+            <div class="phase-item">Activation posture</div>
+            <div class="phase-item">Urgency index</div>
+            <div class="phase-item">Immediate action</div>
+            <div class="phase-item">30-day target state</div>
+          </div>
+          <div class="phase-anchor">EU AI Act Art. 17 · ISO 42001 §9 · NIST Respond</div>
+        </div>
+      </div>
+      <div class="arrow">→</div>
+      <div class="phase phase-su">
+        <div class="phase-bar"></div>
+        <div class="phase-head">
+          <div class="phase-number">Phase 04</div>
+          <div class="phase-name">Sustain</div>
+          <div class="phase-tagline">Monitor & evolve</div>
+        </div>
+        <div class="phase-body">
+          <div class="phase-desc">Maintain governance posture as the system, context, and regulations change.</div>
+          <div class="phase-items">
+            <div class="phase-item">Reassessment cycle</div>
+            <div class="phase-item">Maturity progression</div>
+            <div class="phase-item">Regulatory change monitoring</div>
+            <div class="phase-item">Audit & external review</div>
+            <div class="phase-item">Version-controlled docs</div>
+          </div>
+          <div class="phase-anchor">EU AI Act Art. 72 · ISO 42001 §10 · NIST Manage</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="cycle-note">
+      <div class="cycle-line"></div>
+      <div class="cycle-badge">Continuous loop — Sustain feeds back into Diagnose</div>
+      <div class="cycle-line"></div>
+    </div>
+
+    <div class="outputs-row">
+      <div class="out-cell"><div class="out-label">Diagnose output</div><div class="out-val">Exposure Profile</div></div>
+      <div class="out-cell"><div class="out-label">Structure output</div><div class="out-val">Maturity Score</div></div>
+      <div class="out-cell"><div class="out-label">Govern output</div><div class="out-val">Activation Posture</div></div>
+      <div class="out-cell"><div class="out-label">Sustain output</div><div class="out-val">Governance Record</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- §3 REFERENCE MATRIX -->
+<section id="matrix">
+  <div class="container">
+    <div class="sec-label">Section 02</div>
+    <div class="sec-title">Governance Activation Matrix</div>
+    <div class="matrix-intro">Risk exposure alone does not determine governance response. The required activation posture emerges from the intersection of exposure level and governance maturity. The same high-risk system requires fundamentally different action depending on whether governance is absent or embedded.</div>
+
+    <div class="axis-x-label">← Risk Exposure →</div>
+    <div class="axis-y-wrap">
+      <div class="axis-y-label">← Governance Maturity →</div>
+      <div class="m-grid">
+
+        <div class="corner"><span>maturity ↓ / exposure →</span></div>
+        <div class="exp-h"><div class="exp-dot" style="background:var(--cell-low)"></div><div class="exp-lbl">Low</div></div>
+        <div class="exp-h"><div class="exp-dot" style="background:var(--cell-moderate)"></div><div class="exp-lbl">Moderate</div></div>
+        <div class="exp-h"><div class="exp-dot" style="background:var(--cell-elevated)"></div><div class="exp-lbl">Elevated</div></div>
+        <div class="exp-h"><div class="exp-dot" style="background:var(--cell-high)"></div><div class="exp-lbl">High</div></div>
+
+        <!-- ABSENT -->
+        <div class="mat-h"><div class="mat-lbl">Absent</div><div class="mat-bar-line bar-absent"></div></div>
+        <div class="mcell col-low"><div class="u-bar urg-low"></div><div class="mc-action">Define Governance Scope</div><div class="mc-tag">Map boundaries & impact</div></div>
+        <div class="mcell col-moderate"><div class="u-bar urg-moderate"></div><div class="mc-action">Initiate Minimum Governance</div><div class="mc-tag">Establish ownership & controls</div></div>
+        <div class="mcell col-elevated"><div class="u-bar urg-high"></div><div class="mc-action">Assign Risk Owner Immediately</div><div class="mc-tag">Structure accountability now</div></div>
+        <div class="mcell col-high"><div class="u-bar urg-critical"></div><div class="mc-action">Intervene — Suspend or Constrain</div><div class="mc-tag">No operation without oversight</div></div>
+
+        <!-- AD HOC -->
+        <div class="mat-h"><div class="mat-lbl">Ad Hoc</div><div class="mat-bar-line bar-adhoc"></div></div>
+        <div class="mcell col-low"><div class="u-bar urg-minimal"></div><div class="mc-action">Begin Light Structuring</div><div class="mc-tag">Document existing practices</div></div>
+        <div class="mcell col-moderate"><div class="u-bar urg-low"></div><div class="mc-action">Define Repeatable Processes</div><div class="mc-tag">Assign ownership, start docs</div></div>
+        <div class="mcell col-elevated"><div class="u-bar urg-moderate"></div><div class="mc-action">Formalize Oversight Structure</div><div class="mc-tag">Set roles & review cadence</div></div>
+        <div class="mcell col-high"><div class="u-bar urg-high"></div><div class="mc-action">Activate Formal Governance Now</div><div class="mc-tag">Mandate human oversight</div></div>
+
+        <!-- STRUCTURED -->
+        <div class="mat-h"><div class="mat-lbl">Structured</div><div class="mat-bar-line bar-structured"></div></div>
+        <div class="mcell col-low"><div class="u-bar urg-minimal"></div><div class="mc-action">Observe & Stabilize</div><div class="mc-tag">Confirm coverage periodically</div></div>
+        <div class="mcell col-moderate"><div class="u-bar urg-minimal"></div><div class="mc-action">Define & Track Metrics</div><div class="mc-tag">Build monitoring baseline</div></div>
+        <div class="mcell col-elevated"><div class="u-bar urg-low"></div><div class="mc-action">Activate Monitoring Cadence</div><div class="mc-tag">Schedule review cycles</div></div>
+        <div class="mcell col-high"><div class="u-bar urg-moderate"></div><div class="mc-action">Intensify Monitoring & Clarify Roles</div><div class="mc-tag">Define escalation path</div></div>
+
+        <!-- CONTINUOUS -->
+        <div class="mat-h"><div class="mat-lbl">Continuous</div><div class="mat-bar-line bar-continuous"></div></div>
+        <div class="mcell col-low"><div class="u-bar urg-minimal"></div><div class="mc-action">Run Periodic Checks</div><div class="mc-tag">Verify controls efficient</div></div>
+        <div class="mcell col-moderate"><div class="u-bar urg-minimal"></div><div class="mc-action">Optimize Coverage & Efficiency</div><div class="mc-tag">Review scope vs. changes</div></div>
+        <div class="mcell col-elevated"><div class="u-bar urg-low"></div><div class="mc-action">Track Performance & Detect Drift</div><div class="mc-tag">Enable drift alerting</div></div>
+        <div class="mcell col-high"><div class="u-bar urg-moderate"></div><div class="mc-action">Run Audit & Stress Test</div><div class="mc-tag">Review bias & failure modes</div></div>
+
+        <!-- EMBEDDED -->
+        <div class="mat-h row-last"><div class="mat-lbl">Embedded</div><div class="mat-bar-line bar-embedded"></div></div>
+        <div class="mcell col-low row-last"><div class="u-bar urg-minimal"></div><div class="mc-action">Maintain Standard Operations</div><div class="mc-tag">No immediate action</div></div>
+        <div class="mcell col-moderate row-last"><div class="u-bar urg-minimal"></div><div class="mc-action">Maintain & Schedule Reassessment</div><div class="mc-tag">Annual regulatory review</div></div>
+        <div class="mcell col-elevated row-last"><div class="u-bar urg-minimal"></div><div class="mc-action">Sustain & Verify Alignment</div><div class="mc-tag">Check scope or context changes</div></div>
+        <div class="mcell col-high row-last"><div class="u-bar urg-low"></div><div class="mc-action">Maintain Continuous Assurance</div><div class="mc-tag">Commission external audit</div></div>
+
+      </div>
+    </div>
+
+    <div class="matrix-weight-note">
+      Governance maturity dimensions are weighted according to regulatory impact priority (Oversight 1.5 · Monitoring 1.4 · Documentation 1.0). See Section 03 for full weight justification. Minimum safeguard principle: if any dimension scores Absent, overall maturity is capped at Ad Hoc.
+    </div>
+
+    <div class="m-legend">
+      <div class="m-leg-item"><div class="m-leg-dot" style="background:var(--cell-low);border:1px solid var(--rule)"></div>Low</div>
+      <div class="m-leg-item"><div class="m-leg-dot" style="background:var(--cell-moderate);border:1px solid var(--rule)"></div>Moderate</div>
+      <div class="m-leg-item"><div class="m-leg-dot" style="background:var(--cell-elevated);border:1px solid var(--rule)"></div>Elevated</div>
+      <div class="m-leg-item"><div class="m-leg-dot" style="background:var(--cell-high);border:1px solid var(--rule)"></div>High</div>
+    </div>
+  </div>
+</section>
+
+<!-- §4 ENGINE REASONING -->
+<section id="engine">
+  <div class="container">
+    <div class="sec-label">Section 03</div>
+    <div class="sec-title">How the Engine Reasons</div>
+    <div class="sec-lead">Hexis produces activation postures through a deterministic reasoning chain. Each component is normatively grounded and independently traceable.</div>
+
+    <div class="engine-grid">
+      <!-- Exposure -->
+      <div class="engine-block">
+        <div class="engine-label">Component 01</div>
+        <div class="engine-title">Exposure Profile</div>
+        <div class="engine-items">
+          <div class="engine-item"><span class="e-key">Low</span><span class="e-val">Indirect or negligible human impact. No regulatory category trigger.</span></div>
+          <div class="engine-item"><span class="e-key">Moderate</span><span class="e-val">Potential human impact in bounded context. Regulatory signals present.</span></div>
+          <div class="engine-item"><span class="e-key">Elevated</span><span class="e-val">Direct human impact. Regulatory sensitivity confirmed. Technical uncertainty present.</span></div>
+          <div class="engine-item"><span class="e-key">High</span><span class="e-val">Significant human impact. High-risk category under EU AI Act Annex III or equivalent.</span></div>
+        </div>
+      </div>
+
+      <!-- Maturity dimensions -->
+      <div class="engine-block">
+        <div class="engine-label">Component 02</div>
+        <div class="engine-title">Maturity Dimensions & Weights</div>
+        <table class="weight-table">
+          <thead>
+            <tr><th>Dimension</th><th>Weight</th><th>Regulatory basis</th></tr>
+          </thead>
+          <tbody>
+            <tr><td><strong>Oversight</strong></td><td><span class="w-badge">1.5</span></td><td>EU AI Act Art. 14 — human oversight obligations</td></tr>
+            <tr><td><strong>Monitoring</strong></td><td><span class="w-badge">1.4</span></td><td>NIST AI RMF Measure & Manage — drift detection</td></tr>
+            <tr><td><strong>Documentation</strong></td><td><span class="w-badge">1.0</span></td><td>ISO 42001 §8 — audit readiness, accountability</td></tr>
+          </tbody>
+        </table>
+        <div class="guardrail-note">
+          <strong>Minimum Safeguard Principle:</strong> If any single dimension scores Absent, overall maturity is capped at Ad Hoc — regardless of weighted average. A critical governance gap in one dimension cannot be masked by strength in others.
+        </div>
+      </div>
+    </div>
+
+    <!-- Urgency -->
+    <div class="engine-block" style="margin-bottom:0;">
+      <div class="engine-label">Component 03</div>
+      <div class="engine-title">Urgency Index</div>
+      <div class="urgency-note">
+        "Urgency index is a proportional heuristic reflecting regulatory exposure dominance over governance maturity. Exposure weight (1.6) exceeds maturity mitigation weight (0.8) because unmanaged risk scales faster than governance matures."
+      </div>
+      <div style="margin-top:12px;font-size:10px;line-height:1.6;color:var(--ink-soft);">
+        The urgency index determines the visual severity signal (left-edge bar) in each matrix cell. It is not a compliance score. It signals the relative pressure between current risk exposure and current governance capacity. <em>Urgency is a pressure signal — activation posture is determined by the matrix position and safeguard principle.</em>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- §5 LIMITATIONS + FEEDBACK -->
+<section id="limitations">
+  <div class="container">
+    <div class="sec-label">Section 04</div>
+    <div class="sec-title">Limitations & Feedback</div>
+    <div class="sec-lead">Hexis v1.0 is designed for transparency about what it does and does not do.</div>
+
+    <div class="limits-grid">
+      <div class="limit-cell">
+        <div class="limit-label">Not legal advice</div>
+        <div class="limit-text">Hexis produces normative governance recommendations, not legal opinions. Findings should be reviewed by qualified legal or compliance counsel before regulatory submissions.</div>
+      </div>
+      <div class="limit-cell">
+        <div class="limit-label">Not a certification</div>
+        <div class="limit-text">A Hexis preliminary finding does not constitute certification of compliance with EU AI Act, ISO 42001, or any other standard. It is a structured assessment input.</div>
+      </div>
+      <div class="limit-cell">
+        <div class="limit-label">Context-neutral (V1)</div>
+        <div class="limit-text">Version 1.0 applies uniform weights across all sectors. Healthcare, HR, and financial contexts may require adjusted profiles. Sector-specific weight profiles are planned for V2.</div>
+      </div>
+      <div class="limit-cell">
+        <div class="limit-label">Normative, not statistical</div>
+        <div class="limit-text">Weights reflect regulatory priority signals — not empirical data from incidents. The model is transparent about this. Weights will be calibrated against real usage data in V3.</div>
+      </div>
+    </div>
+
+    <div class="feedback-block">
+      <div class="fb-left">
+        <div class="fb-title">Feedback & Methodology Input</div>
+        <div class="fb-text">We welcome substantive feedback on the Hexis methodology. Inputs are reviewed during annual methodology updates (next: February 2027) and credited where incorporated. V1 updates are determined by Hexis based on internal review, regulatory developments, and implementation insights.</div>
+      </div>
+      <a href="/cdn-cgi/l/email-protection#f59890819d9a919a999a928cb59d908d9c86db96909b819087" class="fb-link"><span class="__cf_email__" data-cfemail="a8c5cddcc0c7ccc7c4c7cfd1e8c0cdd0c1db86cbcdc6dccdda">[email&#160;protected]</span></a>
+    </div>
+  </div>
+</section>
+
+<!-- §6 CTA -->
+<section class="cta-section">
+  <div class="cta-label">Apply the methodology</div>
+  <div class="cta-title">Generate a Preliminary Governance Finding</div>
+  <div class="cta-sub">Enter your system's coordinates and produce a contextualized activation report.</div>
+  <a href="/generator/" class="cta-btn">Open Generator →</a>
+</section>
+
+<!-- PAGE FOOTER -->
+<footer class="page-footer">
