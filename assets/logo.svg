@@ -1,13 +1,24 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 100" fill="none" role="img" aria-label="Hexis — Human &amp; Systems">
-  <!-- H mark: two thin vertical bars, centered over wordmark -->
+  <!-- H mark: two thin vertical bars centered at x=100, total mark width=52 -->
   <rect x="74"  y="6"  width="8" height="46" fill="#1C1E23"/>
   <rect x="118" y="6"  width="8" height="46" fill="#1C1E23"/>
-  <!-- Brass crossbar at ~45% height -->
-  <rect x="82"  y="26" width="36" height="2" fill="#B2986C"/>
+  <!-- Brass crossbar -->
+  <rect x="82"  y="25" width="36" height="2" fill="#B2986C"/>
   <!-- Hairline rule -->
-  <line x1="30" y1="58" x2="170" y2="58" stroke="#1C1E23" stroke-width="0.6" opacity="0.28"/>
-  <!-- HEXIS wordmark — wide tracking so wordmark > H mark -->
-  <text x="100" y="74" font-family="Georgia, 'Times New Roman', serif" font-size="12" font-weight="700" letter-spacing="14" text-anchor="middle" fill="#1C1E23">HEXIS</text>
+  <line x1="20" y1="58" x2="180" y2="58" stroke="#1C1E23" stroke-width="0.6" opacity="0.25"/>
+  <!-- HEXIS wordmark -->
+  <text x="100" y="75"
+        font-family="Georgia, 'Times New Roman', serif"
+        font-size="12" font-weight="700"
+        letter-spacing="12"
+        text-anchor="middle"
+        textLength="140" lengthAdjust="spacing"
+        fill="#1C1E23">HEXIS</text>
   <!-- HUMAN &amp; SYSTEMS subtitle -->
-  <text x="100" y="88" font-family="Arial, Helvetica, sans-serif" font-size="5.5" letter-spacing="4" text-anchor="middle" fill="#686662">HUMAN &amp; SYSTEMS</text>
+  <text x="100" y="89"
+        font-family="Arial, Helvetica, sans-serif"
+        font-size="5" letter-spacing="3"
+        text-anchor="middle"
+        textLength="130" lengthAdjust="spacing"
+        fill="#686662">HUMAN &amp; SYSTEMS</text>
 </svg>
