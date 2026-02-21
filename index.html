@@ -6,7 +6,16 @@
 <title>Hexis — Human-Centered Governance for Intelligent Systems</title>
 <meta name="description" content="Hexis — Human × Systems. Governance infrastructure for intelligent systems. Thinking, tools, and frameworks for trustworthy AI.">
 <meta property="og:title" content="Hexis — Human-Centered Governance for Intelligent Systems">
-<meta property="og:description" content="Hexis: Human × Systems. AI yönetişimi üzerine yapılandırılmış düşünce ve pratik araçlar.">
+<meta property="og:description" content="Open methodology and governance tools for positioning AI systems across exposure and maturity.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://hexis.center/">
+<meta property="og:image" content="https://hexis.center/assets/og-hexis.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Hexis — Human-Centered Governance for Intelligent Systems">
+<meta name="twitter:description" content="Open methodology and governance tools for positioning AI systems across exposure and maturity.">
+<meta name="twitter:image" content="https://hexis.center/assets/og-hexis.png">
+<link rel="icon" href="/assets/favicon.ico">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
 <style>
 /* ─── BRAND TOKENS ───────────────────────────────── */
 :root{
@@ -56,7 +65,22 @@ nav{
 .nav-logo{
   display:flex;align-items:center;gap:10px;
   text-decoration:none;color:var(--text);
+  flex-shrink:0;
 }
+.nav-logo img{
+  display:block;
+  height:auto;
+  width:auto;
+  max-height:28px;
+}
+@media(max-width:768px){
+  .nav-logo img{ max-height:22px; }
+}
+.nav-logo:focus-visible{
+  outline:2px solid rgba(232,230,226,0.5);
+  outline-offset:4px;
+}
+/* Fallback text wordmark (hidden when img loads) */
 .nav-wordmark{
   font-family:Georgia,serif;font-weight:700;font-size:17px;letter-spacing:3px;
   text-transform:uppercase;
@@ -409,6 +433,10 @@ footer{
   gap:16px;flex-wrap:wrap;
 }
 .footer-left{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.footer-logo{display:flex;align-items:center;flex-shrink:0;text-decoration:none;}
+.footer-logo img{display:block;height:auto;width:auto;max-height:18px;}
+.footer-logo:focus-visible{outline:2px solid rgba(232,230,226,0.5);outline-offset:4px;}
+/* Fallback */
 .footer-wordmark{font-family:Georgia,serif;font-weight:700;font-size:13px;letter-spacing:2px;text-transform:uppercase;color:var(--text)}
 .footer-wordmark-dot{display:inline-block;width:5px;height:1px;background:var(--brass);margin:0 1px 2px 1px;vertical-align:middle}
 .footer-sep{color:var(--stone);margin:0 4px}
@@ -490,8 +518,8 @@ footer{
 
 <!-- ══════════ NAV ══════════ -->
 <nav>
-  <a href="#hero" class="nav-logo">
-    <span class="nav-wordmark">Hexis<span class="nav-wordmark-dot"></span></span>
+  <a href="/" class="nav-logo">
+    <img src="/assets/logo-light.svg" alt="Hexis" width="56" height="28">
   </a>
   <div class="nav-links">
     <a href="#about">Misyon</a>
@@ -907,7 +935,7 @@ footer{
 <!-- ══════════ FOOTER ══════════ -->
 <footer>
   <div class="footer-left">
-    <span class="footer-wordmark">Hexis<span class="footer-wordmark-dot"></span></span>
+    <a href="/" class="footer-logo"><img src="/assets/logo-light.svg" alt="Hexis" width="36" height="18"></a>
     <span class="footer-sep">·</span>
     <span class="footer-txt">© 2026 Hexis · Built by Özden Coşkun · Yalnızca bilgilendirme amaçlıdır; hukuki danışmanlık niteliği taşımaz.</span>
   </div>

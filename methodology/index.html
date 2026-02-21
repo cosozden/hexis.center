@@ -6,6 +6,17 @@
 <title>Hexis · Methodology v1.0</title>
 <link rel="canonical" href="https://hexis.center/methodology/">
 <meta name="description" content="Hexis Governance Methodology v1.0 — Normative prioritization framework for AI governance risk assessment.">
+<meta property="og:title" content="Hexis · Governance Methodology v1.0">
+<meta property="og:description" content="Open methodology and governance tools for positioning AI systems across exposure and maturity.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://hexis.center/methodology/">
+<meta property="og:image" content="https://hexis.center/assets/og-hexis.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Hexis · Governance Methodology v1.0">
+<meta name="twitter:description" content="Open methodology and governance tools for positioning AI systems across exposure and maturity.">
+<meta name="twitter:image" content="https://hexis.center/assets/og-hexis.png">
+<link rel="icon" href="/assets/favicon.ico">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -46,17 +57,29 @@
   }
 
   .nav-brand {
-    font-family: Georgia, 'Times New Roman', serif;
-    font-size: 13px;
-    font-weight: 700;
-    letter-spacing: 0.04em;
-    color: var(--paper);
     display: flex;
     align-items: center;
-    gap: 4px;
     text-decoration: none;
+    flex-shrink: 0;
   }
 
+  .nav-brand img {
+    display: block;
+    height: auto;
+    width: auto;
+    max-height: 28px;
+  }
+
+  @media (max-width: 768px) {
+    .nav-brand img { max-height: 22px; }
+  }
+
+  .nav-brand:focus-visible {
+    outline: 2px solid rgba(248,247,245,0.5);
+    outline-offset: 4px;
+  }
+
+  /* Fallback dot (hidden when img used) */
   .nav-brand-dot {
     display: inline-block;
     width: 10px;
@@ -713,15 +736,25 @@
   }
 
   .pf-brand {
-    font-family: Georgia, 'Times New Roman', serif;
-    font-size: 12px;
-    font-weight: 700;
-    color: var(--charcoal);
     display: flex;
     align-items: center;
-    gap: 4px;
+    text-decoration: none;
+    flex-shrink: 0;
   }
 
+  .pf-brand img {
+    display: block;
+    height: auto;
+    width: auto;
+    max-height: 18px;
+  }
+
+  .pf-brand:focus-visible {
+    outline: 2px solid rgba(28,30,35,0.4);
+    outline-offset: 4px;
+  }
+
+  /* Fallback dot */
   .pf-brand-dot {
     display: inline-block;
     width: 8px;
@@ -743,7 +776,9 @@
 
 <!-- NAV -->
 <nav class="nav">
-  <a href="/" class="nav-brand">Hexis<span class="nav-brand-dot"></span></a>
+  <a href="/" class="nav-brand">
+    <img src="/assets/logo-light.svg" alt="Hexis" width="56" height="28">
+  </a>
   <ul class="nav-links">
     <li><a href="#framework">Framework</a></li>
     <li><a href="#matrix">Matrix</a></li>
@@ -1050,7 +1085,7 @@
 
 <!-- PAGE FOOTER -->
 <footer class="page-footer">
-  <div class="pf-brand">Hexis<span class="pf-brand-dot"></span></div>
+  <a href="/" class="pf-brand"><img src="/assets/logo.svg" alt="Hexis" width="36" height="18"></a>
   <div class="pf-meta">Methodology v1.0 · February 2026<br>hexis.center/methodology</div>
 </footer>
 
