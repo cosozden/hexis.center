@@ -69,12 +69,11 @@ nav{
 }
 .nav-logo img{
   display:block;
-  height:auto;
+  height:28px;
   width:auto;
-  max-height:28px;
 }
 @media(max-width:768px){
-  .nav-logo img{ max-height:22px; }
+  .nav-logo img{ height:22px; }
 }
 .nav-logo:focus-visible{
   outline:2px solid rgba(232,230,226,0.5);
@@ -522,13 +521,8 @@ footer{
     <img src="/assets/logo-light.svg" alt="Hexis" width="56" height="28">
   </a>
   <div class="nav-links">
-    <a href="#about">Misyon</a>
-    <a href="#model">Model</a>
-    <a href="#thinking">Düşünce</a>
-    <a href="#tools">Araçlar</a>
-    <a href="eu-ai-act-checklist.html" class="nav-accent">Checklist ↗</a>
-    <a href="/methodology/" class="nav-accent">Methodology ↗</a>
-    <a href="/generator/" class="nav-accent">Generator ↗</a>
+    <a href="/methodology/">Methodology</a>
+    <a href="/generator/">Generator</a>
     <a href="#contact">İletişim</a>
   </div>
   <button class="hamburger" id="hamburger" onclick="toggleMenu()" aria-label="Menü">
@@ -537,13 +531,8 @@ footer{
 </nav>
 
 <div class="mobile-menu" id="mobileMenu">
-  <a href="#about" onclick="closeMenu()">Misyon</a>
-  <a href="#model" onclick="closeMenu()">Hexis Modeli</a>
-  <a href="#thinking" onclick="closeMenu()">Düşünce</a>
-  <a href="#tools" onclick="closeMenu()">Araçlar</a>
-  <a href="eu-ai-act-checklist.html" onclick="closeMenu()">EU AI Act Checklist ↗</a>
-  <a href="/methodology/" onclick="closeMenu()">Methodology ↗</a>
-  <a href="/generator/" onclick="closeMenu()">Generator ↗</a>
+  <a href="/methodology/" onclick="closeMenu()">Methodology</a>
+  <a href="/generator/" onclick="closeMenu()">Generator</a>
   <a href="#contact" onclick="closeMenu()">İletişim</a>
 </div>
 
@@ -557,7 +546,6 @@ footer{
 <!-- ══════════ HERO ══════════ -->
 <section id="hero">
   <div class="section-inner">
-    <div class="hero-eyebrow">Governance Infrastructure</div>
     <div class="hero-brand">Hexis<span class="hero-brand-bar"></span></div>
     <div class="hero-sub-brand">Human &amp; Systems</div>
 
@@ -940,13 +928,10 @@ footer{
     <span class="footer-txt">© 2026 Hexis · Built by Özden Coşkun · Yalnızca bilgilendirme amaçlıdır; hukuki danışmanlık niteliği taşımaz.</span>
   </div>
   <div class="footer-links">
-    <a href="#about">Misyon</a>
-    <a href="#model">Model</a>
-    <a href="#thinking">Düşünce</a>
-    <a href="#tools">Araçlar</a>
+    <a href="/methodology/">Methodology</a>
+    <a href="/generator/">Generator</a>
     <a href="#contact">İletişim</a>
     <a href="https://eur-lex.europa.eu/legal-content/TR/TXT/?uri=CELEX:32024R1689" target="_blank" rel="noopener noreferrer">EU AI Act</a>
-    <a href="https://www.kvkk.gov.tr/Icerik/8547/uretken-yapay-zeka-ve-kisisel-verilerin-korunmasi-rehberi-15-soruda" target="_blank" rel="noopener noreferrer">KVKK Rehberi</a>
     <a href="https://www.linkedin.com/in/ozden-coskun-8728a1301" target="_blank" rel="noopener noreferrer">LinkedIn</a>
   </div>
 </footer>
