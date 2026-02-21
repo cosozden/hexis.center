@@ -1,13 +1,15 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 110" fill="none" role="img" aria-label="Hexis — Human &amp; Systems">
-  <!-- H mark: two vertical bars (paper/light on dark bg) -->
-  <rect x="72" y="10" width="16" height="58" fill="#F8F7F5"/>
-  <rect x="132" y="10" width="16" height="58" fill="#F8F7F5"/>
-  <!-- Brass crossbar -->
-  <rect x="88" y="37" width="44" height="2.5" fill="#B2986C"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 100" fill="none" role="img" aria-label="Hexis — Human &amp; Systems">
+  <!-- H mark: two thin vertical bars, centered over wordmark -->
+  <!-- Wordmark "HEXIS" at size 12 + letter-spacing 14 ≈ width ~140px, centered at x=100 -->
+  <!-- H mark total width: bar_w=8, gap=36 → 52px, centered: x=74 to x=126 -->
+  <rect x="74"  y="6"  width="8" height="46" fill="#F8F7F5"/>
+  <rect x="118" y="6"  width="8" height="46" fill="#F8F7F5"/>
+  <!-- Brass crossbar at ~45% height -->
+  <rect x="82"  y="26" width="36" height="2" fill="#B2986C"/>
   <!-- Hairline rule -->
-  <line x1="66" y1="74" x2="154" y2="74" stroke="#F8F7F5" stroke-width="0.75" opacity="0.35"/>
-  <!-- HEXIS wordmark -->
-  <text x="110" y="90" font-family="Georgia, 'Times New Roman', serif" font-size="13" font-weight="700" letter-spacing="7" text-anchor="middle" fill="#F8F7F5">HEXIS</text>
+  <line x1="30" y1="58" x2="170" y2="58" stroke="#F8F7F5" stroke-width="0.6" opacity="0.28"/>
+  <!-- HEXIS wordmark — wide tracking so wordmark > H mark -->
+  <text x="100" y="74" font-family="Georgia, 'Times New Roman', serif" font-size="12" font-weight="700" letter-spacing="14" text-anchor="middle" fill="#F8F7F5">HEXIS</text>
   <!-- HUMAN &amp; SYSTEMS subtitle -->
-  <text x="110" y="104" font-family="Arial, Helvetica, sans-serif" font-size="6.5" letter-spacing="3.5" text-anchor="middle" fill="#8A8884">HUMAN &amp; SYSTEMS</text>
+  <text x="100" y="88" font-family="Arial, Helvetica, sans-serif" font-size="5.5" letter-spacing="4" text-anchor="middle" fill="#8A8884">HUMAN &amp; SYSTEMS</text>
 </svg>
