@@ -6,25 +6,19 @@
 <title>Hexis · Methodology v1.0</title>
 <link rel="canonical" href="https://hexis.center/methodology/">
 <meta name="description" content="Hexis Governance Methodology v1.0 — Normative prioritization framework for AI governance risk assessment.">
-<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
   :root {
-    --ink: #1a1a1a;
-    --ink-soft: #4a4a4a;
-    --ink-muted: #8a8a8a;
-    --paper: #f9f7f4;
-    --rule: #d8d4cc;
-    --navy: #1e3648;
-    --d-color: #2c5f4a;
-    --s-color: #4a6741;
-    --g-color: #7a5c3a;
-    --su-color: #1e3648;
-    --absent: #c8c4bc; --adhoc: #b8b0a4; --structured: #6b7c8a;
-    --continuous: #3d5a70; --embedded: #1e3648;
-    --cell-low: #edf5e4; --cell-moderate: #fdf5dc;
-    --cell-elevated: #fce8d0; --cell-high: #f8dbd6;
+    --charcoal: #1C1E23;
+    --brass:    #B2986C;
+    --stone:    #686662;
+    --paper:    #F8F7F5;
+    --ink:      #1C1E23;
+    --ink-soft: #444240;
+    --ink-muted:#686662;
+    --rule:     rgba(28,30,35,0.14);
+    --rule-s:   rgba(28,30,35,0.08);
   }
 
   html { scroll-behavior: smooth; }
@@ -32,7 +26,7 @@
   body {
     background: var(--paper);
     color: var(--ink);
-    font-family: 'DM Mono', monospace;
+    font-family: Arial, Helvetica, sans-serif;
     line-height: 1.6;
   }
 
@@ -40,22 +34,35 @@
   .nav {
     position: sticky;
     top: 0;
-    background: var(--navy);
-    color: #f9f7f4;
+    background: var(--charcoal);
+    color: var(--paper);
     z-index: 100;
     padding: 0 40px;
     display: flex;
     align-items: center;
     justify-content: space-between;
     height: 48px;
-    border-bottom: 2px solid rgba(255,255,255,0.08);
+    border-bottom: 1px solid rgba(248,247,245,0.08);
   }
 
   .nav-brand {
-    font-family: 'Libre Baskerville', serif;
+    font-family: Georgia, 'Times New Roman', serif;
     font-size: 13px;
     font-weight: 700;
     letter-spacing: 0.04em;
+    color: var(--paper);
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    text-decoration: none;
+  }
+
+  .nav-brand-dot {
+    display: inline-block;
+    width: 10px;
+    height: 2px;
+    background: var(--brass);
+    vertical-align: middle;
   }
 
   .nav-links {
@@ -68,13 +75,13 @@
     font-size: 9px;
     letter-spacing: 0.12em;
     text-transform: uppercase;
-    color: rgba(249,247,244,0.6);
+    color: rgba(248,247,245,0.55);
     text-decoration: none;
-    transition: color 0.15s;
+    transition: color .15s;
   }
 
-  .nav-links a:hover { color: #f9f7f4; }
-  a:focus { outline: 2px solid rgba(249,247,244,0.6); outline-offset: 2px; }
+  .nav-links a:hover { color: var(--paper); }
+  a:focus { outline: 2px solid rgba(248,247,245,0.5); outline-offset: 2px; }
   a:focus:not(:focus-visible) { outline: none; }
 
   .nav-cta {
@@ -82,15 +89,14 @@
     letter-spacing: 0.1em;
     text-transform: uppercase;
     background: transparent;
-    color: #f9f7f4;
-    border: 1px solid rgba(249,247,244,0.35);
+    color: var(--paper);
+    border: 1px solid rgba(248,247,245,0.3);
     padding: 6px 14px;
-    border-radius: 2px;
     cursor: pointer;
     text-decoration: none;
-    transition: border-color 0.15s, color 0.15s;
+    transition: border-color .15s, color .15s;
   }
-  .nav-cta:hover { border-color: rgba(249,247,244,0.7); }
+  .nav-cta:hover { border-color: rgba(248,247,245,0.65); }
 
   /* ── LAYOUT ── */
   .container {
@@ -116,7 +122,7 @@
   }
 
   .sec-title {
-    font-family: 'Libre Baskerville', serif;
+    font-family: Georgia, 'Times New Roman', serif;
     font-size: 26px;
     font-weight: 700;
     letter-spacing: -0.01em;
@@ -152,13 +158,12 @@
     text-transform: uppercase;
     border: 1px solid var(--rule);
     padding: 4px 10px;
-    border-radius: 2px;
     color: var(--ink-muted);
     margin-bottom: 16px;
   }
 
   .hero-title {
-    font-family: 'Libre Baskerville', serif;
+    font-family: Georgia, 'Times New Roman', serif;
     font-size: 36px;
     font-weight: 700;
     letter-spacing: -0.02em;
@@ -172,7 +177,7 @@
     letter-spacing: 0.06em;
     margin-top: 12px;
     font-style: italic;
-    font-family: 'Libre Baskerville', serif;
+    font-family: Georgia, 'Times New Roman', serif;
   }
 
   .version-block {
@@ -180,10 +185,10 @@
   }
 
   .version-main {
-    font-family: 'Libre Baskerville', serif;
+    font-family: Georgia, 'Times New Roman', serif;
     font-size: 15px;
     font-weight: 700;
-    color: var(--navy);
+    color: var(--charcoal);
   }
 
   .version-meta {
@@ -196,15 +201,14 @@
 
   .normative-note {
     display: inline-block;
-    background: var(--navy);
-    color: #f9f7f4;
+    background: var(--charcoal);
+    color: var(--paper);
     font-size: 10px;
     letter-spacing: 0.08em;
     padding: 10px 18px;
     margin-top: 24px;
-    border-radius: 2px;
     font-style: italic;
-    font-family: 'Libre Baskerville', serif;
+    font-family: Georgia, 'Times New Roman', serif;
   }
 
   /* ── §2 FRAMEWORK FLOW ── */
@@ -246,9 +250,10 @@
   }
 
   .phase-name {
-    font-family: 'Libre Baskerville', serif;
+    font-family: Georgia, 'Times New Roman', serif;
     font-size: 17px;
     font-weight: 700;
+    color: var(--ink);
   }
 
   .phase-tagline {
@@ -271,7 +276,7 @@
     font-size: 10.5px;
     line-height: 1.6;
     font-style: italic;
-    font-family: 'Libre Baskerville', serif;
+    font-family: Georgia, 'Times New Roman', serif;
     color: var(--ink);
   }
 
@@ -300,13 +305,11 @@
     color: var(--ink-muted);
   }
 
-  /* Phase color bars only — names stay readable */
-  .phase-d  .phase-bar  { background: var(--d-color); }
-  .phase-s  .phase-bar  { background: var(--s-color); }
-  .phase-g  .phase-bar  { background: var(--g-color); }
-  .phase-su .phase-bar  { background: var(--su-color); }
-  .phase-name { color: var(--ink); background: transparent; }
-  .phase-name { color: var(--ink); background: transparent; }
+  /* Phase color bars — brand-aligned neutrals */
+  .phase-d  .phase-bar { background: var(--stone); }
+  .phase-s  .phase-bar { background: #8a8884; }
+  .phase-g  .phase-bar { background: #a8a6a2; }
+  .phase-su .phase-bar { background: var(--charcoal); }
 
   .cycle-note {
     display: flex;
@@ -320,7 +323,7 @@
   }
 
   .cycle-line { flex: 1; height: 1px; background: var(--rule); }
-  .cycle-badge { border: 1px solid var(--rule); padding: 4px 12px; border-radius: 2px; white-space: nowrap; }
+  .cycle-badge { border: 1px solid var(--rule); padding: 4px 12px; white-space: nowrap; }
 
   .outputs-row {
     display: grid;
@@ -345,7 +348,7 @@
     color: var(--ink-soft);
     max-width: 640px;
     margin-bottom: 32px;
-    font-family: 'Libre Baskerville', serif;
+    font-family: Georgia, 'Times New Roman', serif;
     font-style: italic;
   }
 
@@ -395,7 +398,7 @@
   }
 
   .exp-h:first-child { border-left: none; }
-  .exp-dot { width: 7px; height: 7px; border-radius: 50%; }
+  .exp-dot { width: 7px; height: 7px; }
   .exp-lbl { font-size: 9px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; }
 
   .corner {
@@ -419,7 +422,7 @@
   }
 
   .mat-lbl { font-size: 10px; font-weight: 500; letter-spacing: 0.04em; }
-  .mat-bar-line { height: 3px; border-radius: 2px; margin-top: 4px; width: 55%; }
+  .mat-bar-line { height: 3px; margin-top: 4px; width: 55%; }
 
   .mcell {
     padding: 8px 10px;
@@ -438,22 +441,32 @@
   .mc-tag    { font-size: 8px; letter-spacing: 0.07em; text-transform: uppercase; color: var(--ink-muted); margin-top: 4px; }
 
   .u-bar { position: absolute; left: 0; top: 0; bottom: 0; width: 3px; }
-  .urg-critical { background: #c0392b; }
-  .urg-high     { background: #e07060; }
-  .urg-moderate { background: #f0b97a; }
-  .urg-low      { background: #8eb89a; }
-  .urg-minimal  { background: #c8e0c8; }
 
-  .col-low      { background: var(--cell-low); }
-  .col-moderate { background: var(--cell-moderate); }
-  .col-elevated { background: var(--cell-elevated); }
-  .col-high     { background: var(--cell-high); }
+  /* Urgency bars — brand-neutral scale */
+  .urg-critical { background: var(--charcoal); }
+  .urg-high     { background: #444240; }
+  .urg-moderate { background: var(--stone); }
+  .urg-low      { background: #8a8884; }
+  .urg-minimal  { background: #c4c2be; }
 
-  .bar-absent     { background: var(--absent); }
-  .bar-adhoc      { background: var(--adhoc); }
-  .bar-structured { background: var(--structured); }
-  .bar-continuous { background: var(--continuous); }
-  .bar-embedded   { background: var(--embedded); }
+  /* Cell backgrounds — subtle tonal steps on paper */
+  .col-low      { background: rgba(28,30,35,0.02); }
+  .col-moderate { background: rgba(28,30,35,0.04); }
+  .col-elevated { background: rgba(28,30,35,0.065); }
+  .col-high     { background: rgba(28,30,35,0.09); }
+
+  /* Maturity bar colors — same neutral scale */
+  .bar-absent     { background: #dedad4; }
+  .bar-adhoc      { background: #c4c2be; }
+  .bar-structured { background: #8a8884; }
+  .bar-continuous { background: var(--stone); }
+  .bar-embedded   { background: var(--charcoal); }
+
+  /* Exposure dots — plain squares */
+  .dot-low      { background: rgba(28,30,35,0.12); }
+  .dot-moderate { background: rgba(28,30,35,0.28); }
+  .dot-elevated { background: rgba(28,30,35,0.50); }
+  .dot-high     { background: var(--charcoal); }
 
   .matrix-weight-note {
     font-size: 9px;
@@ -467,7 +480,7 @@
 
   .m-legend { display: flex; gap: 18px; margin-top: 16px; }
   .m-leg-item { display: flex; align-items: center; gap: 6px; font-size: 9px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-muted); }
-  .m-leg-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+  .m-leg-dot { width: 8px; height: 8px; flex-shrink: 0; }
 
   /* ── §4 ENGINE REASONING ── */
   .engine-grid {
@@ -491,7 +504,7 @@
   }
 
   .engine-title {
-    font-family: 'Libre Baskerville', serif;
+    font-family: Georgia, 'Times New Roman', serif;
     font-size: 14px;
     font-weight: 700;
     margin-bottom: 12px;
@@ -544,19 +557,18 @@
 
   .w-badge {
     display: inline-block;
-    background: var(--navy);
-    color: white;
+    background: var(--charcoal);
+    color: var(--paper);
     font-size: 9px;
     padding: 1px 7px;
-    border-radius: 2px;
     letter-spacing: 0.06em;
   }
 
   .guardrail-note {
     margin-top: 14px;
     padding: 10px 14px;
-    background: rgba(240,185,122,0.15);
-    border-left: 3px solid #f0b97a;
+    background: rgba(28,30,35,0.04);
+    border-left: 3px solid var(--stone);
     font-size: 10px;
     line-height: 1.5;
     color: var(--ink-soft);
@@ -565,13 +577,13 @@
   .urgency-note {
     margin-top: 14px;
     padding: 10px 14px;
-    background: rgba(30,54,72,0.05);
-    border-left: 3px solid var(--navy);
+    background: rgba(28,30,35,0.03);
+    border-left: 3px solid var(--charcoal);
     font-size: 10px;
     line-height: 1.5;
     color: var(--ink-soft);
     font-style: italic;
-    font-family: 'Libre Baskerville', serif;
+    font-family: Georgia, 'Times New Roman', serif;
   }
 
   /* ── §5 LIMITATIONS + FEEDBACK ── */
@@ -607,7 +619,7 @@
   }
 
   .feedback-block {
-    border: 1.5px solid var(--navy);
+    border: 1.5px solid var(--charcoal);
     padding: 22px 26px;
     display: flex;
     justify-content: space-between;
@@ -615,10 +627,8 @@
     gap: 24px;
   }
 
-  .fb-left {}
-
   .fb-title {
-    font-family: 'Libre Baskerville', serif;
+    font-family: Georgia, 'Times New Roman', serif;
     font-size: 14px;
     font-weight: 700;
     margin-bottom: 6px;
@@ -634,18 +644,19 @@
   .fb-link {
     font-size: 11px;
     font-weight: 500;
-    color: var(--navy);
+    color: var(--charcoal);
     text-decoration: none;
-    border-bottom: 1px solid var(--navy);
+    border-bottom: 1px solid var(--charcoal);
     white-space: nowrap;
     flex-shrink: 0;
     letter-spacing: 0.04em;
+    transition: color .15s, border-color .15s;
   }
 
   /* ── §6 CTA ── */
   .cta-section {
     padding: 56px 0;
-    background: var(--navy);
+    background: var(--charcoal);
     margin: 0 -40px;
     padding-left: 40px;
     padding-right: 40px;
@@ -657,41 +668,39 @@
     font-size: 9px;
     letter-spacing: 0.16em;
     text-transform: uppercase;
-    color: rgba(249,247,244,0.5);
+    color: rgba(248,247,245,0.45);
     margin-bottom: 12px;
   }
 
   .cta-title {
-    font-family: 'Libre Baskerville', serif;
+    font-family: Georgia, 'Times New Roman', serif;
     font-size: 24px;
     font-weight: 700;
-    color: #f9f7f4;
+    color: var(--paper);
     margin-bottom: 10px;
   }
 
   .cta-sub {
     font-size: 11px;
-    color: rgba(249,247,244,0.6);
+    color: rgba(248,247,245,0.55);
     margin-bottom: 28px;
     font-style: italic;
-    font-family: 'Libre Baskerville', serif;
+    font-family: Georgia, 'Times New Roman', serif;
   }
 
   .cta-btn {
     display: inline-block;
-    background: #c0392b;
-    color: white;
-    font-family: 'DM Mono', monospace;
+    background: var(--paper);
+    color: var(--charcoal);
+    font-family: Arial, Helvetica, sans-serif;
     font-size: 10px;
     letter-spacing: 0.12em;
     text-transform: uppercase;
     padding: 12px 28px;
-    border-radius: 2px;
     text-decoration: none;
-    transition: background 0.15s;
+    transition: opacity .15s;
   }
-
-  .cta-btn:hover { background: #e74c3c; }
+  .cta-btn:hover { opacity: 0.85; }
 
   /* ── PAGE FOOTER ── */
   .page-footer {
@@ -704,10 +713,21 @@
   }
 
   .pf-brand {
-    font-family: 'Libre Baskerville', serif;
+    font-family: Georgia, 'Times New Roman', serif;
     font-size: 12px;
     font-weight: 700;
-    color: var(--navy);
+    color: var(--charcoal);
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+
+  .pf-brand-dot {
+    display: inline-block;
+    width: 8px;
+    height: 2px;
+    background: var(--brass);
+    vertical-align: middle;
   }
 
   .pf-meta {
@@ -723,7 +743,7 @@
 
 <!-- NAV -->
 <nav class="nav">
-  <div class="nav-brand">Hexis</div>
+  <a href="/" class="nav-brand">Hexis<span class="nav-brand-dot"></span></a>
   <ul class="nav-links">
     <li><a href="#framework">Framework</a></li>
     <li><a href="#matrix">Matrix</a></li>
@@ -750,7 +770,7 @@
           Last reviewed: February 2026<br>
           Next scheduled review: February 2027<br>
           Update model: Internal review<br>
-          Feedback: <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="9ff2faebf7f0fbf0f3f0f8e6dff7fae7f6ecb1fcfaf1ebfaed">[email&#160;protected]</a>
+          Feedback: hello@hexis.center
         </div>
       </div>
     </div>
@@ -770,12 +790,12 @@
         <div class="phase-head">
           <div class="phase-number">Phase 01</div>
           <div class="phase-name">Diagnose</div>
-          <div class="phase-tagline">Identify & profile risk</div>
+          <div class="phase-tagline">Identify &amp; profile risk</div>
         </div>
         <div class="phase-body">
           <div class="phase-desc">Establish what the system does, who it affects, and what can go wrong.</div>
           <div class="phase-items">
-            <div class="phase-item">System scope & function</div>
+            <div class="phase-item">System scope &amp; function</div>
             <div class="phase-item">Human impact classification</div>
             <div class="phase-item">Regulatory sensitivity</div>
             <div class="phase-item">Technical uncertainty</div>
@@ -810,7 +830,7 @@
         <div class="phase-head">
           <div class="phase-number">Phase 03</div>
           <div class="phase-name">Govern</div>
-          <div class="phase-tagline">Position & activate</div>
+          <div class="phase-tagline">Position &amp; activate</div>
         </div>
         <div class="phase-body">
           <div class="phase-desc">Map coordinates to the activation matrix and derive the required posture.</div>
@@ -830,7 +850,7 @@
         <div class="phase-head">
           <div class="phase-number">Phase 04</div>
           <div class="phase-name">Sustain</div>
-          <div class="phase-tagline">Monitor & evolve</div>
+          <div class="phase-tagline">Monitor &amp; evolve</div>
         </div>
         <div class="phase-body">
           <div class="phase-desc">Maintain governance posture as the system, context, and regulations change.</div>
@@ -838,7 +858,7 @@
             <div class="phase-item">Reassessment cycle</div>
             <div class="phase-item">Maturity progression</div>
             <div class="phase-item">Regulatory change monitoring</div>
-            <div class="phase-item">Audit & external review</div>
+            <div class="phase-item">Audit &amp; external review</div>
             <div class="phase-item">Version-controlled docs</div>
           </div>
           <div class="phase-anchor">EU AI Act Art. 72 · ISO 42001 §10 · NIST Manage</div>
@@ -874,15 +894,15 @@
       <div class="m-grid">
 
         <div class="corner"><span>maturity ↓ / exposure →</span></div>
-        <div class="exp-h"><div class="exp-dot" style="background:var(--cell-low)"></div><div class="exp-lbl">Low</div></div>
-        <div class="exp-h"><div class="exp-dot" style="background:var(--cell-moderate)"></div><div class="exp-lbl">Moderate</div></div>
-        <div class="exp-h"><div class="exp-dot" style="background:var(--cell-elevated)"></div><div class="exp-lbl">Elevated</div></div>
-        <div class="exp-h"><div class="exp-dot" style="background:var(--cell-high)"></div><div class="exp-lbl">High</div></div>
+        <div class="exp-h"><div class="exp-dot dot-low"></div><div class="exp-lbl">Low</div></div>
+        <div class="exp-h"><div class="exp-dot dot-moderate"></div><div class="exp-lbl">Moderate</div></div>
+        <div class="exp-h"><div class="exp-dot dot-elevated"></div><div class="exp-lbl">Elevated</div></div>
+        <div class="exp-h"><div class="exp-dot dot-high"></div><div class="exp-lbl">High</div></div>
 
         <!-- ABSENT -->
         <div class="mat-h"><div class="mat-lbl">Absent</div><div class="mat-bar-line bar-absent"></div></div>
-        <div class="mcell col-low"><div class="u-bar urg-low"></div><div class="mc-action">Define Governance Scope</div><div class="mc-tag">Map boundaries & impact</div></div>
-        <div class="mcell col-moderate"><div class="u-bar urg-moderate"></div><div class="mc-action">Initiate Minimum Governance</div><div class="mc-tag">Establish ownership & controls</div></div>
+        <div class="mcell col-low"><div class="u-bar urg-low"></div><div class="mc-action">Define Governance Scope</div><div class="mc-tag">Map boundaries &amp; impact</div></div>
+        <div class="mcell col-moderate"><div class="u-bar urg-moderate"></div><div class="mc-action">Initiate Minimum Governance</div><div class="mc-tag">Establish ownership &amp; controls</div></div>
         <div class="mcell col-elevated"><div class="u-bar urg-high"></div><div class="mc-action">Assign Risk Owner Immediately</div><div class="mc-tag">Structure accountability now</div></div>
         <div class="mcell col-high"><div class="u-bar urg-critical"></div><div class="mc-action">Intervene — Suspend or Constrain</div><div class="mc-tag">No operation without oversight</div></div>
 
@@ -890,28 +910,28 @@
         <div class="mat-h"><div class="mat-lbl">Ad Hoc</div><div class="mat-bar-line bar-adhoc"></div></div>
         <div class="mcell col-low"><div class="u-bar urg-minimal"></div><div class="mc-action">Begin Light Structuring</div><div class="mc-tag">Document existing practices</div></div>
         <div class="mcell col-moderate"><div class="u-bar urg-low"></div><div class="mc-action">Define Repeatable Processes</div><div class="mc-tag">Assign ownership, start docs</div></div>
-        <div class="mcell col-elevated"><div class="u-bar urg-moderate"></div><div class="mc-action">Formalize Oversight Structure</div><div class="mc-tag">Set roles & review cadence</div></div>
+        <div class="mcell col-elevated"><div class="u-bar urg-moderate"></div><div class="mc-action">Formalize Oversight Structure</div><div class="mc-tag">Set roles &amp; review cadence</div></div>
         <div class="mcell col-high"><div class="u-bar urg-high"></div><div class="mc-action">Activate Formal Governance Now</div><div class="mc-tag">Mandate human oversight</div></div>
 
         <!-- STRUCTURED -->
         <div class="mat-h"><div class="mat-lbl">Structured</div><div class="mat-bar-line bar-structured"></div></div>
-        <div class="mcell col-low"><div class="u-bar urg-minimal"></div><div class="mc-action">Observe & Stabilize</div><div class="mc-tag">Confirm coverage periodically</div></div>
-        <div class="mcell col-moderate"><div class="u-bar urg-minimal"></div><div class="mc-action">Define & Track Metrics</div><div class="mc-tag">Build monitoring baseline</div></div>
+        <div class="mcell col-low"><div class="u-bar urg-minimal"></div><div class="mc-action">Observe &amp; Stabilize</div><div class="mc-tag">Confirm coverage periodically</div></div>
+        <div class="mcell col-moderate"><div class="u-bar urg-minimal"></div><div class="mc-action">Define &amp; Track Metrics</div><div class="mc-tag">Build monitoring baseline</div></div>
         <div class="mcell col-elevated"><div class="u-bar urg-low"></div><div class="mc-action">Activate Monitoring Cadence</div><div class="mc-tag">Schedule review cycles</div></div>
-        <div class="mcell col-high"><div class="u-bar urg-moderate"></div><div class="mc-action">Intensify Monitoring & Clarify Roles</div><div class="mc-tag">Define escalation path</div></div>
+        <div class="mcell col-high"><div class="u-bar urg-moderate"></div><div class="mc-action">Intensify Monitoring &amp; Clarify Roles</div><div class="mc-tag">Define escalation path</div></div>
 
         <!-- CONTINUOUS -->
         <div class="mat-h"><div class="mat-lbl">Continuous</div><div class="mat-bar-line bar-continuous"></div></div>
         <div class="mcell col-low"><div class="u-bar urg-minimal"></div><div class="mc-action">Run Periodic Checks</div><div class="mc-tag">Verify controls efficient</div></div>
-        <div class="mcell col-moderate"><div class="u-bar urg-minimal"></div><div class="mc-action">Optimize Coverage & Efficiency</div><div class="mc-tag">Review scope vs. changes</div></div>
-        <div class="mcell col-elevated"><div class="u-bar urg-low"></div><div class="mc-action">Track Performance & Detect Drift</div><div class="mc-tag">Enable drift alerting</div></div>
-        <div class="mcell col-high"><div class="u-bar urg-moderate"></div><div class="mc-action">Run Audit & Stress Test</div><div class="mc-tag">Review bias & failure modes</div></div>
+        <div class="mcell col-moderate"><div class="u-bar urg-minimal"></div><div class="mc-action">Optimize Coverage &amp; Efficiency</div><div class="mc-tag">Review scope vs. changes</div></div>
+        <div class="mcell col-elevated"><div class="u-bar urg-low"></div><div class="mc-action">Track Performance &amp; Detect Drift</div><div class="mc-tag">Enable drift alerting</div></div>
+        <div class="mcell col-high"><div class="u-bar urg-moderate"></div><div class="mc-action">Run Audit &amp; Stress Test</div><div class="mc-tag">Review bias &amp; failure modes</div></div>
 
         <!-- EMBEDDED -->
         <div class="mat-h row-last"><div class="mat-lbl">Embedded</div><div class="mat-bar-line bar-embedded"></div></div>
         <div class="mcell col-low row-last"><div class="u-bar urg-minimal"></div><div class="mc-action">Maintain Standard Operations</div><div class="mc-tag">No immediate action</div></div>
-        <div class="mcell col-moderate row-last"><div class="u-bar urg-minimal"></div><div class="mc-action">Maintain & Schedule Reassessment</div><div class="mc-tag">Annual regulatory review</div></div>
-        <div class="mcell col-elevated row-last"><div class="u-bar urg-minimal"></div><div class="mc-action">Sustain & Verify Alignment</div><div class="mc-tag">Check scope or context changes</div></div>
+        <div class="mcell col-moderate row-last"><div class="u-bar urg-minimal"></div><div class="mc-action">Maintain &amp; Schedule Reassessment</div><div class="mc-tag">Annual regulatory review</div></div>
+        <div class="mcell col-elevated row-last"><div class="u-bar urg-minimal"></div><div class="mc-action">Sustain &amp; Verify Alignment</div><div class="mc-tag">Check scope or context changes</div></div>
         <div class="mcell col-high row-last"><div class="u-bar urg-low"></div><div class="mc-action">Maintain Continuous Assurance</div><div class="mc-tag">Commission external audit</div></div>
 
       </div>
@@ -922,10 +942,10 @@
     </div>
 
     <div class="m-legend">
-      <div class="m-leg-item"><div class="m-leg-dot" style="background:var(--cell-low);border:1px solid var(--rule)"></div>Low</div>
-      <div class="m-leg-item"><div class="m-leg-dot" style="background:var(--cell-moderate);border:1px solid var(--rule)"></div>Moderate</div>
-      <div class="m-leg-item"><div class="m-leg-dot" style="background:var(--cell-elevated);border:1px solid var(--rule)"></div>Elevated</div>
-      <div class="m-leg-item"><div class="m-leg-dot" style="background:var(--cell-high);border:1px solid var(--rule)"></div>High</div>
+      <div class="m-leg-item"><div class="m-leg-dot" style="background:rgba(28,30,35,0.12);border:1px solid rgba(28,30,35,0.14)"></div>Low</div>
+      <div class="m-leg-item"><div class="m-leg-dot" style="background:rgba(28,30,35,0.28)"></div>Moderate</div>
+      <div class="m-leg-item"><div class="m-leg-dot" style="background:rgba(28,30,35,0.50)"></div>Elevated</div>
+      <div class="m-leg-item"><div class="m-leg-dot" style="background:var(--charcoal)"></div>High</div>
     </div>
   </div>
 </section>
@@ -953,14 +973,14 @@
       <!-- Maturity dimensions -->
       <div class="engine-block">
         <div class="engine-label">Component 02</div>
-        <div class="engine-title">Maturity Dimensions & Weights</div>
+        <div class="engine-title">Maturity Dimensions &amp; Weights</div>
         <table class="weight-table">
           <thead>
             <tr><th>Dimension</th><th>Weight</th><th>Regulatory basis</th></tr>
           </thead>
           <tbody>
             <tr><td><strong>Oversight</strong></td><td><span class="w-badge">1.5</span></td><td>EU AI Act Art. 14 — human oversight obligations</td></tr>
-            <tr><td><strong>Monitoring</strong></td><td><span class="w-badge">1.4</span></td><td>NIST AI RMF Measure & Manage — drift detection</td></tr>
+            <tr><td><strong>Monitoring</strong></td><td><span class="w-badge">1.4</span></td><td>NIST AI RMF Measure &amp; Manage — drift detection</td></tr>
             <tr><td><strong>Documentation</strong></td><td><span class="w-badge">1.0</span></td><td>ISO 42001 §8 — audit readiness, accountability</td></tr>
           </tbody>
         </table>
@@ -988,7 +1008,7 @@
 <section id="limitations">
   <div class="container">
     <div class="sec-label">Section 04</div>
-    <div class="sec-title">Limitations & Feedback</div>
+    <div class="sec-title">Limitations &amp; Feedback</div>
     <div class="sec-lead">Hexis v1.0 is designed for transparency about what it does and does not do.</div>
 
     <div class="limits-grid">
@@ -1012,10 +1032,10 @@
 
     <div class="feedback-block">
       <div class="fb-left">
-        <div class="fb-title">Feedback & Methodology Input</div>
+        <div class="fb-title">Feedback &amp; Methodology Input</div>
         <div class="fb-text">We welcome substantive feedback on the Hexis methodology. Inputs are reviewed during annual methodology updates (next: February 2027) and credited where incorporated. V1 updates are determined by Hexis based on internal review, regulatory developments, and implementation insights.</div>
       </div>
-      <a href="/cdn-cgi/l/email-protection#f59890819d9a919a999a928cb59d908d9c86db96909b819087" class="fb-link"><span class="__cf_email__" data-cfemail="a8c5cddcc0c7ccc7c4c7cfd1e8c0cdd0c1db86cbcdc6dccdda">[email&#160;protected]</span></a>
+      <a href="mailto:hello@hexis.center" class="fb-link">hello@hexis.center</a>
     </div>
   </div>
 </section>
@@ -1030,3 +1050,9 @@
 
 <!-- PAGE FOOTER -->
 <footer class="page-footer">
+  <div class="pf-brand">Hexis<span class="pf-brand-dot"></span></div>
+  <div class="pf-meta">Methodology v1.0 · February 2026<br>hexis.center/methodology</div>
+</footer>
+
+</body>
+</html>
