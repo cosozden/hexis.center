@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ISO 42001 ve Governance Olgunluğu · Hexis</title>
+<link rel="canonical" href="https://hexis.center/blog/iso-42001-governance-olgunlugu/">
+<meta name="description" content="ISO/IEC 42001 nedir, EU AI Act ile nasıl kesişir ve sıfırdan başlayan bir şirket için pratik ilk adımlar neler? Governance olgunluğuna yapılandırılmış bir bakış.">
+<meta property="og:title" content="ISO 42001 ve Governance Olgunluğu · Hexis">
+<meta property="og:description" content="Bir AI yönetim sistemi kurmak için pratik başlangıç noktaları.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://hexis.center/blog/iso-42001-governance-olgunlugu/">
+<meta property="og:image" content="https://hexis.center/assets/og-hexis.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="ISO 42001 ve Governance Olgunluğu · Hexis">
+<meta name="twitter:description" content="Bir AI yönetim sistemi kurmak için pratik başlangıç noktaları.">
+<meta name="twitter:image" content="https://hexis.center/assets/og-hexis.png">
+<link rel="icon" href="/assets/favicon.ico">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --charcoal: #1C1E23;
+    --stone:    #686662;
+    --paper:    #F8F7F5;
+    --ink:      #1C1E23;
+    --ink-soft: #444240;
+    --ink-muted:#686662;
+    --rule:     rgba(28,30,35,0.12);
+  }
+
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 15px;
+    line-height: 1.7;
+  }
+
+  /* ── NAV ── */
+  nav {
+    background: var(--charcoal);
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 32px; height: 56px;
+  }
+  .nav-back {
+    font-size: 9px; letter-spacing: 0.1em; text-transform: uppercase;
+    color: rgba(248,247,245,0.5); text-decoration: none;
+    transition: color .15s;
+  }
+  .nav-back:hover { color: rgba(248,247,245,0.85); }
+  .nav-logo { display: flex; align-items: center; }
+  .nav-logo img { height: 32px; width: auto; display: block; }
+
+  /* ── ARTICLE HEADER ── */
+  .article-header {
+    border-bottom: 2px solid var(--ink);
+    padding: 48px 0 32px;
+    margin-bottom: 40px;
+  }
+  .article-inner {
+    max-width: 680px; margin: 0 auto; padding: 0 24px;
+  }
+  .article-category {
+    font-size: 9px; letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--stone); font-family: Arial, sans-serif;
+    margin-bottom: 16px;
+  }
+  .article-title {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: clamp(24px, 4vw, 36px);
+    font-weight: 700; line-height: 1.15; letter-spacing: -0.02em;
+    color: var(--ink); margin-bottom: 12px;
+  }
+  .article-subtitle {
+    font-size: 15px; color: var(--ink-soft); line-height: 1.5;
+    font-family: Georgia, serif; font-style: italic;
+    margin-bottom: 24px;
+  }
+  .article-meta {
+    font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase;
+    color: var(--stone);
+  }
+
+  /* ── ARTICLE BODY ── */
+  .article-body {
+    max-width: 680px; margin: 0 auto; padding: 0 24px 64px;
+  }
+  .article-body p {
+    margin-bottom: 20px;
+    color: var(--ink-soft);
+  }
+  .article-body p:first-child { color: var(--ink); }
+
+  .article-body h2 {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 20px; font-weight: 700;
+    color: var(--ink); margin: 40px 0 16px;
+    padding-top: 40px; border-top: 1px solid var(--rule);
+  }
+
+  .compare-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 1px;
+    background: var(--rule); margin: 24px 0;
+  }
+  .compare-cell {
+    background: var(--paper); padding: 16px 20px;
+  }
+  .compare-label {
+    font-size: 9px; letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--stone); margin-bottom: 8px; font-family: Arial, sans-serif;
+  }
+  .compare-title {
+    font-family: Georgia, serif; font-weight: 700; font-size: 13px;
+    color: var(--ink); margin-bottom: 8px;
+  }
+  .compare-body {
+    font-size: 12px; color: var(--ink-soft); line-height: 1.65;
+  }
+
+  .steps-list {
+    counter-reset: step;
+    list-style: none;
+    display: flex; flex-direction: column; gap: 0;
+    margin: 24px 0;
+    border: 1px solid var(--rule);
+  }
+  .steps-list li {
+    counter-increment: step;
+    display: flex; gap: 20px; align-items: flex-start;
+    padding: 18px 20px;
+    border-bottom: 1px solid var(--rule);
+  }
+  .steps-list li:last-child { border-bottom: none; }
+  .step-num {
+    font-family: Georgia, serif; font-weight: 700; font-size: 20px;
+    color: var(--ink); min-width: 24px; line-height: 1.2; flex-shrink: 0;
+  }
+  .step-body { flex: 1; }
+  .step-title {
+    font-size: 12px; font-weight: 700; letter-spacing: 0.04em;
+    color: var(--ink); margin-bottom: 6px;
+  }
+  .step-desc {
+    font-size: 13px; color: var(--ink-soft); line-height: 1.65;
+  }
+
+  .mapping-block {
+    border: 1px solid var(--rule); margin: 24px 0;
+  }
+  .mapping-row {
+    display: grid; grid-template-columns: 1fr 1fr;
+    border-bottom: 1px solid var(--rule);
+  }
+  .mapping-row:last-child { border-bottom: none; }
+  .mapping-cell {
+    padding: 12px 16px; font-size: 12px; color: var(--ink-soft); line-height: 1.5;
+  }
+  .mapping-cell:first-child {
+    border-right: 1px solid var(--rule);
+    font-weight: 700; color: var(--ink); font-size: 11px;
+  }
+  .mapping-head .mapping-cell {
+    font-size: 9px; letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--stone); font-weight: 400;
+    background: rgba(28,30,35,0.02);
+  }
+  .mapping-head .mapping-cell:first-child { color: var(--stone); font-weight: 400; }
+
+  .perspective-block {
+    border: 1px solid var(--rule); padding: 20px 24px; margin: 32px 0;
+    background: rgba(28,30,35,0.02);
+  }
+  .perspective-label {
+    font-size: 9px; letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--stone); margin-bottom: 12px;
+  }
+  .perspective-block p {
+    font-family: Georgia, serif; font-style: italic;
+    font-size: 14px; line-height: 1.7; color: var(--ink-soft);
+    margin-bottom: 14px;
+  }
+  .perspective-block p:last-child { margin-bottom: 0; }
+
+  .cta-block {
+    background: var(--charcoal); color: var(--paper);
+    padding: 28px 32px; margin: 40px 0;
+    display: flex; gap: 24px; align-items: center; justify-content: space-between;
+    flex-wrap: wrap;
+  }
+  .cta-block-text { font-size: 13px; line-height: 1.6; max-width: 440px; color: rgba(248,247,245,0.8); }
+  .cta-block-link {
+    font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--paper); text-decoration: none;
+    border: 1px solid rgba(248,247,245,0.35); padding: 9px 18px;
+    white-space: nowrap; transition: border-color .15s; flex-shrink: 0;
+  }
+  .cta-block-link:hover { border-color: rgba(248,247,245,0.8); }
+
+  /* ── FOOTER ── */
+  .article-footer {
+    border-top: 1px solid var(--rule);
+    padding: 20px 24px;
+    max-width: 680px; margin: 0 auto;
+    display: flex; align-items: center; gap: 12px;
+  }
+  .article-footer img { height: 20px; width: auto; opacity: 0.7; }
+  .article-footer-meta { font-size: 10px; color: var(--stone); letter-spacing: 0.06em; }
+
+  @media (max-width: 600px) {
+    nav { padding: 0 20px; }
+    .article-inner, .article-body { padding: 0 16px; }
+    .article-header { padding: 32px 0 24px; }
+    .compare-grid, .mapping-row { grid-template-columns: 1fr; }
+    .mapping-cell:first-child { border-right: none; border-bottom: 1px solid var(--rule); }
+    .cta-block { padding: 20px; flex-direction: column; align-items: flex-start; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="/" class="nav-back">← hexis.center</a>
+  <a href="/" class="nav-logo">
+    <img src="/assets/logo-light.png" alt="Hexis">
+  </a>
+</nav>
+
+<div class="article-header">
+  <div class="article-inner">
+    <div class="article-category">ISO 42001</div>
+    <h1 class="article-title">ISO 42001 ve Governance Olgunluğu</h1>
+    <div class="article-subtitle">Bir AI yönetim sistemi kurmak için pratik başlangıç noktaları</div>
+    <div class="article-meta">Hexis · Şubat 2026</div>
+  </div>
+</div>
+
+<div class="article-body">
+
+  <p>ISO/IEC 42001, yapay zekâ yönetim sistemleri için uluslararası standarttır. 2023'te yayınlanan bu standart, organizasyonların AI sistemlerini sorumlu bir şekilde geliştirmesi, kullanması ve yönetmesi için bir çerçeve sunuyor.</p>
+
+  <p>Ama önce bir şeyi netleştirelim: ISO 42001 bir uyumluluk belgesi değil, bir yönetim sistemi standardıdır.</p>
+
+  <h2>ISO 42001 Nedir, Ne Değildir?</h2>
+
+  <p>ISO 42001, organizasyonunuzun AI ile ilgili riskleri nasıl tanımladığını, yönettiğini ve izlediğini sistemleştiriyor. ISO 9001'in kalite yönetimi için yaptığını, ISO 42001 AI yönetimi için yapıyor.</p>
+
+  <div class="compare-grid">
+    <div class="compare-cell">
+      <div class="compare-label">ISO 42001 Nedir</div>
+      <div class="compare-body">AI risklerini tanımlama, yönetme ve izleme süreçlerini sistemleştiren bir yönetim sistemi standardı. Süreçlerin varlığını ve tutarlılığını yapılandırır.</div>
+    </div>
+    <div class="compare-cell">
+      <div class="compare-label">ISO 42001 Ne Değildir</div>
+      <div class="compare-body">Bir kontrol listesi değil. Sertifika almak, AI sistemlerinizin güvenli veya etik olduğunu garanti etmiyor. Standart süreçlerin varlığını doğrular, sonuçları değil.</div>
+    </div>
+  </div>
+
+  <p>Ayrıca ISO 42001, EU AI Act'in yerini tutmuyor. İkisi farklı sorulara yanıt veriyor: EU AI Act "bu sistem yasal mı?" sorusunu, ISO 42001 ise "bu sistemi nasıl yönetiyoruz?" sorusunu ele alıyor.</p>
+
+  <h2>EU AI Act ile Nerede Kesişiyor?</h2>
+
+  <p>Bu iki çerçeve birbirini tamamlıyor. EU AI Act yüksek riskli sistemler için teknik dokümantasyon, risk yönetimi ve insan denetimi zorunlu kılıyor. ISO 42001 ise tam olarak bu gereksinimleri karşılayacak yönetim altyapısını kurmak için bir yol haritası sunuyor.</p>
+
+  <p>Pratik olarak şu anlama geliyor: EU AI Act uyumluluğunu hedefleyen bir organizasyon için ISO 42001, rastgele önlemler almak yerine sistematik bir yapı kurmanın en verimli yolu. Standart, hangi süreçlerin hangi sırayla kurulması gerektiğini gösteriyor.</p>
+
+  <h2>Governance Olgunluğu Nasıl Ölçülür?</h2>
+
+  <p>ISO 42001, yönetim olgunluğunu dört temel boyutta değerlendiriyor: liderlik ve taahhüt, risk yönetimi süreçleri, operasyonel kontroller ve sürekli iyileştirme.</p>
+
+  <p>Bu boyutlar Hexis Modeli'nin dört fazıyla doğrudan örtüşüyor:</p>
+
+  <div class="mapping-block">
+    <div class="mapping-row mapping-head">
+      <div class="mapping-cell">Hexis Modeli</div>
+      <div class="mapping-cell">ISO 42001 Karşılığı</div>
+    </div>
+    <div class="mapping-row">
+      <div class="mapping-cell">Diagnose</div>
+      <div class="mapping-cell">Risk değerlendirme gereksinimleri — sistemin kapsamı ve etki alanının belirlenmesi</div>
+    </div>
+    <div class="mapping-row">
+      <div class="mapping-cell">Structure</div>
+      <div class="mapping-cell">Sorumluluk ve hesap verebilirlik yapıları — kim neye yetkili, kim neye hesap veriyor</div>
+    </div>
+    <div class="mapping-row">
+      <div class="mapping-cell">Govern</div>
+      <div class="mapping-cell">Operasyonel kontroller — AI sisteminin tüm yaşam döngüsünde denetim mekanizmaları</div>
+    </div>
+    <div class="mapping-row">
+      <div class="mapping-cell">Sustain</div>
+      <div class="mapping-cell">Sürekli iyileştirme döngüsü — değişen bağlam ve düzenlemelere adaptasyon</div>
+    </div>
+  </div>
+
+  <p>Olgunluk bir ikili durum değil, bir spektrum. "Uyumlu" ya da "uyumsuz" yerine doğru soru şu: organizasyonunuz şu an bu spektrumun neresinde?</p>
+
+  <h2>Sıfırdan Başlayan Bir Şirket İçin Pratik İlk Adımlar</h2>
+
+  <p>Çoğu organizasyon ISO 42001'e "nereden başlayacağız?" sorusuyla yaklaşıyor. Yanıt her zaman aynı: envanterle başla.</p>
+
+  <ul class="steps-list">
+    <li>
+      <div class="step-num">1</div>
+      <div class="step-body">
+        <div class="step-title">AI Sistemi Envanteri Çıkarın</div>
+        <div class="step-desc">Organizasyonunuzdaki tüm AI sistemlerini ve araçlarını listeleyin. Dahili geliştirilen sistemler, satın alınan SaaS araçları, entegre edilen API'ler — hepsi bu envantere giriyor. Neyi yönettiğinizi bilmeden yönetim sistemi geliştiremezsiniz.</div>
+      </div>
+    </li>
+    <li>
+      <div class="step-num">2</div>
+      <div class="step-body">
+        <div class="step-title">Her Sistem İçin Temel Soruları Yanıtlayın</div>
+        <div class="step-desc">Bu sistem ne yapıyor? Kim sorumlu? Hangi verilerle çalışıyor? İnsan denetimi nasıl işliyor? Bu sorular hem ISO 42001 hem de EU AI Act için başlangıç noktası.</div>
+      </div>
+    </li>
+    <li>
+      <div class="step-num">3</div>
+      <div class="step-body">
+        <div class="step-title">Boşlukları Belgeleyin</div>
+        <div class="step-desc">Hangi süreçler var, hangilerinin kurulması gerekiyor? Bu boşluk analizi, standardın gereksinimlerini organizasyonunuzun gerçeğiyle eşleştiriyor.</div>
+      </div>
+    </li>
+  </ul>
+
+  <h2>Hexis Perspektifi</h2>
+
+  <div class="perspective-block">
+    <div class="perspective-label">Hexis · Governance Perspectives</div>
+    <p>ISO 42001 sertifikasyonu bir hedef olarak görüldüğünde, süreç çoğu zaman belge üretimine dönüşüyor. Politikalar yazılıyor, prosedürler hazırlanıyor, denetim geçiliyor. Sonra ne olduğu belli: belgeler çekmecelerde bekliyor, gerçek yönetim pratiği değişmiyor.</p>
+    <p>Hexis'in yaklaşımı farklı. Standart, bir yönelim aracı. ISO 42001'in asıl değeri sertifika değil, organizasyonun AI sistemleriyle ilişkisini sistemleştirme sürecinde ortaya çıkıyor. Hangi soruları sormamız gerektiğini, kimin neye hesap vereceğini ve ne zaman gözden geçireceğimizi belirlemek, belgelerin kendisinden çok daha önemli.</p>
+    <p>Governance olgunluğu, doğru belgelere sahip olmak değil. Doğru soruları sormayı alışkanlık haline getirmek.</p>
+  </div>
+
+  <h2>Sonuç</h2>
+
+  <p>ISO 42001, AI governance için güçlü bir çerçeve. Ama çerçeve, onu kullanan organizasyonun niyeti kadar değerli.</p>
+
+  <p>Başlangıç noktası basit: AI sistemi envanterinizi çıkarın. Neyi yönettiğinizi bilmeden, nasıl yöneteceğinizi bilemezsiniz.</p>
+
+  <div class="cta-block">
+    <div class="cta-block-text">Hexis'in EU AI Act + KVKK Hazırlık Kontrol Listesi bu ilk adımı yapılandırılmış bir şekilde atmanıza yardımcı olmak için tasarlandı.</div>
+    <a href="/#tools" class="cta-block-link">Kontrol Listesine Git →</a>
+  </div>
+
+</div>
+
+<footer>
+  <div class="article-footer">
+    <a href="/"><img src="/assets/logo.png" alt="Hexis"></a>
+    <div class="article-footer-meta">hexis.center · Governance Perspectives · Şubat 2026</div>
+  </div>
+</footer>
+
+</body>
+</html>
