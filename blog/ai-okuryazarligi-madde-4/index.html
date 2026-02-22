@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Okuryazarlığı: Madde 4 Yükümlülüğü Ne Gerektirir? · Hexis</title>
+<link rel="canonical" href="https://hexis.center/blog/ai-okuryazarligi-madde-4/">
+<meta name="description" content="EU AI Act Madde 4 AI okuryazarlığı yükümlülüğü: kapsam, pozisyon bazlı beklentiler ve şirketlerin uyum için atabileceği pratik adımlar.">
+<meta property="og:title" content="AI Okuryazarlığı: Madde 4 Yükümlülüğü Ne Gerektirir? · Hexis">
+<meta property="og:description" content="Şirketlerin personeline karşı sorumluluğu ve uygulamada ne anlama geliyor.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://hexis.center/blog/ai-okuryazarligi-madde-4/">
+<meta property="og:image" content="https://hexis.center/assets/og-hexis.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="AI Okuryazarlığı: Madde 4 Yükümlülüğü Ne Gerektirir? · Hexis">
+<meta name="twitter:description" content="Şirketlerin personeline karşı sorumluluğu ve uygulamada ne anlama geliyor.">
+<meta name="twitter:image" content="https://hexis.center/assets/og-hexis.png">
+<link rel="icon" href="/assets/favicon.ico">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --charcoal: #1C1E23;
+    --stone:    #686662;
+    --paper:    #F8F7F5;
+    --ink:      #1C1E23;
+    --ink-soft: #444240;
+    --ink-muted:#686662;
+    --rule:     rgba(28,30,35,0.12);
+  }
+
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 15px;
+    line-height: 1.7;
+  }
+
+  /* ── NAV ── */
+  nav {
+    background: var(--charcoal);
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 32px; height: 56px;
+  }
+  .nav-back {
+    font-size: 9px; letter-spacing: 0.1em; text-transform: uppercase;
+    color: rgba(248,247,245,0.5); text-decoration: none;
+    transition: color .15s;
+  }
+  .nav-back:hover { color: rgba(248,247,245,0.85); }
+  .nav-logo { display: flex; align-items: center; }
+  .nav-logo img { height: 32px; width: auto; display: block; }
+
+  /* ── ARTICLE HEADER ── */
+  .article-header {
+    border-bottom: 2px solid var(--ink);
+    padding: 48px 0 32px;
+    margin-bottom: 40px;
+  }
+  .article-inner {
+    max-width: 680px; margin: 0 auto; padding: 0 24px;
+  }
+  .article-category {
+    font-size: 9px; letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--stone); font-family: Arial, sans-serif;
+    margin-bottom: 16px;
+  }
+  .article-title {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: clamp(24px, 4vw, 36px);
+    font-weight: 700; line-height: 1.15; letter-spacing: -0.02em;
+    color: var(--ink); margin-bottom: 12px;
+  }
+  .article-subtitle {
+    font-size: 15px; color: var(--ink-soft); line-height: 1.5;
+    font-family: Georgia, serif; font-style: italic;
+    margin-bottom: 24px;
+  }
+  .article-meta {
+    font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase;
+    color: var(--stone);
+  }
+
+  /* ── ARTICLE BODY ── */
+  .article-body {
+    max-width: 680px; margin: 0 auto; padding: 0 24px 64px;
+  }
+  .article-body p {
+    margin-bottom: 20px;
+    color: var(--ink-soft);
+  }
+  .article-body p:first-child { color: var(--ink); }
+
+  .article-body h2 {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 20px; font-weight: 700;
+    color: var(--ink); margin: 40px 0 16px;
+    padding-top: 40px; border-top: 1px solid var(--rule);
+  }
+
+  .dimensions-list {
+    list-style: none; margin: 20px 0 24px;
+    display: flex; flex-direction: column; gap: 0;
+    border: 1px solid var(--rule);
+  }
+  .dimensions-list li {
+    padding: 14px 18px;
+    border-bottom: 1px solid var(--rule);
+    font-size: 13px; color: var(--ink-soft); line-height: 1.65;
+    display: flex; gap: 14px; align-items: flex-start;
+  }
+  .dimensions-list li:last-child { border-bottom: none; }
+  .dim-num {
+    font-family: Georgia, serif; font-weight: 700; font-size: 11px;
+    color: var(--stone); min-width: 18px; flex-shrink: 0;
+    letter-spacing: 0.06em; text-transform: uppercase; padding-top: 2px;
+  }
+  .dim-body strong { color: var(--ink); font-weight: 700; }
+
+  .level-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 1px;
+    background: var(--rule); margin: 24px 0;
+  }
+  .level-cell {
+    background: var(--paper); padding: 18px 20px;
+  }
+  .level-label {
+    font-size: 9px; letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--stone); margin-bottom: 10px; font-family: Arial, sans-serif;
+  }
+  .level-title {
+    font-family: Georgia, serif; font-weight: 700; font-size: 13px;
+    color: var(--ink); margin-bottom: 8px;
+  }
+  .level-body {
+    font-size: 12px; color: var(--ink-soft); line-height: 1.65;
+  }
+
+  .steps-list {
+    list-style: none; margin: 20px 0 24px;
+    display: flex; flex-direction: column; gap: 0;
+    border: 1px solid var(--rule);
+  }
+  .steps-list li {
+    display: flex; gap: 20px; align-items: flex-start;
+    padding: 18px 20px;
+    border-bottom: 1px solid var(--rule);
+  }
+  .steps-list li:last-child { border-bottom: none; }
+  .step-num {
+    font-family: Georgia, serif; font-weight: 700; font-size: 20px;
+    color: var(--ink); min-width: 24px; line-height: 1.2; flex-shrink: 0;
+  }
+  .step-body { flex: 1; }
+  .step-title {
+    font-size: 12px; font-weight: 700; letter-spacing: 0.04em;
+    color: var(--ink); margin-bottom: 6px;
+  }
+  .step-desc {
+    font-size: 13px; color: var(--ink-soft); line-height: 1.65;
+  }
+
+  .perspective-block {
+    border: 1px solid var(--rule); padding: 20px 24px; margin: 32px 0;
+    background: rgba(28,30,35,0.02);
+  }
+  .perspective-label {
+    font-size: 9px; letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--stone); margin-bottom: 12px;
+  }
+  .perspective-block p {
+    font-family: Georgia, serif; font-style: italic;
+    font-size: 14px; line-height: 1.7; color: var(--ink-soft);
+    margin-bottom: 14px;
+  }
+  .perspective-block p:last-child { margin-bottom: 0; }
+
+  .cta-block {
+    background: var(--charcoal); color: var(--paper);
+    padding: 28px 32px; margin: 40px 0;
+    display: flex; gap: 24px; align-items: center; justify-content: space-between;
+    flex-wrap: wrap;
+  }
+  .cta-block-text { font-size: 13px; line-height: 1.6; max-width: 440px; color: rgba(248,247,245,0.8); }
+  .cta-block-link {
+    font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--paper); text-decoration: none;
+    border: 1px solid rgba(248,247,245,0.35); padding: 9px 18px;
+    white-space: nowrap; transition: border-color .15s; flex-shrink: 0;
+  }
+  .cta-block-link:hover { border-color: rgba(248,247,245,0.8); }
+
+  /* ── FOOTER ── */
+  .article-footer {
+    border-top: 1px solid var(--rule);
+    padding: 20px 24px;
+    max-width: 680px; margin: 0 auto;
+    display: flex; align-items: center; gap: 12px;
+  }
+  .article-footer img { height: 20px; width: auto; opacity: 0.7; }
+  .article-footer-meta { font-size: 10px; color: var(--stone); letter-spacing: 0.06em; }
+
+  @media (max-width: 600px) {
+    nav { padding: 0 20px; }
+    .article-inner, .article-body { padding: 0 16px; }
+    .article-header { padding: 32px 0 24px; }
+    .level-grid { grid-template-columns: 1fr; }
+    .cta-block { padding: 20px; flex-direction: column; align-items: flex-start; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="/" class="nav-back">← hexis.center</a>
+  <a href="/" class="nav-logo">
+    <img src="/assets/logo-light.png" alt="Hexis">
+  </a>
+</nav>
+
+<div class="article-header">
+  <div class="article-inner">
+    <div class="article-category">Yönetişim</div>
+    <h1 class="article-title">AI Okuryazarlığı: Madde 4 Yükümlülüğü Ne Gerektirir?</h1>
+    <div class="article-subtitle">Şirketlerin personeline karşı sorumluluğu ve uygulamada ne anlama geliyor</div>
+    <div class="article-meta">Hexis · Şubat 2026</div>
+  </div>
+</div>
+
+<div class="article-body">
+
+  <p>EU AI Act'in Madde 4'ü sessiz sedasız yürürlüğe girdi. Şubat 2025'ten itibaren geçerli olan bu madde, AI sistemleriyle çalışan herkese yönelik bir okuryazarlık yükümlülüğü getiriyor. Ancak yükümlülüğün tam olarak ne anlama geldiği hâlâ tartışmalı.</p>
+
+  <h2>Madde 4 Nedir, Kimi Kapsıyor?</h2>
+
+  <p>Madde 4, AI sistemlerini geliştiren veya kullanan tüm organizasyonların personelinin "yeterli AI okuryazarlığına" sahip olmasını sağlamakla yükümlü olduğunu belirtiyor.</p>
+
+  <p>Kapsam geniş. Madde yalnızca teknik ekipleri değil, AI sistemleriyle doğrudan veya dolaylı olarak çalışan herkesi kapsıyor. Bir İK uzmanı işe alım yazılımının çıktılarını yorumluyorsa, bir yönetici AI destekli raporlar üzerinden karar alıyorsa, bir müşteri temsilcisi AI öneri sistemiyle çalışıyorsa — bunların tamamı bu yükümlülüğün kapsamına giriyor.</p>
+
+  <h2>"Yeterli AI Okuryazarlığı" Ne Anlama Geliyor?</h2>
+
+  <p>Yasa burada kasıtlı olarak esnek bir dil kullanıyor. "Yeterli" tanımı sektöre, pozisyona ve kullanılan sistemin risk seviyesine göre değişiyor.</p>
+
+  <ul class="dimensions-list">
+    <li>
+      <span class="dim-num">01</span>
+      <span class="dim-body"><strong>Teknik farkındalık:</strong> AI sisteminin nasıl çalıştığını, sınırlılıklarını ve olası hata modlarını anlamak.</span>
+    </li>
+    <li>
+      <span class="dim-num">02</span>
+      <span class="dim-body"><strong>Eleştirel değerlendirme:</strong> sistemin çıktılarını sorgulamak, kör bir şekilde kabul etmemek.</span>
+    </li>
+    <li>
+      <span class="dim-num">03</span>
+      <span class="dim-body"><strong>Risk bilinci:</strong> hangi kararların AI destekli olduğunu ve bu kararların insan üzerindeki etkisini kavramak.</span>
+    </li>
+  </ul>
+
+  <p>Bu üç boyut birlikte ele alındığında, okuryazarlık yalnızca "AI nedir?" sorusunu yanıtlamakla sınırlı değil. Asıl mesele, kişinin kendi iş bağlamında AI ile ilişkisini anlıyor olması.</p>
+
+  <h2>Pozisyon Bazlı Yükümlülük: Herkes İçin Aynı Mı?</h2>
+
+  <p>Hayır. Madde 4 herkese aynı eğitimi vermeyi gerektirmiyor. Yükümlülük, pozisyonun AI sistemleriyle ne kadar yakın temas kurduğuna göre farklılaşıyor.</p>
+
+  <div class="level-grid">
+    <div class="level-cell">
+      <div class="level-label">Yüksek Temas Pozisyonları</div>
+      <div class="level-title">Kapsamlı beklenti</div>
+      <div class="level-body">Veri analistleri, ürün müdürleri gibi roller için AI sisteminin teknik dokümantasyonunu okuyabilmek, çıktıları bağlamına oturtabilmek ve anomalileri fark edebilmek bekleniyor.</div>
+    </div>
+    <div class="level-cell">
+      <div class="level-label">Düşük Temas Pozisyonları</div>
+      <div class="level-title">Temel farkındalık yeterli</div>
+      <div class="level-body">Sistemin varlığını bilmek, çıktıların nasıl yorumlanması gerektiğini anlamak ve gerektiğinde kime yönleneceğini bilmek bu düzeyde yeterli sayılıyor.</div>
+    </div>
+  </div>
+
+  <p>Bu ayrım önemli çünkü organizasyonların herkese tek tip bir eğitim vermek yerine, pozisyon bazlı bir okuryazarlık haritası çıkarması gerekiyor.</p>
+
+  <h2>Şirketler Nasıl Uyum Sağlayabilir?</h2>
+
+  <ul class="steps-list">
+    <li>
+      <div class="step-num">1</div>
+      <div class="step-body">
+        <div class="step-title">Envanter</div>
+        <div class="step-desc">Organizasyonda hangi pozisyonlar hangi AI sistemleriyle çalışıyor? Bu harita olmadan hedefli bir okuryazarlık programı kurulamaz.</div>
+      </div>
+    </li>
+    <li>
+      <div class="step-num">2</div>
+      <div class="step-body">
+        <div class="step-title">Düzey Belirleme</div>
+        <div class="step-desc">Her pozisyon için hangi okuryazarlık düzeyi gerekli? Teknik ekipler, operasyonel ekipler ve yönetim katmanı için farklı beklentiler tanımlanmalı.</div>
+      </div>
+    </li>
+    <li>
+      <div class="step-num">3</div>
+      <div class="step-body">
+        <div class="step-title">Belgeleme</div>
+        <div class="step-desc">Hangi eğitimlerin verildiği, kimlerin katıldığı ve değerlendirme sonuçları kayıt altına alınmalı. Denetim durumunda bu belgeler uyumun kanıtı olarak kullanılıyor.</div>
+      </div>
+    </li>
+  </ul>
+
+  <h2>Hexis Perspektifi</h2>
+
+  <div class="perspective-block">
+    <div class="perspective-label">Hexis · Governance Perspectives</div>
+    <p>Madde 4 tartışmalarında en sık duyduğumuz soru şu: "Bir eğitim versek yeter mi?"</p>
+    <p>Hayır. Eğitim vermek başlangıç noktası, ama okuryazarlık bir sertifika değil, süregelen bir pratik. Organizasyon içinde AI sistemleri değiştikçe, yeni araçlar entegre edildikçe, okuryazarlık gereksinimleri de değişiyor.</p>
+    <p>Daha önemlisi, okuryazarlık yalnızca bireysel bir yetkinlik meselesi değil. Bir çalışan AI çıktısını sorgulamak istediğinde bunu yapabileceği bir ortam var mı? Hata bildirme mekanizmaları işliyor mu? İnsan denetimi nominal mi, gerçek mi?</p>
+    <p>Madde 4, bu soruları organizasyonel düzeyde sormayı zorunlu kılıyor. Bireysel eğitim bu soruların yalnızca bir parçası.</p>
+  </div>
+
+  <h2>Sonuç</h2>
+
+  <p>AI okuryazarlığı yükümlülüğü, EU AI Act'in en az tartışılan ama en geniş kapsamlı maddelerinden biri. Teknik sistemleri değil, insanları merkeze alıyor.</p>
+
+  <p>Başlangıç noktası basit: organizasyonunuzda hangi pozisyonların hangi AI sistemleriyle çalıştığını haritalayın. Bu harita olmadan ne gerektiğini bilemezsiniz.</p>
+
+  <div class="cta-block">
+    <div class="cta-block-text">Hexis'in EU AI Act + KVKK Hazırlık Kontrol Listesi bu değerlendirmeyi yapılandırılmış bir şekilde yapmanıza yardımcı olmak için tasarlandı.</div>
+    <a href="/#tools" class="cta-block-link">Kontrol Listesine Git →</a>
+  </div>
+
+</div>
+
+<footer>
+  <div class="article-footer">
+    <a href="/"><img src="/assets/logo.png" alt="Hexis"></a>
+    <div class="article-footer-meta">hexis.center · Governance Perspectives · Şubat 2026</div>
+  </div>
+</footer>
+
+</body>
+</html>
