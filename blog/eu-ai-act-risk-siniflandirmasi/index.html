@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EU AI Act: Risk Sınıflandırması Rehberi · Hexis</title>
+<link rel="canonical" href="https://hexis.center/blog/eu-ai-act-risk-siniflandirmasi/">
+<meta name="description" content="Türk şirketler için EU AI Act risk sınıflandırması: yasaklı, yüksek riskli, sınırlı riskli ve minimal riskli sistemlerin pratik bir analizi.">
+<meta property="og:title" content="EU AI Act: Risk Sınıflandırması Rehberi · Hexis">
+<meta property="og:description" content="Türk şirketler için pratik bir başlangıç noktası. Dört risk katmanı, sık yapılan hatalar ve üç pratik soru.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://hexis.center/blog/eu-ai-act-risk-siniflandirmasi/">
+<meta property="og:image" content="https://hexis.center/assets/og-hexis.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="EU AI Act: Risk Sınıflandırması Rehberi · Hexis">
+<meta name="twitter:description" content="Türk şirketler için pratik bir başlangıç noktası. Dört risk katmanı, sık yapılan hatalar ve üç pratik soru.">
+<meta name="twitter:image" content="https://hexis.center/assets/og-hexis.png">
+<link rel="icon" href="/assets/favicon.ico">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --charcoal: #1C1E23;
+    --brass:    #B2986C;
+    --stone:    #686662;
+    --paper:    #F8F7F5;
+    --ink:      #1C1E23;
+    --ink-soft: #444240;
+    --ink-muted:#686662;
+    --rule:     rgba(28,30,35,0.12);
+  }
+
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 15px;
+    line-height: 1.7;
+  }
+
+  /* ── NAV ── */
+  nav {
+    background: var(--charcoal);
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 32px; height: 56px;
+  }
+  .nav-back {
+    font-size: 9px; letter-spacing: 0.1em; text-transform: uppercase;
+    color: rgba(248,247,245,0.5); text-decoration: none;
+    transition: color .15s;
+  }
+  .nav-back:hover { color: rgba(248,247,245,0.85); }
+  .nav-logo { display: flex; align-items: center; }
+  .nav-logo img { height: 32px; width: auto; display: block; }
+
+  /* ── ARTICLE HEADER ── */
+  .article-header {
+    border-bottom: 2px solid var(--ink);
+    padding: 48px 0 32px;
+    margin-bottom: 40px;
+  }
+  .article-inner {
+    max-width: 680px; margin: 0 auto; padding: 0 24px;
+  }
+  .article-category {
+    font-size: 9px; letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--stone); font-family: Arial, sans-serif;
+    margin-bottom: 16px;
+  }
+  .article-title {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: clamp(24px, 4vw, 36px);
+    font-weight: 700; line-height: 1.15; letter-spacing: -0.02em;
+    color: var(--ink); margin-bottom: 12px;
+  }
+  .article-subtitle {
+    font-size: 15px; color: var(--ink-soft); line-height: 1.5;
+    font-family: Georgia, serif; font-style: italic;
+    margin-bottom: 24px;
+  }
+  .article-meta {
+    font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase;
+    color: var(--stone);
+  }
+
+  /* ── ARTICLE BODY ── */
+  .article-body {
+    max-width: 680px; margin: 0 auto; padding: 0 24px 64px;
+  }
+  .article-body p {
+    margin-bottom: 20px;
+    color: var(--ink-soft);
+  }
+  .article-body p:first-child { color: var(--ink); }
+
+  .article-body h2 {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 20px; font-weight: 700;
+    color: var(--ink); margin: 40px 0 16px;
+    padding-top: 40px; border-top: 1px solid var(--rule);
+  }
+  .article-body h3 {
+    font-family: Arial, sans-serif;
+    font-size: 12px; font-weight: 700; letter-spacing: 0.1em;
+    text-transform: uppercase; color: var(--ink);
+    margin: 28px 0 10px;
+  }
+
+  .risk-block {
+    border-left: 3px solid var(--charcoal);
+    padding: 16px 20px; margin: 16px 0 24px;
+    background: rgba(28,30,35,0.03);
+  }
+  .risk-block.risk-banned  { border-color: var(--charcoal); }
+  .risk-block.risk-high    { border-color: #444240; }
+  .risk-block.risk-limited { border-color: var(--stone); }
+  .risk-block.risk-minimal { border-color: #8a8884; }
+
+  .risk-num {
+    font-size: 9px; letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--stone); font-family: Arial, sans-serif;
+    margin-bottom: 6px;
+  }
+  .risk-title {
+    font-family: Georgia, serif; font-weight: 700; font-size: 15px;
+    color: var(--ink); margin-bottom: 8px;
+  }
+  .risk-body {
+    font-size: 13px; color: var(--ink-soft); line-height: 1.65;
+    font-family: Arial, sans-serif;
+  }
+
+  .callout-box {
+    border: 1.5px solid var(--charcoal);
+    padding: 20px 24px; margin: 32px 0;
+  }
+  .callout-box p {
+    margin-bottom: 12px; font-size: 13px; color: var(--ink-soft);
+  }
+  .callout-box p:last-child { margin-bottom: 0; }
+
+  .question-list {
+    counter-reset: q;
+    list-style: none;
+    margin: 16px 0 24px;
+    display: flex; flex-direction: column; gap: 16px;
+  }
+  .question-list li {
+    counter-increment: q;
+    display: flex; gap: 16px;
+    font-size: 13px; color: var(--ink-soft); line-height: 1.65;
+  }
+  .question-list li::before {
+    content: counter(q);
+    font-family: Georgia, serif; font-weight: 700; font-size: 18px;
+    color: var(--ink); min-width: 20px; line-height: 1.2;
+  }
+  .q-strong { font-weight: 700; color: var(--ink); display: block; margin-bottom: 4px; font-family: Arial, sans-serif; font-size: 12px; }
+
+  .cta-block {
+    background: var(--charcoal); color: var(--paper);
+    padding: 28px 32px; margin: 40px 0;
+    display: flex; gap: 24px; align-items: center; justify-content: space-between;
+    flex-wrap: wrap;
+  }
+  .cta-block-text { font-size: 13px; line-height: 1.6; max-width: 440px; color: rgba(248,247,245,0.8); }
+  .cta-block-link {
+    font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--paper); text-decoration: none;
+    border: 1px solid rgba(248,247,245,0.35); padding: 9px 18px;
+    white-space: nowrap; transition: border-color .15s;
+    flex-shrink: 0;
+  }
+  .cta-block-link:hover { border-color: rgba(248,247,245,0.8); }
+
+  /* ── FOOTER ── */
+  .article-footer {
+    border-top: 1px solid var(--rule);
+    padding: 20px 24px;
+    max-width: 680px; margin: 0 auto;
+    display: flex; align-items: center; gap: 12px;
+  }
+  .article-footer img { height: 20px; width: auto; opacity: 0.7; }
+  .article-footer-meta {
+    font-size: 10px; color: var(--stone); letter-spacing: 0.06em;
+  }
+
+  @media (max-width: 600px) {
+    nav { padding: 0 20px; }
+    .article-inner, .article-body { padding: 0 16px; }
+    .article-header { padding: 32px 0 24px; }
+    .cta-block { padding: 20px; flex-direction: column; align-items: flex-start; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="/" class="nav-back">← hexis.center</a>
+  <a href="/" class="nav-logo">
+    <img src="/assets/logo-light.png" alt="Hexis">
+  </a>
+</nav>
+
+<div class="article-header">
+  <div class="article-inner">
+    <div class="article-category">EU AI Act</div>
+    <h1 class="article-title">EU AI Act: Risk Sınıflandırması Rehberi</h1>
+    <div class="article-subtitle">Türk şirketler için pratik bir başlangıç noktası</div>
+    <div class="article-meta">Hexis · Şubat 2026</div>
+  </div>
+</div>
+
+<div class="article-body">
+
+  <p>Ağustos 2024'te yürürlüğe giren AB Yapay Zekâ Yasası (EU AI Act), Türkiye'de faaliyet gösteren şirketler için de geçerli. Sisteminiz AB pazarına dokunuyorsa, AB vatandaşlarını etkiliyorsa veya AB'li bir ortakla çalışıyorsanız bu yasa sizi kapsıyor.</p>
+
+  <p>Peki nereden başlayacaksınız?</p>
+
+  <p>İlk adım her zaman aynı: sisteminizin hangi risk kategorisinde olduğunu anlamak.</p>
+
+  <h2>Dört Katman, Tek Soru</h2>
+
+  <p>EU AI Act, yapay zekâ sistemlerini dört risk katmanına ayırıyor. Bu sınıflandırma, şirketinizin yükümlülüklerini doğrudan belirliyor.</p>
+
+  <div class="risk-block risk-banned">
+    <div class="risk-num">1. Katman</div>
+    <div class="risk-title">Yasaklı Sistemler</div>
+    <div class="risk-body">Hiçbir koşulda kullanılamaz. Sosyal puanlama sistemleri, gerçek zamanlı biyometrik gözetleme (belirli istisnalar dışında), bilinçaltı manipülasyon araçları bu kategoriye giriyor. Eğer sisteminiz bu tanıma giriyorsa konu uyum değil, yasak.</div>
+  </div>
+
+  <div class="risk-block risk-high">
+    <div class="risk-num">2. Katman</div>
+    <div class="risk-title">Yüksek Riskli Sistemler</div>
+    <div class="risk-body">En kapsamlı yükümlülük katmanı. Ağustos 2025'ten itibaren tam uygulama başlıyor. İşe alım ve çalışan değerlendirme sistemleri, kredi skorlama araçları, eğitimde not ve değerlendirme sistemleri, kritik altyapı yönetimi bu kategoride. Yüksek riskli sistem kullanıyorsanız risk değerlendirmesi, insan denetimi, teknik dokümantasyon ve kayıt tutma zorunlu.</div>
+  </div>
+
+  <div class="risk-block risk-limited">
+    <div class="risk-num">3. Katman</div>
+    <div class="risk-title">Sınırlı Riskli Sistemler</div>
+    <div class="risk-body">Şeffaflık yükümlülüğü var, ama yüksek riskli kadar ağır değil. Kullanıcıya "bir yapay zekâyla konuşuyorsunuz" demek zorundasınız. Müşteri hizmetleri chatbotları ve içerik öneri sistemleri genellikle bu kategoriye giriyor.</div>
+  </div>
+
+  <div class="risk-block risk-minimal">
+    <div class="risk-num">4. Katman</div>
+    <div class="risk-title">Minimal Riskli Sistemler</div>
+    <div class="risk-body">Spam filtreleri ve oyunlardaki AI özellikleri gibi sistemler bu kategoride. Yasal yükümlülük yok, gönüllü davranış kuralları yeterli.</div>
+  </div>
+
+  <h2>Türk Şirketlerin En Sık Karşılaştığı Durum</h2>
+
+  <p>Deneyimlerimize göre Türk şirketlerin büyük çoğunluğu iki noktada takılıyor.</p>
+
+  <p>Birincisi, kullandıkları SaaS araçlarının risk kategorisini bilmiyorlar. İşe alım platformları, otomatik CV filtreleme özellikleri veya performans değerlendirme yazılımları yüksek riskli kategori kapsamına girebilir. Aracı siz geliştirmediniz diye sorumluluktan kurtulamıyorsunuz; sistemi kullanan da yükümlü.</p>
+
+  <p>İkincisi, "biz AB'de değiliz" yanılgısı. Türkiye'den bir şirket, AB'deki bir müşteriye hizmet veriyorsa veya AB'li bir çalışanı değerlendiriyorsa yasa devreye giriyor. Coğrafi konum değil, etki alanı belirleyici.</p>
+
+  <h2>Sınıflandırma için 3 Pratik Soru</h2>
+
+  <p>Sisteminizi hızlıca konumlandırmak için şu üç soruyu sorun.</p>
+
+  <ul class="question-list">
+    <li>
+      <span class="q-strong">Bu sistem bir insan hakkında karar veriyor mu?</span>
+      İşe alım, kredi, eğitim, sağlık, adalet gibi alanlarda bireyler hakkında karar üretiyorsa yüksek risk kategorisine yakınsınız demektir.
+    </li>
+    <li>
+      <span class="q-strong">Çıktı ne kadar bağlayıcı?</span>
+      Sistem yalnızca öneri mi sunuyor, yoksa kararı doğrudan mı şekillendiriyor? İnsan denetimi ne kadar gerçek, ne kadar nominal?
+    </li>
+    <li>
+      <span class="q-strong">Hangi veriyle çalışıyor?</span>
+      Biyometrik, davranışsal veya hassas kişisel veri işliyorsa risk seviyesi otomatik olarak yükseliyor.
+    </li>
+  </ul>
+
+  <p>Bu üç soruya verdiğiniz yanıtlar sizi doğru kategoriye götürecektir. Yanıtlar belirsizse — ki çoğu durumda başlangıçta öyle olur — bu bir sinyal: sisteminizi daha iyi belgelemeniz gerekiyor.</p>
+
+  <h2>Sonuç: Sınıflandırma bir kez yapılmaz</h2>
+
+  <p>EU AI Act'in getirdiği en önemli zihniyet değişikliği şu: risk sınıflandırması bir kontrol listesi değil, süregelen bir değerlendirme pratiği. Sistem güncellendikçe, kullanım bağlamı değiştikçe, veri akışları farklılaştıkça kategori de değişebilir.</p>
+
+  <p>Başlangıç noktası basit: sisteminizin şu an nerede durduğunu bilin.</p>
+
+  <div class="cta-block">
+    <div class="cta-block-text">Hexis'in EU AI Act + KVKK Hazırlık Kontrol Listesi bu değerlendirmeyi yapılandırılmış bir şekilde yapmanıza yardımcı olmak için tasarlandı.</div>
+    <a href="/#tools" class="cta-block-link">Kontrol Listesine Git →</a>
+  </div>
+
+</div>
+
+<footer>
+  <div class="article-footer">
+    <a href="/"><img src="/assets/logo.png" alt="Hexis"></a>
+    <div class="article-footer-meta">hexis.center · Governance Perspectives · Şubat 2026</div>
+  </div>
+</footer>
+
+</body>
+</html>
