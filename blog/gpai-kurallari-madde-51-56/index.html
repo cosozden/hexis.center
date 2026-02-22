@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GPAI Kuralları: Madde 51–56 Ne Değişti? · Hexis</title>
+<link rel="canonical" href="https://hexis.center/blog/gpai-kurallari-madde-51-56/">
+<meta name="description" content="EU AI Act Madde 51–56: genel amaçlı yapay zekâ modelleri için yeni çerçeve, iki katmanlı yükümlülük yapısı ve Türk şirketlere yansımaları.">
+<meta property="og:title" content="GPAI Kuralları: Madde 51–56 Ne Değişti? · Hexis">
+<meta property="og:description" content="Genel amaçlı yapay zekâ modelleri için yeni çerçeve ve Türk şirketlere yansımaları.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://hexis.center/blog/gpai-kurallari-madde-51-56/">
+<meta property="og:image" content="https://hexis.center/assets/og-hexis.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="GPAI Kuralları: Madde 51–56 Ne Değişti? · Hexis">
+<meta name="twitter:description" content="Genel amaçlı yapay zekâ modelleri için yeni çerçeve ve Türk şirketlere yansımaları.">
+<meta name="twitter:image" content="https://hexis.center/assets/og-hexis.png">
+<link rel="icon" href="/assets/favicon.ico">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --charcoal: #1C1E23;
+    --brass:    #B2986C;
+    --stone:    #686662;
+    --paper:    #F8F7F5;
+    --ink:      #1C1E23;
+    --ink-soft: #444240;
+    --ink-muted:#686662;
+    --rule:     rgba(28,30,35,0.12);
+  }
+
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 15px;
+    line-height: 1.7;
+  }
+
+  /* ── NAV ── */
+  nav {
+    background: var(--charcoal);
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 32px; height: 56px;
+  }
+  .nav-back {
+    font-size: 9px; letter-spacing: 0.1em; text-transform: uppercase;
+    color: rgba(248,247,245,0.5); text-decoration: none;
+    transition: color .15s;
+  }
+  .nav-back:hover { color: rgba(248,247,245,0.85); }
+  .nav-logo { display: flex; align-items: center; }
+  .nav-logo img { height: 32px; width: auto; display: block; }
+
+  /* ── ARTICLE HEADER ── */
+  .article-header {
+    border-bottom: 2px solid var(--ink);
+    padding: 48px 0 32px;
+    margin-bottom: 40px;
+  }
+  .article-inner {
+    max-width: 680px; margin: 0 auto; padding: 0 24px;
+  }
+  .article-category {
+    font-size: 9px; letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--stone); font-family: Arial, sans-serif;
+    margin-bottom: 16px;
+  }
+  .article-title {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: clamp(24px, 4vw, 36px);
+    font-weight: 700; line-height: 1.15; letter-spacing: -0.02em;
+    color: var(--ink); margin-bottom: 12px;
+  }
+  .article-subtitle {
+    font-size: 15px; color: var(--ink-soft); line-height: 1.5;
+    font-family: Georgia, serif; font-style: italic;
+    margin-bottom: 24px;
+  }
+  .article-meta {
+    font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase;
+    color: var(--stone);
+  }
+
+  /* ── ARTICLE BODY ── */
+  .article-body {
+    max-width: 680px; margin: 0 auto; padding: 0 24px 64px;
+  }
+  .article-body p {
+    margin-bottom: 20px;
+    color: var(--ink-soft);
+  }
+  .article-body p:first-child { color: var(--ink); }
+
+  .article-body h2 {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 20px; font-weight: 700;
+    color: var(--ink); margin: 40px 0 16px;
+    padding-top: 40px; border-top: 1px solid var(--rule);
+  }
+
+  .req-block {
+    border-left: 3px solid var(--charcoal);
+    padding: 16px 20px; margin: 8px 0 16px;
+    background: rgba(28,30,35,0.03);
+  }
+  .req-block.req-base   { border-color: var(--stone); }
+  .req-block.req-systemic { border-color: var(--charcoal); }
+
+  .req-tier {
+    font-size: 9px; letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--stone); font-family: Arial, sans-serif;
+    margin-bottom: 10px;
+  }
+  .req-list {
+    list-style: none; display: flex; flex-direction: column; gap: 8px;
+  }
+  .req-list li {
+    font-size: 13px; color: var(--ink-soft); line-height: 1.65;
+    padding-left: 14px; position: relative;
+  }
+  .req-list li::before {
+    content: '—'; position: absolute; left: 0;
+    color: var(--stone);
+  }
+  .req-list li strong { color: var(--ink); font-weight: 700; }
+
+  .distinction-block {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 1px;
+    background: var(--rule); margin: 24px 0;
+  }
+  .dist-cell {
+    background: var(--paper); padding: 16px 20px;
+  }
+  .dist-label {
+    font-size: 9px; letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--stone); margin-bottom: 8px;
+  }
+  .dist-title {
+    font-family: Georgia, serif; font-weight: 700; font-size: 13px;
+    color: var(--ink); margin-bottom: 8px;
+  }
+  .dist-body {
+    font-size: 12px; color: var(--ink-soft); line-height: 1.65;
+  }
+
+  .status-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 1px;
+    background: var(--rule); margin: 24px 0;
+  }
+  .status-cell {
+    background: var(--paper); padding: 16px 20px;
+  }
+  .status-label {
+    font-size: 9px; letter-spacing: 0.12em; text-transform: uppercase;
+    margin-bottom: 10px; font-family: Arial, sans-serif;
+  }
+  .status-label.active { color: var(--charcoal); }
+  .status-label.pending { color: var(--stone); }
+  .status-list {
+    list-style: none; display: flex; flex-direction: column; gap: 6px;
+  }
+  .status-list li {
+    font-size: 12px; color: var(--ink-soft); line-height: 1.5;
+    padding-left: 14px; position: relative;
+  }
+  .status-list li::before { content: '·'; position: absolute; left: 0; color: var(--stone); }
+
+  .perspective-block {
+    border: 1px solid var(--rule); padding: 20px 24px; margin: 32px 0;
+    background: rgba(28,30,35,0.02);
+  }
+  .perspective-label {
+    font-size: 9px; letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--stone); margin-bottom: 12px;
+  }
+  .perspective-block p {
+    font-family: Georgia, serif; font-style: italic;
+    font-size: 14px; line-height: 1.7; color: var(--ink-soft);
+    margin-bottom: 14px;
+  }
+  .perspective-block p:last-child { margin-bottom: 0; }
+
+  .cta-block {
+    background: var(--charcoal); color: var(--paper);
+    padding: 28px 32px; margin: 40px 0;
+    display: flex; gap: 24px; align-items: center; justify-content: space-between;
+    flex-wrap: wrap;
+  }
+  .cta-block-text { font-size: 13px; line-height: 1.6; max-width: 440px; color: rgba(248,247,245,0.8); }
+  .cta-block-link {
+    font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--paper); text-decoration: none;
+    border: 1px solid rgba(248,247,245,0.35); padding: 9px 18px;
+    white-space: nowrap; transition: border-color .15s;
+    flex-shrink: 0;
+  }
+  .cta-block-link:hover { border-color: rgba(248,247,245,0.8); }
+
+  /* ── FOOTER ── */
+  .article-footer {
+    border-top: 1px solid var(--rule);
+    padding: 20px 24px;
+    max-width: 680px; margin: 0 auto;
+    display: flex; align-items: center; gap: 12px;
+  }
+  .article-footer img { height: 20px; width: auto; opacity: 0.7; }
+  .article-footer-meta {
+    font-size: 10px; color: var(--stone); letter-spacing: 0.06em;
+  }
+
+  @media (max-width: 600px) {
+    nav { padding: 0 20px; }
+    .article-inner, .article-body { padding: 0 16px; }
+    .article-header { padding: 32px 0 24px; }
+    .distinction-block, .status-grid { grid-template-columns: 1fr; }
+    .cta-block { padding: 20px; flex-direction: column; align-items: flex-start; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="/" class="nav-back">← hexis.center</a>
+  <a href="/" class="nav-logo">
+    <img src="/assets/logo-light.png" alt="Hexis">
+  </a>
+</nav>
+
+<div class="article-header">
+  <div class="article-inner">
+    <div class="article-category">GPAI</div>
+    <h1 class="article-title">GPAI Kuralları: Madde 51–56 Ne Değişti?</h1>
+    <div class="article-subtitle">Genel amaçlı yapay zekâ modelleri için yeni çerçeve ve Türk şirketlere yansımaları</div>
+    <div class="article-meta">Hexis · Şubat 2026</div>
+  </div>
+</div>
+
+<div class="article-body">
+
+  <p>Ağustos 2025. EU AI Act'in en tartışmalı bölümü yürürlüğe girdi: Madde 51–56, genel amaçlı yapay zekâ modellerini düzenleyen kuralları getiriyor. Peki bu kurallar kimi kapsıyor, ne gerektiriyor ve Türk şirketler için ne anlama geliyor?</p>
+
+  <h2>GPAI Nedir, Neden Önemli?</h2>
+
+  <p>GPAI, "General Purpose AI" — genel amaçlı yapay zekâ. ChatGPT, Claude, Gemini, Llama gibi modeller bu kategoriye giriyor. Bu modellerin ayırt edici özelliği tek bir görev için değil, çok sayıda farklı uygulama için kullanılabilmeleri.</p>
+
+  <p>EU AI Act bu modelleri ayrı bir kategoride ele alıyor çünkü riski değerlendirmek çok daha karmaşık. Bir işe alım yazılımının riski bellidir; ama her ortamda çalışabilen bir dil modelinin riski bağlama göre değişir.</p>
+
+  <h2>Madde 51–56 Ne Getiriyor?</h2>
+
+  <p>Bu maddeler iki katmanlı bir yükümlülük yapısı kuruyor: tüm GPAI modelleri için temel gereksinimler ve "sistemik riskli" modeller için ek yükümlülükler.</p>
+
+  <div class="req-block req-base">
+    <div class="req-tier">Tüm GPAI Modelleri — Temel Gereksinimler</div>
+    <ul class="req-list">
+      <li><strong>Teknik dokümantasyon zorunlu:</strong> modelin nasıl eğitildiği, hangi veriyle çalıştığı, yetenekleri ve sınırlılıkları yazılı olarak belgelenmeli.</li>
+      <li><strong>Telif hakkı politikası açıklanmalı:</strong> eğitim verisinde kullanılan içerikler için AB telif hakkı mevzuatına uyum sağlanmalı.</li>
+      <li><strong>Model kartı yayınlanmalı:</strong> kullanıcıların modeli doğru değerlendirmesi için şeffaf bilgi sunulmalı.</li>
+    </ul>
+  </div>
+
+  <div class="req-block req-systemic">
+    <div class="req-tier">Sistemik Riskli Modeller — Ek Yükümlülükler</div>
+    <ul class="req-list">
+      <li><strong>Eşik:</strong> 10²⁵ FLOP üzerinde eğitilen modeller bu kategoriye giriyor — bugünün en güçlü modellerini eğitmek için gereken hesaplama gücünün üst sınırı.</li>
+      <li><strong>Düzenli risk değerlendirmesi</strong> ve siber güvenlik testleri zorunlu.</li>
+      <li><strong>Ciddi olayları</strong> Avrupa Yapay Zekâ Ofisi'ne bildirme zorunluluğu var.</li>
+    </ul>
+  </div>
+
+  <h2>Hangi Şirketler Etkileniyor?</h2>
+
+  <p>Burada kritik bir ayrım var: model geliştiren ile model kullanan.</p>
+
+  <div class="distinction-block">
+    <div class="dist-cell">
+      <div class="dist-label">Model Geliştirenler</div>
+      <div class="dist-title">Doğrudan yükümlü</div>
+      <div class="dist-body">OpenAI, Google, Anthropic, Meta gibi şirketler bu kapsamda. Türkiye'de GPAI modeli geliştiren şirket sayısı henüz çok az, ama bu değişiyor.</div>
+    </div>
+    <div class="dist-cell">
+      <div class="dist-label">Model Kullananlar</div>
+      <div class="dist-title">Dolaylı olarak etkileniyor</div>
+      <div class="dist-body">Bir Türk şirketi ChatGPT API'sini ürününe entegre ettiyse, kullandığı modelin bu kurallara uyup uymadığını bilmek zorunda. Yüksek riskli bir uygulama geliştiriyorsa, altındaki modelin dokümantasyonunu ve sınırlılıklarını anlaması gerekiyor.</div>
+    </div>
+  </div>
+
+  <p>Kısacası: modeli siz geliştirmeseniz de, o modeli kullanarak ne yaptığınız sizin sorumluluğunuzda.</p>
+
+  <h2>Ağustos 2025'ten İtibaren Ne Değişti, Ne Hâlâ Belirsiz?</h2>
+
+  <div class="status-grid">
+    <div class="status-cell">
+      <div class="status-label active">✓ Yürürlüğe Girenler</div>
+      <ul class="status-list">
+        <li>Teknik dokümantasyon ve model kartı gereksinimleri aktif</li>
+        <li>Avrupa Yapay Zekâ Ofisi denetim yetkisini kullanmaya başladı</li>
+        <li>Büyük model sağlayıcıları uyum süreçlerini açıklamaya başladı</li>
+      </ul>
+    </div>
+    <div class="status-cell">
+      <div class="status-label pending">→ Hâlâ Belirsiz Olanlar</div>
+      <ul class="status-list">
+        <li>Sistemik risk eşiğinin nasıl güncelleneceği netleşmedi</li>
+        <li>Açık kaynaklı modellerin tam olarak nasıl değerlendirileceği tartışmalı</li>
+        <li>Üçüncü taraf denetim mekanizmaları henüz olgunlaşmadı</li>
+      </ul>
+    </div>
+  </div>
+
+  <h2>Hexis Perspektifi</h2>
+
+  <div class="perspective-block">
+    <div class="perspective-label">Hexis · Governance Perspectives</div>
+    <p>Madde 51–56'ya çoğunlukla teknik bir uyum meselesi olarak bakılıyor: dokümantasyon yap, model kartı yayınla, eşiği geç ya da geçme. Bu bakış açısı eksik.</p>
+    <p>Bu maddeler aslında şunu soruyor: sisteminizin altında ne var ve bunu biliyor musunuz?</p>
+    <p>Bir şirket GPAI tabanlı bir ürün kullanıyorsa, o modelin sınırlılıklarını, eğitim verisi politikasını ve olası başarısızlık modlarını anlamadan gerçek bir insan denetimi kuramaz. Dokümantasyon bir son nokta değil, başlangıç noktası.</p>
+    <p>Hexis bu yükümlülüklere "yönelim" olarak yaklaşıyor. Kurallar değişse de, altındaki soru değişmiyor: sisteminizi yönetebilmek için onu yeterince anlıyor musunuz?</p>
+  </div>
+
+  <h2>Sonuç</h2>
+
+  <p>GPAI kuralları, AI governance'ın neden sadece yüksek riskli sistemlerle sınırlı kalamayacağını gösteriyor. Kullandığınız temel modeller de bir yönetim çerçevesi gerektiriyor.</p>
+
+  <p>Başlangıç noktası, kullandığınız GPAI tabanlı araçların dokümantasyonunu talep etmek ve kendi sisteminizin bu model üzerinde ne yaptığını belgelemek.</p>
+
+  <div class="cta-block">
+    <div class="cta-block-text">Hexis'in Contextual Matrix Generator, sisteminizin mevcut yönetim olgunluğunu ve öncelikli adımlarını belirlemenize yardımcı olmak için tasarlandı.</div>
+    <a href="/generator/" class="cta-block-link">Generator'ı Aç →</a>
+  </div>
+
+</div>
+
+<footer>
+  <div class="article-footer">
+    <a href="/"><img src="/assets/logo.png" alt="Hexis"></a>
+    <div class="article-footer-meta">hexis.center · Governance Perspectives · Şubat 2026</div>
+  </div>
+</footer>
+
+</body>
+</html>
