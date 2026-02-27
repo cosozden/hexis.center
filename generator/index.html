@@ -289,9 +289,145 @@
     size: A4;
     margin: 18mm 16mm;
   }
+
+  /* ── RISK CLASSIFIER WIZARD ── */
+  .classifier-wrap {
+    background: var(--paper); border-bottom: 1.5px solid var(--ink);
+  }
+  .classifier {
+    max-width: 960px; margin: 0 auto; padding: 28px 24px 32px;
+  }
+  .clf-header {
+    display: flex; justify-content: space-between; align-items: flex-start;
+    margin-bottom: 20px;
+  }
+  .clf-brand { font-size: 9px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-muted); margin-bottom: 4px; }
+  .clf-title { font-family: Georgia, 'Times New Roman', serif; font-size: 18px; font-weight: 700; color: var(--ink); line-height: 1.2; }
+  .clf-subtitle { font-size: 11px; color: var(--ink-muted); margin-top: 4px; letter-spacing: 0.04em; }
+  .clf-skip {
+    font-size: 9px; letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--ink-muted); text-decoration: none; cursor: pointer;
+    border: 1px solid var(--rule); padding: 6px 14px; background: none;
+    font-family: Arial, Helvetica, sans-serif; transition: all .15s;
+    white-space: nowrap; margin-top: 4px;
+  }
+  .clf-skip:hover { border-color: var(--ink); color: var(--ink); }
+
+  .clf-progress { display: flex; gap: 3px; margin-bottom: 24px; }
+  .clf-prog-seg { height: 2px; flex: 1; background: var(--rule); transition: background .3s; }
+  .clf-prog-seg.active { background: var(--charcoal); }
+  .clf-prog-seg.done { background: var(--stone); }
+
+  .clf-question { margin-bottom: 24px; display: none; }
+  .clf-question.active { display: block; }
+  .clf-q-num { font-size: 9px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-muted); margin-bottom: 6px; }
+  .clf-q-text { font-family: Georgia, 'Times New Roman', serif; font-size: 15px; font-weight: 700; color: var(--ink); line-height: 1.4; margin-bottom: 6px; }
+  .clf-q-hint { font-size: 11px; color: var(--stone); line-height: 1.5; margin-bottom: 16px; font-style: italic; }
+
+  .clf-options { display: flex; flex-direction: column; gap: 6px; }
+  .clf-opt {
+    display: flex; align-items: flex-start; gap: 12px;
+    padding: 12px 16px; border: 1px solid var(--rule);
+    cursor: pointer; transition: all .15s; background: transparent;
+    text-align: left; font-family: Arial, Helvetica, sans-serif;
+  }
+  .clf-opt:hover { border-color: var(--stone); background: rgba(28,30,35,0.015); }
+  .clf-opt.selected { border-color: var(--charcoal); background: rgba(28,30,35,0.04); }
+  .clf-opt-radio {
+    width: 14px; height: 14px; border: 1.5px solid var(--stone);
+    flex-shrink: 0; margin-top: 2px; display: flex; align-items: center; justify-content: center;
+  }
+  .clf-opt.selected .clf-opt-radio { border-color: var(--charcoal); }
+  .clf-opt.selected .clf-opt-radio::after { content: ''; width: 7px; height: 7px; background: var(--charcoal); }
+  .clf-opt-text { flex: 1; }
+  .clf-opt-label { font-size: 12px; font-weight: 500; color: var(--ink); line-height: 1.3; }
+  .clf-opt-desc { font-size: 10px; color: var(--stone); margin-top: 2px; line-height: 1.4; }
+
+  .clf-nav {
+    display: flex; justify-content: space-between; align-items: center;
+    margin-top: 20px; padding-top: 16px; border-top: 1px solid var(--rule);
+  }
+  .clf-btn-back {
+    font-size: 10px; letter-spacing: 0.08em; color: var(--stone);
+    background: none; border: none; cursor: pointer; padding: 8px 0;
+    font-family: Arial, Helvetica, sans-serif; transition: color .15s;
+  }
+  .clf-btn-back:hover { color: var(--ink); }
+  .clf-btn-back.hidden { visibility: hidden; }
+  .clf-btn-next {
+    background: var(--charcoal); color: var(--paper); border: none;
+    padding: 9px 22px; font-size: 10px; letter-spacing: 0.1em;
+    text-transform: uppercase; cursor: pointer;
+    font-family: Arial, Helvetica, sans-serif; transition: opacity .15s;
+  }
+  .clf-btn-next:hover { opacity: 0.85; }
+  .clf-btn-next:disabled { opacity: 0.3; cursor: not-allowed; }
+
+  /* Result card */
+  .clf-result { display: none; border: 1.5px solid var(--charcoal); }
+  .clf-result.visible { display: block; }
+  .clf-result-header {
+    background: var(--charcoal); color: var(--paper); padding: 16px 20px;
+    display: flex; justify-content: space-between; align-items: flex-start;
+  }
+  .clf-result-cat { font-size: 9px; letter-spacing: 0.14em; text-transform: uppercase; opacity: 0.6; }
+  .clf-result-level { font-family: Georgia, 'Times New Roman', serif; font-size: 18px; font-weight: 700; margin-top: 4px; }
+  .clf-result-ref { font-size: 11px; opacity: 0.7; margin-top: 2px; }
+  .clf-result-deadline { text-align: right; font-size: 10px; letter-spacing: 0.06em; }
+  .clf-result-days { font-family: Georgia, 'Times New Roman', serif; font-size: 22px; font-weight: 700; margin-top: 2px; }
+  .clf-result-body { padding: 16px 20px; }
+  .clf-result-section { margin-bottom: 14px; }
+  .clf-result-label { font-size: 9px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-muted); margin-bottom: 6px; }
+  .clf-result-obligations { display: flex; flex-direction: column; gap: 4px; }
+  .clf-result-obl {
+    font-size: 11px; color: var(--ink-soft); line-height: 1.5;
+    padding-left: 12px; position: relative;
+  }
+  .clf-result-obl::before { content: '·'; position: absolute; left: 2px; color: var(--stone); font-weight: 700; }
+  .clf-result-actions {
+    display: flex; gap: 10px; margin-top: 16px; padding-top: 14px;
+    border-top: 1px solid var(--rule);
+  }
+  .clf-result-continue {
+    background: var(--charcoal); color: var(--paper); border: none;
+    padding: 10px 24px; font-size: 10px; letter-spacing: 0.1em;
+    text-transform: uppercase; cursor: pointer;
+    font-family: Arial, Helvetica, sans-serif; transition: opacity .15s;
+  }
+  .clf-result-continue:hover { opacity: 0.85; }
+  .clf-result-restart {
+    background: none; color: var(--stone); border: 1px solid var(--rule);
+    padding: 10px 18px; font-size: 10px; letter-spacing: 0.1em;
+    text-transform: uppercase; cursor: pointer;
+    font-family: Arial, Helvetica, sans-serif; transition: all .15s;
+  }
+  .clf-result-restart:hover { border-color: var(--ink); color: var(--ink); }
+  .classifier-wrap.collapsed { display: none; }
+  @media print { .classifier-wrap { display: none !important; } }
 </style>
 </head>
 <body>
+
+<!-- ── EU AI ACT RISK CLASSIFIER ── -->
+<div class="classifier-wrap" id="classifier-wrap">
+  <div class="classifier">
+    <div class="clf-header">
+      <div>
+        <div class="clf-brand">Hexis · EU AI Act Risk Classifier</div>
+        <div class="clf-title">Classify Your AI System</div>
+        <div class="clf-subtitle">Answer 6 questions to determine your EU AI Act risk category and legal obligations</div>
+      </div>
+      <button class="clf-skip" onclick="skipClassifier()">I know my risk level →</button>
+    </div>
+    <div class="clf-progress" id="clf-progress"></div>
+    <div id="clf-questions"></div>
+    <div class="clf-nav" id="clf-nav">
+      <button class="clf-btn-back hidden" id="clf-back" onclick="clfBack()">← Back</button>
+      <button class="clf-btn-next" id="clf-next" onclick="clfNext()" disabled>Next →</button>
+    </div>
+    <div class="clf-result" id="clf-result"></div>
+  </div>
+</div>
 
 <!-- ── CONFIGURATOR ── -->
 <div class="configurator">
@@ -357,6 +493,511 @@
 <div class="report-wrap">
   <div id="report-output"></div>
 </div>
+
+<script>
+// ── RISK CLASSIFIER WIZARD ENGINE ──
+(function() {
+  'use strict';
+
+  var CLF_TOTAL_STEPS = 6;
+
+  var CLF_QUESTIONS = [
+    {
+      num: 'Step 1 of 6',
+      text: 'Does your AI system involve any prohibited practice?',
+      hint: 'Article 5 of the EU AI Act prohibits certain AI practices that pose unacceptable risk. If any apply, the system cannot be placed on the EU market.',
+      options: [
+        { id: 'social_scoring', label: 'Social scoring by public authorities', desc: 'Evaluating or classifying persons based on social behavior or personality characteristics leading to detrimental treatment', article: 'Article 5(1)(c)', terminates: true },
+        { id: 'realtime_biometric', label: 'Real-time remote biometric identification in publicly accessible spaces', desc: 'For law enforcement purposes, except narrow exceptions under Article 5(2)', article: 'Article 5(1)(h)', terminates: true },
+        { id: 'emotion_recognition', label: 'Emotion recognition in workplace or education', desc: 'Inferring emotions of natural persons in workplace and educational settings', article: 'Article 5(1)(f)', terminates: true },
+        { id: 'facial_scraping', label: 'Untargeted scraping of facial images', desc: 'From the internet or CCTV footage to build or expand facial recognition databases', article: 'Article 5(1)(e)', terminates: true },
+        { id: 'subliminal', label: 'Subliminal, manipulative or deceptive techniques', desc: 'Materially distorting behaviour of persons, causing or likely to cause significant harm', article: 'Article 5(1)(a)', terminates: true },
+        { id: 'vulnerability', label: 'Exploiting vulnerabilities of specific groups', desc: 'Targeting persons due to age, disability, or social/economic situation to distort their behaviour', article: 'Article 5(1)(b)', terminates: true },
+        { id: 'predictive_policing', label: 'Individual predictive policing based solely on profiling', desc: 'Risk assessments predicting criminal offences based solely on profiling or personality traits', article: 'Article 5(1)(d)', terminates: true },
+        { id: 'biometric_cat', label: 'Biometric categorisation inferring sensitive attributes', desc: 'Categorising persons to deduce race, political opinions, trade union membership, religious beliefs, sex life or sexual orientation', article: 'Article 5(1)(g)', terminates: true },
+        { id: 'none', label: 'None of the above', desc: 'My system does not involve any prohibited practice' }
+      ]
+    },
+    {
+      num: 'Step 2 of 6',
+      text: 'Is your AI system a safety component of, or itself a product covered by EU harmonisation legislation listed in Annex I?',
+      hint: 'Annex I covers product safety legislation including machinery, medical devices, toys, lifts, radio equipment, civil aviation, motor vehicles, and marine equipment.',
+      options: [
+        { id: 'yes', label: 'Yes — covered by Annex I product safety legislation', desc: 'The AI system is embedded in or constitutes a product regulated under existing EU product safety law' },
+        { id: 'no', label: 'No', desc: 'The system is not a safety component of any Annex I product' }
+      ]
+    },
+    {
+      num: 'Step 3 of 6',
+      text: 'Does your AI system fall within any high-risk area listed in Annex III?',
+      hint: 'Article 6(2) designates AI systems in these domains as high-risk when they pose significant risks to health, safety, or fundamental rights.',
+      options: [
+        { id: 'area1', label: '1. Biometrics', desc: 'Remote biometric identification (not prohibited under Art. 5), biometric categorisation by sensitive attributes', area: 1 },
+        { id: 'area2', label: '2. Critical infrastructure', desc: 'Safety components of road traffic, water, gas, heating and electricity supply management', area: 2 },
+        { id: 'area3', label: '3. Education and vocational training', desc: 'Determining access to education, assessing learning outcomes, monitoring prohibited behaviour during tests', area: 3 },
+        { id: 'area4', label: '4. Employment and worker management', desc: 'Recruitment, CV screening, promotion decisions, task allocation, monitoring and evaluating workers', area: 4 },
+        { id: 'area5', label: '5. Essential private and public services', desc: 'Credit scoring, insurance risk assessment, emergency services dispatch, social benefit eligibility', area: 5 },
+        { id: 'area6', label: '6. Law enforcement', desc: 'Individual risk assessment, polygraph and lie detection, evidence reliability assessment, reoffending risk', area: 6 },
+        { id: 'area7', label: '7. Migration, asylum and border control', desc: 'Risk assessment, application processing, verification of authenticity of travel documents', area: 7 },
+        { id: 'area8', label: '8. Administration of justice and democratic processes', desc: 'Assisting judicial authorities in researching and interpreting facts and law, alternative dispute resolution', area: 8 },
+        { id: 'none', label: 'None of the above', desc: 'My system does not fall within any Annex III high-risk area' }
+      ]
+    },
+    {
+      num: 'Step 4 of 6',
+      text: 'Does your AI system have transparency obligations under Article 50?',
+      hint: 'Certain AI systems must ensure that users are informed they are interacting with AI, or that content is AI-generated.',
+      options: [
+        { id: 'deepfake', label: 'Generates or manipulates image, audio or video content', desc: 'Deepfakes, synthetic media, AI-generated content that resembles real persons, objects, places or events' },
+        { id: 'chatbot', label: 'Interacts directly with natural persons', desc: 'Chatbots, virtual assistants, or other systems where persons may not realise they are interacting with AI' },
+        { id: 'public_content', label: 'Generates text used to inform the public', desc: 'AI-generated text published to inform the public on matters of public interest' },
+        { id: 'none', label: 'No transparency obligations apply', desc: 'The system does not fall into any Article 50 transparency category' }
+      ]
+    },
+    {
+      num: 'Step 5 of 6',
+      text: 'Is this a general-purpose AI (GPAI) model?',
+      hint: 'General-purpose AI models are trained with large amounts of data using self-supervision at scale, capable of competently performing a wide range of distinct tasks (Articles 51\u201356).',
+      options: [
+        { id: 'gpai_provider', label: 'Yes — I am a provider of a GPAI model', desc: 'You develop and make available a general-purpose AI model (Art. 51\u201353)' },
+        { id: 'gpai_systemic', label: 'Yes — GPAI model with systemic risk', desc: 'GPAI model with high-impact capabilities, trained with total compute \u2265 10\u00B2\u2075 FLOPs (Art. 51\u201355)' },
+        { id: 'gpai_deployer', label: 'Yes — I deploy a system built on a GPAI model', desc: 'You use a GPAI model as part of your AI system. Provider obligations apply to the GPAI provider.' },
+        { id: 'none', label: 'No — not a general-purpose AI model', desc: 'This is a task-specific or narrow AI system' }
+      ]
+    },
+    {
+      num: 'Step 6 of 6',
+      text: 'Is your AI system likely to have a significant impact on fundamental rights?',
+      hint: 'Article 27 requires deployers of high-risk AI systems to carry out a fundamental rights impact assessment (FRIA) before putting a system into use.',
+      options: [
+        { id: 'yes', label: 'Yes — significant impact on fundamental rights likely', desc: 'The system may affect the right to non-discrimination, privacy, freedom of expression, human dignity, or other fundamental rights' },
+        { id: 'no', label: 'No significant impact expected', desc: 'The system does not pose significant risks to fundamental rights' }
+      ]
+    }
+  ];
+
+  var HIGH_RISK_OBLIGATIONS = [
+    'Risk management system (Art. 9)',
+    'Data governance and management (Art. 10)',
+    'Technical documentation (Art. 11)',
+    'Record-keeping and logging (Art. 12)',
+    'Transparency and provision of information to deployers (Art. 13)',
+    'Human oversight measures (Art. 14)',
+    'Accuracy, robustness and cybersecurity (Art. 15)',
+    'Conformity assessment before placing on market (Art. 43)'
+  ];
+
+  var GPAI_OBLIGATIONS = [
+    'Technical documentation for the model (Art. 53(1)(a))',
+    'Information and documentation to downstream providers (Art. 53(1)(b))',
+    'Copyright policy and compliance (Art. 53(1)(c))',
+    'Publish sufficiently detailed summary of training content (Art. 53(1)(d))'
+  ];
+
+  var GPAI_SYSTEMIC_OBLIGATIONS = GPAI_OBLIGATIONS.concat([
+    'Model evaluation including adversarial testing (Art. 55(1)(a))',
+    'Assess and mitigate systemic risks (Art. 55(1)(b))',
+    'Track, document and report serious incidents (Art. 55(1)(c))',
+    'Ensure adequate level of cybersecurity (Art. 55(1)(d))'
+  ]);
+
+  var TRANSPARENCY_OBLIGATIONS = [
+    'Inform natural persons they are interacting with an AI system (Art. 50(1))',
+    'Mark AI-generated or manipulated content as artificially generated (Art. 50(2))',
+    'Label deepfake content with machine-readable disclosure (Art. 50(4))'
+  ];
+
+  var MINIMAL_OBLIGATIONS = [
+    'Voluntary codes of conduct encouraged (Art. 95)',
+    'Consider implementing transparency measures',
+    'Monitor EU AI Act regulatory developments for reclassification triggers'
+  ];
+
+  var clfCurrentStep = 0;
+  var clfSelections = {};
+
+  function initClassifier() {
+    var progressEl = document.getElementById('clf-progress');
+    if (!progressEl) return;
+    progressEl.innerHTML = '';
+    for (var i = 0; i < CLF_TOTAL_STEPS; i++) {
+      var seg = document.createElement('div');
+      seg.className = 'clf-prog-seg';
+      seg.dataset.step = i;
+      progressEl.appendChild(seg);
+    }
+
+    var questionsEl = document.getElementById('clf-questions');
+    if (!questionsEl) return;
+    questionsEl.innerHTML = '';
+
+    CLF_QUESTIONS.forEach(function(q, idx) {
+      var div = document.createElement('div');
+      div.className = 'clf-question';
+      div.id = 'clf-step-' + idx;
+
+      var optionsHtml = q.options.map(function(opt) {
+        return '<button class="clf-opt" data-step="' + idx + '" data-option="' + opt.id + '" onclick="clfSelectOption(' + idx + ',\'' + opt.id + '\')">' +
+          '<div class="clf-opt-radio"></div>' +
+          '<div class="clf-opt-text">' +
+            '<div class="clf-opt-label">' + opt.label + '</div>' +
+            '<div class="clf-opt-desc">' + opt.desc + '</div>' +
+          '</div>' +
+        '</button>';
+      }).join('');
+
+      div.innerHTML =
+        '<div class="clf-q-num">' + q.num + '</div>' +
+        '<div class="clf-q-text">' + q.text + '</div>' +
+        '<div class="clf-q-hint">' + q.hint + '</div>' +
+        '<div class="clf-options">' + optionsHtml + '</div>';
+
+      questionsEl.appendChild(div);
+    });
+
+    clfCurrentStep = 0;
+    clfSelections = {};
+    renderClfStep();
+  }
+
+  function renderClfStep() {
+    document.querySelectorAll('.clf-prog-seg').forEach(function(seg, i) {
+      seg.classList.toggle('active', i === clfCurrentStep);
+      seg.classList.toggle('done', i < clfCurrentStep);
+    });
+
+    document.querySelectorAll('.clf-question').forEach(function(q, i) {
+      q.classList.toggle('active', i === clfCurrentStep);
+    });
+
+    var backBtn = document.getElementById('clf-back');
+    var nextBtn = document.getElementById('clf-next');
+    var navEl = document.getElementById('clf-nav');
+
+    if (backBtn) backBtn.classList.toggle('hidden', clfCurrentStep === 0);
+
+    if (nextBtn) {
+      var isLast = clfCurrentStep === CLF_TOTAL_STEPS - 1;
+      nextBtn.textContent = isLast ? 'See Result \u2192' : 'Next \u2192';
+      nextBtn.disabled = !clfSelections[clfCurrentStep];
+    }
+
+    if (navEl) navEl.style.display = 'flex';
+    var resultEl = document.getElementById('clf-result');
+    if (resultEl) resultEl.classList.remove('visible');
+
+    document.querySelectorAll('#clf-step-' + clfCurrentStep + ' .clf-opt').forEach(function(opt) {
+      opt.classList.toggle('selected', opt.dataset.option === clfSelections[clfCurrentStep]);
+    });
+  }
+
+  function daysUntil(dateStr) {
+    var target = new Date(dateStr + 'T00:00:00');
+    var now = new Date();
+    now.setHours(0, 0, 0, 0);
+    return Math.ceil((target - now) / 86400000);
+  }
+
+  function showProhibitedResult(option) {
+    var navEl = document.getElementById('clf-nav');
+    if (navEl) navEl.style.display = 'none';
+
+    document.querySelectorAll('.clf-prog-seg').forEach(function(seg) {
+      seg.classList.add('done');
+      seg.classList.remove('active');
+    });
+    document.querySelectorAll('.clf-question').forEach(function(q) { q.classList.remove('active'); });
+
+    var days = daysUntil('2025-02-02');
+    var deadlineText = days <= 0 ? 'IN FORCE' : days + ' days';
+
+    var resultEl = document.getElementById('clf-result');
+    resultEl.innerHTML =
+      '<div class="clf-result-header">' +
+        '<div>' +
+          '<div class="clf-result-cat">Unacceptable Risk</div>' +
+          '<div class="clf-result-level">PROHIBITED</div>' +
+          '<div class="clf-result-ref">' + option.article + ' \u2014 Regulation (EU) 2024/1689</div>' +
+        '</div>' +
+        '<div class="clf-result-deadline">' +
+          '<div>Enforcement</div>' +
+          '<div class="clf-result-days">' + deadlineText + '</div>' +
+          '<div>since 2 February 2025</div>' +
+        '</div>' +
+      '</div>' +
+      '<div class="clf-result-body">' +
+        '<div class="clf-result-section">' +
+          '<div class="clf-result-label">Classification</div>' +
+          '<div class="clf-result-obligations">' +
+            '<div class="clf-result-obl">This AI practice is prohibited under the EU AI Act</div>' +
+            '<div class="clf-result-obl">System cannot be placed on the market or put into service in the EU</div>' +
+            '<div class="clf-result-obl">Must be withdrawn from the EU market if already deployed</div>' +
+          '</div>' +
+        '</div>' +
+        '<div class="clf-result-section">' +
+          '<div class="clf-result-label">Penalty</div>' +
+          '<div class="clf-result-obligations">' +
+            '<div class="clf-result-obl">Up to \u20AC35 million or 7% of total worldwide annual turnover, whichever is higher</div>' +
+            '<div class="clf-result-obl">SMEs and startups: same amounts but whichever is lower (Art. 99(6))</div>' +
+          '</div>' +
+        '</div>' +
+        '<div class="clf-result-actions">' +
+          '<button class="clf-result-restart" onclick="restartClassifier()">\u21BB Reclassify</button>' +
+        '</div>' +
+      '</div>';
+    resultEl.classList.add('visible');
+  }
+
+  function computeClassification() {
+    var step2 = clfSelections[1];
+    var step3 = clfSelections[2];
+    var step4 = clfSelections[3];
+    var step5 = clfSelections[4];
+    var step6 = clfSelections[5];
+
+    var isAnnexI = step2 === 'yes';
+    var isAnnexIII = step3 && step3 !== 'none';
+    var annexIIIOption = isAnnexIII ? CLF_QUESTIONS[2].options.find(function(o) { return o.id === step3; }) : null;
+    var annexIIIArea = annexIIIOption ? annexIIIOption.area : null;
+    var hasTransparency = step4 && step4 !== 'none';
+    var isGPAI = step5 === 'gpai_provider';
+    var isGPAISystemic = step5 === 'gpai_systemic';
+    var isGPAIDeployer = step5 === 'gpai_deployer';
+    var hasFRIA = step6 === 'yes';
+
+    var level, category, articles, deadline, deadlineLabel, obligations, penalty, exposureMapping;
+    var supplementary = [];
+
+    if (isAnnexIII) {
+      level = 'HIGH RISK';
+      category = 'Annex III \u2014 Area ' + annexIIIArea;
+      articles = 'Article 6(2), Annex III Area ' + annexIIIArea;
+      deadline = '2026-08-02';
+      deadlineLabel = '2 August 2026';
+      obligations = HIGH_RISK_OBLIGATIONS.slice();
+      penalty = 'Up to \u20AC15 million or 3% of total worldwide annual turnover, whichever is higher';
+      exposureMapping = 'high';
+      if (isAnnexI) {
+        supplementary.push('Also covered by Annex I product safety legislation (Art. 6(1)) \u2014 additional deadline 2 August 2027');
+      }
+    } else if (isAnnexI) {
+      level = 'HIGH RISK';
+      category = 'Annex I \u2014 Product Safety Legislation';
+      articles = 'Article 6(1), Annex I';
+      deadline = '2027-08-02';
+      deadlineLabel = '2 August 2027';
+      obligations = HIGH_RISK_OBLIGATIONS.slice();
+      penalty = 'Up to \u20AC15 million or 3% of total worldwide annual turnover, whichever is higher';
+      exposureMapping = 'high';
+    } else if (isGPAISystemic) {
+      level = 'GENERAL-PURPOSE AI';
+      category = 'Systemic Risk \u2014 Chapter V';
+      articles = 'Articles 51\u201355';
+      deadline = '2025-08-02';
+      deadlineLabel = '2 August 2025';
+      obligations = GPAI_SYSTEMIC_OBLIGATIONS.slice();
+      penalty = 'Up to \u20AC15 million or 3% of total worldwide annual turnover, whichever is higher';
+      exposureMapping = 'high';
+    } else if (isGPAI) {
+      level = 'GENERAL-PURPOSE AI';
+      category = 'Provider Obligations \u2014 Chapter V';
+      articles = 'Articles 51\u201353';
+      deadline = '2025-08-02';
+      deadlineLabel = '2 August 2025';
+      obligations = GPAI_OBLIGATIONS.slice();
+      penalty = 'Up to \u20AC15 million or 3% of total worldwide annual turnover, whichever is higher';
+      exposureMapping = 'elevated';
+    } else if (hasTransparency) {
+      level = 'LIMITED RISK';
+      category = 'Transparency Obligations';
+      articles = 'Article 50';
+      deadline = '2026-08-02';
+      deadlineLabel = '2 August 2026';
+      obligations = TRANSPARENCY_OBLIGATIONS.slice();
+      penalty = 'Up to \u20AC7.5 million or 1% of total worldwide annual turnover, whichever is higher';
+      exposureMapping = 'moderate';
+    } else {
+      level = 'MINIMAL RISK';
+      category = 'Voluntary Compliance';
+      articles = 'Article 95';
+      deadline = null;
+      deadlineLabel = null;
+      obligations = MINIMAL_OBLIGATIONS.slice();
+      penalty = null;
+      exposureMapping = 'low';
+    }
+
+    if (hasTransparency && level !== 'LIMITED RISK') {
+      supplementary.push('Transparency obligations also apply (Art. 50)');
+    }
+    if (hasFRIA && (isAnnexI || isAnnexIII)) {
+      supplementary.push('Fundamental Rights Impact Assessment required before deployment (Art. 27)');
+    }
+    if ((isGPAI || isGPAISystemic) && (isAnnexI || isAnnexIII)) {
+      supplementary.push('GPAI provider obligations also apply (Art. 51\u201353)');
+    }
+    if (isGPAIDeployer) {
+      supplementary.push('GPAI model provider bears separate obligations under Art. 51\u201353');
+    }
+
+    return {
+      level: level, category: category, articles: articles,
+      deadline: deadline, deadlineLabel: deadlineLabel,
+      obligations: obligations, penalty: penalty,
+      exposureMapping: exposureMapping, supplementary: supplementary
+    };
+  }
+
+  function showClassificationResult() {
+    var navEl = document.getElementById('clf-nav');
+    if (navEl) navEl.style.display = 'none';
+
+    document.querySelectorAll('.clf-prog-seg').forEach(function(seg) {
+      seg.classList.add('done');
+      seg.classList.remove('active');
+    });
+    document.querySelectorAll('.clf-question').forEach(function(q) { q.classList.remove('active'); });
+
+    var result = computeClassification();
+    var resultEl = document.getElementById('clf-result');
+
+    var deadlineHtml;
+    if (result.deadline) {
+      var days = daysUntil(result.deadline);
+      if (days <= 0) {
+        deadlineHtml =
+          '<div>Enforcement</div>' +
+          '<div class="clf-result-days">IN FORCE</div>' +
+          '<div>since ' + result.deadlineLabel + '</div>';
+      } else {
+        deadlineHtml =
+          '<div>Compliance deadline</div>' +
+          '<div class="clf-result-days">' + days + ' days</div>' +
+          '<div>until ' + result.deadlineLabel + '</div>';
+      }
+    } else {
+      deadlineHtml =
+        '<div>Deadline</div>' +
+        '<div class="clf-result-days">\u2014</div>' +
+        '<div>No mandatory deadline</div>';
+    }
+
+    var oblsHtml = result.obligations.map(function(o) {
+      return '<div class="clf-result-obl">' + o + '</div>';
+    }).join('');
+
+    var suppHtml = '';
+    if (result.supplementary.length > 0) {
+      suppHtml =
+        '<div class="clf-result-section">' +
+          '<div class="clf-result-label">Additional Obligations</div>' +
+          '<div class="clf-result-obligations">' +
+            result.supplementary.map(function(s) { return '<div class="clf-result-obl">' + s + '</div>'; }).join('') +
+          '</div>' +
+        '</div>';
+    }
+
+    var penaltyHtml = '';
+    if (result.penalty) {
+      penaltyHtml =
+        '<div class="clf-result-section">' +
+          '<div class="clf-result-label">Maximum Penalty</div>' +
+          '<div class="clf-result-obligations">' +
+            '<div class="clf-result-obl">' + result.penalty + '</div>' +
+            '<div class="clf-result-obl">SMEs and startups: same amounts but whichever is lower (Art. 99(6))</div>' +
+          '</div>' +
+        '</div>';
+    }
+
+    var continueBtn = '<button class="clf-result-continue" onclick="applyClassification(\'' + result.exposureMapping + '\')">Continue to Governance Assessment \u2192</button>';
+
+    resultEl.innerHTML =
+      '<div class="clf-result-header">' +
+        '<div>' +
+          '<div class="clf-result-cat">' + result.category + '</div>' +
+          '<div class="clf-result-level">' + result.level + '</div>' +
+          '<div class="clf-result-ref">' + result.articles + ' \u2014 Regulation (EU) 2024/1689</div>' +
+        '</div>' +
+        '<div class="clf-result-deadline">' + deadlineHtml + '</div>' +
+      '</div>' +
+      '<div class="clf-result-body">' +
+        '<div class="clf-result-section">' +
+          '<div class="clf-result-label">Obligations (' + result.obligations.length + ')</div>' +
+          '<div class="clf-result-obligations">' + oblsHtml + '</div>' +
+        '</div>' +
+        suppHtml +
+        penaltyHtml +
+        '<div class="clf-result-actions">' +
+          continueBtn +
+          '<button class="clf-result-restart" onclick="restartClassifier()">\u21BB Reclassify</button>' +
+        '</div>' +
+      '</div>';
+    resultEl.classList.add('visible');
+  }
+
+  window.clfSelectOption = function(stepIdx, optionId) {
+    clfSelections[stepIdx] = optionId;
+    document.querySelectorAll('#clf-step-' + stepIdx + ' .clf-opt').forEach(function(opt) {
+      opt.classList.toggle('selected', opt.dataset.option === optionId);
+    });
+    var nextBtn = document.getElementById('clf-next');
+    if (nextBtn) nextBtn.disabled = false;
+  };
+
+  window.clfNext = function() {
+    var currentQ = CLF_QUESTIONS[clfCurrentStep];
+    var selectedId = clfSelections[clfCurrentStep];
+    if (!selectedId) return;
+
+    var selectedOpt = currentQ.options.find(function(o) { return o.id === selectedId; });
+
+    if (clfCurrentStep === 0 && selectedOpt && selectedOpt.terminates) {
+      showProhibitedResult(selectedOpt);
+      return;
+    }
+
+    if (clfCurrentStep < CLF_TOTAL_STEPS - 1) {
+      clfCurrentStep++;
+      renderClfStep();
+    } else {
+      showClassificationResult();
+    }
+  };
+
+  window.clfBack = function() {
+    if (clfCurrentStep > 0) {
+      clfCurrentStep--;
+      renderClfStep();
+    }
+  };
+
+  window.applyClassification = function(exposureValue) {
+    var dropdown = document.getElementById('cfg-exposure');
+    if (dropdown) dropdown.value = exposureValue;
+    var wrap = document.getElementById('classifier-wrap');
+    if (wrap) wrap.classList.add('collapsed');
+    if (typeof generateMatrix === 'function') generateMatrix();
+  };
+
+  window.skipClassifier = function() {
+    var wrap = document.getElementById('classifier-wrap');
+    if (wrap) wrap.classList.add('collapsed');
+  };
+
+  window.restartClassifier = function() {
+    clfCurrentStep = 0;
+    clfSelections = {};
+    document.querySelectorAll('.clf-opt').forEach(function(opt) { opt.classList.remove('selected'); });
+    renderClfStep();
+  };
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initClassifier);
+  } else {
+    initClassifier();
+  }
+})();
+</script>
 
 <script>
 // ── DATA MODEL ──
