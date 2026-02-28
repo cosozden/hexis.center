@@ -1,0 +1,2224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hexis — Fundamental Rights Impact Assessment (FRIA)</title>
+<link rel="canonical" href="https://hexis.center/fria/">
+<meta name="description" content="Conduct a Fundamental Rights Impact Assessment under Article 27 of the EU AI Act. Structured wizard with 6 steps and professional report generation.">
+<meta property="og:title" content="Hexis — FRIA Tool (Art. 27)">
+<meta property="og:description" content="Fundamental Rights Impact Assessment tool for EU AI Act Article 27 compliance. Wizard-based, export to PDF.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://hexis.center/fria/">
+<meta property="og:image" content="https://hexis.center/assets/og-hexis.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/assets/favicon.ico">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --charcoal: #1C1E23;
+  --brass:    #B2986C;
+  --stone:    #686662;
+  --paper:    #F8F7F5;
+  --ink:      #1C1E23;
+  --ink-soft: #444240;
+  --ink-muted:#686662;
+  --rule:     rgba(28,30,35,0.14);
+  --rule-s:   rgba(28,30,35,0.08);
+}
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  background: var(--paper);
+  color: var(--ink);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── HEADER ── */
+.fr-header {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 48px 24px 0;
+}
+.fr-brand {
+  font-size: 9px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+  margin-bottom: 12px;
+}
+.fr-title {
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: clamp(22px, 4vw, 30px);
+  font-weight: 700;
+  color: var(--charcoal);
+  margin-bottom: 8px;
+}
+.fr-subtitle {
+  font-size: 13px;
+  color: var(--ink-soft);
+  max-width: 600px;
+  line-height: 1.6;
+}
+
+/* ── PROGRESS BAR ── */
+.fr-progress {
+  max-width: 800px;
+  margin: 24px auto 0;
+  padding: 0 24px;
+  display: flex;
+  gap: 4px;
+}
+.fr-prog-seg {
+  flex: 1;
+  height: 3px;
+  background: var(--rule);
+  cursor: pointer;
+  transition: background .2s;
+}
+.fr-prog-seg.done { background: var(--charcoal); }
+.fr-prog-seg.active { background: var(--stone); }
+.fr-prog-labels {
+  max-width: 800px;
+  margin: 6px auto 0;
+  padding: 0 24px;
+  display: flex;
+  justify-content: space-between;
+}
+.fr-prog-label {
+  font-size: 8px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+  cursor: pointer;
+}
+.fr-prog-label.active { color: var(--charcoal); font-weight: 700; }
+
+/* ── WIZARD CONTAINER ── */
+.fr-wizard {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 32px 24px 80px;
+}
+.fr-step { display: none; }
+.fr-step.active { display: block; }
+
+.fr-step-header {
+  font-size: 9px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+  margin-bottom: 8px;
+}
+.fr-step-title {
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: clamp(18px, 3vw, 24px);
+  font-weight: 700;
+  color: var(--charcoal);
+  margin-bottom: 6px;
+}
+.fr-step-desc {
+  font-size: 12px;
+  color: var(--ink-soft);
+  margin-bottom: 28px;
+  line-height: 1.6;
+}
+
+/* ── FORM ELEMENTS ── */
+.fr-field {
+  margin-bottom: 20px;
+}
+.fr-label {
+  display: block;
+  font-size: 9px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+  margin-bottom: 6px;
+}
+.fr-label .req { color: var(--stone); }
+.fr-input, .fr-select, .fr-textarea {
+  width: 100%;
+  padding: 10px 12px;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 13px;
+  color: var(--ink);
+  background: white;
+  border: 1px solid var(--rule);
+  border-radius: 0;
+  outline: none;
+  transition: border-color .15s;
+}
+.fr-input:focus, .fr-select:focus, .fr-textarea:focus {
+  border-color: var(--charcoal);
+}
+.fr-textarea {
+  min-height: 80px;
+  resize: vertical;
+}
+.fr-select {
+  -webkit-appearance: none;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%23686662'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  padding-right: 32px;
+}
+.fr-hint {
+  font-size: 11px;
+  color: var(--ink-muted);
+  margin-top: 4px;
+}
+.fr-error {
+  font-size: 11px;
+  color: #8B4513;
+  margin-top: 4px;
+  display: none;
+}
+.fr-field.invalid .fr-error { display: block; }
+.fr-field.invalid .fr-input,
+.fr-field.invalid .fr-select,
+.fr-field.invalid .fr-textarea {
+  border-color: #8B4513;
+}
+
+/* Checkbox group */
+.fr-check-group { display: flex; flex-direction: column; gap: 8px; }
+.fr-check-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  cursor: pointer;
+  font-size: 13px;
+  color: var(--ink-soft);
+}
+.fr-check-item input[type="checkbox"] {
+  margin-top: 3px;
+  accent-color: var(--charcoal);
+}
+
+/* Radio group */
+.fr-radio-group { display: flex; gap: 20px; flex-wrap: wrap; }
+.fr-radio-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  font-size: 13px;
+  color: var(--ink-soft);
+}
+.fr-radio-item input[type="radio"] { accent-color: var(--charcoal); }
+
+/* Conditional field */
+.fr-conditional { display: none; margin-top: 12px; padding-left: 20px; border-left: 2px solid var(--rule-s); }
+.fr-conditional.visible { display: block; }
+
+/* ── RESULT CARD (Step 0) ── */
+.fr-result {
+  margin-top: 24px;
+  padding: 20px;
+  border: 1.5px solid var(--charcoal);
+  display: none;
+}
+.fr-result.visible { display: block; }
+.fr-result-status {
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+.fr-result-status.required { color: var(--charcoal); }
+.fr-result-status.recommended { color: var(--stone); }
+.fr-result-status.not-required { color: var(--ink-muted); }
+.fr-result-text {
+  font-size: 13px;
+  color: var(--ink-soft);
+  line-height: 1.6;
+  margin-bottom: 16px;
+}
+.fr-result-ref {
+  font-size: 10px;
+  color: var(--ink-muted);
+  margin-bottom: 16px;
+}
+
+/* ── WARNING BOX ── */
+.fr-warning {
+  padding: 12px 16px;
+  border: 1px solid var(--brass);
+  background: rgba(178,152,108,0.06);
+  font-size: 12px;
+  color: var(--ink-soft);
+  margin-top: 12px;
+  display: none;
+}
+.fr-warning.visible { display: block; }
+
+/* ── TAB SWITCHER (Step 4) ── */
+.fr-tabs {
+  display: flex;
+  border-bottom: 1px solid var(--rule);
+  margin-bottom: 20px;
+}
+.fr-tab {
+  padding: 10px 20px;
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--stone);
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  transition: all .15s;
+  background: none;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  font-family: Arial, Helvetica, sans-serif;
+}
+.fr-tab.active {
+  color: var(--charcoal);
+  border-bottom-color: var(--charcoal);
+}
+.fr-tab-content { display: none; }
+.fr-tab-content.active { display: block; }
+
+/* ── RISK TABLE (Step 4A) ── */
+.fr-risk-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 12px;
+  margin-bottom: 16px;
+}
+.fr-risk-table th {
+  font-size: 9px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+  text-align: left;
+  padding: 8px 6px;
+  border-bottom: 1.5px solid var(--charcoal);
+  font-weight: 400;
+}
+.fr-risk-table td {
+  padding: 8px 6px;
+  border-bottom: 1px solid var(--rule-s);
+  vertical-align: top;
+}
+.fr-risk-table select,
+.fr-risk-table textarea,
+.fr-risk-table input {
+  width: 100%;
+  padding: 6px 8px;
+  font-size: 11px;
+  font-family: Arial, Helvetica, sans-serif;
+  border: 1px solid var(--rule);
+  border-radius: 0;
+  background: white;
+  color: var(--ink);
+}
+.fr-risk-table textarea { min-height: 50px; resize: vertical; }
+.fr-risk-table .risk-id {
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--charcoal);
+  white-space: nowrap;
+}
+.fr-remove-risk {
+  background: none;
+  border: 1px solid var(--rule);
+  color: var(--stone);
+  font-size: 10px;
+  padding: 4px 8px;
+  cursor: pointer;
+  font-family: Arial, Helvetica, sans-serif;
+}
+.fr-remove-risk:hover { border-color: var(--ink); color: var(--ink); }
+
+/* ── RIGHTS TABLE (Step 4B) ── */
+.fr-rights-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 12px;
+}
+.fr-rights-table th {
+  font-size: 9px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+  text-align: left;
+  padding: 8px 6px;
+  border-bottom: 1.5px solid var(--charcoal);
+  font-weight: 400;
+}
+.fr-rights-table td {
+  padding: 10px 6px;
+  border-bottom: 1px solid var(--rule-s);
+  vertical-align: top;
+}
+.fr-rights-table select,
+.fr-rights-table textarea {
+  width: 100%;
+  padding: 6px 8px;
+  font-size: 11px;
+  font-family: Arial, Helvetica, sans-serif;
+  border: 1px solid var(--rule);
+  border-radius: 0;
+  background: white;
+  color: var(--ink);
+}
+.fr-rights-table textarea { min-height: 40px; resize: vertical; }
+.fr-right-name {
+  font-size: 12px;
+  color: var(--ink);
+  line-height: 1.4;
+}
+.fr-right-article {
+  font-size: 10px;
+  color: var(--ink-muted);
+}
+.fr-right-extra { display: none; }
+.fr-right-extra.visible { display: table-cell; }
+
+/* ── NAVIGATION BUTTONS ── */
+.fr-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 32px;
+  padding-top: 20px;
+  border-top: 1px solid var(--rule);
+}
+.fr-btn {
+  padding: 12px 24px;
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  cursor: pointer;
+  font-family: Arial, Helvetica, sans-serif;
+  transition: all .15s;
+  border-radius: 0;
+}
+.fr-btn-primary {
+  background: var(--charcoal);
+  color: var(--paper);
+  border: 1.5px solid var(--charcoal);
+}
+.fr-btn-primary:hover { opacity: 0.85; }
+.fr-btn-primary:disabled { opacity: 0.4; cursor: not-allowed; }
+.fr-btn-secondary {
+  background: none;
+  color: var(--stone);
+  border: 1px solid var(--rule);
+}
+.fr-btn-secondary:hover { border-color: var(--ink); color: var(--ink); }
+.fr-btn-link {
+  background: none;
+  border: none;
+  color: var(--stone);
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  cursor: pointer;
+  text-decoration: none;
+  font-family: Arial, Helvetica, sans-serif;
+  padding: 12px 0;
+}
+.fr-btn-link:hover { color: var(--ink); }
+.fr-btn-add {
+  background: none;
+  border: 1px solid var(--rule);
+  color: var(--stone);
+  padding: 8px 16px;
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  cursor: pointer;
+  font-family: Arial, Helvetica, sans-serif;
+}
+.fr-btn-add:hover { border-color: var(--ink); color: var(--ink); }
+
+/* ── VALIDATION SUMMARY ── */
+.fr-validation-summary {
+  margin-top: 16px;
+  padding: 12px 16px;
+  border: 1px solid #8B4513;
+  font-size: 12px;
+  color: #8B4513;
+  display: none;
+}
+.fr-validation-summary.visible { display: block; }
+
+/* ── SECTION DIVIDER ── */
+.fr-section {
+  margin-top: 28px;
+  padding-top: 20px;
+  border-top: 1px solid var(--rule);
+}
+.fr-section-title {
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--charcoal);
+  font-weight: 700;
+  margin-bottom: 16px;
+}
+
+/* ── REPORT ── */
+.fr-report-wrap {
+  display: none;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 32px 24px 80px;
+}
+.fr-report-wrap.visible { display: block; }
+
+.fr-report-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--rule);
+}
+
+.fr-report {
+  background: white;
+  border: 1px solid var(--rule);
+  padding: 40px;
+}
+.fr-report-header {
+  text-align: center;
+  padding-bottom: 24px;
+  border-bottom: 1.5px solid var(--charcoal);
+  margin-bottom: 28px;
+}
+.fr-report-logo {
+  display: none;
+}
+.fr-report-doc-title {
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--charcoal);
+  margin-bottom: 4px;
+}
+.fr-report-doc-ref {
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+  margin-bottom: 16px;
+}
+.fr-report-meta {
+  font-size: 11px;
+  color: var(--ink-soft);
+  line-height: 1.8;
+}
+
+.fr-report-section {
+  margin-bottom: 24px;
+}
+.fr-report-section-num {
+  font-size: 9px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+  margin-bottom: 4px;
+}
+.fr-report-section-title {
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--charcoal);
+  margin-bottom: 10px;
+}
+.fr-report-text {
+  font-size: 12px;
+  color: var(--ink-soft);
+  line-height: 1.7;
+  margin-bottom: 8px;
+}
+
+.fr-report-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 11px;
+  margin: 12px 0;
+}
+.fr-report-table th {
+  font-size: 9px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+  text-align: left;
+  padding: 8px 6px;
+  border-bottom: 1.5px solid var(--charcoal);
+  font-weight: 400;
+}
+.fr-report-table td {
+  padding: 8px 6px;
+  border-bottom: 1px solid var(--rule-s);
+  color: var(--ink-soft);
+  vertical-align: top;
+  line-height: 1.5;
+}
+
+.fr-report-disclaimer {
+  margin-top: 32px;
+  padding-top: 20px;
+  border-top: 1.5px solid var(--charcoal);
+  font-size: 9px;
+  color: var(--ink-muted);
+  line-height: 1.7;
+  letter-spacing: 0.04em;
+}
+
+/* ── FOOTER ── */
+.fr-footer {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px 24px;
+  border-top: 1px solid var(--rule);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.fr-footer-text {
+  font-size: 9px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+}
+.fr-footer-link {
+  font-size: 10px;
+  color: var(--stone);
+  text-decoration: none;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.fr-footer-link:hover { color: var(--ink); }
+.fr-clear-btn {
+  background: none;
+  border: 1px solid var(--rule);
+  color: var(--stone);
+  padding: 6px 14px;
+  font-size: 9px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  cursor: pointer;
+  font-family: Arial, Helvetica, sans-serif;
+}
+.fr-clear-btn:hover { border-color: var(--ink); color: var(--ink); }
+
+/* ── PRINT ── */
+@media print {
+  body { background: white !important; }
+  .fr-header, .fr-progress, .fr-prog-labels,
+  .fr-wizard, .fr-footer, .fr-report-toolbar { display: none !important; }
+  .fr-report-wrap { display: block !important; padding: 0 !important; }
+  .fr-report-wrap .fr-report-toolbar { display: none !important; }
+  .fr-report { border: none; padding: 0; }
+  .fr-report-logo { display: block; margin-bottom: 12px; }
+  .fr-report-logo img { max-height: 22px; width: auto; }
+  .fr-report-section { page-break-inside: avoid; }
+  .fr-report-table { page-break-inside: avoid; }
+  .fr-report-disclaimer { page-break-inside: avoid; }
+
+  .fr-report-table th,
+  .fr-report-table td,
+  .fr-report-section,
+  .fr-report-header {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  a[href]:after { content: none !important; }
+}
+
+@page {
+  size: A4;
+  margin: 18mm 16mm;
+}
+
+/* ── RESPONSIVE ── */
+@media (max-width: 600px) {
+  .fr-report { padding: 20px; }
+  .fr-risk-table, .fr-rights-table { font-size: 10px; }
+  .fr-nav { flex-wrap: wrap; gap: 10px; }
+}
+</style>
+</head>
+<body>
+
+<!-- ── HEADER ── -->
+<div class="fr-header">
+  <div class="fr-brand">Hexis · Fundamental Rights Impact Assessment</div>
+  <div class="fr-title">FRIA — Article 27</div>
+  <div class="fr-subtitle">Conduct a structured fundamental rights impact assessment as required by Article 27 of the EU AI Act (Regulation (EU) 2024/1689) before deploying high-risk AI systems.</div>
+</div>
+
+<!-- ── PROGRESS BAR ── -->
+<div class="fr-progress" id="fr-progress"></div>
+<div class="fr-prog-labels" id="fr-prog-labels"></div>
+
+<!-- ── WIZARD ── -->
+<div class="fr-wizard" id="fr-wizard">
+
+  <!-- ════ STEP 0: APPLICABILITY GATE ════ -->
+  <div class="fr-step" id="fr-step-0">
+    <div class="fr-step-header">Step 0 of 5</div>
+    <div class="fr-step-title">Is a FRIA required for your AI system?</div>
+    <div class="fr-step-desc">Article 27 requires deployers of certain high-risk AI systems to conduct a fundamental rights impact assessment before use.</div>
+
+    <div class="fr-field">
+      <label class="fr-label">0.1 Deployer type <span class="req">*</span></label>
+      <select class="fr-select" id="f-deployer-type" required>
+        <option value="">Select...</option>
+        <option value="public">Public body (government, municipality, public institution)</option>
+        <option value="private_public">Private organisation providing public services (banking, insurance, healthcare, education)</option>
+        <option value="credit_insurance">Deployer of creditworthiness or insurance risk AI systems (Annex III, 5(b) or 5(c))</option>
+        <option value="private_other">Private organisation (other)</option>
+      </select>
+      <div class="fr-error">Please select a deployer type.</div>
+    </div>
+
+    <div class="fr-field">
+      <label class="fr-label">0.2 Is the system classified as high-risk? <span class="req">*</span></label>
+      <select class="fr-select" id="f-risk-level" required>
+        <option value="">Select...</option>
+        <option value="high_annex_iii">Yes — High Risk (Annex III)</option>
+        <option value="high_annex_i">Yes — High Risk (Annex I / product safety)</option>
+        <option value="limited">No — Limited Risk</option>
+        <option value="minimal">No — Minimal Risk</option>
+      </select>
+      <div class="fr-hint">Not yet classified? <a href="../generator/" style="color:var(--stone);text-decoration:underline;">Use the Risk Classifier →</a></div>
+      <div class="fr-error">Please select a risk classification.</div>
+    </div>
+
+    <div class="fr-field" id="f-area-wrap" style="display:none;">
+      <label class="fr-label">0.3 Annex III area <span class="req">*</span></label>
+      <select class="fr-select" id="f-annex-area">
+        <option value="">Select...</option>
+        <option value="1">1. Biometric identification</option>
+        <option value="2">2. Critical infrastructure</option>
+        <option value="3">3. Education and vocational training</option>
+        <option value="4">4. Employment, workers management</option>
+        <option value="5a">5a. Essential private services (health)</option>
+        <option value="5b">5b. Creditworthiness evaluation / credit scoring</option>
+        <option value="5c">5c. Risk assessment and pricing for life and health insurance</option>
+        <option value="5d">5d. Essential public services (benefits, social services)</option>
+        <option value="6">6. Law enforcement</option>
+        <option value="7">7. Migration, asylum, border control</option>
+        <option value="8">8. Administration of justice</option>
+      </select>
+      <div class="fr-error">Please select an Annex III area.</div>
+    </div>
+
+    <div class="fr-result" id="fr-gate-result">
+      <div class="fr-result-status" id="fr-gate-status"></div>
+      <div class="fr-result-text" id="fr-gate-text"></div>
+      <div class="fr-result-ref" id="fr-gate-ref"></div>
+    </div>
+
+    <div class="fr-nav">
+      <a href="../generator/" class="fr-btn-link">← Back to Generator</a>
+      <div style="display:flex;gap:10px;" id="fr-gate-actions" style="display:none;">
+        <button class="fr-btn fr-btn-primary" id="fr-gate-continue" style="display:none;" onclick="nextStep()">Continue to FRIA →</button>
+        <a href="../generator/" class="fr-btn fr-btn-secondary" id="fr-gate-return" style="display:none;">Return to Tools</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ════ STEP 1: SYSTEM IDENTIFICATION ════ -->
+  <div class="fr-step" id="fr-step-1">
+    <div class="fr-step-header">Step 1 of 5</div>
+    <div class="fr-step-title">Describe the AI system under assessment</div>
+    <div class="fr-step-desc">Article 27(1)(a) — Identify the AI system, its purpose, provider, and deployer information.</div>
+
+    <div class="fr-field">
+      <label class="fr-label">1.1 System name <span class="req">*</span></label>
+      <input class="fr-input" type="text" id="f-sys-name" required minlength="3" placeholder="e.g. HR Candidate Pre-Screening System">
+      <div class="fr-error">System name is required (min 3 characters).</div>
+    </div>
+
+    <div class="fr-field">
+      <label class="fr-label">1.2 Intended purpose <span class="req">*</span></label>
+      <textarea class="fr-textarea" id="f-sys-purpose" required minlength="40" placeholder="Describe what the AI system does and why your organisation uses it"></textarea>
+      <div class="fr-error">Please describe the intended purpose (min 40 characters).</div>
+    </div>
+
+    <div class="fr-field">
+      <label class="fr-label">1.3 Sector <span class="req">*</span></label>
+      <select class="fr-select" id="f-sector" required>
+        <option value="">Select...</option>
+        <option value="Employment & HR">Employment & HR</option>
+        <option value="Education">Education</option>
+        <option value="Healthcare">Healthcare</option>
+        <option value="Finance & Insurance">Finance & Insurance</option>
+        <option value="Law Enforcement">Law Enforcement</option>
+        <option value="Migration & Border">Migration & Border</option>
+        <option value="Critical Infrastructure">Critical Infrastructure</option>
+        <option value="Public Administration">Public Administration</option>
+        <option value="Other">Other</option>
+      </select>
+      <div class="fr-error">Please select a sector.</div>
+    </div>
+
+    <div class="fr-field">
+      <label class="fr-label">1.4 Decision influence level <span class="req">*</span></label>
+      <select class="fr-select" id="f-decision-level" required>
+        <option value="">Select...</option>
+        <option value="Advisory only (human makes all decisions)">Advisory only (human makes all decisions)</option>
+        <option value="Recommender (suggests options, human decides)">Recommender (suggests options, human decides)</option>
+        <option value="Decision support (scores/ranks, human approves)">Decision support (scores/ranks, human approves)</option>
+        <option value="Automated with human sign-off">Automated with human sign-off</option>
+        <option value="Fully automated">Fully automated</option>
+      </select>
+      <div class="fr-error">Please select a decision influence level.</div>
+    </div>
+
+    <div class="fr-field">
+      <label class="fr-label">1.5 Provider name <span class="req">*</span></label>
+      <input class="fr-input" type="text" id="f-provider" required placeholder="e.g. Acme AI Solutions B.V.">
+      <div class="fr-error">Provider name is required.</div>
+    </div>
+
+    <div class="fr-field">
+      <label class="fr-label">1.6 Deployer name <span class="req">*</span></label>
+      <input class="fr-input" type="text" id="f-deployer" required placeholder="e.g. Your Organisation Name">
+      <div class="fr-error">Deployer name is required.</div>
+    </div>
+
+    <div class="fr-field">
+      <label class="fr-label">1.7 Responsible function <span class="req">*</span></label>
+      <input class="fr-input" type="text" id="f-responsible" required placeholder="e.g. HR Department, Compliance Team, IT Operations">
+      <div class="fr-error">Responsible function is required.</div>
+    </div>
+
+    <div class="fr-field">
+      <label class="fr-check-item">
+        <input type="checkbox" id="f-has-instructions" onchange="toggleConditional('provider-instr', this.checked)">
+        <span>1.8 Provider instructions available</span>
+      </label>
+      <div class="fr-conditional" id="provider-instr">
+        <div class="fr-field">
+          <label class="fr-label">1.8a Summary of provider instructions <span class="req">*</span></label>
+          <textarea class="fr-textarea" id="f-instr-summary" placeholder="Summarise the provider's instructions for use"></textarea>
+          <div class="fr-error">Please provide a summary of provider instructions.</div>
+        </div>
+        <div class="fr-field">
+          <label class="fr-label">1.8b Provider-specified constraints or limitations</label>
+          <textarea class="fr-textarea" id="f-instr-constraints" placeholder="Any restrictions, limitations, or conditions specified by the provider"></textarea>
+        </div>
+      </div>
+    </div>
+
+    <div class="fr-nav">
+      <button class="fr-btn fr-btn-secondary" onclick="prevStep()">← Back</button>
+      <button class="fr-btn fr-btn-primary" onclick="nextStep()">Continue →</button>
+    </div>
+  </div>
+
+  <!-- ════ STEP 2: USE CONTEXT & FREQUENCY ════ -->
+  <div class="fr-step" id="fr-step-2">
+    <div class="fr-step-header">Step 2 of 5</div>
+    <div class="fr-step-title">How and how often will the system be used?</div>
+    <div class="fr-step-desc">Article 27(1)(b) — Describe the deployment context, frequency of use, and human oversight arrangements.</div>
+
+    <div class="fr-field">
+      <label class="fr-label">2.1 Deployment stage <span class="req">*</span></label>
+      <select class="fr-select" id="f-deploy-stage" required>
+        <option value="">Select...</option>
+        <option value="Pilot / Testing">Pilot / Testing</option>
+        <option value="Limited rollout">Limited rollout</option>
+        <option value="Full production">Full production</option>
+      </select>
+      <div class="fr-error">Please select a deployment stage.</div>
+    </div>
+
+    <div style="display:flex;gap:16px;flex-wrap:wrap;">
+      <div class="fr-field" style="flex:1;min-width:160px;">
+        <label class="fr-label">2.2 Start date</label>
+        <input class="fr-input" type="date" id="f-start-date">
+      </div>
+      <div class="fr-field" style="flex:1;min-width:160px;">
+        <label class="fr-label">2.3 End date</label>
+        <input class="fr-input" type="date" id="f-end-date">
+        <div class="fr-hint">Leave blank if ongoing</div>
+      </div>
+    </div>
+
+    <div class="fr-field">
+      <label class="fr-label">2.4 Frequency of use <span class="req">*</span></label>
+      <select class="fr-select" id="f-frequency" required>
+        <option value="">Select...</option>
+        <option value="Continuous (always running)">Continuous (always running)</option>
+        <option value="Daily">Daily</option>
+        <option value="Weekly">Weekly</option>
+        <option value="Per event / on demand">Per event / on demand</option>
+        <option value="Seasonal / campaign-based">Seasonal / campaign-based</option>
+      </select>
+      <div class="fr-error">Please select frequency of use.</div>
+    </div>
+
+    <div class="fr-field">
+      <label class="fr-label">2.5 Estimated decisions per month</label>
+      <input class="fr-input" type="number" id="f-decisions-month" placeholder="e.g. 500" min="0">
+    </div>
+
+    <div class="fr-field">
+      <label class="fr-label">2.6 Human-in-the-loop <span class="req">*</span></label>
+      <select class="fr-select" id="f-hitl" required onchange="checkHITLWarning()">
+        <option value="">Select...</option>
+        <option value="No human review (fully automated output)">No human review (fully automated output)</option>
+        <option value="Human reviews output before action">Human reviews output before action</option>
+        <option value="Human approval required before any action">Human approval required before any action</option>
+      </select>
+      <div class="fr-error">Please select human-in-the-loop level.</div>
+      <div class="fr-warning" id="hitl-warning">Fully automated systems require heightened scrutiny under Articles 14 and 22 GDPR.</div>
+    </div>
+
+    <div class="fr-field">
+      <label class="fr-label">2.7 Output type <span class="req">*</span></label>
+      <select class="fr-select" id="f-output-type" required>
+        <option value="">Select...</option>
+        <option value="Score / rating">Score / rating</option>
+        <option value="Ranking / shortlist">Ranking / shortlist</option>
+        <option value="Label / category">Label / category</option>
+        <option value="Text recommendation">Text recommendation</option>
+        <option value="Binary decision (accept/reject)">Binary decision (accept/reject)</option>
+        <option value="Other">Other</option>
+      </select>
+      <div class="fr-error">Please select output type.</div>
+    </div>
+
+    <div class="fr-field">
+      <label class="fr-label">2.8 Primary data sources <span class="req">*</span></label>
+      <textarea class="fr-textarea" id="f-data-sources" required placeholder="e.g. CVs, application forms, interview recordings, psychometric tests"></textarea>
+      <div class="fr-error">Please describe the primary data sources.</div>
+    </div>
+
+    <div class="fr-nav">
+      <button class="fr-btn fr-btn-secondary" onclick="prevStep()">← Back</button>
+      <button class="fr-btn fr-btn-primary" onclick="nextStep()">Continue →</button>
+    </div>
+  </div>
+
+  <!-- ════ STEP 3: AFFECTED GROUPS ════ -->
+  <div class="fr-step" id="fr-step-3">
+    <div class="fr-step-header">Step 3 of 5</div>
+    <div class="fr-step-title">Who is affected by this AI system?</div>
+    <div class="fr-step-desc">Article 27(1)(c) + 27(3) — Identify directly and indirectly affected groups, including vulnerable populations.</div>
+
+    <div class="fr-field">
+      <label class="fr-label">3.1 Directly affected groups <span class="req">*</span> (select at least one)</label>
+      <div class="fr-check-group" id="f-direct-groups">
+        <label class="fr-check-item"><input type="checkbox" value="Job candidates / applicants"> Job candidates / applicants</label>
+        <label class="fr-check-item"><input type="checkbox" value="Employees / workers"> Employees / workers</label>
+        <label class="fr-check-item"><input type="checkbox" value="Customers / clients"> Customers / clients</label>
+        <label class="fr-check-item"><input type="checkbox" value="Citizens / residents"> Citizens / residents</label>
+        <label class="fr-check-item"><input type="checkbox" value="Students / learners"> Students / learners</label>
+        <label class="fr-check-item"><input type="checkbox" value="Patients"> Patients</label>
+        <label class="fr-check-item"><input type="checkbox" value="Social benefit recipients"> Social benefit recipients</label>
+        <label class="fr-check-item"><input type="checkbox" value="Children (under 18)"> Children (under 18)</label>
+        <label class="fr-check-item"><input type="checkbox" value="Elderly persons"> Elderly persons</label>
+        <label class="fr-check-item"><input type="checkbox" value="Persons with disabilities"> Persons with disabilities</label>
+      </div>
+      <div style="margin-top:8px;display:flex;align-items:center;gap:8px;">
+        <label class="fr-check-item"><input type="checkbox" value="Other" id="f-direct-other-check" onchange="toggleConditional('direct-other-wrap', this.checked)"> Other:</label>
+        <input class="fr-input" type="text" id="f-direct-other-text" style="width:200px;display:none;" placeholder="Specify...">
+      </div>
+      <div class="fr-error">Please select at least one directly affected group.</div>
+    </div>
+
+    <div class="fr-field">
+      <label class="fr-label">3.2 Indirectly affected groups</label>
+      <div class="fr-check-group" id="f-indirect-groups">
+        <label class="fr-check-item"><input type="checkbox" value="Job candidates / applicants"> Job candidates / applicants</label>
+        <label class="fr-check-item"><input type="checkbox" value="Employees / workers"> Employees / workers</label>
+        <label class="fr-check-item"><input type="checkbox" value="Customers / clients"> Customers / clients</label>
+        <label class="fr-check-item"><input type="checkbox" value="Citizens / residents"> Citizens / residents</label>
+        <label class="fr-check-item"><input type="checkbox" value="Students / learners"> Students / learners</label>
+        <label class="fr-check-item"><input type="checkbox" value="Patients"> Patients</label>
+        <label class="fr-check-item"><input type="checkbox" value="Social benefit recipients"> Social benefit recipients</label>
+        <label class="fr-check-item"><input type="checkbox" value="Children (under 18)"> Children (under 18)</label>
+        <label class="fr-check-item"><input type="checkbox" value="Elderly persons"> Elderly persons</label>
+        <label class="fr-check-item"><input type="checkbox" value="Persons with disabilities"> Persons with disabilities</label>
+      </div>
+    </div>
+
+    <div class="fr-field">
+      <label class="fr-label">3.3 Estimated number of people affected <span class="req">*</span></label>
+      <input class="fr-input" type="number" id="f-people-count" required min="1" placeholder="e.g. 10000">
+      <div class="fr-error">Please estimate the number of affected people.</div>
+    </div>
+
+    <div class="fr-field">
+      <label class="fr-label">3.4 Are vulnerable groups present? <span class="req">*</span></label>
+      <div class="fr-radio-group">
+        <label class="fr-radio-item"><input type="radio" name="f-vulnerable" value="yes" onchange="toggleConditional('vulnerable-detail', true)"> Yes</label>
+        <label class="fr-radio-item"><input type="radio" name="f-vulnerable" value="no" onchange="toggleConditional('vulnerable-detail', false)"> No</label>
+      </div>
+      <div class="fr-error">Please indicate whether vulnerable groups are present.</div>
+      <div class="fr-conditional" id="vulnerable-detail">
+        <div class="fr-field">
+          <label class="fr-label">3.4a Describe the vulnerability and potential disproportionate impact <span class="req">*</span></label>
+          <textarea class="fr-textarea" id="f-vulnerable-desc" placeholder="Describe how vulnerable groups may be disproportionately affected"></textarea>
+          <div class="fr-error">Please describe the vulnerability.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="fr-field">
+      <label class="fr-label">3.5 Geographic scope <span class="req">*</span></label>
+      <select class="fr-select" id="f-geo-scope" required>
+        <option value="">Select...</option>
+        <option value="EU only">EU only</option>
+        <option value="EU and non-EU">EU and non-EU</option>
+        <option value="Non-EU only (but EU AI Act applies)">Non-EU only (but EU AI Act applies)</option>
+      </select>
+      <div class="fr-error">Please select geographic scope.</div>
+    </div>
+
+    <div class="fr-field">
+      <label class="fr-label">3.6 Impact context</label>
+      <textarea class="fr-textarea" id="f-impact-context" placeholder="e.g. Rejection from job application, denial of credit, exclusion from service"></textarea>
+    </div>
+
+    <div class="fr-nav">
+      <button class="fr-btn fr-btn-secondary" onclick="prevStep()">← Back</button>
+      <button class="fr-btn fr-btn-primary" onclick="nextStep()">Continue →</button>
+    </div>
+  </div>
+
+  <!-- ════ STEP 4: HARM RISKS & RIGHTS MATRIX ════ -->
+  <div class="fr-step" id="fr-step-4">
+    <div class="fr-step-header">Step 4 of 5</div>
+    <div class="fr-step-title">Identify risks and assess impact on fundamental rights</div>
+    <div class="fr-step-desc">Article 27(1)(d) — Document harm risks and map their impact on fundamental rights guaranteed by the EU Charter.</div>
+
+    <div class="fr-tabs">
+      <button class="fr-tab active" onclick="switchTab(0)">Harm Risk Register</button>
+      <button class="fr-tab" onclick="switchTab(1)">Fundamental Rights Matrix</button>
+    </div>
+
+    <!-- TAB A: Harm Risk Register -->
+    <div class="fr-tab-content active" id="fr-tab-0">
+      <div style="overflow-x:auto;">
+        <table class="fr-risk-table" id="risk-table">
+          <thead>
+            <tr>
+              <th style="width:60px;">ID</th>
+              <th style="width:140px;">Risk Type</th>
+              <th style="width:200px;">Risk Scenario</th>
+              <th style="width:80px;">Likelihood</th>
+              <th style="width:80px;">Severity</th>
+              <th style="width:160px;">Existing Controls</th>
+              <th style="width:80px;">Residual</th>
+              <th style="width:40px;"></th>
+            </tr>
+          </thead>
+          <tbody id="risk-tbody"></tbody>
+        </table>
+      </div>
+      <button class="fr-btn-add" onclick="addRiskRow()" style="margin-top:12px;">+ Add Risk</button>
+      <div class="fr-error" id="risk-table-error" style="margin-top:8px;">At least one risk entry is required.</div>
+    </div>
+
+    <!-- TAB B: Fundamental Rights Matrix -->
+    <div class="fr-tab-content" id="fr-tab-1">
+      <div style="overflow-x:auto;">
+        <table class="fr-rights-table" id="rights-table">
+          <thead>
+            <tr>
+              <th style="width:200px;">Fundamental Right</th>
+              <th style="width:100px;">Impact</th>
+              <th style="width:140px;">Linked Risks</th>
+              <th style="width:80px;">Severity</th>
+              <th style="width:200px;">Mitigation Summary</th>
+            </tr>
+          </thead>
+          <tbody id="rights-tbody"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="fr-nav">
+      <button class="fr-btn fr-btn-secondary" onclick="prevStep()">← Back</button>
+      <button class="fr-btn fr-btn-primary" onclick="nextStep()">Continue →</button>
+    </div>
+  </div>
+
+  <!-- ════ STEP 5: MITIGATION, OVERSIGHT, COMPLAINT, REVIEW ════ -->
+  <div class="fr-step" id="fr-step-5">
+    <div class="fr-step-header">Step 5 of 5</div>
+    <div class="fr-step-title">Define safeguards and governance measures</div>
+    <div class="fr-step-desc">Articles 27(1)(e)-(f), 27(2), 27(3), 27(4) — Human oversight, incident response, complaint mechanisms, review schedule, and sign-off.</div>
+
+    <!-- 5A: Human Oversight -->
+    <div class="fr-section" style="margin-top:0;padding-top:0;border-top:none;">
+      <div class="fr-section-title">5A — Human Oversight (Art. 27(1)(e))</div>
+      <div class="fr-field">
+        <label class="fr-label">5.1 How is human oversight implemented? <span class="req">*</span></label>
+        <textarea class="fr-textarea" id="f-oversight-impl" required placeholder="Describe how humans monitor, review, or override AI decisions"></textarea>
+        <div class="fr-error">Please describe human oversight implementation.</div>
+      </div>
+      <div class="fr-field">
+        <label class="fr-label">5.2 Escalation path <span class="req">*</span></label>
+        <textarea class="fr-textarea" id="f-escalation" required placeholder="e.g. Reviewer → Team Lead → Compliance Officer → DPO"></textarea>
+        <div class="fr-error">Please describe the escalation path.</div>
+      </div>
+      <div class="fr-field">
+        <label class="fr-label">5.3 Have operators been trained on the system? <span class="req">*</span></label>
+        <div class="fr-radio-group">
+          <label class="fr-radio-item"><input type="radio" name="f-trained" value="yes" onchange="toggleConditional('training-detail', true)"> Yes</label>
+          <label class="fr-radio-item"><input type="radio" name="f-trained" value="no" onchange="toggleConditional('training-detail', false)"> No</label>
+        </div>
+        <div class="fr-error">Please indicate whether operators have been trained.</div>
+        <div class="fr-conditional" id="training-detail">
+          <div class="fr-field">
+            <label class="fr-label">5.3a Training details <span class="req">*</span></label>
+            <textarea class="fr-textarea" id="f-training-details" placeholder="Describe the training provided to operators"></textarea>
+            <div class="fr-error">Please provide training details.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 5B: Incident Response -->
+    <div class="fr-section">
+      <div class="fr-section-title">5B — Incident Response (Art. 27(1)(f))</div>
+      <div class="fr-field">
+        <label class="fr-label">5.4 What happens when the system produces a wrong or harmful output? <span class="req">*</span></label>
+        <textarea class="fr-textarea" id="f-incident-response" required placeholder="Describe the response procedure for incorrect or harmful outputs"></textarea>
+        <div class="fr-error">Please describe incident response procedures.</div>
+      </div>
+      <div class="fr-field">
+        <label class="fr-label">5.5 Can the system be suspended or rolled back? <span class="req">*</span></label>
+        <div class="fr-radio-group">
+          <label class="fr-radio-item"><input type="radio" name="f-rollback" value="yes"> Yes</label>
+          <label class="fr-radio-item"><input type="radio" name="f-rollback" value="no"> No</label>
+        </div>
+        <div class="fr-error">Please indicate rollback capability.</div>
+      </div>
+      <div class="fr-field">
+        <label class="fr-label">5.6 Internal notification rules</label>
+        <textarea class="fr-textarea" id="f-notification-rules" placeholder="e.g. DPO notified within 24h, incident logged in register"></textarea>
+      </div>
+    </div>
+
+    <!-- 5C: Complaint Mechanism -->
+    <div class="fr-section">
+      <div class="fr-section-title">5C — Complaint Mechanism (Art. 27(1)(f))</div>
+      <div class="fr-field">
+        <label class="fr-label">5.7 Complaint channel <span class="req">*</span></label>
+        <select class="fr-select" id="f-complaint-channel" required>
+          <option value="">Select...</option>
+          <option value="Email">Email</option>
+          <option value="Web form">Web form</option>
+          <option value="Ticketing system">Ticketing system</option>
+          <option value="Hotline">Hotline</option>
+          <option value="In-person">In-person</option>
+          <option value="Other">Other</option>
+        </select>
+        <div class="fr-error">Please select a complaint channel.</div>
+      </div>
+      <div class="fr-field">
+        <label class="fr-label">5.8 Maximum response time (days) <span class="req">*</span></label>
+        <input class="fr-input" type="number" id="f-response-days" required min="1" placeholder="e.g. 14">
+        <div class="fr-error">Please specify maximum response time.</div>
+      </div>
+      <div class="fr-field">
+        <label class="fr-label">5.9 Appeal process <span class="req">*</span></label>
+        <textarea class="fr-textarea" id="f-appeal" required placeholder="Describe how affected persons can appeal an AI-assisted decision"></textarea>
+        <div class="fr-error">Please describe the appeal process.</div>
+      </div>
+      <div class="fr-field">
+        <label class="fr-label">5.10 Logging and audit trail <span class="req">*</span></label>
+        <textarea class="fr-textarea" id="f-audit-trail" required placeholder="How are complaints recorded and reviewed?"></textarea>
+        <div class="fr-error">Please describe logging and audit trail.</div>
+      </div>
+    </div>
+
+    <!-- 5D: Review Schedule -->
+    <div class="fr-section">
+      <div class="fr-section-title">5D — Review Schedule (Art. 27(2))</div>
+      <div class="fr-field">
+        <label class="fr-label">5.11 Review frequency <span class="req">*</span></label>
+        <select class="fr-select" id="f-review-freq" required>
+          <option value="">Select...</option>
+          <option value="Monthly">Monthly</option>
+          <option value="Quarterly">Quarterly</option>
+          <option value="Biannual">Biannual</option>
+          <option value="Annual">Annual</option>
+          <option value="Triggered by changes only">Triggered by changes only</option>
+        </select>
+        <div class="fr-error">Please select review frequency.</div>
+      </div>
+      <div class="fr-field">
+        <label class="fr-label">5.12 Change triggers requiring FRIA update <span class="req">*</span> (select at least one)</label>
+        <div class="fr-check-group" id="f-triggers">
+          <label class="fr-check-item"><input type="checkbox" value="Model update or retraining"> Model update or retraining</label>
+          <label class="fr-check-item"><input type="checkbox" value="Data schema or source change"> Data schema or source change</label>
+          <label class="fr-check-item"><input type="checkbox" value="New use case or expanded scope"> New use case or expanded scope</label>
+          <label class="fr-check-item"><input type="checkbox" value="Significant increase in complaints"> Significant increase in complaints</label>
+          <label class="fr-check-item"><input type="checkbox" value="Performance degradation detected"> Performance degradation detected</label>
+          <label class="fr-check-item"><input type="checkbox" value="Regulatory change"> Regulatory change</label>
+          <label class="fr-check-item"><input type="checkbox" value="Security incident"> Security incident</label>
+        </div>
+        <div class="fr-error">Please select at least one change trigger.</div>
+      </div>
+    </div>
+
+    <!-- 5E: DPIA Linkage -->
+    <div class="fr-section">
+      <div class="fr-section-title">5E — DPIA Linkage (Art. 27(4))</div>
+      <div class="fr-field">
+        <label class="fr-label">5.13 Has a GDPR DPIA been conducted? <span class="req">*</span></label>
+        <select class="fr-select" id="f-dpia" required>
+          <option value="">Select...</option>
+          <option value="Yes — combined with this FRIA">Yes — combined with this FRIA</option>
+          <option value="Yes — conducted separately">Yes — conducted separately</option>
+          <option value="No — not yet conducted">No — not yet conducted</option>
+          <option value="Not applicable">Not applicable</option>
+        </select>
+        <div class="fr-error">Please select DPIA status.</div>
+      </div>
+      <div class="fr-field">
+        <label class="fr-label">5.14 DPIA reference</label>
+        <input class="fr-input" type="text" id="f-dpia-ref" placeholder="e.g. DPIA-2026-042">
+      </div>
+    </div>
+
+    <!-- 5F: Authority Notification -->
+    <div class="fr-section">
+      <div class="fr-section-title">5F — Authority Notification (Art. 27(3))</div>
+      <div class="fr-field">
+        <label class="fr-label">5.15 Is notification to market surveillance authority required? <span class="req">*</span></label>
+        <select class="fr-select" id="f-authority-notify" required>
+          <option value="">Select...</option>
+          <option value="Yes">Yes</option>
+          <option value="No">No</option>
+          <option value="Under assessment">Under assessment</option>
+        </select>
+        <div class="fr-error">Please select notification status.</div>
+      </div>
+      <div class="fr-field">
+        <label class="fr-label">5.16 Rationale <span class="req">*</span></label>
+        <textarea class="fr-textarea" id="f-authority-rationale" required placeholder="Explain why notification is or is not required"></textarea>
+        <div class="fr-error">Please provide the rationale.</div>
+      </div>
+    </div>
+
+    <!-- 5G: Sign-off -->
+    <div class="fr-section">
+      <div class="fr-section-title">5G — Sign-off</div>
+      <div style="display:flex;gap:16px;flex-wrap:wrap;">
+        <div class="fr-field" style="flex:1;min-width:180px;">
+          <label class="fr-label">5.17 Prepared by <span class="req">*</span></label>
+          <input class="fr-input" type="text" id="f-prepared-by" required>
+          <div class="fr-error">Prepared by is required.</div>
+        </div>
+        <div class="fr-field" style="flex:1;min-width:180px;">
+          <label class="fr-label">5.18 Reviewed by</label>
+          <input class="fr-input" type="text" id="f-reviewed-by">
+        </div>
+        <div class="fr-field" style="flex:1;min-width:180px;">
+          <label class="fr-label">5.19 Approved by</label>
+          <input class="fr-input" type="text" id="f-approved-by">
+        </div>
+      </div>
+      <div class="fr-field" style="max-width:200px;">
+        <label class="fr-label">5.20 Date <span class="req">*</span></label>
+        <input class="fr-input" type="date" id="f-signoff-date" required>
+        <div class="fr-error">Date is required.</div>
+      </div>
+    </div>
+
+    <div class="fr-validation-summary" id="validation-summary"></div>
+
+    <div class="fr-nav">
+      <button class="fr-btn fr-btn-secondary" onclick="prevStep()">← Back</button>
+      <button class="fr-btn fr-btn-primary" onclick="generateReport()">Generate FRIA Report →</button>
+    </div>
+  </div>
+
+</div><!-- /fr-wizard -->
+
+<!-- ── REPORT OUTPUT ── -->
+<div class="fr-report-wrap" id="fr-report-wrap">
+  <div class="fr-report-toolbar">
+    <button class="fr-btn fr-btn-secondary" onclick="editAssessment()">← Edit Assessment</button>
+    <button class="fr-btn fr-btn-primary" onclick="exportPDF()">Export PDF</button>
+  </div>
+  <div class="fr-report" id="fr-report"></div>
+</div>
+
+<!-- ── FOOTER ── -->
+<div class="fr-footer" id="fr-footer">
+  <div class="fr-footer-text">Hexis · hexis.center</div>
+  <div style="display:flex;gap:16px;align-items:center;">
+    <a href="../checklist/?risk=high" class="fr-footer-link">Checklist →</a>
+    <a href="../generator/" class="fr-footer-link">Generator →</a>
+    <button class="fr-clear-btn" onclick="clearAssessment()">Clear Assessment</button>
+  </div>
+</div>
+
+<script>
+/* ══════════════════════════════════════════════
+   FRIA WIZARD — hexis.center/fria/
+   Article 27, Regulation (EU) 2024/1689
+   ══════════════════════════════════════════════ */
+
+var STORAGE_KEY = 'hexis_fria';
+var currentStep = 0;
+var totalSteps = 6; // 0-5
+var proceedMode = ''; // 'required', 'recommended', 'voluntary', 'not_required'
+var riskCounter = 0;
+
+var STEP_LABELS = ['Gate', 'System', 'Context', 'Groups', 'Risks', 'Safeguards'];
+
+var RIGHTS = [
+  { id: 'r1',  name: 'Human dignity',                   article: 'Art. 1 EU Charter' },
+  { id: 'r2',  name: 'Right to life and integrity',     article: 'Art. 2, 3 EU Charter' },
+  { id: 'r3',  name: 'Respect for private life',        article: 'Art. 7 EU Charter' },
+  { id: 'r4',  name: 'Protection of personal data',     article: 'Art. 8 EU Charter' },
+  { id: 'r5',  name: 'Freedom of expression and information', article: 'Art. 11 EU Charter' },
+  { id: 'r6',  name: 'Non-discrimination',              article: 'Art. 21 EU Charter' },
+  { id: 'r7',  name: 'Rights of the child',             article: 'Art. 24 EU Charter' },
+  { id: 'r8',  name: 'Right to an effective remedy and to a fair trial', article: 'Art. 47 EU Charter' },
+  { id: 'r9',  name: 'Right to good administration',    article: 'Art. 41 EU Charter' },
+  { id: 'r10', name: "Workers' rights",                 article: 'Art. 27-31 EU Charter' },
+  { id: 'r11', name: 'Right to education',              article: 'Art. 14 EU Charter' },
+  { id: 'r12', name: 'Freedom to conduct a business',   article: 'Art. 16 EU Charter' }
+];
+
+var RISK_TYPES = [
+  'Bias / Discrimination',
+  'Privacy breach / Data leakage',
+  'Inaccurate output / False positive-negative',
+  'Lack of explainability',
+  'Security / Adversarial attack',
+  'Data quality issue',
+  'Model drift / Performance degradation',
+  'Over-reliance on AI output',
+  'Accessibility barrier',
+  'Other'
+];
+
+// ── INIT ──
+function init() {
+  renderProgress();
+  initRightsTable();
+  addRiskRow(); addRiskRow(); addRiskRow();
+  setDefaultDate();
+  applyURLParams();
+  loadFromStorage();
+  showStep(0);
+
+  // Attach auto-save on change
+  document.querySelectorAll('.fr-input, .fr-select, .fr-textarea').forEach(function(el) {
+    el.addEventListener('change', saveToStorage);
+    el.addEventListener('input', debounce(saveToStorage, 500));
+  });
+
+  // Step 0 reactive
+  document.getElementById('f-risk-level').addEventListener('change', function() {
+    var v = this.value;
+    document.getElementById('f-area-wrap').style.display =
+      (v === 'high_annex_iii') ? 'block' : 'none';
+    evaluateGate();
+  });
+  document.getElementById('f-deployer-type').addEventListener('change', evaluateGate);
+  document.getElementById('f-annex-area').addEventListener('change', evaluateGate);
+}
+
+function debounce(fn, ms) {
+  var t; return function() { clearTimeout(t); t = setTimeout(fn, ms); };
+}
+
+// ── PROGRESS BAR ──
+function renderProgress() {
+  var bar = document.getElementById('fr-progress');
+  var labels = document.getElementById('fr-prog-labels');
+  bar.innerHTML = '';
+  labels.innerHTML = '';
+  for (var i = 0; i < totalSteps; i++) {
+    var seg = document.createElement('div');
+    seg.className = 'fr-prog-seg';
+    seg.dataset.step = i;
+    seg.onclick = (function(s) { return function() { if (s <= currentStep) goToStep(s); }; })(i);
+    bar.appendChild(seg);
+
+    var lbl = document.createElement('div');
+    lbl.className = 'fr-prog-label';
+    lbl.textContent = STEP_LABELS[i];
+    lbl.dataset.step = i;
+    lbl.onclick = (function(s) { return function() { if (s <= currentStep) goToStep(s); }; })(i);
+    labels.appendChild(lbl);
+  }
+  updateProgress();
+}
+
+function updateProgress() {
+  document.querySelectorAll('.fr-prog-seg').forEach(function(seg) {
+    var s = parseInt(seg.dataset.step);
+    seg.classList.toggle('done', s < currentStep);
+    seg.classList.toggle('active', s === currentStep);
+  });
+  document.querySelectorAll('.fr-prog-label').forEach(function(lbl) {
+    lbl.classList.toggle('active', parseInt(lbl.dataset.step) === currentStep);
+  });
+}
+
+// ── STEP NAVIGATION ──
+function showStep(n) {
+  document.querySelectorAll('.fr-step').forEach(function(el) { el.classList.remove('active'); });
+  var step = document.getElementById('fr-step-' + n);
+  if (step) step.classList.add('active');
+  currentStep = n;
+  updateProgress();
+  window.scrollTo(0, 0);
+}
+
+function goToStep(n) {
+  showStep(n);
+}
+
+function nextStep() {
+  if (currentStep === 0) {
+    if (!validateStep0()) return;
+    if (proceedMode === 'not_required') return;
+  } else if (!validateStep(currentStep)) {
+    return;
+  }
+  saveToStorage();
+  if (currentStep < totalSteps - 1) {
+    showStep(currentStep + 1);
+  }
+}
+
+function prevStep() {
+  if (currentStep > 0) showStep(currentStep - 1);
+}
+
+// ── STEP 0: APPLICABILITY GATE ──
+function evaluateGate() {
+  var deployer = document.getElementById('f-deployer-type').value;
+  var risk = document.getElementById('f-risk-level').value;
+  var area = document.getElementById('f-annex-area').value;
+  var result = document.getElementById('fr-gate-result');
+  var status = document.getElementById('fr-gate-status');
+  var text = document.getElementById('fr-gate-text');
+  var ref = document.getElementById('fr-gate-ref');
+  var continueBtn = document.getElementById('fr-gate-continue');
+  var returnBtn = document.getElementById('fr-gate-return');
+
+  if (!deployer || !risk) {
+    result.classList.remove('visible');
+    continueBtn.style.display = 'none';
+    returnBtn.style.display = 'none';
+    return;
+  }
+
+  var isHighRisk = risk === 'high_annex_iii' || risk === 'high_annex_i';
+  var isCriticalInfra = risk === 'high_annex_iii' && area === '2';
+  var isPublicOrService = deployer === 'public' || deployer === 'private_public';
+  var isCreditInsurance = deployer === 'credit_insurance';
+
+  if (risk === 'high_annex_iii' && !area) {
+    result.classList.remove('visible');
+    continueBtn.style.display = 'none';
+    returnBtn.style.display = 'none';
+    return;
+  }
+
+  result.classList.add('visible');
+
+  if (isCriticalInfra) {
+    status.className = 'fr-result-status not-required';
+    status.textContent = 'FRIA NOT REQUIRED';
+    text.textContent = 'Critical infrastructure AI systems (Annex III, Area 2) are explicitly exempt from the FRIA requirement under Article 27(1). You may still conduct a voluntary assessment as a governance best practice.';
+    ref.textContent = 'Article 27(1) — Regulation (EU) 2024/1689';
+    proceedMode = 'voluntary';
+    continueBtn.style.display = 'inline-block';
+    continueBtn.textContent = 'Proceed Voluntarily →';
+    returnBtn.style.display = 'inline-block';
+  } else if (isHighRisk && (isPublicOrService || isCreditInsurance)) {
+    status.className = 'fr-result-status required';
+    status.textContent = 'FRIA REQUIRED';
+    text.textContent = 'Your organisation is required to conduct a Fundamental Rights Impact Assessment before deploying this high-risk AI system. This obligation applies to public bodies, private organisations providing public services, and deployers of creditworthiness or insurance risk assessment systems.';
+    ref.textContent = 'Article 27(1) — Regulation (EU) 2024/1689';
+    proceedMode = 'required';
+    continueBtn.style.display = 'inline-block';
+    continueBtn.textContent = 'Continue to FRIA →';
+    returnBtn.style.display = 'none';
+  } else if (isHighRisk && deployer === 'private_other') {
+    status.className = 'fr-result-status recommended';
+    status.textContent = 'FRIA RECOMMENDED (BEST PRACTICE)';
+    text.textContent = 'While Article 27 does not mandate a FRIA for private organisations outside public service delivery, conducting one is strongly recommended as a governance best practice — particularly for high-risk AI systems affecting individuals\u2019 rights.';
+    ref.textContent = 'Article 27(1) — Regulation (EU) 2024/1689';
+    proceedMode = 'recommended';
+    continueBtn.style.display = 'inline-block';
+    continueBtn.textContent = 'Continue to FRIA →';
+    returnBtn.style.display = 'inline-block';
+  } else {
+    status.className = 'fr-result-status not-required';
+    status.textContent = 'FRIA NOT REQUIRED';
+    text.textContent = 'This AI system is not classified as high-risk. A FRIA is not required under Article 27 but may be conducted voluntarily as a governance best practice.';
+    ref.textContent = 'Article 27(1) — Regulation (EU) 2024/1689';
+    proceedMode = 'voluntary';
+    continueBtn.style.display = 'inline-block';
+    continueBtn.textContent = 'Proceed Voluntarily →';
+    returnBtn.style.display = 'inline-block';
+  }
+}
+
+function validateStep0() {
+  var deployer = document.getElementById('f-deployer-type').value;
+  var risk = document.getElementById('f-risk-level').value;
+  var area = document.getElementById('f-annex-area').value;
+  var valid = true;
+
+  clearFieldErrors(document.getElementById('fr-step-0'));
+
+  if (!deployer) { markInvalid('f-deployer-type'); valid = false; }
+  if (!risk) { markInvalid('f-risk-level'); valid = false; }
+  if (risk === 'high_annex_iii' && !area) { markInvalid('f-annex-area'); valid = false; }
+  if (!proceedMode || proceedMode === '') { valid = false; }
+
+  return valid;
+}
+
+// ── VALIDATION ──
+function validateStep(n) {
+  var step = document.getElementById('fr-step-' + n);
+  if (!step) return true;
+  clearFieldErrors(step);
+  var valid = true;
+
+  // Required inputs/selects/textareas
+  step.querySelectorAll('[required]').forEach(function(el) {
+    if (el.closest('.fr-conditional') && !el.closest('.fr-conditional').classList.contains('visible')) return;
+    var val = el.value.trim();
+    if (!val) { markInvalid(el.id || el); valid = false; return; }
+    if (el.minLength && val.length < el.minLength) { markInvalid(el.id || el); valid = false; }
+  });
+
+  // Required radios
+  step.querySelectorAll('.fr-radio-group').forEach(function(group) {
+    var parent = group.closest('.fr-field');
+    if (!parent) return;
+    var name = group.querySelector('input[type="radio"]');
+    if (!name) return;
+    var radioName = name.name;
+    var checked = step.querySelector('input[name="' + radioName + '"]:checked');
+    if (!checked) { parent.classList.add('invalid'); valid = false; }
+  });
+
+  // Step 3: min 1 direct group
+  if (n === 3) {
+    var directChecked = document.querySelectorAll('#f-direct-groups input:checked').length;
+    var otherChecked = document.getElementById('f-direct-other-check') && document.getElementById('f-direct-other-check').checked;
+    if (directChecked === 0 && !otherChecked) {
+      document.querySelector('#f-direct-groups').closest('.fr-field').classList.add('invalid');
+      valid = false;
+    }
+  }
+
+  // Step 4: min 1 risk row
+  if (n === 4) {
+    var rows = document.querySelectorAll('#risk-tbody tr');
+    if (rows.length === 0) {
+      document.getElementById('risk-table-error').style.display = 'block';
+      valid = false;
+    }
+    // Validate risk scenarios
+    rows.forEach(function(row) {
+      var scenario = row.querySelector('.risk-scenario');
+      if (scenario && scenario.value.trim().length < 40) {
+        scenario.style.borderColor = '#8B4513';
+        valid = false;
+      }
+    });
+    // Validate rights with impact
+    document.querySelectorAll('.right-impact').forEach(function(sel) {
+      if (sel.value !== '' && sel.value !== 'none') {
+        var row = sel.closest('tr');
+        var mit = row.querySelector('.right-mitigation');
+        if (mit && !mit.value.trim()) {
+          mit.style.borderColor = '#8B4513';
+          valid = false;
+        }
+      }
+    });
+  }
+
+  // Step 5: min 1 trigger
+  if (n === 5) {
+    var triggerChecked = document.querySelectorAll('#f-triggers input:checked').length;
+    if (triggerChecked === 0) {
+      document.querySelector('#f-triggers').closest('.fr-field').classList.add('invalid');
+      valid = false;
+    }
+  }
+
+  return valid;
+}
+
+function markInvalid(id) {
+  var el = typeof id === 'string' ? document.getElementById(id) : id;
+  if (el) {
+    var field = el.closest('.fr-field');
+    if (field) field.classList.add('invalid');
+  }
+}
+
+function clearFieldErrors(container) {
+  container.querySelectorAll('.fr-field.invalid').forEach(function(f) { f.classList.remove('invalid'); });
+  container.querySelectorAll('[style*="border-color: rgb(139, 69, 19)"]').forEach(function(el) { el.style.borderColor = ''; });
+  var rte = document.getElementById('risk-table-error');
+  if (rte) rte.style.display = 'none';
+}
+
+// ── CONDITIONAL FIELDS ──
+function toggleConditional(id, show) {
+  var el = document.getElementById(id);
+  if (el) el.classList.toggle('visible', show);
+  // Special: direct other text
+  if (id === 'direct-other-wrap') {
+    document.getElementById('f-direct-other-text').style.display = show ? 'inline-block' : 'none';
+  }
+}
+
+function checkHITLWarning() {
+  var val = document.getElementById('f-hitl').value;
+  var warn = document.getElementById('hitl-warning');
+  warn.classList.toggle('visible', val === 'No human review (fully automated output)');
+}
+
+function setDefaultDate() {
+  var d = document.getElementById('f-signoff-date');
+  if (d && !d.value) d.value = new Date().toISOString().split('T')[0];
+}
+
+// ── STEP 4: RISK TABLE ──
+function addRiskRow() {
+  riskCounter++;
+  var id = 'HR-' + String(riskCounter).padStart(2, '0');
+  var tbody = document.getElementById('risk-tbody');
+  var tr = document.createElement('tr');
+  tr.dataset.riskId = id;
+  tr.innerHTML =
+    '<td class="risk-id">' + id + '</td>' +
+    '<td><select class="risk-type">' + '<option value="">Select...</option>' +
+      RISK_TYPES.map(function(t) { return '<option value="' + t + '">' + t + '</option>'; }).join('') +
+    '</select></td>' +
+    '<td><textarea class="risk-scenario" placeholder="Describe the risk scenario (min 40 chars)"></textarea></td>' +
+    '<td><select class="risk-likelihood"><option value="">—</option><option>Low</option><option>Medium</option><option>High</option></select></td>' +
+    '<td><select class="risk-severity"><option value="">—</option><option>Low</option><option>Medium</option><option>High</option></select></td>' +
+    '<td><textarea class="risk-controls" placeholder="Existing controls"></textarea></td>' +
+    '<td><select class="risk-residual"><option value="">—</option><option>Low</option><option>Medium</option><option>High</option></select></td>' +
+    '<td><button class="fr-remove-risk" onclick="removeRiskRow(this)">×</button></td>';
+  tbody.appendChild(tr);
+  updateRightsLinkedOptions();
+}
+
+function removeRiskRow(btn) {
+  var tr = btn.closest('tr');
+  if (tr) tr.remove();
+  updateRightsLinkedOptions();
+}
+
+function getRiskIds() {
+  var ids = [];
+  document.querySelectorAll('#risk-tbody tr').forEach(function(row) {
+    ids.push(row.dataset.riskId);
+  });
+  return ids;
+}
+
+function updateRightsLinkedOptions() {
+  var ids = getRiskIds();
+  document.querySelectorAll('.right-linked-risks').forEach(function(container) {
+    var current = [];
+    container.querySelectorAll('input:checked').forEach(function(cb) { current.push(cb.value); });
+    container.innerHTML = ids.map(function(id) {
+      var checked = current.indexOf(id) > -1 ? ' checked' : '';
+      return '<label style="display:block;font-size:11px;"><input type="checkbox" value="' + id + '"' + checked + '> ' + id + '</label>';
+    }).join('');
+  });
+}
+
+// ── STEP 4: RIGHTS TABLE ──
+function initRightsTable() {
+  var tbody = document.getElementById('rights-tbody');
+  RIGHTS.forEach(function(right) {
+    var tr = document.createElement('tr');
+    tr.dataset.rightId = right.id;
+    tr.innerHTML =
+      '<td><div class="fr-right-name">' + right.name + '</div><div class="fr-right-article">' + right.article + '</div></td>' +
+      '<td><select class="right-impact" onchange="toggleRightExtra(this)">' +
+        '<option value="none">No impact</option><option value="potential">Potential</option><option value="yes">Yes</option>' +
+      '</select></td>' +
+      '<td class="fr-right-extra right-linked-cell"><div class="right-linked-risks"></div></td>' +
+      '<td class="fr-right-extra"><select class="right-severity"><option value="">—</option><option>Low</option><option>Medium</option><option>High</option></select></td>' +
+      '<td class="fr-right-extra"><textarea class="right-mitigation" placeholder="Describe mitigation measures"></textarea></td>';
+    tbody.appendChild(tr);
+  });
+}
+
+function toggleRightExtra(sel) {
+  var row = sel.closest('tr');
+  var extras = row.querySelectorAll('.fr-right-extra');
+  var show = sel.value !== 'none';
+  extras.forEach(function(td) { td.classList.toggle('visible', show); });
+}
+
+// ── TAB SWITCHER ──
+function switchTab(idx) {
+  document.querySelectorAll('.fr-tab').forEach(function(t, i) { t.classList.toggle('active', i === idx); });
+  document.querySelectorAll('.fr-tab-content').forEach(function(c, i) { c.classList.toggle('active', i === idx); });
+  if (idx === 1) updateRightsLinkedOptions();
+}
+
+// ── REPORT GENERATION ──
+function generateReport() {
+  // Validate all steps
+  var allValid = true;
+  var missingSteps = [];
+  for (var i = 1; i <= 5; i++) {
+    if (!validateStep(i)) {
+      allValid = false;
+      missingSteps.push('Step ' + i + ' (' + STEP_LABELS[i] + ')');
+    }
+  }
+  if (!allValid) {
+    var summary = document.getElementById('validation-summary');
+    summary.innerHTML = 'Please complete all required fields before generating the report. Issues found in: ' + missingSteps.join(', ');
+    summary.classList.add('visible');
+    return;
+  }
+
+  saveToStorage();
+
+  var d = collectData();
+  var today = d.signoffDate || new Date().toISOString().split('T')[0];
+  var formattedDate = formatDate(today);
+
+  var areaLabel = '';
+  var areaEl = document.getElementById('f-annex-area');
+  if (areaEl && areaEl.value) areaLabel = areaEl.options[areaEl.selectedIndex].text;
+
+  var riskLabel = '';
+  var riskEl = document.getElementById('f-risk-level');
+  if (riskEl && riskEl.value) riskLabel = riskEl.options[riskEl.selectedIndex].text;
+
+  var deployerLabel = '';
+  var deployerEl = document.getElementById('f-deployer-type');
+  if (deployerEl && deployerEl.value) deployerLabel = deployerEl.options[deployerEl.selectedIndex].text;
+
+  // Harm risks table
+  var risksHtml = '<table class="fr-report-table"><thead><tr>' +
+    '<th>ID</th><th>Type</th><th>Scenario</th><th>Likelihood</th><th>Severity</th><th>Controls</th><th>Residual</th>' +
+    '</tr></thead><tbody>';
+  d.risks.forEach(function(r) {
+    risksHtml += '<tr><td>' + r.id + '</td><td>' + r.type + '</td><td>' + esc(r.scenario) + '</td><td>' + r.likelihood + '</td><td>' + r.severity + '</td><td>' + esc(r.controls) + '</td><td>' + r.residual + '</td></tr>';
+  });
+  risksHtml += '</tbody></table>';
+
+  // Rights matrix table (only impacted)
+  var rightsHtml = '<table class="fr-report-table"><thead><tr>' +
+    '<th>Right</th><th>Impact</th><th>Linked Risks</th><th>Severity</th><th>Mitigation</th>' +
+    '</tr></thead><tbody>';
+  var hasImpactedRights = false;
+  d.rights.forEach(function(r) {
+    if (r.impact !== 'none' && r.impact !== '') {
+      hasImpactedRights = true;
+      rightsHtml += '<tr><td>' + r.name + '<br><span style="font-size:9px;color:var(--ink-muted);">' + r.article + '</span></td><td>' + r.impact + '</td><td>' + r.linkedRisks.join(', ') + '</td><td>' + r.severity + '</td><td>' + esc(r.mitigation) + '</td></tr>';
+    }
+  });
+  rightsHtml += '</tbody></table>';
+  if (!hasImpactedRights) rightsHtml = '<div class="fr-report-text">No fundamental rights impacts were identified.</div>';
+
+  // Triggers list
+  var triggersHtml = d.triggers.map(function(t) { return '<li>' + t + '</li>'; }).join('');
+
+  var html = '' +
+    '<div class="fr-report-logo"><img src="/assets/logo.png" alt="Hexis" width="80" height="44"></div>' +
+    '<div class="fr-report-header">' +
+      '<div class="fr-report-doc-title">Fundamental Rights Impact Assessment</div>' +
+      '<div class="fr-report-doc-ref">Article 27 — Regulation (EU) 2024/1689</div>' +
+      '<div class="fr-report-meta">' +
+        'System: ' + esc(d.sysName) + '<br>' +
+        'Risk Level: ' + riskLabel + (areaLabel ? ' (' + areaLabel + ')' : '') + '<br>' +
+        'Deployer: ' + esc(d.deployer) + '<br>' +
+        'Date: ' + formattedDate + '<br>' +
+        'FRIA Status: ' + proceedMode.charAt(0).toUpperCase() + proceedMode.slice(1) + '<br>' +
+        'Prepared via: hexis.center' +
+      '</div>' +
+    '</div>' +
+
+    reportSection(1, 'Applicability Determination',
+      'Deployer type: ' + deployerLabel + '. ' +
+      'Risk classification: ' + riskLabel + '. ' +
+      (areaLabel ? 'Annex III area: ' + areaLabel + '. ' : '') +
+      'FRIA status: ' + proceedMode + '.'
+    ) +
+
+    reportSection(2, 'System Description',
+      'The deployer intends to use ' + esc(d.sysName) + ' for: ' + esc(d.sysPurpose) + '. ' +
+      'The system operates in the ' + esc(d.sector) + ' sector and influences decisions at the following level: ' + esc(d.decisionLevel) + '. ' +
+      'Provider: ' + esc(d.provider) + '. Responsible function: ' + esc(d.responsible) + '.' +
+      (d.hasInstructions ? '<br><br>Provider instructions: ' + esc(d.instrSummary) + (d.instrConstraints ? '<br>Constraints: ' + esc(d.instrConstraints) : '') : '')
+    ) +
+
+    reportSection(3, 'Use Context & Frequency',
+      'The system is deployed in ' + esc(d.deployStage) + ' stage, used on a ' + esc(d.frequency) + ' basis' +
+      (d.decisionsMonth ? ', processing approximately ' + d.decisionsMonth + ' decision instances per month' : '') + '. ' +
+      'Human-in-the-loop: ' + esc(d.hitl) + '. ' +
+      'Output type: ' + esc(d.outputType) + '. ' +
+      'Primary data sources: ' + esc(d.dataSources) + '.'
+    ) +
+
+    reportSection(4, 'Affected Groups',
+      'Directly affected groups: ' + d.directGroups.join(', ') + '. ' +
+      (d.indirectGroups.length ? 'Indirectly affected groups: ' + d.indirectGroups.join(', ') + '. ' : '') +
+      'Estimated persons affected: ' + (d.peopleCount || 'Not specified') + '. ' +
+      'Vulnerable groups present: ' + d.vulnerable + '.' +
+      (d.vulnerableDesc ? ' ' + esc(d.vulnerableDesc) : '') +
+      (d.impactContext ? '<br><br>Impact context: ' + esc(d.impactContext) : '')
+    ) +
+
+    '<div class="fr-report-section">' +
+      '<div class="fr-report-section-num">Section 5</div>' +
+      '<div class="fr-report-section-title">Harm Risk Register</div>' +
+      risksHtml +
+    '</div>' +
+
+    '<div class="fr-report-section">' +
+      '<div class="fr-report-section-num">Section 6</div>' +
+      '<div class="fr-report-section-title">Fundamental Rights Impact Matrix</div>' +
+      rightsHtml +
+    '</div>' +
+
+    reportSection(7, 'Risk Mitigation Measures',
+      compileMitigations(d)
+    ) +
+
+    reportSection(8, 'Human Oversight Arrangements',
+      'Oversight implementation: ' + esc(d.oversightImpl) + '<br>' +
+      'Escalation path: ' + esc(d.escalation) + '<br>' +
+      'Operators trained: ' + d.trained + (d.trainingDetails ? '. ' + esc(d.trainingDetails) : '') + '.'
+    ) +
+
+    reportSection(9, 'Complaint Mechanism',
+      'Channel: ' + esc(d.complaintChannel) + '. ' +
+      'Maximum response time: ' + d.responseDays + ' days. ' +
+      'Appeal process: ' + esc(d.appeal) + '. ' +
+      'Logging: ' + esc(d.auditTrail) + '.'
+    ) +
+
+    reportSection(10, 'Incident Response & Remediation',
+      'Response procedure: ' + esc(d.incidentResponse) + '<br>' +
+      'Rollback capability: ' + d.rollback + '.' +
+      (d.notificationRules ? '<br>Internal notification: ' + esc(d.notificationRules) : '')
+    ) +
+
+    reportSection(11, 'Review Schedule',
+      'This FRIA will be reviewed on a ' + esc(d.reviewFreq) + ' basis.<br>' +
+      'Triggers for update: <ul>' + triggersHtml + '</ul>'
+    ) +
+
+    reportSection(12, 'DPIA Linkage & Authority Notification',
+      'DPIA status: ' + esc(d.dpia) + (d.dpiaRef ? ' (Ref: ' + esc(d.dpiaRef) + ')' : '') + '.<br>' +
+      'Authority notification: ' + esc(d.authorityNotify) + '.<br>' +
+      'Rationale: ' + esc(d.authorityRationale) + '.'
+    ) +
+
+    '<div class="fr-report-section">' +
+      '<div class="fr-report-section-num">Section 13</div>' +
+      '<div class="fr-report-section-title">Sign-off</div>' +
+      '<div class="fr-report-text">' +
+        'Prepared by: ' + esc(d.preparedBy) + '<br>' +
+        (d.reviewedBy ? 'Reviewed by: ' + esc(d.reviewedBy) + '<br>' : '') +
+        (d.approvedBy ? 'Approved by: ' + esc(d.approvedBy) + '<br>' : '') +
+        'Date: ' + formattedDate +
+      '</div>' +
+    '</div>' +
+
+    '<div class="fr-report-disclaimer">' +
+      '<strong style="font-size:9px;letter-spacing:0.06em;text-transform:uppercase;">Disclaimer</strong><br>' +
+      'This FRIA has been generated using the HEXIS assessment tool at hexis.center to support structured documentation under Article 27 of Regulation (EU) 2024/1689. It does not constitute legal advice and does not replace competent legal review. Context-specific assessment required.' +
+      '<div style="margin-top:8px;">HEXIS &middot; hexis.center &middot; ' + formattedDate + '</div>' +
+    '</div>';
+
+  document.getElementById('fr-report').innerHTML = html;
+  document.getElementById('fr-wizard').style.display = 'none';
+  document.getElementById('fr-report-wrap').classList.add('visible');
+  document.querySelector('.fr-header').style.display = 'none';
+  document.getElementById('fr-progress').style.display = 'none';
+  document.getElementById('fr-prog-labels').style.display = 'none';
+  window.scrollTo(0, 0);
+}
+
+function reportSection(num, title, content) {
+  return '<div class="fr-report-section">' +
+    '<div class="fr-report-section-num">Section ' + num + '</div>' +
+    '<div class="fr-report-section-title">' + title + '</div>' +
+    '<div class="fr-report-text">' + content + '</div>' +
+  '</div>';
+}
+
+function compileMitigations(d) {
+  var parts = [];
+  d.risks.forEach(function(r) {
+    if (r.controls) parts.push(r.id + ': ' + r.controls);
+  });
+  d.rights.forEach(function(r) {
+    if (r.impact !== 'none' && r.mitigation) parts.push(r.name + ': ' + r.mitigation);
+  });
+  return parts.length ? parts.map(function(p) { return esc(p); }).join('<br>') : 'No specific mitigation measures documented.';
+}
+
+function esc(str) {
+  if (!str) return '';
+  var div = document.createElement('div');
+  div.textContent = str;
+  return div.innerHTML;
+}
+
+function formatDate(str) {
+  if (!str) return '';
+  var d = new Date(str + 'T00:00:00');
+  return d.toLocaleDateString('en-GB', { year: 'numeric', month: 'long', day: 'numeric' });
+}
+
+// ── COLLECT DATA ──
+function collectData() {
+  var directGroups = [];
+  document.querySelectorAll('#f-direct-groups input:checked').forEach(function(cb) { directGroups.push(cb.value); });
+  if (document.getElementById('f-direct-other-check') && document.getElementById('f-direct-other-check').checked) {
+    var ot = document.getElementById('f-direct-other-text').value.trim();
+    if (ot) directGroups.push(ot);
+  }
+
+  var indirectGroups = [];
+  document.querySelectorAll('#f-indirect-groups input:checked').forEach(function(cb) { indirectGroups.push(cb.value); });
+
+  var risks = [];
+  document.querySelectorAll('#risk-tbody tr').forEach(function(row) {
+    risks.push({
+      id: row.dataset.riskId,
+      type: row.querySelector('.risk-type') ? row.querySelector('.risk-type').value : '',
+      scenario: row.querySelector('.risk-scenario') ? row.querySelector('.risk-scenario').value : '',
+      likelihood: row.querySelector('.risk-likelihood') ? row.querySelector('.risk-likelihood').value : '',
+      severity: row.querySelector('.risk-severity') ? row.querySelector('.risk-severity').value : '',
+      controls: row.querySelector('.risk-controls') ? row.querySelector('.risk-controls').value : '',
+      residual: row.querySelector('.risk-residual') ? row.querySelector('.risk-residual').value : ''
+    });
+  });
+
+  var rights = [];
+  document.querySelectorAll('#rights-tbody tr').forEach(function(row, i) {
+    var linked = [];
+    row.querySelectorAll('.right-linked-risks input:checked').forEach(function(cb) { linked.push(cb.value); });
+    rights.push({
+      name: RIGHTS[i].name,
+      article: RIGHTS[i].article,
+      impact: row.querySelector('.right-impact') ? row.querySelector('.right-impact').value : 'none',
+      linkedRisks: linked,
+      severity: row.querySelector('.right-severity') ? row.querySelector('.right-severity').value : '',
+      mitigation: row.querySelector('.right-mitigation') ? row.querySelector('.right-mitigation').value : ''
+    });
+  });
+
+  var triggers = [];
+  document.querySelectorAll('#f-triggers input:checked').forEach(function(cb) { triggers.push(cb.value); });
+
+  var trained = document.querySelector('input[name="f-trained"]:checked');
+  var vulnerable = document.querySelector('input[name="f-vulnerable"]:checked');
+  var rollback = document.querySelector('input[name="f-rollback"]:checked');
+
+  return {
+    sysName: gv('f-sys-name'),
+    sysPurpose: gv('f-sys-purpose'),
+    sector: gv('f-sector'),
+    decisionLevel: gv('f-decision-level'),
+    provider: gv('f-provider'),
+    deployer: gv('f-deployer'),
+    responsible: gv('f-responsible'),
+    hasInstructions: document.getElementById('f-has-instructions').checked,
+    instrSummary: gv('f-instr-summary'),
+    instrConstraints: gv('f-instr-constraints'),
+    deployStage: gv('f-deploy-stage'),
+    startDate: gv('f-start-date'),
+    endDate: gv('f-end-date'),
+    frequency: gv('f-frequency'),
+    decisionsMonth: gv('f-decisions-month'),
+    hitl: gv('f-hitl'),
+    outputType: gv('f-output-type'),
+    dataSources: gv('f-data-sources'),
+    directGroups: directGroups,
+    indirectGroups: indirectGroups,
+    peopleCount: gv('f-people-count'),
+    vulnerable: vulnerable ? vulnerable.value : '',
+    vulnerableDesc: gv('f-vulnerable-desc'),
+    geoScope: gv('f-geo-scope'),
+    impactContext: gv('f-impact-context'),
+    risks: risks,
+    rights: rights,
+    oversightImpl: gv('f-oversight-impl'),
+    escalation: gv('f-escalation'),
+    trained: trained ? trained.value : '',
+    trainingDetails: gv('f-training-details'),
+    incidentResponse: gv('f-incident-response'),
+    rollback: rollback ? rollback.value : '',
+    notificationRules: gv('f-notification-rules'),
+    complaintChannel: gv('f-complaint-channel'),
+    responseDays: gv('f-response-days'),
+    appeal: gv('f-appeal'),
+    auditTrail: gv('f-audit-trail'),
+    reviewFreq: gv('f-review-freq'),
+    triggers: triggers,
+    dpia: gv('f-dpia'),
+    dpiaRef: gv('f-dpia-ref'),
+    authorityNotify: gv('f-authority-notify'),
+    authorityRationale: gv('f-authority-rationale'),
+    preparedBy: gv('f-prepared-by'),
+    reviewedBy: gv('f-reviewed-by'),
+    approvedBy: gv('f-approved-by'),
+    signoffDate: gv('f-signoff-date')
+  };
+}
+
+function gv(id) {
+  var el = document.getElementById(id);
+  return el ? el.value.trim() : '';
+}
+
+// ── EDIT / EXPORT ──
+function editAssessment() {
+  document.getElementById('fr-report-wrap').classList.remove('visible');
+  document.getElementById('fr-wizard').style.display = 'block';
+  document.querySelector('.fr-header').style.display = 'block';
+  document.getElementById('fr-progress').style.display = 'flex';
+  document.getElementById('fr-prog-labels').style.display = 'flex';
+  showStep(5);
+}
+
+function exportPDF() {
+  window.print();
+}
+
+// ── localStorage ──
+function saveToStorage() {
+  try {
+    var data = collectData();
+    data._step = currentStep;
+    data._proceedMode = proceedMode;
+    data._riskCounter = riskCounter;
+    data._gate = {
+      deployerType: gv('f-deployer-type'),
+      riskLevel: gv('f-risk-level'),
+      annexArea: gv('f-annex-area')
+    };
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+  } catch(e) {}
+}
+
+function loadFromStorage() {
+  try {
+    var raw = localStorage.getItem(STORAGE_KEY);
+    if (!raw) return;
+    var d = JSON.parse(raw);
+
+    // Gate
+    if (d._gate) {
+      sv('f-deployer-type', d._gate.deployerType);
+      sv('f-risk-level', d._gate.riskLevel);
+      if (d._gate.riskLevel === 'high_annex_iii') {
+        document.getElementById('f-area-wrap').style.display = 'block';
+      }
+      sv('f-annex-area', d._gate.annexArea);
+    }
+
+    // Step 1
+    sv('f-sys-name', d.sysName);
+    sv('f-sys-purpose', d.sysPurpose);
+    sv('f-sector', d.sector);
+    sv('f-decision-level', d.decisionLevel);
+    sv('f-provider', d.provider);
+    sv('f-deployer', d.deployer);
+    sv('f-responsible', d.responsible);
+    if (d.hasInstructions) {
+      document.getElementById('f-has-instructions').checked = true;
+      toggleConditional('provider-instr', true);
+      sv('f-instr-summary', d.instrSummary);
+      sv('f-instr-constraints', d.instrConstraints);
+    }
+
+    // Step 2
+    sv('f-deploy-stage', d.deployStage);
+    sv('f-start-date', d.startDate);
+    sv('f-end-date', d.endDate);
+    sv('f-frequency', d.frequency);
+    sv('f-decisions-month', d.decisionsMonth);
+    sv('f-hitl', d.hitl);
+    checkHITLWarning();
+    sv('f-output-type', d.outputType);
+    sv('f-data-sources', d.dataSources);
+
+    // Step 3
+    restoreCheckGroup('f-direct-groups', d.directGroups || []);
+    restoreCheckGroup('f-indirect-groups', d.indirectGroups || []);
+    sv('f-people-count', d.peopleCount);
+    if (d.vulnerable) {
+      var vr = document.querySelector('input[name="f-vulnerable"][value="' + d.vulnerable + '"]');
+      if (vr) { vr.checked = true; if (d.vulnerable === 'yes') toggleConditional('vulnerable-detail', true); }
+    }
+    sv('f-vulnerable-desc', d.vulnerableDesc);
+    sv('f-geo-scope', d.geoScope);
+    sv('f-impact-context', d.impactContext);
+
+    // Step 4: risks
+    if (d.risks && d.risks.length) {
+      document.getElementById('risk-tbody').innerHTML = '';
+      riskCounter = 0;
+      d.risks.forEach(function(r) {
+        addRiskRow();
+        var rows = document.querySelectorAll('#risk-tbody tr');
+        var row = rows[rows.length - 1];
+        row.querySelector('.risk-type').value = r.type || '';
+        row.querySelector('.risk-scenario').value = r.scenario || '';
+        row.querySelector('.risk-likelihood').value = r.likelihood || '';
+        row.querySelector('.risk-severity').value = r.severity || '';
+        row.querySelector('.risk-controls').value = r.controls || '';
+        row.querySelector('.risk-residual').value = r.residual || '';
+      });
+    }
+
+    // Step 4: rights
+    if (d.rights && d.rights.length) {
+      var rRows = document.querySelectorAll('#rights-tbody tr');
+      d.rights.forEach(function(r, i) {
+        if (!rRows[i]) return;
+        var imp = rRows[i].querySelector('.right-impact');
+        if (imp) { imp.value = r.impact || 'none'; toggleRightExtra(imp); }
+        var sev = rRows[i].querySelector('.right-severity');
+        if (sev) sev.value = r.severity || '';
+        var mit = rRows[i].querySelector('.right-mitigation');
+        if (mit) mit.value = r.mitigation || '';
+      });
+      updateRightsLinkedOptions();
+      // Restore linked risk checkboxes
+      setTimeout(function() {
+        d.rights.forEach(function(r, i) {
+          if (!rRows[i]) return;
+          var container = rRows[i].querySelector('.right-linked-risks');
+          if (container && r.linkedRisks) {
+            r.linkedRisks.forEach(function(id) {
+              var cb = container.querySelector('input[value="' + id + '"]');
+              if (cb) cb.checked = true;
+            });
+          }
+        });
+      }, 50);
+    }
+
+    // Step 5
+    sv('f-oversight-impl', d.oversightImpl);
+    sv('f-escalation', d.escalation);
+    if (d.trained) {
+      var tr = document.querySelector('input[name="f-trained"][value="' + d.trained + '"]');
+      if (tr) { tr.checked = true; if (d.trained === 'yes') toggleConditional('training-detail', true); }
+    }
+    sv('f-training-details', d.trainingDetails);
+    sv('f-incident-response', d.incidentResponse);
+    if (d.rollback) {
+      var rb = document.querySelector('input[name="f-rollback"][value="' + d.rollback + '"]');
+      if (rb) rb.checked = true;
+    }
+    sv('f-notification-rules', d.notificationRules);
+    sv('f-complaint-channel', d.complaintChannel);
+    sv('f-response-days', d.responseDays);
+    sv('f-appeal', d.appeal);
+    sv('f-audit-trail', d.auditTrail);
+    sv('f-review-freq', d.reviewFreq);
+    restoreCheckGroup('f-triggers', d.triggers || []);
+    sv('f-dpia', d.dpia);
+    sv('f-dpia-ref', d.dpiaRef);
+    sv('f-authority-notify', d.authorityNotify);
+    sv('f-authority-rationale', d.authorityRationale);
+    sv('f-prepared-by', d.preparedBy);
+    sv('f-reviewed-by', d.reviewedBy);
+    sv('f-approved-by', d.approvedBy);
+    sv('f-signoff-date', d.signoffDate);
+
+    if (d._proceedMode) proceedMode = d._proceedMode;
+    if (d._riskCounter) riskCounter = d._riskCounter;
+
+    evaluateGate();
+  } catch(e) {}
+}
+
+function sv(id, val) {
+  var el = document.getElementById(id);
+  if (el && val) el.value = val;
+}
+
+function restoreCheckGroup(groupId, values) {
+  if (!values || !values.length) return;
+  document.querySelectorAll('#' + groupId + ' input[type="checkbox"]').forEach(function(cb) {
+    cb.checked = values.indexOf(cb.value) > -1;
+  });
+}
+
+function clearAssessment() {
+  if (confirm('Clear all assessment data? This cannot be undone.')) {
+    localStorage.removeItem(STORAGE_KEY);
+    location.reload();
+  }
+}
+
+// ── URL PARAMS ──
+function applyURLParams() {
+  var params = new URLSearchParams(window.location.search);
+  if (params.get('system')) sv('f-sys-name', params.get('system'));
+  if (params.get('risk')) {
+    var r = params.get('risk');
+    if (r === 'high') sv('f-risk-level', 'high_annex_iii');
+    else if (r === 'limited') sv('f-risk-level', 'limited');
+    else if (r === 'minimal') sv('f-risk-level', 'minimal');
+  }
+  if (params.get('sector')) {
+    var sMap = {
+      'employment': 'Employment & HR',
+      'education': 'Education',
+      'healthcare': 'Healthcare',
+      'finance': 'Finance & Insurance',
+      'law_enforcement': 'Law Enforcement',
+      'migration': 'Migration & Border',
+      'infrastructure': 'Critical Infrastructure',
+      'public_admin': 'Public Administration'
+    };
+    var sVal = sMap[params.get('sector')] || params.get('sector');
+    sv('f-sector', sVal);
+  }
+  if (params.get('area')) {
+    sv('f-annex-area', params.get('area'));
+    if (document.getElementById('f-risk-level').value === 'high_annex_iii') {
+      document.getElementById('f-area-wrap').style.display = 'block';
+    }
+  }
+}
+
+// ── BOOT ──
+document.addEventListener('DOMContentLoaded', init);
+</script>
+</body>
+</html>

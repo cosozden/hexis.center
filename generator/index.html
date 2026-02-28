@@ -1287,6 +1287,7 @@ function generateMatrix() {
 
   <div class="report-checklist-link">
     <a href="../checklist/?risk=${({high:'high',elevated:'high',moderate:'limited',low:'minimal'})[exposure] || 'high'}">View Compliance Checklist \u2192</a>
+    ${(exposure === 'high' || exposure === 'elevated') ? '<a href="../fria/?risk=high&sector=' + encodeURIComponent(({high:'employment',elevated:'employment',moderate:'',low:''})[exposure] || '') + '" style="margin-left:12px;">Conduct Fundamental Rights Impact Assessment \u2192</a>' : ''}
   </div>
 </div>`;
 
