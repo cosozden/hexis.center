@@ -1,0 +1,1126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hexis — EU AI Act Compliance Checklist</title>
+<link rel="canonical" href="https://hexis.center/checklist/">
+<meta name="description" content="Track your EU AI Act compliance progress. Filter by risk classification to see applicable requirements — 31 items across 7 sections.">
+<meta property="og:title" content="Hexis — EU AI Act Compliance Checklist">
+<meta property="og:description" content="Interactive compliance checklist for the EU AI Act. Filter by risk level, track progress, export to PDF.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://hexis.center/checklist/">
+<meta property="og:image" content="https://hexis.center/assets/og-hexis.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Hexis — EU AI Act Compliance Checklist">
+<meta name="twitter:description" content="Interactive compliance checklist for the EU AI Act. Filter by risk level, track progress, export to PDF.">
+<meta name="twitter:image" content="https://hexis.center/assets/og-hexis.png">
+<link rel="icon" href="/assets/favicon.ico">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --charcoal: #1C1E23;
+    --brass:    #B2986C;
+    --stone:    #686662;
+    --paper:    #F8F7F5;
+    --ink:      #1C1E23;
+    --ink-soft: #444240;
+    --ink-muted:#686662;
+    --rule:     rgba(28,30,35,0.14);
+    --rule-s:   rgba(28,30,35,0.08);
+  }
+
+  body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: var(--paper);
+    color: var(--ink);
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── HEADER ── */
+  .cl-header {
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 48px 24px 0;
+  }
+  .cl-brand {
+    font-size: 9px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+    margin-bottom: 12px;
+  }
+  .cl-title {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: clamp(22px, 4vw, 30px);
+    font-weight: 700;
+    color: var(--charcoal);
+    margin-bottom: 8px;
+  }
+  .cl-subtitle {
+    font-size: 13px;
+    color: var(--ink-soft);
+    max-width: 520px;
+    line-height: 1.6;
+  }
+
+  /* ── TOOLBAR ── */
+  .cl-toolbar {
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 20px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  .cl-back {
+    font-size: 10px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--stone);
+    text-decoration: none;
+    transition: color .15s;
+  }
+  .cl-back:hover { color: var(--ink); }
+  .cl-filter-wrap {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .cl-filter-label {
+    font-size: 9px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+  }
+  .cl-filter {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 11px;
+    padding: 6px 10px;
+    border: 1px solid var(--rule);
+    background: #fff;
+    color: var(--ink);
+    cursor: pointer;
+    border-radius: 0;
+    -webkit-appearance: none;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%23686662'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 8px center;
+    padding-right: 26px;
+  }
+  .cl-filter:focus { outline: 1px solid var(--charcoal); }
+
+  /* ── PROGRESS BAR ── */
+  .cl-progress-wrap {
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 0 24px 24px;
+  }
+  .cl-progress-bar {
+    width: 100%;
+    height: 3px;
+    background: var(--rule-s);
+    position: relative;
+  }
+  .cl-progress-fill {
+    height: 100%;
+    background: var(--charcoal);
+    transition: width .3s ease;
+    width: 0;
+  }
+  .cl-progress-text {
+    font-size: 10px;
+    letter-spacing: 0.06em;
+    color: var(--ink-muted);
+    margin-top: 6px;
+    text-transform: uppercase;
+  }
+
+  /* ── PROHIBITED MESSAGE ── */
+  .cl-prohibited {
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 40px 24px;
+    display: none;
+  }
+  .cl-prohibited.visible { display: block; }
+  .cl-prohibited-box {
+    border: 1.5px solid var(--charcoal);
+    padding: 24px;
+  }
+  .cl-prohibited-label {
+    font-size: 9px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+    margin-bottom: 8px;
+  }
+  .cl-prohibited-title {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 10px;
+  }
+  .cl-prohibited-text {
+    font-size: 13px;
+    color: var(--ink-soft);
+    line-height: 1.6;
+    margin-bottom: 16px;
+  }
+  .cl-prohibited-link {
+    font-size: 10px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--stone);
+    text-decoration: none;
+    transition: color .15s;
+  }
+  .cl-prohibited-link:hover { color: var(--ink); }
+
+  /* ── SECTIONS ── */
+  .cl-sections {
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 0 24px 48px;
+  }
+  .cl-section {
+    border-top: 1px solid var(--rule);
+    margin-bottom: 0;
+  }
+  .cl-section.hidden { display: none; }
+  .cl-section-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 0;
+    cursor: pointer;
+    user-select: none;
+  }
+  .cl-section-header:hover .cl-section-title { color: var(--charcoal); }
+  .cl-section-left {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+    flex: 1;
+    min-width: 0;
+  }
+  .cl-section-num {
+    font-size: 9px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+    flex-shrink: 0;
+  }
+  .cl-section-title {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--ink-soft);
+    transition: color .15s;
+  }
+  .cl-section-right {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-shrink: 0;
+  }
+  .cl-section-count {
+    font-size: 10px;
+    color: var(--ink-muted);
+    letter-spacing: 0.04em;
+  }
+  .cl-section-toggle {
+    font-size: 11px;
+    color: var(--stone);
+    transition: transform .2s;
+  }
+  .cl-section.collapsed .cl-section-toggle { transform: rotate(-90deg); }
+  .cl-section-note {
+    font-size: 11px;
+    color: var(--ink-muted);
+    padding: 0 0 12px;
+    font-style: italic;
+  }
+  .cl-section-body {
+    padding-bottom: 16px;
+  }
+  .cl-section.collapsed .cl-section-body { display: none; }
+  .cl-section.collapsed .cl-section-note { display: none; }
+
+  /* ── CHECKLIST ITEMS ── */
+  .cl-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 10px 0;
+    border-top: 1px solid var(--rule-s);
+  }
+  .cl-item.hidden { display: none; }
+  .cl-item.checked .cl-text { color: var(--stone); text-decoration: line-through; }
+  .cl-checkbox {
+    width: 18px;
+    height: 18px;
+    min-width: 18px;
+    border: 1.5px solid var(--rule);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    margin-top: 2px;
+    transition: border-color .15s, background .15s;
+  }
+  .cl-checkbox:hover { border-color: var(--charcoal); }
+  .cl-item.checked .cl-checkbox {
+    background: var(--charcoal);
+    border-color: var(--charcoal);
+  }
+  .cl-check-icon {
+    width: 10px;
+    height: 10px;
+    fill: none;
+    stroke: var(--paper);
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    opacity: 0;
+  }
+  .cl-item.checked .cl-check-icon { opacity: 1; }
+  .cl-content { flex: 1; }
+  .cl-text {
+    font-size: 13px;
+    color: var(--ink);
+    line-height: 1.5;
+    transition: color .15s;
+  }
+  .cl-refs {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 4px;
+    flex-wrap: wrap;
+  }
+  .cl-ref {
+    font-size: 9px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+  }
+  .cl-status {
+    font-size: 8px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 1px 5px;
+    border: 1px solid var(--rule);
+  }
+  .cl-status.cl-active {
+    color: var(--charcoal);
+    border-color: var(--charcoal);
+  }
+  .cl-status.cl-upcoming {
+    color: var(--stone);
+    border-color: var(--rule);
+  }
+
+  /* ── FOOTER ── */
+  .cl-footer {
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 24px;
+    border-top: 1px solid var(--rule);
+  }
+  .cl-footer-brand {
+    font-size: 9px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+    margin-bottom: 4px;
+  }
+  .cl-footer-reg {
+    font-size: 11px;
+    color: var(--stone);
+    margin-bottom: 4px;
+  }
+  .cl-footer-disclaimer {
+    font-size: 11px;
+    color: var(--ink-muted);
+    font-style: italic;
+    margin-bottom: 16px;
+  }
+  .cl-footer-actions {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+  .cl-footer-btn {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: all .15s;
+    text-decoration: none;
+    display: inline-block;
+  }
+  .cl-footer-btn-primary {
+    background: var(--charcoal);
+    color: var(--paper);
+    border: none;
+  }
+  .cl-footer-btn-primary:hover { opacity: 0.85; }
+  .cl-footer-btn-secondary {
+    background: none;
+    color: var(--stone);
+    border: 1px solid var(--rule);
+  }
+  .cl-footer-btn-secondary:hover { border-color: var(--ink); color: var(--ink); }
+
+  /* ── PRINT ── */
+  @media print {
+    @page { size: A4; margin: 18mm 16mm; }
+    body { background: #fff; font-size: 11px; }
+    .cl-toolbar, .cl-footer-actions, .cl-filter-wrap { display: none !important; }
+    .cl-header { padding-top: 0; }
+    .cl-progress-wrap { display: none; }
+    .cl-section { break-inside: avoid; page-break-inside: avoid; }
+    .cl-section.collapsed .cl-section-body { display: block !important; }
+    .cl-section.collapsed .cl-section-note { display: block !important; }
+    .cl-section-toggle { display: none; }
+    .cl-item { break-inside: avoid; }
+    .cl-item.hidden { display: none !important; }
+    .cl-section.hidden { display: none !important; }
+    .cl-prohibited { display: none !important; }
+    .cl-prohibited.visible { display: block !important; }
+    .cl-footer { border-top: 1px solid #ccc; }
+    .cl-checkbox { border-color: #999; print-color-adjust: exact; -webkit-print-color-adjust: exact; }
+    .cl-item.checked .cl-checkbox { background: #1C1E23; }
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 600px) {
+    .cl-header { padding: 32px 16px 0; }
+    .cl-toolbar { padding: 16px; }
+    .cl-progress-wrap { padding: 0 16px 20px; }
+    .cl-sections { padding: 0 16px 32px; }
+    .cl-footer { padding: 20px 16px; }
+    .cl-section-title { font-size: 14px; }
+    .cl-text { font-size: 12px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ── HEADER ── -->
+<div class="cl-header">
+  <div class="cl-brand">Hexis · EU AI Act Compliance Checklist</div>
+  <div class="cl-title">EU AI Act Compliance Checklist</div>
+  <div class="cl-subtitle">Track your compliance progress across all EU AI Act obligations. Filter by your risk classification to see applicable requirements.</div>
+</div>
+
+<!-- ── TOOLBAR ── -->
+<div class="cl-toolbar">
+  <a href="../generator/" class="cl-back">&larr; Back to Assessment</a>
+  <div class="cl-filter-wrap">
+    <span class="cl-filter-label">Risk Filter</span>
+    <select class="cl-filter" id="cl-filter" onchange="applyFilter(this.value)">
+      <option value="all">All</option>
+      <option value="high">High Risk</option>
+      <option value="limited">Limited Risk</option>
+      <option value="gpai-provider">GPAI Provider</option>
+      <option value="gpai-systemic">GPAI Systemic</option>
+      <option value="minimal">Minimal Risk</option>
+      <option value="prohibited">Prohibited</option>
+    </select>
+  </div>
+</div>
+
+<!-- ── PROGRESS ── -->
+<div class="cl-progress-wrap">
+  <div class="cl-progress-bar"><div class="cl-progress-fill" id="cl-progress-fill"></div></div>
+  <div class="cl-progress-text" id="cl-progress-text">0 of 31 items completed (0%)</div>
+</div>
+
+<!-- ── PROHIBITED MESSAGE ── -->
+<div class="cl-prohibited" id="cl-prohibited">
+  <div class="cl-prohibited-box">
+    <div class="cl-prohibited-label">Unacceptable Risk</div>
+    <div class="cl-prohibited-title">PROHIBITED</div>
+    <div class="cl-prohibited-text">This AI system cannot be placed on the EU market. Prohibited AI practices are banned under Article 5 of the EU AI Act, in force since 2 February 2025. Penalties may reach &euro;35 million or 7% of global annual turnover.</div>
+    <a href="../generator/" class="cl-prohibited-link">&larr; Return to classifier to reclassify</a>
+  </div>
+</div>
+
+<!-- ── SECTIONS ── -->
+<div class="cl-sections" id="cl-sections">
+
+  <!-- SECTION 1 -->
+  <div class="cl-section" data-section="1">
+    <div class="cl-section-header" onclick="toggleSection(this)">
+      <div class="cl-section-left">
+        <span class="cl-section-num">Section 1</span>
+        <span class="cl-section-title">AI System Inventory &amp; Registration</span>
+      </div>
+      <div class="cl-section-right">
+        <span class="cl-section-count" data-count="1">0/5</span>
+        <span class="cl-section-toggle">&darr;</span>
+      </div>
+    </div>
+    <div class="cl-section-note">Foundational for all compliance levels</div>
+    <div class="cl-section-body">
+      <div class="cl-item" data-risk="all" data-id="1.1">
+        <div class="cl-checkbox" onclick="toggleCheck(this)">
+          <svg class="cl-check-icon" viewBox="0 0 10 10"><polyline points="1.5 5.5 4 8 8.5 2"/></svg>
+        </div>
+        <div class="cl-content">
+          <div class="cl-text">Have all AI systems in your organisation been identified and inventoried?</div>
+          <div class="cl-refs"><span class="cl-ref">Art. 49</span></div>
+        </div>
+      </div>
+      <div class="cl-item" data-risk="all" data-id="1.2">
+        <div class="cl-checkbox" onclick="toggleCheck(this)">
+          <svg class="cl-check-icon" viewBox="0 0 10 10"><polyline points="1.5 5.5 4 8 8.5 2"/></svg>
+        </div>
+        <div class="cl-content">
+          <div class="cl-text">Is the purpose, scope, and intended use of each AI system documented?</div>
+          <div class="cl-refs"><span class="cl-ref">Art. 9(2)(a)</span></div>
+        </div>
+      </div>
+      <div class="cl-item" data-risk="all" data-id="1.3">
+        <div class="cl-checkbox" onclick="toggleCheck(this)">
+          <svg class="cl-check-icon" viewBox="0 0 10 10"><polyline points="1.5 5.5 4 8 8.5 2"/></svg>
+        </div>
+        <div class="cl-content">
+          <div class="cl-text">Has each AI system been classified by risk level under the EU AI Act?</div>
+          <div class="cl-refs"><span class="cl-ref">Art. 6, Annex I/III</span></div>
+        </div>
+      </div>
+      <div class="cl-item" data-risk="all" data-id="1.4">
+        <div class="cl-checkbox" onclick="toggleCheck(this)">
+          <svg class="cl-check-icon" viewBox="0 0 10 10"><polyline points="1.5 5.5 4 8 8.5 2"/></svg>
+        </div>
+        <div class="cl-content">
+          <div class="cl-text">Are AI components from third-party suppliers included in the inventory?</div>
+          <div class="cl-refs"><span class="cl-ref">Art. 25</span></div>
+        </div>
+      </div>
+      <div class="cl-item" data-risk="high" data-id="1.5">
+        <div class="cl-checkbox" onclick="toggleCheck(this)">
+          <svg class="cl-check-icon" viewBox="0 0 10 10"><polyline points="1.5 5.5 4 8 8.5 2"/></svg>
+        </div>
+        <div class="cl-content">
+          <div class="cl-text">Have high-risk AI systems been registered in the EU database?</div>
+          <div class="cl-refs"><span class="cl-ref">Art. 49(1)</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 2 -->
+  <div class="cl-section" data-section="2">
+    <div class="cl-section-header" onclick="toggleSection(this)">
+      <div class="cl-section-left">
+        <span class="cl-section-num">Section 2</span>
+        <span class="cl-section-title">Prohibited Practices Screening</span>
+      </div>
+      <div class="cl-section-right">
+        <span class="cl-section-count" data-count="2">0/5</span>
+        <span class="cl-section-toggle">&darr;</span>
+      </div>
+    </div>
+    <div class="cl-section-note">In force since 2 February 2025 — &euro;35M or 7% turnover penalty</div>
+    <div class="cl-section-body">
+      <div class="cl-item" data-risk="all" data-id="2.1">
+        <div class="cl-checkbox" onclick="toggleCheck(this)">
+          <svg class="cl-check-icon" viewBox="0 0 10 10"><polyline points="1.5 5.5 4 8 8.5 2"/></svg>
+        </div>
+        <div class="cl-content">
+          <div class="cl-text">Have all AI systems been screened against the prohibited practices list?</div>
+          <div class="cl-refs">
+            <span class="cl-ref">Art. 5(1)(a)–(h)</span>
+            <span class="cl-status cl-active">IN FORCE</span>
+          </div>
+        </div>
+      </div>
+      <div class="cl-item" data-risk="all" data-id="2.2">
+        <div class="cl-checkbox" onclick="toggleCheck(this)">
+          <svg class="cl-check-icon" viewBox="0 0 10 10"><polyline points="1.5 5.5 4 8 8.5 2"/></svg>
+        </div>
+        <div class="cl-content">
+          <div class="cl-text">Is social scoring or behaviour-based classification absent from all systems?</div>
+          <div class="cl-refs"><span class="cl-ref">Art. 5(1)(c)</span></div>
+        </div>
+      </div>
+      <div class="cl-item" data-risk="all" data-id="2.3">
+        <div class="cl-checkbox" onclick="toggleCheck(this)">
+          <svg class="cl-check-icon" viewBox="0 0 10 10"><polyline points="1.5 5.5 4 8 8.5 2"/></svg>
+        </div>
+        <div class="cl-content">
+          <div class="cl-text">Are emotion recognition systems absent from workplace and education settings?</div>
+          <div class="cl-refs"><span class="cl-ref">Art. 5(1)(f)</span></div>
+        </div>
+      </div>
+      <div class="cl-item" data-risk="all" data-id="2.4">
+        <div class="cl-checkbox" onclick="toggleCheck(this)">
+          <svg class="cl-check-icon" viewBox="0 0 10 10"><polyline points="1.5 5.5 4 8 8.5 2"/></svg>
+        </div>
+        <div class="cl-content">
+          <div class="cl-text">Is real-time remote biometric identification absent from public spaces?</div>
+          <div class="cl-refs"><span class="cl-ref">Art. 5(1)(h)</span></div>
+        </div>
+      </div>
+      <div class="cl-item" data-risk="all" data-id="2.5">
+        <div class="cl-checkbox" onclick="toggleCheck(this)">
+          <svg class="cl-check-icon" viewBox="0 0 10 10"><polyline points="1.5 5.5 4 8 8.5 2"/></svg>
+        </div>
+        <div class="cl-content">
+          <div class="cl-text">Are subliminal manipulation and vulnerability exploitation techniques absent?</div>
+          <div class="cl-refs"><span class="cl-ref">Art. 5(1)(a), (b)</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 3 -->
+  <div class="cl-section" data-section="3">
+    <div class="cl-section-header" onclick="toggleSection(this)">
+      <div class="cl-section-left">
+        <span class="cl-section-num">Section 3</span>
+        <span class="cl-section-title">Risk Management System</span>
+      </div>
+      <div class="cl-section-right">
+        <span class="cl-section-count" data-count="3">0/5</span>
+        <span class="cl-section-toggle">&darr;</span>
+      </div>
+    </div>
+    <div class="cl-section-note">Required for high-risk systems — Art. 9</div>
+    <div class="cl-section-body">
+      <div class="cl-item" data-risk="high" data-id="3.1">
+        <div class="cl-checkbox" onclick="toggleCheck(this)">
+          <svg class="cl-check-icon" viewBox="0 0 10 10"><polyline points="1.5 5.5 4 8 8.5 2"/></svg>
+        </div>
+        <div class="cl-content">
+          <div class="cl-text">Has a risk management system been established and maintained throughout the AI system lifecycle?</div>
+          <div class="cl-refs"><span class="cl-ref">Art. 9(1)</span></div>
+        </div>
+      </div>
+      <div class="cl-item" data-risk="high" data-id="3.2">
+        <div class="cl-checkbox" onclick="toggleCheck(this)">
+          <svg class="cl-check-icon" viewBox="0 0 10 10"><polyline points="1.5 5.5 4 8 8.5 2"/></svg>
+        </div>
+        <div class="cl-content">
+          <div class="cl-text">Are known and reasonably foreseeable risks identified and analysed?</div>
+          <div class="cl-refs"><span class="cl-ref">Art. 9(2)(a)</span></div>
+        </div>
+      </div>
+      <div class="cl-item" data-risk="high" data-id="3.3">
+        <div class="cl-checkbox" onclick="toggleCheck(this)">
+          <svg class="cl-check-icon" viewBox="0 0 10 10"><polyline points="1.5 5.5 4 8 8.5 2"/></svg>
+        </div>
+        <div class="cl-content">
+          <div class="cl-text">Are risks evaluated under intended purpose and conditions of foreseeable misuse?</div>
+          <div class="cl-refs"><span class="cl-ref">Art. 9(2)(b)</span></div>
+        </div>
+      </div>
+      <div class="cl-item" data-risk="high" data-id="3.4">
+        <div class="cl-checkbox" onclick="toggleCheck(this)">
+          <svg class="cl-check-icon" viewBox="0 0 10 10"><polyline points="1.5 5.5 4 8 8.5 2"/></svg>
+        </div>
+        <div class="cl-content">
+          <div class="cl-text">Have appropriate and targeted risk management measures been adopted?</div>
+          <div class="cl-refs"><span class="cl-ref">Art. 9(4)</span></div>
+        </div>
+      </div>
+      <div class="cl-item" data-risk="high" data-id="3.5">
+        <div class="cl-checkbox" onclick="toggleCheck(this)">
+          <svg class="cl-check-icon" viewBox="0 0 10 10"><polyline points="1.5 5.5 4 8 8.5 2"/></svg>
+        </div>
+        <div class="cl-content">
+          <div class="cl-text">Has residual risk been assessed, judged acceptable, and communicated to deployers?</div>
+          <div class="cl-refs"><span class="cl-ref">Art. 9(4)</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 4 -->
+  <div class="cl-section" data-section="4">
+    <div class="cl-section-header" onclick="toggleSection(this)">
+      <div class="cl-section-left">
+        <span class="cl-section-num">Section 4</span>
+        <span class="cl-section-title">Data Governance</span>
+      </div>
+      <div class="cl-section-right">
+        <span class="cl-section-count" data-count="4">0/4</span>
+        <span class="cl-section-toggle">&darr;</span>
+      </div>
+    </div>
+    <div class="cl-section-note">Training data quality and bias prevention — Art. 10</div>
+    <div class="cl-section-body">
+      <div class="cl-item" data-risk="high" data-id="4.1">
+        <div class="cl-checkbox" onclick="toggleCheck(this)">
+          <svg class="cl-check-icon" viewBox="0 0 10 10"><polyline points="1.5 5.5 4 8 8.5 2"/></svg>
+        </div>
+        <div class="cl-content">
+          <div class="cl-text">Are training, validation, and testing datasets subject to appropriate data governance practices?</div>
+          <div class="cl-refs"><span class="cl-ref">Art. 10(2)</span></div>
+        </div>
+      </div>
+      <div class="cl-item" data-risk="high" data-id="4.2">
+        <div class="cl-checkbox" onclick="toggleCheck(this)">
+          <svg class="cl-check-icon" viewBox="0 0 10 10"><polyline points="1.5 5.5 4 8 8.5 2"/></svg>
+        </div>
+        <div class="cl-content">
+          <div class="cl-text">Have datasets been examined for possible biases that could lead to discrimination?</div>
+          <div class="cl-refs"><span class="cl-ref">Art. 10(2)(f)</span></div>
+        </div>
+      </div>
+      <div class="cl-item" data-risk="high" data-id="4.3">
+        <div class="cl-checkbox" onclick="toggleCheck(this)">
+          <svg class="cl-check-icon" viewBox="0 0 10 10"><polyline points="1.5 5.5 4 8 8.5 2"/></svg>
+        </div>
+        <div class="cl-content">
+          <div class="cl-text">Are data quality criteria defined (relevance, representativeness, accuracy, completeness)?</div>
+          <div class="cl-refs"><span class="cl-ref">Art. 10(3)</span></div>
+        </div>
+      </div>
+      <div class="cl-item" data-risk="high" data-id="4.4">
+        <div class="cl-checkbox" onclick="toggleCheck(this)">
+          <svg class="cl-check-icon" viewBox="0 0 10 10"><polyline points="1.5 5.5 4 8 8.5 2"/></svg>
+        </div>
+        <div class="cl-content">
+          <div class="cl-text">Has the origin and collection method of training data been documented?</div>
+          <div class="cl-refs"><span class="cl-ref">Art. 10(2)(b)</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 5 -->
+  <div class="cl-section" data-section="5">
+    <div class="cl-section-header" onclick="toggleSection(this)">
+      <div class="cl-section-left">
+        <span class="cl-section-num">Section 5</span>
+        <span class="cl-section-title">Transparency &amp; Documentation</span>
+      </div>
+      <div class="cl-section-right">
+        <span class="cl-section-count" data-count="5">0/6</span>
+        <span class="cl-section-toggle">&darr;</span>
+      </div>
+    </div>
+    <div class="cl-section-note">Technical docs for high-risk, disclosure obligations for all AI interactions</div>
+    <div class="cl-section-body">
+      <div class="cl-item" data-risk="high gpai-provider gpai-systemic" data-id="5.1">
+        <div class="cl-checkbox" onclick="toggleCheck(this)">
+          <svg class="cl-check-icon" viewBox="0 0 10 10"><polyline points="1.5 5.5 4 8 8.5 2"/></svg>
+        </div>
+        <div class="cl-content">
+          <div class="cl-text">Has technical documentation been drawn up before the system is placed on the market?</div>
+          <div class="cl-refs"><span class="cl-ref">Art. 11 + Annex IV</span></div>
+        </div>
+      </div>
+      <div class="cl-item" data-risk="high gpai-provider gpai-systemic" data-id="5.2">
+        <div class="cl-checkbox" onclick="toggleCheck(this)">
+          <svg class="cl-check-icon" viewBox="0 0 10 10"><polyline points="1.5 5.5 4 8 8.5 2"/></svg>
+        </div>
+        <div class="cl-content">
+          <div class="cl-text">Is automatic logging of events enabled for the AI system's lifetime?</div>
+          <div class="cl-refs"><span class="cl-ref">Art. 12</span></div>
+        </div>
+      </div>
+      <div class="cl-item" data-risk="high gpai-provider gpai-systemic" data-id="5.3">
+        <div class="cl-checkbox" onclick="toggleCheck(this)">
+          <svg class="cl-check-icon" viewBox="0 0 10 10"><polyline points="1.5 5.5 4 8 8.5 2"/></svg>
+        </div>
+        <div class="cl-content">
+          <div class="cl-text">Are instructions for use provided to deployers, including capabilities and limitations?</div>
+          <div class="cl-refs"><span class="cl-ref">Art. 13</span></div>
+        </div>
+      </div>
+      <div class="cl-item" data-risk="high limited gpai-provider gpai-systemic minimal" data-id="5.4">
+        <div class="cl-checkbox" onclick="toggleCheck(this)">
+          <svg class="cl-check-icon" viewBox="0 0 10 10"><polyline points="1.5 5.5 4 8 8.5 2"/></svg>
+        </div>
+        <div class="cl-content">
+          <div class="cl-text">Are users informed when they interact with an AI system (chatbot disclosure)?</div>
+          <div class="cl-refs">
+            <span class="cl-ref">Art. 50(1)</span>
+            <span class="cl-status cl-upcoming">AUG 2026</span>
+          </div>
+        </div>
+      </div>
+      <div class="cl-item" data-risk="high limited gpai-provider gpai-systemic minimal" data-id="5.5">
+        <div class="cl-checkbox" onclick="toggleCheck(this)">
+          <svg class="cl-check-icon" viewBox="0 0 10 10"><polyline points="1.5 5.5 4 8 8.5 2"/></svg>
+        </div>
+        <div class="cl-content">
+          <div class="cl-text">Is AI-generated content (text, audio, image, video) clearly labelled as such?</div>
+          <div class="cl-refs"><span class="cl-ref">Art. 50(2)</span></div>
+        </div>
+      </div>
+      <div class="cl-item" data-risk="high limited gpai-provider gpai-systemic minimal" data-id="5.6">
+        <div class="cl-checkbox" onclick="toggleCheck(this)">
+          <svg class="cl-check-icon" viewBox="0 0 10 10"><polyline points="1.5 5.5 4 8 8.5 2"/></svg>
+        </div>
+        <div class="cl-content">
+          <div class="cl-text">Are deep fakes and synthetic media disclosed to recipients?</div>
+          <div class="cl-refs"><span class="cl-ref">Art. 50(4)</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 6 -->
+  <div class="cl-section" data-section="6">
+    <div class="cl-section-header" onclick="toggleSection(this)">
+      <div class="cl-section-left">
+        <span class="cl-section-num">Section 6</span>
+        <span class="cl-section-title">Human Oversight &amp; Robustness</span>
+      </div>
+      <div class="cl-section-right">
+        <span class="cl-section-count" data-count="6">0/5</span>
+        <span class="cl-section-toggle">&darr;</span>
+      </div>
+    </div>
+    <div class="cl-section-note">Human-in-the-loop requirements — Art. 14–15</div>
+    <div class="cl-section-body">
+      <div class="cl-item" data-risk="high" data-id="6.1">
+        <div class="cl-checkbox" onclick="toggleCheck(this)">
+          <svg class="cl-check-icon" viewBox="0 0 10 10"><polyline points="1.5 5.5 4 8 8.5 2"/></svg>
+        </div>
+        <div class="cl-content">
+          <div class="cl-text">Is the AI system designed to allow effective human oversight during use?</div>
+          <div class="cl-refs"><span class="cl-ref">Art. 14(1)</span></div>
+        </div>
+      </div>
+      <div class="cl-item" data-risk="high" data-id="6.2">
+        <div class="cl-checkbox" onclick="toggleCheck(this)">
+          <svg class="cl-check-icon" viewBox="0 0 10 10"><polyline points="1.5 5.5 4 8 8.5 2"/></svg>
+        </div>
+        <div class="cl-content">
+          <div class="cl-text">Can the human overseer fully understand the system's capabilities and limitations?</div>
+          <div class="cl-refs"><span class="cl-ref">Art. 14(4)(a)</span></div>
+        </div>
+      </div>
+      <div class="cl-item" data-risk="high" data-id="6.3">
+        <div class="cl-checkbox" onclick="toggleCheck(this)">
+          <svg class="cl-check-icon" viewBox="0 0 10 10"><polyline points="1.5 5.5 4 8 8.5 2"/></svg>
+        </div>
+        <div class="cl-content">
+          <div class="cl-text">Can the human overseer decide not to use, override, or reverse the AI output?</div>
+          <div class="cl-refs"><span class="cl-ref">Art. 14(4)(d)</span></div>
+        </div>
+      </div>
+      <div class="cl-item" data-risk="high" data-id="6.4">
+        <div class="cl-checkbox" onclick="toggleCheck(this)">
+          <svg class="cl-check-icon" viewBox="0 0 10 10"><polyline points="1.5 5.5 4 8 8.5 2"/></svg>
+        </div>
+        <div class="cl-content">
+          <div class="cl-text">Is there an ability to interrupt or stop the AI system (stop/kill switch)?</div>
+          <div class="cl-refs"><span class="cl-ref">Art. 14(4)(e)</span></div>
+        </div>
+      </div>
+      <div class="cl-item" data-risk="high" data-id="6.5">
+        <div class="cl-checkbox" onclick="toggleCheck(this)">
+          <svg class="cl-check-icon" viewBox="0 0 10 10"><polyline points="1.5 5.5 4 8 8.5 2"/></svg>
+        </div>
+        <div class="cl-content">
+          <div class="cl-text">Does the system achieve appropriate levels of accuracy, robustness, and cybersecurity?</div>
+          <div class="cl-refs"><span class="cl-ref">Art. 15(1)</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 7 -->
+  <div class="cl-section" data-section="7">
+    <div class="cl-section-header" onclick="toggleSection(this)">
+      <div class="cl-section-left">
+        <span class="cl-section-num">Section 7</span>
+        <span class="cl-section-title">Governance, Accountability &amp; AI Literacy</span>
+      </div>
+      <div class="cl-section-right">
+        <span class="cl-section-count" data-count="7">0/7</span>
+        <span class="cl-section-toggle">&darr;</span>
+      </div>
+    </div>
+    <div class="cl-section-note">Organisational governance and mandatory AI literacy</div>
+    <div class="cl-section-body">
+      <div class="cl-item" data-risk="all" data-id="7.1">
+        <div class="cl-checkbox" onclick="toggleCheck(this)">
+          <svg class="cl-check-icon" viewBox="0 0 10 10"><polyline points="1.5 5.5 4 8 8.5 2"/></svg>
+        </div>
+        <div class="cl-content">
+          <div class="cl-text">Has AI literacy training been provided to staff involved in AI operations?</div>
+          <div class="cl-refs">
+            <span class="cl-ref">Art. 4</span>
+            <span class="cl-status cl-active">IN FORCE</span>
+          </div>
+        </div>
+      </div>
+      <div class="cl-item" data-risk="all" data-id="7.2">
+        <div class="cl-checkbox" onclick="toggleCheck(this)">
+          <svg class="cl-check-icon" viewBox="0 0 10 10"><polyline points="1.5 5.5 4 8 8.5 2"/></svg>
+        </div>
+        <div class="cl-content">
+          <div class="cl-text">Has an AI governance owner or team been designated?</div>
+          <div class="cl-refs"><span class="cl-ref">Art. 26</span></div>
+        </div>
+      </div>
+      <div class="cl-item" data-risk="all" data-id="7.3">
+        <div class="cl-checkbox" onclick="toggleCheck(this)">
+          <svg class="cl-check-icon" viewBox="0 0 10 10"><polyline points="1.5 5.5 4 8 8.5 2"/></svg>
+        </div>
+        <div class="cl-content">
+          <div class="cl-text">Is there a documented AI policy covering acceptable use, ethics, and compliance?</div>
+          <div class="cl-refs"><span class="cl-ref">ISO 42001</span></div>
+        </div>
+      </div>
+      <div class="cl-item" data-risk="high" data-id="7.4">
+        <div class="cl-checkbox" onclick="toggleCheck(this)">
+          <svg class="cl-check-icon" viewBox="0 0 10 10"><polyline points="1.5 5.5 4 8 8.5 2"/></svg>
+        </div>
+        <div class="cl-content">
+          <div class="cl-text">Has a quality management system been established?</div>
+          <div class="cl-refs"><span class="cl-ref">Art. 17</span></div>
+        </div>
+      </div>
+      <div class="cl-item" data-risk="high" data-id="7.5">
+        <div class="cl-checkbox" onclick="toggleCheck(this)">
+          <svg class="cl-check-icon" viewBox="0 0 10 10"><polyline points="1.5 5.5 4 8 8.5 2"/></svg>
+        </div>
+        <div class="cl-content">
+          <div class="cl-text">Has a fundamental rights impact assessment (FRIA) been conducted?</div>
+          <div class="cl-refs"><span class="cl-ref">Art. 27</span></div>
+        </div>
+      </div>
+      <div class="cl-item" data-risk="high" data-id="7.6">
+        <div class="cl-checkbox" onclick="toggleCheck(this)">
+          <svg class="cl-check-icon" viewBox="0 0 10 10"><polyline points="1.5 5.5 4 8 8.5 2"/></svg>
+        </div>
+        <div class="cl-content">
+          <div class="cl-text">Is a post-market monitoring system in place?</div>
+          <div class="cl-refs"><span class="cl-ref">Art. 72</span></div>
+        </div>
+      </div>
+      <div class="cl-item" data-risk="high" data-id="7.7">
+        <div class="cl-checkbox" onclick="toggleCheck(this)">
+          <svg class="cl-check-icon" viewBox="0 0 10 10"><polyline points="1.5 5.5 4 8 8.5 2"/></svg>
+        </div>
+        <div class="cl-content">
+          <div class="cl-text">Is there a process for reporting serious incidents to authorities?</div>
+          <div class="cl-refs"><span class="cl-ref">Art. 73</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ── FOOTER ── -->
+<div class="cl-footer">
+  <div class="cl-footer-brand">Hexis &middot; hexis.center</div>
+  <div class="cl-footer-reg">EU AI Act &mdash; Regulation (EU) 2024/1689</div>
+  <div class="cl-footer-disclaimer">This checklist is for guidance only and does not constitute legal advice.</div>
+  <div class="cl-footer-actions">
+    <button class="cl-footer-btn cl-footer-btn-primary" onclick="exportPDF()">Export PDF</button>
+    <a href="../generator/" class="cl-footer-btn cl-footer-btn-secondary">&larr; Back to Assessment</a>
+  </div>
+</div>
+
+<script>
+(function() {
+  'use strict';
+
+  var STORAGE_KEY = 'hexis_checklist_en';
+
+  // ── FILTER MAP ──
+  // Which sections are visible at each risk level
+  var SECTION_MAP = {
+    'all':           [1,2,3,4,5,6,7],
+    'high':          [1,2,3,4,5,6,7],
+    'limited':       [1,2,5,7],
+    'gpai-provider': [1,2,5,7],
+    'gpai-systemic': [1,2,5,7],
+    'minimal':       [1,2,7],
+    'prohibited':    []
+  };
+
+  // ── LOAD STATE ──
+  function loadChecked() {
+    try {
+      var data = localStorage.getItem(STORAGE_KEY);
+      return data ? JSON.parse(data) : {};
+    } catch(e) { return {}; }
+  }
+
+  function saveChecked(checked) {
+    try { localStorage.setItem(STORAGE_KEY, JSON.stringify(checked)); } catch(e) {}
+  }
+
+  var checkedState = loadChecked();
+
+  // ── TOGGLE CHECK ──
+  window.toggleCheck = function(el) {
+    var item = el.closest('.cl-item');
+    if (!item) return;
+    var id = item.dataset.id;
+    if (item.classList.contains('checked')) {
+      item.classList.remove('checked');
+      delete checkedState[id];
+    } else {
+      item.classList.add('checked');
+      checkedState[id] = true;
+    }
+    saveChecked(checkedState);
+    updateProgress();
+  };
+
+  // ── TOGGLE SECTION ──
+  window.toggleSection = function(el) {
+    var section = el.closest('.cl-section');
+    if (section) section.classList.toggle('collapsed');
+  };
+
+  // ── APPLY FILTER ──
+  window.applyFilter = function(risk) {
+    var filterEl = document.getElementById('cl-filter');
+    if (filterEl && filterEl.value !== risk) filterEl.value = risk;
+
+    var prohibitedEl = document.getElementById('cl-prohibited');
+    var sectionsEl = document.getElementById('cl-sections');
+    var progressWrap = document.querySelector('.cl-progress-wrap');
+
+    // Update URL
+    if (risk && risk !== 'all') {
+      history.replaceState(null, '', '?risk=' + risk);
+    } else {
+      history.replaceState(null, '', window.location.pathname);
+    }
+
+    // Prohibited special case
+    if (risk === 'prohibited') {
+      prohibitedEl.classList.add('visible');
+      sectionsEl.style.display = 'none';
+      progressWrap.style.display = 'none';
+      return;
+    } else {
+      prohibitedEl.classList.remove('visible');
+      sectionsEl.style.display = '';
+      progressWrap.style.display = '';
+    }
+
+    var visibleSections = SECTION_MAP[risk] || SECTION_MAP['all'];
+
+    // Show/hide sections
+    document.querySelectorAll('.cl-section').forEach(function(sec) {
+      var sNum = parseInt(sec.dataset.section, 10);
+      if (visibleSections.indexOf(sNum) === -1) {
+        sec.classList.add('hidden');
+      } else {
+        sec.classList.remove('hidden');
+      }
+    });
+
+    // Show/hide items based on data-risk
+    document.querySelectorAll('.cl-item').forEach(function(item) {
+      var sec = item.closest('.cl-section');
+      if (sec && sec.classList.contains('hidden')) {
+        item.classList.add('hidden');
+        return;
+      }
+
+      if (risk === 'all') {
+        item.classList.remove('hidden');
+        return;
+      }
+
+      var riskAttr = item.dataset.risk || '';
+      var risks = riskAttr.split(/\s+/);
+
+      if (risks.indexOf('all') !== -1 || risks.indexOf(risk) !== -1) {
+        item.classList.remove('hidden');
+      } else {
+        item.classList.add('hidden');
+      }
+    });
+
+    // Hide sections that end up with no visible items
+    document.querySelectorAll('.cl-section').forEach(function(sec) {
+      if (sec.classList.contains('hidden')) return;
+      var visibleItems = sec.querySelectorAll('.cl-item:not(.hidden)');
+      if (visibleItems.length === 0) {
+        sec.classList.add('hidden');
+      }
+    });
+
+    updateProgress();
+  };
+
+  // ── UPDATE PROGRESS ──
+  function updateProgress() {
+    var visibleItems = document.querySelectorAll('.cl-item:not(.hidden)');
+    var total = visibleItems.length;
+    var done = 0;
+    visibleItems.forEach(function(item) {
+      if (item.classList.contains('checked')) done++;
+    });
+
+    var pct = total > 0 ? Math.round((done / total) * 100) : 0;
+    var fill = document.getElementById('cl-progress-fill');
+    var text = document.getElementById('cl-progress-text');
+    if (fill) fill.style.width = pct + '%';
+    if (text) text.textContent = done + ' of ' + total + ' items completed (' + pct + '%)';
+
+    // Section counts
+    document.querySelectorAll('.cl-section').forEach(function(sec) {
+      var items = sec.querySelectorAll('.cl-item:not(.hidden)');
+      var sTotal = items.length;
+      var sDone = 0;
+      items.forEach(function(item) {
+        if (item.classList.contains('checked')) sDone++;
+      });
+      var countEl = sec.querySelector('.cl-section-count');
+      if (countEl) countEl.textContent = sDone + '/' + sTotal;
+    });
+  }
+
+  // ── EXPORT PDF ──
+  window.exportPDF = function() {
+    window.print();
+  };
+
+  // ── RESTORE STATE ──
+  function restoreChecked() {
+    document.querySelectorAll('.cl-item').forEach(function(item) {
+      var id = item.dataset.id;
+      if (checkedState[id]) {
+        item.classList.add('checked');
+      }
+    });
+  }
+
+  // ── INIT ──
+  function init() {
+    restoreChecked();
+
+    // Read ?risk= parameter
+    var params = new URLSearchParams(window.location.search);
+    var risk = params.get('risk') || 'all';
+    applyFilter(risk);
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
+})();
+</script>
+</body>
+</html>
