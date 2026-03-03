@@ -225,7 +225,7 @@ footer a:hover{color:var(--dark-type)}
 <body>
 
 <nav>
-  <a href="index.html" class="nav-logo" style="text-decoration:none;color:inherit;">
+  <a href="/" class="nav-logo" style="text-decoration:none;color:inherit;">
     Hexis<span class="nav-wordmark-dot"></span>
   </a>
   <div class="nav-links">
@@ -234,6 +234,7 @@ footer a:hover{color:var(--dark-type)}
     <a href="#checklist">Checklist</a>
     <a href="#comparison">KVKK Karşılaştırma</a>
     <a href="#blog">Blog</a>
+    <a href="/generator/">Risk Matrisi →</a>
     <a href="https://www.linkedin.com/in/ozden-coskun-8728a1301" target="_blank" class="nav-cta" rel="noopener noreferrer">LinkedIn</a>
   </div>
   <button class="hamburger" id="hamburger" onclick="toggleMenu()" aria-label="Menü">
@@ -247,6 +248,7 @@ footer a:hover{color:var(--dark-type)}
   <a href="#checklist" onclick="closeMenu()">Checklist</a>
   <a href="#comparison" onclick="closeMenu()">KVKK Karşılaştırma</a>
   <a href="#blog" onclick="closeMenu()">Blog</a>
+  <a href="/generator/" onclick="closeMenu()">Risk Matrisi →</a>
   <a href="https://www.linkedin.com/in/ozden-coskun-8728a1301" target="_blank" rel="noopener noreferrer" onclick="closeMenu()">LinkedIn</a>
 </div>
 
@@ -349,6 +351,10 @@ footer a:hover{color:var(--dark-type)}
       <div class="prog-sub">
         <span><span class="dot dg"></span><span id="cDone">0</span> tamamlandı</span>
         <span><span class="dot dgo"></span><span id="cLeft">23</span> bekliyor</span>
+      </div>
+      <div style="margin-top:10px;font-size:11px;color:var(--stone);font-family:Arial,sans-serif;">
+        Risk seviyenizi henüz bilmiyor musunuz?
+        <a href="/generator/" style="color:var(--dark-sub);text-decoration:underline;">Önce risk sınıflandırması yapın →</a>
       </div>
     </div>
     <button class="exp-btn" onclick="exportPDF()">PDF Raporu İndir</button>
@@ -482,19 +488,23 @@ footer a:hover{color:var(--dark-type)}
     <a href="https://www.linkedin.com/in/ozden-coskun-8728a1301" target="_blank" rel="noopener noreferrer" class="btn-secondary" style="font-size:11px;padding:8px 16px;text-decoration:none;display:inline-block">LinkedIn'de Gör →</a>
   </div>
   <div class="blog-grid">
-    <div class="bc"><span class="btag">EU AI Act</span><h3>Türk KOBİ'leri için AB Yapay Zeka Yasası: 2026'ya Hazırlanma Rehberi</h3><p>AB pazarında faaliyet gösteren Türk şirketleri için kapsamlı uyumluluk yol haritası.</p><div class="bmeta"><span>8 dk</span><span class="bmore">Oku →</span></div></div>
-    <div class="bc"><span class="btag">KVKK Rehberi</span><h3>KVKK'nın 15 Sorulu ÜYZ Rehberi: Türk Şirketleri İçin Ne Anlama Geliyor?</h3><p>Kasım 2025'te yayımlanan KVKK Rehberi'nin EU AI Act ile bağlantısı ve pratik çıkarımlar.</p><div class="bmeta"><span>6 dk</span><span class="bmore">Oku →</span></div></div>
-    <div class="bc"><span class="btag">ISO 42001</span><h3>ISO/IEC 42001, EU AI Act ve KVKK: Üç Çerçeveyi Entegre Yönetmek</h3><p>Tek bir AI yönetim sistemiyle üç ayrı düzenleyici çerçeveyi nasıl karşılayabilirsiniz?</p><div class="bmeta"><span>7 dk</span><span class="bmore">Oku →</span></div></div>
+    <a class="bc" href="/blog/eu-ai-act-risk-siniflandirmasi/" style="text-decoration:none;display:block;"><span class="btag">EU AI Act</span><h3>Türk KOBİ'leri için AB Yapay Zeka Yasası: 2026'ya Hazırlanma Rehberi</h3><p>AB pazarında faaliyet gösteren Türk şirketleri için kapsamlı uyumluluk yol haritası.</p><div class="bmeta"><span>8 dk</span><span class="bmore">Oku →</span></div></a>
+    <div class="bc"><span class="btag">KVKK Rehberi</span><h3>KVKK'nın 15 Sorulu ÜYZ Rehberi: Türk Şirketleri İçin Ne Anlama Geliyor?</h3><p>Kasım 2025'te yayımlanan KVKK Rehberi'nin EU AI Act ile bağlantısı ve pratik çıkarımlar.</p><div class="bmeta"><span>6 dk</span><span style="color:var(--stone);font-size:10px">Yakında</span></div></div>
+    <a class="bc" href="/blog/iso-42001-governance-olgunlugu/" style="text-decoration:none;display:block;"><span class="btag">ISO 42001</span><h3>ISO/IEC 42001, EU AI Act ve KVKK: Üç Çerçeveyi Entegre Yönetmek</h3><p>Tek bir AI yönetim sistemiyle üç ayrı düzenleyici çerçeveyi nasıl karşılayabilirsiniz?</p><div class="bmeta"><span>7 dk</span><span class="bmore">Oku →</span></div></a>
   </div>
 </section>
 
 <!-- CTA -->
 <div class="cta-wrap">
   <div class="cta-inner">
-    <div class="cta-txt"><h3>Değerlendirmenizi tamamladınız.</h3><p>Hexis'in governance araçlarını ve içeriklerini takip etmek için LinkedIn'e bağlanın veya ana siteye dönün.</p></div>
+    <div class="cta-txt">
+      <h3>Değerlendirmenizi tamamladınız.</h3>
+      <p>Sonraki adım: AI sisteminizin yönetişim olgunluğunu ölçün ve 30 günlük aksiyon planı alın.</p>
+    </div>
     <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center">
-      <button class="btn-primary" onclick="exportPDF()">PDF Raporu İndir →</button>
-      <a href="index.html" class="btn-secondary" style="text-decoration:none;display:inline-flex;align-items:center;padding:10px 22px;">← hexis.center</a>
+      <a href="/generator/" class="btn-primary" style="text-decoration:none;display:inline-flex;align-items:center;padding:10px 22px;">Yönetişim Matrisini Oluştur →</a>
+      <button class="btn-secondary" onclick="exportPDF()">PDF Raporu İndir</button>
+      <a href="/" class="btn-secondary" style="text-decoration:none;display:inline-flex;align-items:center;padding:10px 22px;">← hexis.center</a>
     </div>
   </div>
 </div>
@@ -517,7 +527,8 @@ footer a:hover{color:var(--dark-type)}
     <h3>Tamamlandı</h3>
     <p>Tüm kontrol maddelerini tamamladınız. EU AI Act + KVKK Rehberi kapsamındaki temel adımları attınız. PDF raporunuzu indirin.</p>
     <div class="modal-acts">
-      <button class="btn-primary" onclick="exportPDF();closeModal()">PDF İndir</button>
+      <button class="btn-primary" onclick="window.location.href='/generator/'">Yönetişim Matrisini Oluştur →</button>
+      <button class="btn-secondary" onclick="exportPDF();closeModal()">PDF İndir</button>
       <button class="btn-secondary" onclick="closeModal()">Kapat</button>
     </div>
   </div>
