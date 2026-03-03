@@ -133,20 +133,6 @@ section{position:relative;z-index:1;padding-block:72px}
 .prose{max-width:72ch;margin-inline:0}
 .prose p{line-height:1.75}
 
-/* ─── STATUS BAR ─────────────────────────────────── */
-.status-bar{
-  position:relative;z-index:1;
-  background:rgba(232,230,226,.03);
-  border-bottom:1px solid var(--border);
-  padding:9px 48px;
-  display:flex;align-items:center;justify-content:center;gap:24px;flex-wrap:wrap;
-}
-.si{display:flex;align-items:center;gap:6px;font-size:10px;font-weight:400;letter-spacing:.08em;font-family:Arial,sans-serif}
-.sdot{width:5px;height:5px;border-radius:50%;flex-shrink:0}
-.si.a{color:var(--text2)}.si.a .sdot{background:var(--text2)}
-.si.p{color:var(--stone)}.si.p .sdot{background:var(--stone)}
-.si.f{color:var(--stone)}.si.f .sdot{background:var(--stone)}
-
 /* ─── HERO ───────────────────────────────────────── */
 #hero{padding-block:80px 60px;text-align:center}
 .hero-eyebrow{
@@ -218,6 +204,55 @@ section{position:relative;z-index:1;padding-block:72px}
   letter-spacing:.04em;
 }
 .btn-outline:hover{border-color:rgba(232,230,226,.35);color:var(--text)}
+.btn-primary-tr{
+  background:var(--charcoal);
+  color:var(--dark-type);
+  padding:14px 28px;
+  font-weight:700;
+  font-size:13px;
+  border:1px solid var(--border2);
+  border-bottom:2px solid var(--brass);
+  cursor:pointer;
+  transition:opacity .15s,border-color .15s;
+  font-family:Arial,sans-serif;
+  letter-spacing:.04em;
+  text-decoration:none;
+  display:inline-flex;
+  align-items:center;
+}
+.btn-primary-tr:hover{border-bottom-color:var(--dark-type);opacity:.9}
+.btn-primary-en{
+  background:transparent;
+  color:var(--brass);
+  padding:14px 28px;
+  font-weight:700;
+  font-size:13px;
+  border:1px solid var(--brass);
+  cursor:pointer;
+  transition:background .15s,color .15s;
+  font-family:Arial,sans-serif;
+  letter-spacing:.04em;
+  text-decoration:none;
+  display:inline-flex;
+  align-items:center;
+}
+.btn-primary-en:hover{background:rgba(178,152,108,.08)}
+.btn-secondary-sm{
+  background:transparent;
+  color:var(--stone);
+  padding:8px 18px;
+  font-size:11px;
+  font-weight:400;
+  border:1px solid var(--border);
+  cursor:pointer;
+  transition:color .15s,border-color .15s;
+  font-family:Arial,sans-serif;
+  letter-spacing:.04em;
+  text-decoration:none;
+  display:inline-flex;
+  align-items:center;
+}
+.btn-secondary-sm:hover{color:var(--dark-type);border-color:var(--border2)}
 
 /* hero stats bar */
 .hero-stats{
@@ -505,7 +540,6 @@ footer{
   .hstat{padding:16px 10px}
   .hstat-num{font-size:15px}
   footer{flex-direction:column;align-items:flex-start;padding:20px}
-  .status-bar{padding:8px 20px;gap:12px}
 }
 @media(max-width:480px){
   .hero-actions{gap:8px}
@@ -521,9 +555,9 @@ footer{
     <img src="/assets/logo-light.png" alt="Hexis" width="72" height="40">
   </a>
   <div class="nav-links">
-    <a href="/metodoloji/">ORIENT Çerçevesi</a>
-    <a href="/generator/">Tools</a>
-    <a href="#contact">İletişim</a>
+    <a href="/metodoloji/">Orient Framework</a>
+    <a href="/generator/">Generator</a>
+    <a href="#contact">Contact</a>
   </div>
   <button class="hamburger" id="hamburger" onclick="toggleMenu()" aria-label="Menü">
     <span></span><span></span><span></span>
@@ -531,16 +565,9 @@ footer{
 </nav>
 
 <div class="mobile-menu" id="mobileMenu">
-  <a href="/metodoloji/" onclick="closeMenu()">ORIENT Çerçevesi</a>
-  <a href="/generator/" onclick="closeMenu()">Tools</a>
-  <a href="#contact" onclick="closeMenu()">İletişim</a>
-</div>
-
-<!-- ══════════ STATUS BAR ══════════ -->
-<div class="status-bar">
-  <div class="si a"><span class="sdot"></span>✓ 2 Şub 2025 — Yasaklar + Mad.4 AI Okuryazarlığı Aktif</div>
-  <div class="si a"><span class="sdot"></span>✓ 2 Ağu 2025 — GPAI Kuralları (Mad.51–56) Aktif</div>
-  <div class="si p"><span class="sdot"></span>→ 2 Ağu 2026 — Tam Uygulama (Yüksek Risk)</div>
+  <a href="/metodoloji/" onclick="closeMenu()">Orient Framework</a>
+  <a href="/generator/" onclick="closeMenu()">Generator</a>
+  <a href="#contact" onclick="closeMenu()">Contact</a>
 </div>
 
 <!-- ══════════ HERO ══════════ -->
@@ -555,10 +582,15 @@ footer{
     </p>
 
     <div class="hero-actions">
-      <a href="/eu-ai-act-checklist" class="btn-primary">AI Sisteminizi Değerlendirin →</a>
-      <a href="/generator/" class="btn-outline">Start AI Assessment →</a>
-      <a href="#tools" class="btn-outline">Araçları İncele</a>
-      <a href="#about" class="btn-outline">Misyon</a>
+      <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-bottom:16px">
+        <a href="/eu-ai-act-checklist" class="btn-primary-tr">Uyumluluğunuzu Değerlendirin →</a>
+        <a href="/generator/" class="btn-primary-en">Assess Your AI Systems →</a>
+      </div>
+      <div style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap">
+        <a href="/metodoloji/" class="btn-secondary-sm">ORIENT Çerçevesi</a>
+        <a href="#tools" class="btn-secondary-sm">Araçları İncele</a>
+        <a href="#about" class="btn-secondary-sm">Misyon</a>
+      </div>
     </div>
 
     <div class="hero-stats">
@@ -939,9 +971,9 @@ footer{
     <span class="footer-txt">© 2026 Hexis · Built by Özden Coşkun · Yalnızca bilgilendirme amaçlıdır; hukuki danışmanlık niteliği taşımaz.</span>
   </div>
   <div class="footer-links">
-    <a href="/metodoloji/">ORIENT Çerçevesi</a>
-    <a href="/generator/">Tools</a>
-    <a href="#contact">İletişim</a>
+    <a href="/metodoloji/">Orient Framework</a>
+    <a href="/generator/">Generator</a>
+    <a href="#contact">Contact</a>
     <a href="https://eur-lex.europa.eu/legal-content/TR/TXT/?uri=CELEX:32024R1689" target="_blank" rel="noopener noreferrer">EU AI Act</a>
     <a href="https://www.linkedin.com/in/ozden-coskun-8728a1301" target="_blank" rel="noopener noreferrer">LinkedIn</a>
   </div>
