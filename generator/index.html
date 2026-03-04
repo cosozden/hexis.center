@@ -427,6 +427,7 @@
 </style>
 </head>
 <body>
+<div style="position:fixed;bottom:16px;left:16px;z-index:999;font-family:Arial,sans-serif;font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--stone);background:var(--paper);border:1px solid var(--rule);padding:5px 10px;pointer-events:none;">● ORIENT: Risk · Identify</div>
 
 <!-- ── EU AI ACT RISK CLASSIFIER ── -->
 <div class="classifier-wrap" id="classifier-wrap">
@@ -473,6 +474,7 @@
 
   <div class="cfg-group">
     <div class="cfg-label">Oversight</div>
+    <div style="font-family:Arial,sans-serif;font-size:10px;color:var(--stone);line-height:1.5;margin-top:2px;margin-bottom:6px;">Human review mechanisms and intervention capabilities during AI operation</div>
     <select class="cfg-select" id="cfg-oversight">
       <option value="absent">Absent</option>
       <option value="adhoc" selected>Ad Hoc</option>
@@ -484,6 +486,7 @@
 
   <div class="cfg-group">
     <div class="cfg-label">Monitoring</div>
+    <div style="font-family:Arial,sans-serif;font-size:10px;color:var(--stone);line-height:1.5;margin-top:2px;margin-bottom:6px;">Ongoing performance tracking and drift detection post-deployment</div>
     <select class="cfg-select" id="cfg-monitoring">
       <option value="absent" selected>Absent</option>
       <option value="adhoc">Ad Hoc</option>
@@ -495,6 +498,7 @@
 
   <div class="cfg-group">
     <div class="cfg-label">Documentation</div>
+    <div style="font-family:Arial,sans-serif;font-size:10px;color:var(--stone);line-height:1.5;margin-top:2px;margin-bottom:6px;">Technical records, explainability and disclosure to affected individuals</div>
     <select class="cfg-select" id="cfg-documentation">
       <option value="absent">Absent</option>
       <option value="adhoc" selected>Ad Hoc</option>
@@ -955,6 +959,15 @@
         '</div>' +
         suppHtml +
         penaltyHtml +
+        '<div style="margin-top:20px;padding-top:16px;border-top:1px solid var(--rule);">' +
+          '<div style="font-family:Arial,sans-serif;font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--stone);margin-bottom:10px;">Your role under EU AI Act (Art. 2)</div>' +
+          '<div style="display:flex;gap:8px;flex-wrap:wrap;">' +
+            '<button onclick="setRole(\'provider\')" id="role-provider" style="font-family:Arial,sans-serif;font-size:11px;letter-spacing:.04em;padding:7px 14px;border:1px solid var(--rule);background:transparent;color:var(--stone);cursor:pointer;transition:all .15s;">Provider \u2014 I develop / place on market</button>' +
+            '<button onclick="setRole(\'deployer\')" id="role-deployer" style="font-family:Arial,sans-serif;font-size:11px;letter-spacing:.04em;padding:7px 14px;border:1px solid var(--rule);background:transparent;color:var(--stone);cursor:pointer;transition:all .15s;">Deployer \u2014 I use in my organisation</button>' +
+            '<button onclick="setRole(\'both\')" id="role-both" style="font-family:Arial,sans-serif;font-size:11px;letter-spacing:.04em;padding:7px 14px;border:1px solid var(--rule);background:transparent;color:var(--stone);cursor:pointer;transition:all .15s;">Both</button>' +
+          '</div>' +
+          '<div id="role-note" style="display:none;margin-top:12px;font-family:Arial,sans-serif;font-size:11px;line-height:1.6;color:var(--stone);padding:10px 12px;border-left:2px solid var(--rule);"></div>' +
+        '</div>' +
         '<div class="clf-result-actions">' +
           continueBtn +
           checklistBtn +
@@ -1025,6 +1038,22 @@
   } else {
     initClassifier();
   }
+
+  window.setRole = function(role) {
+    ['provider','deployer','both'].forEach(function(r) {
+      var btn = document.getElementById('role-' + r);
+      if (btn) { btn.style.background = 'transparent'; btn.style.color = 'var(--stone)'; btn.style.borderColor = 'var(--rule)'; }
+    });
+    var sel = document.getElementById('role-' + role);
+    if (sel) { sel.style.background = 'var(--charcoal)'; sel.style.color = 'var(--paper)'; sel.style.borderColor = 'var(--charcoal)'; }
+    var notes = {
+      provider: 'As a provider, your primary obligations include: risk management system (Art. 9), technical documentation (Art. 11), conformity assessment (Art. 43), and EU database registration (Art. 49).',
+      deployer: 'As a deployer, your primary obligations include: human oversight measures (Art. 26), fundamental rights impact assessment if applicable (Art. 27), and instructions for use compliance.',
+      both: 'You bear both provider and deployer obligations. Prioritise technical documentation (Art. 11), risk management (Art. 9), human oversight (Art. 26), and FRIA where required (Art. 27).'
+    };
+    var noteDiv = document.getElementById('role-note');
+    if (noteDiv) { noteDiv.style.display = 'block'; noteDiv.textContent = notes[role]; }
+  };
 })();
 </script>
 

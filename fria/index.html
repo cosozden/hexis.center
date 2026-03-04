@@ -653,6 +653,7 @@ body {
 </style>
 </head>
 <body>
+<div style="position:fixed;bottom:16px;left:16px;z-index:999;font-family:Arial,sans-serif;font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--stone);background:var(--paper);border:1px solid var(--rule);padding:5px 10px;pointer-events:none;">● ORIENT: Evaluate</div>
 
 <!-- ── HEADER ── -->
 <div class="fr-header">
@@ -684,6 +685,13 @@ body {
         <option value="private_other">Private organisation (other)</option>
       </select>
       <div class="fr-error">Please select a deployer type.</div>
+      <div class="fr-term-expand">
+        <button onclick="toggleTerm(this)" style="font-family:Arial,sans-serif;font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--stone);background:none;border:none;cursor:pointer;padding:4px 0;text-decoration:underline;text-underline-offset:3px;">What does this mean? ▾</button>
+        <div class="fr-term-body" style="display:none;font-size:11px;line-height:1.6;color:var(--stone);padding:8px 12px;border-left:2px solid var(--rule);margin-top:4px;font-family:Arial,sans-serif;">
+          <strong style="font-size:9px;letter-spacing:.08em;text-transform:uppercase;">Public body / body governed by public law:</strong> Any entity established to serve a general interest, mainly financed by public authorities, or subject to public management supervision. Examples: municipalities, public universities, state hospitals, publicly-owned enterprises.<br><br>
+          <strong style="font-size:9px;letter-spacing:.08em;text-transform:uppercase;">Private entity providing public services:</strong> A private company that delivers services typically associated with the public sector — such as private healthcare providers, private schools, private housing authorities, or outsourced social services. If your AI system affects access to these services, a FRIA is likely required.
+        </div>
+      </div>
     </div>
 
     <div class="fr-field">
@@ -716,6 +724,10 @@ body {
         <option value="8">8. Administration of justice</option>
       </select>
       <div class="fr-error">Please select an Annex III area.</div>
+      <div class="fr-term-expand">
+        <button onclick="toggleTerm(this)" style="font-family:Arial,sans-serif;font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--stone);background:none;border:none;cursor:pointer;padding:4px 0;text-decoration:underline;text-underline-offset:3px;">What does this mean? ▾</button>
+        <div class="fr-term-body" style="display:none;font-size:11px;line-height:1.6;color:var(--stone);padding:8px 12px;border-left:2px solid var(--rule);margin-top:4px;font-family:Arial,sans-serif;">AI systems that evaluate a person's ability to repay loans, or that generate credit scores used in lending decisions. This includes automated scoring tools used by banks, fintech companies, and insurance providers. Exemption: fraud detection systems are excluded (Art. 27(1)).</div>
+      </div>
     </div>
 
     <div class="fr-result" id="fr-gate-result">
@@ -1254,6 +1266,7 @@ body {
   <div class="fr-report-toolbar">
     <button class="fr-btn fr-btn-secondary" onclick="editAssessment()">← Edit Assessment</button>
     <button class="fr-btn fr-btn-primary" onclick="exportPDF()">Export PDF</button>
+    <a href="../checklist/" style="display:inline-flex;align-items:center;font-family:Arial,sans-serif;font-size:12px;letter-spacing:.04em;color:var(--stone);background:transparent;border:1px solid var(--border2);padding:10px 22px;text-decoration:none;transition:color .15s,border-color .15s;" onmouseover="this.style.borderColor='rgba(232,230,226,.35)';this.style.color='var(--dark-type)'" onmouseout="this.style.borderColor='var(--border2)';this.style.color='var(--stone)'">← Back to Checklist</a>
   </div>
   <div class="fr-report" id="fr-report"></div>
 </div>
@@ -1262,6 +1275,7 @@ body {
 <div class="fr-footer" id="fr-footer">
   <div class="fr-footer-text">Hexis · hexis.center</div>
   <div style="display:flex;gap:16px;align-items:center;">
+    <a href="/" class="fr-footer-link">hexis.center</a>
     <a href="../checklist/?risk=high" class="fr-footer-link">Checklist →</a>
     <a href="../generator/" class="fr-footer-link">Generator →</a>
     <button class="fr-clear-btn" onclick="clearAssessment()">Clear Assessment</button>
@@ -1273,6 +1287,13 @@ body {
    FRIA WIZARD — hexis.center/fria/
    Article 27, Regulation (EU) 2024/1689
    ══════════════════════════════════════════════ */
+
+function toggleTerm(btn) {
+  var body = btn.nextElementSibling;
+  var open = body.style.display !== 'none';
+  body.style.display = open ? 'none' : 'block';
+  btn.innerHTML = open ? 'What does this mean? ▾' : 'What does this mean? ▴';
+}
 
 var STORAGE_KEY = 'hexis_fria';
 var currentStep = 0;
