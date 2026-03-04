@@ -410,11 +410,12 @@
     .cl-sections { padding: 0 16px 32px; }
     .cl-footer { padding: 20px 16px; }
     .cl-section-title { font-size: 14px; }
-    .cl-text { font-size: 12px; }
+    .cl-text { font-size: 13px; }
   }
 </style>
 </head>
 <body>
+<div style="position:fixed;bottom:16px;left:16px;z-index:999;font-family:Arial,sans-serif;font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--stone);background:var(--paper);border:1px solid var(--rule);padding:5px 10px;pointer-events:none;">● ORIENT: Identify · Evaluate</div>
 
 <!-- ── HEADER ── -->
 <div class="cl-header">
@@ -451,7 +452,7 @@
   <div class="cl-prohibited-box">
     <div class="cl-prohibited-label">Unacceptable Risk</div>
     <div class="cl-prohibited-title">PROHIBITED</div>
-    <div class="cl-prohibited-text">This AI system cannot be placed on the EU market. Prohibited AI practices are banned under Article 5 of the EU AI Act, in force since 2 February 2025. Penalties may reach &euro;35 million or 7% of global annual turnover.</div>
+    <div class="cl-prohibited-text">This AI system cannot be placed on the EU market. Prohibited AI practices are banned under Article 5 of the EU AI Act, in force since 2 February 2025. Penalties may reach &euro;35 million or 7% of global annual turnover, whichever is higher (Art. 99(3)).</div>
     <a href="../generator/" class="cl-prohibited-link">&larr; Return to classifier to reclassify</a>
   </div>
 </div>
@@ -896,7 +897,7 @@
         </div>
         <div class="cl-content">
           <div class="cl-text">Has a fundamental rights impact assessment (FRIA) been conducted?</div>
-          <div class="cl-refs"><span class="cl-ref">Art. 27</span> <a href="../fria/" style="font-size:10px;letter-spacing:0.08em;text-transform:uppercase;color:var(--stone);text-decoration:none;border-bottom:1px solid var(--rule);padding-bottom:1px;transition:color .15s;">Open FRIA Tool →</a></div>
+          <div class="cl-refs"><span class="cl-ref">Art. 27</span> <a href="../fria/" style="display:inline-flex;align-items:center;gap:6px;font-size:10px;letter-spacing:0.08em;text-transform:uppercase;color:var(--paper);background:var(--ink);padding:4px 10px;text-decoration:none;transition:opacity .15s;" onmouseover="this.style.opacity='.8'" onmouseout="this.style.opacity='1'">Open FRIA Tool →</a></div>
         </div>
       </div>
       <div class="cl-item" data-risk="high" data-id="7.6">
@@ -930,6 +931,7 @@
   <div class="cl-footer-actions">
     <button class="cl-footer-btn cl-footer-btn-primary" onclick="exportPDF()">Export PDF</button>
     <a href="../generator/" class="cl-footer-btn cl-footer-btn-secondary">&larr; Back to Assessment</a>
+    <a href="/" class="cl-footer-btn cl-footer-btn-secondary">← hexis.center</a>
   </div>
 </div>
 
@@ -1113,6 +1115,14 @@
     var params = new URLSearchParams(window.location.search);
     var risk = params.get('risk') || 'all';
     applyFilter(risk);
+
+    if (risk !== 'all') {
+      var labels = {high:'High-Risk',limited:'Limited Risk',minimal:'Minimal Risk',prohibited:'Prohibited'};
+      var banner = document.createElement('div');
+      banner.style.cssText = 'background:var(--rule-s);border-bottom:1px solid var(--rule);padding:8px 40px;font-family:Arial,sans-serif;font-size:11px;color:var(--stone);letter-spacing:.04em;display:flex;align-items:center;justify-content:space-between;';
+      banner.innerHTML = '<span>\u25cf Showing requirements for: <strong style="color:var(--ink);">' + (labels[risk] || risk) + '</strong> \u2014 pre-selected from your risk assessment</span><a href="../generator/" style="font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--stone);text-decoration:underline;text-underline-offset:3px;">Change classification \u2192</a>';
+      document.body.insertBefore(banner, document.body.firstChild);
+    }
   }
 
   if (document.readyState === 'loading') {
