@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ORIENT ve AIGP BoK: Aynı Dili Konuşuyorlar — Hexis</title>
+<meta name="description" content="Hexis ORIENT çerçevesi ile IAPP AIGP Bilgi Çerçevesi arasındaki yapısal örtüşme.">
+<meta property="og:title" content="ORIENT ve AIGP BoK: Aynı Dili Konuşuyorlar — Hexis">
+<meta property="og:description" content="Hexis ORIENT çerçevesi ile IAPP AIGP Bilgi Çerçevesi arasındaki yapısal örtüşme.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://hexis.center/blog/orient-aigp-bok/">
+<meta property="og:image" content="https://hexis.center/assets/og-hexis.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="ORIENT ve AIGP BoK: Aynı Dili Konuşuyorlar — Hexis">
+<meta name="twitter:description" content="Hexis ORIENT çerçevesi ile IAPP AIGP Bilgi Çerçevesi arasındaki yapısal örtüşme.">
+<meta name="twitter:image" content="https://hexis.center/assets/og-hexis.png">
+<link rel="icon" href="/assets/favicon.ico">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+<style>
+/* ─── BRAND TOKENS ───────────────────────────────── */
+:root{
+  --charcoal:  #1C1E23;
+  --brass:     #B2986C;
+  --stone:     #686662;
+  --paper:     #F8F7F5;
+  --dark-bg:   #16181C;
+  --dark-type: #E8E6E2;
+  --dark-sub:  #8A8884;
+
+  --bg:        var(--dark-bg);
+  --text:      var(--dark-type);
+  --text2:     var(--dark-sub);
+  --muted:     var(--dark-sub);
+
+  --border:    rgba(232,230,226,0.10);
+  --border2:   rgba(232,230,226,0.18);
+  --card:      rgba(232,230,226,0.04);
+  --card2:     rgba(232,230,226,0.07);
+}
+
+/* ─── RESET ──────────────────────────────────────── */
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;font-size:16px}
+body{
+  font-family:Arial,sans-serif;
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+  text-rendering:optimizeLegibility;
+  background:var(--bg);
+  color:var(--text);
+  line-height:1.55;
+  min-height:100vh;
+  overflow-x:hidden;
+}
+p{line-height:1.75;color:var(--text2)}
+
+/* ─── NAV ────────────────────────────────────────── */
+nav{
+  position:sticky;top:0;z-index:100;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 48px;height:60px;
+  background:var(--dark-bg);
+  border-bottom:1px solid var(--border);
+}
+.nav-logo{
+  display:flex;align-items:center;gap:10px;
+  text-decoration:none;color:var(--text);
+  flex-shrink:0;
+}
+.nav-logo img{
+  display:block;
+  height:40px;
+  width:auto;
+}
+@media(max-width:768px){
+  .nav-logo img{ height:32px; }
+}
+.nav-logo:focus-visible{
+  outline:2px solid rgba(232,230,226,0.5);
+  outline-offset:4px;
+}
+.nav-links{display:flex;gap:4px;align-items:center}
+.nav-links a{
+  color:var(--muted);text-decoration:none;font-size:12px;font-weight:400;
+  padding:6px 12px;border-radius:2px;transition:color .15s;letter-spacing:.04em;
+  font-family:Arial,sans-serif;
+}
+.nav-links a:hover{color:var(--text)}
+
+/* HAMBURGER */
+.hamburger{
+  display:none;flex-direction:column;gap:5px;
+  cursor:pointer;background:none;border:none;padding:4px;z-index:200;
+}
+.hamburger span{width:22px;height:1px;background:var(--text2);transition:all .3s}
+.hamburger.open span:nth-child(1){transform:translateY(6px) rotate(45deg)}
+.hamburger.open span:nth-child(2){opacity:0}
+.hamburger.open span:nth-child(3){transform:translateY(-6px) rotate(-45deg)}
+.mobile-menu{
+  display:none;position:fixed;top:60px;left:0;right:0;
+  background:var(--dark-bg);
+  border-bottom:1px solid var(--border);
+  padding:12px 20px 20px;flex-direction:column;gap:0;z-index:99;
+}
+.mobile-menu.open{display:flex}
+.mobile-menu a{
+  color:var(--muted);text-decoration:none;font-size:13px;font-weight:400;
+  padding:11px 4px;border-bottom:1px solid var(--border);
+  transition:color .15s;font-family:Arial,sans-serif;
+}
+.mobile-menu a:last-child{border-bottom:none}
+.mobile-menu a:hover{color:var(--text)}
+
+/* ─── FOOTER ─────────────────────────────────────── */
+footer{
+  position:relative;z-index:1;
+  border-top:1px solid var(--border);
+  padding:20px 48px;
+  display:flex;align-items:center;justify-content:space-between;
+  gap:16px;flex-wrap:wrap;
+}
+.footer-left{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.footer-logo{display:flex;align-items:center;flex-shrink:0;text-decoration:none;}
+.footer-logo img{display:block;height:auto;width:auto;max-height:18px;}
+.footer-logo:focus-visible{outline:2px solid rgba(232,230,226,0.5);outline-offset:4px;}
+.footer-sep{color:var(--stone);margin:0 4px}
+.footer-txt{font-size:10px;color:var(--stone);font-family:Arial,sans-serif;letter-spacing:.02em}
+.footer-links{display:flex;gap:16px;flex-wrap:wrap}
+.footer-links a{font-size:10px;color:var(--stone);text-decoration:none;transition:color .15s;font-family:Arial,sans-serif;letter-spacing:.04em}
+.footer-links a:hover{color:var(--text2)}
+
+/* ─── RESPONSIVE ─────────────────────────────────── */
+@media(max-width:860px){
+  nav{padding:0 20px}
+  .nav-links{display:none}
+  .hamburger{display:flex}
+  footer{flex-direction:column;align-items:flex-start;padding:20px}
+}
+</style>
+</head>
+<body>
+
+<!-- ══════════ NAV ══════════ -->
+<nav>
+  <a href="/" class="nav-logo">
+    <img src="/assets/logo-light.png" alt="Hexis" width="72" height="40">
+  </a>
+  <div class="nav-links">
+    <a href="/metodoloji/">Orient Framework</a>
+    <a href="/generator/">Generator</a>
+    <a href="/#contact">Contact</a>
+  </div>
+  <button class="hamburger" id="hamburger" onclick="toggleMenu()" aria-label="Menü">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<div class="mobile-menu" id="mobileMenu">
+  <a href="/metodoloji/" onclick="closeMenu()">Orient Framework</a>
+  <a href="/generator/" onclick="closeMenu()">Generator</a>
+  <a href="/#contact" onclick="closeMenu()">Contact</a>
+</div>
+
+<!-- ══════════ BREADCRUMB ══════════ -->
+<div style="max-width:720px;margin:40px auto 0;padding:0 24px">
+  <a href="/" style="color:var(--stone);font-size:12px;text-decoration:none">&larr; hexis.center</a>
+</div>
+
+<!-- ══════════ ARTICLE HEADER ══════════ -->
+<header style="max-width:720px;margin:40px auto 48px;padding:0 24px">
+  <div style="font-size:11px;color:var(--brass);font-family:Arial,sans-serif;letter-spacing:.08em;text-transform:uppercase;margin-bottom:16px">
+    Metodoloji &middot; Mart 2026
+  </div>
+  <h1 style="font-family:Georgia,serif;font-size:clamp(28px,4vw,44px);font-weight:700;line-height:1.15;letter-spacing:-.5px;color:var(--text);margin-bottom:20px">
+    ORIENT ve AIGP BoK:<br>
+    <em>Ayn&#305; Dili Konu&#351;uyorlar</em>
+  </h1>
+  <p style="font-size:16px;line-height:1.7;color:var(--stone);max-width:600px">
+    Hexis'in ORIENT &ccedil;er&ccedil;evesi ile IAPP'&#305;n AIGP Bilgi &Ccedil;er&ccedil;evesi'nin
+    (Body of Knowledge) aras&#305;ndaki yap&#305;sal &ouml;rt&uuml;&#351;me; bu &ouml;rt&uuml;&#351;menin
+    T&uuml;rk &#351;irketleri i&ccedil;in ne anlama geldi&#287;i.
+  </p>
+</header>
+
+<!-- ══════════ ARTICLE CONTENT ══════════ -->
+<article style="max-width:720px;margin:0 auto 96px;padding:0 24px;font-family:Arial,sans-serif;font-size:16px;line-height:1.8;color:var(--text2)">
+
+  <!-- BÖLÜM 1 -->
+  <h2 style="font-family:Georgia,serif;font-size:24px;font-weight:700;color:var(--text);margin:48px 0 16px">
+    Metodoloji Neden &Ouml;nemli?
+  </h2>
+  <p>AI governance tart&#305;&#351;malar&#305;nda iki yayg&#305;n yan&#305;lg&#305; var. Birincisi:
+  governance bir kontrol listesidir; doldur, imzala, raf&#305;na koy.
+  &#304;kincisi: governance b&uuml;y&uuml;k &#351;irketlerin meselesidir; kaynak, b&uuml;t&ccedil;e,
+  uzman ekip gerektiren bir l&uuml;ks.</p>
+  <p style="margin-top:16px">Her ikisi de yanl&#305;&#351;. Ve her ikisi de
+  ciddi sonu&ccedil;lar do&#287;uruyor.</p>
+  <p style="margin-top:16px">Ger&ccedil;ekte AI governance; AI sistemlerinin
+  t&uuml;m ya&#351;am d&ouml;ng&uuml;s&uuml; (lifecycle) boyunca, tasar&#305;mdan da&#287;&#305;t&#305;ma
+  (deployment), izlemeden (monitoring) olay y&ouml;netimine (incident
+  management) kadar s&uuml;rekli uygulanan bir pratiktir. Bu prati&#287;in
+  i&#351;e yaramas&#305; i&ccedil;in bir metodoloji gerekir. Metodoloji olmadan
+  governance, iyi niyet beyan&#305;na d&ouml;n&uuml;&#351;&uuml;r.</p>
+  <blockquote style="margin:32px 0;padding:20px 24px;border-left:2px solid var(--brass);color:var(--text);font-style:italic;font-family:Georgia,serif;font-size:18px">
+    &ldquo;Uyum bir kontrol listesi de&#287;il, bir pratik y&ouml;nelimdir.&rdquo;
+  </blockquote>
+
+  <!-- BÖLÜM 2 -->
+  <h2 style="font-family:Georgia,serif;font-size:24px;font-weight:700;color:var(--text);margin:48px 0 16px">
+    AIGP BoK Ne S&ouml;yl&uuml;yor?
+  </h2>
+  <p>IAPP'&#305;n Certified AI Governance Professional (AIGP) sertifikas&#305;,
+  AI governance alan&#305;ndaki en kapsaml&#305; uluslararas&#305; yetkinlik
+  &ccedil;er&ccedil;evelerinden birini sunuyor. Version 2.1.0 Bilgi &Ccedil;er&ccedil;evesi
+  (Body of Knowledge, BoK, &#350;ubat 2026), d&ouml;rt temel domain
+  &uuml;zerine kurulu:</p>
+  <ul style="margin:20px 0 20px 20px;display:flex;flex-direction:column;gap:8px">
+    <li><strong style="color:var(--text)">Domain I:</strong>
+    AI Governance'&#305;n Temelleri</li>
+    <li><strong style="color:var(--text)">Domain II:</strong>
+    Yasalar, Standartlar ve &Ccedil;er&ccedil;eveler</li>
+    <li><strong style="color:var(--text)">Domain III:</strong>
+    AI Geli&#351;tirmeyi Y&ouml;netmek</li>
+    <li><strong style="color:var(--text)">Domain IV:</strong>
+    AI Da&#287;&#305;t&#305;m&#305; (Deployment) ve Kullan&#305;m&#305; Y&ouml;netmek</li>
+  </ul>
+  <p>BoK'un temel mesaj&#305; &#351;u: AI governance tek boyutlu de&#287;il.
+  Teknik, hukuki, etik ve operasyonel boyutlar&#305; ayn&#305; anda kapsamak
+  zorunda. Hi&ccedil;bir tek fonksiyon bunu tek ba&#351;&#305;na y&ouml;netemez. Her
+  a&#351;amada, tasar&#305;mdan da&#287;&#305;t&#305;ma (deployment), izlemeden (monitoring)
+  olay y&ouml;netimine (incident management) kadar aktif olmal&#305;.</p>
+
+  <!-- BÖLÜM 3 -->
+  <h2 style="font-family:Georgia,serif;font-size:24px;font-weight:700;color:var(--text);margin:48px 0 16px">
+    ORIENT ve BoK: Yap&#305;sal &Ouml;rt&uuml;&#351;me
+  </h2>
+  <p>ORIENT, alt&#305; a&#351;amal&#305; bir AI governance metodolojisidir.
+  Her a&#351;ama, AIGP BoK'taki belirli yetkinliklerle (competency)
+  do&#287;rudan &ouml;rt&uuml;&#351;&uuml;yor.</p>
+  <div style="overflow-x:auto;margin:32px 0">
+  <table style="width:100%;border-collapse:collapse;font-size:14px;font-family:Arial,sans-serif">
+    <thead>
+      <tr style="background:rgba(232,230,226,0.08)">
+        <th style="padding:12px 16px;text-align:left;color:var(--text);font-weight:600;border-bottom:1px solid var(--border2)">ORIENT A&#351;amas&#305;</th>
+        <th style="padding:12px 16px;text-align:left;color:var(--text);font-weight:600;border-bottom:1px solid var(--border2)">AIGP BoK Kar&#351;&#305;l&#305;&#287;&#305;</th>
+        <th style="padding:12px 16px;text-align:left;color:var(--text);font-weight:600;border-bottom:1px solid var(--border2)">EU AI Act / KVKK</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr style="border-bottom:1px solid var(--border)">
+        <td style="padding:12px 16px;color:var(--text);font-weight:600">Observe</td>
+        <td style="padding:12px 16px;color:var(--text2)">Kullan&#305;m Amac&#305; De&#287;erlendirmesi &middot; Payda&#351; Haritas&#305;</td>
+        <td style="padding:12px 16px;color:var(--text2)">Madde 6 &middot; KVKK Madde 4</td>
+      </tr>
+      <tr style="background:rgba(232,230,226,0.03);border-bottom:1px solid var(--border)">
+        <td style="padding:12px 16px;color:var(--text);font-weight:600">Risk</td>
+        <td style="padding:12px 16px;color:var(--text2)">Risk ve Zarar T&uuml;rleri &middot; Risk Y&ouml;netimi</td>
+        <td style="padding:12px 16px;color:var(--text2)">Madde 9 &middot; KVKK Madde 12</td>
+      </tr>
+      <tr style="border-bottom:1px solid var(--border)">
+        <td style="padding:12px 16px;color:var(--text);font-weight:600">Identify</td>
+        <td style="padding:12px 16px;color:var(--text2)">Tasar&#305;mda Etik &middot; Veri Edinimi</td>
+        <td style="padding:12px 16px;color:var(--text2)">Madde 10 &middot; KVKK Madde 5</td>
+      </tr>
+      <tr style="background:rgba(232,230,226,0.03);border-bottom:1px solid var(--border)">
+        <td style="padding:12px 16px;color:var(--text);font-weight:600">Evaluate</td>
+        <td style="padding:12px 16px;color:var(--text2)">E&#287;itim ve Test &middot; Belgeleme</td>
+        <td style="padding:12px 16px;color:var(--text2)">Annex IV &middot; KVKK Madde 12</td>
+      </tr>
+      <tr style="border-bottom:1px solid var(--border)">
+        <td style="padding:12px 16px;color:var(--text);font-weight:600">Navigate</td>
+        <td style="padding:12px 16px;color:var(--text2)">&Ccedil;ok Fonksiyonlu &#304;&#351;birli&#287;i &middot; Da&#287;&#305;t&#305;m</td>
+        <td style="padding:12px 16px;color:var(--text2)">Madde 26 &middot; KVKK Madde 12</td>
+      </tr>
+      <tr style="background:rgba(232,230,226,0.03);border-bottom:1px solid var(--border)">
+        <td style="padding:12px 16px;color:var(--text);font-weight:600">Track</td>
+        <td style="padding:12px 16px;color:var(--text2)">&#304;zleme &middot; Olay Y&ouml;netimi</td>
+        <td style="padding:12px 16px;color:var(--text2)">Madde 72 &middot; KVKK Madde 12</td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+  <p>Bu tablo tesad&uuml;f de&#287;il. Her iki &ccedil;er&ccedil;eve de ayn&#305; temel soruyu
+  cevapl&#305;yor: Bir organizasyon AI sistemlerini sorumlu bi&ccedil;imde nas&#305;l
+  y&ouml;netir? Cevap; ya&#351;am d&ouml;ng&uuml;s&uuml; (lifecycle) boyunca, &ccedil;ok boyutlu,
+  belgelenmi&#351; bir pratikle.</p>
+
+  <!-- BÖLÜM 4 -->
+  <h2 style="font-family:Georgia,serif;font-size:24px;font-weight:700;color:var(--text);margin:48px 0 16px">
+    T&uuml;rk &#350;irketleri &#304;&ccedil;in Ne Anlama Geliyor?
+  </h2>
+  <p>T&uuml;rkiye'deki &#351;irketler i&ccedil;in AI governance &ccedil;ift boyutlu bir
+  zorunluluk: EU AI Act ve KVKK. Bu iki &ccedil;er&ccedil;eve farkl&#305;
+  perspektiflerden ayn&#305; temel gerekliliklere ula&#351;&#305;yor.</p>
+  <p style="margin-top:16px">EU AI Act risk bazl&#305; bir yakla&#351;&#305;m
+  benimsiyor: hangi AI sistemi, hangi ama&ccedil;la kullan&#305;l&#305;yor? KVKK
+  ise veri i&#351;leme odakl&#305;: hangi ki&#351;isel veri, hangi yasal dayanakla
+  i&#351;leniyor? Her T&uuml;rk &#351;irketi bu iki soruyu ayn&#305; anda cevaplamak
+  zorunda.</p>
+  <blockquote style="margin:32px 0;padding:20px 24px;border-left:2px solid var(--brass);color:var(--text);font-style:italic;font-family:Georgia,serif;font-size:18px">
+    &ldquo;Tek bir metodoloji, iki d&uuml;zenleyici &ccedil;er&ccedil;evenin gerekliliklerini
+    ayn&#305; anda kar&#351;&#305;l&#305;yor.&rdquo;
+  </blockquote>
+
+  <!-- BÖLÜM 5 -->
+  <h2 style="font-family:Georgia,serif;font-size:24px;font-weight:700;color:var(--text);margin:48px 0 16px">
+    S&uuml;rekli &#304;zleme: En G&ouml;z Ard&#305; Edilen Boyut
+  </h2>
+  <p>T&uuml;rk &#351;irketlerinin b&uuml;y&uuml;k &ccedil;o&#287;unlu&#287;u AI sistemlerini kendisi
+  geli&#351;tirmiyor; yabanc&#305; tedarik&ccedil;ilerden (vendor) sat&#305;n al&#305;yor
+  veya API ile kullan&#305;yor. Microsoft Azure AI, Google Cloud AI,
+  OpenAI API... Bu &#351;irketler hem EU AI Act kapsam&#305;nda da&#287;&#305;t&#305;c&#305;
+  (deployer) hem KVKK kapsam&#305;nda veri sorumlusu konumunda.</p>
+  <p style="margin-top:16px">Kritik yan&#305;lg&#305; &#351;u: tedarik&ccedil;i uyumlu
+  oldu&#287;u i&ccedil;in &#351;irket de uyumlu say&#305;l&#305;r. Bu do&#287;ru de&#287;il. Tedarik&ccedil;i
+  modeli g&uuml;ncelledi&#287;inde ba&#351;lang&#305;&ccedil;taki &ouml;n de&#287;erlendirme
+  (due diligence) ge&ccedil;ersiz hale gelebiliyor.</p>
+  <p style="margin-top:16px">ORIENT'in Track a&#351;amas&#305; tam bu bo&#351;lu&#287;u
+  dolduruyor: da&#287;&#305;t&#305;m (deployment) sonras&#305; s&uuml;rekli izleme
+  (monitoring), periyodik tedarik&ccedil;i de&#287;erlendirmesi, performans
+  bozulmas&#305; tespiti. Bu kapsaml&#305; bir yaz&#305;l&#305;m sistemi gerektirmiyor;
+  metodoloji ve d&uuml;zenli de&#287;erlendirme prati&#287;i yeterli.</p>
+
+  <!-- BÖLÜM 6 -->
+  <h2 style="font-family:Georgia,serif;font-size:24px;font-weight:700;color:var(--text);margin:48px 0 16px">
+    Metodoloji G&uuml;veni, Ara&ccedil; De&#287;il
+  </h2>
+  <p>AI governance ara&ccedil;lar&#305; &ouml;nemli. Ama ara&ccedil;lar metodolojinin &ouml;n&uuml;ne
+  ge&ccedil;ti&#287;inde governance g&ouml;r&uuml;n&uuml;r olmaktan &ccedil;&#305;kar; form doldurmaya
+  d&ouml;n&uuml;&#351;&uuml;r.</p>
+  <p style="margin-top:16px">ORIENT'in AIGP BoK ile &ouml;rt&uuml;&#351;mesi bize
+  &#351;unu g&ouml;steriyor: sa&#287;lam bir AI governance metodolojisi uluslararas&#305;
+  standartlarla tutarl&#305; olmak zorunda. Hexis bu tutarl&#305;l&#305;&#287;&#305; bilin&ccedil;li
+  olarak tasarlad&#305;; AIGP BoK v2.1.0 bu tasar&#305;m&#305; do&#287;ruluyor.</p>
+  <p style="margin-top:16px">T&uuml;rk &#351;irketleri i&ccedil;in mesaj net:
+  AI governance'a ba&#351;lamak i&ccedil;in dev bir b&uuml;t&ccedil;e veya uzman bir ekip
+  &#351;art de&#287;il. Do&#287;ru metodoloji, do&#287;ru &ouml;nceliklendirme ve s&uuml;reklilik
+  yeterli.</p>
+
+  <!-- KAYNAK NOTU -->
+  <div style="margin:64px 0 0;padding:24px;border:1px solid var(--border);background:var(--card)">
+    <div style="font-size:12px;color:var(--stone);font-family:Arial,sans-serif;line-height:1.7">
+      <strong style="color:var(--text2)">Kaynak notu:</strong>
+      Bu yaz&#305;, Hexis kurucusu &Ouml;zden Co&#351;kun'un IAPP AIGP sertifika
+      haz&#305;rl&#305;k s&uuml;recinde &uuml;retilmi&#351;tir. AIGP Bilgi &Ccedil;er&ccedil;evesi
+      (Body of Knowledge) v2.1.0 (&#350;ubat 2026) birincil kaynak olarak
+      kullan&#305;lm&#305;&#351;t&#305;r. EU AI Act referanslar&#305; Regulation (EU)
+      2024/1689'un resmi metnine dayanmaktad&#305;r.
+    </div>
+  </div>
+
+</article>
+
+<!-- ══════════ BACK LINK ══════════ -->
+<div style="max-width:720px;margin:0 auto 96px;padding:0 24px">
+  <a href="/" style="font-size:13px;color:var(--stone);text-decoration:none;font-family:Arial,sans-serif">
+    &larr; T&uuml;m yaz&#305;lar
+  </a>
+</div>
+
+<!-- ══════════ FOOTER ══════════ -->
+<footer>
+  <div class="footer-left">
+    <a href="/" class="footer-logo"><img src="/assets/logo-light.png" alt="Hexis" width="32" height="18"></a>
+    <span class="footer-sep">&middot;</span>
+    <span class="footer-txt">&copy; 2026 Hexis &middot; Built by &Ouml;zden Co&#351;kun &middot; Yaln&#305;zca bilgilendirme ama&ccedil;l&#305;d&#305;r; hukuki dan&#305;&#351;manl&#305;k niteli&#287;i ta&#351;&#305;maz.</span>
+  </div>
+  <div class="footer-links">
+    <a href="/metodoloji/">Orient Framework</a>
+    <a href="/generator/">Generator</a>
+    <a href="/#contact">Contact</a>
+    <a href="https://eur-lex.europa.eu/legal-content/TR/TXT/?uri=CELEX:32024R1689" target="_blank" rel="noopener noreferrer">EU AI Act</a>
+    <a href="https://www.linkedin.com/in/ozden-coskun-8728a1301" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+  </div>
+</footer>
+
+<script>
+function toggleMenu(){
+  document.getElementById('hamburger').classList.toggle('open');
+  document.getElementById('mobileMenu').classList.toggle('open');
+}
+function closeMenu(){
+  document.getElementById('hamburger').classList.remove('open');
+  document.getElementById('mobileMenu').classList.remove('open');
+}
+document.addEventListener('click',function(e){
+  const h=document.getElementById('hamburger');
+  const m=document.getElementById('mobileMenu');
+  if(m.classList.contains('open')&&!h.contains(e.target)&&!m.contains(e.target)){
+    h.classList.remove('open');m.classList.remove('open');
+  }
+});
+</script>
+</body>
+</html>
