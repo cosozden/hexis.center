@@ -423,11 +423,388 @@
   }
   .clf-result-checklist:hover { border-color: var(--ink); color: var(--ink); }
   .classifier-wrap.collapsed { display: none; }
-  @media print { .classifier-wrap { display: none !important; } }
+
+  /* ── OBSERVE STAGE ── */
+  .observe-wrap {
+    background: var(--paper); border-bottom: 1.5px solid var(--ink);
+  }
+  .observe {
+    max-width: 960px; margin: 0 auto; padding: 28px 24px 32px;
+  }
+  .obs-header {
+    display: flex; justify-content: space-between; align-items: flex-start;
+    margin-bottom: 20px;
+  }
+  .obs-lang-toggle {
+    display: flex; gap: 4px; flex-shrink: 0; margin-top: 4px;
+  }
+  .obs-lang-btn {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 9px; letter-spacing: 0.1em; text-transform: uppercase;
+    background: none; cursor: pointer; padding: 5px 10px;
+    border: 1px solid var(--rule); color: var(--ink-muted);
+    transition: all .15s;
+  }
+  .obs-lang-btn.active {
+    border-color: var(--charcoal); color: var(--ink);
+  }
+  .obs-lang-btn:hover { border-color: var(--stone); color: var(--ink); }
+  .obs-brand {
+    font-size: 9px; letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--ink-muted); margin-bottom: 4px;
+  }
+  .obs-title {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 18px; font-weight: 700; color: var(--ink); line-height: 1.2;
+  }
+  .obs-subtitle {
+    font-size: 11px; color: var(--ink-muted); margin-top: 4px;
+    letter-spacing: 0.04em; line-height: 1.5;
+  }
+  .obs-intro {
+    font-size: 12px; color: var(--ink-soft); line-height: 1.7;
+    margin-bottom: 16px;
+  }
+  .obs-section-label {
+    font-size: 9px; letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--ink-muted); margin-bottom: 6px; margin-top: 16px;
+  }
+  .obs-section-text {
+    font-size: 12px; color: var(--ink-soft); line-height: 1.7;
+  }
+  .obs-ref {
+    font-size: 11px; color: var(--ink-soft); line-height: 1.6;
+    padding: 10px 14px; border-left: 2px solid var(--rule);
+    margin: 12px 0;
+  }
+  .obs-ref strong { color: var(--ink); font-weight: 500; }
+  .obs-output-label {
+    font-size: 9px; letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--ink-muted); margin-top: 16px; margin-bottom: 4px;
+  }
+  .obs-output-text {
+    font-size: 12px; color: var(--ink-soft); line-height: 1.6;
+    margin-bottom: 4px;
+  }
+  .obs-time {
+    font-size: 11px; color: var(--stone); font-style: italic;
+    margin-top: 12px;
+  }
+
+  /* Observe form */
+  .obs-form { margin-top: 24px; }
+  .obs-field { margin-bottom: 20px; }
+  .obs-label {
+    font-size: 9px; letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--ink-muted); margin-bottom: 6px; display: block;
+  }
+  .obs-input, .obs-select, .obs-textarea {
+    width: 100%; font-family: Arial, Helvetica, sans-serif;
+    font-size: 12px; color: var(--ink); background: transparent;
+    border: 1px solid var(--rule); padding: 10px 12px;
+    transition: border-color .15s;
+  }
+  .obs-input:focus, .obs-select:focus, .obs-textarea:focus {
+    outline: none; border-color: var(--charcoal);
+  }
+  .obs-select { appearance: none; cursor: pointer; }
+  .obs-textarea { min-height: 80px; resize: vertical; line-height: 1.6; }
+
+  /* Toggle "Why does this matter?" */
+  .obs-toggle {
+    font-size: 10px; color: var(--stone); cursor: pointer;
+    background: none; border: none; padding: 6px 0;
+    font-family: Arial, Helvetica, sans-serif;
+    display: flex; align-items: center; gap: 6px;
+    transition: color .15s; letter-spacing: 0.04em;
+  }
+  .obs-toggle:hover { color: var(--ink); }
+  .obs-toggle-chevron {
+    display: inline-block; font-size: 8px;
+    transition: transform .2s;
+  }
+  .obs-toggle-chevron.open { transform: rotate(90deg); }
+  .obs-toggle-content {
+    display: none; font-size: 11px; color: var(--ink-soft);
+    line-height: 1.7; padding: 10px 14px; margin-top: 6px;
+    border-left: 2px solid var(--rule);
+  }
+  .obs-toggle-content.open { display: block; }
+  .obs-toggle-examples {
+    margin-top: 8px; font-size: 11px; color: var(--stone);
+    line-height: 1.6; font-style: italic;
+  }
+
+  /* Checkboxes (Affected Stakeholders) */
+  .obs-checkbox-group {
+    display: flex; flex-wrap: wrap; gap: 8px;
+  }
+  .obs-checkbox-item {
+    display: flex; align-items: center; gap: 6px;
+    padding: 8px 12px; border: 1px solid var(--rule);
+    cursor: pointer; transition: all .15s;
+    font-size: 11px; color: var(--ink-soft);
+  }
+  .obs-checkbox-item:hover { border-color: var(--stone); }
+  .obs-checkbox-item.selected { border-color: var(--charcoal); color: var(--ink); }
+  .obs-checkbox-box {
+    width: 12px; height: 12px; border: 1.5px solid var(--stone);
+    flex-shrink: 0; display: flex; align-items: center; justify-content: center;
+  }
+  .obs-checkbox-item.selected .obs-checkbox-box {
+    border-color: var(--charcoal);
+  }
+  .obs-checkbox-item.selected .obs-checkbox-box::after {
+    content: ''; width: 6px; height: 6px; background: var(--charcoal);
+  }
+  .obs-other-input {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 11px; color: var(--ink); background: transparent;
+    border: 1px solid var(--rule); padding: 8px 12px;
+    margin-top: 8px; width: 100%; max-width: 300px;
+    transition: border-color .15s;
+  }
+  .obs-other-input:focus { outline: none; border-color: var(--charcoal); }
+  .obs-vulnerable-link {
+    display: none; margin-top: 8px; font-size: 11px;
+    color: var(--brass); letter-spacing: 0.04em;
+  }
+  .obs-vulnerable-link a { color: var(--brass); text-decoration: underline; }
+
+  /* Foreseeable Misuse scenarios */
+  .obs-scenario { margin-bottom: 12px; padding-bottom: 12px; border-bottom: 1px solid var(--rule-s); }
+  .obs-scenario:last-child { border-bottom: none; }
+  .obs-scenario-text { font-size: 12px; color: var(--ink-soft); line-height: 1.5; margin-bottom: 8px; }
+  .obs-radio-group { display: flex; gap: 6px; }
+  .obs-radio-btn {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 10px; letter-spacing: 0.06em;
+    background: none; border: 1px solid var(--rule);
+    color: var(--ink-muted); padding: 5px 12px;
+    cursor: pointer; transition: all .15s;
+  }
+  .obs-radio-btn:hover { border-color: var(--stone); color: var(--ink); }
+  .obs-radio-btn.selected { border-color: var(--charcoal); color: var(--ink); }
+  .obs-idk-helper {
+    display: none; font-size: 10px; color: var(--brass);
+    font-style: italic; margin-top: 6px; line-height: 1.5;
+  }
+  .obs-idk-helper.visible { display: block; }
+
+  /* Observe form actions */
+  .obs-form-actions {
+    display: flex; gap: 10px; margin-top: 24px; padding-top: 16px;
+    border-top: 1px solid var(--rule);
+  }
+  .obs-btn-generate {
+    background: var(--charcoal); color: var(--paper); border: none;
+    padding: 10px 24px; font-size: 10px; letter-spacing: 0.1em;
+    text-transform: uppercase; cursor: pointer;
+    font-family: Arial, Helvetica, sans-serif; transition: opacity .15s;
+  }
+  .obs-btn-generate:hover { opacity: 0.85; }
+
+  /* AI System Card */
+  .system-card-wrap { display: none; margin-top: 24px; }
+  .system-card-wrap.visible { display: block; }
+  .system-card {
+    border: 1px solid var(--rule); background: var(--paper);
+  }
+  .system-card-header {
+    padding: 14px 20px; border-bottom: 1px solid var(--rule);
+  }
+  .system-card-header-title {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 14px; font-weight: 700; color: var(--ink);
+  }
+  .system-card-header-sub {
+    font-size: 9px; letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--ink-muted); margin-top: 2px;
+  }
+  .system-card-body { padding: 16px 20px; }
+  .system-card-section { margin-bottom: 14px; }
+  .system-card-label {
+    font-size: 9px; letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--ink-muted); margin-bottom: 4px;
+  }
+  .system-card-value {
+    font-size: 12px; color: var(--ink-soft); line-height: 1.6;
+  }
+  .system-card-warning {
+    font-size: 11px; color: var(--brass); line-height: 1.5;
+    padding: 10px 14px; border: 1px solid var(--brass);
+    margin-top: 10px;
+  }
+  .system-card-ref {
+    font-size: 11px; color: var(--ink-soft); line-height: 1.6;
+    padding: 10px 14px; border-left: 2px solid var(--rule);
+  }
+  .system-card-ref-check {
+    color: var(--stone); margin-right: 4px;
+  }
+  .system-card-actions {
+    display: flex; gap: 10px; margin-top: 16px; padding-top: 14px;
+    border-top: 1px solid var(--rule);
+  }
+  .system-card-btn-pdf {
+    background: none; color: var(--stone); border: 1px solid var(--rule);
+    padding: 10px 18px; font-size: 10px; letter-spacing: 0.1em;
+    text-transform: uppercase; cursor: pointer;
+    font-family: Arial, Helvetica, sans-serif; transition: all .15s;
+  }
+  .system-card-btn-pdf:hover { border-color: var(--ink); color: var(--ink); }
+  .system-card-btn-proceed {
+    background: var(--charcoal); color: var(--paper); border: none;
+    padding: 10px 24px; font-size: 10px; letter-spacing: 0.1em;
+    text-transform: uppercase; cursor: pointer;
+    font-family: Arial, Helvetica, sans-serif; transition: opacity .15s;
+  }
+  .system-card-btn-proceed:hover { opacity: 0.85; }
+
+  /* Observe banner in classifier */
+  .clf-observe-banner {
+    padding: 10px 16px; border: 1px solid var(--brass);
+    background: transparent; color: var(--brass);
+    font-size: 11px; line-height: 1.5; margin-bottom: 16px;
+    display: none;
+  }
+  .clf-observe-banner.visible { display: block; }
+  .clf-prefill-tag {
+    font-size: 9px; letter-spacing: 0.08em; text-transform: uppercase;
+    color: var(--brass); background: transparent;
+    border: 1px solid var(--brass); padding: 2px 8px;
+    display: inline-block; margin-top: 4px;
+  }
+  .clf-context-note {
+    font-size: 11px; color: var(--stone); font-style: italic;
+    line-height: 1.5; margin-bottom: 16px; display: none;
+  }
+  .clf-context-note.visible { display: block; }
+
+  /* Observe wrap collapsed */
+  .observe-wrap.collapsed { display: none; }
+
+  @media print {
+    .classifier-wrap { display: none !important; }
+    .observe-wrap { display: none !important; }
+    .system-card-wrap { display: block !important; page-break-inside: avoid; }
+    .system-card-actions { display: none !important; }
+    .obs-form { display: none !important; }
+  }
+
+  /* Mobile responsive for observe */
+  @media (max-width: 640px) {
+    .obs-header { flex-direction: column; gap: 12px; }
+    .obs-checkbox-group { flex-direction: column; }
+    .obs-radio-group { flex-wrap: wrap; }
+    .system-card-actions { flex-direction: column; }
+  }
 </style>
 </head>
 <body>
 <div style="position:fixed;bottom:16px;left:16px;z-index:999;font-family:Arial,sans-serif;font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--stone);background:var(--paper);border:1px solid var(--rule);padding:5px 10px;pointer-events:none;">● ORIENT: Risk · Identify</div>
+
+<!-- ── OBSERVE STAGE ── -->
+<div class="observe-wrap" id="observe-wrap">
+  <div class="observe">
+    <div class="obs-header">
+      <div>
+        <div class="obs-brand">Hexis · ORIENT Framework · Stage 1</div>
+        <div class="obs-title" data-en="Observe — Define Your AI System" data-tr="Observe — AI Sisteminizi Tanımlayın">Observe — Define Your AI System</div>
+        <div class="obs-subtitle" data-en="Compliance begins with knowing what your system actually does." data-tr="Uyum süreci doğru soruyla başlar: bu sistem ne yapıyor, kim için yapıyor, ne zaman yanlış gidebilir?">Compliance begins with knowing what your system actually does.</div>
+      </div>
+      <div class="obs-lang-toggle">
+        <button class="obs-lang-btn active" id="obs-lang-en" onclick="setObsLang('en')">EN</button>
+        <button class="obs-lang-btn" id="obs-lang-tr" onclick="setObsLang('tr')">TR</button>
+      </div>
+    </div>
+
+    <div class="obs-intro" data-en="Every obligation under the EU AI Act traces back to one question: what is this system designed to do? Your system's intended purpose determines its risk classification, your legal obligations, and the measures you need to take. An undefined system cannot be classified. An unclassified system cannot be governed." data-tr="EU AI Act kapsamındaki her yükümlülük tek bir tanıma dayanır: <em>intended purpose</em> (tasarım amacı). Sisteminizin ne için tasarlandığı, risk sınıfını, yasal yükümlülüklerinizi ve almanız gereken önlemleri doğrudan belirler. Çoğu organizasyon bu tanımı hiç yapmamıştır. Sistem çalışıyor, karar veriyor, insanları etkiliyor; ama kimlik belgesi yok. Bu, uyum sürecinin en temel açığıdır ve buradan başlıyoruz.">Every obligation under the EU AI Act traces back to one question: what is this system designed to do? Your system's intended purpose determines its risk classification, your legal obligations, and the measures you need to take. An undefined system cannot be classified. An unclassified system cannot be governed.</div>
+
+    <div class="obs-section-label" data-en="What you will do in this stage" data-tr="Bu aşamada ne yapacaksınız">What you will do in this stage</div>
+    <div class="obs-section-text" data-en="You will give your AI system a formal identity — document what it does, who it affects, and how it could be misused. Foreseeable misuse assessment is part of this stage. Most organizations have never done this formally." data-tr="AI sisteminize resmi bir kimlik vereceksiniz. Ne yaptığını, kimi etkilediğini ve nasıl kötüye kullanılabileceğini yazılı olarak belgeleyeceksiniz; <em>foreseeable misuse</em> (öngörülebilir kötüye kullanım) değerlendirmesi de bu aşamada yapılır.">You will give your AI system a formal identity — document what it does, who it affects, and how it could be misused. Foreseeable misuse assessment is part of this stage. Most organizations have never done this formally.</div>
+
+    <div class="obs-section-label" data-en="EU AI Act Connection" data-tr="EU AI Act Bağlantısı">EU AI Act Connection</div>
+    <div class="obs-ref" data-en="<strong>Article 3(12):</strong> Intended purpose must be defined. Risk classification is based on this definition.<br><strong>Article 6:</strong> Risk category is determined by intended purpose. Observe is the prerequisite for classification." data-tr="<strong>Madde 3(12):</strong> <em>Intended purpose</em> tanımlanmak zorundadır. Risk sınıflandırması bu tanıma göre yapılır. Tanımlanmamış bir sistem sınıflandırılamaz; sınıflandırılamamış bir sistem yönetilemez.<br><strong>Madde 6:</strong> Risk kategorisi <em>intended purpose</em>'a göre belirlenir. Observe, sınıflandırmanın önkoşuludur."><strong>Article 3(12):</strong> Intended purpose must be defined. Risk classification is based on this definition.<br><strong>Article 6:</strong> Risk category is determined by intended purpose. Observe is the prerequisite for classification.</div>
+
+    <div class="obs-output-label" data-en="What you will produce" data-tr="Bu aşamanın çıktısı">What you will produce</div>
+    <div class="obs-output-text" data-en="An AI System Card — a documented, single-page identity record of your system. This card is the input for the Risk stage and every subsequent ORIENT phase. EU AI Act Article 3(12) compliant." data-tr="Bir <em>AI System Card</em> (AI Sistem Kartı). Sisteminizin belgelenmiş, tek sayfalık kimlik kaydı. EU AI Act Madde 3(12) uyumlu. Risk aşamasının ve sonraki tüm ORIENT aşamalarının girdisi.">An AI System Card — a documented, single-page identity record of your system. This card is the input for the Risk stage and every subsequent ORIENT phase. EU AI Act Article 3(12) compliant.</div>
+
+    <div class="obs-time" data-en="Estimated time: 10–15 minutes" data-tr="Tahmini süre: 10–15 dakika">Estimated time: 10–15 minutes</div>
+
+    <!-- ── OBSERVE FORM ── -->
+    <div class="obs-form" id="obs-form">
+
+      <!-- Field 1: System Name -->
+      <div class="obs-field">
+        <label class="obs-label" data-en="System Name" data-tr="Sistem Adı">System Name</label>
+        <input class="obs-input" id="obs-system-name" type="text" data-placeholder-en="e.g. CV Screening System, Customer Credit Scoring Model" data-placeholder-tr="örn. CV Filtreleme Sistemi, Müşteri Kredi Skorlama Modeli" placeholder="e.g. CV Screening System, Customer Credit Scoring Model">
+      </div>
+
+      <!-- Field 2: Sector -->
+      <div class="obs-field">
+        <label class="obs-label" data-en="Sector" data-tr="Sektör">Sector</label>
+        <select class="obs-select" id="obs-sector" onchange="onSectorChange()">
+          <option value="" data-en="— Select —" data-tr="— Seçiniz —">— Select —</option>
+          <option value="hr" data-en="Human Resources" data-tr="İnsan Kaynakları">Human Resources</option>
+          <option value="finance" data-en="Finance &amp; Credit" data-tr="Finans ve Kredi">Finance &amp; Credit</option>
+          <option value="healthcare" data-en="Healthcare" data-tr="Sağlık">Healthcare</option>
+          <option value="retail" data-en="Retail &amp; E-commerce" data-tr="Perakende ve E-ticaret">Retail &amp; E-commerce</option>
+          <option value="legal" data-en="Legal" data-tr="Hukuk">Legal</option>
+          <option value="education" data-en="Education" data-tr="Eğitim">Education</option>
+          <option value="public" data-en="Public Sector" data-tr="Kamu">Public Sector</option>
+          <option value="other" data-en="Other" data-tr="Diğer">Other</option>
+        </select>
+      </div>
+
+      <!-- Field 3: Intended Purpose -->
+      <div class="obs-field">
+        <label class="obs-label" data-en="Intended Purpose" data-tr="Tasarım Amacı">Intended Purpose</label>
+        <textarea class="obs-textarea" id="obs-purpose" data-placeholder-en="Describe what the system produces as output and how that output is used." data-placeholder-tr="Sistemin ürettiği çıktıyı ve bu çıktının nasıl kullanıldığını açıklayın." placeholder="Describe what the system produces as output and how that output is used."></textarea>
+        <button class="obs-toggle" onclick="toggleObsPanel(this)">
+          <span class="obs-toggle-chevron">▸</span>
+          <span data-en="Why does this matter?" data-tr="Bu neden önemli?">Why does this matter?</span>
+        </button>
+        <div class="obs-toggle-content" data-en="Article 3(12) of the EU AI Act requires intended purpose to be explicitly defined before a system is placed on the market or put into service. Your risk classification under Article 6 — and every obligation that follows — is determined by this definition. Without a documented intended purpose, risk assessment has no foundation." data-tr="EU AI Act Madde 3(12), <em>intended purpose</em>'un sistem piyasaya sürülmeden veya hizmete alınmadan önce açıkça tanımlanmasını zorunlu kılar. Madde 6 kapsamındaki risk sınıfınız ve buna bağlı tüm yükümlülükler bu tanıma göre belirlenir. Belgelenmiş bir <em>intended purpose</em> olmadan risk değerlendirmesinin temeli yoktur.">Article 3(12) of the EU AI Act requires intended purpose to be explicitly defined before a system is placed on the market or put into service. Your risk classification under Article 6 — and every obligation that follows — is determined by this definition. Without a documented intended purpose, risk assessment has no foundation.
+          <div class="obs-toggle-examples" data-en="Examples:<br>• &quot;Screens job applications and ranks candidates by fit score&quot;<br>• &quot;Calculates credit risk score for loan applications&quot;<br>• &quot;Recommends products based on customer purchase history&quot;" data-tr="Örnekler:<br>• &quot;İş başvurularını tarar ve adayları uygunluk puanına göre sıralar&quot;<br>• &quot;Kredi başvuruları için kredi risk puanı hesaplar&quot;<br>• &quot;Müşteri satın alma geçmişine göre ürün önerir&quot;">Examples:<br>&bull; "Screens job applications and ranks candidates by fit score"<br>&bull; "Calculates credit risk score for loan applications"<br>&bull; "Recommends products based on customer purchase history"</div>
+        </div>
+      </div>
+
+      <!-- Field 4: Affected Stakeholders -->
+      <div class="obs-field">
+        <label class="obs-label" data-en="Affected Stakeholders" data-tr="Etkilenen Paydaşlar">Affected Stakeholders</label>
+        <div class="obs-checkbox-group" id="obs-stakeholders"></div>
+        <div class="obs-vulnerable-link" id="obs-vulnerable-link" data-en="Does your system affect vulnerable groups? → <a href='/fria/'>Conduct FRIA</a>" data-tr="Sisteminiz hassas grupları etkiliyor mu? → <a href='/fria/'>FRIA uygulayın</a>">Does your system affect vulnerable groups? → <a href="/fria/">Conduct FRIA</a></div>
+        <button class="obs-toggle" onclick="toggleObsPanel(this)">
+          <span class="obs-toggle-chevron">▸</span>
+          <span data-en="Why does this matter?" data-tr="Bu neden önemli?">Why does this matter?</span>
+        </button>
+        <div class="obs-toggle-content" data-en="The EU AI Act pays particular attention to systems affecting vulnerable groups — minors, persons with disabilities, or those in situations of vulnerability. If your system affects any of these groups, additional obligations may apply, and a Fundamental Rights Impact Assessment (FRIA) under Article 27 may be required." data-tr="EU AI Act, çocuklar, engelli bireyler veya savunmasız konumdaki kişiler gibi hassas grupları etkileyen sistemlere özel dikkat gösterir. Sisteminiz bu grupları etkiliyorsa ek yükümlülükler doğabilir; Madde 27 kapsamında <em>Fundamental Rights Impact Assessment</em> (FRIA, Temel Haklar Etki Değerlendirmesi) gerekebilir.">The EU AI Act pays particular attention to systems affecting vulnerable groups — minors, persons with disabilities, or those in situations of vulnerability. If your system affects any of these groups, additional obligations may apply, and a Fundamental Rights Impact Assessment (FRIA) under Article 27 may be required.</div>
+      </div>
+
+      <!-- Field 5: Foreseeable Misuse -->
+      <div class="obs-field">
+        <label class="obs-label" data-en="Foreseeable Misuse" data-tr="Öngörülebilir Kötüye Kullanım">Foreseeable Misuse</label>
+        <div id="obs-misuse-scenarios"></div>
+        <button class="obs-toggle" onclick="toggleObsPanel(this)">
+          <span class="obs-toggle-chevron">▸</span>
+          <span data-en="Why does this matter?" data-tr="Bu neden önemli?">Why does this matter?</span>
+        </button>
+        <div class="obs-toggle-content" data-en="Article 3(12) of the EU AI Act includes &quot;reasonably foreseeable misuse&quot; within the definition of intended purpose. Your risk classification must account not only for what the system is designed to do, but also for predictable unintended uses. If foreseeable misuse is not assessed at this stage, the Risk stage begins on an incomplete foundation." data-tr="EU AI Act Madde 3(12), <em>intended purpose</em> tanımına &quot;makul ölçüde öngörülebilir kötüye kullanımı&quot; (<em>reasonably foreseeable misuse</em>) dahil eder. Risk sınıflandırmanız yalnızca sistemin tasarım amacını değil, öngörülebilir istem dışı kullanımları da kapsamalıdır. Bu aşamada <em>foreseeable misuse</em> değerlendirilmezse Risk aşaması eksik temele dayanır.">Article 3(12) of the EU AI Act includes "reasonably foreseeable misuse" within the definition of intended purpose. Your risk classification must account not only for what the system is designed to do, but also for predictable unintended uses. If foreseeable misuse is not assessed at this stage, the Risk stage begins on an incomplete foundation.</div>
+      </div>
+
+      <div class="obs-form-actions">
+        <button class="obs-btn-generate" onclick="generateSystemCard()" data-en="Generate AI System Card →" data-tr="AI Sistem Kartı Oluştur →">Generate AI System Card →</button>
+      </div>
+    </div>
+
+    <!-- AI System Card Output -->
+    <div class="system-card-wrap" id="system-card-wrap">
+      <div class="system-card" id="system-card"></div>
+    </div>
+
+  </div>
+</div>
 
 <!-- ── EU AI ACT RISK CLASSIFIER ── -->
 <div class="classifier-wrap" id="classifier-wrap">
@@ -435,11 +812,14 @@
     <div class="clf-header">
       <div>
         <div class="clf-brand">Hexis · EU AI Act Risk Classifier</div>
-        <div class="clf-title">Classify Your AI System</div>
-        <div class="clf-subtitle">Answer 6 questions to determine your EU AI Act risk category and legal obligations</div>
+        <div class="clf-title" data-en="Risk — Determine Your System's Legal Position" data-tr="Risk — Sisteminizin Yasal Konumunu Belirleyin">Risk — Determine Your System's Legal Position</div>
+        <div class="clf-subtitle" data-en="An unclassified system cannot be governed. This stage establishes which obligations apply to you — and which do not." data-tr="Sınıflandırılmamış bir sistem yönetilemez. Bu aşama, hangi yükümlülüklerin sizin için geçerli olduğunu netleştirir.">An unclassified system cannot be governed. This stage establishes which obligations apply to you — and which do not.</div>
       </div>
       <button class="clf-skip" onclick="skipClassifier()">I know my risk level →</button>
     </div>
+    <div class="clf-context-note" id="clf-context-note" data-en="Your system information from the Observe stage has been used to pre-fill parts of this assessment. Review each step and confirm — or correct where needed. Classification is your decision." data-tr="Observe aşamasındaki sistem bilgileriniz bu değerlendirmenin bir kısmını önceden doldurdu. Her adımı gözden geçirin ve onaylayın; gerekirse düzeltin. Sınıflandırma sizin kararınız.">Your system information from the Observe stage has been used to pre-fill parts of this assessment. Review each step and confirm — or correct where needed. Classification is your decision.</div>
+    <div class="clf-observe-banner" id="clf-observe-banner"></div>
+    <div class="obs-intro" style="margin-bottom:20px;" data-en="The EU AI Act organizes AI systems into four risk categories. Which category your system falls into depends on one question: what kind of decision does this system make or support, and about whom? Misclassification carries risk in both directions. Classifying a high-risk system as low-risk means missing mandatory obligations. Classifying a low-risk system as high-risk means misallocating resources and time. Accurate classification is the foundation of your compliance strategy." data-tr="EU AI Act dört risk katmanı tanımlar. Sisteminizin hangi kategoriye girdiği tek bir soruya bağlıdır: bu sistem kimin hakkında, ne tür bir karar veriyor veya destekliyor? Yanlış sınıflandırma iki yönde de risk taşır. Yüksek riskli bir sistemi düşük riskli olarak sınıflandırmak yasal yükümlülükleri atlamanıza yol açar. Düşük riskli bir sistemi yüksek riskli olarak sınıflandırmak gereksiz kaynak ve zaman harcamanıza neden olur. Doğru sınıflandırma, uyum stratejinizin temelidir.">The EU AI Act organizes AI systems into four risk categories. Which category your system falls into depends on one question: what kind of decision does this system make or support, and about whom? Misclassification carries risk in both directions. Classifying a high-risk system as low-risk means missing mandatory obligations. Classifying a low-risk system as high-risk means misallocating resources and time. Accurate classification is the foundation of your compliance strategy.</div>
     <div class="clf-progress" id="clf-progress"></div>
     <div id="clf-questions"></div>
     <div class="clf-nav" id="clf-nav">
@@ -517,6 +897,420 @@
 <div class="report-wrap">
   <div id="report-output"></div>
 </div>
+
+<script>
+// ── OBSERVE STAGE ENGINE ──
+(function() {
+  'use strict';
+
+  var obsLang = 'en';
+  var obsStakeholderSelections = {};
+  var obsMisuseAnswers = {};
+
+  // Stakeholder options
+  var STAKEHOLDERS = {
+    en: [
+      { id: 'employees', label: 'Employees' },
+      { id: 'job_applicants', label: 'Job applicants' },
+      { id: 'customers', label: 'Customers' },
+      { id: 'loan_applicants', label: 'Loan or credit applicants' },
+      { id: 'patients', label: 'Patients' },
+      { id: 'students', label: 'Students' },
+      { id: 'suppliers', label: 'Third-party suppliers' },
+      { id: 'public', label: 'General public' },
+      { id: 'other', label: 'Other' }
+    ],
+    tr: [
+      { id: 'employees', label: 'Çalışanlar' },
+      { id: 'job_applicants', label: 'İş başvurucuları' },
+      { id: 'customers', label: 'Müşteriler' },
+      { id: 'loan_applicants', label: 'Kredi başvurucuları' },
+      { id: 'patients', label: 'Hastalar' },
+      { id: 'students', label: 'Öğrenciler' },
+      { id: 'suppliers', label: 'Üçüncü taraf tedarikçiler' },
+      { id: 'public', label: 'Genel kamuoyu' },
+      { id: 'other', label: 'Diğer' }
+    ]
+  };
+
+  // Vulnerable group IDs
+  var VULNERABLE_IDS = ['patients', 'students', 'public'];
+
+  // Misuse scenarios by sector
+  var MISUSE_SCENARIOS = {
+    hr: {
+      en: [
+        'Could the system systematically disadvantage applicants based on age, gender, or ethnic background?',
+        'Can applicants challenge or appeal the system\'s output?',
+        'Are decisions finalized without human review?',
+        'Could candidate data be used for purposes beyond this recruitment process?'
+      ],
+      tr: [
+        'Sistem belirli yaş, cinsiyet veya etnik profili sistematik olarak dezavantajlı konuma getirebilir mi?',
+        'Adaylar sistemin çıktısına itiraz edebiliyor mu?',
+        'Kararlar insan incelemesi olmadan kesinleşiyor mu?',
+        'Aday verileri bu işe alım sürecinin ötesinde başka amaçlarla kullanılabilir mi?'
+      ]
+    },
+    finance: {
+      en: [
+        'Could the system systematically exclude specific income or demographic groups?',
+        'Can the credit decision be explained to the applicant?',
+        'Could data be used for purposes beyond credit assessment?',
+        'Are decisions finalized without human review?'
+      ],
+      tr: [
+        'Sistem belirli gelir veya demografik grupları sistematik olarak dışlayabilir mi?',
+        'Kredi kararı başvurucuya açıklanabiliyor mu?',
+        'Veriler kredi değerlendirmesinin ötesinde başka amaçlarla kullanılabilir mi?',
+        'Kararlar insan incelemesi olmadan kesinleşiyor mu?'
+      ]
+    },
+    healthcare: {
+      en: [
+        'Could the system produce outputs that delay or prevent access to care for specific patient groups?',
+        'Can clinicians override the system\'s recommendations?',
+        'Could patient data be used beyond the stated clinical purpose?',
+        'Is the system used in time-critical decisions without human verification?'
+      ],
+      tr: [
+        'Sistem belirli hasta gruplarının bakıma erişimini geciktirebilir veya engelleyebilir mi?',
+        'Klinisyenler sistemin önerilerini geçersiz kılabiliyor mu?',
+        'Hasta verileri belirtilen klinik amaç dışında kullanılabilir mi?',
+        'Sistem zaman kritik kararlarda insan doğrulaması olmadan kullanılıyor mu?'
+      ]
+    },
+    retail: {
+      en: [
+        'Could the system apply differential pricing based on demographic characteristics?',
+        'Could customer data be used for profiling beyond purchase recommendations?',
+        'Could the system manipulate purchasing decisions through personalization?'
+      ],
+      tr: [
+        'Sistem demografik özelliklere göre farklı fiyatlandırma uygulayabilir mi?',
+        'Müşteri verileri satın alma önerilerinin ötesinde profilleme için kullanılabilir mi?',
+        'Sistem kişiselleştirme yoluyla satın alma kararlarını manipüle edebilir mi?'
+      ]
+    },
+    general: {
+      en: [
+        'Could the system be used to make decisions about individuals without their knowledge?',
+        'Could outputs be used in a different context than originally intended?',
+        'Could the system produce outputs that disproportionately affect a specific group?'
+      ],
+      tr: [
+        'Sistem bireylerin haberi olmadan onlar hakkında karar vermek için kullanılabilir mi?',
+        'Çıktılar başlangıçta tasarlanandan farklı bir bağlamda kullanılabilir mi?',
+        'Sistem belirli bir grubu orantısız biçimde etkileyen çıktılar üretebilir mi?'
+      ]
+    }
+  };
+
+  var IDK_HELPER = {
+    en: 'This item will be flagged as unresolved. We recommend consulting your system\'s provider or developer before proceeding to the Risk stage.',
+    tr: 'Bu madde çözümsüz olarak işaretlenecektir. Risk aşamasına geçmeden önce sisteminizin sağlayıcısı veya geliştiricisiyle görüşmenizi öneririz.'
+  };
+
+  // Language switcher
+  window.setObsLang = function(lang) {
+    obsLang = lang;
+    document.getElementById('obs-lang-en').classList.toggle('active', lang === 'en');
+    document.getElementById('obs-lang-tr').classList.toggle('active', lang === 'tr');
+
+    // Update all data-en / data-tr elements inside observe-wrap AND classifier
+    document.querySelectorAll('[data-' + lang + ']').forEach(function(el) {
+      if (el.tagName === 'OPTION') {
+        el.textContent = el.getAttribute('data-' + lang);
+      } else {
+        el.innerHTML = el.getAttribute('data-' + lang);
+      }
+    });
+    // Update placeholders separately (inputs/textareas use data-placeholder-en/tr)
+    document.querySelectorAll('[data-placeholder-' + lang + ']').forEach(function(el) {
+      el.placeholder = el.getAttribute('data-placeholder-' + lang);
+    });
+
+    // Rebuild stakeholders and misuse with new language
+    renderStakeholders();
+    onSectorChange();
+  };
+
+  // Toggle panels
+  window.toggleObsPanel = function(btn) {
+    var chevron = btn.querySelector('.obs-toggle-chevron');
+    var content = btn.nextElementSibling;
+    if (content && content.classList.contains('obs-toggle-content')) {
+      content.classList.toggle('open');
+      chevron.classList.toggle('open');
+    }
+  };
+
+  // Render stakeholder checkboxes
+  function renderStakeholders() {
+    var container = document.getElementById('obs-stakeholders');
+    if (!container) return;
+    var items = STAKEHOLDERS[obsLang] || STAKEHOLDERS.en;
+    container.innerHTML = '';
+    items.forEach(function(item) {
+      var div = document.createElement('div');
+      div.className = 'obs-checkbox-item' + (obsStakeholderSelections[item.id] ? ' selected' : '');
+      div.dataset.id = item.id;
+      div.innerHTML = '<div class="obs-checkbox-box"></div><span>' + item.label + '</span>';
+      div.onclick = function() {
+        obsStakeholderSelections[item.id] = !obsStakeholderSelections[item.id];
+        div.classList.toggle('selected');
+        checkVulnerableGroups();
+        if (item.id === 'other') {
+          var existing = document.getElementById('obs-other-text');
+          if (obsStakeholderSelections.other && !existing) {
+            var input = document.createElement('input');
+            input.className = 'obs-other-input';
+            input.id = 'obs-other-text';
+            input.type = 'text';
+            input.placeholder = obsLang === 'tr' ? 'Belirtiniz...' : 'Specify...';
+            container.parentNode.insertBefore(input, container.nextSibling);
+          } else if (!obsStakeholderSelections.other && existing) {
+            existing.remove();
+          }
+        }
+      };
+      container.appendChild(div);
+    });
+  }
+
+  function checkVulnerableGroups() {
+    var link = document.getElementById('obs-vulnerable-link');
+    if (!link) return;
+    var hasVulnerable = VULNERABLE_IDS.some(function(id) { return obsStakeholderSelections[id]; });
+    link.style.display = hasVulnerable ? 'block' : 'none';
+  }
+
+  // Sector change → render misuse scenarios
+  window.onSectorChange = function() {
+    var sector = document.getElementById('obs-sector').value;
+    var container = document.getElementById('obs-misuse-scenarios');
+    if (!container) return;
+    container.innerHTML = '';
+    obsMisuseAnswers = {};
+
+    if (!sector) return;
+
+    // Get sector-specific + general scenarios
+    var sectorScenarios = MISUSE_SCENARIOS[sector] || { en: [], tr: [] };
+    var generalScenarios = MISUSE_SCENARIOS.general;
+    var scenarios = (sectorScenarios[obsLang] || sectorScenarios.en || []).concat(generalScenarios[obsLang] || generalScenarios.en);
+
+    scenarios.forEach(function(text, idx) {
+      var div = document.createElement('div');
+      div.className = 'obs-scenario';
+      div.innerHTML =
+        '<div class="obs-scenario-text">' + text + '</div>' +
+        '<div class="obs-radio-group">' +
+          '<button class="obs-radio-btn" data-scenario="' + idx + '" data-val="yes" onclick="setMisuseAnswer(' + idx + ',\'yes\',this)">' + (obsLang === 'tr' ? 'Evet' : 'Yes') + '</button>' +
+          '<button class="obs-radio-btn" data-scenario="' + idx + '" data-val="no" onclick="setMisuseAnswer(' + idx + ',\'no\',this)">' + (obsLang === 'tr' ? 'Hayır' : 'No') + '</button>' +
+          '<button class="obs-radio-btn" data-scenario="' + idx + '" data-val="idk" onclick="setMisuseAnswer(' + idx + ',\'idk\',this)">' + (obsLang === 'tr' ? 'Bilmiyorum' : 'I don\'t know') + '</button>' +
+        '</div>' +
+        '<div class="obs-idk-helper" id="obs-idk-' + idx + '">' + IDK_HELPER[obsLang] + '</div>';
+      container.appendChild(div);
+    });
+  };
+
+  window.setMisuseAnswer = function(idx, val, btn) {
+    obsMisuseAnswers[idx] = val;
+    // Update radio visual
+    btn.parentNode.querySelectorAll('.obs-radio-btn').forEach(function(b) {
+      b.classList.toggle('selected', b.dataset.val === val);
+    });
+    // Show/hide idk helper
+    var helper = document.getElementById('obs-idk-' + idx);
+    if (helper) helper.classList.toggle('visible', val === 'idk');
+  };
+
+  // Count unresolved (idk) items
+  function countUnresolved() {
+    var count = 0;
+    Object.keys(obsMisuseAnswers).forEach(function(k) {
+      if (obsMisuseAnswers[k] === 'idk') count++;
+    });
+    return count;
+  }
+
+  // Generate AI System Card
+  window.generateSystemCard = function() {
+    var name = document.getElementById('obs-system-name').value.trim();
+    var sectorEl = document.getElementById('obs-sector');
+    var sector = sectorEl.value;
+    var sectorLabel = sectorEl.options[sectorEl.selectedIndex].textContent;
+    var purpose = document.getElementById('obs-purpose').value.trim();
+
+    if (!name || !sector || !purpose) {
+      alert(obsLang === 'tr' ? 'Lütfen tüm zorunlu alanları doldurun.' : 'Please fill in all required fields.');
+      return;
+    }
+
+    // Gather stakeholders
+    var stakeholderLabels = [];
+    var items = STAKEHOLDERS[obsLang] || STAKEHOLDERS.en;
+    items.forEach(function(s) {
+      if (obsStakeholderSelections[s.id]) {
+        if (s.id === 'other') {
+          var otherText = document.getElementById('obs-other-text');
+          stakeholderLabels.push(s.label + (otherText && otherText.value ? ': ' + otherText.value : ''));
+        } else {
+          stakeholderLabels.push(s.label);
+        }
+      }
+    });
+
+    // Gather misuse answers
+    var misuseHtml = '';
+    var scenarioContainer = document.getElementById('obs-misuse-scenarios');
+    var scenarioItems = scenarioContainer.querySelectorAll('.obs-scenario');
+    var unresolved = countUnresolved();
+    var answerLabels = {
+      en: { yes: 'Yes', no: 'No', idk: 'Unresolved' },
+      tr: { yes: 'Evet', no: 'Hayır', idk: 'Çözümsüz' }
+    };
+
+    scenarioItems.forEach(function(item, idx) {
+      var text = item.querySelector('.obs-scenario-text').textContent;
+      var answer = obsMisuseAnswers[idx];
+      var label = answer ? (answerLabels[obsLang] || answerLabels.en)[answer] : '—';
+      misuseHtml += '<div style="font-size:11px;color:var(--ink-soft);line-height:1.5;padding-left:12px;position:relative;margin-bottom:4px;">' +
+        '<span style="position:absolute;left:2px;color:var(--stone);font-weight:700;">·</span>' +
+        text + ' — <strong>' + label + '</strong></div>';
+    });
+
+    var today = new Date().toLocaleDateString('en-GB', { year: 'numeric', month: 'long', day: 'numeric' });
+
+    var warningHtml = '';
+    if (unresolved > 0) {
+      var warningText = obsLang === 'tr'
+        ? unresolved + ' foreseeable misuse maddesi çözümsüz. Risk sınıflandırmasından önce sistem sağlayıcınızla gözden geçirin.'
+        : unresolved + ' foreseeable misuse item(s) unresolved. Review with your system provider before Risk classification.';
+      warningHtml = '<div class="system-card-warning">' + warningText + '</div>';
+    }
+
+    var proceedTextEn = 'Proceed to Risk Classification →';
+    var proceedTextTr = 'Risk Sınıflandırmasına Geç →';
+    var pdfTextEn = 'Download AI System Card (PDF)';
+    var pdfTextTr = 'AI Sistem Kartını İndir (PDF)';
+
+    var cardHtml =
+      '<div class="system-card-header">' +
+        '<div class="system-card-header-title">AI SYSTEM CARD</div>' +
+        '<div class="system-card-header-sub">Generated by Hexis ORIENT · Observe Stage · ' + today + '</div>' +
+      '</div>' +
+      '<div class="system-card-body">' +
+        '<div class="system-card-section">' +
+          '<div class="system-card-label">' + (obsLang === 'tr' ? 'Sistem Kimliği' : 'System Identity') + '</div>' +
+          '<div class="system-card-value">' + name + ' — ' + sectorLabel + '</div>' +
+        '</div>' +
+        '<div class="system-card-section">' +
+          '<div class="system-card-label">' + (obsLang === 'tr' ? 'Tasarım Amacı' : 'Intended Purpose') + '</div>' +
+          '<div class="system-card-value">' + purpose + '</div>' +
+        '</div>' +
+        '<div class="system-card-section">' +
+          '<div class="system-card-label">' + (obsLang === 'tr' ? 'Etkilenen Paydaşlar' : 'Affected Stakeholders') + '</div>' +
+          '<div class="system-card-value">' + (stakeholderLabels.length > 0 ? stakeholderLabels.join(', ') : '—') + '</div>' +
+        '</div>' +
+        '<div class="system-card-section">' +
+          '<div class="system-card-label">' + (obsLang === 'tr' ? 'Foreseeable Misuse Değerlendirmesi' : 'Foreseeable Misuse Assessment') + '</div>' +
+          misuseHtml +
+          (unresolved > 0 ? '<div style="font-size:10px;color:var(--brass);margin-top:6px;">' + (obsLang === 'tr' ? unresolved + ' madde çözümsüz' : unresolved + ' item(s) unresolved') + '</div>' : '') +
+        '</div>' +
+        warningHtml +
+        '<div class="system-card-section">' +
+          '<div class="system-card-label">EU AI Act Reference</div>' +
+          '<div class="system-card-ref">' +
+            '<span class="system-card-ref-check">\u2713</span> Article 3(12) — Intended purpose documented<br>' +
+            '<span style="color:var(--stone);margin-right:4px;">\u2192</span> Article 6 — Proceed to Risk classification' +
+          '</div>' +
+        '</div>' +
+        '<div class="system-card-actions">' +
+          '<button class="system-card-btn-pdf" onclick="printSystemCard()">' + (obsLang === 'tr' ? pdfTextTr : pdfTextEn) + '</button>' +
+          '<button class="system-card-btn-proceed" onclick="proceedToRisk()">' + (obsLang === 'tr' ? proceedTextTr : proceedTextEn) + '</button>' +
+        '</div>' +
+      '</div>';
+
+    document.getElementById('system-card').innerHTML = cardHtml;
+    document.getElementById('system-card-wrap').classList.add('visible');
+    document.getElementById('system-card-wrap').scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+    // Store observe data for Risk pre-fill
+    window._observeData = {
+      name: name,
+      sector: sector,
+      purpose: purpose,
+      stakeholders: stakeholderLabels,
+      unresolved: unresolved,
+      lang: obsLang
+    };
+  };
+
+  // Print system card only
+  window.printSystemCard = function() {
+    window.print();
+  };
+
+  // Proceed to Risk Classification
+  window.proceedToRisk = function() {
+    var data = window._observeData || {};
+    var classifierWrap = document.getElementById('classifier-wrap');
+    var observeWrap = document.getElementById('observe-wrap');
+
+    // Show classifier
+    classifierWrap.classList.remove('collapsed');
+
+    // Pre-fill system name in configurator
+    var cfgName = document.getElementById('cfg-name');
+    if (cfgName && data.name) cfgName.value = data.name;
+
+    // Show context note
+    var contextNote = document.getElementById('clf-context-note');
+    if (contextNote) contextNote.classList.add('visible');
+
+    // Show unresolved banner
+    if (data.unresolved > 0) {
+      var banner = document.getElementById('clf-observe-banner');
+      if (banner) {
+        var bannerText = data.lang === 'tr'
+          ? '\u26A0 Observe değerlendirmenizden ' + data.unresolved + ' foreseeable misuse maddesi çözümsüz kaldı. Bu durum risk sınıflandırmanızı etkileyebilir. Devam etmeden önce gözden geçirin.'
+          : '\u26A0 ' + data.unresolved + ' foreseeable misuse item(s) from your Observe assessment are unresolved. This may affect your risk classification. Review before proceeding.';
+        banner.textContent = bannerText;
+        banner.classList.add('visible');
+      }
+    }
+
+    // Sector → Annex III pre-fill
+    var sectorToAnnexIII = {
+      hr: 'area4',
+      finance: 'area5',
+      healthcare: 'area2'
+    };
+    if (data.sector && sectorToAnnexIII[data.sector]) {
+      window._observePreFill = sectorToAnnexIII[data.sector];
+    }
+
+    // Scroll to classifier
+    classifierWrap.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+    // Collapse observe
+    if (observeWrap) observeWrap.classList.add('collapsed');
+  };
+
+  // Initialize stakeholders on load
+  function initObserve() {
+    renderStakeholders();
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initObserve);
+  } else {
+    initObserve();
+  }
+})();
+</script>
 
 <script>
 // ── RISK CLASSIFIER WIZARD ENGINE ──
@@ -713,6 +1507,30 @@
     document.querySelectorAll('#clf-step-' + clfCurrentStep + ' .clf-opt').forEach(function(opt) {
       opt.classList.toggle('selected', opt.dataset.option === clfSelections[clfCurrentStep]);
     });
+
+    // Observe → Risk pre-fill: auto-select Annex III option on Step 3 (index 2)
+    if (clfCurrentStep === 2 && window._observePreFill && !clfSelections[2]) {
+      var prefillId = window._observePreFill;
+      clfSelections[2] = prefillId;
+      document.querySelectorAll('#clf-step-2 .clf-opt').forEach(function(opt) {
+        var isMatch = opt.dataset.option === prefillId;
+        opt.classList.toggle('selected', isMatch);
+        if (isMatch) {
+          // Add pre-fill tag
+          if (!opt.querySelector('.clf-prefill-tag')) {
+            var tag = document.createElement('span');
+            tag.className = 'clf-prefill-tag';
+            tag.textContent = window._observeData && window._observeData.lang === 'tr'
+              ? 'Observe\'dan önceden dolduruldu — onaylayın veya değiştirin'
+              : 'Pre-filled from Observe — confirm or change';
+            opt.querySelector('.clf-opt-text').appendChild(tag);
+          }
+        }
+      });
+      var nextBtn2 = document.getElementById('clf-next');
+      if (nextBtn2) nextBtn2.disabled = false;
+      window._observePreFill = null; // Only pre-fill once
+    }
   }
 
   function daysUntil(dateStr) {
