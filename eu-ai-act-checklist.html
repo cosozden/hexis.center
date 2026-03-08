@@ -220,10 +220,101 @@ footer a:hover{color:var(--dark-type)}
   .hero-stats{flex-direction:column}.stat{border-right:none;border-bottom:1px solid var(--border)}
   .stat:last-child{border-bottom:none}
 }
+/* ── ORIENT NAV ── */
+.orient-nav {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: var(--dark-bg, #16181C);
+  border-bottom: 1px solid var(--border, rgba(232,230,226,0.10));
+  padding: 10px 24px;
+}
+.orient-nav-inner {
+  max-width: 800px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+.orient-stage {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  font-family: Arial, sans-serif;
+  color: var(--dark-sub, #8A8884);
+  text-decoration: none;
+  padding: 3px 6px;
+  border-radius: 3px;
+  transition: color 0.15s;
+}
+.orient-stage.active {
+  color: var(--dark-type, #E8E6E2);
+  font-weight: 700;
+  background: var(--border2, rgba(232,230,226,0.18));
+}
+.orient-stage.done {
+  color: var(--dark-sub, #8A8884);
+}
+.orient-stage.done:hover {
+  color: var(--dark-type, #E8E6E2);
+}
+.orient-stage.disabled {
+  opacity: 0.35;
+  cursor: default;
+  pointer-events: none;
+}
+.orient-stage a { text-decoration: none; color: inherit; }
+.orient-arrow {
+  font-size: 9px;
+  color: var(--border, rgba(232,230,226,0.10));
+  user-select: none;
+}
+.orient-check { font-size: 9px; }
+.orient-dot { font-size: 8px; }
+@media (max-width: 480px) {
+  .orient-label { display: none; }
+  .orient-nav-inner { gap: 4px; }
+}
 </style>
 </head>
 <body>
-<div style="position:fixed;bottom:16px;left:16px;z-index:999;font-family:Arial,sans-serif;font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--stone);background:var(--dark-bg);border:1px solid var(--border);padding:5px 10px;pointer-events:none;">● ORIENT: Identify</div>
+<nav class="orient-nav" aria-label="ORIENT methodology stages">
+  <div class="orient-nav-inner">
+    <a href="generator/" class="orient-stage done" data-stage="observe">
+      <span class="orient-check">✓</span>
+      <span class="orient-label">Observe</span>
+    </a>
+    <span class="orient-arrow">→</span>
+    <a href="generator/" class="orient-stage active" data-stage="risk">
+      <span class="orient-dot">●</span>
+      <span class="orient-label">Risk</span>
+    </a>
+    <span class="orient-arrow">→</span>
+    <span class="orient-stage disabled" data-stage="identify" title="Coming soon">
+      <span class="orient-dot">○</span>
+      <span class="orient-label">Identify</span>
+    </span>
+    <span class="orient-arrow">→</span>
+    <a href="fria/" class="orient-stage" data-stage="evaluate">
+      <span class="orient-dot">○</span>
+      <span class="orient-label">Evaluate</span>
+    </a>
+    <span class="orient-arrow">→</span>
+    <a href="checklist/" class="orient-stage" data-stage="navigate">
+      <span class="orient-dot">○</span>
+      <span class="orient-label">Navigate</span>
+    </a>
+    <span class="orient-arrow">→</span>
+    <span class="orient-stage disabled" data-stage="track" title="Coming soon">
+      <span class="orient-dot">○</span>
+      <span class="orient-label">Track</span>
+    </span>
+  </div>
+</nav>
 
 <nav>
   <a href="/" class="nav-logo" style="text-decoration:none;color:inherit;">
