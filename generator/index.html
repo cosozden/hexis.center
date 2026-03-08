@@ -367,7 +367,7 @@
   .clf-question.active { display: block; }
   .clf-q-num { font-size: 9px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-muted); margin-bottom: 6px; }
   .clf-q-text { font-family: Georgia, 'Times New Roman', serif; font-size: 15px; font-weight: 700; color: var(--ink); line-height: 1.4; margin-bottom: 6px; }
-  .clf-q-hint { font-size: 11px; color: var(--stone); line-height: 1.5; margin-bottom: 16px; font-style: italic; }
+  /* clf-q-hint removed — replaced by clf-toggle / clf-toggle-content */
 
   .clf-options { display: flex; flex-direction: column; gap: 6px; }
   .clf-opt {
@@ -563,6 +563,28 @@
     border-left: 2px solid var(--rule);
   }
   .obs-toggle-content.open { display: block; }
+
+  /* Risk Classifier toggle — same pattern as obs-toggle */
+  .clf-toggle {
+    display: flex; align-items: center; gap: 6px;
+    background: none; border: none; padding: 6px 0; margin: 6px 0 0;
+    cursor: pointer; font-family: Arial, Helvetica, sans-serif; font-size: 10px;
+    letter-spacing: 0.08em; text-transform: uppercase; color: var(--stone);
+    transition: color .15s;
+  }
+  .clf-toggle:hover { color: var(--ink); }
+  .clf-toggle-chevron {
+    display: inline-block; font-size: 9px; color: var(--stone);
+    transition: transform 0.15s;
+  }
+  .clf-toggle-chevron.open { transform: rotate(90deg); }
+  .clf-toggle-content {
+    display: none; margin-top: 8px; padding: 10px 12px;
+    border-left: 2px solid var(--rule);
+    font-family: Arial, Helvetica, sans-serif; font-size: 11px;
+    line-height: 1.55; color: var(--stone);
+  }
+  .clf-toggle-content.open { display: block; }
   .obs-toggle-examples {
     margin-top: 8px; font-size: 11px; color: var(--stone);
     line-height: 1.6; font-style: italic;
@@ -1222,6 +1244,7 @@
   'use strict';
 
   var obsLang = 'en';
+  window._obsLang = 'en';
   var obsStakeholderSelections = {};
   var obsMisuseAnswers = {};
 
@@ -1332,6 +1355,7 @@
   // Language switcher
   window.setObsLang = function(lang) {
     obsLang = lang;
+    window._obsLang = lang;
     document.getElementById('obs-lang-en').classList.toggle('active', lang === 'en');
     document.getElementById('obs-lang-tr').classList.toggle('active', lang === 'tr');
 
@@ -1636,6 +1660,83 @@
   'use strict';
 
   var CLF_TOTAL_STEPS = 6;
+
+  var TR_CLF = {
+    questions: [
+      // Step 1 — Prohibited Practices
+      {
+        text: 'AI sisteminiz yasakl\u0131 bir uygulama i\u00E7eriyor mu?',
+        hint: 'EU AI Act\'\u0131n 5. Maddesi, kabul edilemez risk olu\u015Fturan belirli AI uygulamalar\u0131n\u0131 yasaklar. Bu kapsamdaki sistemler AB pazar\u0131na sunulamaz.',
+        options: [
+          { label: 'Kamu otoriteleri taraf\u0131ndan sosyal puanlama', desc: 'Bireylerin sosyal davran\u0131\u015F veya ki\u015Filik \u00F6zelliklerine dayal\u0131 olarak s\u0131n\u0131fland\u0131r\u0131lmas\u0131 ve zararl\u0131 muameleye yol a\u00E7mas\u0131' },
+          { label: 'Kamuya a\u00E7\u0131k alanlarda ger\u00E7ek zamanl\u0131 uzaktan biyometrik tan\u0131mlama', desc: 'Kolluk ama\u00E7l\u0131, Madde 5(2) kapsam\u0131ndaki dar istisnalar d\u0131\u015F\u0131nda' },
+          { label: '\u0130\u015Fyerinde veya e\u011Fitimde duygu tan\u0131ma', desc: '\u0130\u015Fyeri ve e\u011Fitim ortamlar\u0131nda bireylerin duygular\u0131n\u0131 \u00E7\u0131karsama' },
+          { label: 'Y\u00FCz g\u00F6r\u00FCnt\u00FClerinin hedefsiz toplanmas\u0131', desc: '\u0130nternetten veya CCTV g\u00F6r\u00FCnt\u00FClerinden y\u00FCz tan\u0131ma veritaban\u0131 olu\u015Fturmak amac\u0131yla' },
+          { label: 'Bilin\u00E7alt\u0131, manip\u00FClatif veya aldat\u0131c\u0131 teknikler', desc: 'Bireylerin davran\u0131\u015Flar\u0131n\u0131 \u00F6nemli \u00F6l\u00E7\u00FCde bozan veya ciddi zarar olu\u015Fturabilecek teknikler' },
+          { label: 'Belirli gruplar\u0131n g\u00FCvenlik a\u00E7\u0131klar\u0131ndan yararlanma', desc: 'Ya\u015F, engellilik veya sosyo-ekonomik durumdan kaynaklanan zay\u0131fl\u0131klar\u0131 istismar eden sistemler' },
+          { label: 'Yaln\u0131zca profillemeye dayal\u0131 bireysel su\u00E7 tahmini', desc: 'Yaln\u0131zca profilleme veya ki\u015Filik \u00F6zelliklerine dayal\u0131 su\u00E7 riski de\u011Ferlendirmesi' },
+          { label: 'Hassas nitelikleri \u00E7\u0131karsayan biyometrik kategorilendirme', desc: 'Irk, siyasi g\u00F6r\u00FC\u015F, sendika \u00FCyeli\u011Fi, dini inan\u00E7, cinsel ya\u015Fam veya cinsel y\u00F6nelimi \u00E7\u0131karsayan sistemler' },
+          { label: 'Yukar\u0131dakilerin hi\u00E7biri', desc: 'Sistemim yasakl\u0131 bir uygulama i\u00E7ermiyor' }
+        ]
+      },
+      // Step 2 — Annex I
+      {
+        text: 'AI sisteminiz, Ek I\'de listelenen AB uyum mevzuat\u0131 kapsam\u0131ndaki bir \u00FCr\u00FCn\u00FCn g\u00FCvenlik bile\u015Feni mi veya kendisi b\u00F6yle bir \u00FCr\u00FCn m\u00FC?',
+        hint: 'Ek I; makine, t\u0131bbi cihazlar, oyuncaklar, asans\u00F6rler, radyo ekipman\u0131, sivil havac\u0131l\u0131k, motorlu ara\u00E7lar ve deniz ara\u00E7lar\u0131n\u0131 kapsayan \u00FCr\u00FCn g\u00FCvenli\u011Fi mevzuat\u0131n\u0131 i\u00E7erir.',
+        options: [
+          { label: 'Evet \u2014 Ek I \u00FCr\u00FCn g\u00FCvenli\u011Fi mevzuat\u0131 kapsam\u0131nda', desc: 'AI sistemi, mevcut AB \u00FCr\u00FCn g\u00FCvenli\u011Fi hukuku kapsam\u0131ndaki bir \u00FCr\u00FCne g\u00F6m\u00FCl\u00FC veya o \u00FCr\u00FCn\u00FCn kendisi' },
+          { label: 'Hay\u0131r', desc: 'Sistem, herhangi bir Ek I \u00FCr\u00FCn\u00FCn\u00FCn g\u00FCvenlik bile\u015Feni de\u011Fil' }
+        ]
+      },
+      // Step 3 — Annex III
+      {
+        text: 'AI sisteminiz Ek III\'te listelenen y\u00FCksek riskli alanlardan birine giriyor mu?',
+        hint: 'Madde 6(2), bu alanlardaki AI sistemlerini sa\u011Fl\u0131k, g\u00FCvenlik veya temel haklar a\u00E7\u0131s\u0131ndan \u00F6nemli risk olu\u015Fturdu\u011Funda y\u00FCksek riskli olarak tan\u0131mlar.',
+        options: [
+          { label: '1. Biyometri', desc: 'Uzaktan biyometrik tan\u0131mlama (Md. 5\'te yasaklanmayan), hassas niteliklere g\u00F6re biyometrik kategorilendirme' },
+          { label: '2. Kritik altyap\u0131', desc: 'Yol trafi\u011Fi, su, gaz, \u0131s\u0131nma ve elektrik tedarik y\u00F6netiminin g\u00FCvenlik bile\u015Fenleri' },
+          { label: '3. E\u011Fitim ve mesleki \u00F6\u011Fretim', desc: 'E\u011Fitime eri\u015Fimi belirleme, \u00F6\u011Frenme sonu\u00E7lar\u0131n\u0131 de\u011Ferlendirme, s\u0131nav s\u0131ras\u0131nda yasakl\u0131 davran\u0131\u015Flar\u0131 izleme' },
+          { label: '4. \u0130stihdam ve i\u015F\u00E7i y\u00F6netimi', desc: '\u0130\u015Fe al\u0131m, CV tarama, terfi kararlar\u0131, g\u00F6rev da\u011F\u0131l\u0131m\u0131, i\u015F\u00E7ilerin izlenmesi ve de\u011Ferlendirilmesi' },
+          { label: '5. Temel \u00F6zel ve kamu hizmetleri', desc: 'Kredi puanlama, sigorta risk de\u011Ferlendirmesi, acil hizmet da\u011F\u0131t\u0131m\u0131, sosyal yard\u0131m uygunlu\u011Fu' },
+          { label: '6. Kolluk', desc: 'Bireysel risk de\u011Ferlendirmesi, yalan makinesi ve ifade alg\u0131lama, delil g\u00FCvenilirli\u011Fi de\u011Ferlendirmesi, yeniden su\u00E7 i\u015Fleme riski' },
+          { label: '7. G\u00F6\u00E7, iltica ve s\u0131n\u0131r kontrol\u00FC', desc: 'Risk de\u011Ferlendirmesi, ba\u015Fvuru i\u015Fleme, seyahat belgelerinin ger\u00E7ekli\u011Fini do\u011Frulama' },
+          { label: '8. Adalet y\u00F6netimi ve demokratik s\u00FCre\u00E7ler', desc: 'Yarg\u0131 mercilerine ger\u00E7ek ve hukuk ara\u015Ft\u0131rmas\u0131 ile yorumunda yard\u0131m, alternatif uyu\u015Fmazl\u0131k \u00E7\u00F6z\u00FCm\u00FC' },
+          { label: 'Yukar\u0131dakilerin hi\u00E7biri', desc: 'Sistemim Ek III kapsam\u0131ndaki y\u00FCksek riskli bir alana girmiyor' }
+        ]
+      },
+      // Step 4 — Transparency
+      {
+        text: 'AI sisteminiz Madde 50 kapsam\u0131nda \u015Feffafl\u0131k y\u00FCk\u00FCml\u00FCl\u00FC\u011F\u00FC ta\u015F\u0131yor mu?',
+        hint: 'Belirli AI sistemleri, kullan\u0131c\u0131lar\u0131 bir AI sistemiyle etkile\u015Fimde olduklar\u0131n\u0131 veya i\u00E7eri\u011Fin AI taraf\u0131ndan \u00FCretildi\u011Fini bilgilendirmek zorundad\u0131r.',
+        options: [
+          { label: 'G\u00F6r\u00FCnt\u00FC, ses veya video i\u00E7eri\u011Fi \u00FCretir ya da manip\u00FCle eder', desc: 'Derin sahte (deepfake), sentetik medya, ger\u00E7ek ki\u015Filere, nesnelere veya olaylara benzeyen yapay zeka taraf\u0131ndan \u00FCretilen i\u00E7erik' },
+          { label: 'Do\u011Fal ki\u015Filerle do\u011Frudan etkile\u015Fime girer', desc: 'Kullan\u0131c\u0131lar\u0131n bir AI ile etkile\u015Fimde olduklar\u0131n\u0131 fark etmeyebilece\u011Fi sohbet robotlar\u0131, sanal asistanlar ve benzeri sistemler' },
+          { label: 'Kamuyu bilgilendirmek amac\u0131yla metin \u00FCretir', desc: 'Kamuoyunu ilgilendiren konularda bilgilendirme amac\u0131yla yay\u0131mlanan AI taraf\u0131ndan olu\u015Fturulmu\u015F metin' },
+          { label: '\u015Eeffafl\u0131k y\u00FCk\u00FCml\u00FCl\u00FC\u011F\u00FC uygulanm\u0131yor', desc: 'Sistem herhangi bir Madde 50 \u015Feffafl\u0131k kategorisine girmiyor' }
+        ]
+      },
+      // Step 5 — GPAI
+      {
+        text: 'Bu sistem genel ama\u00E7l\u0131 bir AI (GPAI) modeli mi?',
+        hint: 'Genel ama\u00E7l\u0131 AI modelleri, b\u00FCy\u00FCk veri setleriyle \u00F6z-denetimli \u00F6\u011Frenme y\u00F6ntemiyle b\u00FCy\u00FCk \u00F6l\u00E7ekte e\u011Fitilmi\u015F, geni\u015F bir g\u00F6rev yelpazesinde yetkin bi\u00E7imde performans g\u00F6sterebilen modellerdir (Maddeler 51\u201356).',
+        options: [
+          { label: 'Evet \u2014 Ben bir GPAI modeli sa\u011Flay\u0131c\u0131s\u0131y\u0131m', desc: 'Genel ama\u00E7l\u0131 bir AI modelini geli\u015Ftiriyor ve eri\u015Fime sunuyorsunuz (Md. 51\u201353)' },
+          { label: 'Evet \u2014 Sistemik risk ta\u015F\u0131yan GPAI modeli', desc: 'Y\u00FCksek etkili kapasiteli, toplam hesaplama \u2265 10\u00B2\u2075 FLOP ile e\u011Fitilmi\u015F GPAI modeli (Md. 51\u201355)' },
+          { label: 'Evet \u2014 GPAI modeli \u00FCzerine kurulu bir sistem kullan\u0131yorum', desc: 'AI sisteminizin bir par\u00E7as\u0131 olarak GPAI modeli kullan\u0131yorsunuz. Sa\u011Flay\u0131c\u0131 y\u00FCk\u00FCml\u00FCl\u00FCkleri GPAI sa\u011Flay\u0131c\u0131s\u0131na aittir.' },
+          { label: 'Hay\u0131r \u2014 Genel ama\u00E7l\u0131 AI modeli de\u011Fil', desc: 'Bu dar kapsaml\u0131 veya g\u00F6reve \u00F6zg\u00FC bir AI sistemidir' }
+        ]
+      },
+      // Step 6 — FRIA
+      {
+        text: 'AI sisteminizin temel haklar \u00FCzerinde \u00F6nemli bir etkisi olmas\u0131 muhtemel mi?',
+        hint: 'Madde 27, y\u00FCksek riskli AI sistemlerini devreye alan deployer\'\u0131n sistemi kullanmaya ba\u015Flamadan \u00F6nce temel haklar etki de\u011Ferlendirmesi (FRIA) y\u00FCr\u00FCtmesini zorunlu k\u0131lar.',
+        options: [
+          { label: 'Evet \u2014 Temel haklar \u00FCzerinde \u00F6nemli etki muhtemel', desc: 'Sistem ayr\u0131mc\u0131l\u0131k yasa\u011F\u0131, mahremiyet, ifade \u00F6zg\u00FCrl\u00FC\u011F\u00FC, insan onuru veya di\u011Fer temel haklar\u0131 etkileyebilir' },
+          { label: '\u00D6nemli bir etki beklenmemektedir', desc: 'Sistem temel haklar a\u00E7\u0131s\u0131ndan \u00F6nemli risk olu\u015Fturmuyor' }
+        ]
+      }
+    ]
+  };
 
   var CLF_QUESTIONS = [
     {
@@ -2028,21 +2129,28 @@
       var div = document.createElement('div');
       div.className = 'clf-question';
       div.id = 'clf-step-' + idx;
+      var lang = window._obsLang || 'en';
+      var tr = TR_CLF.questions[idx];
 
-      var optionsHtml = q.options.map(function(opt) {
+      var optionsHtml = q.options.map(function(opt, oi) {
+        var trOpt = tr.options[oi];
         return '<button class="clf-opt" data-step="' + idx + '" data-option="' + opt.id + '" onclick="clfSelectOption(' + idx + ',\'' + opt.id + '\')">' +
           '<div class="clf-opt-radio"></div>' +
           '<div class="clf-opt-text">' +
-            '<div class="clf-opt-label">' + opt.label + '</div>' +
-            '<div class="clf-opt-desc">' + opt.desc + '</div>' +
+            '<div class="clf-opt-label" data-en="' + opt.label.replace(/"/g, '&quot;') + '" data-tr="' + trOpt.label.replace(/"/g, '&quot;') + '">' + (lang === 'tr' ? trOpt.label : opt.label) + '</div>' +
+            '<div class="clf-opt-desc" data-en="' + opt.desc.replace(/"/g, '&quot;') + '" data-tr="' + trOpt.desc.replace(/"/g, '&quot;') + '">' + (lang === 'tr' ? trOpt.desc : opt.desc) + '</div>' +
           '</div>' +
         '</button>';
       }).join('');
 
       div.innerHTML =
         '<div class="clf-q-num">' + q.num + '</div>' +
-        '<div class="clf-q-text">' + q.text + '</div>' +
-        '<div class="clf-q-hint">' + q.hint + '</div>' +
+        '<div class="clf-q-text" data-en="' + q.text.replace(/"/g, '&quot;') + '" data-tr="' + tr.text.replace(/"/g, '&quot;') + '">' + (lang === 'tr' ? tr.text : q.text) + '</div>' +
+        '<button class="clf-toggle" onclick="toggleClfHint(this)">' +
+          '<span class="clf-toggle-chevron">\u25B8</span>' +
+          '<span data-en="Why does this matter?" data-tr="Bu neden \u00F6nemli?">' + (lang === 'tr' ? 'Bu neden \u00F6nemli?' : 'Why does this matter?') + '</span>' +
+        '</button>' +
+        '<div class="clf-toggle-content" data-en="' + q.hint.replace(/"/g, '&quot;') + '" data-tr="' + tr.hint.replace(/"/g, '&quot;') + '">' + (lang === 'tr' ? tr.hint : q.hint) + '</div>' +
         '<div class="clf-options">' + optionsHtml + '</div>';
 
       questionsEl.appendChild(div);
@@ -2418,6 +2526,15 @@
     };
     var noteDiv = document.getElementById('role-note');
     if (noteDiv) { noteDiv.style.display = 'block'; noteDiv.textContent = notes[role]; }
+  };
+
+  window.toggleClfHint = function(btn) {
+    var chevron = btn.querySelector('.clf-toggle-chevron');
+    var content = btn.nextElementSibling;
+    if (content && content.classList.contains('clf-toggle-content')) {
+      content.classList.toggle('open');
+      chevron.classList.toggle('open');
+    }
   };
 })();
 </script>
