@@ -367,6 +367,7 @@
   .gr-section-title { font-family: Georgia, serif; font-size: 13px; text-transform: uppercase; letter-spacing: 0.06em; border-bottom: 1px solid var(--rule); padding-bottom: 4px; margin-bottom: 8px; color: var(--ink); }
   .gr-row { display: flex; gap: 8px; margin-bottom: 4px; font-family: Arial, sans-serif; font-size: 11px; color: var(--ink-soft); }
   .gr-label { font-weight: 700; min-width: 140px; color: var(--ink); }
+  .gr-row-warn { background: rgba(178,152,108,0.07); border-left: 2px solid var(--brass,#B2986C); padding: 3px 6px; border-radius: 2px; }
   .gr-action-item { padding: 6px 0; border-bottom: 1px solid var(--rule-s); font-family: Arial, sans-serif; font-size: 11px; color: var(--ink-soft); }
   .gr-action-num { font-weight: 700; color: var(--ink); margin-right: 6px; }
   .gr-footer { margin-top: 20px; padding-top: 8px; border-top: 1px solid var(--rule); font-family: Arial, sans-serif; font-size: 9px; color: var(--ink-muted); }
@@ -1622,6 +1623,14 @@
     document.getElementById('system-card-wrap').classList.add('visible');
     document.getElementById('system-card-wrap').scrollIntoView({ behavior: 'smooth', block: 'start' });
 
+    // Build misuse scenario list for governance report
+    var misuseScenarioList = [];
+    scenarioItems.forEach(function(item, idx) {
+      var text = item.querySelector('.obs-scenario-text').textContent.trim();
+      var answer = obsMisuseAnswers[idx] || 'unknown';
+      misuseScenarioList.push({ idx: idx, text: text, answer: answer });
+    });
+
     // Store observe data for Risk pre-fill
     window._observeData = {
       name: name,
@@ -1629,7 +1638,10 @@
       purpose: purpose,
       stakeholders: stakeholderLabels,
       unresolved: unresolved,
-      lang: obsLang
+      lang: obsLang,
+      misuse: obsMisuseAnswers,
+      misuseScenarios: misuseScenarioList,
+      hasVulnerableGroups: VULNERABLE_IDS.some(function(id) { return obsStakeholderSelections[id]; })
     };
   };
 
@@ -2304,7 +2316,8 @@
       riskLevel: null,
       exposureMapping: null,
       friaRequired: false,
-      role: null
+      role: null,
+      kvkkScope: 'minimal'
     };
   }
 
@@ -2453,7 +2466,17 @@
       riskLevel: result.checklistRisk,
       exposureMapping: result.exposureMapping,
       friaRequired: !!(hasFRIA && (isAnnexIII || isAnnexI)),
-      role: null
+      role: null,
+      kvkkScope: (function() {
+        var obs = window._observeData || {};
+        var rl = result.checklistRisk;
+        var personalDataSectors = ['hr', 'finance', 'healthcare', 'education', 'retail'];
+        var hasPersonalData = personalDataSectors.indexOf(obs.sector) !== -1;
+        if (!hasPersonalData) return 'minimal';
+        if (rl === 'high' || rl === 'gpai-systemic') return 'full';
+        if (rl === 'elevated' || rl === 'moderate' || rl === 'limited' || rl === 'gpai-provider') return 'partial';
+        return 'minimal';
+      })()
     };
   }
 
@@ -2517,7 +2540,17 @@
       riskLevel: data.checklistRisk,
       exposureMapping: data.exposureMapping,
       friaRequired: !!(data.hasFRIA),
-      role: null
+      role: null,
+      kvkkScope: (function() {
+        var obs = window._observeData || {};
+        var rl = data.checklistRisk;
+        var personalDataSectors = ['hr', 'finance', 'healthcare', 'education', 'retail'];
+        var hasPersonalData = personalDataSectors.indexOf(obs.sector) !== -1;
+        if (!hasPersonalData) return 'minimal';
+        if (rl === 'high' || rl === 'gpai-systemic') return 'full';
+        if (rl === 'elevated' || rl === 'moderate' || rl === 'limited' || rl === 'gpai-provider') return 'partial';
+        return 'minimal';
+      })()
     };
   };
 
@@ -2987,41 +3020,108 @@ function generateGovernanceReport() {
   };
   var oblText = (isTR ? obligationsSummary.tr : obligationsSummary.en)[riskLevel] || (isTR ? 'Sınıflandırma sonucuna bağlı.' : 'Dependent on classification outcome.');
 
-  // Section 3 — Priority Actions
+  // Foreseeable misuse satırı
+  var unresolvedMisuse = obs.unresolved || 0;
+  var misuseRow = '';
+  if (unresolvedMisuse > 0) {
+    misuseRow = '<div class="gr-row gr-row-warn"><span class="gr-label">' +
+      (isTR ? 'Çözümsüz Kötüye Kullanım' : 'Unresolved Misuse') +
+      '</span><span>' +
+      (isTR
+        ? unresolvedMisuse + ' senaryo çözümsüz — Md. 9(2)(b) kapsamında risk yönetim sistemine dahil edilmeli'
+        : unresolvedMisuse + ' scenario(s) unresolved — must be addressed in risk management system (Art. 9(2)(b))') +
+      '</span></div>';
+  }
+
+  // Hassas grup uyarısı
+  var vulnRow = '';
+  if (obs.hasVulnerableGroups) {
+    vulnRow = '<div class="gr-row gr-row-warn"><span class="gr-label">' +
+      (isTR ? 'Hassas Gruplar' : 'Vulnerable Groups') +
+      '</span><span>' +
+      (isTR
+        ? 'Hassas grup tespit edildi — Md. 9(9) kapsamında risk yönetim sistemi belgelerine yansıtılmalı'
+        : 'Vulnerable group(s) identified — must be reflected in risk management system documentation (Art. 9(9))') +
+      '</span></div>';
+  }
+
+  // Section 2 — KVKK kapsamı
+  var kvkkScope = cp.kvkkScope || 'minimal';
+  var kvkkLabels = {
+    en: {
+      full: 'Full scope — VERBİS registration required; technical & administrative measures mandatory (KVKK Art. 12); data processing inventory must cover AI system inputs/outputs.',
+      partial: 'Partial scope — Review data processing activities involving AI outputs; KVKK Art. 12 technical measures apply where personal data is processed.',
+      minimal: 'Minimal scope — No personal data processing identified in current classification. Monitor if system scope changes.'
+    },
+    tr: {
+      full: 'Tam kapsam — VERBİS kaydı zorunlu; teknik ve idari tedbirler alınmalı (KVKK Md. 12); veri işleme envanteri AI sistemi girdi/çıktılarını kapsamalı.',
+      partial: 'Kısmi kapsam — AI çıktılarını içeren veri işleme faaliyetlerini gözden geçirin; kişisel veri işlendiği durumlarda KVKK Md. 12 teknik tedbirleri uygulanır.',
+      minimal: 'Asgari kapsam — Mevcut sınıflandırmada kişisel veri işleme tespit edilmedi. Sistem kapsamı değişirse gözden geçirin.'
+    }
+  };
+  var kvkkText = (isTR ? kvkkLabels.tr : kvkkLabels.en)[kvkkScope] || kvkkLabels.en.minimal;
+  var kvkkRow = '<div class="gr-row"><span class="gr-label">' +
+    (isTR ? 'KVKK Kapsamı' : 'KVKK Scope') +
+    '</span><span>' + kvkkText + '</span></div>';
+
+  // Section 3 — Priority Actions (dinamik: risk + sector + misuse + vulnerable + kvkk)
   var actions = [];
   var riskLower = (typeof riskLevel === 'string') ? riskLevel.toLowerCase() : '';
+  var sectorLower = (obs.sector || '').toLowerCase();
+  var hasUnresolved = (obs.unresolved || 0) > 0;
+  var hasVulnerable = !!(obs.hasVulnerableGroups);
+  var kvkkFull = kvkkScope === 'full';
+  var kvkkPartial = kvkkScope === 'partial';
 
   if (isTR) {
     if (riskLower === 'high' || riskLower === 'elevated') {
-      actions.push('Risk yönetim sistemi oluşturun ve dokümante edin (Md. 9)');
+      actions.push('Risk yönetim sistemi oluşturun ve dokümante edin (EU AI Act Md. 9)');
       actions.push('Teknik dokümantasyonu Ek IV gereksinimlerine göre hazırlayın (Md. 11)');
       actions.push('İnsan gözetimi prosedürlerini tanımlayın (Md. 14)');
-      if (cp.friaRequired) actions.push('Temel haklar etki değerlendirmesi yapın (Md. 27)');
+      if (cp.friaRequired) actions.push('Temel haklar etki değerlendirmesi (THED) yapın — deployer yükümlülüğü (Md. 27)');
       if (role === 'provider' || role === 'both') actions.push('Uygunluk değerlendirmesi sürecini başlatın (Md. 43)');
-    } else if (riskLower === 'moderate') {
+      if (sectorLower === 'hr') actions.push('İşe alım verilerinde algoritmik önyargı testini belgeleyin; özel nitelikli veri işleniyorsa Md. 10(5) gereksinimlerini ve KVKK Md. 12 teknik tedbirlerini uygulayın');
+      if (sectorLower === 'finance') actions.push('Kredi skorlama sistemi Ek III Alan 5 kapsamındadır; otomatik karar çıktıları için bireysel itiraz ve itiraz mekanizması oluşturun (KVKK Md. 11(1)(f) ve (g))');
+      if (sectorLower === 'healthcare') actions.push('Özel nitelikli sağlık verisi işleniyorsa EU AI Act Md. 10(5) ile KVKK Md. 6 gerilim noktasını değerlendirin; hukuki dayanak belgeleyin');
+      if (hasUnresolved) actions.push('Çözümsüz kötüye kullanım senaryolarını risk yönetim sistemine dahil edin (Md. 9(2)(b))');
+      if (hasVulnerable) actions.push('Hassas grup etkisini risk yönetim sistemi belgelerine ekleyin (Md. 9(9))');
+      if (kvkkFull) actions.push('VERBİS kaydını tamamlayın; AI sistemi veri akışlarını veri işleme envanterine ekleyin (KVKK Md. 12)');
+    } else if (riskLower === 'moderate' || riskLower === 'limited') {
       actions.push('Şeffaflık yükümlülüklerini değerlendirin (Md. 50)');
       actions.push('Temel yönetişim dokümantasyonunu oluşturun');
-      actions.push('Düzenli gözden geçirme döngüsü belirleyin');
+      if (hasUnresolved) actions.push('Çözümsüz kötüye kullanım senaryolarını belgeleyin (Md. 9(2)(b))');
+      if (kvkkFull || kvkkPartial) actions.push('Kişisel veri işleme faaliyetlerini gözden geçirin; KVKK Md. 12 teknik tedbirleri uygulayın');
+      actions.push('Düzenleyici değişiklikleri takip mekanizması kurun');
     } else {
       actions.push('AI sistemi envanterini oluşturun');
       actions.push('Temel yönetişim politikasını belirleyin');
       actions.push('Düzenleyici değişiklikleri takip mekanizması kurun');
+      if (kvkkFull || kvkkPartial) actions.push('Kişisel veri işleniyorsa KVKK Md. 12 kapsamında güvenlik tedbirlerini gözden geçirin');
     }
   } else {
     if (riskLower === 'high' || riskLower === 'elevated') {
       actions.push('Establish and document a risk management system (Art. 9)');
       actions.push('Prepare technical documentation per Annex IV requirements (Art. 11)');
       actions.push('Define human oversight procedures (Art. 14)');
-      if (cp.friaRequired) actions.push('Conduct fundamental rights impact assessment (Art. 27)');
+      if (cp.friaRequired) actions.push('Conduct fundamental rights impact assessment — deployer obligation (Art. 27)');
       if (role === 'provider' || role === 'both') actions.push('Initiate conformity assessment process (Art. 43)');
-    } else if (riskLower === 'moderate') {
+      if (sectorLower === 'hr') actions.push('Document algorithmic bias testing on recruitment data; apply Art. 10(5) requirements for special category data and KVKK Art. 12 technical measures');
+      if (sectorLower === 'finance') actions.push('Credit scoring system falls under Annex III Area 5; establish right-to-contest and redress mechanism for automated decision outputs (KVKK Art. 11(1)(f) and (g))');
+      if (sectorLower === 'healthcare') actions.push('Assess tension between EU AI Act Art. 10(5) and KVKK Art. 6 for special category health data; document legal basis for processing');
+      if (hasUnresolved) actions.push('Incorporate unresolved misuse scenarios into risk management system (Art. 9(2)(b))');
+      if (hasVulnerable) actions.push('Document vulnerable group impact in risk management system records (Art. 9(9))');
+      if (kvkkFull) actions.push('Complete VERBİS registration; add AI system data flows to processing inventory (KVKK Art. 12)');
+    } else if (riskLower === 'moderate' || riskLower === 'limited') {
       actions.push('Assess transparency obligations (Art. 50)');
       actions.push('Establish baseline governance documentation');
-      actions.push('Define periodic review cycle');
+      if (hasUnresolved) actions.push('Document unresolved misuse scenarios (Art. 9(2)(b))');
+      if (kvkkFull || kvkkPartial) actions.push('Review personal data processing activities; apply KVKK Art. 12 technical measures');
+      actions.push('Set up regulatory change monitoring');
     } else {
       actions.push('Create AI system inventory');
       actions.push('Establish baseline governance policy');
       actions.push('Set up regulatory change monitoring');
+      if (kvkkFull || kvkkPartial) actions.push('If personal data is processed, review security measures under KVKK Art. 12');
     }
   }
 
@@ -3041,6 +3141,8 @@ function generateGovernanceReport() {
       '<div class="gr-row"><span class="gr-label">' + (isTR ? 'Sektör' : 'Sector') + '</span><span>' + sector + '</span></div>' +
       '<div class="gr-row"><span class="gr-label">' + (isTR ? 'Kullanım Amacı' : 'Intended Purpose') + '</span><span>' + purpose + '</span></div>' +
       '<div class="gr-row"><span class="gr-label">' + (isTR ? 'Paydaşlar' : 'Stakeholders') + '</span><span>' + stakeholders + '</span></div>' +
+      misuseRow +
+      vulnRow +
     '</div>' +
     '<div class="gr-section">' +
       '<div class="gr-section-title">' + (isTR ? 'Bölüm 2 — Risk Profili' : 'Section 2 — Risk Profile') + '</div>' +
@@ -3048,6 +3150,7 @@ function generateGovernanceReport() {
       '<div class="gr-row"><span class="gr-label">' + (isTR ? 'Rol' : 'Role') + '</span><span>' + role + '</span></div>' +
       '<div class="gr-row"><span class="gr-label">' + (isTR ? 'THED Durumu' : 'FRIA Status') + '</span><span>' + friaStatus + '</span></div>' +
       '<div class="gr-row"><span class="gr-label">' + (isTR ? 'Yükümlülükler' : 'Obligations') + '</span><span>' + oblText + '</span></div>' +
+      kvkkRow +
     '</div>' +
     '<div class="gr-section">' +
       '<div class="gr-section-title">' + (isTR ? 'Bölüm 3 — Öncelikli Aksiyonlar' : 'Section 3 — Priority Actions') + '</div>' +
