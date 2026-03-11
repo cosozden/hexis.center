@@ -328,7 +328,48 @@
     }
 
     a[href]:after { content: none !important; }
+
+    /* ── GOVERNANCE REPORT PRINT ── */
+    body.report-printing .orient-nav,
+    body.report-printing .observe-wrap,
+    body.report-printing .classifier-wrap,
+    body.report-printing .configurator,
+    body.report-printing .report-wrap,
+    body.report-printing footer,
+    body.report-printing .gov-report-btn { display: none !important; }
+    body.report-printing #governance-report { display: block !important; }
   }
+
+  /* Governance report screen styles */
+  #governance-report { display: none; }
+  #governance-report.visible { display: block; }
+  .gov-report-btn {
+    display: inline-block;
+    margin: 12px 0 0;
+    padding: 8px 20px;
+    background: var(--charcoal);
+    color: var(--paper);
+    border: 1px solid var(--charcoal);
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    cursor: pointer;
+    border-radius: 0;
+  }
+  .gov-report-btn:hover { background: var(--stone); border-color: var(--stone); }
+
+  .gr-header { border-bottom: 1.5px solid var(--ink); padding-bottom: 10px; margin-bottom: 18px; }
+  .gr-ref { font-family: Arial, sans-serif; font-size: 9px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--ink-muted); }
+  .gr-title { font-family: Georgia, serif; font-size: 20px; margin: 6px 0 2px; color: var(--ink); }
+  .gr-date { font-family: Arial, sans-serif; font-size: 10px; color: var(--ink-muted); }
+  .gr-section { margin-bottom: 20px; }
+  .gr-section-title { font-family: Georgia, serif; font-size: 13px; text-transform: uppercase; letter-spacing: 0.06em; border-bottom: 1px solid var(--rule); padding-bottom: 4px; margin-bottom: 8px; color: var(--ink); }
+  .gr-row { display: flex; gap: 8px; margin-bottom: 4px; font-family: Arial, sans-serif; font-size: 11px; color: var(--ink-soft); }
+  .gr-label { font-weight: 700; min-width: 140px; color: var(--ink); }
+  .gr-action-item { padding: 6px 0; border-bottom: 1px solid var(--rule-s); font-family: Arial, sans-serif; font-size: 11px; color: var(--ink-soft); }
+  .gr-action-num { font-weight: 700; color: var(--ink); margin-right: 6px; }
+  .gr-footer { margin-top: 20px; padding-top: 8px; border-top: 1px solid var(--rule); font-family: Arial, sans-serif; font-size: 9px; color: var(--ink-muted); }
 
   @page {
     size: A4;
@@ -1238,6 +1279,7 @@
 <div class="report-wrap">
   <div id="report-output"></div>
 </div>
+<div id="governance-report"></div>
 
 <script>
 // ── OBSERVE STAGE ENGINE ──
@@ -2258,6 +2300,12 @@
       isGPAIDeployer: false,
       prohibitedArticle: option.article
     });
+    window._complianceProfile = {
+      riskLevel: null,
+      exposureMapping: null,
+      friaRequired: false,
+      role: null
+    };
   }
 
   function computeClassification() {
@@ -2401,6 +2449,12 @@
       isGPAIDeployer: isGPAIDeployer,
       prohibitedArticle: null
     });
+    window._complianceProfile = {
+      riskLevel: result.checklistRisk,
+      exposureMapping: result.exposureMapping,
+      friaRequired: !!(hasFRIA && (isAnnexIII || isAnnexI)),
+      role: null
+    };
   }
 
   window.clfSelectOption = function(stepIdx, optionId) {
@@ -2459,6 +2513,12 @@
       else { data[key] = mapData[key]; }
     }
     renderStep6Card(data);
+    window._complianceProfile = {
+      riskLevel: data.checklistRisk,
+      exposureMapping: data.exposureMapping,
+      friaRequired: !!(data.hasFRIA),
+      role: null
+    };
   };
 
   (function() {
@@ -2497,6 +2557,11 @@
   window.proceedToEvaluate = function(exposureValue) {
     var dropdown = document.getElementById('cfg-exposure');
     if (dropdown) dropdown.value = exposureValue;
+    var oversightMap = { high: 'structured', elevated: 'structured', moderate: 'adhoc', low: 'absent' };
+    var oversightDropdown = document.getElementById('cfg-oversight');
+    if (oversightDropdown && exposureValue && oversightMap[exposureValue]) {
+      oversightDropdown.value = oversightMap[exposureValue];
+    }
     var url = new URL(window.location);
     url.searchParams.set('risk', exposureValue);
     history.replaceState({}, '', url);
@@ -2531,6 +2596,7 @@
     };
     var noteDiv = document.getElementById('role-note');
     if (noteDiv) { noteDiv.style.display = 'block'; noteDiv.textContent = notes[role]; }
+    if (window._complianceProfile) window._complianceProfile.role = role;
   };
 
   window.toggleClfHint = function(btn) {
@@ -2853,6 +2919,18 @@ function generateMatrix() {
   document.getElementById('report-output').innerHTML = html;
   // Populate "Why this position?" — rule-based now, API-ready
   updateWhySection(name, exposure, maturity, oversight, monitoring, documentation, guardrailApplied);
+
+  // Inject governance report button
+  var existingBtn = document.querySelector('.gov-report-btn');
+  if (!existingBtn) {
+    var btn = document.createElement('button');
+    btn.className = 'gov-report-btn';
+    var lang = window._obsLang || 'en';
+    btn.textContent = lang === 'tr' ? 'Raporu İndir' : 'Download Report';
+    btn.onclick = function() { generateGovernanceReport(); };
+    var reportWrap = document.querySelector('.report-wrap');
+    if (reportWrap) reportWrap.appendChild(btn);
+  }
 }
 
 function exportPDF() {
@@ -2868,6 +2946,137 @@ function exportPDF() {
   window.print();
   setTimeout(function() {
     document.title = 'Hexis — Contextual Matrix Generator';
+  }, 2000);
+}
+
+// ── GOVERNANCE REPORT ──
+
+function generateGovernanceReport() {
+  var lang = window._obsLang || 'en';
+  var isTR = lang === 'tr';
+  var obs = window._observeData || {};
+  var cp = window._complianceProfile || {};
+  var today = new Date().toLocaleDateString(isTR ? 'tr-TR' : 'en-GB', { year:'numeric', month:'long', day:'numeric' });
+  var ts = Date.now().toString(36).toUpperCase();
+  var refNumber = 'HGR-' + ts;
+
+  // Section 1 — AI System Identity
+  var sysName = obs.name || (document.getElementById('cfg-name') ? document.getElementById('cfg-name').value : '') || (isTR ? 'Belirtilmedi' : 'Not specified');
+  var sector = obs.sector || (isTR ? 'Belirtilmedi' : 'Not specified');
+  var purpose = obs.purpose || (isTR ? 'Belirtilmedi' : 'Not specified');
+  var stakeholders = (obs.stakeholders && obs.stakeholders.length) ? obs.stakeholders.join(', ') : (isTR ? 'Belirtilmedi' : 'Not specified');
+
+  // Section 2 — Risk Profile
+  var riskLevel = cp.riskLevel || (document.getElementById('cfg-exposure') ? document.getElementById('cfg-exposure').value : '') || (isTR ? 'Belirtilmedi' : 'Not specified');
+  var friaStatus = cp.friaRequired ? (isTR ? 'Gerekli' : 'Required') : (isTR ? 'Gerekli değil' : 'Not required');
+  var role = cp.role || (isTR ? 'Belirtilmedi' : 'Not specified');
+
+  var obligationsSummary = {
+    en: {
+      high: 'Risk management system (Art. 9), technical documentation (Art. 11), conformity assessment (Art. 43), human oversight (Art. 14), EU database registration (Art. 49).',
+      elevated: 'Transparency obligations (Art. 50), human oversight measures (Art. 14), documented governance accountability.',
+      moderate: 'Transparency obligations where applicable (Art. 50), voluntary codes of conduct recommended (Art. 95).',
+      low: 'Voluntary codes of conduct (Art. 95). No mandatory obligations under current classification.'
+    },
+    tr: {
+      high: 'Risk yönetim sistemi (Md. 9), teknik dokümantasyon (Md. 11), uygunluk değerlendirmesi (Md. 43), insan gözetimi (Md. 14), AB veri tabanı kaydı (Md. 49).',
+      elevated: 'Şeffaflık yükümlülükleri (Md. 50), insan gözetimi tedbirleri (Md. 14), belgelenmiş yönetişim hesap verebilirliği.',
+      moderate: 'Uygulanabilir durumlarda şeffaflık yükümlülükleri (Md. 50), gönüllü davranış kuralları önerilir (Md. 95).',
+      low: 'Gönüllü davranış kuralları (Md. 95). Mevcut sınıflandırma kapsamında zorunlu yükümlülük bulunmamaktadır.'
+    }
+  };
+  var oblText = (isTR ? obligationsSummary.tr : obligationsSummary.en)[riskLevel] || (isTR ? 'Sınıflandırma sonucuna bağlı.' : 'Dependent on classification outcome.');
+
+  // Section 3 — Priority Actions
+  var actions = [];
+  var riskLower = (typeof riskLevel === 'string') ? riskLevel.toLowerCase() : '';
+
+  if (isTR) {
+    if (riskLower === 'high' || riskLower === 'elevated') {
+      actions.push('Risk yönetim sistemi oluşturun ve dokümante edin (Md. 9)');
+      actions.push('Teknik dokümantasyonu Ek IV gereksinimlerine göre hazırlayın (Md. 11)');
+      actions.push('İnsan gözetimi prosedürlerini tanımlayın (Md. 14)');
+      if (cp.friaRequired) actions.push('Temel haklar etki değerlendirmesi yapın (Md. 27)');
+      if (role === 'provider' || role === 'both') actions.push('Uygunluk değerlendirmesi sürecini başlatın (Md. 43)');
+    } else if (riskLower === 'moderate') {
+      actions.push('Şeffaflık yükümlülüklerini değerlendirin (Md. 50)');
+      actions.push('Temel yönetişim dokümantasyonunu oluşturun');
+      actions.push('Düzenli gözden geçirme döngüsü belirleyin');
+    } else {
+      actions.push('AI sistemi envanterini oluşturun');
+      actions.push('Temel yönetişim politikasını belirleyin');
+      actions.push('Düzenleyici değişiklikleri takip mekanizması kurun');
+    }
+  } else {
+    if (riskLower === 'high' || riskLower === 'elevated') {
+      actions.push('Establish and document a risk management system (Art. 9)');
+      actions.push('Prepare technical documentation per Annex IV requirements (Art. 11)');
+      actions.push('Define human oversight procedures (Art. 14)');
+      if (cp.friaRequired) actions.push('Conduct fundamental rights impact assessment (Art. 27)');
+      if (role === 'provider' || role === 'both') actions.push('Initiate conformity assessment process (Art. 43)');
+    } else if (riskLower === 'moderate') {
+      actions.push('Assess transparency obligations (Art. 50)');
+      actions.push('Establish baseline governance documentation');
+      actions.push('Define periodic review cycle');
+    } else {
+      actions.push('Create AI system inventory');
+      actions.push('Establish baseline governance policy');
+      actions.push('Set up regulatory change monitoring');
+    }
+  }
+
+  var actionsHtml = actions.map(function(a, i) {
+    return '<div class="gr-action-item"><span class="gr-action-num">' + (i + 1) + '.</span> ' + a + '</div>';
+  }).join('');
+
+  var reportHtml = '<div class="page" style="padding:32px 24px;">' +
+    '<div class="gr-header">' +
+      '<div class="gr-ref">Ref: ' + refNumber + '</div>' +
+      '<div class="gr-title">HEXIS &middot; ' + (isTR ? 'AI Yönetişim Raporu' : 'AI Governance Report') + '</div>' +
+      '<div class="gr-date">' + today + '</div>' +
+    '</div>' +
+    '<div class="gr-section">' +
+      '<div class="gr-section-title">' + (isTR ? 'Bölüm 1 — AI Sistem Kimliği' : 'Section 1 — AI System Identity') + '</div>' +
+      '<div class="gr-row"><span class="gr-label">' + (isTR ? 'Sistem Adı' : 'System Name') + '</span><span>' + sysName + '</span></div>' +
+      '<div class="gr-row"><span class="gr-label">' + (isTR ? 'Sektör' : 'Sector') + '</span><span>' + sector + '</span></div>' +
+      '<div class="gr-row"><span class="gr-label">' + (isTR ? 'Kullanım Amacı' : 'Intended Purpose') + '</span><span>' + purpose + '</span></div>' +
+      '<div class="gr-row"><span class="gr-label">' + (isTR ? 'Paydaşlar' : 'Stakeholders') + '</span><span>' + stakeholders + '</span></div>' +
+    '</div>' +
+    '<div class="gr-section">' +
+      '<div class="gr-section-title">' + (isTR ? 'Bölüm 2 — Risk Profili' : 'Section 2 — Risk Profile') + '</div>' +
+      '<div class="gr-row"><span class="gr-label">' + (isTR ? 'Risk Seviyesi' : 'Risk Level') + '</span><span>' + riskLevel + '</span></div>' +
+      '<div class="gr-row"><span class="gr-label">' + (isTR ? 'Rol' : 'Role') + '</span><span>' + role + '</span></div>' +
+      '<div class="gr-row"><span class="gr-label">' + (isTR ? 'THED Durumu' : 'FRIA Status') + '</span><span>' + friaStatus + '</span></div>' +
+      '<div class="gr-row"><span class="gr-label">' + (isTR ? 'Yükümlülükler' : 'Obligations') + '</span><span>' + oblText + '</span></div>' +
+    '</div>' +
+    '<div class="gr-section">' +
+      '<div class="gr-section-title">' + (isTR ? 'Bölüm 3 — Öncelikli Aksiyonlar' : 'Section 3 — Priority Actions') + '</div>' +
+      actionsHtml +
+    '</div>' +
+    '<div class="gr-footer">' +
+      (isTR
+        ? 'Bu rapor Hexis ORIENT metodolojisi kullanılarak üretilmiştir. Hukuki danışmanlık niteliği taşımaz.'
+        : 'This report was produced using the Hexis ORIENT methodology. It does not constitute legal advice.') +
+      '<br>hexis.center &middot; ' + refNumber +
+    '</div>' +
+  '</div>';
+
+  var reportEl = document.getElementById('governance-report');
+  if (reportEl) {
+    reportEl.innerHTML = reportHtml;
+    reportEl.classList.add('visible');
+  }
+
+  document.body.classList.add('report-printing');
+  var sysNameClean = sysName.replace(/[^a-zA-Z0-9]/g, '-') || 'GovernanceReport';
+  var todayISO = new Date().toISOString().split('T')[0];
+  var origTitle = document.title;
+  document.title = 'Hexis-GovernanceReport-' + sysNameClean + '-' + todayISO;
+  window.print();
+  setTimeout(function() {
+    document.body.classList.remove('report-printing');
+    document.title = origTitle;
+    if (reportEl) reportEl.classList.remove('visible');
   }, 2000);
 }
 
