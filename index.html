@@ -237,6 +237,15 @@ section{position:relative;z-index:1;padding-block:72px}
   align-items:center;
 }
 .btn-primary-en:hover{background:rgba(178,152,108,.08)}
+.btn-sub-tr, .btn-sub-en {
+  font-size: 11px;
+  color: var(--stone);
+  margin-top: 4px;
+  margin-bottom: 8px;
+  letter-spacing: .02em;
+  font-family: Arial, sans-serif;
+  text-align: center;
+}
 .btn-secondary-sm{
   background:transparent;
   color:var(--stone);
@@ -589,8 +598,14 @@ footer{
 
     <div class="hero-actions">
       <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-bottom:16px">
-        <a href="/eu-ai-act-checklist" class="btn-primary-tr">Uyumluluğunuzu Değerlendirin →</a>
-        <a href="/generator/" class="btn-primary-en">Assess Your AI Systems →</a>
+        <div style="text-align:center">
+          <a href="/eu-ai-act-checklist" class="btn-primary-tr">Hazırlık Durumunuzu Ölçün →</a>
+          <div class="btn-sub-tr">EU AI Act + KVKK kapsamında nerede durduğunuzu 5 dakikada öğrenin</div>
+        </div>
+        <div style="text-align:center">
+          <a href="/generator/" class="btn-primary-en">Classify Your AI System →</a>
+          <div class="btn-sub-en">Define, classify and generate a governance profile — 20 min</div>
+        </div>
       </div>
       <div style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap">
         <a href="/metodoloji/" class="btn-secondary-sm">ORIENT Çerçevesi</a>
@@ -824,10 +839,6 @@ footer{
         <div class="res-label">Araçlar / Tools</div>
         <h2>Governance <em>Tools</em></h2>
       </div>
-      <div style="text-align:right">
-        <div style="font-size:10px;color:var(--stone);font-family:Arial,sans-serif;margin-bottom:3px;">Daha fazlası yakında</div>
-        <div style="font-size:10px;color:var(--stone);font-family:Arial,sans-serif;opacity:.7;">Sonraki: Risk sınıflandırma akışı · ISO/IEC 42001 eşleme tablosu</div>
-      </div>
     </div>
 
     <!-- FEATURED: CHECKLIST -->
@@ -864,22 +875,11 @@ footer{
     <!-- HEXIS V1 TOOLS -->
     <div class="res-grid" style="margin-top:1px">
 
-      <a href="/methodology/" class="res-card" style="text-decoration:none;display:flex">
-        <div class="tool-badge-live">Live</div>
-        <div class="res-card-icon" style="font-size:20px">📐</div>
-        <h3>Generator Methodology v1.0</h3>
-        <p>AI governance risk assessment için normatif önceliklendirme çerçevesi. Düzenleyici etki × Yönetişim olgunluğu matris modeli.</p>
-        <div class="rc-footer">
-          <span class="rc-src">Generator Docs</span>
-          <span class="rc-arr">→</span>
-        </div>
-      </a>
-
       <a href="/generator/" class="res-card" style="text-decoration:none;display:flex">
         <div class="tool-badge-live">Live</div>
         <div class="res-card-icon" style="font-size:20px">⚙️</div>
-        <h3>Contextual Matrix Generator</h3>
-        <p>Hexis metodolojisine dayalı ön yönetişim bulgusu üret. Bağlamı gir, matris hesapla, PDF rapor al.</p>
+        <h3>AI System Risk Classifier & Governance Report</h3>
+        <p>Sistemini tanımla, risk kategorisini belirle, yönetişim profilini oluştur. Observe → Risk → Governance Raporu.</p>
         <div class="rc-footer">
           <span class="rc-src">Generator</span>
           <span class="rc-arr">→</span>
@@ -890,28 +890,6 @@ footer{
 
     <!-- OTHER TOOLS (coming soon) -->
     <div class="res-grid" style="margin-top:1px">
-
-      <a href="/generator/" class="res-card" style="text-decoration:none;display:flex">
-        <div class="tool-badge-live">Live</div>
-        <div class="res-card-icon">⚖️</div>
-        <h3>Risk Sınıflandırma Yardımcısı</h3>
-        <p>Sistemin risk katmanını belirlemek için yapılandırılmış soru akışı. EU AI Act Annex III uyumlu.</p>
-        <div class="rc-footer">
-          <span class="rc-src">Risk Classifier</span>
-          <span class="rc-arr">→</span>
-        </div>
-      </a>
-
-      <a href="/eu-ai-act-checklist" class="res-card" style="text-decoration:none;display:flex">
-        <div class="tool-badge-live">Live</div>
-        <div class="res-card-icon">✅</div>
-        <h3>AB AI Act Kontrol Listesi</h3>
-        <p>Türk KOBİ'leri için EU AI Act × KVKK hazırlık kontrol listesi. 23 madde, 6 kategori, PDF raporu.</p>
-        <div class="rc-footer">
-          <span class="rc-src">Kontrol Listesi</span>
-          <span class="rc-arr">→</span>
-        </div>
-      </a>
 
       <div class="res-card disabled">
         <div class="tool-badge-soon">Yakında</div>
