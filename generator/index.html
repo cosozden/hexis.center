@@ -386,6 +386,7 @@
   .clf-result-level { font-family: Georgia, 'Times New Roman', serif; font-size: 18px; font-weight: 700; margin-top: 4px; }
   .clf-result-ref { font-size: 11px; opacity: 0.7; margin-top: 2px; }
   .clf-result-deadline { text-align: right; font-size: 10px; letter-spacing: 0.06em; }
+  .clf-omnibus-note { margin-top: 6px; font-size: 9px; font-style: italic; color: var(--stone); letter-spacing: 0.04em; line-height: 1.4; max-width: 160px; }
   .clf-result-days { font-family: Georgia, 'Times New Roman', serif; font-size: 22px; font-weight: 700; margin-top: 2px; }
   .clf-result-body { padding: 16px 20px; }
   .clf-result-section { margin-bottom: 14px; }
@@ -1719,10 +1720,14 @@
           '<div class="clf-result-days">IN FORCE</div>' +
           '<div>since ' + result.deadlineLabel + '</div>';
       } else {
+        var omnibusNote = result.deadline === '2026-08-02'
+          ? '<div class="clf-omnibus-note">Digital Omnibus (proposed): deadline may extend to Dec 2027 — not yet adopted, monitor status.</div>'
+          : '';
         deadlineHtml =
           '<div>Compliance deadline</div>' +
           '<div class="clf-result-days">' + days + ' days</div>' +
-          '<div>until ' + result.deadlineLabel + '</div>';
+          '<div>until ' + result.deadlineLabel + '</div>' +
+          omnibusNote;
       }
     } else {
       deadlineHtml =
