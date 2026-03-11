@@ -1,0 +1,829 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>ORIENT Framework — Hexis AI Governance</title>
+  <meta name="description" content="The ORIENT framework is a six-stage AI governance methodology built on international standards — designed to make compliance structured, practical, and actionable.">
+  <style>
+    /* ── tokens ─────────────────────────────────── */
+    :root {
+      --charcoal: #1C1E23;
+      --brass:    #B2986C;
+      --stone:    #686662;
+      --paper:    #F8F7F5;
+      --dark-bg:  #16181C;
+      --dark-type:#E8E6E2;
+      --dark-sub: #8A8884;
+      --bg:       var(--dark-bg);
+      --text:     var(--dark-type);
+      --text2:    var(--dark-sub);
+      --border:   rgba(232,230,226,.10);
+      --border2:  rgba(232,230,226,.18);
+      --card:     rgba(232,230,226,.04);
+      --card2:    rgba(232,230,226,.07);
+    }
+
+    /* ── reset ──────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      font-size: 14px;
+    }
+    a { color: inherit; text-decoration: none; }
+    img { display: block; max-width: 100%; }
+
+    /* ── layout ─────────────────────────────────── */
+    .wrap { max-width: 960px; margin: 0 auto; padding: 0 48px; }
+
+    /* ── nav ────────────────────────────────────── */
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      height: 60px;
+      background: var(--dark-bg);
+      border-bottom: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 48px;
+    }
+    .nav-logo img { height: 32px; width: auto; }
+    .nav-links { display: flex; align-items: center; gap: 4px; }
+    .nav-links a {
+      font-size: 12px; letter-spacing: .04em;
+      color: var(--text2); padding: 6px 12px;
+      transition: color .15s; border-radius: 2px;
+    }
+    .nav-links a:hover { color: var(--text); }
+    .nav-links a.active { color: var(--text); }
+    .hamburger {
+      display: none; flex-direction: column; gap: 5px;
+      cursor: pointer; background: none; border: none; padding: 4px;
+    }
+    .hamburger span { width: 22px; height: 1px; background: var(--text2); transition: all .3s; }
+    .hamburger.open span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
+    .mobile-menu {
+      display: none; position: fixed; top: 60px; left: 0; right: 0;
+      background: var(--dark-bg); border-bottom: 1px solid var(--border);
+      padding: 12px 20px 20px; flex-direction: column; gap: 0; z-index: 99;
+    }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu a {
+      padding: 12px 0; font-size: 14px; color: var(--text2);
+      border-bottom: 1px solid var(--border); display: block;
+      transition: color .15s;
+    }
+    .mobile-menu a:last-child { border-bottom: none; }
+    .mobile-menu a:hover { color: var(--text); }
+
+    /* ── hero ───────────────────────────────────── */
+    #hero {
+      padding-block: 88px 72px;
+      text-align: center;
+      border-bottom: 1px solid var(--border);
+    }
+    .hero-badge {
+      display: inline-block;
+      font-size: 9px; font-weight: 400; letter-spacing: .18em;
+      text-transform: uppercase; color: var(--stone);
+      border: 1px solid var(--border); padding: 5px 16px;
+      border-radius: 2px; margin-bottom: 36px;
+    }
+    .hero-title {
+      font-family: Georgia, 'Times New Roman', serif;
+      font-size: clamp(48px, 8vw, 96px);
+      font-weight: 700; letter-spacing: 5px;
+      line-height: .95; margin-bottom: 0;
+      text-transform: uppercase; color: var(--text);
+    }
+    .hero-title .o { color: var(--brass); }
+    .hero-bar {
+      width: clamp(48px, 6vw, 72px); height: 2px;
+      background: var(--brass); margin: 20px auto 28px;
+    }
+    .hero-sub {
+      font-size: clamp(13px, 1.6vw, 15px); color: var(--text2);
+      line-height: 1.75; max-width: 560px; margin: 0 auto 52px;
+    }
+
+    /* ── pill nav ───────────────────────────────── */
+    .orient-pills {
+      display: flex; align-items: center; justify-content: center;
+      gap: 6px; flex-wrap: wrap;
+    }
+    .orient-pills a {
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 52px; height: 52px;
+      border: 1px solid var(--border2); border-radius: 2px;
+      font-family: Georgia, serif; font-size: 22px; font-weight: 700;
+      color: var(--text2); transition: color .15s, border-color .15s, background .15s;
+      text-transform: uppercase;
+    }
+    .orient-pills a.pill-active {
+      color: var(--brass); border-color: var(--brass);
+    }
+    .orient-pills a:hover {
+      color: var(--text); background: var(--card);
+    }
+    .orient-pills a.pill-active:hover {
+      background: rgba(178,152,108,.08);
+    }
+
+    /* ── section skeleton ───────────────────────── */
+    section { padding-block: 80px; }
+    section + section { border-top: 1px solid var(--border); }
+    .sec-label {
+      font-size: 9px; font-weight: 400; letter-spacing: .18em;
+      text-transform: uppercase; color: var(--stone); margin-bottom: 12px;
+    }
+    .sec-title {
+      font-family: Georgia, serif;
+      font-size: clamp(22px, 3vw, 30px);
+      font-weight: 700; letter-spacing: -.3px;
+      line-height: 1.15; color: var(--text);
+    }
+    .sec-desc {
+      font-size: 14px; color: var(--text2);
+      line-height: 1.7; max-width: 600px; margin-top: 14px;
+    }
+    .sec-head { margin-bottom: 48px; }
+
+    /* ── intro ──────────────────────────────────── */
+    #intro .intro-body { max-width: 680px; }
+    #intro .intro-body p {
+      font-size: 14px; color: var(--text2);
+      line-height: 1.75; margin-bottom: 20px;
+    }
+    .quote-block {
+      border-left: 2px solid var(--brass); padding: 16px 20px;
+      margin: 28px 0; background: var(--card);
+    }
+    .quote-block blockquote {
+      font-family: Georgia, serif; font-size: 15px; font-style: italic;
+      color: var(--text); line-height: 1.55; margin-bottom: 8px;
+    }
+    .quote-attr {
+      font-size: 10px; color: var(--stone); letter-spacing: .06em;
+    }
+    .hexis-note {
+      margin-top: 20px; padding: 16px 20px;
+      border: 1px solid var(--border); background: var(--card);
+      font-size: 13px; color: var(--text2); line-height: 1.7;
+    }
+    .hexis-note strong { color: var(--text); }
+
+    /* ── step cards ─────────────────────────────── */
+    #steps .sec-head { margin-bottom: 0; }
+    .steps-list {
+      display: flex; flex-direction: column;
+      gap: 1px; background: var(--border); margin-top: 48px;
+    }
+    .step-card {
+      background: var(--dark-bg);
+      padding: 40px 40px 36px;
+      border-left: 3px solid var(--border2);
+      transition: border-left-color .2s;
+      scroll-margin-top: 72px;
+    }
+    .step-card:hover  { border-left-color: var(--brass); }
+    .step-card:target { border-left-color: var(--brass); }
+
+    .step-header {
+      display: flex; align-items: flex-start;
+      gap: 24px; margin-bottom: 28px;
+    }
+    .step-glyph {
+      font-family: Georgia, serif; font-size: 72px; font-weight: 700;
+      line-height: 1; color: var(--brass); flex-shrink: 0;
+      width: 72px; text-align: center; opacity: .85;
+    }
+    .step-header-right { flex: 1; min-width: 0; }
+    .step-label {
+      font-size: 10px; letter-spacing: .12em;
+      text-transform: uppercase; color: var(--stone); margin-bottom: 8px;
+    }
+    .step-title {
+      font-family: Georgia, serif;
+      font-size: clamp(17px, 2.2vw, 22px);
+      font-weight: 700; line-height: 1.2; color: var(--text);
+    }
+
+    .step-body { padding-left: 96px; }
+    .step-body p {
+      font-size: 14px; color: var(--text2);
+      line-height: 1.75; margin-bottom: 16px;
+    }
+    .step-body p:last-of-type { margin-bottom: 0; }
+
+    .step-questions { margin: 24px 0; }
+    .step-q-label {
+      font-size: 10px; letter-spacing: .1em;
+      text-transform: uppercase; color: var(--stone);
+      margin-bottom: 10px;
+    }
+    .step-questions ul {
+      list-style: none; display: flex; flex-direction: column; gap: 7px;
+    }
+    .step-questions li {
+      font-size: 13px; color: var(--text2);
+      padding-left: 18px; position: relative; line-height: 1.6;
+    }
+    .step-questions li::before {
+      content: '·'; position: absolute; left: 4px;
+      color: var(--brass); font-weight: 700; font-size: 16px; line-height: 1.4;
+    }
+
+    .step-info-rows {
+      margin: 28px 0 24px;
+      border: 1px solid var(--border);
+    }
+    .step-info-row {
+      display: grid; grid-template-columns: 96px 1fr;
+      border-bottom: 1px solid var(--border);
+    }
+    .step-info-row:last-child { border-bottom: none; }
+    .step-info-label {
+      padding: 12px 14px;
+      font-size: 9px; font-weight: 400; letter-spacing: .1em;
+      text-transform: uppercase; color: var(--stone);
+      border-right: 1px solid var(--border);
+      display: flex; align-items: center;
+      background: var(--card);
+    }
+    .step-info-content {
+      padding: 12px 16px;
+      font-size: 12px; color: var(--text2); line-height: 1.65;
+    }
+
+    .step-badges { display: flex; flex-wrap: wrap; gap: 6px; }
+    .step-badge {
+      display: inline-block; font-size: 9px; letter-spacing: .06em;
+      color: var(--stone); border: 1px solid var(--border);
+      border-radius: 2px; padding: 4px 10px;
+    }
+
+    /* ── orient summary grid ────────────────────── */
+    #summary { text-align: center; }
+    .orient-grid {
+      display: grid; grid-template-columns: repeat(6, 1fr);
+      gap: 1px; background: var(--border);
+    }
+    .orient-block {
+      background: var(--dark-bg); padding: 28px 14px 24px;
+      text-align: center; text-decoration: none;
+      display: flex; flex-direction: column; align-items: center; gap: 10px;
+      transition: background .15s;
+    }
+    .orient-block:hover { background: var(--card2); }
+    .ob-letter {
+      font-family: Georgia, serif; font-size: 40px; font-weight: 700;
+      color: var(--brass); line-height: 1;
+    }
+    .ob-word {
+      font-size: 9px; letter-spacing: .12em; text-transform: uppercase;
+      color: var(--text2); font-weight: 700;
+    }
+    .ob-desc { font-size: 11px; color: var(--stone); line-height: 1.5; }
+
+    /* ── CTA ────────────────────────────────────── */
+    #cta { text-align: center; background: var(--card); }
+    .cta-title {
+      font-family: Georgia, serif;
+      font-size: clamp(22px, 3vw, 32px); font-weight: 700;
+      letter-spacing: -.3px; color: var(--text); margin-bottom: 14px;
+    }
+    .cta-sub {
+      font-size: 14px; color: var(--text2);
+      max-width: 480px; margin: 0 auto 36px; line-height: 1.65;
+    }
+    .cta-btns {
+      display: flex; align-items: center;
+      justify-content: center; gap: 12px; flex-wrap: wrap;
+    }
+    .btn-primary {
+      background: var(--dark-type); color: var(--charcoal);
+      padding: 11px 24px; border-radius: 2px; font-weight: 700;
+      font-size: 12px; border: none; cursor: pointer; transition: opacity .15s;
+      text-decoration: none; display: inline-flex; align-items: center;
+      gap: 7px; letter-spacing: .04em; font-family: Arial, sans-serif;
+    }
+    .btn-primary:hover { opacity: .88; }
+    .btn-outline {
+      background: transparent; color: var(--text2);
+      padding: 11px 24px; border-radius: 2px; font-weight: 400;
+      font-size: 12px; border: 1px solid var(--border2); cursor: pointer;
+      transition: color .15s, border-color .15s; text-decoration: none;
+      display: inline-flex; align-items: center;
+      gap: 7px; letter-spacing: .04em; font-family: Arial, sans-serif;
+    }
+    .btn-outline:hover { border-color: rgba(232,230,226,.35); color: var(--text); }
+
+    /* ── footer ─────────────────────────────────── */
+    footer {
+      padding: 20px 48px; border-top: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 20px; flex-wrap: wrap;
+    }
+    .footer-left { display: flex; align-items: center; gap: 10px; }
+    .footer-sep { color: var(--stone); }
+    .footer-txt { font-size: 11px; color: var(--stone); line-height: 1.5; }
+    .footer-links { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
+    .footer-links a { font-size: 11px; color: var(--stone); transition: color .15s; }
+    .footer-links a:hover { color: var(--text2); }
+
+    /* ── responsive ─────────────────────────────── */
+    @media (max-width: 860px) {
+      nav { padding: 0 20px; }
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
+      .wrap { padding: 0 20px; }
+      section { padding-block: 52px; }
+      #hero { padding-block: 56px 48px; }
+      footer { padding: 16px 20px; flex-direction: column; align-items: flex-start; gap: 12px; }
+      .orient-grid { grid-template-columns: repeat(3, 1fr); }
+      .step-body { padding-left: 0; margin-top: 4px; }
+      .step-header { gap: 16px; }
+      .step-glyph { font-size: 56px; width: 56px; }
+    }
+    @media (max-width: 600px) {
+      .orient-grid { grid-template-columns: repeat(2, 1fr); }
+      .orient-pills a { width: 44px; height: 44px; font-size: 18px; }
+      .cta-btns { flex-direction: column; align-items: center; }
+      .step-card { padding: 28px 20px 24px; }
+      .step-info-row { grid-template-columns: 1fr; }
+      .step-info-label { border-right: none; border-bottom: 1px solid var(--border); }
+    }
+    /* ── alignment table ─────────────────────────────── */
+    .align-table-wrap {
+      overflow-x: auto;
+      margin: 40px 0 24px;
+    }
+    .align-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+    }
+    .align-table th {
+      text-align: left; padding: 10px 16px;
+      font-size: 10px; letter-spacing: .08em; text-transform: uppercase;
+      color: var(--brass); border-bottom: 1px solid var(--border2);
+    }
+    .align-table td {
+      padding: 12px 16px; border-bottom: 1px solid var(--border);
+      color: var(--text2); vertical-align: top;
+    }
+    .align-table td:first-child { color: var(--text); font-weight: 600; }
+    .align-table tr:last-child td { border-bottom: none; }
+    .align-note {
+      font-size: 13px; color: var(--text2);
+      border-left: 2px solid var(--brass);
+      padding-left: 16px; margin: 8px 0 40px;
+      line-height: 1.7;
+    }
+    .sources-block { margin-top: 8px; }
+    .sources-list { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+    .sources-list a {
+      font-size: 12px; color: var(--text2);
+      text-decoration: underline; text-underline-offset: 3px;
+      transition: color .15s;
+    }
+    .sources-list a:hover { color: var(--brass); }
+  </style>
+</head>
+<body>
+
+<nav id="nav">
+  <a href="../../" class="nav-logo">
+    <img src="../../assets/logo-light.png" alt="Hexis" width="72" height="40">
+  </a>
+  <div class="nav-links">
+    <a href="./" class="active">ORIENT Framework</a>
+    <a href="../../generator/">Generator</a>
+    <a href="../../#contact">Contact</a>
+  </div>
+  <button class="hamburger" id="hamburger" onclick="toggleMenu()" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<div class="mobile-menu" id="mobileMenu">
+  <a href="./" onclick="closeMenu()">ORIENT Framework</a>
+  <a href="../../generator/" onclick="closeMenu()">Generator</a>
+  <a href="../../#contact" onclick="closeMenu()">Contact</a>
+</div>
+
+
+<!-- ══ HERO ══════════════════════════════════════════════════ -->
+<section id="hero">
+  <div class="wrap">
+    <div class="hero-badge">Methodology</div>
+    <h1 class="hero-title"><span class="o">O</span>RIENT</h1>
+    <div class="hero-bar"></div>
+    <p class="hero-sub">AI Governance Framework</p>
+    <nav class="orient-pills" aria-label="ORIENT stages">
+      <a href="#observe" class="pill-active" title="Observe — Map">O</a>
+      <a href="#risk"      title="Risk — Classify">R</a>
+      <a href="#identify" title="Identify — Obligations">I</a>
+      <a href="#evaluate"  title="Evaluate — Assess">E</a>
+      <a href="#navigate"  title="Navigate — Plan">N</a>
+      <a href="#track"     title="Track — Monitor">T</a>
+    </nav>
+  </div>
+</section>
+
+
+<!-- ══ INTRO ══════════════════════════════════════════════════ -->
+<section id="intro">
+  <div class="wrap">
+    <div class="sec-label">Rationale</div>
+    <h2 class="sec-title">Why Another Framework?</h2>
+    <div class="intro-body">
+      <p style="margin-top:18px;">Most AI governance approaches are either too abstract — a list of principles that never translate into action — or too technical — accessible only to IT and legal teams. The result: organisation-wide adoption fails and compliance remains on paper.</p>
+      <p>ORIENT was designed to close this gap. Every stage is concrete, actionable, and sector-agnostic.</p>
+      <div class="quote-block">
+        <blockquote>"Compliance is an orientation, not a checklist."</blockquote>
+        <div class="quote-attr">— Hexis, inspired by the concept of ἕξις</div>
+      </div>
+      <p>In ancient Greek, <strong style="color:var(--text)">ἕξις (hexis)</strong> denotes a stable disposition acquired through repetition and practice — a way of acting that becomes second nature. AI governance works the same way.</p>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══ STEPS ══════════════════════════════════════════════════ -->
+<section id="steps">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="sec-label">Framework</div>
+      <h2 class="sec-title">Six Stages, One Cycle</h2>
+      <p class="sec-desc">Each stage builds on the previous one, and the last stage feeds back into the first — because AI governance is not a project, it is a process.</p>
+    </div>
+
+    <div class="steps-list">
+
+      <!-- ── O: Observe ── -->
+      <article class="step-card" id="observe">
+        <div class="step-header">
+          <div class="step-glyph">O</div>
+          <div class="step-header-right">
+            <div class="step-label">Stage 1 — Observe</div>
+            <h3 class="step-title">Map Your AI Systems</h3>
+          </div>
+        </div>
+        <div class="step-body">
+          <p>You cannot manage a risk you cannot see. This stage begins by making all AI use visible — purchased tools, API integrations, internal models. Which decisions does a human make, and which does a model make? Where does data come from, and where does it go?</p>
+          <p>Many organisations skip this stage and go straight to writing compliance documentation. In ORIENT, without observation, no subsequent stage rests on solid ground.</p>
+          <div class="step-questions">
+            <div class="step-q-label">Key questions</div>
+            <ul>
+              <li>How many AI tools are actively used in your organisation?</li>
+              <li>Which of these influence human decisions?</li>
+              <li>Which data crosses organisational or national boundaries?</li>
+              <li>Have reasonably foreseeable misuse scenarios been identified?</li>
+            </ul>
+          </div>
+          <div class="step-info-rows">
+            <div class="step-info-row">
+              <div class="step-info-label">EU AI Act</div>
+              <div class="step-info-content">Article 9 mandates a risk management system — but risk management cannot begin without first defining the system. The Observe stage is the practical starting point for Article 9 compliance.</div>
+            </div>
+            <div class="step-info-row">
+              <div class="step-info-label">KVKK</div>
+              <div class="step-info-content">Overlaps with KVKK's data inventory obligations (Art. 10–12). Organisations that have already conducted a KVKK compliance process may consider this stage partially complete.</div>
+            </div>
+            <div class="step-info-row">
+              <div class="step-info-label">Hexis</div>
+              <div class="step-info-content">AI system mapping template, data flow diagram guide, and inventory methodology.</div>
+            </div>
+          </div>
+          <div class="step-badges">
+            <span class="step-badge">ISO 42001 Cl. 6.1</span>
+            <span class="step-badge">EU AI Act Art. 9</span>
+            <span class="step-badge">KVKK Art. 10–12</span>
+          </div>
+        </div>
+      </article>
+
+      <!-- ── R: Risk ── -->
+      <article class="step-card" id="risk">
+        <div class="step-header">
+          <div class="step-glyph">R</div>
+          <div class="step-header-right">
+            <div class="step-label">Stage 2 — Risk</div>
+            <h3 class="step-title">Classify and Assess</h3>
+          </div>
+        </div>
+        <div class="step-body">
+          <p>Your map is ready; now it is time to understand how much risk each AI system carries. The EU AI Act introduces a risk-based classification system: unacceptable, high, limited, minimal. This classification determines which obligations apply.</p>
+          <p>Risk assessment is not a document completed once and filed — it must be repeated whenever a new system is deployed or an existing system is updated.</p>
+          <div class="step-questions">
+            <div class="step-q-label">Key questions</div>
+            <ul>
+              <li>Which AI systems influence decisions about employees, customers, or citizens?</li>
+              <li>Do you use AI in biometrics, credit, employment, or healthcare?</li>
+              <li>Is the risk classification documented?</li>
+            </ul>
+          </div>
+          <div class="step-info-rows">
+            <div class="step-info-row">
+              <div class="step-info-label">EU AI Act</div>
+              <div class="step-info-content">Articles 6–9 set out mandatory requirements for high-risk systems. Incorrect classification leads either to unnecessary compliance costs or to insufficient risk coverage.</div>
+            </div>
+            <div class="step-info-row">
+              <div class="step-info-label">KVKK</div>
+              <div class="step-info-content">KVKK's Data Protection Impact Assessment obligation (Art. 12) largely overlaps with the EU AI Act's high-risk system assessment. The two processes can be managed in an integrated way.</div>
+            </div>
+            <div class="step-info-row">
+              <div class="step-info-label">Hexis</div>
+              <div class="step-info-content">Sector-specific risk classification matrix, integrated DPIA × AI Act assessment template, and expert guidance.</div>
+            </div>
+          </div>
+          <div class="step-badges">
+            <span class="step-badge">EU AI Act Art. 6–9</span>
+            <span class="step-badge">ISO 42001 Cl. 6.1</span>
+            <span class="step-badge">KVKK Art. 12</span>
+          </div>
+        </div>
+      </article>
+
+      <!-- ── I: Identify ── -->
+      <article class="step-card" id="identify">
+        <div class="step-header">
+          <div class="step-glyph">I</div>
+          <div class="step-header-right">
+            <div class="step-label">Stage 3 — Identify</div>
+            <h3 class="step-title">Map Legal Obligations</h3>
+          </div>
+        </div>
+        <div class="step-body">
+          <p>The risk level is established; now the applicable legal obligations must be clearly identified. Which EU AI Act articles apply? Is the organisation a provider or a deployer? What overlapping obligations arise from KVKK?</p>
+          <p>Without the Identify stage, Evaluate is meaningless — you cannot measure your current position without knowing what you are required to meet.</p>
+          <div class="step-questions">
+            <div class="step-q-label">Key questions</div>
+            <ul>
+              <li>Is your organisation a provider or a deployer of this AI system?</li>
+              <li>Which EU AI Act articles and Annex III categories apply?</li>
+              <li>Have overlapping KVKK obligations been identified?</li>
+            </ul>
+          </div>
+          <div class="step-info-rows">
+            <div class="step-info-row">
+              <div class="step-info-label">EU AI Act</div>
+              <div class="step-info-content">Article 6 and Annex III define high-risk system categories. Article 2 scope definition — provider, deployer, extraterritorial effect — is the starting point for identifying obligations.</div>
+            </div>
+            <div class="step-info-row">
+              <div class="step-info-label">KVKK</div>
+              <div class="step-info-content">KVKK Art. 5–6 data processing conditions overlap with EU AI Act Art. 10 data governance obligations. For Turkish organisations, dual compliance mapping is produced at this stage.</div>
+            </div>
+            <div class="step-info-row">
+              <div class="step-info-label">Hexis</div>
+              <div class="step-info-content">Provider / deployer determination, applicable article list, and KVKK × EU AI Act overlap map.</div>
+            </div>
+          </div>
+          <div class="step-badges">
+            <span class="step-badge">EU AI Act Art. 2, 6</span>
+            <span class="step-badge">Annex III</span>
+            <span class="step-badge">KVKK Art. 5–6</span>
+          </div>
+        </div>
+      </article>
+
+      <!-- ── E: Evaluate ── -->
+      <article class="step-card" id="evaluate">
+        <div class="step-header">
+          <div class="step-glyph">E</div>
+          <div class="step-header-right">
+            <div class="step-label">Stage 4 — Evaluate</div>
+            <h3 class="step-title">Assess Current Controls</h3>
+          </div>
+        </div>
+        <div class="step-body">
+          <p>Obligations are identified; now it is time to compare existing policies, technical measures, and processes against those obligations to identify compliance gaps. The output of the Evaluate stage is not a failure list — it is a clear baseline assessment that feeds prioritisation.</p>
+          <p>This stage is not a "failure test" — it is an opportunity to see the organisation's real position. Identifying gaps now means correcting them before an enforcement process begins.</p>
+          <div class="step-questions">
+            <div class="step-q-label">Key questions</div>
+            <ul>
+              <li>Which obligations do your current controls meet, and which do they not?</li>
+              <li>Has a priority order been established among identified gaps?</li>
+              <li>Does the assessment include an independent review?</li>
+            </ul>
+          </div>
+          <div class="step-info-rows">
+            <div class="step-info-row">
+              <div class="step-info-label">EU AI Act</div>
+              <div class="step-info-content">Article 9 requires continuous evaluation within the risk management system. Article 43 conformity assessment requires the current state to be documented as a precondition.</div>
+            </div>
+            <div class="step-info-row">
+              <div class="step-info-label">KVKK</div>
+              <div class="step-info-content">KVKK Art. 12 technical and administrative measures obligation overlaps with EU AI Act Art. 9 control requirements. A single assessment process can satisfy both obligations.</div>
+            </div>
+            <div class="step-info-row">
+              <div class="step-info-label">Hexis</div>
+              <div class="step-info-content">Compliance gap analysis template, control maturity assessment, and prioritisation matrix.</div>
+            </div>
+          </div>
+          <div class="step-badges">
+            <span class="step-badge">EU AI Act Art. 9, 43</span>
+            <span class="step-badge">ISO 42001 Cl. 8.4</span>
+            <span class="step-badge">KVKK Art. 12</span>
+          </div>
+        </div>
+      </article>
+
+      <!-- ── N: Navigate ── -->
+      <article class="step-card" id="navigate">
+        <div class="step-header">
+          <div class="step-glyph">N</div>
+          <div class="step-header-right">
+            <div class="step-label">Stage 5 — Navigate</div>
+            <h3 class="step-title">Plan Your Compliance Path and Prepare for Deployment</h3>
+          </div>
+        </div>
+        <div class="step-body">
+          <p>Compliance gaps are identified; now it is time to build a prioritised roadmap to close them. The Navigate stage translates findings into action: which step comes first, which resource goes where, which timeline is realistic.</p>
+          <p>But completing the compliance path is not enough. Before a system goes live, readiness must be confirmed across five dimensions: technical, governance, legal, operational, and human oversight. Without this confirmation, a deployment decision cannot be made.</p>
+          <div class="step-questions">
+            <div class="step-q-label">Key questions</div>
+            <ul>
+              <li>Have compliance gaps been listed in priority order?</li>
+              <li>Has technical and governance readiness been confirmed before deployment?</li>
+              <li>Are human oversight mechanisms defined and tested?</li>
+            </ul>
+          </div>
+          <div class="step-info-rows">
+            <div class="step-info-row">
+              <div class="step-info-label">EU AI Act</div>
+              <div class="step-info-content">Articles 9 and 17 — risk management system and quality management system requirements mandate documentation of the compliance process and pre-deployment control mechanisms.</div>
+            </div>
+            <div class="step-info-row">
+              <div class="step-info-label">KVKK</div>
+              <div class="step-info-content">KVKK Art. 12 technical and administrative measures align with the Navigate stage's readiness confirmation process.</div>
+            </div>
+            <div class="step-info-row">
+              <div class="step-info-label">Hexis</div>
+              <div class="step-info-content">Prioritised remediation roadmap, Release Readiness checklist, and responsibility matrix.</div>
+            </div>
+          </div>
+          <div class="step-badges">
+            <span class="step-badge">EU AI Act Art. 9, 17</span>
+            <span class="step-badge">ISO 42001 Cl. 8</span>
+            <span class="step-badge">KVKK Art. 12</span>
+          </div>
+        </div>
+      </article>
+
+      <!-- ── T: Track ── -->
+      <article class="step-card" id="track">
+        <div class="step-header">
+          <div class="step-glyph">T</div>
+          <div class="step-header-right">
+            <div class="step-label">Stage 6 — Track</div>
+            <h3 class="step-title">Monitor Continuously and Adapt</h3>
+          </div>
+        </div>
+        <div class="step-body">
+          <p>AI systems change, regulations evolve, and an organisation's AI use expands. Governance must therefore be a continuously monitored and updated practice, not a structure built once and left in place.</p>
+          <p>The output of the Track stage feeds back into the Observe stage — the cycle closes. This cyclical nature is the defining characteristic that distinguishes ORIENT from linear compliance frameworks.</p>
+          <div class="step-questions">
+            <div class="step-q-label">Key questions</div>
+            <ul>
+              <li>Who monitors the performance and drift risk of your AI systems?</li>
+              <li>How quickly can you detect and implement new regulatory changes?</li>
+              <li>Do you have an annual AI governance review process?</li>
+            </ul>
+          </div>
+          <div class="step-info-rows">
+            <div class="step-info-row">
+              <div class="step-info-label">EU AI Act</div>
+              <div class="step-info-content">Articles 72–73 introduce post-market monitoring and incident reporting obligations. Without a continuous monitoring infrastructure, meeting these obligations becomes reactive and costly.</div>
+            </div>
+            <div class="step-info-row">
+              <div class="step-info-label">KVKK</div>
+              <div class="step-info-content">Periodic compliance review (KVKK Art. 12) and the EU AI Act's continuous monitoring requirements can be combined into a single review cycle.</div>
+            </div>
+            <div class="step-info-row">
+              <div class="step-info-label">Hexis</div>
+              <div class="step-info-content">Periodic AI governance review template, regulatory change tracking, and maturity measurement tool.</div>
+            </div>
+          </div>
+          <div class="step-badges">
+            <span class="step-badge">EU AI Act Art. 72–73</span>
+            <span class="step-badge">ISO 42001 Cl. 9–10</span>
+            <span class="step-badge">KVKK Art. 12</span>
+          </div>
+        </div>
+      </article>
+
+    </div><!-- /.steps-list -->
+  </div>
+</section>
+
+
+<!-- ══ ORIENT SUMMARY ═══════════════════════════════════════ -->
+<section id="summary">
+  <div class="wrap">
+    <div class="sec-head" style="text-align:center;">
+      <div class="sec-label">Overview</div>
+      <h2 class="sec-title">ORIENT — At a Glance</h2>
+      <p class="sec-desc" style="margin-left:auto;margin-right:auto;">Each letter represents a stage; the full framework represents a cycle.</p>
+    </div>
+    <div class="orient-grid">
+      <a href="#observe"   class="orient-block"><div class="ob-letter">O</div><div class="ob-word">Observe</div><div class="ob-desc">Map systems</div></a>
+      <a href="#risk"      class="orient-block"><div class="ob-letter">R</div><div class="ob-word">Risk</div><div class="ob-desc">Classify and assess</div></a>
+      <a href="#identify" class="orient-block"><div class="ob-letter">I</div><div class="ob-word">Identify</div><div class="ob-desc">Map obligations</div></a>
+      <a href="#evaluate"  class="orient-block"><div class="ob-letter">E</div><div class="ob-word">Evaluate</div><div class="ob-desc">Assess controls</div></a>
+      <a href="#navigate"  class="orient-block"><div class="ob-letter">N</div><div class="ob-word">Navigate</div><div class="ob-desc">Plan and deploy</div></a>
+      <a href="#track"     class="orient-block"><div class="ob-letter">T</div><div class="ob-word">Track</div><div class="ob-desc">Monitor and adapt</div></a>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══ FRAMEWORK ALIGNMENT ═══════════════════════════════ -->
+<section id="alignment">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="sec-label">International Alignment</div>
+      <h2 class="sec-title">Why This Sequence?</h2>
+      <p class="sec-desc">ORIENT's six stages are not arbitrary. Every major international AI governance framework follows the same logic: first understand, then measure, then decide, then act, then monitor. ORIENT expresses this shared logic in a single process — practical and accessible for organisations without dedicated AI governance teams.</p>
+    </div>
+    <div class="align-table-wrap">
+      <table class="align-table">
+        <thead>
+          <tr>
+            <th>ORIENT</th>
+            <th>EU AI Act</th>
+            <th>NIST AI RMF</th>
+            <th>ISO/IEC 42001</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Observe</td><td>Art. 9 — risk management system</td><td>Map</td><td>Clause 6.1</td></tr>
+          <tr><td>Risk</td><td>Art. 6 — risk classification</td><td>Measure</td><td>Clause 6.1</td></tr>
+          <tr><td>Identify</td><td>Art. 13, 14, 26 — role-based obligations</td><td>Govern</td><td>Clause 6.2</td></tr>
+          <tr><td>Evaluate</td><td>Art. 27 — fundamental rights impact assessment</td><td>Measure</td><td>Clause 8.4</td></tr>
+          <tr><td>Navigate</td><td>Art. 17 — quality management system</td><td>Manage</td><td>Clause 8</td></tr>
+          <tr><td>Track</td><td>Art. 72 — post-market monitoring</td><td>Manage</td><td>Clause 9–10</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="align-note">ORIENT's Risk and Identify stages evaluate EU AI Act obligations and KVKK (Turkish personal data protection law) requirements in parallel — enabling dual compliance in a single process.</p>
+    <div class="sources-block">
+      <div class="sec-label" style="margin-bottom:12px;">Sources</div>
+      <ul class="sources-list">
+        <li><a href="https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R1689" target="_blank" rel="noopener noreferrer">EU AI Act: Regulation (EU) 2024/1689 — Official Journal, EUR-Lex</a></li>
+        <li><a href="https://nvlpubs.nist.gov/nistpubs/ai/nist.ai.100-1.pdf" target="_blank" rel="noopener noreferrer">NIST AI RMF 1.0: NIST AI 100-1 — January 2023</a></li>
+        <li><a href="https://www.iso.org/standard/42001" target="_blank" rel="noopener noreferrer">ISO/IEC 42001:2023 — December 2023</a></li>
+        <li><a href="https://oecd.ai/en/ai-principles" target="_blank" rel="noopener noreferrer">OECD AI Principles — 2019, updated May 2024</a></li>
+        <li><a href="https://www.kvkk.gov.tr/Icerik/6649/6698-Sayili-Kanun" target="_blank" rel="noopener noreferrer">KVKK: Law No. 6698 on Protection of Personal Data — 7 April 2016</a></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══ CTA ═══════════════════════════════════════════════════ -->
+<section id="cta">
+  <div class="wrap">
+    <h2 class="cta-title">Ready to Start with ORIENT?</h2>
+    <p class="cta-sub">Assess your organisation's AI governance maturity or get in touch.</p>
+    <div class="cta-btns">
+      <a href="../../generator/" class="btn-primary">Free Compliance Assessment →</a>
+      <a href="../../#contact" class="btn-outline">Contact Us</a>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══ FOOTER ═════════════════════════════════════════════════ -->
+<footer>
+  <div class="footer-left">
+    <a href="../../"><img src="../../assets/logo-light.png" alt="Hexis" width="32" height="18"></a>
+    <span class="footer-sep">·</span>
+    <span class="footer-txt">© 2026 Hexis · Built by Özden Coşkun · For informational purposes only; does not constitute legal advice.</span>
+  </div>
+  <div class="footer-links">
+    <a href="./">ORIENT Framework</a>
+    <a href="../../generator/">Generator</a>
+    <a href="../../#contact">Contact</a>
+    <a href="https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R1689" target="_blank" rel="noopener noreferrer">EU AI Act</a>
+    <a href="https://www.linkedin.com/in/ozden-coskun" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+  </div>
+</footer>
+
+<script>
+  function toggleMenu() {
+    document.getElementById('hamburger').classList.toggle('open');
+    document.getElementById('mobileMenu').classList.toggle('open');
+  }
+  function closeMenu() {
+    document.getElementById('hamburger').classList.remove('open');
+    document.getElementById('mobileMenu').classList.remove('open');
+  }
+</script>
+</body>
+</html>
