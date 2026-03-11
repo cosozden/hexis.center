@@ -377,6 +377,50 @@
       .step-info-row { grid-template-columns: 1fr; }
       .step-info-label { border-right: none; border-bottom: 1px solid var(--border); }
     }
+    /* ── alignment table ─────────────────────────────── */
+    .alignment-table-wrap {
+      overflow-x: auto;
+      margin: 40px 0 32px;
+    }
+    .alignment-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+    }
+    .alignment-table th {
+      text-align: left;
+      padding: 10px 16px;
+      font-size: 10px;
+      font-weight: 400;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--text2);
+      border-bottom: 1px solid var(--border2);
+    }
+    .alignment-table td {
+      padding: 12px 16px;
+      border-bottom: 1px solid var(--border);
+      color: var(--text);
+      vertical-align: top;
+    }
+    .alignment-table td:first-child {
+      color: var(--brass);
+      white-space: nowrap;
+    }
+    .alignment-table tr:last-child td {
+      border-bottom: none;
+    }
+    .turkey-note {
+      border-left: 2px solid var(--brass);
+      padding: 16px 20px;
+      margin-top: 8px;
+    }
+    .turkey-note p {
+      font-size: 13px;
+      color: var(--text2);
+      line-height: 1.7;
+      margin: 0;
+    }
   </style>
 </head>
 <body>
@@ -468,6 +512,7 @@
               <li>Şirketinizde kaç AI aracı aktif olarak kullanılıyor?</li>
               <li>Bu araçların hangisi insan kararını etkiliyor?</li>
               <li>Veriler hangi sınırları geçiyor?</li>
+              <li>Sistemin öngörülebilir kötüye kullanım senaryoları tanımlandı mı?</li>
             </ul>
           </div>
           <div class="step-info-rows">
@@ -624,38 +669,38 @@
           <div class="step-glyph">N</div>
           <div class="step-header-right">
             <div class="step-label">Adım 5 — Navigate</div>
-            <h3 class="step-title">Paydaşlarla Yönetin</h3>
+            <h3 class="step-title">Uyum Yolunu Planlayın ve Devreye Almaya Hazırlanın</h3>
           </div>
         </div>
         <div class="step-body">
-          <p>AI yönetişimi yalnızca teknik bir mesele değil, insani ve kurumsal bir meseledir. Yönetim kurulu, çalışanlar, müşteriler, tedarikçiler ve düzenleyicilerle nasıl iletişim kurulacağı, sorumlulukların nasıl dağıtılacağı bu adımda şekillenir.</p>
-          <p>Navigate adımı bulgulardan eyleme geçişin yolunu çizer: organizasyonun olgunluk seviyesine, kaynaklarına ve zaman kısıtlarına göre önceliklendirilmiş bir aksiyon haritası oluşturur. Teknik uyum ile kurumsal kapasite arasındaki dengeyi kurmak Navigate'in özüdür.</p>
+          <p>Uyum açıkları belirlendi; şimdi bunları kapatmak için önceliklendirilmiş bir yol haritası oluşturma zamanı. Navigate aşaması bulguları eyleme dönüştürür: hangi adım önce, hangi kaynak nereye, hangi süreye gerçekçi hedef konur.</p>
+          <p>Ancak uyum yolunu tamamlamak yeterli değil. Sistem devreye alınmadan önce beş boyutta hazırlık teyit edilmesi gerekiyor: teknik, yönetişim, yasal, operasyonel ve insan denetimi. Bu teyit olmadan devreye alma kararı alınamaz.</p>
           <div class="step-questions">
             <div class="step-q-label">Somut sorular</div>
             <ul>
-              <li>AI yönetişiminden kim sorumlu — unvan ve yetki açık mı?</li>
-              <li>Yönetim kurulunuz AI risklerini düzenli olarak değerlendiriyor mu?</li>
-              <li>Tedarikçilerinizden AI şeffaflığı talep ediyor musunuz?</li>
+              <li>Uyum açıkları öncelik sırasına göre listelenmiş mi?</li>
+              <li>Devreye almadan önce teknik ve yönetişim hazırlığı teyit edildi mi?</li>
+              <li>İnsan denetim mekanizmaları tanımlanmış ve test edilmiş mi?</li>
             </ul>
           </div>
           <div class="step-info-rows">
             <div class="step-info-row">
               <div class="step-info-label">AB AI Act</div>
-              <div class="step-info-content">Madde 26-29 sağlayıcı, dağıtıcı ve kullanıcı yükümlülüklerini tanımlar. Sorumlulukların net dağılımı hem uyum hem de hesap verebilirlik için zorunludur.</div>
+              <div class="step-info-content">Madde 9 risk yönetim sistemi ve Madde 17 kalite yönetim sistemi, uyum sürecinin belgelenmesini ve devreye alma öncesi kontrol mekanizmalarını zorunlu kılar.</div>
             </div>
             <div class="step-info-row">
               <div class="step-info-label">KVKK</div>
-              <div class="step-info-content">Kişisel veri işleyen AI sistemlerinde veri sorumlusu yükümlülükleri (KVKK Md. 10) ile AI Act'in şeffaflık bildirimi gereklilikleri, paydaş iletişimi açısından entegre yönetilebilir.</div>
+              <div class="step-info-content">Madde 12 teknik ve idari tedbirler yükümlülüğü; kişisel veri işleyen sistemlerin devreye alınmadan önce veri koruma kontrollerinin tamamlanmasını gerektirir.</div>
             </div>
             <div class="step-info-row">
               <div class="step-info-label">Hexis</div>
-              <div class="step-info-content">AI yönetişim komitesi kurulum rehberi, paydaş iletişim şablonları ve sorumluluk matrisi.</div>
+              <div class="step-info-content">Devreye alma hazırlık kontrol listesi (Release Readiness Checklist): beş boyutta hazırlık teyidi — teknik, yönetişim, yasal, operasyonel, insan denetimi.</div>
             </div>
           </div>
           <div class="step-badges">
-            <span class="step-badge">EU AI Act Md. 26-29</span>
-            <span class="step-badge">ISO 42001 Md. 5</span>
-            <span class="step-badge">KVKK Md. 10</span>
+            <span class="step-badge">EU AI Act Md. 9, 17</span>
+            <span class="step-badge">ISO 42001 Clause 8</span>
+            <span class="step-badge">KVKK Md. 12</span>
           </div>
         </div>
       </article>
@@ -727,44 +772,66 @@
 </section>
 
 
-<!-- ══ FEATURES ══════════════════════════════════════════════ -->
-<section id="features">
+<!-- ══ FRAMEWORK ALIGNMENT ═══════════════════════════════ -->
+<section id="alignment">
   <div class="wrap">
     <div class="sec-head">
-      <div class="sec-label">Farklılaştırıcılar</div>
-      <h2 class="sec-title">ORIENT'i Farklı Kılan Nedir?</h2>
+      <div class="sec-label">Metodolojik Temel</div>
+      <h2 class="sec-title">Neden Bu Sıra?</h2>
+      <p class="sec-desc">ORIENT'in altı aşaması keyfi değil. Uluslararası alanda kabul görmüş çerçevelerin her biri — farklı dille de olsa — aynı mantığı izliyor: önce tanı, sonra ölç, sonra karar ver, sonra uygula, sonra izle. ORIENT bu ortak mantığı tek bir süreçte, KOBİ için uygulanabilir biçimde ifade eder.</p>
     </div>
-    <div class="feat-grid">
-      <div class="feat-card">
-        <div class="feat-icon">🔄</div>
-        <h3>Döngüsel, Doğrusal Değil</h3>
-        <p>Çoğu uyum yaklaşımı doğrusal, bir kez tamamlanıp rafta bırakılıyor. ORIENT bir döngüdür; Track adımı Observe'e geri döner.</p>
-      </div>
-      <div class="feat-card">
-        <div class="feat-icon">🇹🇷</div>
-        <h3>Türkiye'ye Özgü Avantaj</h3>
-        <p>KVKK uyumu ile AB AI Yasası arasındaki kesişim noktaları ORIENT içinde açıkça eşleştirilmiş — çift uyum tek süreçte yönetilebilir.</p>
-      </div>
-      <div class="feat-card">
-        <div class="feat-icon">👥</div>
-        <h3>İnsan Merkezli</h3>
-        <p>Navigate adımı paydaş yönetimini çerçevenin ayrılmaz parçası yapar. AI yönetişimi sadece teknik değil, kurumsal bir meseledir.</p>
-      </div>
-      <div class="feat-card">
-        <div class="feat-icon">📐</div>
-        <h3>Sektörden Bağımsız</h3>
-        <p>Finans, sağlık, üretim veya teknoloji — ORIENT'in yapısı her sektörde aynı, içerik sektöre göre özelleşir.</p>
-      </div>
-      <div class="feat-card">
-        <div class="feat-icon">📋</div>
-        <h3>Standartlarla Uyumlu</h3>
-        <p>Her adım EU AI Act, ISO 42001 ve KVKK maddelerine açıkça bağlanmış — denetimde referans vermek kolaylaşır.</p>
-      </div>
-      <div class="feat-card">
-        <div class="feat-icon">🎯</div>
-        <h3>Uygulanabilir</h3>
-        <p>Her adımın somut çıktıları var: haritalama belgesi, risk değerlendirme raporu, kontrol listesi, kanıt dosyası.</p>
-      </div>
+    <div class="alignment-table-wrap">
+      <table class="alignment-table">
+        <thead>
+          <tr>
+            <th>ORIENT</th>
+            <th>EU AI Act</th>
+            <th>NIST AI RMF</th>
+            <th>ISO/IEC 42001</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Observe</strong></td>
+            <td>Md. 9 — risk yönetim sistemi</td>
+            <td>Map</td>
+            <td>Clause 6.1</td>
+          </tr>
+          <tr>
+            <td><strong>Risk</strong></td>
+            <td>Md. 6 — risk sınıflandırması</td>
+            <td>Measure</td>
+            <td>Clause 6.1</td>
+          </tr>
+          <tr>
+            <td><strong>Identify</strong></td>
+            <td>Md. 13, 14, 26 — rol bazlı yükümlülükler</td>
+            <td>Govern</td>
+            <td>Clause 6.2</td>
+          </tr>
+          <tr>
+            <td><strong>Evaluate</strong></td>
+            <td>Md. 27 — temel haklar etki değerlendirmesi</td>
+            <td>Measure</td>
+            <td>Clause 8.4</td>
+          </tr>
+          <tr>
+            <td><strong>Navigate</strong></td>
+            <td>Md. 17 — kalite yönetim sistemi</td>
+            <td>Manage</td>
+            <td>Clause 8</td>
+          </tr>
+          <tr>
+            <td><strong>Track</strong></td>
+            <td>Md. 72 — piyasa sonrası izleme</td>
+            <td>Manage</td>
+            <td>Clause 9–10</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="turkey-note">
+      <p>Yukarıdaki çerçevelerin hiçbiri şunu yapamıyor: EU AI Act yükümlülüklerini KVKK yükümlülükleriyle aynı anda, aynı süreçte ele almak. EU AI Act risk sınıfının tetiklediği yükümlülükler ile KVKK'nın kişisel veri işlemenin tetiklediği yükümlülükler farklı mantıklarla çalışıyor; biri risk bazlı, diğeri varlık bazlı. ORIENT'in Risk ve Identify aşamaları bu iki mantığı paralel olarak değerlendiriyor.</p>
     </div>
   </div>
 </section>
