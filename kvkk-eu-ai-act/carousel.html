@@ -1,0 +1,1053 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hexis — KVKK × EU AI Act Carousel</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #0A1628;
+    --navy-mid: #0F1F3D;
+    --navy-light: #162847;
+    --blue: #2D6BE4;
+    --blue-light: #4A84F5;
+    --amber: #F59E0B;
+    --amber-dim: #D4860A;
+    --white: #F8F9FC;
+    --grey: #8A9BB8;
+    --grey-light: #C4CEDF;
+    --red-warn: #E05252;
+    --green-ok: #34C48A;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: #1C2E4A;
+    font-family: 'Inter', sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 32px;
+    padding: 40px 20px;
+    min-height: 100vh;
+  }
+
+  .controls {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+  }
+
+  .ctrl-btn {
+    background: var(--navy-light);
+    border: 1px solid rgba(255,255,255,0.1);
+    color: var(--white);
+    padding: 8px 20px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    transition: background 0.2s;
+  }
+  .ctrl-btn:hover { background: var(--blue); }
+
+  .slide-counter {
+    color: var(--grey);
+    font-size: 13px;
+    min-width: 60px;
+    text-align: center;
+  }
+
+  /* SLIDE WRAPPER */
+  .slides-container {
+    position: relative;
+    width: 1080px;
+    height: 1080px;
+  }
+
+  .slide {
+    position: absolute;
+    width: 1080px;
+    height: 1080px;
+    background: var(--navy);
+    border-radius: 4px;
+    overflow: hidden;
+    display: none;
+    flex-direction: column;
+  }
+  .slide.active { display: flex; }
+
+  /* SHARED COMPONENTS */
+  .slide-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 36px 56px 0;
+  }
+
+  .hexis-logo {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: 17px;
+    color: var(--white);
+    letter-spacing: 0.04em;
+    opacity: 0.85;
+  }
+  .hexis-logo span { color: var(--blue); }
+
+  .slide-num {
+    font-size: 12px;
+    color: var(--grey);
+    font-weight: 500;
+    letter-spacing: 0.12em;
+  }
+
+  .orient-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(245,158,11,0.12);
+    border: 1px solid rgba(245,158,11,0.3);
+    color: var(--amber);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    padding: 4px 10px;
+    border-radius: 3px;
+  }
+
+  /* DECORATIVE */
+  .hex-bg {
+    position: absolute;
+    right: -60px;
+    top: -60px;
+    width: 380px;
+    height: 380px;
+    opacity: 0.04;
+  }
+
+  .line-accent {
+    width: 40px;
+    height: 3px;
+    background: var(--blue);
+    border-radius: 2px;
+    margin-bottom: 20px;
+  }
+
+  .divider {
+    width: 100%;
+    height: 1px;
+    background: rgba(255,255,255,0.07);
+    margin: 28px 0;
+  }
+
+  /* ==================== SLIDE 1 — HOOK ==================== */
+  #slide1 {
+    background: var(--navy);
+  }
+
+  #slide1 .content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 0 56px;
+    position: relative;
+    z-index: 2;
+  }
+
+  #slide1 .eyebrow {
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    color: var(--blue-light);
+    text-transform: uppercase;
+    margin-bottom: 28px;
+  }
+
+  #slide1 h1 {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: 72px;
+    line-height: 1.0;
+    color: var(--white);
+    margin-bottom: 32px;
+    letter-spacing: -0.01em;
+  }
+
+  #slide1 h1 em {
+    font-style: normal;
+    color: var(--blue-light);
+  }
+
+  #slide1 .subtitle {
+    font-size: 18px;
+    line-height: 1.6;
+    color: var(--grey-light);
+    max-width: 680px;
+    font-weight: 400;
+  }
+
+  #slide1 .bottom-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 28px 56px;
+    border-top: 1px solid rgba(255,255,255,0.07);
+  }
+
+  #slide1 .tag-row {
+    display: flex;
+    gap: 10px;
+  }
+
+  .tag {
+    background: rgba(45,107,228,0.12);
+    border: 1px solid rgba(45,107,228,0.25);
+    color: var(--blue-light);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    padding: 5px 12px;
+    border-radius: 3px;
+  }
+
+  .tag.amber {
+    background: rgba(245,158,11,0.1);
+    border-color: rgba(245,158,11,0.25);
+    color: var(--amber);
+  }
+
+  #slide1 .swipe-hint {
+    font-size: 12px;
+    color: var(--grey);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  /* Big diagonal number */
+  #slide1 .big-num {
+    position: absolute;
+    right: 40px;
+    bottom: 80px;
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: 280px;
+    line-height: 1;
+    color: rgba(45,107,228,0.06);
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  /* ==================== SLIDE 2 — PROBLEM ==================== */
+  #slide2 .content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 40px 56px 36px;
+  }
+
+  #slide2 h2 {
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 42px;
+    line-height: 1.1;
+    color: var(--white);
+    margin-bottom: 8px;
+  }
+
+  #slide2 .intro {
+    font-size: 16px;
+    color: var(--grey);
+    margin-bottom: 36px;
+    line-height: 1.6;
+  }
+
+  .two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    flex: 1;
+  }
+
+  .law-card {
+    background: var(--navy-light);
+    border-radius: 8px;
+    padding: 28px;
+    position: relative;
+    overflow: hidden;
+    border: 1px solid rgba(255,255,255,0.06);
+  }
+
+  .law-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+  }
+
+  .law-card.kvkk::before { background: var(--amber); }
+  .law-card.eu::before { background: var(--blue); }
+
+  .law-card .law-label {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    margin-bottom: 14px;
+  }
+  .law-card.kvkk .law-label { color: var(--amber); }
+  .law-card.eu .law-label { color: var(--blue-light); }
+
+  .law-card .law-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--white);
+    margin-bottom: 20px;
+    line-height: 1.2;
+  }
+
+  .law-card ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .law-card ul li {
+    font-size: 14px;
+    color: var(--grey-light);
+    line-height: 1.5;
+    padding-left: 16px;
+    position: relative;
+  }
+
+  .law-card.kvkk ul li::before {
+    content: '—';
+    position: absolute;
+    left: 0;
+    color: var(--amber);
+    font-weight: 700;
+  }
+
+  .law-card.eu ul li::before {
+    content: '—';
+    position: absolute;
+    left: 0;
+    color: var(--blue-light);
+    font-weight: 700;
+  }
+
+  .law-card .status-pill {
+    display: inline-block;
+    margin-top: 18px;
+    font-size: 11px;
+    font-weight: 600;
+    padding: 4px 10px;
+    border-radius: 3px;
+  }
+
+  .law-card.kvkk .status-pill {
+    background: rgba(245,158,11,0.15);
+    color: var(--amber);
+  }
+
+  .law-card.eu .status-pill {
+    background: rgba(45,107,228,0.15);
+    color: var(--blue-light);
+  }
+
+  /* ==================== SLIDE 3 — ÖRTÜŞEN ==================== */
+  #slide3 .content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 36px 56px 36px;
+  }
+
+  #slide3 h2 {
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 36px;
+    color: var(--white);
+    margin-bottom: 6px;
+  }
+
+  #slide3 .sub {
+    font-size: 15px;
+    color: var(--grey);
+    margin-bottom: 32px;
+  }
+
+  .overlap-table {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .ot-header {
+    display: grid;
+    grid-template-columns: 220px 1fr 1fr;
+    gap: 2px;
+    margin-bottom: 4px;
+  }
+
+  .ot-header-cell {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 10px 16px;
+    border-radius: 4px 4px 0 0;
+  }
+
+  .ot-header-cell.empty { background: transparent; }
+  .ot-header-cell.kvkk-h {
+    background: rgba(245,158,11,0.12);
+    color: var(--amber);
+    text-align: center;
+  }
+  .ot-header-cell.eu-h {
+    background: rgba(45,107,228,0.12);
+    color: var(--blue-light);
+    text-align: center;
+  }
+
+  .ot-row {
+    display: grid;
+    grid-template-columns: 220px 1fr 1fr;
+    gap: 2px;
+  }
+
+  .ot-cell {
+    padding: 14px 16px;
+    font-size: 13.5px;
+    line-height: 1.45;
+  }
+
+  .ot-cell.area {
+    background: rgba(255,255,255,0.04);
+    color: var(--white);
+    font-weight: 600;
+    border-radius: 4px 0 0 4px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .ot-cell.area .area-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--blue);
+    flex-shrink: 0;
+  }
+
+  .ot-cell.kvkk-c {
+    background: rgba(245,158,11,0.07);
+    color: var(--grey-light);
+  }
+
+  .ot-cell.eu-c {
+    background: rgba(45,107,228,0.07);
+    color: var(--grey-light);
+    border-radius: 0 4px 4px 0;
+  }
+
+  .ot-cell .md-ref {
+    display: block;
+    font-size: 11px;
+    font-weight: 600;
+    margin-bottom: 3px;
+    opacity: 0.6;
+  }
+
+  .overlap-note {
+    margin-top: 18px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 13px;
+    color: var(--grey);
+  }
+
+  .overlap-note::before {
+    content: '';
+    width: 24px;
+    height: 1px;
+    background: var(--green-ok);
+    flex-shrink: 0;
+  }
+
+  /* ==================== SLIDE 4 — GERİLİM ==================== */
+  #slide4 .content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 36px 56px 36px;
+  }
+
+  #slide4 h2 {
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 36px;
+    color: var(--white);
+    margin-bottom: 6px;
+  }
+
+  #slide4 .sub {
+    font-size: 15px;
+    color: var(--grey);
+    margin-bottom: 30px;
+  }
+
+  .tension-list {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    flex: 1;
+  }
+
+  .tension-card {
+    background: var(--navy-light);
+    border-radius: 8px;
+    padding: 20px 24px;
+    display: grid;
+    grid-template-columns: 3fr 3fr 2fr;
+    gap: 20px;
+    align-items: start;
+    border: 1px solid rgba(255,255,255,0.05);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .tension-card::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 3px;
+    background: var(--red-warn);
+    border-radius: 3px 0 0 3px;
+  }
+
+  .tc-label {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+    opacity: 0.6;
+  }
+
+  .tc-kvkk .tc-label { color: var(--amber); }
+  .tc-eu .tc-label { color: var(--blue-light); }
+
+  .tc-body {
+    font-size: 13px;
+    color: var(--grey-light);
+    line-height: 1.5;
+  }
+
+  .tc-risk {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 6px;
+  }
+
+  .risk-chip {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    padding: 4px 10px;
+    border-radius: 3px;
+    white-space: nowrap;
+  }
+
+  .risk-chip.high {
+    background: rgba(224,82,82,0.15);
+    color: var(--red-warn);
+    border: 1px solid rgba(224,82,82,0.25);
+  }
+
+  .risk-chip.med {
+    background: rgba(245,158,11,0.15);
+    color: var(--amber);
+    border: 1px solid rgba(245,158,11,0.25);
+  }
+
+  .tc-topic {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    color: var(--white);
+    text-transform: uppercase;
+    text-align: right;
+    opacity: 0.5;
+    line-height: 1.4;
+  }
+
+  .tension-footer {
+    margin-top: 16px;
+    font-size: 13px;
+    color: var(--grey);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .tension-footer::before {
+    content: '⚠';
+    font-size: 14px;
+    color: var(--red-warn);
+    opacity: 0.7;
+  }
+
+  /* ==================== SLIDE 5 — CTA ==================== */
+  #slide5 {
+    position: relative;
+    overflow: hidden;
+  }
+
+  #slide5::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse 80% 80% at 80% 60%, rgba(45,107,228,0.12) 0%, transparent 60%);
+    pointer-events: none;
+  }
+
+  #slide5 .content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 0 56px;
+    position: relative;
+    z-index: 2;
+  }
+
+  #slide5 .eyebrow {
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    color: var(--blue-light);
+    text-transform: uppercase;
+    margin-bottom: 24px;
+  }
+
+  #slide5 h2 {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: 54px;
+    line-height: 1.05;
+    color: var(--white);
+    margin-bottom: 28px;
+  }
+
+  #slide5 h2 span { color: var(--blue-light); }
+
+  .orient-row {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 36px;
+  }
+
+  .orient-letter {
+    width: 52px;
+    height: 52px;
+    border-radius: 6px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid rgba(255,255,255,0.1);
+  }
+
+  .orient-letter .letter {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: 22px;
+    line-height: 1;
+  }
+
+  .orient-letter .word {
+    font-size: 7px;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    opacity: 0.5;
+    text-transform: uppercase;
+    margin-top: 1px;
+  }
+
+  .orient-letter.active {
+    background: rgba(45,107,228,0.15);
+    border-color: rgba(45,107,228,0.4);
+  }
+
+  .orient-letter.active .letter { color: var(--blue-light); }
+  .orient-letter.active .word { color: var(--blue-light); opacity: 0.7; }
+  .orient-letter:not(.active) .letter { color: var(--grey); }
+
+  .cta-block {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .cta-line {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 15px;
+    color: var(--grey-light);
+    line-height: 1.5;
+  }
+
+  .cta-line::before {
+    content: '→';
+    color: var(--blue-light);
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+
+  #slide5 .bottom-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 28px 56px;
+    border-top: 1px solid rgba(255,255,255,0.07);
+    position: relative;
+    z-index: 2;
+  }
+
+  .url-display {
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 20px;
+    color: var(--white);
+    letter-spacing: 0.02em;
+  }
+
+  .url-display span { color: var(--blue-light); }
+
+  .tag-cluster {
+    display: flex;
+    gap: 8px;
+  }
+
+  /* Navigation dots */
+  .nav-dots {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+  }
+
+  .dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.15);
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .dot.active {
+    background: var(--blue);
+    width: 24px;
+    border-radius: 4px;
+  }
+
+  /* Scale for display */
+  @media (max-width: 1140px) {
+    .slides-container {
+      width: 720px;
+      height: 720px;
+      transform: scale(0.667);
+      transform-origin: top center;
+      margin-bottom: -240px;
+    }
+  }
+
+  @media (max-width: 760px) {
+    .slides-container {
+      width: 1080px;
+      height: 1080px;
+      transform: scale(0.34);
+      transform-origin: top center;
+      margin-bottom: -712px;
+    }
+  }
+</style>
+</head>
+<body>
+
+<!-- CONTROLS -->
+<div class="controls">
+  <button class="ctrl-btn" onclick="prevSlide()">← Önceki</button>
+  <div class="nav-dots" id="dots"></div>
+  <button class="ctrl-btn" onclick="nextSlide()">Sonraki →</button>
+</div>
+<div class="slide-counter" id="counter">1 / 5</div>
+
+<div class="slides-container">
+
+  <!-- ===== SLIDE 1 ===== -->
+  <div class="slide active" id="slide1">
+    <div class="slide-header">
+      <div class="hexis-logo">hexis<span>.</span></div>
+      <div class="slide-num">01 / 05</div>
+    </div>
+
+    <div class="content">
+      <div class="eyebrow">AI Yönetişimi · Türkiye</div>
+      <h1>İki<br>Çerçeve.<br>Bir <em>Sistem.</em></h1>
+      <p class="subtitle">Türkiye'de yapay zeka sistemi çalıştırmak, KVKK ve EU AI Act'i aynı anda karşılamayı gerektiriyor. Örtüşen yükümlülükler, ama kritik gerilim noktaları da var.</p>
+    </div>
+
+    <div class="big-num">2</div>
+
+    <div class="bottom-bar">
+      <div class="tag-row">
+        <span class="tag">KVKK</span>
+        <span class="tag">EU AI Act</span>
+        <span class="tag amber">● ORIENT: Identify</span>
+      </div>
+      <div class="swipe-hint">Kaydırın →</div>
+    </div>
+  </div>
+
+  <!-- ===== SLIDE 2 ===== -->
+  <div class="slide" id="slide2">
+    <div class="slide-header">
+      <div class="hexis-logo">hexis<span>.</span></div>
+      <div class="slide-num">02 / 05</div>
+    </div>
+
+    <div class="content">
+      <div class="line-accent"></div>
+      <h2>Her ikisi de yürürlükte.<br>Öncelikleri farklı.</h2>
+      <p class="intro">Aynı AI sistemine iki ayrı hukuki perspektiften bakıyorlar.</p>
+
+      <div class="two-col">
+        <div class="law-card kvkk">
+          <div class="law-label">KVKK — 6698</div>
+          <div class="law-title">Kişisel verinin korunması</div>
+          <ul>
+            <li>Kişisel veri işleme şartları</li>
+            <li>Özel nitelikli veri koruması</li>
+            <li>Aydınlatma yükümlülüğü</li>
+            <li>VERBİS kaydı</li>
+            <li>Yurt dışı aktarım kısıtı</li>
+          </ul>
+          <span class="status-pill">Bugün yürürlükte</span>
+        </div>
+
+        <div class="law-card eu">
+          <div class="law-label">EU AI Act — 2024/1689</div>
+          <div class="law-title">AI sisteminin yönetişimi</div>
+          <ul>
+            <li>Risk sınıflandırması</li>
+            <li>İnsan gözetimi</li>
+            <li>Kalite yönetim sistemi</li>
+            <li>Piyasa sonrası izleme</li>
+            <li>Şeffaflık zinciri</li>
+          </ul>
+          <span class="status-pill">Yüksek risk: Ağustos 2026</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== SLIDE 3 ===== -->
+  <div class="slide" id="slide3">
+    <div class="slide-header">
+      <div class="hexis-logo">hexis<span>.</span></div>
+      <div class="slide-num">03 / 05</div>
+    </div>
+
+    <div class="content">
+      <div class="line-accent"></div>
+      <h2>Örtüşen yükümlülükler</h2>
+      <p class="sub">Her ikisi de istiyor — ama gerekçe ve uygulama kapsamı farklı.</p>
+
+      <div class="overlap-table">
+        <div class="ot-header">
+          <div class="ot-header-cell empty"></div>
+          <div class="ot-header-cell kvkk-h">KVKK</div>
+          <div class="ot-header-cell eu-h">EU AI Act</div>
+        </div>
+
+        <div class="ot-row">
+          <div class="ot-cell area"><span class="area-dot"></span>Hukuki dayanak</div>
+          <div class="ot-cell kvkk-c"><span class="md-ref">Md. 5</span>Açık rıza veya yasal dayanak zorunlu</div>
+          <div class="ot-cell eu-c"><span class="md-ref">Md. 10</span>Veri yönetimi mevcut hukuka uygun olmalı</div>
+        </div>
+
+        <div class="ot-row">
+          <div class="ot-cell area"><span class="area-dot"></span>Veri minimizasyonu</div>
+          <div class="ot-cell kvkk-c"><span class="md-ref">Md. 4(2)(ç)</span>Sınırlı, ölçülü, amaca bağlı</div>
+          <div class="ot-cell eu-c"><span class="md-ref">Md. 10(2)</span>Eğitim verisi amaca bağlı ve temsili olmalı</div>
+        </div>
+
+        <div class="ot-row">
+          <div class="ot-cell area"><span class="area-dot"></span>Özel kategori veri</div>
+          <div class="ot-cell kvkk-c"><span class="md-ref">Md. 6</span>İşleme yasak; istisnalar dar ve kanuni</div>
+          <div class="ot-cell eu-c"><span class="md-ref">Md. 10(5)</span>Bias tespitinde koşullu işleme izni</div>
+        </div>
+
+        <div class="ot-row">
+          <div class="ot-cell area"><span class="area-dot"></span>Güvenlik tedbirleri</div>
+          <div class="ot-cell kvkk-c"><span class="md-ref">Md. 12</span>Teknik ve idari tedbirler zorunlu</div>
+          <div class="ot-cell eu-c"><span class="md-ref">Md. 15</span>Doğruluk, sağlamlık, siber güvenlik</div>
+        </div>
+      </div>
+
+      <div class="overlap-note">Her iki çerçeve aynı anda karşılanmalı — biri diğerini otomatik kapsamıyor.</div>
+    </div>
+  </div>
+
+  <!-- ===== SLIDE 4 ===== -->
+  <div class="slide" id="slide4">
+    <div class="slide-header">
+      <div class="hexis-logo">hexis<span>.</span></div>
+      <div class="slide-num">04 / 05</div>
+    </div>
+
+    <div class="content">
+      <div class="line-accent" style="background: var(--red-warn);"></div>
+      <h2>Gerilim noktaları</h2>
+      <p class="sub">Teorik çelişki yok — pratik uyum karmaşık. Bu üç alan yönetilmeli.</p>
+
+      <div class="tension-list">
+
+        <div class="tension-card">
+          <div class="tc-kvkk">
+            <div class="tc-label">KVKK Md. 6</div>
+            <div class="tc-body">Yasal dayanak seçenekleri AI bias tespitini doğrudan kapsamıyor.</div>
+          </div>
+          <div class="tc-eu">
+            <div class="tc-label">EU AI Act Md. 10(5)</div>
+            <div class="tc-body">Bias tespiti için ırk/etnik veri işlenmesine koşullu izin veriyor.</div>
+          </div>
+          <div class="tc-risk">
+            <span class="risk-chip high">Yüksek Risk</span>
+            <span class="tc-topic">Bias<br>Tespiti</span>
+          </div>
+        </div>
+
+        <div class="tension-card">
+          <div class="tc-kvkk">
+            <div class="tc-label">KVKK Md. 4(2)(d) + Md. 7</div>
+            <div class="tc-body">Amaç ortadan kalktığında veri silinmeli; saklama süresi amaçla sınırlı.</div>
+          </div>
+          <div class="tc-eu">
+            <div class="tc-label">EU AI Act Md. 26(6)</div>
+            <div class="tc-body"><em>Deployer</em> otomatik log'ları en az 6 ay saklamak zorunda.</div>
+          </div>
+          <div class="tc-risk">
+            <span class="risk-chip med">Orta Risk</span>
+            <span class="tc-topic">Log<br>Saklama</span>
+          </div>
+        </div>
+
+        <div class="tension-card">
+          <div class="tc-kvkk">
+            <div class="tc-label">KVKK Md. 10</div>
+            <div class="tc-body">Şeffaflık yükümlülüğü doğrudan bireye yönelik — veri sorumlusu aydınlatır.</div>
+          </div>
+          <div class="tc-eu">
+            <div class="tc-label">EU AI Act Md. 13 + 86</div>
+            <div class="tc-body"><em>Provider</em> → <em>Deployer</em> → Birey zinciri. <em>Provider</em> bilgi vermezse zincir kırılır.</div>
+          </div>
+          <div class="tc-risk">
+            <span class="risk-chip med">Orta Risk</span>
+            <span class="tc-topic">Şeffaflık<br>Zinciri</span>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="tension-footer">Bu gerilimler uyumsuzluk değil — yönetilmesi gereken kesişimler.</div>
+    </div>
+  </div>
+
+  <!-- ===== SLIDE 5 ===== -->
+  <div class="slide" id="slide5">
+    <div class="slide-header">
+      <div class="hexis-logo">hexis<span>.</span></div>
+      <div class="slide-num">05 / 05</div>
+    </div>
+
+    <div class="content">
+      <div class="eyebrow">ORIENT — Identify Aşaması</div>
+      <h2>Yükümlülükleri<br>haritalandırmak<br><span>buradan başlıyor.</span></h2>
+
+      <div class="orient-row">
+        <div class="orient-letter"><span class="letter" style="color:var(--grey)">O</span><span class="word">Observe</span></div>
+        <div class="orient-letter"><span class="letter" style="color:var(--grey)">R</span><span class="word">Risk</span></div>
+        <div class="orient-letter active"><span class="letter">I</span><span class="word">Identify</span></div>
+        <div class="orient-letter"><span class="letter" style="color:var(--grey)">E</span><span class="word">Evaluate</span></div>
+        <div class="orient-letter"><span class="letter" style="color:var(--grey)">N</span><span class="word">Navigate</span></div>
+        <div class="orient-letter"><span class="letter" style="color:var(--grey)">T</span><span class="word">Track</span></div>
+      </div>
+
+      <div class="cta-block">
+        <div class="cta-line">AI sisteminizin hangi maddeleri tetiklediğini belirleyin</div>
+        <div class="cta-line">KVKK × EU AI Act gerilim noktalarını önce görün</div>
+        <div class="cta-line">Ücretsiz değerlendirme aracı hexis.center'da</div>
+      </div>
+    </div>
+
+    <div class="bottom-bar">
+      <div class="url-display">hexis<span>.</span>center</div>
+      <div class="tag-cluster">
+        <span class="tag">AI Yönetişimi</span>
+        <span class="tag">KVKK</span>
+        <span class="tag">EU AI Act</span>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /slides-container -->
+
+<script>
+  let current = 0;
+  const slides = document.querySelectorAll('.slide');
+  const total = slides.length;
+  const dotsContainer = document.getElementById('dots');
+  const counter = document.getElementById('counter');
+
+  // Build dots
+  slides.forEach((_, i) => {
+    const d = document.createElement('div');
+    d.className = 'dot' + (i === 0 ? ' active' : '');
+    d.onclick = () => goTo(i);
+    dotsContainer.appendChild(d);
+  });
+
+  function goTo(n) {
+    slides[current].classList.remove('active');
+    dotsContainer.children[current].classList.remove('active');
+    current = (n + total) % total;
+    slides[current].classList.add('active');
+    dotsContainer.children[current].classList.add('active');
+    counter.textContent = (current + 1) + ' / ' + total;
+  }
+
+  function nextSlide() { goTo(current + 1); }
+  function prevSlide() { goTo(current - 1); }
+
+  document.addEventListener('keydown', e => {
+    if (e.key === 'ArrowRight') nextSlide();
+    if (e.key === 'ArrowLeft') prevSlide();
+  });
+</script>
+</body>
+</html>
