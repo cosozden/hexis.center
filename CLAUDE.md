@@ -261,6 +261,21 @@ The HEXIS ecosystem has two repos that share classification logic:
 
 *Section numbers in respective CLAUDE.md files.
 
+### hexis.center Live Tools
+| File | Tool | ORIENT Stage |
+|------|------|-------------|
+| `generator/index.html` | Observe form + Risk Classifier (Steps 1–6) + Governance Activation Matrix | Observe → Risk |
+| `checklist/index.html` | EU AI Act compliance checklist | Identify → Evaluate |
+| `fria/index.html` | FRIA (Fundamental Rights Impact Assessment) | Evaluate |
+| `eu-ai-act-checklist.html` | Standalone EU AI Act checklist | Identify |
+
+### hexis.center Pending Tools (backlog)
+- AI Impact Assessment Template → Evaluate
+- Vendor/Supplier AI Assessment Framework → Risk
+- Governance Activation Blueprint (Annex IV technical docs) → Evaluate/Navigate
+- Release Readiness Checklist (5 dimensions) → Navigate
+- AI Governance Summary Report PDF → all stages
+
 ---
 
 ## 9. EU AI Act Reference Standards
@@ -350,4 +365,6 @@ At the beginning of each Claude Code session:
 3. ✅ Verify ORIENT terminology is v0.2.1 (Navigate, not Normalize)
 4. ✅ Check which theme applies (light = generator/methodology, dark = homepage/checklist/blog)
 5. ✅ Confirm Web Palette is being used (never Plugin Palette on this site)
-6. ✅ Ask if there are new decisions from claude.ai sessions to incorporate
+6. ✅ Ask if there are new decisions from claude.ai chat sessions to incorporate
+   - Trigger phrase from chat: "Oturumu kapat" → decisions summarized + memory updated
+   - Session open template: "Oturum: [topic] / Durum: [where we left off] / Hedef: [goal]"
