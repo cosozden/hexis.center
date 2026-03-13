@@ -5,6 +5,7 @@ Markdown draft → blog HTML page + homepage card injection.
 
 Usage:
     python tools/blog-converter.py blog/_drafts/yazi-adi.md
+    python tools/blog-converter.py blog/_drafts/yazi-adi.md --linkedin
 """
 
 import sys
@@ -480,15 +481,96 @@ def inject_homepage_card(index_path, meta):
 
 
 # ──────────────────────────────────────────────
+# LINKEDIN DRAFT GENERATOR
+# ──────────────────────────────────────────────
+
+def generate_linkedin_draft(meta, body):
+    """
+    Generate a LinkedIn post draft from blog metadata and body.
+
+    Structure:
+      - Hook (first paragraph of body)
+      - Bridge sentence
+      - 3-5 key points extracted from body (H2 headings or first sentences)
+      - CTA with blog URL
+      - Hashtags
+    """
+    title = meta["title"]
+    slug = meta["slug"]
+    category = meta.get("category", "")
+    orient_stage = meta.get("orient_stage", "")
+    blog_url = f"https://hexis.center/blog/{slug}/"
+
+    # Extract hook: first non-empty paragraph from body
+    hook = ""
+    for line in body.strip().splitlines():
+        stripped = line.strip()
+        if stripped and not stripped.startswith("#") and not stripped.startswith("-"):
+            hook = stripped
+            break
+
+    # Extract key points: H2 headings (up to 5)
+    headings = re.findall(r"^##\s+(.+)$", body, re.MULTILINE)
+    key_points = headings[:5]
+
+    # Build ORIENT badge if available
+    orient_badge = ""
+    if orient_stage and orient_stage != "—":
+        orient_badge = f"📍 ORIENT: {orient_stage}\n\n"
+
+    # Build key points block
+    points_block = ""
+    if key_points:
+        points_lines = "\n".join(f"→ {p}" for p in key_points)
+        points_block = f"{points_lines}\n\n"
+
+    # Hashtags based on category
+    base_tags = "#AIYönetişimi #Hexis"
+    category_tags = {
+        "EU AI Act": "#EUAIAct #AIAct",
+        "KVKK": "#KVKK #VeriKoruma",
+        "ISO 42001": "#ISO42001 #AIGovernance",
+        "ORIENT": "#ORIENTFramework #AIGovernance",
+    }
+    extra_tags = category_tags.get(category, "#AIGovernance")
+    hashtags = f"{base_tags} {extra_tags}"
+
+    draft = (
+        f"{hook}\n\n"
+        f"{orient_badge}"
+        f"Bu yazıda:\n\n"
+        f"{points_block}"
+        f"Tam yazı → {blog_url}\n\n"
+        f"Kaydedin — sonra işinize yarayacak.\n\n"
+        f"{hashtags}"
+    )
+
+    return draft
+
+
+def write_linkedin_draft(repo_root, meta, draft_text):
+    """Write LinkedIn draft to blog/_linkedin/[slug].txt"""
+    slug = meta["slug"]
+    linkedin_dir = os.path.join(repo_root, "blog", "_linkedin")
+    os.makedirs(linkedin_dir, exist_ok=True)
+    out_path = os.path.join(linkedin_dir, f"{slug}.txt")
+    with open(out_path, "w", encoding="utf-8") as f:
+        f.write(draft_text)
+    return out_path
+
+
+# ──────────────────────────────────────────────
 # MAIN
 # ──────────────────────────────────────────────
 
 def main():
     if len(sys.argv) < 2:
-        print("Kullanım: python tools/blog-converter.py blog/_drafts/yazi-adi.md")
+        print("Kullanım: python tools/blog-converter.py blog/_drafts/yazi-adi.md [--linkedin]")
         sys.exit(1)
 
     draft_path = sys.argv[1]
+    linkedin_flag = "--linkedin" in sys.argv
+
     if not os.path.isfile(draft_path):
         print(f"HATA: Dosya bulunamadı: {draft_path}")
         sys.exit(1)
@@ -538,6 +620,18 @@ def main():
         print("✅ Homepage güncellendi: yeni kart eklendi")
     else:
         print("❌ Homepage güncellenemedi")
+
+    # LinkedIn draft (optional)
+    if linkedin_flag:
+        print()
+        draft_text = generate_linkedin_draft(meta, body)
+        li_path = write_linkedin_draft(repo_root, meta, draft_text)
+        rel_path = os.path.relpath(li_path, repo_root)
+        print(f"✅ LinkedIn taslağı: {rel_path}")
+        print()
+        print("─── LinkedIn Taslağı Önizleme ───")
+        print(draft_text)
+        print("─────────────────────────────────")
 
     # Warnings summary
     if warnings:
