@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>KVKK Yapay Zekâ Uyum Değerlendirmesi | Hexis</title>
+<meta name="description" content="Şirketinizin yapay zekâ kullanımının KVKK yükümlülüklerine uygunluğunu değerlendirin. 23 soruluk yapılandırılmış değerlendirme aracı.">
+<link rel="icon" href="/assets/favicon.ico">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+<style>
+/* BRAND TOKENS */
+:root{
+  --dark-bg:   #16181C;
+  --charcoal:  #1C1E23;
+  --brass:     #B2986C;
+  --stone:     #686662;
+  --paper:     #F8F7F5;
+  --dark-type: #E8E6E2;
+  --dark-sub:  #8A8884;
+  --border:    rgba(232,230,226,0.10);
+  --border2:   rgba(232,230,226,0.18);
+  --card:      rgba(232,230,226,0.04);
+  --card2:     rgba(232,230,226,0.07);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:Arial,sans-serif;background:var(--dark-bg);color:var(--dark-type);min-height:100vh;overflow-x:hidden}
+
+/* NAV */
+nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:0 40px;height:56px;background:var(--dark-bg);border-bottom:1px solid var(--border)}
+.nav-logo{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--dark-type);flex-shrink:0}
+.nav-logo img{display:block;height:36px;width:auto}
+.nav-links{display:flex;gap:4px;align-items:center}
+.nav-links a{color:var(--stone);text-decoration:none;font-size:12px;font-weight:400;padding:5px 11px;transition:color .15s;letter-spacing:.04em;font-family:Arial,sans-serif}
+.nav-links a:hover{color:var(--dark-type)}
+.nav-cta{color:var(--dark-type)!important;border:1px solid var(--border2);padding:5px 14px!important;transition:border-color .15s!important}
+.nav-cta:hover{border-color:rgba(232,230,226,.35)!important}
+
+/* HAMBURGER */
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:4px;z-index:200}
+.hamburger span{width:22px;height:1px;background:var(--dark-sub);transition:all .3s}
+.hamburger.open span:nth-child(1){transform:translateY(6px) rotate(45deg)}
+.hamburger.open span:nth-child(2){opacity:0}
+.hamburger.open span:nth-child(3){transform:translateY(-6px) rotate(-45deg)}
+.mobile-menu{display:none;position:fixed;top:56px;left:0;right:0;background:var(--dark-bg);border-bottom:1px solid var(--border);padding:12px 20px 20px;flex-direction:column;gap:0;z-index:99}
+.mobile-menu.open{display:flex}
+.mobile-menu a{color:var(--stone);text-decoration:none;font-size:13px;font-weight:400;padding:11px 4px;border-bottom:1px solid var(--border);transition:color .15s;font-family:Arial,sans-serif}
+.mobile-menu a:last-child{border-bottom:none}
+.mobile-menu a:hover{color:var(--dark-type)}
+
+/* SECTION */
+.section-inner{max-width:900px;margin:0 auto;padding:0 40px}
+
+/* HERO */
+.hero{padding:80px 0 56px;text-align:center}
+.hero h1{font-family:Georgia,serif;font-size:clamp(24px,4vw,36px);font-weight:700;letter-spacing:-.3px;line-height:1.2;margin-bottom:16px;color:var(--dark-type)}
+.hero p{font-size:14px;color:var(--dark-sub);line-height:1.75;max-width:560px;margin:0 auto;font-family:Arial,sans-serif}
+
+/* CONTENT */
+.content{padding:0 0 56px}
+.content h2{font-family:Georgia,serif;font-size:clamp(18px,2.5vw,24px);font-weight:700;letter-spacing:-.2px;line-height:1.2;margin-bottom:14px;color:var(--dark-type);margin-top:28px}
+.content h2:first-child{margin-top:0}
+.content p{font-size:13px;color:var(--dark-sub);line-height:1.8;margin-bottom:16px;font-family:Arial,sans-serif}
+.content ul{margin:0 0 20px 20px;display:flex;flex-direction:column;gap:8px}
+.content li{font-size:13px;color:var(--dark-sub);line-height:1.7;font-family:Arial,sans-serif}
+
+/* DISCLAIMER */
+.disclaimer{border-left:2px solid var(--brass);padding:14px 18px;margin:24px 0;font-size:12px;color:var(--dark-sub);line-height:1.7;font-family:Arial,sans-serif}
+
+/* DIVIDER */
+.divider{border:none;border-top:1px solid var(--border);margin:0}
+
+/* CTA */
+.cta-actions{display:flex;gap:14px;align-items:center;flex-wrap:wrap;padding:32px 0 0}
+.btn-primary{background:var(--dark-type);color:var(--charcoal);padding:12px 24px;font-weight:700;font-size:12px;border:none;cursor:pointer;transition:opacity .15s;font-family:Arial,sans-serif;text-decoration:none;display:inline-flex;align-items:center;letter-spacing:.04em}
+.btn-primary:hover{opacity:.88}
+.link-secondary{font-size:12px;color:var(--stone);text-decoration:underline;text-underline-offset:3px;font-family:Arial,sans-serif;transition:color .15s}
+.link-secondary:hover{color:var(--dark-sub)}
+
+/* FOOTER */
+footer{border-top:1px solid var(--border);padding:20px 40px;font-family:Arial,sans-serif;font-size:10px;color:var(--stone);line-height:1.6}
+.footer-links{margin-bottom:8px}
+.footer-links a{color:var(--stone);text-decoration:none;transition:color .15s}
+.footer-links a:hover{color:var(--dark-sub)}
+footer p{margin:0}
+footer p a{color:var(--stone);text-decoration:none;transition:color .15s}
+footer p a:hover{color:var(--dark-sub)}
+
+/* RESPONSIVE */
+@media(max-width:768px){
+  nav{padding:0 20px}
+  .nav-links{display:none}
+  .hamburger{display:flex}
+  .section-inner{padding:0 20px}
+  .hero{padding:56px 0 40px}
+  footer{padding:20px}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="/" class="nav-logo">
+    <img src="/assets/logo-light.png" alt="Hexis" width="72" height="36">
+  </a>
+  <div class="nav-links">
+    <a href="/eu-ai-act-checklist">EU AI Act Checklist</a>
+    <a href="/generator/">Risk Matrisi</a>
+    <a href="/metodoloji/">Metodoloji</a>
+    <a href="https://www.linkedin.com/in/ozden-coskun-8728a1301" target="_blank" class="nav-cta" rel="noopener noreferrer">LinkedIn</a>
+  </div>
+  <button class="hamburger" id="hamburger" onclick="toggleMenu()" aria-label="Menü">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<div class="mobile-menu" id="mobileMenu">
+  <a href="/eu-ai-act-checklist" onclick="closeMenu()">EU AI Act Checklist</a>
+  <a href="/generator/" onclick="closeMenu()">Risk Matrisi</a>
+  <a href="/metodoloji/" onclick="closeMenu()">Metodoloji</a>
+  <a href="https://www.linkedin.com/in/ozden-coskun-8728a1301" target="_blank" rel="noopener noreferrer" onclick="closeMenu()">LinkedIn</a>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="section-inner">
+    <h1>KVKK &#215; Yapay Zekâ Uyum Değerlendirmesi</h1>
+    <p>Şirketinizin yapay zekâ kullanımının KVKK yükümlülüklerine uygunluğunu değerlendirin.</p>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- CONTENT -->
+<section class="content">
+  <div class="section-inner">
+
+    <h2>Bu değerlendirme ne işe yarar?</h2>
+    <p>Türkiye'de faaliyet gösteren şirketler, yapay zekâ araçlarını iş süreçlerinde kullandıklarında 6698 sayılı Kişisel Verilerin Korunması Kanunu kapsamındaki yükümlülükleri devreye girer. Bu değerlendirme, şirketinizin mevcut durumunu yapılandırılmış sorularla görünür kılar ve öncelikli adımları belirler.</p>
+
+    <h2>Hangi yasal düzenlemeler referans alındı?</h2>
+    <ul>
+      <li>6698 Sayılı Kişisel Verilerin Korunması Kanunu (son değişiklik: 1 Haziran 2024)</li>
+      <li>KVKK: Yapay Zekâ Alanında Kişisel Verilerin Korunmasına Dair Tavsiyeler (Eylül 2021)</li>
+      <li>KVKK: Sohbet Robotları Hakkında Bilgi Notu (Kasım 2024)</li>
+      <li>KVKK: Üretken Yapay Zekâ ve Kişisel Verilerin Korunması Rehberi (Kasım 2025)</li>
+      <li>KVKK: Etken Yapay Zekâ (Agentic AI) Rehberi (Şubat 2026)</li>
+      <li>KVKK: İş Yerlerinde Üretken Yapay Zekâ Araçlarının Kullanımı (Mart 2026)</li>
+    </ul>
+
+    <h2>Değerlendirme hakkında</h2>
+    <p>Bu değerlendirme 23 sorudan oluşuyor, yaklaşık 10-15 dakika sürer. Yanıtlarınız blok bazında bir uyum profili üretir; kritik açıklar ve öncelikli eylem adımları raporlanır. Değerlendirme sonunda şirket adınızı ve e-posta adresinizi girerek kişiselleştirilmiş PDF raporunuzu indirebilirsiniz.</p>
+
+    <div class="disclaimer">Bu değerlendirme KVKK uyum sürecinizi yapılandırmanıza yardımcı olmak amacıyla tasarlanmıştır. Hukuki tavsiye niteliği taşımaz.</div>
+
+    <hr class="divider">
+
+    <!-- CTA -->
+    <div class="cta-actions">
+      <a href="#checklist" class="btn-primary">Değerlendirmeyi Başlat →</a>
+      <a href="/eu-ai-act-checklist" class="link-secondary">EU AI Act kapsamında değerlendirme →</a>
+    </div>
+
+    <!-- placeholder for future checklist -->
+    <div id="checklist"></div>
+
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-links">
+    Resmi Kaynaklar:
+    <a href="https://digital-strategy.ec.europa.eu/en/policies/regulatory-framework-ai" target="_blank" rel="noopener noreferrer">EU AI Act (Avrupa Komisyonu)</a> ·
+    <a href="https://www.kvkk.gov.tr/Icerik/8547/uretken-yapay-zeka-ve-kisisel-verilerin-korunmasi-rehberi-15-soruda" target="_blank" rel="noopener noreferrer">KVKK Rehberi (15 Soruda)</a> ·
+    <a href="https://artificialintelligenceact.eu/implementation-timeline/" target="_blank" rel="noopener noreferrer">Uygulama Takvimi</a> ·
+    <a href="https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R1689" target="_blank" rel="noopener noreferrer">Tam Metin (EUR-Lex)</a>
+  </div>
+  <p>© 2026 Hexis · Built by Özden Coşkun · <a href="/">hexis.center</a> · <a href="https://www.linkedin.com/in/ozden-coskun-8728a1301" target="_blank" rel="noopener noreferrer">LinkedIn</a> · Bu araç yalnızca bilgilendirme amaçlıdır; hukuki danışmanlık niteliği taşımaz.</p>
+</footer>
+
+<script>
+function toggleMenu(){
+  document.getElementById('hamburger').classList.toggle('open');
+  document.getElementById('mobileMenu').classList.toggle('open');
+}
+function closeMenu(){
+  document.getElementById('hamburger').classList.remove('open');
+  document.getElementById('mobileMenu').classList.remove('open');
+}
+document.addEventListener('click',function(e){
+  const nav=document.querySelector('nav');
+  const menu=document.getElementById('mobileMenu');
+  if(!nav.contains(e.target)&&!menu.contains(e.target)){closeMenu();}
+});
+</script>
+</body>
+</html>
