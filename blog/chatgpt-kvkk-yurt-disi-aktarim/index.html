@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ChatGPT&#x27;ye Müşteri Bilgisi Girenler: Bu KVKK Yükümlülüğünden Haberiniz Var mı? — Hexis</title>
+<meta name="description" content="ChatGPT&#x27;ye müşteri veya çalışan bilgisi giren her şirket KVKK&#x27;nın yurt dışı aktarım yükümlülüğüyle karşı karşıya. Durumunuzu ve yapmanız gerekenleri anlatan pratik rehber.">
+<meta property="og:title" content="ChatGPT&#x27;ye Müşteri Bilgisi Girenler: Bu KVKK Yükümlülüğünden Haberiniz Var mı? — Hexis">
+<meta property="og:description" content="ChatGPT&#x27;ye müşteri veya çalışan bilgisi giren her şirket KVKK&#x27;nın yurt dışı aktarım yükümlülüğüyle karşı karşıya. Durumunuzu ve yapmanız gerekenleri anlatan pratik rehber.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://hexis.center/blog/chatgpt-kvkk-yurt-disi-aktarim/">
+<meta property="og:image" content="https://hexis.center/assets/og-hexis.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="ChatGPT&#x27;ye Müşteri Bilgisi Girenler: Bu KVKK Yükümlülüğünden Haberiniz Var mı? — Hexis">
+<meta name="twitter:description" content="ChatGPT&#x27;ye müşteri veya çalışan bilgisi giren her şirket KVKK&#x27;nın yurt dışı aktarım yükümlülüğüyle karşı karşıya. Durumunuzu ve yapmanız gerekenleri anlatan pratik rehber.">
+<meta name="twitter:image" content="https://hexis.center/assets/og-hexis.png">
+<link rel="icon" href="/assets/favicon.ico">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+<style>
+/* ─── BRAND TOKENS ───────────────────────────────── */
+:root{
+  --charcoal:  #1C1E23;
+  --brass:     #B2986C;
+  --stone:     #686662;
+  --paper:     #F8F7F5;
+  --dark-bg:   #16181C;
+  --dark-type: #E8E6E2;
+  --dark-sub:  #8A8884;
+
+  --bg:        var(--dark-bg);
+  --text:      var(--dark-type);
+  --text2:     var(--dark-sub);
+  --muted:     var(--dark-sub);
+
+  --border:    rgba(232,230,226,0.10);
+  --border2:   rgba(232,230,226,0.18);
+  --card:      rgba(232,230,226,0.04);
+  --card2:     rgba(232,230,226,0.07);
+}
+
+/* ─── RESET ──────────────────────────────────────── */
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;font-size:16px}
+body{
+  font-family:Arial,sans-serif;
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+  text-rendering:optimizeLegibility;
+  background:var(--bg);
+  color:var(--text);
+  line-height:1.55;
+  min-height:100vh;
+  overflow-x:hidden;
+}
+p{line-height:1.75;color:var(--text2)}
+
+/* ─── NAV ────────────────────────────────────────── */
+nav{
+  position:sticky;top:0;z-index:100;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 48px;height:60px;
+  background:var(--dark-bg);
+  border-bottom:1px solid var(--border);
+}
+.nav-logo{
+  display:flex;align-items:center;gap:10px;
+  text-decoration:none;color:var(--text);
+  flex-shrink:0;
+}
+.nav-logo img{
+  display:block;
+  height:40px;
+  width:auto;
+}
+@media(max-width:768px){
+  .nav-logo img{ height:32px; }
+}
+.nav-logo:focus-visible{
+  outline:2px solid rgba(232,230,226,0.5);
+  outline-offset:4px;
+}
+.nav-links{display:flex;gap:4px;align-items:center}
+.nav-links a{
+  color:var(--muted);text-decoration:none;font-size:12px;font-weight:400;
+  padding:6px 12px;border-radius:2px;transition:color .15s;letter-spacing:.04em;
+  font-family:Arial,sans-serif;
+}
+.nav-links a:hover{color:var(--text)}
+
+/* HAMBURGER */
+.hamburger{
+  display:none;flex-direction:column;gap:5px;
+  cursor:pointer;background:none;border:none;padding:4px;z-index:200;
+}
+.hamburger span{width:22px;height:1px;background:var(--text2);transition:all .3s}
+.hamburger.open span:nth-child(1){transform:translateY(6px) rotate(45deg)}
+.hamburger.open span:nth-child(2){opacity:0}
+.hamburger.open span:nth-child(3){transform:translateY(-6px) rotate(-45deg)}
+.mobile-menu{
+  display:none;position:fixed;top:60px;left:0;right:0;
+  background:var(--dark-bg);
+  border-bottom:1px solid var(--border);
+  padding:12px 20px 20px;flex-direction:column;gap:0;z-index:99;
+}
+.mobile-menu.open{display:flex}
+.mobile-menu a{
+  color:var(--muted);text-decoration:none;font-size:13px;font-weight:400;
+  padding:11px 4px;border-bottom:1px solid var(--border);
+  transition:color .15s;font-family:Arial,sans-serif;
+}
+.mobile-menu a:last-child{border-bottom:none}
+.mobile-menu a:hover{color:var(--text)}
+
+/* ─── FOOTER ─────────────────────────────────────── */
+footer{
+  position:relative;z-index:1;
+  border-top:1px solid var(--border);
+  padding:20px 48px;
+  display:flex;align-items:center;justify-content:space-between;
+  gap:16px;flex-wrap:wrap;
+}
+.footer-left{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.footer-logo{display:flex;align-items:center;flex-shrink:0;text-decoration:none;}
+.footer-logo img{display:block;height:auto;width:auto;max-height:18px;}
+.footer-logo:focus-visible{outline:2px solid rgba(232,230,226,0.5);outline-offset:4px;}
+.footer-sep{color:var(--stone);margin:0 4px}
+.footer-txt{font-size:10px;color:var(--stone);font-family:Arial,sans-serif;letter-spacing:.02em}
+.footer-links{display:flex;gap:16px;flex-wrap:wrap}
+.footer-links a{font-size:10px;color:var(--stone);text-decoration:none;transition:color .15s;font-family:Arial,sans-serif;letter-spacing:.04em}
+.footer-links a:hover{color:var(--text2)}
+
+/* ─── RESPONSIVE ─────────────────────────────────── */
+@media(max-width:860px){
+  nav{padding:0 20px}
+  .nav-links{display:none}
+  .hamburger{display:flex}
+  footer{flex-direction:column;align-items:flex-start;padding:20px}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="/" class="nav-logo">
+    <img src="/assets/logo-light.png" alt="Hexis" width="72" height="40">
+  </a>
+  <div class="nav-links">
+    <a href="/metodoloji/">Orient Framework</a>
+    <a href="/generator/">Generator</a>
+    <a href="/#contact">Contact</a>
+  </div>
+  <button class="hamburger" id="hamburger" onclick="toggleMenu()" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<div class="mobile-menu" id="mobileMenu">
+  <a href="/metodoloji/" onclick="closeMenu()">Orient Framework</a>
+  <a href="/generator/" onclick="closeMenu()">Generator</a>
+  <a href="/#contact" onclick="closeMenu()">Contact</a>
+</div>
+
+<!-- BREADCRUMB -->
+<div style="max-width:720px;margin:40px auto 0;padding:0 24px">
+  <a href="/" style="color:var(--stone);font-size:12px;text-decoration:none">&larr; hexis.center</a>
+</div>
+
+<!-- ARTICLE HEADER -->
+<header style="max-width:720px;margin:40px auto 48px;padding:0 24px">
+  <div style="font-size:11px;color:var(--brass);font-family:Arial,sans-serif;letter-spacing:.08em;text-transform:uppercase;margin-bottom:16px">
+    KVKK &middot; Mart 2026
+  </div>
+  <h1 style="font-family:Georgia,serif;font-size:clamp(28px,4vw,44px);font-weight:700;line-height:1.15;letter-spacing:-.5px;color:var(--text);margin-bottom:20px">
+    ChatGPT&#x27;ye Müşteri Bilgisi Girenler: Bu KVKK Yükümlülüğünden Haberiniz Var mı?
+  </h1>
+  <p style="font-size:16px;line-height:1.7;color:var(--stone);max-width:600px">
+    ChatGPT&#x27;ye müşteri veya çalışan bilgisi giren her şirket KVKK&#x27;nın yurt dışı aktarım yükümlülüğüyle karşı karşıya. Durumunuzu ve yapmanız gerekenleri anlatan pratik rehber.
+  </p>
+</header>
+
+<!-- ARTICLE CONTENT -->
+<article style="max-width:720px;margin:0 auto 96px;padding:0 24px;font-family:Arial,sans-serif;font-size:16px;line-height:1.8;color:var(--text2)">
+
+  <h2 style="font-family:Georgia,serif;font-size:24px;font-weight:700;color:var(--text);margin:48px 0 16px">
+    Bir senaryo: Sıradan bir Salı sabahı
+  </h2>
+
+  <p>Müşteri hizmetleri sorumlusunuz. Zor bir müşteri şikayeti var; cevabı nasıl yazacağınızı bilmiyorsunuz. ChatGPT'yi açıyorsunuz, müşterinin adını, sorununu ve biraz şirket bilgisini giriyorsunuz. Birkaç saniyede güzel bir taslak çıkıyor. Gönderiyorsunuz.</p>
+
+  <p style="margin-top:16px">Bu işlemi yüzlerce Türk şirketinde her gün binlerce çalışan yapıyor.</p>
+
+  <p style="margin-top:16px">Peki bu işlemin arka planında ne oluyor? Girdiğiniz o veri; müşterinin adı, sorunu, sizin şirket bilgileriniz; OpenAI'ın ABD'deki sunucularına gidiyor. KVKK buna "kişisel verilerin yurt dışına aktarılması" diyor. Ve bunun için bir mekanizma kurmanız gerekiyor.</p>
+
+  <hr style="border:none;border-top:1px solid var(--border2);margin:48px 0">
+
+  <h2 style="font-family:Georgia,serif;font-size:24px;font-weight:700;color:var(--text);margin:48px 0 16px">
+    KVKK Madde 9 ne diyor?
+  </h2>
+
+  <p>6698 sayılı Kişisel Verilerin Korunması Kanunu'nun 9. maddesi, 1 Haziran 2024 tarihinde köklü bir değişikliğe uğradı.¹ Yeni düzenlemeyle kişisel verilerin yurt dışına aktarılması üç koşuldan biriyle mümkün:</p>
+
+  <p style="margin-top:16px"><strong style="color:var(--text)">Birincisi yeterlilik kararı.</strong> KVKK'nın verinin gideceği ülkeyi "yeterli korumalı" ilan etmiş olması. ABD için henüz böyle bir karar yok.</p>
+
+  <p style="margin-top:16px"><strong style="color:var(--text)">İkincisi uygun güvence.</strong> En yaygın yol standart sözleşme. KVKK'nın yayımladığı dört standart sözleşme şablonundan ilgili olanı, şirketiniz ile yurt dışındaki veri alıcısı arasında imzalanıyor. İmzalandıktan sonra 5 iş günü içinde KVKK'ya bildirim zorunlu.²</p>
+
+  <p style="margin-top:16px"><strong style="color:var(--text)">Üçüncüsü istisnai haller.</strong> Sınırlı sayıda durum; ilgili kişinin açık rızası, sözleşmenin ifası için zorunluluk gibi. Rutin iş süreçleri için bu yol güvenilir değil.</p>
+
+  <p style="margin-top:16px">Çoğu Türk KOBİ'si için uygulanabilir yol standart sözleşme. Ama bu sözleşmeyi ChatGPT ile imzalamak kolay değil. Neden? Çünkü OpenAI, bireysel veya küçük ölçekli kullanıcılara veri işleme sözleşmesi (DPA) sunmuyor. Bu, doğrudan kurumsal lisanslara (ChatGPT Enterprise veya Team) geçmeyi ya da kullanım politikasını yeniden değerlendirmeyi gerektiriyor.</p>
+
+  <hr style="border:none;border-top:1px solid var(--border2);margin:48px 0">
+
+  <h2 style="font-family:Georgia,serif;font-size:24px;font-weight:700;color:var(--text);margin:48px 0 16px">
+    "Ama ben sadece kullanıcıyım, geliştiren OpenAI değil mi?"
+  </h2>
+
+  <p>Bu, en sık duyduğumuz soru. Cevap: hayır, yalnızca OpenAI sorumlu değil.</p>
+
+  <p style="margin-top:16px">6698 sayılı Kanun'un 3. maddesi veri sorumlusunu "kişisel verilerin işleme amaçlarını ve vasıtalarını belirleyen kişi" olarak tanımlıyor. ChatGPT'ye hangi veriyi hangi amaçla girdiğinizi siz belirliyorsunuz; bu, veri sorumlusu tanımının kapsamına giriyorsunuz demektir. KVKK'nın Kasım 2025 tarihli Üretken YZ Rehberi de bu ilişkiyi üretken YZ sistemleri bağlamında ayrıca ele alıyor.³</p>
+
+  <p style="margin-top:16px">OpenAI ayrıca sorumlu olabilir, ama bu sizin sorumluluğunuzu ortadan kaldırmıyor.</p>
+
+  <hr style="border:none;border-top:1px solid var(--border2);margin:48px 0">
+
+  <h2 style="font-family:Georgia,serif;font-size:24px;font-weight:700;color:var(--text);margin:48px 0 16px">
+    Pratikte ne yapmalısınız?
+  </h2>
+
+  <p>Bu durumu yönetmek için üç somut adım var.</p>
+
+  <p style="margin-top:16px"><strong style="color:var(--text)">Adım 1: YZ araç envanterinizi çıkarın.</strong></p>
+
+  <p style="margin-top:16px">Şirketinizde hangi yapay zekâ araçları kullanılıyor? Hangi departmanlar, hangi amaçlarla? Bu araçlara ne tür veriler giriliyor? Müşteri adı, çalışan bilgisi, sözleşme detayı, toplantı notu... Bunların hepsi kişisel veri kapsamına girebilir.</p>
+
+  <p style="margin-top:16px">Çoğu şirkette bu envanter yok. Başlangıç noktası burası.</p>
+
+  <p style="margin-top:16px"><strong style="color:var(--text)">Adım 2: Hangi mekanizmanın uygulanabileceğini değerlendirin.</strong></p>
+
+  <p style="margin-top:16px">Kullandığınız her araç için şu soruyu sorun: Bu araç sağlayıcısıyla standart sözleşme imzalayabilir miyim?</p>
+
+  <p style="margin-top:16px">ChatGPT için; bireysel veya küçük ölçekli kullanımda OpenAI ile veri işleme sözleşmesi imzalamak mümkün değil. ChatGPT Enterprise veya Team lisanslarında OpenAI bir Veri İşleme Anlaşması (<em>Data Processing Agreement</em>) sunuyor; bu anlaşma, standart sözleşmenin yerini tutup tutmadığı ayrıca değerlendirilmeli. Alternatif olarak, kişisel veri içermeyen kullanımlarla sınırlı bir politika belirlenebilir.</p>
+
+  <p style="margin-top:16px">Claude veya diğer API tabanlı araçlar için; kurumsal sözleşmeler genellikle veri işleme şartları içeriyor, ama bunların KVKK'nın standart sözleşme gereklilikleriyle uyumlu olup olmadığı incelenmeli.</p>
+
+  <p style="margin-top:16px"><strong style="color:var(--text)">Adım 3: Standart sözleşme imzaladıysanız bildirin.</strong></p>
+
+  <p style="margin-top:16px">Standart sözleşme imzalandıktan sonra 5 iş günü içinde KVKK'ya bildirim zorunlu. KVKK'nın sitesinde "Standart Sözleşme Bildirim Modülü" üzerinden online yapılabiliyor. Bu yükümlülüğü yerine getirmeyenler için 2026 yılı itibarıyla 90.308 TL ile 1.806.377 TL arasında idari para cezası öngörülüyor.²</p>
+
+  <hr style="border:none;border-top:1px solid var(--border2);margin:48px 0">
+
+  <h2 style="font-family:Georgia,serif;font-size:24px;font-weight:700;color:var(--text);margin:48px 0 16px">
+    Peki ya yasaklamak?
+  </h2>
+
+  <p>Bir seçenek olarak "çalışanlar yapay zekâ kullanmasın" diyebilirsiniz. KVKK'nın Mart 2026 tarihli iş yeri rehberi bu yaklaşıma açıkça karşı çıkıyor.⁴</p>
+
+  <p style="margin-top:16px">Yasaklayıcı yaklaşımlar uygulamada gerçekçi sonuç vermiyor; çalışanlar araçları kurum dışı hesaplarla kullanmaya devam ediyor ve bu da "Gölge YZ" sorununu doğuruyor. Gölge YZ, şirketin hiç gözetim yapamadığı, tamamen kontrolsüz bir kullanım; risk açısından çok daha tehlikeli.</p>
+
+  <p style="margin-top:16px">Çözüm yasaklamak değil, yönetmek. Hangi araçlar hangi koşullarda kullanılabilir, bunu politikayla netleştirmek.</p>
+
+  <hr style="border:none;border-top:1px solid var(--border2);margin:48px 0">
+
+  <h2 style="font-family:Georgia,serif;font-size:24px;font-weight:700;color:var(--text);margin:48px 0 16px">
+    Nereden başlamalısınız?
+  </h2>
+
+  <p>Dürüst olmak gerekirse, bu meseleyi tamamen çözmek; doğru sözleşme mekanizmasını kurmak, aydınlatma metinlerini güncellemek, politikayı hazırlamak, çalışanları eğitmek, bir danışman ve zaman gerektiriyor.</p>
+
+  <p style="margin-top:16px">Ama başlangıç noktası basit: <strong style="color:var(--text)">Şirketinizde hangi yapay zekâ araçları kullanılıyor ve bu araçlara hangi veriler giriliyor?</strong></p>
+
+  <p style="margin-top:16px">Bu soruyu yanıtladığınızda riskin büyüklüğünü görebilirsiniz. Hexis'in <a href="https://hexis.center/checklist/" style="color:var(--brass);text-decoration:underline">KVKK Uyum Checklist</a> aracı bu envanteri çıkarmanıza ve öncelikli adımları belirlemenize yardımcı olmak için beş KVKK belgesi temelinde güncelleniyor.</p>
+
+  <hr style="border:none;border-top:1px solid var(--border2);margin:48px 0">
+
+  <h2 style="font-family:Georgia,serif;font-size:24px;font-weight:700;color:var(--text);margin:48px 0 16px">
+    Kaynaklar
+  </h2>
+
+  <p>1. Kişisel Verileri Koruma Kurumu. <em>Yurt Dışına Aktarım</em>. KVKK Madde 9 ve 1 Haziran 2024 değişiklikleri. <a href="https://www.kvkk.gov.tr/Icerik/2053/Yurtdisina-Aktarim" style="color:var(--brass);text-decoration:underline">kvkk.gov.tr</a></p>
+
+  <p style="margin-top:16px">2. Kişisel Verileri Koruma Kurumu. <em>Standart Sözleşmeler</em>. Kurul kararı 2024/959, 4 Haziran 2024. <a href="https://www.kvkk.gov.tr/Icerik/7929/Standart-Sozlesmeler" style="color:var(--brass);text-decoration:underline">kvkk.gov.tr</a></p>
+
+  <p style="margin-top:16px">3. Kişisel Verileri Koruma Kurumu. <em>Üretken Yapay Zekâ ve Kişisel Verilerin Korunması Rehberi (15 Soruda)</em>. KVKK Yayınları No. 113, Kasım 2025. <a href="https://www.kvkk.gov.tr/Icerik/8547/uretken-yapay-zeka-ve-kisisel-verilerin-korunmasi-rehberi-15-soruda" style="color:var(--brass);text-decoration:underline">kvkk.gov.tr</a></p>
+
+  <p style="margin-top:16px">4. Kişisel Verileri Koruma Kurumu. <em>İş Yerlerinde Üretken Yapay Zekâ Araçlarının Kullanımı</em>. Mart 2026. <a href="https://www.kvkk.gov.tr/Icerik/8674/is-yerlerinde-uretken-yapay-zeka-araclarinin-kullanimi" style="color:var(--brass);text-decoration:underline">kvkk.gov.tr</a></p>
+
+</article>
+
+<!-- BACK LINK -->
+<div style="max-width:720px;margin:0 auto 96px;padding:0 24px">
+  <a href="/" style="font-size:13px;color:var(--stone);text-decoration:none;font-family:Arial,sans-serif">
+    &larr; T&uuml;m yaz&#305;lar
+  </a>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-left">
+    <a href="/" class="footer-logo"><img src="/assets/logo-light.png" alt="Hexis" width="32" height="18"></a>
+    <span class="footer-sep">&middot;</span>
+    <span class="footer-txt">&copy; 2026 Hexis &middot; Built by &Ouml;zden Co&#351;kun &middot; Yaln&#305;zca bilgilendirme ama&ccedil;l&#305;d&#305;r; hukuki dan&#305;&#351;manl&#305;k niteli&#287;i ta&#351;&#305;maz.</span>
+  </div>
+  <div class="footer-links">
+    <a href="/metodoloji/">Orient Framework</a>
+    <a href="/generator/">Generator</a>
+    <a href="/#contact">Contact</a>
+    <a href="https://eur-lex.europa.eu/legal-content/TR/TXT/?uri=CELEX:32024R1689" target="_blank" rel="noopener noreferrer">EU AI Act</a>
+    <a href="https://www.linkedin.com/in/ozden-coskun-8728a1301" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+  </div>
+</footer>
+
+<script>
+function toggleMenu(){
+  document.getElementById('hamburger').classList.toggle('open');
+  document.getElementById('mobileMenu').classList.toggle('open');
+}
+function closeMenu(){
+  document.getElementById('hamburger').classList.remove('open');
+  document.getElementById('mobileMenu').classList.remove('open');
+}
+document.addEventListener('click',function(e){
+  const h=document.getElementById('hamburger');
+  const m=document.getElementById('mobileMenu');
+  if(m.classList.contains('open')&&!h.contains(e.target)&&!m.contains(e.target)){
+    h.classList.remove('open');m.classList.remove('open');
+  }
+});
+</script>
+</body>
+</html>
