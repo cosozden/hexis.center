@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>KVKK ve Yapay Zekâ: Beş Yılda Türk Şirketleri İçin Ne Değişti? — Hexis</title>
+<meta name="description" content="KVKK 2021&#x27;den 2026&#x27;ya beş yılda beş belge yayımladı. Türk şirketleri için on iki somut yükümlülüğü ve nereden başlamanız gerektiğini bu yazıda bulabilirsiniz.">
+<meta property="og:title" content="KVKK ve Yapay Zekâ: Beş Yılda Türk Şirketleri İçin Ne Değişti? — Hexis">
+<meta property="og:description" content="KVKK 2021&#x27;den 2026&#x27;ya beş yılda beş belge yayımladı. Türk şirketleri için on iki somut yükümlülüğü ve nereden başlamanız gerektiğini bu yazıda bulabilirsiniz.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://hexis.center/blog/kvkk-yapay-zeka-bes-yil-on-iki-yukumluluk/">
+<meta property="og:image" content="https://hexis.center/assets/og-hexis.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="KVKK ve Yapay Zekâ: Beş Yılda Türk Şirketleri İçin Ne Değişti? — Hexis">
+<meta name="twitter:description" content="KVKK 2021&#x27;den 2026&#x27;ya beş yılda beş belge yayımladı. Türk şirketleri için on iki somut yükümlülüğü ve nereden başlamanız gerektiğini bu yazıda bulabilirsiniz.">
+<meta name="twitter:image" content="https://hexis.center/assets/og-hexis.png">
+<link rel="icon" href="/assets/favicon.ico">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+<style>
+/* ─── BRAND TOKENS ───────────────────────────────── */
+:root{
+  --charcoal:  #1C1E23;
+  --brass:     #B2986C;
+  --stone:     #686662;
+  --paper:     #F8F7F5;
+  --dark-bg:   #16181C;
+  --dark-type: #E8E6E2;
+  --dark-sub:  #8A8884;
+
+  --bg:        var(--dark-bg);
+  --text:      var(--dark-type);
+  --text2:     var(--dark-sub);
+  --muted:     var(--dark-sub);
+
+  --border:    rgba(232,230,226,0.10);
+  --border2:   rgba(232,230,226,0.18);
+  --card:      rgba(232,230,226,0.04);
+  --card2:     rgba(232,230,226,0.07);
+}
+
+/* ─── RESET ──────────────────────────────────────── */
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;font-size:16px}
+body{
+  font-family:Arial,sans-serif;
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+  text-rendering:optimizeLegibility;
+  background:var(--bg);
+  color:var(--text);
+  line-height:1.55;
+  min-height:100vh;
+  overflow-x:hidden;
+}
+p{line-height:1.75;color:var(--text2)}
+
+/* ─── NAV ────────────────────────────────────────── */
+nav{
+  position:sticky;top:0;z-index:100;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 48px;height:60px;
+  background:var(--dark-bg);
+  border-bottom:1px solid var(--border);
+}
+.nav-logo{
+  display:flex;align-items:center;gap:10px;
+  text-decoration:none;color:var(--text);
+  flex-shrink:0;
+}
+.nav-logo img{
+  display:block;
+  height:40px;
+  width:auto;
+}
+@media(max-width:768px){
+  .nav-logo img{ height:32px; }
+}
+.nav-logo:focus-visible{
+  outline:2px solid rgba(232,230,226,0.5);
+  outline-offset:4px;
+}
+.nav-links{display:flex;gap:4px;align-items:center}
+.nav-links a{
+  color:var(--muted);text-decoration:none;font-size:12px;font-weight:400;
+  padding:6px 12px;border-radius:2px;transition:color .15s;letter-spacing:.04em;
+  font-family:Arial,sans-serif;
+}
+.nav-links a:hover{color:var(--text)}
+
+/* HAMBURGER */
+.hamburger{
+  display:none;flex-direction:column;gap:5px;
+  cursor:pointer;background:none;border:none;padding:4px;z-index:200;
+}
+.hamburger span{width:22px;height:1px;background:var(--text2);transition:all .3s}
+.hamburger.open span:nth-child(1){transform:translateY(6px) rotate(45deg)}
+.hamburger.open span:nth-child(2){opacity:0}
+.hamburger.open span:nth-child(3){transform:translateY(-6px) rotate(-45deg)}
+.mobile-menu{
+  display:none;position:fixed;top:60px;left:0;right:0;
+  background:var(--dark-bg);
+  border-bottom:1px solid var(--border);
+  padding:12px 20px 20px;flex-direction:column;gap:0;z-index:99;
+}
+.mobile-menu.open{display:flex}
+.mobile-menu a{
+  color:var(--muted);text-decoration:none;font-size:13px;font-weight:400;
+  padding:11px 4px;border-bottom:1px solid var(--border);
+  transition:color .15s;font-family:Arial,sans-serif;
+}
+.mobile-menu a:last-child{border-bottom:none}
+.mobile-menu a:hover{color:var(--text)}
+
+/* ─── FOOTER ─────────────────────────────────────── */
+footer{
+  position:relative;z-index:1;
+  border-top:1px solid var(--border);
+  padding:20px 48px;
+  display:flex;align-items:center;justify-content:space-between;
+  gap:16px;flex-wrap:wrap;
+}
+.footer-left{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.footer-logo{display:flex;align-items:center;flex-shrink:0;text-decoration:none;}
+.footer-logo img{display:block;height:auto;width:auto;max-height:18px;}
+.footer-logo:focus-visible{outline:2px solid rgba(232,230,226,0.5);outline-offset:4px;}
+.footer-sep{color:var(--stone);margin:0 4px}
+.footer-txt{font-size:10px;color:var(--stone);font-family:Arial,sans-serif;letter-spacing:.02em}
+.footer-links{display:flex;gap:16px;flex-wrap:wrap}
+.footer-links a{font-size:10px;color:var(--stone);text-decoration:none;transition:color .15s;font-family:Arial,sans-serif;letter-spacing:.04em}
+.footer-links a:hover{color:var(--text2)}
+
+/* ─── RESPONSIVE ─────────────────────────────────── */
+@media(max-width:860px){
+  nav{padding:0 20px}
+  .nav-links{display:none}
+  .hamburger{display:flex}
+  footer{flex-direction:column;align-items:flex-start;padding:20px}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="/" class="nav-logo">
+    <img src="/assets/logo-light.png" alt="Hexis" width="72" height="40">
+  </a>
+  <div class="nav-links">
+    <a href="/metodoloji/">Orient Framework</a>
+    <a href="/generator/">Generator</a>
+    <a href="/#contact">Contact</a>
+  </div>
+  <button class="hamburger" id="hamburger" onclick="toggleMenu()" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<div class="mobile-menu" id="mobileMenu">
+  <a href="/metodoloji/" onclick="closeMenu()">Orient Framework</a>
+  <a href="/generator/" onclick="closeMenu()">Generator</a>
+  <a href="/#contact" onclick="closeMenu()">Contact</a>
+</div>
+
+<!-- BREADCRUMB -->
+<div style="max-width:720px;margin:40px auto 0;padding:0 24px">
+  <a href="/" style="color:var(--stone);font-size:12px;text-decoration:none">&larr; hexis.center</a>
+</div>
+
+<!-- ARTICLE HEADER -->
+<header style="max-width:720px;margin:40px auto 48px;padding:0 24px">
+  <div style="font-size:11px;color:var(--brass);font-family:Arial,sans-serif;letter-spacing:.08em;text-transform:uppercase;margin-bottom:16px">
+    KVKK &middot; Mart 2026
+  </div>
+  <h1 style="font-family:Georgia,serif;font-size:clamp(28px,4vw,44px);font-weight:700;line-height:1.15;letter-spacing:-.5px;color:var(--text);margin-bottom:20px">
+    KVKK ve Yapay Zekâ: Beş Yılda Türk Şirketleri İçin Ne Değişti?
+  </h1>
+  <p style="font-size:16px;line-height:1.7;color:var(--stone);max-width:600px">
+    KVKK 2021&#x27;den 2026&#x27;ya beş yılda beş belge yayımladı. Türk şirketleri için on iki somut yükümlülüğü ve nereden başlamanız gerektiğini bu yazıda bulabilirsiniz.
+  </p>
+</header>
+
+<!-- ARTICLE CONTENT -->
+<article style="max-width:720px;margin:0 auto 96px;padding:0 24px;font-family:Arial,sans-serif;font-size:16px;line-height:1.8;color:var(--text2)">
+
+  <h2 style="font-family:Georgia,serif;font-size:24px;font-weight:700;color:var(--text);margin:48px 0 16px">
+    Şirketinizde Yapay Zekâ Kullanılıyorsa, Bu Yazı Sizi Doğrudan İlgilendiriyor
+  </h2>
+
+  <p>ChatGPT ile e-posta yazıyorsunuz. Bir toplantı özetini yapay zekâ ile hazırlıyorsunuz. Müşteri hizmetleri için bir sohbet botu devreye aldınız. Ya da henüz almadınız ama ekibinizde birinin aldığından eminsiniz.</p>
+
+  <p style="margin-top:16px">Peki bu kullanımın 6698 sayılı Kişisel Verilerin Korunması Kanunu kapsamında ne anlama geldiğini biliyor musunuz?</p>
+
+  <p style="margin-top:16px">Kişisel Verileri Koruma Kurumu (KVKK), 2021'den bu yana yapay zekâ konusunda beş ayrı belge yayımladı. Bu belgeler Türkiye'deki her şirkete çok net bir mesaj veriyor: <strong style="color:var(--text)">Yapay zekâ kullanan her şirket veri sorumlusudur ve bu sorumluluktan kaçış yoktur.</strong></p>
+
+  <p style="margin-top:16px">Bu yazıda beş belgeyi, bu belgelerden çıkan on iki somut yükümlülüğü ve şirketiniz için doğru başlangıç noktasını ele alıyoruz.</p>
+
+  <hr style="border:none;border-top:1px solid var(--border2);margin:48px 0">
+
+  <h2 style="font-family:Georgia,serif;font-size:24px;font-weight:700;color:var(--text);margin:48px 0 16px">
+    KVKK'nın Beş Yıllık Yapay Zekâ Haritası
+  </h2>
+
+  <p>KVKK bu alanda düzenli ve tutarlı bir ilerleme kaydetti. Her yeni belge bir öncekinin üzerine inşa edildi; kapsam her yıl genişledi, beklentiler her yıl somutlaştı.</p>
+
+  <p style="margin-top:16px"><strong style="color:var(--text)">Eylül 2021: Genel ilkeler ve paydaş sorumlulukları</strong>¹</p>
+
+  <p style="margin-top:16px">İlk belge yapay zekâ alanında geliştirici, üretici, servis sağlayıcı ve karar alıcılar için temel ilkeleri belirledi. <em>Privacy by design</em> (tasarımdan itibaren mahremiyet), veri minimizasyonu, hesap verebilirlik ve insan müdahalesi hakkı bu belgede ilk kez YZ bağlamında tanımlandı.</p>
+
+  <p style="margin-top:16px"><strong style="color:var(--text)">Kasım 2024: Sohbet robotlarına özel çerçeve</strong>²</p>
+
+  <p style="margin-top:16px">ChatGPT örneği üzerinden sohbet robotlarının veri işleme boyutunu ele alan bilgi notu yayımlandı. Hesap bilgileri, konuşma içerikleri, IP adresi ve cihaz verileri dahil olmak üzere hangi kişisel verilerin işlendiği ilk kez bu belgede netleştirildi. Uygulama geliştirenler için risk değerlendirmesi zorunluluğu ve <em>privacy by design</em> yaklaşımı vurgulandı.</p>
+
+  <p style="margin-top:16px"><strong style="color:var(--text)">Kasım 2025: Üretken YZ'ye 64 sayfalık kapsamlı rehber</strong>³</p>
+
+  <p style="margin-top:16px">En teknik ve en kapsamlı belge. Veri sorumlusu ve veri işleyen rollerinin tespitinden işleme şartlarının belirlenmesine, yurt dışı aktarım mekanizmalarından aydınlatma yükümlülüğüne kadar 15 soru üzerinden tam bir çerçeve çizildi. Hesap verebilirliğin yalnızca yükümlülükleri yerine getirmek değil, bunu <strong style="color:var(--text)">ispatlayabilmek</strong> anlamına geldiği bu belgede açıkça belirtildi.</p>
+
+  <p style="margin-top:16px"><strong style="color:var(--text)">Şubat 2026: Etken YZ (Agentic AI) değerlendirmesi</strong>⁴</p>
+
+  <p style="margin-top:16px">Otonom karar alabilen ve eylem başlatabilen yapay zekâ sistemleri için ayrı bir değerlendirme çerçevesi yayımlandı. Otonomi düzeyi arttıkça KVKK uyumunun nasıl karmaşıklaştığı, deployer ve developer sorumlulukları arasındaki ayrım ve <em>çıkarıma dayalı profilleme</em> riski bu belgede ele alındı.</p>
+
+  <p style="margin-top:16px"><strong style="color:var(--text)">Mart 2026: İşyerinde yapay zekâ ve Gölge YZ</strong>⁵</p>
+
+  <p style="margin-top:16px">En pratik belge. Çalışanların şirket haberi olmadan kullandığı yapay zekâ araçları olan "Gölge YZ" olgusu tanımlandı. Şirketlerden kurumsal YZ politikası oluşturması, çalışanları eğitmesi ve erişim kontrolü kurması bekleniyor. Belge bağlayıcı nitelik taşımıyor; ancak KVKK'nın değerlendirme kriterleri ve beklentileri açısından önemli bir referans niteliği taşıdığı belirtiliyor.</p>
+
+  <hr style="border:none;border-top:1px solid var(--border2);margin:48px 0">
+
+  <h2 style="font-family:Georgia,serif;font-size:24px;font-weight:700;color:var(--text);margin:48px 0 16px">
+    Beş Belgeden Çıkan On İki Yükümlülük
+  </h2>
+
+  <p>Bu beş belgeyi bir arada okuduğunuzda yapay zekâ kullanan Türk şirketleri için somut bir yükümlülük haritası ortaya çıkıyor.</p>
+
+  <h3 style="font-family:Georgia,serif;font-size:20px;font-weight:700;color:var(--text);margin:36px 0 12px">
+    Envanter ve Tespit Yükümlülükleri
+  </h3>
+
+  <p><strong style="color:var(--text)">1. YZ araç envanteri oluşturun.</strong></p>
+
+  <p style="margin-top:16px">Şirketinizde hangi yapay zekâ araçlarının kullanıldığını bilin. Yalnızca kurumsal olarak satın aldıklarınız değil; çalışanlarınızın bireysel olarak kullandıkları araçlar da dahil. Gölge YZ bu envanterin en zor görünen parçası.</p>
+
+  <p style="margin-top:16px"><strong style="color:var(--text)">2. Kişisel veri akışını haritalayın.</strong></p>
+
+  <p style="margin-top:16px">Her araç üzerinden hangi kişisel verilerin işlendiğini tespit edin. Çalışan adı, müşteri bilgisi, toplantı notu, yazışma içeriği; bunların hepsi kişisel veridir ve bu araçlara girdiğiniz anda işlenmeye başlar.</p>
+
+  <p style="margin-top:16px"><strong style="color:var(--text)">3. Veri sorumlusu ve veri işleyen rolünü belirleyin.</strong></p>
+
+  <p style="margin-top:16px">ChatGPT veya Claude gibi bir araç kullanıyorsanız, o araç sağlayıcısı ve sizin şirketiniz aynı anda veri sorumlusu sıfatı kazanabilir. "Geliştiren şirket sorumlu" savunması geçerli değildir.</p>
+
+  <p style="margin-top:16px"><strong style="color:var(--text)">4. Etken YZ kullanıyorsanız deployer/developer ayrımını netleştirin.</strong></p>
+
+  <p style="margin-top:16px">Otonom eylem başlatabilen bir sistem kullanıyor veya geliştiriyorsanız, bu sistemin geliştiricisi ve yerleştiricisi (<em>deployer</em>) arasındaki sorumluluk sınırları sözleşmeyle belirlenmeli, iç politikanızda roller tanımlanmalıdır.</p>
+
+  <h3 style="font-family:Georgia,serif;font-size:20px;font-weight:700;color:var(--text);margin:36px 0 12px">
+    İşleme Zinciri Yükümlülükleri
+  </h3>
+
+  <p><strong style="color:var(--text)">5. Her araç için hukuki dayanak (işleme şartı) belgeleyin.</strong></p>
+
+  <p style="margin-top:16px">Her veri işleme faaliyetinin KVKK'nın 5. veya 6. maddesindeki işleme şartlarından birine dayanması gerekir. "Açık rıza" tek başına yeterli bir dayanak değildir; diğer şartlar tüketilmeden açık rızaya başvurulmamalıdır.</p>
+
+  <p style="margin-top:16px"><strong style="color:var(--text)">6. Yurt dışı aktarım mekanizmasını kurun.</strong></p>
+
+  <p style="margin-top:16px">Bu, farkında olmadan ihlal edilme riski en yüksek yükümlülük. ChatGPT, Claude, Gemini gibi araçlar üzerinden kişisel veri paylaşmak, o verinin yurt dışına aktarımı anlamına gelir. KVKK'nın 9. maddesi kapsamında standart sözleşme veya yeterli koruma mekanizması olmadan bu aktarım sorun doğurabilir.³</p>
+
+  <p style="margin-top:16px"><strong style="color:var(--text)">7. Amaçla sınırlılık ve veri minimizasyonunu süreç boyunca izleyin.</strong></p>
+
+  <p style="margin-top:16px">Sisteme yalnızca görevin gerektirdiği kadar veri girin. Özellikle <em>etken YZ</em> sistemlerinde, başlangıçta meşru olan veri işleme kapsamın genişlemesiyle birlikte bu ilkeyi aşma riski taşır.</p>
+
+  <h3 style="font-family:Georgia,serif;font-size:20px;font-weight:700;color:var(--text);margin:36px 0 12px">
+    Yönetişim Yükümlülükleri
+  </h3>
+
+  <p><strong style="color:var(--text)">8. Aydınlatma metinlerinizi güncelleyin.</strong></p>
+
+  <p style="margin-top:16px">Müşteri veya çalışanlarınızla ilgili yapay zekâ destekli süreçlerde, aydınlatma metinlerinizin bu kullanımı kapsaması gerekir. Mevcut çoğu metinde "yapay zekâ kullanımı" ifadesi yer almıyor.</p>
+
+  <p style="margin-top:16px"><strong style="color:var(--text)">9. Kurumsal YZ kullanım politikası oluşturun.</strong></p>
+
+  <p style="margin-top:16px">Hangi araçlar hangi amaçlarla kullanılabilir, hangi veriler paylaşılamaz, sorun çıktığında ne yapılır? Bu soruların yanıtlarını içeren yazılı bir politika, hem Gölge YZ riskini azaltır hem de KVKK denetiminde savunma zemini oluşturur.</p>
+
+  <p style="margin-top:16px"><strong style="color:var(--text)">10. Çalışanları eğitin.</strong></p>
+
+  <p style="margin-top:16px">KVKK'nın tüm yapay zekâ belgelerinde çalışan farkındalığı ve eğitim ayrı bir vurguyla ele alındı. Bu yükümlülük bireysel kullanıma ilişkin riskleri azaltmanın en etkili yolu olarak görülüyor.</p>
+
+  <p style="margin-top:16px"><strong style="color:var(--text)">11. İnsan gözetimi mekanizması tanımlayın.</strong></p>
+
+  <p style="margin-top:16px">Özellikle <em>etken YZ</em> kullanan şirketler için: hangi kararlar otomatik alınabilir, hangilerinde insan onayı zorunludur, yüksek riskli süreçlerde ilave inceleme mekanizması nasıl işler? Bu mekanizmanın açıkça tanımlanmış ve belgelenmiş olması gerekir.</p>
+
+  <p style="margin-top:16px"><strong style="color:var(--text)">12. Hesap verebilirlik dosyanızı oluşturun.</strong></p>
+
+  <p style="margin-top:16px">KVKK'nın 2025 tarihli rehberi hesap verebilirliği yalnızca yükümlülükleri yerine getirmek olarak değil, <strong style="color:var(--text)">bunu ispatlayabilmek</strong> olarak tanımlıyor. Denetim geldiğinde "bunu yaptık" diyebileceğiniz dokümantasyon olmak zorunda.</p>
+
+  <hr style="border:none;border-top:1px solid var(--border2);margin:48px 0">
+
+  <h2 style="font-family:Georgia,serif;font-size:24px;font-weight:700;color:var(--text);margin:48px 0 16px">
+    Türk Şirketlerinin Büyük Çoğunluğu Nerede Duruyor?
+  </h2>
+
+  <p>Bu on iki yükümlülüğün tamamını karşılayan Türk şirketi sayısı son derece az. En yaygın üç boşluk şunlar:</p>
+
+  <p style="margin-top:16px"><strong style="color:var(--text)">Yurt dışı aktarım mekanizması yok.</strong> Şirketin ChatGPT kullandığı biliniyor, ama bu kullanımın yurt dışı kişisel veri aktarımı anlamına geldiği henüz fark edilmemiş.</p>
+
+  <p style="margin-top:16px"><strong style="color:var(--text)">Aydınlatma metni güncellenmemiş.</strong> Yıllardır kullanılan aydınlatma metni, yapay zekâ kullanımını kapsayacak şekilde güncellenmemiş.</p>
+
+  <p style="margin-top:16px"><strong style="color:var(--text)">YZ politikası yok.</strong> Çalışanlar araçları bireysel tercihlerine göre kullanıyor; şirketin ne kullanılabileceğine, ne kullanılamayacağına ve nasıl kullanılacağına dair yazılı bir çerçevesi bulunmuyor.</p>
+
+  <hr style="border:none;border-top:1px solid var(--border2);margin:48px 0">
+
+  <h2 style="font-family:Georgia,serif;font-size:24px;font-weight:700;color:var(--text);margin:48px 0 16px">
+    Nereden Başlamalısınız?
+  </h2>
+
+  <p>Her şeyi aynı anda yapmak gerekmez. Ama bir yerden başlamak gerekiyor.</p>
+
+  <p style="margin-top:16px">Önerilen ilk adım şu soruyu yanıtlamak: <strong style="color:var(--text)">Şirketinizde şu an hangi yapay zekâ araçları kullanılıyor ve bu araçlarla hangi veriler paylaşılıyor?</strong></p>
+
+  <p style="margin-top:16px">Bu soruyu yanıtladığınızda hangi yükümlülüklerin devreye girdiğini görebilirsiniz. Hexis'in <a href="https://hexis.center/checklist/" style="color:var(--brass);text-decoration:underline">KVKK Uyum Checklist</a> aracı bu soruyu yanıtlamanıza yardımcı olmak için beş KVKK belgesi temelinde güncelleniyor.</p>
+
+  <hr style="border:none;border-top:1px solid var(--border2);margin:48px 0">
+
+  <h2 style="font-family:Georgia,serif;font-size:24px;font-weight:700;color:var(--text);margin:48px 0 16px">
+    Kaynaklar
+  </h2>
+
+  <p>1. Kişisel Verileri Koruma Kurumu. <em>Yapay Zekâ Alanında Kişisel Verilerin Korunmasına Dair Tavsiyeler</em>. KVKK Yayınları No. 76, Eylül 2021. <a href="https://www.kvkk.gov.tr/Icerik/7048/Yapay-Zeka-Alaninda-Kisisel-Verilerin-Korunmasina-Dair-Tavsiyeler" style="color:var(--brass);text-decoration:underline">kvkk.gov.tr</a></p>
+
+  <p style="margin-top:16px">2. Kişisel Verileri Koruma Kurumu. <em>Sohbet Robotları (ChatGPT Örneği) Hakkında Bilgi Notu</em>. KVKK Yayınları No. 82, Kasım 2024. <a href="https://www.kvkk.gov.tr/Icerik/8047/Sohbet-Robotlari-ChatGPT-Ornegi-Hakkinda-Bilgi-Notu" style="color:var(--brass);text-decoration:underline">kvkk.gov.tr</a></p>
+
+  <p style="margin-top:16px">3. Kişisel Verileri Koruma Kurumu. <em>Üretken Yapay Zekâ ve Kişisel Verilerin Korunması Rehberi (15 Soruda)</em>. KVKK Yayınları No. 113, Kasım 2025. <a href="https://www.kvkk.gov.tr/Icerik/8547/uretken-yapay-zeka-ve-kisisel-verilerin-korunmasi-rehberi-15-soruda" style="color:var(--brass);text-decoration:underline">kvkk.gov.tr</a></p>
+
+  <p style="margin-top:16px">4. Kişisel Verileri Koruma Kurumu. <em>Etken Yapay Zekâ (Agentic AI)</em>. Şubat 2026. <a href="https://www.kvkk.gov.tr/SharedFolderServer/CMSFiles/MTY5YWE4ZDE0NWYwMWI.pdf" style="color:var(--brass);text-decoration:underline">kvkk.gov.tr</a></p>
+
+  <p style="margin-top:16px">5. Kişisel Verileri Koruma Kurumu. <em>İş Yerlerinde Üretken Yapay Zekâ Araçlarının Kullanımı</em>. Mart 2026. <a href="https://www.kvkk.gov.tr/Icerik/8674/is-yerlerinde-uretken-yapay-zeka-araclarinin-kullanimi" style="color:var(--brass);text-decoration:underline">kvkk.gov.tr</a></p>
+
+</article>
+
+<!-- BACK LINK -->
+<div style="max-width:720px;margin:0 auto 96px;padding:0 24px">
+  <a href="/" style="font-size:13px;color:var(--stone);text-decoration:none;font-family:Arial,sans-serif">
+    &larr; T&uuml;m yaz&#305;lar
+  </a>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-left">
+    <a href="/" class="footer-logo"><img src="/assets/logo-light.png" alt="Hexis" width="32" height="18"></a>
+    <span class="footer-sep">&middot;</span>
+    <span class="footer-txt">&copy; 2026 Hexis &middot; Built by &Ouml;zden Co&#351;kun &middot; Yaln&#305;zca bilgilendirme ama&ccedil;l&#305;d&#305;r; hukuki dan&#305;&#351;manl&#305;k niteli&#287;i ta&#351;&#305;maz.</span>
+  </div>
+  <div class="footer-links">
+    <a href="/metodoloji/">Orient Framework</a>
+    <a href="/generator/">Generator</a>
+    <a href="/#contact">Contact</a>
+    <a href="https://eur-lex.europa.eu/legal-content/TR/TXT/?uri=CELEX:32024R1689" target="_blank" rel="noopener noreferrer">EU AI Act</a>
+    <a href="https://www.linkedin.com/in/ozden-coskun-8728a1301" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+  </div>
+</footer>
+
+<script>
+function toggleMenu(){
+  document.getElementById('hamburger').classList.toggle('open');
+  document.getElementById('mobileMenu').classList.toggle('open');
+}
+function closeMenu(){
+  document.getElementById('hamburger').classList.remove('open');
+  document.getElementById('mobileMenu').classList.remove('open');
+}
+document.addEventListener('click',function(e){
+  const h=document.getElementById('hamburger');
+  const m=document.getElementById('mobileMenu');
+  if(m.classList.contains('open')&&!h.contains(e.target)&&!m.contains(e.target)){
+    h.classList.remove('open');m.classList.remove('open');
+  }
+});
+</script>
+</body>
+</html>
