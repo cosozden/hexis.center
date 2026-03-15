@@ -5,3 +5,11 @@ compatibility_date = "2024-01-01"
 [[routes]]
 pattern = "hexis.center/api/kvkk-roadmap"
 zone_name = "hexis.center"
+
+[[routes]]
+pattern = "hexis.center/api/kvkk-lead"
+zone_name = "hexis.center"
+
+[[kv_namespaces]]
+binding = "KVKK_LEADS"
+id = "REPLACE_WITH_KV_NAMESPACE_ID"

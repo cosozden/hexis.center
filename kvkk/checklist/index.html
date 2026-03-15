@@ -234,16 +234,38 @@ footer p a:hover{color:var(--dark-sub)}
 
 /* PRINT */
 @media print{
-  nav,.hamburger,.mobile-menu,.progress-top,.sector-wrap,.btn-next,.btn-prev,.btn-pdf,.btn-contact,.btn-generate,.report-actions{display:none!important}
-  body{background:#fff;color:#1C1E23}
-  .blocks-wrap{display:none!important}
+  nav,.hamburger,.mobile-menu,.progress-top,.sector-wrap,.btn-next,.btn-prev,.btn-pdf,.btn-contact,.btn-generate,.report-actions,.form-wrap,.loading,.blocks-wrap,.hero,.divider,#fallback{display:none!important}
+  *{color-adjust:exact;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  body{background:#fff!important;color:#1C1E23!important;font-size:11px}
   .results-wrap{display:block!important;padding:0 20px}
-  .form-wrap{display:none!important}
-  .loading{display:none!important}
   .report{display:block!important}
-  .profile-card,.report-section{border-color:#d8d4cc}
-  .report-section-hdr{background:#f0ede8}
-  footer{border-color:#d8d4cc}
+  /* Profile card */
+  .profile-card{border:1.5px solid #1C1E23!important;background:#fff!important;padding:20px;page-break-inside:avoid}
+  .profile-level{color:#1C1E23!important}
+  .profile-score{color:#686662!important}
+  .profile-bar{background:#e8e6e2!important}
+  #overrideAlert{background:#fff0ee!important;border:1px solid #c44!important;color:#a03020!important}
+  /* Block scores */
+  .block-scores{background:#d8d4cc!important}
+  .bs-item{background:#fff!important;page-break-inside:avoid}
+  .bs-label{color:#686662!important}
+  .bs-value{color:#1C1E23!important}
+  .bs-bar{background:#e8e6e2!important}
+  /* Report sections */
+  .report-section{border:1px solid #d8d4cc!important;page-break-inside:avoid;margin-bottom:12px}
+  .report-section-hdr{background:#f0ede8!important;color:#1C1E23!important;border-bottom:1px solid #d8d4cc!important}
+  .eylem-item{border-color:#e8e6e2!important}
+  .eylem-num,.eylem-baslik{color:#1C1E23!important}
+  .eylem-dayanak{color:#686662!important}
+  .eylem-aciklama{color:#444240!important}
+  .eylem-sure{color:#686662!important}
+  /* Alert boxes */
+  .alert-box.alert-red{background:#fff0ee!important;border-color:#c44!important;color:#a03020!important}
+  .alert-box.alert-green{background:#f0faf2!important;border-color:#3a8!important;color:#2a6040!important}
+  /* Legal & footer */
+  .legal-disclaimer{border-left:2px solid #B2986C!important;color:#444240!important;background:#fff!important}
+  footer{border-color:#d8d4cc!important;color:#686662!important}
+  footer a{color:#686662!important}
 }
 </style>
 </head>
@@ -730,6 +752,26 @@ footer p a:hover{color:var(--dark-sub)}
 
   <!-- Report -->
   <div class="report" id="report">
+    <!-- Bölüm A: Rapor Başlığı -->
+    <div id="reportHeader" style="display:none;border-bottom:1px solid var(--border);padding-bottom:14px;margin-bottom:20px">
+      <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px">
+        <div>
+          <div style="font-size:10px;color:var(--stone);letter-spacing:.1em;text-transform:uppercase;font-family:Arial,sans-serif;margin-bottom:4px">KVKK × Yapay Zekâ Uyum Raporu</div>
+          <div id="reportSirket" style="font-family:Georgia,serif;font-size:15px;font-weight:700;color:var(--dark-type)"></div>
+        </div>
+        <div style="text-align:right">
+          <div id="reportTarih" style="font-size:10px;color:var(--stone);font-family:Arial,sans-serif"></div>
+          <div id="reportSektor" style="font-size:11px;color:var(--dark-sub);font-family:Arial,sans-serif;margin-top:2px"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bölüm B: Override Detay -->
+    <div id="overrideDetail" class="alert-box alert-red" style="display:none;margin-bottom:16px">
+      <div style="font-weight:700;margin-bottom:6px">Kritik Tetikleyiciler</div>
+      <div id="overrideList" style="font-size:11px;line-height:1.7"></div>
+    </div>
+
     <!-- Bölüm C: Eylem Planı -->
     <div class="report-section" id="acilSection" style="display:none">
       <div class="report-section-hdr">Acil (0-30 Gün)</div>
@@ -750,7 +792,7 @@ footer p a:hover{color:var(--dark-sub)}
 
     <!-- Bölüm E: PDF ve İletişim -->
     <div class="report-actions">
-      <button class="btn-pdf" onclick="window.print()">PDF İndir</button>
+      <button class="btn-pdf" onclick="exportPDF()">PDF İndir</button>
       <a href="mailto:contact@hexis.center" class="btn-contact">Hexis danışmanlık hizmetleri →</a>
     </div>
   </div>
@@ -1072,6 +1114,31 @@ function generateReport(){
 
   var userPrompt='Sektör: '+sektor+'\nŞirket: '+sirketAdi+'\n\nCHECKLIST YANIT ÖZETİ:\n'+yanitOzeti+'\nGenel profil: '+skorData.profil+'\nOverride: '+overrideDurumu.trim()+'\n\nYalnızca "Hayır", "Emin değilim", "Bilmiyorum" veya benzeri olumsuz yanıtlar için eylem öner.\n"Evet" yanıtlanan konular için eylem önerme.\nMaksimum: acil 3, önemli 4, standart 3 eylem.\n\nTüm yanıtlar olumlu ise tüm listeleri boş bırak.';
 
+  /* Save lead data (fire-and-forget) */
+  var adSoyad=document.getElementById('adSoyad').value.trim();
+  var eposta=document.getElementById('eposta').value.trim();
+  var overrideTriggers=[];
+  if(override_s7)overrideTriggers.push('S7');
+  if(override_s10)overrideTriggers.push('S10');
+  if(override_s18)overrideTriggers.push('S18');
+  if(override_s21)overrideTriggers.push('S21');
+  fetch('/api/kvkk-lead',{
+    method:'POST',
+    headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({
+      name:adSoyad,
+      email:eposta,
+      company:sirketAdi,
+      sector:sektor,
+      score:skorData.totalSkor,
+      maxScore:skorData.maxTotal,
+      profile:skorData.profil,
+      hasOverride:skorData.hasOverride,
+      overrideTriggers:overrideTriggers
+    })
+  }).catch(function(){/* silent fail — lead save is non-blocking */});
+
+  /* Generate roadmap via Claude API */
   fetch('/api/kvkk-roadmap',{
     method:'POST',
     headers:{'Content-Type':'application/json'},
@@ -1123,6 +1190,28 @@ function renderReport(data){
   document.getElementById('loading').classList.remove('show');
   document.getElementById('report').classList.add('show');
 
+  /* Rapor başlığı */
+  var sirket=document.getElementById('sirketAdi').value.trim();
+  var tarih=new Date().toLocaleDateString('tr-TR',{day:'numeric',month:'long',year:'numeric'});
+  var sektorLabels={perakende:'Perakende ve e-ticaret',muhasebe:'Muhasebe ve mali müşavirlik',hukuk:'Hukuk ve danışmanlık',saglik:'Sağlık ve klinik hizmetler',ik:'İnsan kaynakları',egitim:'Eğitim ve kurs',gayrimenkul:'Gayrimenkul',lojistik:'Lojistik',yazilim:'Yazılım ve teknoloji',uretim:'Üretim ve imalat',diger:'Diğer'};
+  if(sirket){
+    document.getElementById('reportHeader').style.display='block';
+    document.getElementById('reportSirket').textContent=sirket;
+    document.getElementById('reportTarih').textContent=tarih;
+    document.getElementById('reportSektor').textContent=sektorLabels[selectedSektor]||selectedSektor;
+  }
+
+  /* Override detay */
+  if(override_s7||override_s10||override_s18||override_s21){
+    var overrideItems=[];
+    if(override_s7)overrideItems.push('S7 — Hukuki işleme şartı belirlenmemiş (KVKK Md. 5)');
+    if(override_s10)overrideItems.push('S10 — Yurt dışı aktarım mekanizması yok (KVKK Md. 9)');
+    if(override_s18)overrideItems.push('S18 — Veri işleme kaydı tutulmuyor (KVKK Md. 12)');
+    if(override_s21)overrideItems.push('S21 — İhlal prosedürü yok (KVKK Md. 12/5)');
+    document.getElementById('overrideDetail').style.display='block';
+    document.getElementById('overrideList').innerHTML=overrideItems.map(function(t){return '• '+t;}).join('<br>');
+  }
+
   var acil=data.acil_eylemler||[];
   var onemli=data.onemli_eylemler||[];
   var standart=data.standart_eylemler||[];
@@ -1171,6 +1260,153 @@ function showFallback(){
   document.getElementById('loading').classList.remove('show');
   document.getElementById('fallback').style.display='block';
   document.getElementById('report').classList.add('show');
+}
+
+/* ─── PDF EXPORT (dedicated light-theme template) ─── */
+function exportPDF(){
+  var sd=window._skorData;
+  if(!sd)return;
+  var sirket=document.getElementById('sirketAdi').value.trim()||'';
+  var tarih=new Date().toLocaleDateString('tr-TR',{day:'numeric',month:'long',year:'numeric'});
+  var profilText=document.getElementById('profileLevel').textContent;
+  var skorText=document.getElementById('profileScore').textContent;
+  var hasOverride=sd.hasOverride;
+  var sektorLabels={perakende:'Perakende ve e-ticaret',muhasebe:'Muhasebe ve mali müşavirlik',hukuk:'Hukuk ve danışmanlık',saglik:'Sağlık ve klinik hizmetler',ik:'İnsan kaynakları',egitim:'Eğitim ve kurs',gayrimenkul:'Gayrimenkul',lojistik:'Lojistik',yazilim:'Yazılım ve teknoloji',uretim:'Üretim ve imalat',diger:'Diğer'};
+  var sektorText=sektorLabels[selectedSektor]||selectedSektor;
+
+  /* Override detail items */
+  var overrideItems=[];
+  if(override_s7)overrideItems.push('S7 — Hukuki işleme şartı belirlenmemiş (KVKK Md. 5)');
+  if(override_s10)overrideItems.push('S10 — Yurt dışı aktarım mekanizması yok (KVKK Md. 9)');
+  if(override_s18)overrideItems.push('S18 — Veri işleme kaydı tutulmuyor (KVKK Md. 12)');
+  if(override_s21)overrideItems.push('S21 — İhlal prosedürü yok (KVKK Md. 12/5)');
+
+  /* Collect block scores */
+  var bLabels=['YZ Araç Envanteri','İşleme ve Aktarım','Sorumluluk ve Politika','Hesap Verebilirlik'];
+  var bVals=[
+    document.getElementById('bs1Val').textContent,
+    document.getElementById('bs2Val').textContent,
+    document.getElementById('bs3Val').textContent,
+    document.getElementById('bs4Val').textContent
+  ];
+
+  /* Collect action items */
+  function collectEylemler(sectionId){
+    var items=[];
+    var sec=document.getElementById(sectionId);
+    if(!sec||sec.style.display==='none')return items;
+    sec.querySelectorAll('.eylem-item').forEach(function(el){
+      items.push({
+        sira:el.querySelector('.eylem-num')?el.querySelector('.eylem-num').textContent:'',
+        baslik:el.querySelector('.eylem-baslik')?el.querySelector('.eylem-baslik').textContent:'',
+        dayanak:el.querySelector('.eylem-dayanak')?el.querySelector('.eylem-dayanak').textContent:'',
+        aciklama:el.querySelector('.eylem-aciklama')?el.querySelector('.eylem-aciklama').textContent:'',
+        sure:el.querySelector('.eylem-sure')?el.querySelector('.eylem-sure').textContent:''
+      });
+    });
+    return items;
+  }
+  var acil=collectEylemler('acilSection');
+  var onemli=collectEylemler('onemliSection');
+  var standart=collectEylemler('standartSection');
+
+  function esc(s){return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+
+  function renderSection(title,items,color){
+    if(items.length===0)return '';
+    var html='<div style="border:1px solid #d8d4cc;margin-bottom:16px;page-break-inside:avoid">';
+    html+='<div style="padding:12px 18px;font-family:Georgia,serif;font-size:13px;font-weight:700;color:#1C1E23;border-bottom:1px solid #d8d4cc;background:#f0ede8">'+esc(title)+'</div>';
+    html+='<div style="padding:14px 18px">';
+    items.forEach(function(e){
+      html+='<div style="padding:10px 0;border-bottom:1px solid #e8e6e2">';
+      html+='<div style="font-family:Georgia,serif;font-weight:700;font-size:12px;color:'+color+';margin-bottom:2px">'+esc(e.sira)+'</div>';
+      html+='<div style="font-size:12px;font-weight:700;color:#1C1E23;margin-bottom:3px">'+esc(e.baslik)+'</div>';
+      html+='<div style="font-size:10px;color:#686662;letter-spacing:.04em;margin-bottom:3px">'+esc(e.dayanak)+'</div>';
+      html+='<div style="font-size:11px;color:#444240;line-height:1.6">'+esc(e.aciklama)+'</div>';
+      if(e.sure)html+='<div style="font-size:10px;color:#686662;margin-top:3px">'+esc(e.sure)+'</div>';
+      html+='</div>';
+    });
+    html+='</div></div>';
+    return html;
+  }
+
+  /* Build block scores grid */
+  var bsHtml='<div style="display:grid;grid-template-columns:1fr 1fr;gap:1px;background:#d8d4cc;margin-bottom:20px">';
+  for(var i=0;i<4;i++){
+    var parts=bVals[i].split('/');
+    var pct=parts.length===2?Math.round((parseInt(parts[0])/parseInt(parts[1]))*100):0;
+    var bColor=pct<=40?'#2a8050':pct<=65?'#B2986C':'#c44';
+    bsHtml+='<div style="background:#fff;padding:12px 16px">';
+    bsHtml+='<div style="font-size:9px;color:#686662;letter-spacing:.06em;text-transform:uppercase;margin-bottom:4px">Blok '+(i+1)+' — '+bLabels[i]+'</div>';
+    bsHtml+='<div style="font-family:Georgia,serif;font-size:14px;font-weight:700;color:'+bColor+'">'+bVals[i]+'</div>';
+    bsHtml+='<div style="height:2px;background:#e8e6e2;margin-top:6px"><div style="height:100%;width:'+pct+'%;background:'+bColor+'"></div></div>';
+    bsHtml+='</div>';
+  }
+  bsHtml+='</div>';
+
+  /* Profile color */
+  var profilColor=hasOverride?'#c44':sd.totalSkor<=12?'#2a8050':sd.totalSkor<=28?'#B2986C':'#c44';
+
+  var w=window.open('','_blank');
+  w.document.write('<!DOCTYPE html><html lang="tr"><head><meta charset="UTF-8"><title>KVKK Uyum Raporu — '+esc(sirket)+'</title>');
+  w.document.write('<style>');
+  w.document.write('*{margin:0;padding:0;box-sizing:border-box}');
+  w.document.write('body{font-family:Arial,Helvetica,sans-serif;background:#F8F7F5;color:#1C1E23;max-width:800px;margin:0 auto;padding:40px 40px 30px}');
+  w.document.write('@page{size:A4;margin:20mm 15mm}');
+  w.document.write('@media print{body{padding:0;background:#fff}}');
+  w.document.write('</style></head><body>');
+
+  /* HEADER */
+  w.document.write('<div style="display:flex;align-items:center;justify-content:space-between;border-bottom:1.5px solid #1C1E23;padding-bottom:14px;margin-bottom:24px">');
+  w.document.write('<div><div style="font-family:Georgia,serif;font-size:10px;letter-spacing:.15em;color:#686662;text-transform:uppercase;margin-bottom:4px">Hexis AI Governance</div>');
+  w.document.write('<div style="font-family:Georgia,serif;font-size:18px;font-weight:700;color:#1C1E23">KVKK × Yapay Zekâ Uyum Raporu</div></div>');
+  w.document.write('<div style="text-align:right"><div style="font-size:10px;color:#686662">'+esc(tarih)+'</div>');
+  if(sirket)w.document.write('<div style="font-size:11px;color:#1C1E23;font-weight:700;margin-top:2px">'+esc(sirket)+'</div>');
+  if(sektorText)w.document.write('<div style="font-size:10px;color:#686662;margin-top:1px">'+esc(sektorText)+'</div>');
+  w.document.write('</div></div>');
+
+  /* EXECUTIVE SUMMARY */
+  w.document.write('<div style="border:1.5px solid #1C1E23;padding:20px;margin-bottom:20px;page-break-inside:avoid">');
+  w.document.write('<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px">');
+  w.document.write('<div style="font-family:Georgia,serif;font-size:18px;font-weight:700;color:'+profilColor+'">'+esc(profilText)+'</div>');
+  w.document.write('<div style="font-size:12px;color:#686662">'+esc(skorText)+'</div></div>');
+  /* Score bar */
+  var pctTotal=Math.min(Math.round((sd.totalSkor/sd.maxTotal)*100),100);
+  w.document.write('<div style="height:3px;background:#e8e6e2;margin-bottom:14px"><div style="height:100%;width:'+pctTotal+'%;background:'+profilColor+'"></div></div>');
+  if(hasOverride){
+    w.document.write('<div style="padding:10px 14px;background:#fff0ee;border:1px solid #e8685a;color:#a03020;font-size:11px;line-height:1.6;margin-bottom:10px">Değerlendirmenizde tespit edilen bir veya daha fazla açık, genel uyum düzeyinden bağımsız olarak doğrudan yasal risk oluşturuyor.</div>');
+    if(overrideItems.length>0){
+      w.document.write('<div style="padding:10px 14px;background:#fff0ee;border:1px solid #e8685a;font-size:11px;line-height:1.8">');
+      w.document.write('<div style="font-weight:700;color:#a03020;margin-bottom:4px">Kritik Tetikleyiciler:</div>');
+      overrideItems.forEach(function(t){w.document.write('<div style="color:#a03020">• '+esc(t)+'</div>');});
+      w.document.write('</div>');
+    }
+  }
+  w.document.write('</div>');
+
+  /* BLOCK SCORES */
+  w.document.write(bsHtml);
+
+  /* ACTION SECTIONS */
+  w.document.write(renderSection('Acil (0-30 Gün)',acil,'#c44'));
+  w.document.write(renderSection('Önemli (30-90 Gün)',onemli,'#B2986C'));
+  w.document.write(renderSection('Standart (90+ Gün)',standart,'#686662'));
+
+  if(acil.length===0&&onemli.length===0&&standart.length===0){
+    w.document.write('<div style="padding:14px 18px;background:#f0faf2;border:1px solid #3a8;color:#2a6040;font-size:11px;line-height:1.6">Değerlendirmenize göre kritik bir açık tespit edilmedi. Uyum durumunuzu korumak için periyodik gözden geçirme önerilir.</div>');
+  }
+
+  /* LEGAL DISCLAIMER */
+  w.document.write('<div style="border-left:2px solid #B2986C;padding:12px 18px;margin:24px 0;font-size:10px;color:#444240;line-height:1.65">Bu değerlendirme KVKK uyum sürecinizi yapılandırmanıza yardımcı olmak amacıyla tasarlanmıştır. Hukuki tavsiye niteliği taşımaz. Şirketinize özgü değerlendirme için bir avukata veya KVKK uzmanına danışmanızı öneririz.</div>');
+
+  /* FOOTER */
+  w.document.write('<div style="border-top:1px solid #d8d4cc;padding-top:12px;margin-top:24px;font-size:9px;color:#686662;line-height:1.5">');
+  w.document.write('Resmi Kaynaklar: <a href="https://www.kvkk.gov.tr" style="color:#686662">KVKK</a> · <a href="https://verbis.kvkk.gov.tr" style="color:#686662">VERBİS</a> · <a href="https://www.kvkk.gov.tr/Icerik/8547/uretken-yapay-zeka-ve-kisisel-verilerin-korunmasi-rehberi-15-soruda" style="color:#686662">KVKK Rehberi (15 Soruda)</a><br>');
+  w.document.write('© 2026 Hexis · hexis.center · Bu rapor yalnızca bilgilendirme amaçlıdır.</div>');
+
+  w.document.write('<script>window.onload=function(){window.print()}<\/script>');
+  w.document.write('</body></html>');
+  w.document.close();
 }
 </script>
 </body>
