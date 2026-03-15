@@ -12,6 +12,7 @@ import sys
 import os
 import re
 import html
+import json
 from datetime import datetime
 
 # ──────────────────────────────────────────────
@@ -191,10 +192,76 @@ def inline_format(text):
 
 
 # ──────────────────────────────────────────────
+# FAQ JSON-LD SCHEMA GENERATOR
+# ──────────────────────────────────────────────
+
+def extract_faq_jsonld(body):
+    """Extract FAQ section from markdown body and generate JSON-LD schema.
+
+    Looks for a section starting with '## Sikca Sorulan Sorular' (or similar)
+    and parses **Question** / Answer pairs.
+
+    Returns JSON-LD script tag string, or empty string if no FAQ found.
+    """
+    # Find FAQ section
+    faq_match = re.search(
+        r"##\s+S[ıi]k[cç]a Sorulan Sorular.*?\n(.*?)(?=\n## |\n---|\Z)",
+        body,
+        re.DOTALL | re.IGNORECASE,
+    )
+    if not faq_match:
+        return ""
+
+    faq_text = faq_match.group(1).strip()
+
+    # Parse **Question** / Answer pairs
+    # Pattern: **bold question** followed by answer paragraph(s)
+    pairs = re.findall(
+        r"\*\*(.+?)\*\*\s*\n\n(.+?)(?=\n\n\*\*|\Z)",
+        faq_text,
+        re.DOTALL,
+    )
+
+    if not pairs:
+        return ""
+
+    faq_entries = []
+    for question, answer in pairs:
+        # Clean markdown from answer
+        clean_answer = re.sub(r"\[(.+?)\]\(.+?\)", r"\1", answer.strip())
+        clean_answer = re.sub(r"\*(.+?)\*", r"\1", clean_answer)
+        clean_answer = clean_answer.replace("\n", " ").strip()
+
+        faq_entries.append({
+            "@type": "Question",
+            "name": question.strip(),
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": clean_answer,
+            },
+        })
+
+    if not faq_entries:
+        return ""
+
+    schema = {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": faq_entries,
+    }
+
+    return (
+        '<script type="application/ld+json">\n'
+        + json.dumps(schema, ensure_ascii=False, indent=2)
+        + "\n</script>"
+    )
+
+
+# ──────────────────────────────────────────────
 # HTML PAGE GENERATOR
 # ──────────────────────────────────────────────
 
-def generate_blog_html(meta, content_html):
+def generate_blog_html(meta, content_html, faq_jsonld=""):
     """Generate full blog page HTML from template."""
     title = html.escape(meta["title"])
     desc = html.escape(meta["description"])
@@ -202,6 +269,8 @@ def generate_blog_html(meta, content_html):
     category = html.escape(meta["category"])
     date = datetime.strptime(meta["date"], "%Y-%m-%d")
     month_label = f"{MONTH_TR[date.month]} {date.year}"
+
+    faq_block = f"\n{faq_jsonld}" if faq_jsonld else ""
 
     return f"""<!DOCTYPE html>
 <html lang="tr">
@@ -220,7 +289,7 @@ def generate_blog_html(meta, content_html):
 <meta name="twitter:description" content="{desc}">
 <meta name="twitter:image" content="{OG_IMAGE}">
 <link rel="icon" href="/assets/favicon.ico">
-<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">{faq_block}
 <style>
 /* ─── BRAND TOKENS ───────────────────────────────── */
 :root{{
@@ -601,8 +670,15 @@ def main():
     # Convert markdown to HTML
     content_html = md_to_html(body)
 
+    # Extract FAQ JSON-LD schema
+    faq_jsonld = extract_faq_jsonld(body)
+    if faq_jsonld:
+        print("✅ FAQ JSON-LD schema oluşturuldu")
+    else:
+        print("ℹ️  FAQ bölümü bulunamadı, JSON-LD atlandı")
+
     # Generate blog page
-    page_html = generate_blog_html(meta, content_html)
+    page_html = generate_blog_html(meta, content_html, faq_jsonld)
 
     # Write output
     slug = meta["slug"]

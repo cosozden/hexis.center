@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Etken Yapay Zekâ (Agentic AI) Kişisel Verileri Nasıl Etkiliyor? KVKK Raporu Analizi — Hexis</title>
+<meta name="description" content="KVKK&#x27;nın Etken Yapay Zekâ (Agentic AI) raporunu analiz ediyoruz. Kişisel veri koruma ilkelerini zorlayan beş risk alanı ve uyum önerileri.">
+<meta property="og:title" content="Etken Yapay Zekâ (Agentic AI) Kişisel Verileri Nasıl Etkiliyor? KVKK Raporu Analizi — Hexis">
+<meta property="og:description" content="KVKK&#x27;nın Etken Yapay Zekâ (Agentic AI) raporunu analiz ediyoruz. Kişisel veri koruma ilkelerini zorlayan beş risk alanı ve uyum önerileri.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://hexis.center/blog/etken-yapay-zeka-kisisel-verilere-etkisi/">
+<meta property="og:image" content="https://hexis.center/assets/og-hexis.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Etken Yapay Zekâ (Agentic AI) Kişisel Verileri Nasıl Etkiliyor? KVKK Raporu Analizi — Hexis">
+<meta name="twitter:description" content="KVKK&#x27;nın Etken Yapay Zekâ (Agentic AI) raporunu analiz ediyoruz. Kişisel veri koruma ilkelerini zorlayan beş risk alanı ve uyum önerileri.">
+<meta name="twitter:image" content="https://hexis.center/assets/og-hexis.png">
+<link rel="icon" href="/assets/favicon.ico">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Etken yapay zekâ (Agentic AI) nedir?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Etken yapay zekâ, hedef yönelimli çalışan, çok adımlı görevleri planlayıp yürüten ve süreç boyunca otonom kararlar alabilen YZ sistemlerini ifade eder. Geleneksel YZ'den farkı, otonomi düzeyinin ve çevreyle etkileşimin belirgin biçimde artmış olmasıdır."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "KVKK Agentic AI raporu ne zaman yayımlandı?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "KVKK, Etken Yapay Zekâ (Agentic AI) raporunu 12 Mart 2026 tarihinde yayımladı. Raporun tam metnine kvkk.gov.tr üzerinden erişilebilir."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Agentic AI kişisel verileri nasıl etkiliyor?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Etken yapay zekâ sistemleri, otonom karar alma ve çok adımlı veri işleme yapıları nedeniyle amaçla sınırlılık, veri minimizasyonu, hukuki dayanak, şeffaflık ve insan gözetimi ilkelerini zorluyor. Sistemler görev sürecinde başlangıçta öngörülmeyen verilere erişebiliyor ve bu durum mevcut veri koruma çerçevesini test ediyor."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Privacy by design etken yapay zekâda nasıl uygulanır?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "KVKK raporu, privacy by design (tasarımdan itibaren mahremiyet) ve privacy by default (varsayılan olarak mahremiyet) yaklaşımlarının sistem tasarımına en baştan entegre edilmesini öneriyor. Buna ek olarak, diferansiyel mahremiyet ve homomorfik şifreleme gibi mahremiyet artırıcı teknolojilerin (PETs) kullanımını tavsiye ediyor."
+      }
+    }
+  ]
+}
+</script>
+<style>
+/* ─── BRAND TOKENS ───────────────────────────────── */
+:root{
+  --charcoal:  #1C1E23;
+  --brass:     #B2986C;
+  --stone:     #686662;
+  --paper:     #F8F7F5;
+  --dark-bg:   #16181C;
+  --dark-type: #E8E6E2;
+  --dark-sub:  #8A8884;
+
+  --bg:        var(--dark-bg);
+  --text:      var(--dark-type);
+  --text2:     var(--dark-sub);
+  --muted:     var(--dark-sub);
+
+  --border:    rgba(232,230,226,0.10);
+  --border2:   rgba(232,230,226,0.18);
+  --card:      rgba(232,230,226,0.04);
+  --card2:     rgba(232,230,226,0.07);
+}
+
+/* ─── RESET ──────────────────────────────────────── */
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;font-size:16px}
+body{
+  font-family:Arial,sans-serif;
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+  text-rendering:optimizeLegibility;
+  background:var(--bg);
+  color:var(--text);
+  line-height:1.55;
+  min-height:100vh;
+  overflow-x:hidden;
+}
+p{line-height:1.75;color:var(--text2)}
+
+/* ─── NAV ────────────────────────────────────────── */
+nav{
+  position:sticky;top:0;z-index:100;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 48px;height:60px;
+  background:var(--dark-bg);
+  border-bottom:1px solid var(--border);
+}
+.nav-logo{
+  display:flex;align-items:center;gap:10px;
+  text-decoration:none;color:var(--text);
+  flex-shrink:0;
+}
+.nav-logo img{
+  display:block;
+  height:40px;
+  width:auto;
+}
+@media(max-width:768px){
+  .nav-logo img{ height:32px; }
+}
+.nav-logo:focus-visible{
+  outline:2px solid rgba(232,230,226,0.5);
+  outline-offset:4px;
+}
+.nav-links{display:flex;gap:4px;align-items:center}
+.nav-links a{
+  color:var(--muted);text-decoration:none;font-size:12px;font-weight:400;
+  padding:6px 12px;border-radius:2px;transition:color .15s;letter-spacing:.04em;
+  font-family:Arial,sans-serif;
+}
+.nav-links a:hover{color:var(--text)}
+
+/* HAMBURGER */
+.hamburger{
+  display:none;flex-direction:column;gap:5px;
+  cursor:pointer;background:none;border:none;padding:4px;z-index:200;
+}
+.hamburger span{width:22px;height:1px;background:var(--text2);transition:all .3s}
+.hamburger.open span:nth-child(1){transform:translateY(6px) rotate(45deg)}
+.hamburger.open span:nth-child(2){opacity:0}
+.hamburger.open span:nth-child(3){transform:translateY(-6px) rotate(-45deg)}
+.mobile-menu{
+  display:none;position:fixed;top:60px;left:0;right:0;
+  background:var(--dark-bg);
+  border-bottom:1px solid var(--border);
+  padding:12px 20px 20px;flex-direction:column;gap:0;z-index:99;
+}
+.mobile-menu.open{display:flex}
+.mobile-menu a{
+  color:var(--muted);text-decoration:none;font-size:13px;font-weight:400;
+  padding:11px 4px;border-bottom:1px solid var(--border);
+  transition:color .15s;font-family:Arial,sans-serif;
+}
+.mobile-menu a:last-child{border-bottom:none}
+.mobile-menu a:hover{color:var(--text)}
+
+/* ─── FOOTER ─────────────────────────────────────── */
+footer{
+  position:relative;z-index:1;
+  border-top:1px solid var(--border);
+  padding:20px 48px;
+  display:flex;align-items:center;justify-content:space-between;
+  gap:16px;flex-wrap:wrap;
+}
+.footer-left{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.footer-logo{display:flex;align-items:center;flex-shrink:0;text-decoration:none;}
+.footer-logo img{display:block;height:auto;width:auto;max-height:18px;}
+.footer-logo:focus-visible{outline:2px solid rgba(232,230,226,0.5);outline-offset:4px;}
+.footer-sep{color:var(--stone);margin:0 4px}
+.footer-txt{font-size:10px;color:var(--stone);font-family:Arial,sans-serif;letter-spacing:.02em}
+.footer-links{display:flex;gap:16px;flex-wrap:wrap}
+.footer-links a{font-size:10px;color:var(--stone);text-decoration:none;transition:color .15s;font-family:Arial,sans-serif;letter-spacing:.04em}
+.footer-links a:hover{color:var(--text2)}
+
+/* ─── RESPONSIVE ─────────────────────────────────── */
+@media(max-width:860px){
+  nav{padding:0 20px}
+  .nav-links{display:none}
+  .hamburger{display:flex}
+  footer{flex-direction:column;align-items:flex-start;padding:20px}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="/" class="nav-logo">
+    <img src="/assets/logo-light.png" alt="Hexis" width="72" height="40">
+  </a>
+  <div class="nav-links">
+    <a href="/metodoloji/">Orient Framework</a>
+    <a href="/generator/">Generator</a>
+    <a href="/#contact">Contact</a>
+  </div>
+  <button class="hamburger" id="hamburger" onclick="toggleMenu()" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<div class="mobile-menu" id="mobileMenu">
+  <a href="/metodoloji/" onclick="closeMenu()">Orient Framework</a>
+  <a href="/generator/" onclick="closeMenu()">Generator</a>
+  <a href="/#contact" onclick="closeMenu()">Contact</a>
+</div>
+
+<!-- BREADCRUMB -->
+<div style="max-width:720px;margin:40px auto 0;padding:0 24px">
+  <a href="/" style="color:var(--stone);font-size:12px;text-decoration:none">&larr; hexis.center</a>
+</div>
+
+<!-- ARTICLE HEADER -->
+<header style="max-width:720px;margin:40px auto 48px;padding:0 24px">
+  <div style="font-size:11px;color:var(--brass);font-family:Arial,sans-serif;letter-spacing:.08em;text-transform:uppercase;margin-bottom:16px">
+    KVKK &middot; Mart 2026
+  </div>
+  <h1 style="font-family:Georgia,serif;font-size:clamp(28px,4vw,44px);font-weight:700;line-height:1.15;letter-spacing:-.5px;color:var(--text);margin-bottom:20px">
+    Etken Yapay Zekâ (Agentic AI) Kişisel Verileri Nasıl Etkiliyor? KVKK Raporu Analizi
+  </h1>
+  <p style="font-size:16px;line-height:1.7;color:var(--stone);max-width:600px">
+    KVKK&#x27;nın Etken Yapay Zekâ (Agentic AI) raporunu analiz ediyoruz. Kişisel veri koruma ilkelerini zorlayan beş risk alanı ve uyum önerileri.
+  </p>
+</header>
+
+<!-- ARTICLE CONTENT -->
+<article style="max-width:720px;margin:0 auto 96px;padding:0 24px;font-family:Arial,sans-serif;font-size:16px;line-height:1.8;color:var(--text2)">
+
+  <h2 style="font-family:Georgia,serif;font-size:24px;font-weight:700;color:var(--text);margin:48px 0 16px">
+    Etken Yapay Zekâ (Agentic AI) Neden Farklı?
+  </h2>
+
+  <p>Yapay zekâ sistemlerinin büyük çoğunluğu belirli bir girdi alır, önceden tanımlanmış bir işlem yapar ve bir çıktı üretir. Bir spam filtresi e-postaları sınıflandırır, bir öneri motoru ürün önerir. Bu sistemlerde veri işleme kapsamı öngörülebilirdir.</p>
+
+  <p style="margin-top:16px"><em>Agentic AI</em> (Etken Yapay Zekâ) ise temelden farklı bir işleyiş sergiliyor. Etken yapay zekâ sistemleri hedef yönelimli çalışır, çok adımlı görevleri planlayıp yürütür ve süreç boyunca otonom kararlar alabilir. Tek bir teknoloji türünden ziyade, geleneksel YZ'ye kıyasla otonomi düzeyinin ve çevreyle etkileşimin belirgin biçimde arttığı bir yaklaşımı ifade ediyor.¹</p>
+
+  <p style="margin-top:16px">Kişisel Verileri Koruma Kurumu (KVKK), 12 Mart 2026 tarihinde yayımladığı <a href="https://www.kvkk.gov.tr/Icerik/8683/etken-yapay-zeka-agentic-ai" style="color:var(--brass);text-decoration:underline">Etken Yapay Zekâ (Agentic AI)</a> raporu ile bu sistemlerin kişisel veriler üzerindeki etkilerini sistematik biçimde ele aldı. Rapor, mevcut veri koruma çerçevesinin etken yapay zekâ için büyük ölçüde geçerliliğini koruduğunu belirtmekle birlikte, bu ilkelerin uygulanmasında yeni zorluklar ortaya çıktığını vurguluyor.¹</p>
+
+  <p style="margin-top:16px">Bu yazıda, KVKK'nın Agentic AI raporundan hareketle etken yapay zekânın kişisel verilere etkisini beş kritik eksende inceliyoruz.</p>
+
+  <h2 style="font-family:Georgia,serif;font-size:24px;font-weight:700;color:var(--text);margin:48px 0 16px">
+    1. Amaçla Sınırlılık İlkesi Zorlanıyor {#amacla-sinirlilik}
+  </h2>
+
+  <p>Kişisel verilerin korunmasının temel taşlarından biri, verilerin belirli, açık ve meşru amaçlarla işlenmesidir. Klasik YZ'de bu amacı baştan tanımlamak görece kolaydır.</p>
+
+  <p style="margin-top:16px">Etken YZ'de ise durum farklılaşıyor. Bu sistemler görevin ilerleyişine bağlı olarak veri kullanımına ilişkin değerlendirmelerini güncelleyebiliyor. Başlangıçta öngörülmeyen veri kümeleri sürece dahil edilebiliyor veya mevcut veriler farklı görevler kapsamında yeniden kullanılabiliyor.¹ Bu dinamik yapı, veri işleme faaliyetlerinin kapsamının zaman içerisinde değişkenlik göstermesine neden oluyor.</p>
+
+  <p style="margin-top:16px">Somut bir örnekle düşünelim: bir müşteri destek aracısı olarak tasarlanan Etken YZ sistemi, müşterinin geçmiş etkileşim kayıtlarını analiz ederken, bu verileri ayrıca bir <em>churn prediction</em> (müşteri kaybı tahmini) modeline girdi olarak kullanmaya başlayabilir. Bu noktada, başlangıçta "müşteri destek" amacıyla toplanan veriler farklı bir bağlamda işlenmiş oluyor.</p>
+
+  <h2 style="font-family:Georgia,serif;font-size:24px;font-weight:700;color:var(--text);margin:48px 0 16px">
+    2. Veri Minimizasyonu Güçleşiyor {#veri-minimizasyonu}
+  </h2>
+
+  <p>Veri minimizasyonu ilkesi, yalnızca amaca ulaşmak için gerekli olan verilerin işlenmesini öngörür. Etken YZ sistemlerinin hedef odaklı ve çok adımlı işleyiş yapısı, bu ilkenin uygulanmasını karmaşıklaştırıyor.</p>
+
+  <p style="margin-top:16px">KVKK raporu, sistemin görevlerini yerine getirirken hangi verilerin "gerekli" olduğunu bağlama göre kendisinin değerlendirebildiğini belirtiyor.¹ Bir araştırma görevinde çalışan Etken YZ sistemi, birden fazla veri kaynağını bir arada değerlendirebiliyor ve farklı uzmanlık alanlarından veri çekebiliyor. Hangi verilerin gerçekten gerekli olduğuna ilişkin sınırlar, statik kurallarla değil, sistemin dinamik değerlendirmeleriyle şekilleniyor.</p>
+
+  <p style="margin-top:16px">Bu durum, özellikle birden fazla YZ aracısının etkileşim halinde çalıştığı yapılarda daha belirgin hale geliyor. Her bir aracı kendi görev kapsamında veri işlerken, toplam veri işleme hacmi ve kapsamı, tek bir aracının işleyeceğinden çok daha geniş bir yelpazeye ulaşabiliyor.</p>
+
+  <h2 style="font-family:Georgia,serif;font-size:24px;font-weight:700;color:var(--text);margin:48px 0 16px">
+    3. Hukuki Dayanak Sorunu Derinleşiyor {#hukuki-dayanak}
+  </h2>
+
+  <p>Kişisel verilerin işlenmesi için geçerli bir hukuki dayanağın (işleme şartının) bulunması gerekir. Etken YZ sistemlerinde veri işleme faaliyetlerinin çok adımlı yapısı, bu dayanağın yaşam döngüsü boyunca geçerliliğini korumasını zorlaştırıyor.¹</p>
+
+  <p style="margin-top:16px">KVKK raporu bu konuda önemli bir tespit yapıyor: sistemin ilerleyen aşamalarda yeni veri türleri işlemeye başlaması veya mevcut verileri başlangıçta öngörülmeyen biçimlerde kullanması, başlangıçtaki hukuki dayanağın kapsam ve içerik bakımından yeterli kalıp kalmadığı sorusunu gündeme getiriyor.¹</p>
+
+  <p style="margin-top:16px">Örneğin, açık rıza temelinde başlatılan bir veri işleme faaliyeti, sistemin otonom kararlarıyla genişlediğinde, ilgili kişinin rızasının bu genişletilmiş kapsamı da kapsayıp kapsamadığı belirsizleşebiliyor.</p>
+
+  <h2 style="font-family:Georgia,serif;font-size:24px;font-weight:700;color:var(--text);margin:48px 0 16px">
+    4. Şeffaflık ve Açıklanabilirlik Karmaşıklaşıyor {#seffaflik}
+  </h2>
+
+  <p>YZ sistemlerinde <em>black box</em> (kara kutu) problemi uzun süredir tartışılıyor. KVKK raporu, bu problemin Etken YZ'de daha karmaşık bir görünüm kazandığını belirtiyor.¹</p>
+
+  <p style="margin-top:16px">Bunun temel nedeni, Etken YZ'nin çok adımlı ve hedef yönelimli işleyişi. Birden fazla YZ aracısının etkileşim halinde çalıştığı yapılarda, belirli bir kararın veya kişisel veri kullanımının hangi aracı ya da süreç adımıyla ilişkili olduğunun tespiti zorlaşıyor.¹ Bu durum hem ilgili kişilerin aydınlatılmasını hem de olası ihlallerde sorumluluk tespitini güçleştiriyor.</p>
+
+  <p style="margin-top:16px">Rapor, bu zorluğa karşı sistemlerin üstlendiği görevlerin niteliği ve ortaya çıkabilecek riskler dikkate alınarak uygun açıklanabilirlik düzeyinin sağlanmasını öneriyor. Ayrıca, belirlenen amaç ve sınırlamalar dışında hareket etmeyi önlemeye yönelik teknik koruyucu mekanizmaların, şeffaflık yaklaşımlarını tamamlayıcı bir rol üstlenebileceği değerlendirilmektedir.¹</p>
+
+  <h2 style="font-family:Georgia,serif;font-size:24px;font-weight:700;color:var(--text);margin:48px 0 16px">
+    5. Kontrol Kaybı ve İnsan Gözetimi {#insan-gozetimi}
+  </h2>
+
+  <p>Otonomi düzeyinin yüksek olduğu Etken YZ sistemlerinde, bireylerin kendi verileri üzerindeki kontrol beklentileriyle sistemin işleyişi arasında gerilim oluşabiliyor.</p>
+
+  <p style="margin-top:16px">KVKK raporu bu konuda net bir uyarıda bulunuyor: hedef ve eylem alanlarının yeterince açık ve net biçimde belirlenmediği durumlarda, beklenmeyen veya istenmeyen sonuçların ortaya çıkma olasılığı artıyor. YZ aracıları kısa sürede çok sayıda eylem gerçekleştirebildiğinden, insan gözetiminin sınırlı kaldığı senaryolarda hataların kümülatif etkisi büyüyebiliyor.¹</p>
+
+  <p style="margin-top:16px">Rapor, insan gözetiminin üç aşamada ele alınmasını öneriyor: geliştirme aşamasında sistemin erişebileceği veri türlerinin ve verilebilecek kararların tanımlanması; kullanıma alma aşamasında yüksek riskli süreçler için ilave insan incelemesi mekanizmaları; kullanım sonrasında ise sistemin davranışlarının izlenmesine yönelik geri bildirim ve değerlendirme mekanizmaları.¹</p>
+
+  <h2 style="font-family:Georgia,serif;font-size:24px;font-weight:700;color:var(--text);margin:48px 0 16px">
+    KVKK Ne Öneriyor? {#kvkk-onerileri}
+  </h2>
+
+  <p>Rapor, Etken YZ sistemlerinde kişisel verilerin korunması için dikkate alınabilecek başlıca hususları şöyle sıralıyor:</p>
+
+  <p style="margin-top:16px"><strong style="color:var(--text)">Aktör rollerinin netleştirilmesi:</strong> Geliştiriciler, yerleştiriciler (<em>deployers</em>) ve diğer aktörler arasında görev, yetki ve sorumlulukların açıkça tanımlanması.¹</p>
+
+  <p style="margin-top:16px"><strong style="color:var(--text)"><em>Privacy by design</em> ve <em>privacy by default</em> yaklaşımları:</strong> Veri koruma ilkelerinin sistem tasarımına en baştan entegre edilmesi. EDPS'in tanımıyla, <em>privacy by design</em> veri işleme faaliyetleri ve bilgi sistemlerinin tasarımına mahremiyetin gömülmesini; <em>privacy by default</em> ise kullanıcı müdahalesi olmaksızın yalnızca gerekli verilerin işlenmesinin sağlanmasını ifade ediyor.²·³</p>
+
+  <p style="margin-top:16px"><strong style="color:var(--text)">Mahremiyet artırıcı teknolojiler (PETs):</strong> Kişisel verilerin gereksiz işlenmesini önlerken veriden faydalı sonuç elde etmeyi mümkün kılan teknik çözümler bütünü. EDPS, PETs'i "kişisel verileri ortadan kaldırarak veya azaltarak ya da gereksiz veri işlemeyi önleyerek mahremiyeti koruyan, uyumlu bir bilgi ve iletişim teknolojisi önlemleri sistemi" olarak tanımlıyor.⁴ Diferansiyel mahremiyet, federatif öğrenme, homomorfik şifreleme bu kategorideki somut teknikler arasında yer alıyor.</p>
+
+  <p style="margin-top:16px"><strong style="color:var(--text)">Risk değerlendirme mekanizmaları:</strong> Sistemlerin yaşam döngüsü boyunca ortaya çıkabilecek risklerin sistematik biçimde ele alınması ve uygun olduğu durumlarda veri koruma etki değerlendirmesi yapılması.¹</p>
+
+  <p style="margin-top:16px"><strong style="color:var(--text)">Yönetişim ve eğitim:</strong> Mevcut veri koruma mekanizmalarının Etken YZ'nin yapısal özelliklerine göre gözden geçirilmesi ve sistemlerin kullanımında rol alan kişilere yönelik bilinçlendirme faaliyetlerinin yürütülmesi.¹</p>
+
+  <h2 style="font-family:Georgia,serif;font-size:24px;font-weight:700;color:var(--text);margin:48px 0 16px">
+    Ne Anlama Geliyor? {#sonuc}
+  </h2>
+
+  <p>KVKK'nın Agentic AI raporu, etken yapay zekânın mevcut veri koruma çerçevesini "kırmadığını" ancak ciddi biçimde zorladığını ortaya koyuyor. Temel ilkeler geçerliliğini koruyor; fakat amaçla sınırlılıktan veri minimizasyonuna, şeffaflıktan hukuki dayanağa kadar her ilkenin uygulanma biçimi, bu sistemlerin dinamik ve otonom yapısına göre yeniden düşünülmeyi gerektiriyor.</p>
+
+  <p style="margin-top:16px">Rapor aynı zamanda, teknik, hukuki ve uygulamaya ilişkin yaklaşımların alandaki gelişmeler doğrultusunda değişiklik gösterebileceğini vurguluyor. Bu, hem düzenleyiciler hem de etken yapay zekâ sistemleri geliştiren veya kullanan kuruluşlar için sürekli bir uyum ve izleme sürecinin kaçınılmaz olduğuna işaret ediyor.</p>
+
+  <p style="margin-top:16px">Kuruluşunuzun yapay zekâ uygulamalarının risk düzeyini değerlendirmek isterseniz, <a href="https://hexis.center/generator/" style="color:var(--brass);text-decoration:underline">Hexis Risk Classifier</a> aracını kullanabilirsiniz.</p>
+
+  <h2 style="font-family:Georgia,serif;font-size:24px;font-weight:700;color:var(--text);margin:48px 0 16px">
+    Sıkça Sorulan Sorular {#sss}
+  </h2>
+
+  <p><strong style="color:var(--text)">Etken yapay zekâ (Agentic AI) nedir?</strong></p>
+
+  <p style="margin-top:16px">Etken yapay zekâ, hedef yönelimli çalışan, çok adımlı görevleri planlayıp yürüten ve süreç boyunca otonom kararlar alabilen YZ sistemlerini ifade eder. Geleneksel YZ'den farkı, otonomi düzeyinin ve çevreyle etkileşimin belirgin biçimde artmış olmasıdır.</p>
+
+  <p style="margin-top:16px"><strong style="color:var(--text)">KVKK Agentic AI raporu ne zaman yayımlandı?</strong></p>
+
+  <p style="margin-top:16px">KVKK, Etken Yapay Zekâ (Agentic AI) raporunu 12 Mart 2026 tarihinde yayımladı. Raporun tam metnine <a href="https://www.kvkk.gov.tr/Icerik/8683/etken-yapay-zeka-agentic-ai" style="color:var(--brass);text-decoration:underline">kvkk.gov.tr</a> üzerinden erişilebilir.</p>
+
+  <p style="margin-top:16px"><strong style="color:var(--text)">Agentic AI kişisel verileri nasıl etkiliyor?</strong></p>
+
+  <p style="margin-top:16px">Etken yapay zekâ sistemleri, otonom karar alma ve çok adımlı veri işleme yapıları nedeniyle amaçla sınırlılık, veri minimizasyonu, hukuki dayanak, şeffaflık ve insan gözetimi ilkelerini zorluyor. Sistemler görev sürecinde başlangıçta öngörülmeyen verilere erişebiliyor ve bu durum mevcut veri koruma çerçevesini test ediyor.</p>
+
+  <p style="margin-top:16px"><strong style="color:var(--text)">Privacy by design etken yapay zekâda nasıl uygulanır?</strong></p>
+
+  <p style="margin-top:16px">KVKK raporu, <em>privacy by design</em> (tasarımdan itibaren mahremiyet) ve <em>privacy by default</em> (varsayılan olarak mahremiyet) yaklaşımlarının sistem tasarımına en baştan entegre edilmesini öneriyor. Buna ek olarak, diferansiyel mahremiyet ve homomorfik şifreleme gibi mahremiyet artırıcı teknolojilerin (PETs) kullanımını tavsiye ediyor.</p>
+
+  <p style="margin-top:16px">---</p>
+
+  <h2 style="font-family:Georgia,serif;font-size:24px;font-weight:700;color:var(--text);margin:48px 0 16px">
+    Kaynaklar
+  </h2>
+
+  <p>1. Kişisel Verileri Koruma Kurumu (KVKK). <em>Etken Yapay Zekâ (Agentic AI)</em>. 12 Mart 2026. <a href="https://www.kvkk.gov.tr/Icerik/8683/etken-yapay-zeka-agentic-ai" style="color:var(--brass);text-decoration:underline">kvkk.gov.tr</a></p>
+
+  <p style="margin-top:16px">2. European Data Protection Supervisor (EDPS). <em>Privacy by Design</em>. <a href="https://www.edps.europa.eu/data-protection/our-work/subjects/privacy-design_en" style="color:var(--brass);text-decoration:underline">edps.europa.eu</a></p>
+
+  <p style="margin-top:16px">3. European Data Protection Supervisor (EDPS). <em>Privacy by Default</em>. <a href="https://www.edps.europa.eu/data-protection/our-work/subjects/privacy-default_en" style="color:var(--brass);text-decoration:underline">edps.europa.eu</a></p>
+
+  <p style="margin-top:16px">4. European Data Protection Supervisor (EDPS). <em>Glossary: Privacy Enhancing Technologies</em>. <a href="https://www.edps.europa.eu/data-protection/data-protection/glossary/p_en" style="color:var(--brass);text-decoration:underline">edps.europa.eu</a></p>
+
+  <p style="margin-top:16px">5. Centre for Information Policy Leadership (CIPL). <em>Agentic AI: Fostering Responsible and Beneficial Development and Adoption</em>. Ekim 2025. <a href="https://www.informationpolicycentre.com/uploads/5/7/1/0/57104281/cipl_agentic_ai_fostering_responsible_development_adoption_oct25.pdf" style="color:var(--brass);text-decoration:underline">informationpolicycentre.com</a></p>
+
+</article>
+
+<!-- BACK LINK -->
+<div style="max-width:720px;margin:0 auto 96px;padding:0 24px">
+  <a href="/" style="font-size:13px;color:var(--stone);text-decoration:none;font-family:Arial,sans-serif">
+    &larr; T&uuml;m yaz&#305;lar
+  </a>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-left">
+    <a href="/" class="footer-logo"><img src="/assets/logo-light.png" alt="Hexis" width="32" height="18"></a>
+    <span class="footer-sep">&middot;</span>
+    <span class="footer-txt">&copy; 2026 Hexis &middot; Built by &Ouml;zden Co&#351;kun &middot; Yaln&#305;zca bilgilendirme ama&ccedil;l&#305;d&#305;r; hukuki dan&#305;&#351;manl&#305;k niteli&#287;i ta&#351;&#305;maz.</span>
+  </div>
+  <div class="footer-links">
+    <a href="/metodoloji/">Orient Framework</a>
+    <a href="/generator/">Generator</a>
+    <a href="/#contact">Contact</a>
+    <a href="https://eur-lex.europa.eu/legal-content/TR/TXT/?uri=CELEX:32024R1689" target="_blank" rel="noopener noreferrer">EU AI Act</a>
+    <a href="https://www.linkedin.com/in/ozden-coskun-8728a1301" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+  </div>
+</footer>
+
+<script>
+function toggleMenu(){
+  document.getElementById('hamburger').classList.toggle('open');
+  document.getElementById('mobileMenu').classList.toggle('open');
+}
+function closeMenu(){
+  document.getElementById('hamburger').classList.remove('open');
+  document.getElementById('mobileMenu').classList.remove('open');
+}
+document.addEventListener('click',function(e){
+  const h=document.getElementById('hamburger');
+  const m=document.getElementById('mobileMenu');
+  if(m.classList.contains('open')&&!h.contains(e.target)&&!m.contains(e.target)){
+    h.classList.remove('open');m.classList.remove('open');
+  }
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,17 @@
+Yapay zekâ sistemlerinin büyük çoğunluğu belirli bir girdi alır, önceden tanımlanmış bir işlem yapar ve bir çıktı üretir. Bir spam filtresi e-postaları sınıflandırır, bir öneri motoru ürün önerir. Bu sistemlerde veri işleme kapsamı öngörülebilirdir.
+
+📍 ORIENT: Risk
+
+Bu yazıda:
+
+→ Etken Yapay Zekâ (Agentic AI) Neden Farklı?
+→ 1. Amaçla Sınırlılık İlkesi Zorlanıyor {#amacla-sinirlilik}
+→ 2. Veri Minimizasyonu Güçleşiyor {#veri-minimizasyonu}
+→ 3. Hukuki Dayanak Sorunu Derinleşiyor {#hukuki-dayanak}
+→ 4. Şeffaflık ve Açıklanabilirlik Karmaşıklaşıyor {#seffaflik}
+
+Tam yazı → https://hexis.center/blog/etken-yapay-zeka-kisisel-verilere-etkisi/
+
+Kaydedin — sonra işinize yarayacak.
+
+#AIYönetişimi #Hexis #KVKK #VeriKoruma
