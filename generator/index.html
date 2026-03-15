@@ -15,8 +15,7 @@
 <meta name="twitter:title" content="Hexis — Contextual Matrix Generator">
 <meta name="twitter:description" content="Open methodology and governance tools for positioning AI systems across exposure and maturity.">
 <meta name="twitter:image" content="https://hexis.center/assets/og-hexis.png">
-<!-- Analytics: Uncomment your preferred provider -->
-<!-- Plausible: <script defer data-domain="hexis.center" src="https://plausible.io/js/script.js"></script> -->
+<script defer data-domain="hexis.center" src="https://plausible.io/js/script.js"></script>
 <!-- Fathom: <script src="https://cdn.usefathom.com/script.js" data-site="XXXXX" defer></script> -->
 <link rel="icon" href="/assets/favicon.ico">
 <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
@@ -263,17 +262,44 @@
   .leg-item { display: flex; align-items: center; gap: 6px; font-size: 9px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-muted); }
   .leg-dot { width: 8px; height: 8px; flex-shrink: 0; }
   .footnote { font-size: 9px; color: var(--ink-muted); letter-spacing: 0.06em; text-align: right; line-height: 1.6; max-width: 280px; }
-  .report-checklist-link {
-    text-align: center; margin: 20px 0 0; padding-top: 16px;
-    border-top: 1px solid var(--rule-s);
+  .report-next-steps {
+    margin: 24px 0 0; padding: 20px 24px; border: 1.5px solid var(--charcoal);
   }
-  .report-checklist-link a {
+  .next-steps-title {
+    font-size: 9px; letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--ink-muted); margin-bottom: 16px; text-align: center;
+  }
+  .next-steps-flow {
+    display: flex; align-items: center; justify-content: center;
+    gap: 8px; margin-bottom: 20px; flex-wrap: wrap;
+  }
+  .ns-step {
+    display: flex; align-items: center; gap: 5px;
+    font-size: 10px; color: var(--ink-muted); letter-spacing: 0.04em;
+  }
+  .ns-letter {
+    width: 22px; height: 22px; display: flex; align-items: center; justify-content: center;
+    border: 1px solid var(--rule); font-family: Georgia, serif;
+    font-size: 11px; font-weight: 700; color: var(--ink-muted);
+  }
+  .ns-name { font-size: 9px; text-transform: uppercase; letter-spacing: 0.08em; }
+  .ns-step.done .ns-letter { background: var(--charcoal); color: var(--paper); border-color: var(--charcoal); }
+  .ns-step.done .ns-name { color: var(--ink); font-weight: 600; }
+  .ns-step.active .ns-letter { border: 2px solid var(--brass); color: var(--brass); }
+  .ns-step.active .ns-name { color: var(--brass); font-weight: 600; }
+  .ns-arrow { font-size: 10px; color: var(--rule); }
+  .next-steps-actions {
+    display: flex; gap: 12px; justify-content: center; flex-wrap: wrap;
+  }
+  .ns-btn {
     font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase;
     color: var(--stone); text-decoration: none; border: 1px solid var(--rule);
     padding: 10px 24px; display: inline-block; transition: all .15s;
     font-family: Arial, Helvetica, sans-serif;
   }
-  .report-checklist-link a:hover { border-color: var(--ink); color: var(--ink); }
+  .ns-btn:hover { border-color: var(--ink); color: var(--ink); }
+  .ns-btn-primary { border-color: var(--charcoal); color: var(--charcoal); font-weight: 600; }
+  .ns-btn-primary:hover { background: var(--charcoal); color: var(--paper); }
 
 
   /* ── REPORT LOGO (visible in print, hidden on screen) ── */
@@ -338,7 +364,7 @@
     .cell, .mat-h { min-height: 72px; }
     .weight-note  { font-size: 8px; }
     .footer       { margin-top: 12px; }
-    .report-checklist-link { display: none !important; }
+    .report-next-steps { display: none !important; }
     .fr-report-meta-grid {
       -webkit-print-color-adjust: exact;
       print-color-adjust: exact;
@@ -2954,9 +2980,25 @@ function generateMatrix() {
     </div>
   </div>
 
-  <div class="report-checklist-link">
-    <a href="../checklist/?risk=${({high:'high',elevated:'high',moderate:'limited',low:'minimal'})[exposure] || 'high'}">View Compliance Checklist \u2192</a>
-    ${(exposure === 'high' || exposure === 'elevated') ? '<a href="../fria/?risk=high&sector=' + encodeURIComponent(({high:'employment',elevated:'employment',moderate:'',low:''})[exposure] || '') + '" style="margin-left:12px;">Conduct Fundamental Rights Impact Assessment \u2192</a>' : ''}
+  <div class="report-next-steps">
+    <div class="next-steps-title">Next Steps — ORIENT Methodology</div>
+    <div class="next-steps-flow">
+      <div class="ns-step done"><span class="ns-letter">O</span><span class="ns-name">Observe</span></div>
+      <div class="ns-arrow">\u2192</div>
+      <div class="ns-step done"><span class="ns-letter">R</span><span class="ns-name">Risk</span></div>
+      <div class="ns-arrow">\u2192</div>
+      <div class="ns-step active"><span class="ns-letter">I</span><span class="ns-name">Identify</span></div>
+      <div class="ns-arrow">\u2192</div>
+      <div class="ns-step"><span class="ns-letter">E</span><span class="ns-name">Evaluate</span></div>
+      <div class="ns-arrow">\u2192</div>
+      <div class="ns-step"><span class="ns-letter">N</span><span class="ns-name">Navigate</span></div>
+      <div class="ns-arrow">\u2192</div>
+      <div class="ns-step"><span class="ns-letter">T</span><span class="ns-name">Track</span></div>
+    </div>
+    <div class="next-steps-actions">
+      <a href="../checklist/?risk=${({high:'high',elevated:'high',moderate:'limited',low:'minimal'})[exposure] || 'high'}&system=${encodeURIComponent(name)}" class="ns-btn ns-btn-primary">Identify: Compliance Checklist \u2192</a>
+      ${(exposure === 'high' || exposure === 'elevated') ? '<a href="../fria/?risk=high&system=' + encodeURIComponent(name) + '&sector=' + encodeURIComponent(({high:'employment',elevated:'employment',moderate:'',low:''})[exposure] || '') + '" class="ns-btn">Evaluate: Fundamental Rights Impact Assessment \u2192</a>' : ''}
+    </div>
   </div>
 
   <div class="fr-report-footer">

@@ -15,8 +15,7 @@
 <meta name="twitter:title" content="Hexis — EU AI Act Compliance Checklist">
 <meta name="twitter:description" content="Interactive compliance checklist for the EU AI Act. Filter by risk level, track progress, export to PDF.">
 <meta name="twitter:image" content="https://hexis.center/assets/og-hexis.png">
-<!-- Analytics: Uncomment your preferred provider -->
-<!-- Plausible: <script defer data-domain="hexis.center" src="https://plausible.io/js/script.js"></script> -->
+<script defer data-domain="hexis.center" src="https://plausible.io/js/script.js"></script>
 <!-- Fathom: <script src="https://cdn.usefathom.com/script.js" data-site="XXXXX" defer></script> -->
 <link rel="icon" href="/assets/favicon.ico">
 <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
@@ -1269,9 +1268,11 @@
 
     if (risk !== 'all') {
       var labels = {high:'High-Risk',limited:'Limited Risk',minimal:'Minimal Risk',prohibited:'Prohibited'};
+      var systemName = params.get('system') || '';
+      var systemLabel = systemName ? ' for <strong style="color:var(--ink);">' + systemName.replace(/</g,'&lt;') + '</strong>' : '';
       var banner = document.createElement('div');
       banner.style.cssText = 'background:var(--rule-s);border-bottom:1px solid var(--rule);padding:8px 40px;font-family:Arial,sans-serif;font-size:11px;color:var(--stone);letter-spacing:.04em;display:flex;align-items:center;justify-content:space-between;';
-      banner.innerHTML = '<span>\u25cf Showing requirements for: <strong style="color:var(--ink);">' + (labels[risk] || risk) + '</strong> \u2014 pre-selected from your risk assessment</span><a href="../generator/" style="font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--stone);text-decoration:underline;text-underline-offset:3px;">Change classification \u2192</a>';
+      banner.innerHTML = '<span>\u25cf Showing <strong style="color:var(--ink);">' + (labels[risk] || risk) + '</strong> requirements' + systemLabel + ' \u2014 pre-selected from your risk assessment</span><a href="../generator/" style="font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--stone);text-decoration:underline;text-underline-offset:3px;">Change classification \u2192</a>';
       document.body.insertBefore(banner, document.body.firstChild);
     }
   }
