@@ -1,0 +1,7 @@
+name = "hexis-kvkk-api"
+main = "api/kvkk-roadmap.js"
+compatibility_date = "2024-01-01"
+
+[[routes]]
+pattern = "hexis.center/api/kvkk-roadmap"
+zone_name = "hexis.center"

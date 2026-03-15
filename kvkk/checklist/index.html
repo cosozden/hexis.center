@@ -1,0 +1,1177 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>KVKK × Yapay Zekâ Uyum Değerlendirmesi | Hexis</title>
+<meta name="description" content="Şirketinizin yapay zekâ kullanımının KVKK yükümlülüklerine uygunluğunu değerlendirin. 22 soruluk yapılandırılmış değerlendirme ve kişiselleştirilmiş yol haritası.">
+<link rel="icon" href="/assets/favicon.ico">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+<style>
+/* ─── BRAND TOKENS ─── */
+:root{
+  --dark-bg:   #16181C;
+  --charcoal:  #1C1E23;
+  --brass:     #B2986C;
+  --stone:     #686662;
+  --paper:     #F8F7F5;
+  --dark-type: #E8E6E2;
+  --dark-sub:  #8A8884;
+  --border:    rgba(232,230,226,0.10);
+  --border2:   rgba(232,230,226,0.18);
+  --card:      rgba(232,230,226,0.04);
+  --card2:     rgba(232,230,226,0.07);
+  --red-soft:  rgba(220,80,60,0.12);
+  --red-border:rgba(220,80,60,0.30);
+  --red-text:  #E8685A;
+  --amber-soft:rgba(245,158,11,0.10);
+  --amber-border:rgba(245,158,11,0.25);
+  --amber-text:#F59E0B;
+  --green-soft:rgba(80,180,100,0.10);
+  --green-border:rgba(80,180,100,0.25);
+  --green-text:#50B464;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:Arial,sans-serif;background:var(--dark-bg);color:var(--dark-type);min-height:100vh;overflow-x:hidden}
+
+/* NAV */
+nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:0 40px;height:56px;background:var(--dark-bg);border-bottom:1px solid var(--border)}
+.nav-logo{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--dark-type);flex-shrink:0}
+.nav-logo img{display:block;height:36px;width:auto}
+.nav-links{display:flex;gap:4px;align-items:center}
+.nav-links a{color:var(--stone);text-decoration:none;font-size:12px;font-weight:400;padding:5px 11px;transition:color .15s;letter-spacing:.04em;font-family:Arial,sans-serif}
+.nav-links a:hover{color:var(--dark-type)}
+.nav-cta{color:var(--dark-type)!important;border:1px solid var(--border2);padding:5px 14px!important;transition:border-color .15s!important}
+.nav-cta:hover{border-color:rgba(232,230,226,.35)!important}
+
+/* HAMBURGER */
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:4px;z-index:200}
+.hamburger span{width:22px;height:1px;background:var(--dark-sub);transition:all .3s}
+.hamburger.open span:nth-child(1){transform:translateY(6px) rotate(45deg)}
+.hamburger.open span:nth-child(2){opacity:0}
+.hamburger.open span:nth-child(3){transform:translateY(-6px) rotate(-45deg)}
+.mobile-menu{display:none;position:fixed;top:56px;left:0;right:0;background:var(--dark-bg);border-bottom:1px solid var(--border);padding:12px 20px 20px;flex-direction:column;gap:0;z-index:99}
+.mobile-menu.open{display:flex}
+.mobile-menu a{color:var(--stone);text-decoration:none;font-size:13px;font-weight:400;padding:11px 4px;border-bottom:1px solid var(--border);transition:color .15s;font-family:Arial,sans-serif}
+.mobile-menu a:last-child{border-bottom:none}
+.mobile-menu a:hover{color:var(--dark-type)}
+
+/* PROGRESS BAR (top) */
+.progress-top{max-width:900px;margin:0 auto;padding:16px 40px 0}
+.progress-label{font-size:10px;color:var(--stone);letter-spacing:.08em;text-transform:uppercase;font-family:Arial,sans-serif;margin-bottom:8px}
+.progress-bar-outer{height:3px;background:rgba(232,230,226,.08);overflow:hidden}
+.progress-bar-inner{height:100%;background:var(--dark-sub);width:0%;transition:width .5s ease}
+
+/* HERO */
+.hero{padding:56px 40px 40px;max-width:900px;margin:0 auto;text-align:center}
+.hero h1{font-family:Georgia,serif;font-size:clamp(24px,4vw,36px);font-weight:700;letter-spacing:-.3px;line-height:1.2;margin-bottom:16px;color:var(--dark-type)}
+.hero p{font-size:14px;color:var(--dark-sub);line-height:1.75;max-width:560px;margin:0 auto;font-family:Arial,sans-serif}
+
+/* SECTION INNER */
+.section-inner{max-width:900px;margin:0 auto;padding:0 40px}
+
+/* DIVIDER */
+.divider{border:none;border-top:1px solid var(--border);margin:0}
+
+/* SECTOR SELECT */
+.sector-wrap{max-width:900px;margin:0 auto;padding:32px 40px}
+.sector-label{font-size:12px;color:var(--dark-sub);margin-bottom:10px;font-family:Arial,sans-serif}
+.sector-select{width:100%;max-width:400px;padding:10px 14px;background:var(--charcoal);color:var(--dark-type);border:1px solid var(--border2);font-size:13px;font-family:Arial,sans-serif;appearance:auto}
+.sector-select:focus{outline:1px solid var(--stone)}
+.btn-start{margin-top:16px;background:var(--dark-type);color:var(--charcoal);padding:10px 22px;font-weight:700;font-size:12px;border:none;cursor:pointer;transition:opacity .15s;font-family:Arial,sans-serif;letter-spacing:.04em}
+.btn-start:hover{opacity:.88}
+.btn-start:disabled{opacity:.35;cursor:not-allowed}
+
+/* BLOCKS (accordion) */
+.blocks-wrap{max-width:900px;margin:0 auto;padding:0 40px 40px;display:none}
+.blok{border:1px solid var(--border);margin-bottom:12px;background:var(--dark-bg)}
+.blok-hdr{display:flex;align-items:center;gap:12px;padding:16px 20px;cursor:pointer;user-select:none;border-bottom:1px solid transparent;transition:background .15s}
+.blok-hdr:hover{background:var(--card)}
+.blok.active .blok-hdr{border-bottom-color:var(--border)}
+.blok-num{width:28px;height:28px;border:1px solid var(--border2);display:flex;align-items:center;justify-content:center;font-family:Georgia,serif;font-weight:700;font-size:12px;flex-shrink:0;color:var(--dark-type)}
+.blok.done .blok-num{background:var(--dark-sub);color:var(--dark-bg);border-color:var(--dark-sub)}
+.blok-title{flex:1;font-family:Georgia,serif;font-weight:700;font-size:13px;color:var(--dark-type);line-height:1.3}
+.blok-status{font-size:10px;color:var(--stone);font-family:Arial,sans-serif;letter-spacing:.04em}
+.blok-body{display:none;padding:0 20px 20px}
+.blok.active .blok-body{display:block}
+
+/* QUESTION */
+.soru{padding:20px 0;border-bottom:1px solid var(--border)}
+.soru:last-child{border-bottom:none}
+.soru-text{font-size:13px;color:var(--dark-type);line-height:1.7;margin-bottom:12px;font-family:Arial,sans-serif}
+.soru-text em{font-size:12px;color:var(--dark-sub);font-style:italic;display:block;margin-bottom:8px}
+.soru-hint{font-size:11px;color:var(--dark-sub);margin-bottom:10px;font-family:Arial,sans-serif;line-height:1.6}
+
+/* RADIO OPTIONS */
+.opts{display:flex;flex-direction:column;gap:6px;margin-bottom:8px}
+.opt{display:flex;align-items:flex-start;gap:8px;padding:8px 12px;border:1px solid var(--border);cursor:pointer;transition:background .15s,border-color .15s}
+.opt:hover{background:var(--card)}
+.opt.selected{border-color:var(--border2);background:var(--card2)}
+.opt input[type="radio"]{margin-top:2px;accent-color:var(--dark-sub)}
+.opt label{font-size:12px;color:var(--dark-sub);cursor:pointer;line-height:1.5;font-family:Arial,sans-serif}
+
+/* CHECKBOX OPTIONS (for S2, S4) */
+.chk-opts{display:flex;flex-direction:column;gap:6px;margin-bottom:8px}
+.chk-opt{display:flex;align-items:flex-start;gap:8px;padding:8px 12px;border:1px solid var(--border);cursor:pointer;transition:background .15s}
+.chk-opt:hover{background:var(--card)}
+.chk-opt.checked{border-color:var(--border2);background:var(--card2)}
+.chk-opt input[type="checkbox"]{margin-top:2px;accent-color:var(--dark-sub)}
+.chk-opt label{font-size:12px;color:var(--dark-sub);cursor:pointer;line-height:1.5;font-family:Arial,sans-serif}
+
+/* DETAILS (Yasal Dayanak) */
+.soru details{margin-top:8px}
+.soru details summary{font-size:10px;color:var(--stone);cursor:pointer;letter-spacing:.06em;font-family:Arial,sans-serif;padding:4px 0}
+.soru details summary:hover{color:var(--dark-sub)}
+.soru details[open] summary{margin-bottom:6px}
+.soru details .dayanak{font-size:11px;color:var(--dark-sub);line-height:1.65;font-family:Arial,sans-serif;padding:8px 12px;background:var(--card);border:1px solid var(--border)}
+
+/* ALERT BOXES */
+.alert-box{padding:12px 16px;margin:10px 0;font-size:11px;line-height:1.65;font-family:Arial,sans-serif}
+.alert-red{background:var(--red-soft);border:1px solid var(--red-border);color:var(--red-text)}
+.alert-amber{background:var(--amber-soft);border:1px solid var(--amber-border);color:var(--amber-text)}
+.alert-info{background:var(--card);border:1px solid var(--border);color:var(--dark-sub)}
+.alert-green{background:var(--green-soft);border:1px solid var(--green-border);color:var(--green-text)}
+
+/* EXPLAINER BOX (inline education) */
+.explainer{display:none;padding:12px 16px;margin:8px 0;background:var(--card);border:1px solid var(--border);font-size:11px;color:var(--dark-sub);line-height:1.7;font-family:Arial,sans-serif}
+.explainer.show{display:block}
+
+/* SECTOR-SPECIFIC (S4 Katman B) */
+.sector-field{display:none}
+.sector-field.show{display:flex}
+
+/* BLOCK NAV BUTTON */
+.blok-nav{display:flex;justify-content:flex-end;gap:10px;padding-top:16px}
+.btn-next{background:var(--dark-type);color:var(--charcoal);padding:9px 18px;font-weight:700;font-size:11px;border:none;cursor:pointer;transition:opacity .15s;font-family:Arial,sans-serif;letter-spacing:.04em}
+.btn-next:hover{opacity:.88}
+.btn-next:disabled{opacity:.35;cursor:not-allowed}
+.btn-prev{background:transparent;color:var(--dark-sub);padding:9px 18px;font-size:11px;border:1px solid var(--border2);cursor:pointer;transition:color .15s;font-family:Arial,sans-serif}
+.btn-prev:hover{color:var(--dark-type)}
+
+/* RESULTS */
+.results-wrap{max-width:900px;margin:0 auto;padding:0 40px 40px;display:none}
+
+/* PROFILE CARD */
+.profile-card{border:1px solid var(--border);padding:24px;margin-bottom:20px}
+.profile-header{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-bottom:16px}
+.profile-level{font-family:Georgia,serif;font-size:18px;font-weight:700;line-height:1.2}
+.profile-score{font-size:12px;color:var(--stone);font-family:Arial,sans-serif}
+.profile-bar{height:3px;background:rgba(232,230,226,.08);margin-bottom:16px}
+.profile-bar-inner{height:100%;transition:width .5s ease}
+
+/* BLOCK SCORES */
+.block-scores{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--border);margin-bottom:20px}
+.bs-item{background:var(--dark-bg);padding:14px 16px}
+.bs-label{font-size:10px;color:var(--stone);letter-spacing:.06em;font-family:Arial,sans-serif;margin-bottom:4px}
+.bs-value{font-family:Georgia,serif;font-size:14px;font-weight:700}
+.bs-bar{height:2px;background:rgba(232,230,226,.08);margin-top:6px}
+.bs-bar-inner{height:100%;transition:width .5s ease}
+
+/* FORM */
+.form-wrap{border:1px solid var(--border);padding:24px;margin-bottom:20px}
+.form-title{font-family:Georgia,serif;font-size:14px;font-weight:700;margin-bottom:14px;color:var(--dark-type)}
+.form-row{margin-bottom:12px}
+.form-label{font-size:11px;color:var(--dark-sub);margin-bottom:4px;font-family:Arial,sans-serif}
+.form-input{width:100%;padding:9px 12px;background:var(--charcoal);color:var(--dark-type);border:1px solid var(--border2);font-size:13px;font-family:Arial,sans-serif}
+.form-input:focus{outline:1px solid var(--stone)}
+.form-disclaimer{font-size:10px;color:var(--stone);margin-top:10px;line-height:1.5;font-family:Arial,sans-serif}
+.btn-generate{background:var(--dark-type);color:var(--charcoal);padding:10px 22px;font-weight:700;font-size:12px;border:none;cursor:pointer;transition:opacity .15s;font-family:Arial,sans-serif;letter-spacing:.04em;margin-top:12px;width:100%}
+.btn-generate:hover{opacity:.88}
+.btn-generate:disabled{opacity:.35;cursor:not-allowed}
+
+/* LOADING */
+.loading{text-align:center;padding:40px 0;display:none}
+.loading.show{display:block}
+.spinner{width:28px;height:28px;border:2px solid var(--border2);border-top-color:var(--dark-type);border-radius:50%;animation:spin .8s linear infinite;margin:0 auto 12px}
+@keyframes spin{to{transform:rotate(360deg)}}
+.loading p{font-size:12px;color:var(--dark-sub);font-family:Arial,sans-serif}
+
+/* REPORT */
+.report{display:none}
+.report.show{display:block}
+.report-section{border:1px solid var(--border);margin-bottom:16px}
+.report-section-hdr{padding:14px 18px;font-family:Georgia,serif;font-size:13px;font-weight:700;color:var(--dark-type);border-bottom:1px solid var(--border);background:var(--card)}
+.report-section-body{padding:16px 18px}
+.eylem-item{padding:12px 0;border-bottom:1px solid var(--border)}
+.eylem-item:last-child{border-bottom:none}
+.eylem-num{font-family:Georgia,serif;font-weight:700;font-size:12px;color:var(--dark-type);margin-bottom:2px}
+.eylem-baslik{font-size:12px;font-weight:700;color:var(--dark-type);margin-bottom:4px;font-family:Arial,sans-serif}
+.eylem-dayanak{font-size:10px;color:var(--stone);letter-spacing:.04em;font-family:Arial,sans-serif;margin-bottom:4px}
+.eylem-aciklama{font-size:11px;color:var(--dark-sub);line-height:1.65;font-family:Arial,sans-serif}
+.eylem-sure{font-size:10px;color:var(--stone);margin-top:4px;font-family:Arial,sans-serif}
+
+/* LEGAL DISCLAIMER (report) */
+.legal-disclaimer{border-left:2px solid var(--brass);padding:14px 18px;margin:20px 0;font-size:11px;color:var(--dark-sub);line-height:1.7;font-family:Arial,sans-serif}
+
+/* REPORT ACTIONS */
+.report-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:20px}
+.btn-pdf{background:var(--dark-type);color:var(--charcoal);padding:10px 22px;font-weight:700;font-size:12px;border:none;cursor:pointer;transition:opacity .15s;font-family:Arial,sans-serif;letter-spacing:.04em}
+.btn-pdf:hover{opacity:.88}
+.btn-contact{background:transparent;color:var(--dark-sub);padding:10px 22px;font-size:12px;border:1px solid var(--border2);cursor:pointer;transition:color .15s;font-family:Arial,sans-serif;text-decoration:none;display:inline-flex;align-items:center}
+.btn-contact:hover{color:var(--dark-type)}
+
+/* FOOTER */
+footer{border-top:1px solid var(--border);padding:20px 40px;font-family:Arial,sans-serif;font-size:10px;color:var(--stone);line-height:1.6}
+.footer-links{margin-bottom:8px}
+.footer-links a{color:var(--stone);text-decoration:none;transition:color .15s}
+.footer-links a:hover{color:var(--dark-sub)}
+footer p{margin:0}
+footer p a{color:var(--stone);text-decoration:none;transition:color .15s}
+footer p a:hover{color:var(--dark-sub)}
+
+/* RESPONSIVE */
+@media(max-width:768px){
+  nav{padding:0 20px}
+  .nav-links{display:none}
+  .hamburger{display:flex}
+  .hero{padding:40px 20px 32px}
+  .progress-top,.sector-wrap,.blocks-wrap,.results-wrap{padding-left:20px;padding-right:20px}
+  .section-inner{padding:0 20px}
+  .block-scores{grid-template-columns:1fr}
+  footer{padding:20px}
+}
+
+/* PRINT */
+@media print{
+  nav,.hamburger,.mobile-menu,.progress-top,.sector-wrap,.btn-next,.btn-prev,.btn-pdf,.btn-contact,.btn-generate,.report-actions{display:none!important}
+  body{background:#fff;color:#1C1E23}
+  .blocks-wrap{display:none!important}
+  .results-wrap{display:block!important;padding:0 20px}
+  .form-wrap{display:none!important}
+  .loading{display:none!important}
+  .report{display:block!important}
+  .profile-card,.report-section{border-color:#d8d4cc}
+  .report-section-hdr{background:#f0ede8}
+  footer{border-color:#d8d4cc}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="/" class="nav-logo">
+    <img src="/assets/logo-light.png" alt="Hexis" width="72" height="36">
+  </a>
+  <div class="nav-links">
+    <a href="/kvkk/">KVKK Değerlendirmesi</a>
+    <a href="/eu-ai-act-checklist">EU AI Act Checklist</a>
+    <a href="/generator/" class="nav-cta">Risk Matrisi →</a>
+  </div>
+  <button class="hamburger" id="hamburger" onclick="toggleMenu()" aria-label="Menü">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<div class="mobile-menu" id="mobileMenu">
+  <a href="/kvkk/" onclick="closeMenu()">KVKK Değerlendirmesi</a>
+  <a href="/eu-ai-act-checklist" onclick="closeMenu()">EU AI Act Checklist</a>
+  <a href="/generator/" onclick="closeMenu()">Risk Matrisi →</a>
+</div>
+
+<!-- PROGRESS BAR -->
+<div class="progress-top">
+  <div class="progress-label" id="progressLabel">Blok 1/4 — YZ Araç Envanteri</div>
+  <div class="progress-bar-outer"><div class="progress-bar-inner" id="progressBar"></div></div>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+  <h1>KVKK &#215; Yapay Zekâ Uyum Değerlendirmesi</h1>
+  <p>Sorularınızı yanıtlayın, uyum profilinizi görün ve öncelikli adımlarınızı alın.</p>
+</section>
+
+<hr class="divider">
+
+<!-- SECTOR SELECT (S0) -->
+<div class="sector-wrap" id="sectorWrap">
+  <div class="sector-label">Şirketinizin sektörü:</div>
+  <select class="sector-select" id="sektorSecim" onchange="onSektorChange()">
+    <option value="" disabled selected>Seçiniz</option>
+    <option value="perakende">Perakende ve e-ticaret</option>
+    <option value="muhasebe">Muhasebe ve mali müşavirlik</option>
+    <option value="hukuk">Hukuk ve danışmanlık</option>
+    <option value="saglik">Sağlık ve klinik hizmetler</option>
+    <option value="ik">İnsan kaynakları ve işe alım</option>
+    <option value="egitim">Eğitim ve kurs</option>
+    <option value="gayrimenkul">Gayrimenkul</option>
+    <option value="lojistik">Lojistik ve taşımacılık</option>
+    <option value="yazilim">Yazılım ve teknoloji</option>
+    <option value="uretim">Üretim ve imalat</option>
+    <option value="diger">Diğer</option>
+  </select>
+  <br>
+  <button class="btn-start" id="btnStart" disabled onclick="startChecklist()">Değerlendirmeyi Başlat →</button>
+</div>
+
+<!-- CHECKLIST BLOCKS -->
+<div class="blocks-wrap" id="blocksWrap">
+
+<!-- BLOK 1 -->
+<div class="blok active" id="blok1" data-blok="1">
+  <div class="blok-hdr" onclick="toggleBlok(this)">
+    <div class="blok-num">1</div>
+    <div class="blok-title">YZ Araç Envanteri ve Kişisel Veri Kapsamı</div>
+    <div class="blok-status" id="blok1Status"></div>
+  </div>
+  <div class="blok-body">
+
+    <!-- S1 -->
+    <div class="soru" data-soru="s1" data-agirlik="1">
+      <div class="soru-text">S1. Şirketinizde herhangi bir yapay zekâ aracı kullanılıyor mu?<br><span style="font-size:11px;color:var(--dark-sub)">(ChatGPT, Microsoft Copilot, Google Gemini, Notion AI, sektöre özel YZ araçları vb.)</span></div>
+      <div class="opts">
+        <div class="opt" onclick="selectOpt(this)"><input type="radio" name="s1" value="evet"><label>Evet</label></div>
+        <div class="opt" onclick="selectOpt(this)"><input type="radio" name="s1" value="hayir"><label>Hayır</label></div>
+        <div class="opt" onclick="selectOpt(this)"><input type="radio" name="s1" value="emin_degil"><label>Emin değilim</label></div>
+      </div>
+      <details><summary>Yasal Dayanak</summary><div class="dayanak">KVKK Madde 2 — kanun tamamen veya kısmen otomatik yollarla işlenen veriler için geçerlidir. YZ araçları bu kapsama girer.</div></details>
+    </div>
+
+    <!-- S2 -->
+    <div class="soru" data-soru="s2" data-agirlik="1">
+      <div class="soru-text">S2. Bu araçları şirketinizde kimler kullanıyor?</div>
+      <div class="chk-opts">
+        <div class="chk-opt" onclick="toggleChk(this)"><input type="checkbox" name="s2" value="tum_calisanlar"><label>Tüm çalışanlar</label></div>
+        <div class="chk-opt" onclick="toggleChk(this)"><input type="checkbox" name="s2" value="belirli_dept"><label>Belirli departmanlar</label></div>
+        <div class="chk-opt" onclick="toggleChk(this)"><input type="checkbox" name="s2" value="yoneticiler"><label>Yöneticiler</label></div>
+        <div class="chk-opt" onclick="toggleChk(this)"><input type="checkbox" name="s2" value="dis_danismanlar"><label>Dış danışmanlar</label></div>
+      </div>
+      <details><summary>Yasal Dayanak</summary><div class="dayanak">KVKK Madde 12/4 — kişisel verileri öğrenen herkes işleme amacı dışında kullanamaz. Kullanıcı tabanı bilinmeden bu yükümlülük yönetilemez.</div></details>
+    </div>
+
+    <!-- S3 -->
+    <div class="soru" data-soru="s3" data-agirlik="1">
+      <div class="soru-text">S3. Bu araçların tamamı şirket tarafından kurumsal hesapla mı satın alındı?</div>
+      <div class="opts">
+        <div class="opt" onclick="selectOpt(this)"><input type="radio" name="s3" value="evet"><label>Evet</label></div>
+        <div class="opt" onclick="selectOpt(this)"><input type="radio" name="s3" value="hayir"><label>Hayır</label></div>
+        <div class="opt" onclick="selectOpt(this)"><input type="radio" name="s3" value="emin_degil"><label>Emin değilim</label></div>
+      </div>
+      <details><summary>Yasal Dayanak</summary><div class="dayanak">KVKK Madde 12/2 — veri sorumlusu, kişisel verilerin kendi adına başka bir tüzel kişi tarafından işlenmesi hâlinde müştereken sorumludur.</div></details>
+    </div>
+
+    <!-- S3a -->
+    <div class="soru" data-soru="s3a" data-agirlik="2">
+      <div class="soru-text">S3a. Çalışanlarınızın şirketin onaylamadığı YZ araçlarını iş süreçlerinde kullandığına dair bilginiz ya da şüpheniz var mı?</div>
+      <div class="opts">
+        <div class="opt" onclick="selectOpt(this)"><input type="radio" name="s3a" value="hayir_yok"><label>Hayır, böyle bir durum yok</label></div>
+        <div class="opt" onclick="selectOpt(this)"><input type="radio" name="s3a" value="evet_farkindayim"><label>Evet, farkındayım</label></div>
+        <div class="opt" onclick="selectOpt(this)"><input type="radio" name="s3a" value="supheleniyorum"><label>Şüpheleniyorum ama emin değilim</label></div>
+        <div class="opt" onclick="selectOpt(this)"><input type="radio" name="s3a" value="hic_dusunmemistim"><label>Hiç düşünmemiştim</label></div>
+      </div>
+      <details><summary>Yasal Dayanak</summary><div class="dayanak">KVKK Belge 5 (Mart 2026) — gölge YZ kullanımı kurumsal politikanın yokluğunda kaçınılmaz. KVKK Madde 12/1 uyarınca "bilmiyordum" idari tedbir yükümlülüğünü ortadan kaldırmaz.</div></details>
+    </div>
+
+    <!-- S4 -->
+    <div class="soru" data-soru="s4" data-agirlik="1">
+      <div class="soru-text">S4. Şirketinizdeki YZ araçlarına girilen kişisel veri türleri nelerdir?</div>
+      <div class="chk-opts">
+        <!-- Katman A: her sektörde -->
+        <div class="chk-opt" onclick="toggleChk(this)"><input type="checkbox" name="s4" value="ad_soyad"><label>Müşteri / hizmet alan kişi adı-soyadı</label></div>
+        <div class="chk-opt" onclick="toggleChk(this)"><input type="checkbox" name="s4" value="iletisim"><label>İletişim bilgileri (telefon, e-posta, adres)</label></div>
+        <div class="chk-opt" onclick="toggleChk(this)"><input type="checkbox" name="s4" value="calisan"><label>Çalışan bilgileri</label></div>
+        <div class="chk-opt" onclick="toggleChk(this)"><input type="checkbox" name="s4" value="sozlesme"><label>Sözleşme içerikleri</label></div>
+        <!-- Katman B: sektöre göre -->
+        <div class="chk-opt sector-field" data-sectors="perakende,muhasebe,hukuk,gayrimenkul,lojistik" onclick="toggleChk(this)"><input type="checkbox" name="s4" value="finansal"><label>Finansal bilgiler (gelir, borç, banka)</label></div>
+        <div class="chk-opt sector-field" data-sectors="saglik,ik" onclick="toggleChk(this)"><input type="checkbox" name="s4" value="saglik"><label>Sağlık ve tıbbi bilgiler</label></div>
+        <div class="chk-opt sector-field" data-sectors="ik,yazilim,uretim" onclick="toggleChk(this)"><input type="checkbox" name="s4" value="ozgecmis"><label>Özgeçmiş ve başvuru belgeleri</label></div>
+        <div class="chk-opt sector-field" data-sectors="hukuk" onclick="toggleChk(this)"><input type="checkbox" name="s4" value="hukuki"><label>Hukuki dosya ve dava bilgileri</label></div>
+        <div class="chk-opt sector-field" data-sectors="egitim" onclick="toggleChk(this)"><input type="checkbox" name="s4" value="ogrenci"><label>Öğrenci ve veli bilgileri</label></div>
+        <div class="chk-opt sector-field" data-sectors="lojistik,gayrimenkul" onclick="toggleChk(this)"><input type="checkbox" name="s4" value="konum"><label>Konum ve teslimat verisi</label></div>
+      </div>
+      <details><summary>Yasal Dayanak</summary><div class="dayanak">KVKK Madde 3/d — kimliği belirli veya belirlenebilir gerçek kişiye ilişkin her türlü bilgi kişisel veridir.</div></details>
+    </div>
+
+    <!-- S5 (auto-triggered from S4) -->
+    <div class="soru" data-soru="s5" data-agirlik="1">
+      <div class="soru-text">S5. Özel nitelikli veri uyarısı</div>
+      <div id="s5Alert" class="alert-box alert-info" style="display:none"></div>
+    </div>
+
+    <!-- S6 -->
+    <div class="soru" data-soru="s6" data-agirlik="1">
+      <div class="soru-text">S6. Şirketinizdeki tüm YZ araçlarının yazılı bir listesi var mı?</div>
+      <div class="opts">
+        <div class="opt" onclick="selectOpt(this)"><input type="radio" name="s6" value="evet_guncel"><label>Evet, güncel ve yazılı</label></div>
+        <div class="opt" onclick="selectOpt(this)"><input type="radio" name="s6" value="evet_guncel_degil"><label>Evet ama güncel değil</label></div>
+        <div class="opt" onclick="selectOpt(this)"><input type="radio" name="s6" value="hayir"><label>Hayır</label></div>
+        <div class="opt" onclick="selectOpt(this)"><input type="radio" name="s6" value="emin_degil"><label>Emin değilim</label></div>
+      </div>
+      <details><summary>Yasal Dayanak</summary><div class="dayanak">KVKK Madde 12/3 — veri sorumlusu gerekli denetimleri yapmak veya yaptırmak zorundadır. Envanter olmadan denetim yapılamaz.</div></details>
+    </div>
+
+    <div class="blok-nav">
+      <button class="btn-next" onclick="nextBlok(1)">Sonraki Blok →</button>
+    </div>
+  </div>
+</div>
+
+<!-- BLOK 2 -->
+<div class="blok" id="blok2" data-blok="2">
+  <div class="blok-hdr" onclick="toggleBlok(this)">
+    <div class="blok-num">2</div>
+    <div class="blok-title">Kişisel Veri İşleme Şartları ve Aktarım Mekanizmaları</div>
+    <div class="blok-status" id="blok2Status"></div>
+  </div>
+  <div class="blok-body">
+
+    <!-- S7 -->
+    <div class="soru" data-soru="s7" data-agirlik="3">
+      <div class="soru-text">S7. Şirketiniz, YZ araçlarına girilen kişisel veriler için bir hukuki işleme şartına dayanıyor mu?<br><span style="font-size:11px;color:var(--dark-sub)">(Açık rıza, sözleşme ifası, hukuki yükümlülük, meşru menfaat vb.)</span></div>
+      <div class="opts">
+        <div class="opt" onclick="selectOpt(this)"><input type="radio" name="s7" value="evet_belgelendi"><label>Evet, belirledik ve belgeledik</label></div>
+        <div class="opt" onclick="selectOpt(this)"><input type="radio" name="s7" value="evet_belgelenmedi"><label>Evet, belirledik ama belgelenmedi</label></div>
+        <div class="opt" onclick="selectOpt(this)"><input type="radio" name="s7" value="hayir"><label>Hayır</label></div>
+        <div class="opt" onclick="selectOpt(this)"><input type="radio" name="s7" value="bilmiyorum"><label>Ne demek olduğunu bilmiyorum</label></div>
+      </div>
+      <div class="explainer" id="explainerS7">
+        <strong>Hukuki işleme şartı nedir?</strong><br>
+        KVKK, kişisel verilerin yalnızca belirli hukuki gerekçelere dayanılarak işlenebileceğini söylüyor. En yaygın şartlar:<br>
+        — <strong>Açık rıza:</strong> Kişi verilerinin işlenmesine onay verdi.<br>
+        — <strong>Sözleşme ifası:</strong> Veri, sözleşmeyi yerine getirmek için gerekli.<br>
+        — <strong>Meşru menfaat:</strong> Şirketin meşru çıkarı var ve kişinin hakları buna zarar görmüyor.<br><br>
+        Hangisine dayandığınızı bilmiyorsanız bu en kritik açıktır. (KVKK Madde 5)
+      </div>
+      <details><summary>Yasal Dayanak</summary><div class="dayanak">KVKK Madde 5/1 — kişisel veriler açık rıza olmaksızın işlenemez. Madde 5/2 — altı istisna şartından biri zorunlu.</div></details>
+    </div>
+
+    <!-- S8 -->
+    <div class="soru" data-soru="s8" data-agirlik="2">
+      <div class="soru-text">S8. Çalışanlarınız müşteri veya üçüncü kişilere ait verileri YZ araçlarına girmeden önce bu kişiler bilgilendiriliyor mu?</div>
+      <div class="opts">
+        <div class="opt" onclick="selectOpt(this)"><input type="radio" name="s8" value="evet"><label>Evet</label></div>
+        <div class="opt" onclick="selectOpt(this)"><input type="radio" name="s8" value="hayir"><label>Hayır</label></div>
+        <div class="opt" onclick="selectOpt(this)"><input type="radio" name="s8" value="emin_degil"><label>Emin değilim</label></div>
+      </div>
+      <details><summary>Yasal Dayanak</summary><div class="dayanak">KVKK Madde 10 — aydınlatma yükümlülüğü. Veri elde edilirken kişiye kim işliyor, ne amaçla, kime aktarılıyor bilgisi verilmeli. YZ aracına veri girmek "aktarım" sayıldığından mevcut aydınlatma metinleri çoğunlukla bunu kapsamıyor.</div></details>
+    </div>
+
+    <!-- S9 -->
+    <div class="soru" data-soru="s9" data-agirlik="1">
+      <div class="soru-text">S9. Kullandığınız YZ araçlarının sunucuları hangi ülkede bulunuyor?</div>
+      <div class="opts">
+        <div class="opt" onclick="selectOpt(this)"><input type="radio" name="s9" value="turkiye"><label>Türkiye'de</label></div>
+        <div class="opt" onclick="selectOpt(this)"><input type="radio" name="s9" value="yurtdisi"><label>Yurt dışında</label></div>
+        <div class="opt" onclick="selectOpt(this)"><input type="radio" name="s9" value="bilmiyorum"><label>Bilmiyorum</label></div>
+      </div>
+      <div class="explainer" id="explainerS9sunucu">
+        En yaygın araçların sunucu konumları:<br>
+        ChatGPT (ücretsiz/Plus): ABD<br>
+        ChatGPT Enterprise: ABD<br>
+        Microsoft Copilot: AB veya ABD (lisansa göre)<br>
+        Google Gemini: ABD<br>
+        Notion AI: ABD
+      </div>
+      <div class="explainer" id="explainerS9turkiye">
+        Araçlarınızın Türkiye'de barındırıldığını belirttiniz. Ancak yedek sunucular yurt dışında olabilir. Aşağıdaki soruyu yine de değerlendirin.
+      </div>
+      <details><summary>Yasal Dayanak</summary><div class="dayanak">KVKK Madde 9 — yurt dışı aktarım mekanizması zorunluluğu.</div></details>
+    </div>
+
+    <!-- S10 -->
+    <div class="soru" data-soru="s10" data-agirlik="3">
+      <div class="soru-text">S10. Yurt dışı sunucularda işlenen veriler için KVKK'nın öngördüğü aktarım mekanizmasını uyguladınız mı?</div>
+      <div class="soru-hint">S9'da Türkiye'de dediniz. Ancak yurt dışı yedek sunucu olasılığı nedeniyle bu soruyu yine de değerlendirin.</div>
+      <div class="opts">
+        <div class="opt" onclick="selectOpt(this)"><input type="radio" name="s10" value="evet_bildirildi"><label>Evet, standart sözleşme imzalandı ve bildirildi</label></div>
+        <div class="opt" onclick="selectOpt(this)"><input type="radio" name="s10" value="evet_bildirilmedi"><label>Standart sözleşme var ama bildirilmedi</label></div>
+        <div class="opt" onclick="selectOpt(this)"><input type="radio" name="s10" value="hayir"><label>Hayır, hiçbir mekanizma yok</label></div>
+        <div class="opt" onclick="selectOpt(this)"><input type="radio" name="s10" value="haberdar_degildim"><label>Bu yükümlülükten haberdar değildim</label></div>
+      </div>
+      <details><summary>Yasal Dayanak</summary><div class="dayanak">KVKK Madde 9/4-c — standart sözleşme yeterli güvence mekanizması. Madde 9/5 — imzadan itibaren 5 iş günü içinde KVKK'ya bildirim zorunlu. Bildirilmemesi: KVKK Madde 18/1-d kapsamında 90.308-1.806.177 TL idari para cezası (2026). Mekanizma hiç kurulmamışsa: Madde 9 ihlali, Kurul incelemesi yoluyla ek yaptırım.</div></details>
+    </div>
+
+    <!-- S11 -->
+    <div class="soru" data-soru="s11" data-agirlik="1">
+      <div class="soru-text">S11. Kullandığınız YZ aracı, girdiğiniz verileri kendi sistemini geliştirmek için kullanıyor olabilir. Bunu kontrol ettiniz mi?</div>
+      <div class="soru-hint">Bazı YZ araçları, özellikle ücretsiz versiyonlar, kullanıcıların girdiği verileri modeli iyileştirmek için kullanabiliyor. Kurumsal lisanslarda bu genellikle kapalıdır; sözleşmenizde doğruladınız mı?</div>
+      <div class="opts">
+        <div class="opt" onclick="selectOpt(this)"><input type="radio" name="s11" value="evet_dogruladik"><label>Evet, kullanılmıyor, sözleşmemizde doğruladık</label></div>
+        <div class="opt" onclick="selectOpt(this)"><input type="radio" name="s11" value="kullaniliyor"><label>Kullanılıyor ve bunu bilerek tercih ettik</label></div>
+        <div class="opt" onclick="selectOpt(this)"><input type="radio" name="s11" value="kontrol_etmedik"><label>Kontrol etmedik</label></div>
+        <div class="opt" onclick="selectOpt(this)"><input type="radio" name="s11" value="haberdar_degildim"><label>Bu konudan haberdar değildim</label></div>
+      </div>
+      <details><summary>Yasal Dayanak</summary><div class="dayanak">KVKK Madde 4/2-ç — işlendikleri amaçla bağlantılı, sınırlı ve ölçülü olma ilkesi.</div></details>
+    </div>
+
+    <div class="blok-nav">
+      <button class="btn-prev" onclick="prevBlok(2)">← Önceki Blok</button>
+      <button class="btn-next" onclick="nextBlok(2)">Sonraki Blok →</button>
+    </div>
+  </div>
+</div>
+
+<!-- BLOK 3 -->
+<div class="blok" id="blok3" data-blok="3">
+  <div class="blok-hdr" onclick="toggleBlok(this)">
+    <div class="blok-num">3</div>
+    <div class="blok-title">Veri Sorumluluğu, Politika ve Kayıt Yükümlülükleri</div>
+    <div class="blok-status" id="blok3Status"></div>
+  </div>
+  <div class="blok-body">
+
+    <!-- S12 -->
+    <div class="soru" data-soru="s12" data-agirlik="2">
+      <div class="soru-text">S12. Şirketinizin aydınlatma metni, kişisel verilerin YZ araçlarıyla işlendiğini kapsıyor mu?</div>
+      <div class="opts">
+        <div class="opt" onclick="selectOpt(this)"><input type="radio" name="s12" value="evet"><label>Evet, açıkça belirtiliyor</label></div>
+        <div class="opt" onclick="selectOpt(this)"><input type="radio" name="s12" value="var_ama_yz_yok"><label>Var ama YZ'den bahsetmiyor</label></div>
+        <div class="opt" onclick="selectOpt(this)"><input type="radio" name="s12" value="yok"><label>Aydınlatma metnimiz yok</label></div>
+        <div class="opt" onclick="selectOpt(this)"><input type="radio" name="s12" value="emin_degil"><label>Emin değilim</label></div>
+      </div>
+      <details><summary>Yasal Dayanak</summary><div class="dayanak">KVKK Madde 10 — veri sorumlusu, kişisel verilerin kimlere aktarılabileceğini bildirmek zorunda. YZ aracı bir aktarım noktası; mevcut aydınlatma metinlerinin büyük çoğunluğu 2024 öncesi yazılmış ve YZ'yi kapsamıyor.</div></details>
+    </div>
+
+    <!-- S13 -->
+    <div class="soru" data-soru="s13" data-agirlik="2">
+      <div class="soru-text">S13. Her YZ aracı için şirketiniz veri sorumlusu mu, veri işleyen mi olduğunu belirledi mi?</div>
+      <div class="opts">
+        <div class="opt" onclick="selectOpt(this)"><input type="radio" name="s13" value="evet_belirlendi"><label>Evet, her araç için ayrı ayrı belirlendi</label></div>
+        <div class="opt" onclick="selectOpt(this)"><input type="radio" name="s13" value="genel"><label>Genel olarak düşündük ama araç bazında değil</label></div>
+        <div class="opt" onclick="selectOpt(this)"><input type="radio" name="s13" value="hayir"><label>Hayır</label></div>
+        <div class="opt" onclick="selectOpt(this)"><input type="radio" name="s13" value="bilmiyorum"><label>Bu ayrımı bilmiyorum</label></div>
+      </div>
+      <div class="explainer" id="explainerS13">
+        <strong>Veri sorumlusu ve veri işleyen ne demek?</strong><br>
+        <strong>Veri sorumlusu:</strong> Hangi verinin toplandığına, neden ve nereye gönderileceğine karar veren taraf. YZ kullanan şirket genellikle bu konumdadır.<br>
+        <strong>Veri işleyen:</strong> Bu kararlar doğrultusunda veriyi teknik olarak işleyen taraf. ChatGPT, Copilot, Gemini gibi araçlar genellikle bu konumdadır.<br><br>
+        Veri sorumlusu olarak şirketiniz, veri işleyenin güvenli çalıştığından emin olmakla yükümlüdür. Bu sorumluluk "biz kullanmadık, araç işledi" diyerek devredilemez. (KVKK Madde 12/2)
+      </div>
+      <details><summary>Yasal Dayanak</summary><div class="dayanak">KVKK Madde 3/ğ — veri işleyen tanımı. Madde 3/ı — veri sorumlusu tanımı.</div></details>
+    </div>
+
+    <!-- S14 -->
+    <div class="soru" data-soru="s14" data-agirlik="2">
+      <div class="soru-text">S14. Çalışanlarınıza YZ araçlarını kullanırken hangi verileri girip giremeyeceklerini anlatan yazılı bir politika veya kural seti var mı?</div>
+      <div class="opts">
+        <div class="opt" onclick="selectOpt(this)"><input type="radio" name="s14" value="evet_yazili"><label>Evet, yazılı politika var ve çalışanlar bilgilendirildi</label></div>
+        <div class="opt" onclick="selectOpt(this)"><input type="radio" name="s14" value="sozlu"><label>Sözlü olarak anlattık ama yazılı değil</label></div>
+        <div class="opt" onclick="selectOpt(this)"><input type="radio" name="s14" value="hayir"><label>Hayır</label></div>
+        <div class="opt" onclick="selectOpt(this)"><input type="radio" name="s14" value="dusunmemistik"><label>Buna ihtiyaç olduğunu düşünmemiştik</label></div>
+      </div>
+      <details><summary>Yasal Dayanak</summary><div class="dayanak">KVKK Madde 12/1 — idari tedbir yükümlülüğü. Madde 12/4 — çalışanlar kişisel verileri işleme amacı dışında kullanamaz. KVKK Belge 5 (Mart 2026) — kurumsal YZ politikası bu yükümlülüğün somut karşılığı.</div></details>
+    </div>
+
+    <!-- S15 -->
+    <div class="soru" data-soru="s15" data-agirlik="1">
+      <div class="soru-text">S15. Çalışanlarınız KVKK kapsamında kişisel veri güvenliği konusunda eğitim aldı mı?</div>
+      <div class="opts">
+        <div class="opt" onclick="selectOpt(this)"><input type="radio" name="s15" value="evet_yz_dahil"><label>Evet, YZ kullanımını da kapsayan güncel eğitim aldılar</label></div>
+        <div class="opt" onclick="selectOpt(this)"><input type="radio" name="s15" value="evet_yz_yok"><label>Evet, ama YZ konusu işlenmedi</label></div>
+        <div class="opt" onclick="selectOpt(this)"><input type="radio" name="s15" value="hayir"><label>Hayır</label></div>
+        <div class="opt" onclick="selectOpt(this)"><input type="radio" name="s15" value="planlaniyor"><label>Planlanıyor</label></div>
+      </div>
+      <details><summary>Yasal Dayanak</summary><div class="dayanak">KVKK Madde 12/1 — idari tedbir. KVKK Belge 5 — çalışan eğitimi zorunluluğu. Not: "Planlanıyor" yanıtı orta-düşük risk olarak değerlendirilir; yükümlülük aktif.</div></details>
+    </div>
+
+    <!-- S16 -->
+    <div class="soru" data-soru="s16" data-agirlik="1">
+      <div class="soru-text">S16. Şirketiniz VERBİS'e kayıtlı mı?</div>
+      <div class="opts">
+        <div class="opt" onclick="selectOpt(this)"><input type="radio" name="s16" value="evet_guncel"><label>Evet, kayıtlıyız ve güncel</label></div>
+        <div class="opt" onclick="selectOpt(this)"><input type="radio" name="s16" value="evet_guncellenmedi"><label>Evet ama güncellenmedi</label></div>
+        <div class="opt" onclick="selectOpt(this)"><input type="radio" name="s16" value="hayir"><label>Hayır</label></div>
+        <div class="opt" onclick="selectOpt(this)"><input type="radio" name="s16" value="bilmiyorum"><label>VERBİS nedir bilmiyorum</label></div>
+      </div>
+      <div class="explainer" id="explainerS16">
+        <strong>VERBİS nedir?</strong><br>
+        Kişisel Verileri Koruma Kurumu'nun tuttuğu Veri Sorumluları Sicili. Kişisel veri işleyen şirketlerin kayıt yaptırması zorunlu.<br><br>
+        <strong>Muaf misiniz?</strong> İki kriteri birlikte sağlayanlar kayıt yaptırmak zorunda değil:<br>
+        — Çalışan sayısı 50'nin altında VE<br>
+        — Yıllık mali bilanço 25 milyon TL'nin altında.<br><br>
+        İkisini birden sağlıyorsanız VERBİS'ten muafsınız; ama diğer KVKK yükümlülükleriniz devam ediyor.<br>
+        Daha fazla bilgi: <a href="https://verbis.kvkk.gov.tr" target="_blank" rel="noopener noreferrer" style="color:var(--dark-type);text-decoration:underline">verbis.kvkk.gov.tr</a>
+      </div>
+      <details><summary>Yasal Dayanak</summary><div class="dayanak">KVKK Madde 16 — veri sorumluları sicili. Veri işlemeye başlamadan önce kayıt zorunlu.</div></details>
+    </div>
+
+    <!-- S17 -->
+    <div class="soru" data-soru="s17" data-agirlik="1">
+      <div class="soru-text">S17. Şirketinizde YZ araçlarının kullanımından sorumlu belirlenmiş bir kişi ya da birim var mı?</div>
+      <div class="opts">
+        <div class="opt" onclick="selectOpt(this)"><input type="radio" name="s17" value="evet"><label>Evet</label></div>
+        <div class="opt" onclick="selectOpt(this)"><input type="radio" name="s17" value="hayir"><label>Hayır</label></div>
+        <div class="opt" onclick="selectOpt(this)"><input type="radio" name="s17" value="emin_degil"><label>Emin değilim</label></div>
+      </div>
+      <details><summary>Yasal Dayanak</summary><div class="dayanak">KVKK Madde 12/3 — denetim yükümlülüğü. Sorumlu kişi olmadan denetim ve ispat mekanizması işlemiyor.</div></details>
+    </div>
+
+    <div class="blok-nav">
+      <button class="btn-prev" onclick="prevBlok(3)">← Önceki Blok</button>
+      <button class="btn-next" onclick="nextBlok(3)">Sonraki Blok →</button>
+    </div>
+  </div>
+</div>
+
+<!-- BLOK 4 -->
+<div class="blok" id="blok4" data-blok="4">
+  <div class="blok-hdr" onclick="toggleBlok(this)">
+    <div class="blok-num">4</div>
+    <div class="blok-title">Hesap Verebilirlik ve Belgelendirme Yükümlülükleri</div>
+    <div class="blok-status" id="blok4Status"></div>
+  </div>
+  <div class="blok-body">
+
+    <!-- S18 -->
+    <div class="soru" data-soru="s18" data-agirlik="3">
+      <div class="soru-text">S18. YZ araçlarına ilişkin kişisel veri işleme faaliyetleriniz yazılı olarak kayıt altında mı?<br><span style="font-size:11px;color:var(--dark-sub)">(Hangi araç, hangi veri, hangi amaç, hangi hukuki dayanak)</span></div>
+      <div class="opts">
+        <div class="opt" onclick="selectOpt(this)"><input type="radio" name="s18" value="evet"><label>Evet</label></div>
+        <div class="opt" onclick="selectOpt(this)"><input type="radio" name="s18" value="kismen"><label>Kısmen</label></div>
+        <div class="opt" onclick="selectOpt(this)"><input type="radio" name="s18" value="hayir"><label>Hayır</label></div>
+        <div class="opt" onclick="selectOpt(this)"><input type="radio" name="s18" value="bilmiyordum"><label>Buna ihtiyaç olduğunu bilmiyordum</label></div>
+      </div>
+      <details><summary>Yasal Dayanak</summary><div class="dayanak">KVKK Madde 12/3 — denetim yükümlülüğü. KVKK Belge 3 — hesap verebilirlik ispat yükümlülüğü. Denetim geldiğinde "yapıyoruz" demek yetmiyor; kayıt göstermek gerekiyor.</div></details>
+    </div>
+
+    <!-- S19 -->
+    <div class="soru" data-soru="s19" data-agirlik="2">
+      <div class="soru-text">S19. Yurt dışı YZ araçlarıyla imzaladığınız standart sözleşmeleri ve KVKK'ya yapılan bildirimleri saklıyor musunuz?</div>
+      <div class="soru-hint">Yaptığınızı değil, sakladığınızı soruyoruz.</div>
+      <div class="opts">
+        <div class="opt" onclick="selectOpt(this)"><input type="radio" name="s19" value="evet_sakliyoruz"><label>Evet, saklıyoruz</label></div>
+        <div class="opt" onclick="selectOpt(this)"><input type="radio" name="s19" value="sozlesme_var"><label>Sözleşme var ama bildirim kaydı yok</label></div>
+        <div class="opt" onclick="selectOpt(this)"><input type="radio" name="s19" value="hayir"><label>Hayır, saklamıyoruz</label></div>
+        <div class="opt" onclick="selectOpt(this)"><input type="radio" name="s19" value="imzalamadik"><label>Standart sözleşme imzalamadık</label></div>
+      </div>
+      <details><summary>Yasal Dayanak</summary><div class="dayanak">KVKK Madde 9/5 — standart sözleşme 5 iş günü içinde bildirilmeli. Denetimde hem sözleşme hem bildirim belgesi istenebilir.</div></details>
+    </div>
+
+    <!-- S20 -->
+    <div class="soru" data-soru="s20" data-agirlik="1">
+      <div class="soru-text"><em>Eğitim vermek yeterli değil; denetimde kanıtlamanız gerekiyor.</em>S20. Çalışanlarınızın aldığı KVKK ve YZ eğitimlerine ilişkin kayıt tutuluyor mu?</div>
+      <div class="opts">
+        <div class="opt" onclick="selectOpt(this)"><input type="radio" name="s20" value="evet"><label>Evet, kayıt altında</label></div>
+        <div class="opt" onclick="selectOpt(this)"><input type="radio" name="s20" value="egitim_var_kayit_yok"><label>Eğitim verildi ama kayıt yok</label></div>
+        <div class="opt" onclick="selectOpt(this)"><input type="radio" name="s20" value="egitim_yok"><label>Eğitim verilmedi</label></div>
+        <div class="opt" onclick="selectOpt(this)"><input type="radio" name="s20" value="planlaniyor"><label>Planlanıyor</label></div>
+      </div>
+      <details><summary>Yasal Dayanak</summary><div class="dayanak">KVKK Madde 12/3 — denetim yükümlülüğü. KVKK Belge 5 — çalışan eğitimi zorunluluğu kayıt gerektiriyor.</div></details>
+    </div>
+
+    <!-- S21 -->
+    <div class="soru" data-soru="s21" data-agirlik="3">
+      <div class="soru-text">S21. Kişisel veri ihlali durumunda uygulanacak yazılı bir prosedürünüz var mı?<br><span style="font-size:11px;color:var(--dark-sub)">(KVKK'ya ve ilgili kişilere bildirim süreci)</span></div>
+      <div class="opts">
+        <div class="opt" onclick="selectOpt(this)"><input type="radio" name="s21" value="evet"><label>Evet</label></div>
+        <div class="opt" onclick="selectOpt(this)"><input type="radio" name="s21" value="hayir"><label>Hayır</label></div>
+        <div class="opt" onclick="selectOpt(this)"><input type="radio" name="s21" value="haberdar_degildim"><label>Bu yükümlülükten haberdar değildim</label></div>
+      </div>
+      <details><summary>Yasal Dayanak</summary><div class="dayanak">KVKK Madde 12/5 — ihlal durumunda en kısa sürede ilgilisine ve Kurula bildirim zorunlu. Prosedür olmadan bildirim süresi kaçırılıyor; bu ayrı bir ihlal.</div></details>
+    </div>
+
+    <!-- S22 -->
+    <div class="soru" data-soru="s22" data-agirlik="2">
+      <div class="soru-text">S22. YZ araçlarınızın kullanımını ve veri işleme faaliyetlerinizi düzenli aralıklarla gözden geçiriyor musunuz?</div>
+      <div class="opts">
+        <div class="opt" onclick="selectOpt(this)"><input type="radio" name="s22" value="evet_periyodik"><label>Evet, periyodik gözden geçirme yapıyoruz</label></div>
+        <div class="opt" onclick="selectOpt(this)"><input type="radio" name="s22" value="degisiklik_olunca"><label>Hayır, değişiklik olunca bakıyoruz</label></div>
+        <div class="opt" onclick="selectOpt(this)"><input type="radio" name="s22" value="hayir"><label>Hayır, hiç yapmadık</label></div>
+        <div class="opt" onclick="selectOpt(this)"><input type="radio" name="s22" value="dusunmemistik"><label>Buna ihtiyaç olduğunu düşünmemiştik</label></div>
+      </div>
+      <details><summary>Yasal Dayanak</summary><div class="dayanak">KVKK Madde 12/3 — denetim yükümlülüğü sürekli, tek seferlik değil. KVKK Belge 4 — kullanım sonrası izleme mekanizması.</div></details>
+    </div>
+
+    <div class="blok-nav">
+      <button class="btn-prev" onclick="prevBlok(4)">← Önceki Blok</button>
+      <button class="btn-next" onclick="completeChecklist()">Değerlendirmeyi Tamamla →</button>
+    </div>
+  </div>
+</div>
+
+</div><!-- /blocks-wrap -->
+
+<!-- RESULTS -->
+<div class="results-wrap" id="resultsWrap">
+
+  <!-- Profile Card -->
+  <div class="profile-card" id="profileCard">
+    <div class="profile-header">
+      <div class="profile-level" id="profileLevel"></div>
+      <div class="profile-score" id="profileScore"></div>
+    </div>
+    <div class="profile-bar"><div class="profile-bar-inner" id="profileBarInner"></div></div>
+    <div id="overrideAlert" class="alert-box alert-red" style="display:none">Değerlendirmenizde tespit edilen bir veya daha fazla açık, genel uyum düzeyinden bağımsız olarak doğrudan yasal risk oluşturuyor.</div>
+  </div>
+
+  <!-- Block Scores -->
+  <div class="block-scores" id="blockScores">
+    <div class="bs-item"><div class="bs-label">Blok 1 — YZ Araç Envanteri</div><div class="bs-value" id="bs1Val"></div><div class="bs-bar"><div class="bs-bar-inner" id="bs1Bar"></div></div></div>
+    <div class="bs-item"><div class="bs-label">Blok 2 — İşleme ve Aktarım</div><div class="bs-value" id="bs2Val"></div><div class="bs-bar"><div class="bs-bar-inner" id="bs2Bar"></div></div></div>
+    <div class="bs-item"><div class="bs-label">Blok 3 — Sorumluluk ve Politika</div><div class="bs-value" id="bs3Val"></div><div class="bs-bar"><div class="bs-bar-inner" id="bs3Bar"></div></div></div>
+    <div class="bs-item"><div class="bs-label">Blok 4 — Hesap Verebilirlik</div><div class="bs-value" id="bs4Val"></div><div class="bs-bar"><div class="bs-bar-inner" id="bs4Bar"></div></div></div>
+  </div>
+
+  <!-- FORM -->
+  <div class="form-wrap" id="formWrap">
+    <div class="form-title">Kişiselleştirilmiş yol haritanızı almak için bilgilerinizi girin</div>
+    <div class="form-row">
+      <div class="form-label">Şirket adı *</div>
+      <input type="text" class="form-input" id="sirketAdi" placeholder="Şirket adı" oninput="checkForm()">
+    </div>
+    <div class="form-row">
+      <div class="form-label">E-posta *</div>
+      <input type="email" class="form-input" id="eposta" placeholder="ornek@sirket.com" oninput="checkForm()">
+    </div>
+    <div class="form-row">
+      <div class="form-label">Ad-Soyad *</div>
+      <input type="text" class="form-input" id="adSoyad" placeholder="Ad Soyad" oninput="checkForm()">
+    </div>
+    <button class="btn-generate" id="btnGenerate" disabled onclick="generateReport()">Yol Haritamı Oluştur</button>
+    <div class="form-disclaimer">Bilgileriniz yalnızca raporunuzu kişiselleştirmek için kullanılır. Üçüncü taraflarla paylaşılmaz.</div>
+  </div>
+
+  <!-- Loading -->
+  <div class="loading" id="loading">
+    <div class="spinner"></div>
+    <p>Yol haritanız hazırlanıyor...</p>
+  </div>
+
+  <!-- Report -->
+  <div class="report" id="report">
+    <!-- Bölüm C: Eylem Planı -->
+    <div class="report-section" id="acilSection" style="display:none">
+      <div class="report-section-hdr">Acil (0-30 Gün)</div>
+      <div class="report-section-body" id="acilBody"></div>
+    </div>
+    <div class="report-section" id="onemliSection" style="display:none">
+      <div class="report-section-hdr">Önemli (30-90 Gün)</div>
+      <div class="report-section-body" id="onemliBody"></div>
+    </div>
+    <div class="report-section" id="standartSection" style="display:none">
+      <div class="report-section-hdr">Standart (90+ Gün)</div>
+      <div class="report-section-body" id="standartBody"></div>
+    </div>
+    <div id="noActionMsg" class="alert-box alert-green" style="display:none">Değerlendirmenize göre kritik bir açık tespit edilmedi. Uyum durumunuzu korumak için periyodik gözden geçirme önerilir.</div>
+
+    <!-- Bölüm D: Yasal Uyarı -->
+    <div class="legal-disclaimer">Bu değerlendirme KVKK uyum sürecinizi yapılandırmanıza yardımcı olmak amacıyla tasarlanmıştır. Hukuki tavsiye niteliği taşımaz. Şirketinize özgü değerlendirme için bir avukata veya KVKK uzmanına danışmanızı öneririz.</div>
+
+    <!-- Bölüm E: PDF ve İletişim -->
+    <div class="report-actions">
+      <button class="btn-pdf" onclick="window.print()">PDF İndir</button>
+      <a href="mailto:contact@hexis.center" class="btn-contact">Hexis danışmanlık hizmetleri →</a>
+    </div>
+  </div>
+
+  <!-- Fallback -->
+  <div id="fallback" class="alert-box alert-amber" style="display:none">
+    Yol haritanız şu an oluşturulamadı. Değerlendirme sonuçlarınıza göre öncelikli adımlarınızı belirlemek için bizimle iletişime geçin: <a href="mailto:contact@hexis.center" style="color:var(--amber-text);text-decoration:underline">contact@hexis.center</a>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-links">
+    Resmi Kaynaklar:
+    <a href="https://www.kvkk.gov.tr" target="_blank" rel="noopener noreferrer">KVKK</a> ·
+    <a href="https://verbis.kvkk.gov.tr" target="_blank" rel="noopener noreferrer">VERBİS</a> ·
+    <a href="https://www.kvkk.gov.tr/Icerik/8547/uretken-yapay-zeka-ve-kisisel-verilerin-korunmasi-rehberi-15-soruda" target="_blank" rel="noopener noreferrer">KVKK Rehberi (15 Soruda)</a> ·
+    <a href="/eu-ai-act-checklist">EU AI Act kapsamında değerlendirme</a>
+  </div>
+  <p>© 2026 Hexis · Built by Özden Coşkun · <a href="/">hexis.center</a> · <a href="https://www.linkedin.com/in/ozden-coskun-8728a1301" target="_blank" rel="noopener noreferrer">LinkedIn</a> · Bu araç yalnızca bilgilendirme amaçlıdır; hukuki danışmanlık niteliği taşımaz.</p>
+</footer>
+
+<script>
+/* ─── MENU ─── */
+function toggleMenu(){
+  document.getElementById('hamburger').classList.toggle('open');
+  document.getElementById('mobileMenu').classList.toggle('open');
+}
+function closeMenu(){
+  document.getElementById('hamburger').classList.remove('open');
+  document.getElementById('mobileMenu').classList.remove('open');
+}
+document.addEventListener('click',function(e){
+  var nav=document.querySelector('nav'),menu=document.getElementById('mobileMenu');
+  if(!nav.contains(e.target)&&!menu.contains(e.target)){closeMenu();}
+});
+
+/* ─── STATE ─── */
+var selectedSektor='';
+var answers={};
+var override_s7=false,override_s10=false,override_s18=false,override_s21=false;
+var blokLabels=['YZ Araç Envanteri','İşleme ve Aktarım','Sorumluluk ve Politika','Hesap Verebilirlik'];
+
+/* ─── SECTOR ─── */
+function onSektorChange(){
+  selectedSektor=document.getElementById('sektorSecim').value;
+  document.getElementById('btnStart').disabled=!selectedSektor;
+  showSectorFields();
+}
+
+function showSectorFields(){
+  document.querySelectorAll('.sector-field').forEach(function(el){
+    var sectors=(el.getAttribute('data-sectors')||'').split(',');
+    if(sectors.indexOf(selectedSektor)!==-1){
+      el.classList.add('show');
+    }else{
+      el.classList.remove('show');
+      var cb=el.querySelector('input[type="checkbox"]');
+      if(cb){cb.checked=false;el.classList.remove('checked');}
+    }
+  });
+}
+
+function startChecklist(){
+  document.getElementById('sectorWrap').style.display='none';
+  document.getElementById('blocksWrap').style.display='block';
+  updateProgress(1);
+  window.scrollTo({top:document.getElementById('blok1').offsetTop-70,behavior:'smooth'});
+}
+
+/* ─── RADIO SELECT ─── */
+function selectOpt(el){
+  var parent=el.closest('.opts');
+  parent.querySelectorAll('.opt').forEach(function(o){o.classList.remove('selected');o.querySelector('input').checked=false;});
+  el.classList.add('selected');
+  el.querySelector('input').checked=true;
+  var name=el.querySelector('input').name;
+  var value=el.querySelector('input').value;
+  answers[name]=value;
+  handleConditionals(name,value);
+}
+
+/* ─── CHECKBOX ─── */
+function toggleChk(el){
+  var cb=el.querySelector('input[type="checkbox"]');
+  cb.checked=!cb.checked;
+  el.classList.toggle('checked',cb.checked);
+  var name=cb.name;
+  if(!answers[name])answers[name]=[];
+  if(typeof answers[name]==='string')answers[name]=[];
+  var vals=[];
+  el.closest('.chk-opts').querySelectorAll('input[type="checkbox"]:checked').forEach(function(c){vals.push(c.value);});
+  answers[name]=vals;
+  if(name==='s4')checkS5();
+}
+
+/* ─── CONDITIONALS ─── */
+function handleConditionals(name,value){
+  if(name==='s7'){
+    override_s7=(value==='bilmiyorum');
+    var exp=document.getElementById('explainerS7');
+    if(value==='bilmiyorum'){exp.classList.add('show');}else{exp.classList.remove('show');}
+  }
+  if(name==='s9'){
+    var expSunucu=document.getElementById('explainerS9sunucu');
+    var expTurkiye=document.getElementById('explainerS9turkiye');
+    expSunucu.classList.remove('show');
+    expTurkiye.classList.remove('show');
+    if(value==='bilmiyorum'||value==='yurtdisi'){expSunucu.classList.add('show');}
+    if(value==='turkiye'){expTurkiye.classList.add('show');}
+  }
+  if(name==='s10'){
+    override_s10=(value==='hayir'||value==='haberdar_degildim');
+  }
+  if(name==='s13'){
+    var exp13=document.getElementById('explainerS13');
+    if(value==='bilmiyorum'){exp13.classList.add('show');}else{exp13.classList.remove('show');}
+  }
+  if(name==='s16'){
+    var exp16=document.getElementById('explainerS16');
+    if(value==='hayir'||value==='bilmiyorum'){exp16.classList.add('show');}else{exp16.classList.remove('show');}
+  }
+  if(name==='s18'){
+    override_s18=(value==='hayir'||value==='bilmiyordum');
+  }
+  if(name==='s21'){
+    override_s21=(value==='hayir'||value==='haberdar_degildim');
+  }
+}
+
+/* ─── S5 AUTO-TRIGGER ─── */
+function checkS5(){
+  var s4Vals=answers.s4||[];
+  var ozelNitelikli=['saglik'];
+  var hasOzel=false;
+  s4Vals.forEach(function(v){if(ozelNitelikli.indexOf(v)!==-1)hasOzel=true;});
+  var alertEl=document.getElementById('s5Alert');
+  if(hasOzel){
+    alertEl.style.display='block';
+    alertEl.className='alert-box alert-red';
+    alertEl.innerHTML='Girdiğiniz verilerden bir kısmı KVKK kapsamında özel nitelikli kişisel veri sayılıyor. Bu veriler için işleme şartları çok daha kısıtlıdır; açık rıza olmaksızın işlenmesi kural olarak yasaktır. (KVKK Madde 6/1-2-3)';
+    answers.s5='ozel_nitelikli';
+  }else if(s4Vals.length>0){
+    alertEl.style.display='none';
+    answers.s5='standart';
+  }else{
+    alertEl.style.display='none';
+    answers.s5='bos';
+  }
+}
+
+/* ─── BLOCK NAV ─── */
+function toggleBlok(hdr){
+  var blok=hdr.closest('.blok');
+  blok.classList.toggle('active');
+}
+
+function nextBlok(current){
+  var next=current+1;
+  if(next>4)return;
+  document.getElementById('blok'+current).classList.remove('active');
+  document.getElementById('blok'+current).classList.add('done');
+  document.getElementById('blok'+next).classList.add('active');
+  updateProgress(next);
+  window.scrollTo({top:document.getElementById('blok'+next).offsetTop-70,behavior:'smooth'});
+}
+
+function prevBlok(current){
+  var prev=current-1;
+  if(prev<1)return;
+  document.getElementById('blok'+current).classList.remove('active');
+  document.getElementById('blok'+prev).classList.add('active');
+  updateProgress(prev);
+  window.scrollTo({top:document.getElementById('blok'+prev).offsetTop-70,behavior:'smooth'});
+}
+
+function updateProgress(blokNum){
+  var pct=((blokNum-1)/4)*100;
+  document.getElementById('progressBar').style.width=pct+'%';
+  document.getElementById('progressLabel').textContent='Blok '+blokNum+'/4 — '+blokLabels[blokNum-1];
+}
+
+/* ─── COMPLETE CHECKLIST ─── */
+function completeChecklist(){
+  document.getElementById('progressBar').style.width='100%';
+  document.getElementById('progressLabel').textContent='Değerlendirme tamamlandı';
+  calculateScores();
+  document.getElementById('resultsWrap').style.display='block';
+  window.scrollTo({top:document.getElementById('resultsWrap').offsetTop-70,behavior:'smooth'});
+}
+
+/* ─── SCORING ─── */
+var soruAgirlik={
+  s1:1,s2:1,s3:1,s3a:2,s4:1,s5:1,s6:1,
+  s7:3,s8:2,s9:1,s10:3,s11:1,
+  s12:2,s13:2,s14:2,s15:1,s16:1,s17:1,
+  s18:3,s19:2,s20:1,s21:3,s22:2
+};
+
+var blokSorular={
+  1:['s1','s2','s3','s3a','s4','s5','s6'],
+  2:['s7','s8','s9','s10','s11'],
+  3:['s12','s13','s14','s15','s16','s17'],
+  4:['s18','s19','s20','s21','s22']
+};
+
+function getYanitPuani(soru,val){
+  if(!val||val==='')return 0;
+  if(Array.isArray(val))return 0;
+  var evet=['evet','evet_belgelendi','evet_bildirildi','evet_dogruladik','evet_guncel','evet_yazili','evet_yz_dahil','evet_sakliyoruz','evet_periyodik','evet_belirlendi','hayir_yok','standart','bos'];
+  var kismen=['evet_belgelenmedi','evet_guncellenmedi','evet_yz_yok','var_ama_yz_yok','sozlu','planlaniyor','genel','kullaniliyor','sozlesme_var','evet_guncel_degil','degisiklik_olunca','egitim_var_kayit_yok'];
+  var belirsiz=['emin_degil','bilmiyorum','supheleniyorum','hic_dusunmemistim','ozel_nitelikli'];
+  var hayir=['hayir','haberdar_degildim','bilmiyordum','yok','imzalamadik','kontrol_etmedik','dusunmemistik','egitim_yok','evet_farkindayim'];
+  if(evet.indexOf(val)!==-1)return 0;
+  if(kismen.indexOf(val)!==-1)return 1;
+  if(belirsiz.indexOf(val)!==-1)return 1.5;
+  if(hayir.indexOf(val)!==-1)return 2;
+  return 0;
+}
+
+function calculateScores(){
+  var totalSkor=0;
+  var blokSkorlar={};
+  var blokMax={};
+  for(var b=1;b<=4;b++){
+    var bSkor=0,bMax=0;
+    blokSorular[b].forEach(function(s){
+      var ag=soruAgirlik[s]||1;
+      var val=answers[s]||'';
+      bSkor+=getYanitPuani(s,val)*ag;
+      bMax+=2*ag;
+    });
+    blokSkorlar[b]=bSkor;
+    blokMax[b]=bMax;
+    totalSkor+=bSkor;
+  }
+
+  var hasOverride=(override_s7||override_s10||override_s18||override_s21);
+  var profil='';
+  var profilRenk='';
+  if(hasOverride){
+    profil='Acil Eylem Gerekiyor';
+    profilRenk=getComputedStyle(document.documentElement).getPropertyValue('--red-text').trim();
+  }else if(totalSkor<=12){
+    profil='Temel uyum sağlanmış';
+    profilRenk=getComputedStyle(document.documentElement).getPropertyValue('--green-text').trim();
+  }else if(totalSkor<=28){
+    profil='Kısmi uyum';
+    profilRenk=getComputedStyle(document.documentElement).getPropertyValue('--amber-text').trim();
+  }else if(totalSkor<=44){
+    profil='Önemli açıklar';
+    profilRenk=getComputedStyle(document.documentElement).getPropertyValue('--red-text').trim();
+  }else{
+    profil='Yüksek risk';
+    profilRenk=getComputedStyle(document.documentElement).getPropertyValue('--red-text').trim();
+  }
+
+  document.getElementById('profileLevel').textContent=profil;
+  document.getElementById('profileLevel').style.color=profilRenk;
+  var maxTotal=0;
+  for(var s in soruAgirlik)maxTotal+=2*soruAgirlik[s];
+  document.getElementById('profileScore').textContent='Skor: '+Math.round(totalSkor)+'/'+maxTotal;
+  var pctTotal=Math.min((totalSkor/maxTotal)*100,100);
+  document.getElementById('profileBarInner').style.width=pctTotal+'%';
+  document.getElementById('profileBarInner').style.background=profilRenk;
+
+  if(hasOverride){
+    document.getElementById('overrideAlert').style.display='block';
+  }
+
+  for(var b=1;b<=4;b++){
+    var bPct=blokMax[b]>0?Math.round((blokSkorlar[b]/blokMax[b])*100):0;
+    var bColor=bPct<=25?getComputedStyle(document.documentElement).getPropertyValue('--green-text').trim():
+               bPct<=50?getComputedStyle(document.documentElement).getPropertyValue('--amber-text').trim():
+               getComputedStyle(document.documentElement).getPropertyValue('--red-text').trim();
+    document.getElementById('bs'+b+'Val').textContent=Math.round(blokSkorlar[b])+'/'+blokMax[b];
+    document.getElementById('bs'+b+'Val').style.color=bColor;
+    document.getElementById('bs'+b+'Bar').style.width=bPct+'%';
+    document.getElementById('bs'+b+'Bar').style.background=bColor;
+  }
+
+  window._skorData={totalSkor:totalSkor,maxTotal:maxTotal,profil:profil,hasOverride:hasOverride,blokSkorlar:blokSkorlar};
+}
+
+/* ─── FORM CHECK ─── */
+function checkForm(){
+  var a=document.getElementById('sirketAdi').value.trim();
+  var b=document.getElementById('eposta').value.trim();
+  var c=document.getElementById('adSoyad').value.trim();
+  document.getElementById('btnGenerate').disabled=!(a&&b&&c);
+}
+
+/* ─── GENERATE REPORT (API) ─── */
+function generateReport(){
+  document.getElementById('formWrap').style.display='none';
+  document.getElementById('loading').classList.add('show');
+
+  var sektor=selectedSektor;
+  var sirketAdi=document.getElementById('sirketAdi').value.trim();
+  var skorData=window._skorData;
+
+  var systemPrompt='Sen bir KVKK uyum yönlendirme asistanısın. Görevin: Kullanıcının checklist yanıtlarına dayalı olarak öncelikli eylem adımları önermek.\n\nKULLANILACAK REFERANSLAR (YALNIZCA BUNLAR):\nKVKK Madde 3/d, Madde 3/ğ, Madde 3/ı,\nMadde 4/2-ç, Madde 5, Madde 6,\nMadde 8, Madde 9/4-c, Madde 9/5,\nMadde 10, Madde 12/1, Madde 12/2,\nMadde 12/3, Madde 12/4, Madde 12/5,\nMadde 16, Madde 18/1-d\n\nYASAK:\n- "Bu bir ihlaldir" demek\n- "Ceza alırsınız" demek\n- Liste dışında madde numarası kullanmak\n- Belirli hukuki sonuçlar hakkında kesin ifade\n- Şirkete özgü hukuki risk değerlendirmesi\n\nZORUNLU:\n- Her öneride KVKK maddesini belirt\n- Yanıt YALNIZCA geçerli JSON olmalı\n- Preamble, açıklama veya markdown YASAK\n- Aşağıdaki şemayı eksiksiz doldur\n\nÇIKTI ŞEMASI:\n{"acil_eylemler":[{"sira":1,"baslik":"...","dayanak":"KVKK Md. X","eylem":"...","sure":"0-30 gün"}],"onemli_eylemler":[{"sira":1,"baslik":"...","dayanak":"KVKK Md. X","eylem":"...","sure":"30-90 gün"}],"standart_eylemler":[{"sira":1,"baslik":"...","dayanak":"KVKK Md. X","eylem":"...","sure":"90+ gün"}],"kapsam_disi":"Bu değerlendirme genel yönlendirme amaçlıdır. Şirketinize özgü hukuki değerlendirme için bir avukata veya KVKK uzmanına danışmanızı öneririz."}';
+
+  var yanitOzeti='';
+  var soruListesi=['s7','s8','s9','s10','s11','s12','s13','s14','s15','s16','s17','s18','s19','s20','s21','s22'];
+  var soruLabels={s7:'Hukuki işleme şartı',s8:'Aydınlatma yükümlülüğü',s9:'Sunucu konumu',s10:'Yurt dışı aktarım mekanizması',s11:'Model eğitimi kontrolü',s12:'Aydınlatma metni',s13:'Veri sorumlusu tespiti',s14:'YZ politikası',s15:'Çalışan eğitimi',s16:'VERBİS',s17:'Sorumlu kişi',s18:'İşleme kaydı',s19:'Sözleşme saklama',s20:'Eğitim kaydı',s21:'İhlal prosedürü',s22:'Periyodik gözden geçirme'};
+  soruListesi.forEach(function(s){
+    var val=answers[s]||'yanıtlanmadı';
+    if(Array.isArray(val))val=val.join(', ');
+    yanitOzeti+='S'+s.replace('s','')+' ('+soruLabels[s]+'): '+val+'\n';
+  });
+
+  var overrideDurumu='';
+  if(override_s7)overrideDurumu+='S7 ';
+  if(override_s10)overrideDurumu+='S10 ';
+  if(override_s18)overrideDurumu+='S18 ';
+  if(override_s21)overrideDurumu+='S21 ';
+  if(!overrideDurumu)overrideDurumu='Yok';
+
+  var userPrompt='Sektör: '+sektor+'\nŞirket: '+sirketAdi+'\n\nCHECKLIST YANIT ÖZETİ:\n'+yanitOzeti+'\nGenel profil: '+skorData.profil+'\nOverride: '+overrideDurumu.trim()+'\n\nYalnızca "Hayır", "Emin değilim", "Bilmiyorum" veya benzeri olumsuz yanıtlar için eylem öner.\n"Evet" yanıtlanan konular için eylem önerme.\nMaksimum: acil 3, önemli 4, standart 3 eylem.\n\nTüm yanıtlar olumlu ise tüm listeleri boş bırak.';
+
+  fetch('/api/kvkk-roadmap',{
+    method:'POST',
+    headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({
+      model:'claude-sonnet-4-20250514',
+      max_tokens:1000,
+      system:systemPrompt,
+      messages:[{role:'user',content:userPrompt}]
+    })
+  })
+  .then(function(r){return r.json();})
+  .then(function(data){
+    var text='';
+    if(data.content&&Array.isArray(data.content)){
+      data.content.forEach(function(i){text+=(i.text||'');});
+    }else if(data.text){
+      text=data.text;
+    }
+    var parsed;
+    try{
+      var clean=text.replace(/```json|```/g,'').trim();
+      parsed=JSON.parse(clean);
+    }catch(e){
+      showFallback();
+      return;
+    }
+
+    var izinliMaddeler=['Md. 3','Md. 4','Md. 5','Md. 6','Md. 8','Md. 9','Md. 10','Md. 12','Md. 16','Md. 18'];
+    var yasakliKaliplar=['ihlaldir','ceza alırsınız','kesinlikle','mutlaka yapmalısınız'];
+
+    var valid=true;
+    var allEylemler=[].concat(parsed.acil_eylemler||[],parsed.onemli_eylemler||[],parsed.standart_eylemler||[]);
+    allEylemler.forEach(function(e){
+      yasakliKaliplar.forEach(function(k){
+        if(e.eylem&&e.eylem.toLowerCase().indexOf(k)!==-1)valid=false;
+        if(e.baslik&&e.baslik.toLowerCase().indexOf(k)!==-1)valid=false;
+      });
+    });
+    if(!valid){showFallback();return;}
+
+    renderReport(parsed);
+  })
+  .catch(function(){
+    showFallback();
+  });
+}
+
+function renderReport(data){
+  document.getElementById('loading').classList.remove('show');
+  document.getElementById('report').classList.add('show');
+
+  var acil=data.acil_eylemler||[];
+  var onemli=data.onemli_eylemler||[];
+  var standart=data.standart_eylemler||[];
+
+  if(acil.length===0&&onemli.length===0&&standart.length===0){
+    document.getElementById('noActionMsg').style.display='block';
+    return;
+  }
+
+  if(acil.length>0){
+    document.getElementById('acilSection').style.display='block';
+    document.getElementById('acilBody').innerHTML=acil.map(function(e){
+      return renderEylem(e);
+    }).join('');
+  }
+  if(onemli.length>0){
+    document.getElementById('onemliSection').style.display='block';
+    document.getElementById('onemliBody').innerHTML=onemli.map(function(e){
+      return renderEylem(e);
+    }).join('');
+  }
+  if(standart.length>0){
+    document.getElementById('standartSection').style.display='block';
+    document.getElementById('standartBody').innerHTML=standart.map(function(e){
+      return renderEylem(e);
+    }).join('');
+  }
+}
+
+function renderEylem(e){
+  return '<div class="eylem-item">'+
+    '<div class="eylem-num">'+e.sira+'</div>'+
+    '<div class="eylem-baslik">'+escHtml(e.baslik)+'</div>'+
+    '<div class="eylem-dayanak">Dayanak: '+escHtml(e.dayanak)+'</div>'+
+    '<div class="eylem-aciklama">'+escHtml(e.eylem)+'</div>'+
+    (e.sure?'<div class="eylem-sure">'+escHtml(e.sure)+'</div>':'')+
+    '</div>';
+}
+
+function escHtml(s){
+  if(!s)return '';
+  return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+function showFallback(){
+  document.getElementById('loading').classList.remove('show');
+  document.getElementById('fallback').style.display='block';
+  document.getElementById('report').classList.add('show');
+}
+</script>
+</body>
+</html>
