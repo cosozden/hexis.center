@@ -352,6 +352,26 @@
     color: var(--stone);
     border-color: var(--rule);
   }
+  .cl-na-btn {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 8px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+    border: 1px solid var(--rule-s);
+    background: none;
+    padding: 1px 6px;
+    cursor: pointer;
+    transition: all .15s;
+    margin-left: auto;
+    flex-shrink: 0;
+    align-self: flex-start;
+    margin-top: 3px;
+  }
+  .cl-na-btn:hover { border-color: var(--stone); color: var(--stone); }
+  .cl-item.na .cl-text { color: var(--ink-muted); text-decoration: line-through; }
+  .cl-item.na .cl-na-btn { background: var(--rule-s); color: var(--stone); border-color: var(--stone); }
+  .cl-item.na .cl-checkbox { opacity: 0.3; pointer-events: none; }
 
   /* ── FOOTER ── */
   .cl-footer {
@@ -426,6 +446,8 @@
     .cl-footer { border-top: 1px solid #ccc; }
     .cl-checkbox { border-color: #999; print-color-adjust: exact; -webkit-print-color-adjust: exact; }
     .cl-item.checked .cl-checkbox { background: #1C1E23; }
+    .cl-item.na .cl-text { color: #999; text-decoration: line-through; }
+    .cl-na-btn { font-size: 7px; border: 1px solid #ccc; padding: 0 4px; }
   }
 
   /* ── RESPONSIVE ── */
@@ -963,7 +985,7 @@
         <span class="cl-section-title">Governance, Accountability &amp; AI Literacy</span>
       </div>
       <div class="cl-section-right">
-        <span class="cl-section-count" data-count="7">0/7</span>
+        <span class="cl-section-count" data-count="7">0/8</span>
         <span class="cl-section-toggle">&darr;</span>
       </div>
     </div>
@@ -987,7 +1009,7 @@
         </div>
         <div class="cl-content">
           <div class="cl-text">Has an AI governance owner or team been designated?</div>
-          <div class="cl-refs"><span class="cl-ref">Art. 26</span></div>
+          <div class="cl-refs"><span class="cl-ref">Best Practice — ISO/IEC 42001</span></div>
         </div>
       </div>
       <div class="cl-item" data-risk="all" data-id="7.3">
@@ -1033,6 +1055,77 @@
         <div class="cl-content">
           <div class="cl-text">Is there a process for reporting serious incidents to authorities?</div>
           <div class="cl-refs"><span class="cl-ref">Art. 73</span></div>
+        </div>
+      </div>
+      <div class="cl-item" data-risk="high" data-id="7.8">
+        <div class="cl-checkbox" onclick="toggleCheck(this)">
+          <svg class="cl-check-icon" viewBox="0 0 10 10"><polyline points="1.5 5.5 4 8 8.5 2"/></svg>
+        </div>
+        <div class="cl-content">
+          <div class="cl-text">Has a conformity assessment been carried out before the system is placed on the market or put into service?</div>
+          <div class="cl-refs"><span class="cl-ref">Art. 43</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 8 -->
+  <div class="cl-section" data-section="8">
+    <div class="cl-section-header" onclick="toggleSection(this)">
+      <div class="cl-section-left">
+        <span class="cl-section-num">Section 8</span>
+        <span class="cl-section-title">Deployer Obligations</span>
+      </div>
+      <div class="cl-section-right">
+        <span class="cl-section-count" data-count="8">0/5</span>
+        <span class="cl-section-toggle">&darr;</span>
+      </div>
+    </div>
+    <div class="cl-section-note">Specific duties for organisations deploying high-risk AI systems — Art. 26</div>
+    <div class="cl-section-body">
+      <div class="cl-item" data-risk="high" data-id="8.1">
+        <div class="cl-checkbox" onclick="toggleCheck(this)">
+          <svg class="cl-check-icon" viewBox="0 0 10 10"><polyline points="1.5 5.5 4 8 8.5 2"/></svg>
+        </div>
+        <div class="cl-content">
+          <div class="cl-text">Is the high-risk AI system used in accordance with the provider's instructions for use?</div>
+          <div class="cl-refs"><span class="cl-ref">Art. 26(1)</span></div>
+        </div>
+      </div>
+      <div class="cl-item" data-risk="high" data-id="8.2">
+        <div class="cl-checkbox" onclick="toggleCheck(this)">
+          <svg class="cl-check-icon" viewBox="0 0 10 10"><polyline points="1.5 5.5 4 8 8.5 2"/></svg>
+        </div>
+        <div class="cl-content">
+          <div class="cl-text">Is input data relevant and sufficiently representative for the system's intended purpose?</div>
+          <div class="cl-refs"><span class="cl-ref">Art. 26(4)</span></div>
+        </div>
+      </div>
+      <div class="cl-item" data-risk="high" data-id="8.3">
+        <div class="cl-checkbox" onclick="toggleCheck(this)">
+          <svg class="cl-check-icon" viewBox="0 0 10 10"><polyline points="1.5 5.5 4 8 8.5 2"/></svg>
+        </div>
+        <div class="cl-content">
+          <div class="cl-text">Is the operation of the high-risk AI system monitored on the basis of instructions for use?</div>
+          <div class="cl-refs"><span class="cl-ref">Art. 26(5)</span></div>
+        </div>
+      </div>
+      <div class="cl-item" data-risk="high" data-id="8.4">
+        <div class="cl-checkbox" onclick="toggleCheck(this)">
+          <svg class="cl-check-icon" viewBox="0 0 10 10"><polyline points="1.5 5.5 4 8 8.5 2"/></svg>
+        </div>
+        <div class="cl-content">
+          <div class="cl-text">Have affected employees and workers' representatives been informed about the AI system's use?</div>
+          <div class="cl-refs"><span class="cl-ref">Art. 26(7)</span></div>
+        </div>
+      </div>
+      <div class="cl-item" data-risk="high" data-id="8.5">
+        <div class="cl-checkbox" onclick="toggleCheck(this)">
+          <svg class="cl-check-icon" viewBox="0 0 10 10"><polyline points="1.5 5.5 4 8 8.5 2"/></svg>
+        </div>
+        <div class="cl-content">
+          <div class="cl-text">Are logs generated by the high-risk AI system kept for a period appropriate to the intended purpose (minimum 6 months)?</div>
+          <div class="cl-refs"><span class="cl-ref">Art. 26(6)</span></div>
         </div>
       </div>
     </div>
@@ -1095,8 +1188,8 @@
   // ── FILTER MAP ──
   // Which sections are visible at each risk level
   var SECTION_MAP = {
-    'all':           [1,2,3,4,5,6,7],
-    'high':          [1,2,3,4,5,6,7],
+    'all':           [1,2,3,4,5,6,7,8],
+    'high':          [1,2,3,4,5,6,7,8],
     'limited':       [1,2,5,7],
     'gpai-provider': [1,2,5,7],
     'gpai-systemic': [1,2,5,7],
@@ -1118,10 +1211,40 @@
 
   var checkedState = loadChecked();
 
+  // ── N/A STATE ──
+  var NA_KEY = 'hexis_checklist_en_na';
+  function loadNA() {
+    try { var d = localStorage.getItem(NA_KEY); return d ? JSON.parse(d) : {}; } catch(e) { return {}; }
+  }
+  function saveNA(na) {
+    try { localStorage.setItem(NA_KEY, JSON.stringify(na)); } catch(e) {}
+  }
+  var naState = loadNA();
+
+  // ── TOGGLE N/A ──
+  window.toggleNA = function(el) {
+    var item = el.closest('.cl-item');
+    if (!item) return;
+    var id = item.dataset.id;
+    if (item.classList.contains('na')) {
+      item.classList.remove('na');
+      delete naState[id];
+    } else {
+      item.classList.add('na');
+      item.classList.remove('checked');
+      delete checkedState[id];
+      naState[id] = true;
+    }
+    saveNA(naState);
+    saveChecked(checkedState);
+    updateProgress();
+  };
+
   // ── TOGGLE CHECK ──
   window.toggleCheck = function(el) {
     var item = el.closest('.cl-item');
     if (!item) return;
+    if (item.classList.contains('na')) return;
     var id = item.dataset.id;
     if (item.classList.contains('checked')) {
       item.classList.remove('checked');
@@ -1218,9 +1341,12 @@
   // ── UPDATE PROGRESS ──
   function updateProgress() {
     var visibleItems = document.querySelectorAll('.cl-item:not(.hidden)');
-    var total = visibleItems.length;
+    var total = 0;
     var done = 0;
+    var naCount = 0;
     visibleItems.forEach(function(item) {
+      if (item.classList.contains('na')) { naCount++; return; }
+      total++;
       if (item.classList.contains('checked')) done++;
     });
 
@@ -1228,14 +1354,17 @@
     var fill = document.getElementById('cl-progress-fill');
     var text = document.getElementById('cl-progress-text');
     if (fill) fill.style.width = pct + '%';
-    if (text) text.textContent = done + ' of ' + total + ' items completed (' + pct + '%)';
+    var naLabel = naCount > 0 ? ' · ' + naCount + ' N/A' : '';
+    if (text) text.textContent = done + ' of ' + total + ' items completed (' + pct + '%)' + naLabel;
 
     // Section counts
     document.querySelectorAll('.cl-section').forEach(function(sec) {
       var items = sec.querySelectorAll('.cl-item:not(.hidden)');
-      var sTotal = items.length;
+      var sTotal = 0;
       var sDone = 0;
       items.forEach(function(item) {
+        if (item.classList.contains('na')) return;
+        sTotal++;
         if (item.classList.contains('checked')) sDone++;
       });
       var countEl = sec.querySelector('.cl-section-count');
@@ -1252,9 +1381,18 @@
   function restoreChecked() {
     document.querySelectorAll('.cl-item').forEach(function(item) {
       var id = item.dataset.id;
-      if (checkedState[id]) {
+      if (naState[id]) {
+        item.classList.add('na');
+      } else if (checkedState[id]) {
         item.classList.add('checked');
       }
+      // Add N/A button to each item
+      var btn = document.createElement('button');
+      btn.className = 'cl-na-btn';
+      btn.textContent = 'N/A';
+      btn.title = 'Mark as Not Applicable';
+      btn.onclick = function() { toggleNA(this); };
+      item.appendChild(btn);
     });
   }
 
