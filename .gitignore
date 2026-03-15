@@ -28,3 +28,4 @@ node_modules/
 
 # Temp import staging
 _v1_import/
+tools/gsc-service-account.json
