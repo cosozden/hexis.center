@@ -167,6 +167,8 @@ nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;justify-co
 .bs-value{font-family:Georgia,serif;font-size:14px;font-weight:700}
 .bs-bar{height:2px;background:rgba(232,230,226,.08);margin-top:6px}
 .bs-bar-inner{height:100%;transition:width .5s ease}
+.bs-yorum{font-size:10px;color:var(--dark-sub);margin-top:6px;line-height:1.5;font-family:Arial,sans-serif}
+.override-tag{display:inline-block;font-size:9px;font-weight:700;color:var(--red-text);background:var(--red-soft);border:1px solid var(--red-border);padding:1px 7px;margin-left:8px;letter-spacing:.03em;vertical-align:middle;font-family:Arial,sans-serif}
 
 /* FORM */
 .form-wrap{border:1px solid var(--border);padding:24px;margin-bottom:20px}
@@ -719,10 +721,10 @@ footer p a:hover{color:var(--dark-sub)}
 
   <!-- Block Scores -->
   <div class="block-scores" id="blockScores">
-    <div class="bs-item"><div class="bs-label">Blok 1 — YZ Araç Envanteri</div><div class="bs-value" id="bs1Val"></div><div class="bs-bar"><div class="bs-bar-inner" id="bs1Bar"></div></div></div>
-    <div class="bs-item"><div class="bs-label">Blok 2 — İşleme ve Aktarım</div><div class="bs-value" id="bs2Val"></div><div class="bs-bar"><div class="bs-bar-inner" id="bs2Bar"></div></div></div>
-    <div class="bs-item"><div class="bs-label">Blok 3 — Sorumluluk ve Politika</div><div class="bs-value" id="bs3Val"></div><div class="bs-bar"><div class="bs-bar-inner" id="bs3Bar"></div></div></div>
-    <div class="bs-item"><div class="bs-label">Blok 4 — Hesap Verebilirlik</div><div class="bs-value" id="bs4Val"></div><div class="bs-bar"><div class="bs-bar-inner" id="bs4Bar"></div></div></div>
+    <div class="bs-item"><div class="bs-label">Blok 1 — YZ Araç Envanteri</div><div class="bs-value" id="bs1Val"></div><div class="bs-bar"><div class="bs-bar-inner" id="bs1Bar"></div></div><div class="bs-yorum" id="bs1Yorum" style="display:none"></div></div>
+    <div class="bs-item"><div class="bs-label">Blok 2 — İşleme ve Aktarım</div><div class="bs-value" id="bs2Val"></div><div class="bs-bar"><div class="bs-bar-inner" id="bs2Bar"></div></div><div class="bs-yorum" id="bs2Yorum" style="display:none"></div></div>
+    <div class="bs-item"><div class="bs-label">Blok 3 — Sorumluluk ve Politika</div><div class="bs-value" id="bs3Val"></div><div class="bs-bar"><div class="bs-bar-inner" id="bs3Bar"></div></div><div class="bs-yorum" id="bs3Yorum" style="display:none"></div></div>
+    <div class="bs-item"><div class="bs-label">Blok 4 — Hesap Verebilirlik</div><div class="bs-value" id="bs4Val"></div><div class="bs-bar"><div class="bs-bar-inner" id="bs4Bar"></div></div><div class="bs-yorum" id="bs4Yorum" style="display:none"></div></div>
   </div>
 
   <!-- FORM -->
@@ -766,6 +768,12 @@ footer p a:hover{color:var(--dark-sub)}
       </div>
     </div>
 
+    <!-- Sektör Bağlam -->
+    <div id="sektorBaglam" style="display:none;font-size:12px;color:var(--dark-sub);line-height:1.7;margin-bottom:16px;padding:14px 16px;border:1px solid var(--border);background:var(--card)"></div>
+
+    <!-- Skor Skalası -->
+    <div id="skorSkala" style="display:none;gap:0;margin-bottom:16px;border:1px solid var(--border)"></div>
+
     <!-- Bölüm B: Override Detay -->
     <div id="overrideDetail" class="alert-box alert-red" style="display:none;margin-bottom:16px">
       <div style="font-weight:700;margin-bottom:6px">Kritik Tetikleyiciler</div>
@@ -787,10 +795,20 @@ footer p a:hover{color:var(--dark-sub)}
     </div>
     <div id="noActionMsg" class="alert-box alert-green" style="display:none">Değerlendirmenize göre kritik bir açık tespit edilmedi. Uyum durumunuzu korumak için periyodik gözden geçirme önerilir.</div>
 
-    <!-- Bölüm D: Yasal Uyarı -->
+    <!-- Bölüm D: Sonraki Adım CTA -->
+    <div id="ctaBox" style="border:1.5px solid var(--border2);padding:20px;margin:20px 0;background:var(--card2)">
+      <div style="font-family:Georgia,serif;font-size:14px;font-weight:700;color:var(--dark-type);margin-bottom:10px">Sonraki adım</div>
+      <div id="ctaText" style="font-size:12px;color:var(--dark-sub);line-height:1.7;margin-bottom:14px">Bu raporu referans alarak uyum sürecinize başlayabilirsiniz. Değerlendirmeyi tekrarlamak veya güncel durumunuzu takip etmek için bu sayfayı kaydedin.</div>
+      <div style="display:flex;gap:10px;flex-wrap:wrap">
+        <a href="https://hexis.center/kvkk/checklist/" style="display:inline-block;padding:8px 16px;background:var(--dark-type);color:var(--charcoal);font-size:11px;font-weight:700;text-decoration:none;letter-spacing:.04em;font-family:Arial,sans-serif">Değerlendirmeyi Tekrarla</a>
+        <a href="mailto:contact@hexis.center?subject=KVKK%20Uyum%20Dan%C4%B1%C5%9Fmanl%C4%B1k" style="display:inline-block;padding:8px 16px;border:1px solid var(--border2);color:var(--dark-type);font-size:11px;font-weight:700;text-decoration:none;letter-spacing:.04em;font-family:Arial,sans-serif">Detaylı Değerlendirme Talep Et →</a>
+      </div>
+    </div>
+
+    <!-- Bölüm E: Yasal Uyarı -->
     <div class="legal-disclaimer">Bu değerlendirme KVKK uyum sürecinizi yapılandırmanıza yardımcı olmak amacıyla tasarlanmıştır. Hukuki tavsiye niteliği taşımaz. Şirketinize özgü değerlendirme için bir avukata veya KVKK uzmanına danışmanızı öneririz.</div>
 
-    <!-- Bölüm E: PDF ve İletişim -->
+    <!-- Bölüm F: PDF ve İletişim -->
     <div class="report-actions">
       <button class="btn-pdf" onclick="exportPDF()">PDF İndir</button>
       <a href="mailto:contact@hexis.center" class="btn-contact">Hexis danışmanlık hizmetleri →</a>
@@ -1074,7 +1092,7 @@ function calculateScores(){
     document.getElementById('bs'+b+'Bar').style.background=bColor;
   }
 
-  window._skorData={totalSkor:totalSkor,maxTotal:maxTotal,profil:profil,hasOverride:hasOverride,blokSkorlar:blokSkorlar};
+  window._skorData={totalSkor:totalSkor,maxTotal:maxTotal,profil:profil,hasOverride:hasOverride,blokSkorlar:blokSkorlar,blokMax:blokMax};
 }
 
 /* ─── FORM CHECK ─── */
@@ -1201,15 +1219,79 @@ function renderReport(data){
     document.getElementById('reportSektor').textContent=sektorLabels[selectedSektor]||selectedSektor;
   }
 
+  /* ── İYİLEŞTİRME 1: Sektör bağlam paragrafı ── */
+  var sektorBaglam={
+    perakende:'Perakende ve e-ticaret sektöründe yapay zeka kullanımı genellikle kişiselleştirilmiş pazarlama, müşteri segmentasyonu ve otomatik ürün önerileri alanlarında yoğunlaşır. KVKK açısından kritik noktalar: ödeme sistemi entegrasyonlarında veri aktarımı, profilleme faaliyetlerinin açık rıza gerektirmesi ve e-ticaret platformlarının yurt dışı sunucu kullanımıdır.',
+    muhasebe:'Muhasebe ve mali müşavirlik sektöründe yapay zeka, fatura tanıma, vergi hesaplama ve finansal raporlama süreçlerinde kullanılır. KVKK açısından kritik noktalar: müşteri finansal verilerinin özel nitelikli veri kapsamında değerlendirilmesi, bulut muhasebe yazılımlarının veri aktarım mekanizmaları ve mesleki gizlilik yükümlülüğüdür.',
+    hukuk:'Hukuk ve danışmanlık sektöründe yapay zeka, sözleşme analizi, içtihat taraması ve hukuki risk değerlendirmesinde kullanılır. KVKK açısından kritik noktalar: avukat-müvekkil gizliliği kapsamındaki verilerin YZ araçlarına aktarılması, mahkeme kararlarındaki kişisel verilerin işlenmesi ve yurt dışı merkezli hukuk teknolojisi platformlarıdır.',
+    saglik:'Sağlık sektöründe yapay zeka, tanı destek sistemleri, hasta triajı ve tıbbi görüntü analizinde kullanılır. KVKK açısından en yüksek risk alanıdır: sağlık verileri özel nitelikli kişisel veri olup açık rıza veya kanuni istisna gerektirir. Veri minimizasyonu ve anonimleştirme kritik öneme sahiptir.',
+    ik:'İnsan kaynakları alanında yapay zeka, özgeçmiş tarama, performans değerlendirme ve işe alım süreçlerinde kullanılır. KVKK açısından kritik noktalar: aday verilerinin otomatik karar alma süreçlerinde kullanılması (Md. 11), çalışan izleme araçları ve yurt dışı İK platformlarına veri aktarımıdır.',
+    egitim:'Eğitim sektöründe yapay zeka, kişiselleştirilmiş öğrenme, otomatik değerlendirme ve öğrenci performans takibinde kullanılır. KVKK açısından kritik noktalar: öğrenci verilerinin özel nitelikli veri potansiyeli, velilerin aydınlatılması ve eğitim platformlarının çoğunlukla yurt dışı merkezli olmasıdır.',
+    gayrimenkul:'Gayrimenkul sektöründe yapay zeka, fiyat tahmini, müşteri eşleştirme ve pazar analizi alanlarında kullanılır. KVKK açısından kritik noktalar: müşteri profilleme faaliyetleri, kimlik belgesi taramaları ve CRM sistemlerinin veri aktarım mekanizmalarıdır.',
+    lojistik:'Lojistik sektöründe yapay zeka, rota optimizasyonu, talep tahmini ve depo yönetiminde kullanılır. KVKK açısından kritik noktalar: sürücü ve çalışan konum verilerinin işlenmesi, uluslararası taşımacılıkta sınır ötesi veri aktarımı ve tedarik zinciri ortaklarıyla veri paylaşımıdır.',
+    yazilim:'Yazılım ve teknoloji sektöründe yapay zeka, kod üretimi, test otomasyonu ve kullanıcı davranış analizinde kullanılır. KVKK açısından kritik noktalar: SaaS ürünlerinde müşteri verilerinin yurt dışı bulut altyapılarında işlenmesi, geliştirme ortamlarında kişisel verilerin kullanımı ve log verilerinin kapsamıdır.',
+    uretim:'Üretim ve imalat sektöründe yapay zeka, kalite kontrol, kestirimci bakım ve üretim planlamada kullanılır. KVKK açısından kritik noktalar: çalışan performans izleme sistemleri, kamera tabanlı kalite kontrol uygulamalarında biyometrik veri riski ve tedarikçi veri paylaşımıdır.',
+    diger:'Yapay zeka uygulamalarınızın KVKK kapsamındaki yükümlülükleri, işlediğiniz kişisel verinin türüne, hacmine ve aktarım mekanizmalarına göre şekillenir. Sektörden bağımsız olarak veri envanteri, aydınlatma yükümlülüğü ve güvenlik tedbirleri temel gereksinimlerdir.'
+  };
+
+  /* ── İYİLEŞTİRME 5: Skor skalası verisi ── */
+  var sd=window._skorData;
+  var skorSkala=[
+    {min:0,max:12,label:'Temel Uyum',renk:'var(--green-text)'},
+    {min:13,max:28,label:'Kısmi Uyum',renk:'var(--amber-text)'},
+    {min:29,max:44,label:'Önemli Açıklar',renk:'var(--red-text)'},
+    {min:45,max:sd?sd.maxTotal:76,label:'Yüksek Risk',renk:'var(--red-text)'}
+  ];
+
   /* Override detay */
+  var overrideMap={};
   if(override_s7||override_s10||override_s18||override_s21){
     var overrideItems=[];
-    if(override_s7)overrideItems.push('S7 — Hukuki işleme şartı belirlenmemiş (KVKK Md. 5)');
-    if(override_s10)overrideItems.push('S10 — Yurt dışı aktarım mekanizması yok (KVKK Md. 9)');
-    if(override_s18)overrideItems.push('S18 — Veri işleme kaydı tutulmuyor (KVKK Md. 12)');
-    if(override_s21)overrideItems.push('S21 — İhlal prosedürü yok (KVKK Md. 12/5)');
+    if(override_s7){overrideItems.push('S7 — Hukuki işleme şartı belirlenmemiş (KVKK Md. 5)');overrideMap['KVKK Md. 5']='S7';}
+    if(override_s10){overrideItems.push('S10 — Yurt dışı aktarım mekanizması yok (KVKK Md. 9)');overrideMap['KVKK Md. 9']='S10';overrideMap['KVKK Md. 9/4-c']='S10';}
+    if(override_s18){overrideItems.push('S18 — Veri işleme kaydı tutulmuyor (KVKK Md. 12)');overrideMap['KVKK Md. 12']='S18';overrideMap['KVKK Md. 16']='S18';}
+    if(override_s21){overrideItems.push('S21 — İhlal prosedürü yok (KVKK Md. 12/5)');overrideMap['KVKK Md. 12/5']='S21';}
     document.getElementById('overrideDetail').style.display='block';
     document.getElementById('overrideList').innerHTML=overrideItems.map(function(t){return '• '+t;}).join('<br>');
+  }
+  window._overrideMap=overrideMap;
+
+  /* Sektör bağlam paragrafını ekle */
+  var baglamEl=document.getElementById('sektorBaglam');
+  if(baglamEl&&sektorBaglam[selectedSektor]){
+    baglamEl.textContent=sektorBaglam[selectedSektor];
+    baglamEl.style.display='block';
+  }
+
+  /* ── İYİLEŞTİRME 2: Blok skor yorumları ── */
+  if(sd){
+    var blokYorumLabels={
+      1:{low:'YZ araç envanteriniz güncel ve kontrol altında.',mid:'Bazı YZ araçları henüz envantere alınmamış olabilir.',high:'YZ araç envanteri ciddi eksik — hangi verilerin hangi araçlarla işlendiği belirsiz.'},
+      2:{low:'Veri işleme ve aktarım süreçleriniz uyumlu görünüyor.',mid:'Veri aktarım mekanizmalarında iyileştirme gerekiyor.',high:'İşleme ve aktarım süreçlerinde acil düzeltme gerektiren açıklar var.'},
+      3:{low:'Politika ve sorumluluk yapınız olgun düzeyde.',mid:'Politika belgeleriniz veya sorumluluk atamalarınız tamamlanmalı.',high:'Temel politika ve sorumluluk yapıları henüz oluşturulmamış.'},
+      4:{low:'Hesap verebilirlik mekanizmalarınız yerinde.',mid:'Kayıt tutma ve denetim süreçlerinde eksikler mevcut.',high:'Hesap verebilirlik altyapısı kurulmamış — denetim hazırlığı yetersiz.'}
+    };
+    for(var b=1;b<=4;b++){
+      var bPct=sd.blokMax[b]>0?Math.round((sd.blokSkorlar[b]/sd.blokMax[b])*100):0;
+      var yorumLevel=bPct<=25?'low':bPct<=60?'mid':'high';
+      var yorumEl=document.getElementById('bs'+b+'Yorum');
+      if(yorumEl){
+        yorumEl.textContent=blokYorumLabels[b][yorumLevel];
+        yorumEl.style.display='block';
+      }
+    }
+  }
+
+  /* ── İYİLEŞTİRME 5: Skor skalası göstergesi ── */
+  var skalaEl=document.getElementById('skorSkala');
+  if(skalaEl&&sd){
+    var skalaHtml='';
+    skorSkala.forEach(function(s){
+      var isActive=(sd.totalSkor>=s.min&&sd.totalSkor<=s.max);
+      skalaHtml+='<div style="flex:1;text-align:center;padding:6px 4px;font-size:9px;letter-spacing:.04em;'+(isActive?'font-weight:700;color:var(--dark-type);border-bottom:2px solid '+s.renk:'color:var(--dark-sub)')+'">'+s.label+'<br><span style="font-size:8px;opacity:.7">'+s.min+'–'+s.max+'</span></div>';
+    });
+    skalaEl.innerHTML=skalaHtml;
+    skalaEl.style.display='flex';
   }
 
   var acil=data.acil_eylemler||[];
@@ -1221,30 +1303,41 @@ function renderReport(data){
     return;
   }
 
+  /* ── İYİLEŞTİRME 3: Override → aksiyon ilişkilendirme ── */
   if(acil.length>0){
     document.getElementById('acilSection').style.display='block';
     document.getElementById('acilBody').innerHTML=acil.map(function(e){
-      return renderEylem(e);
+      return renderEylem(e,overrideMap);
     }).join('');
   }
   if(onemli.length>0){
     document.getElementById('onemliSection').style.display='block';
     document.getElementById('onemliBody').innerHTML=onemli.map(function(e){
-      return renderEylem(e);
+      return renderEylem(e,overrideMap);
     }).join('');
   }
   if(standart.length>0){
     document.getElementById('standartSection').style.display='block';
     document.getElementById('standartBody').innerHTML=standart.map(function(e){
-      return renderEylem(e);
+      return renderEylem(e,overrideMap);
     }).join('');
   }
 }
 
-function renderEylem(e){
+function renderEylem(e,overrideMap){
+  /* İYİLEŞTİRME 3: Override → aksiyon ilişkilendirme */
+  var triggerTag='';
+  if(overrideMap&&e.dayanak){
+    var dStr=e.dayanak.replace('Dayanak: ','');
+    Object.keys(overrideMap).forEach(function(k){
+      if(dStr.indexOf(k)!==-1||dStr.indexOf(k.replace('KVKK ',''))!==-1){
+        triggerTag='<span class="override-tag">Kritik tetikleyici: '+overrideMap[k]+'</span>';
+      }
+    });
+  }
   return '<div class="eylem-item">'+
     '<div class="eylem-num">'+e.sira+'</div>'+
-    '<div class="eylem-baslik">'+escHtml(e.baslik)+'</div>'+
+    '<div class="eylem-baslik">'+escHtml(e.baslik)+triggerTag+'</div>'+
     '<div class="eylem-dayanak">Dayanak: '+escHtml(e.dayanak)+'</div>'+
     '<div class="eylem-aciklama">'+escHtml(e.eylem)+'</div>'+
     (e.sure?'<div class="eylem-sure">'+escHtml(e.sure)+'</div>':'')+
@@ -1274,15 +1367,40 @@ function exportPDF(){
   var sektorLabels={perakende:'Perakende ve e-ticaret',muhasebe:'Muhasebe ve mali müşavirlik',hukuk:'Hukuk ve danışmanlık',saglik:'Sağlık ve klinik hizmetler',ik:'İnsan kaynakları',egitim:'Eğitim ve kurs',gayrimenkul:'Gayrimenkul',lojistik:'Lojistik',yazilim:'Yazılım ve teknoloji',uretim:'Üretim ve imalat',diger:'Diğer'};
   var sektorText=sektorLabels[selectedSektor]||selectedSektor;
 
-  /* Override detail items */
+  /* İYİLEŞTİRME 1: Sektör bağlam */
+  var sektorBaglam={
+    perakende:'Perakende ve e-ticaret sektöründe yapay zeka kullanımı genellikle kişiselleştirilmiş pazarlama, müşteri segmentasyonu ve otomatik ürün önerileri alanlarında yoğunlaşır. KVKK açısından kritik noktalar: ödeme sistemi entegrasyonlarında veri aktarımı, profilleme faaliyetlerinin açık rıza gerektirmesi ve e-ticaret platformlarının yurt dışı sunucu kullanımıdır.',
+    muhasebe:'Muhasebe ve mali müşavirlik sektöründe yapay zeka, fatura tanıma, vergi hesaplama ve finansal raporlama süreçlerinde kullanılır. KVKK açısından kritik noktalar: müşteri finansal verilerinin özel nitelikli veri kapsamında değerlendirilmesi, bulut muhasebe yazılımlarının veri aktarım mekanizmaları ve mesleki gizlilik yükümlülüğüdür.',
+    hukuk:'Hukuk ve danışmanlık sektöründe yapay zeka, sözleşme analizi, içtihat taraması ve hukuki risk değerlendirmesinde kullanılır. KVKK açısından kritik noktalar: avukat-müvekkil gizliliği kapsamındaki verilerin YZ araçlarına aktarılması, mahkeme kararlarındaki kişisel verilerin işlenmesi ve yurt dışı merkezli hukuk teknolojisi platformlarıdır.',
+    saglik:'Sağlık sektöründe yapay zeka, tanı destek sistemleri, hasta triajı ve tıbbi görüntü analizinde kullanılır. KVKK açısından en yüksek risk alanıdır: sağlık verileri özel nitelikli kişisel veri olup açık rıza veya kanuni istisna gerektirir. Veri minimizasyonu ve anonimleştirme kritik öneme sahiptir.',
+    ik:'İnsan kaynakları alanında yapay zeka, özgeçmiş tarama, performans değerlendirme ve işe alım süreçlerinde kullanılır. KVKK açısından kritik noktalar: aday verilerinin otomatik karar alma süreçlerinde kullanılması (Md. 11), çalışan izleme araçları ve yurt dışı İK platformlarına veri aktarımıdır.',
+    egitim:'Eğitim sektöründe yapay zeka, kişiselleştirilmiş öğrenme, otomatik değerlendirme ve öğrenci performans takibinde kullanılır. KVKK açısından kritik noktalar: öğrenci verilerinin özel nitelikli veri potansiyeli, velilerin aydınlatılması ve eğitim platformlarının çoğunlukla yurt dışı merkezli olmasıdır.',
+    gayrimenkul:'Gayrimenkul sektöründe yapay zeka, fiyat tahmini, müşteri eşleştirme ve pazar analizi alanlarında kullanılır. KVKK açısından kritik noktalar: müşteri profilleme faaliyetleri, kimlik belgesi taramaları ve CRM sistemlerinin veri aktarım mekanizmalarıdır.',
+    lojistik:'Lojistik sektöründe yapay zeka, rota optimizasyonu, talep tahmini ve depo yönetiminde kullanılır. KVKK açısından kritik noktalar: sürücü ve çalışan konum verilerinin işlenmesi, uluslararası taşımacılıkta sınır ötesi veri aktarımı ve tedarik zinciri ortaklarıyla veri paylaşımıdır.',
+    yazilim:'Yazılım ve teknoloji sektöründe yapay zeka, kod üretimi, test otomasyonu ve kullanıcı davranış analizinde kullanılır. KVKK açısından kritik noktalar: SaaS ürünlerinde müşteri verilerinin yurt dışı bulut altyapılarında işlenmesi, geliştirme ortamlarında kişisel verilerin kullanımı ve log verilerinin kapsamıdır.',
+    uretim:'Üretim ve imalat sektöründe yapay zeka, kalite kontrol, kestirimci bakım ve üretim planlamada kullanılır. KVKK açısından kritik noktalar: çalışan performans izleme sistemleri, kamera tabanlı kalite kontrol uygulamalarında biyometrik veri riski ve tedarikçi veri paylaşımıdır.',
+    diger:'Yapay zeka uygulamalarınızın KVKK kapsamındaki yükümlülükleri, işlediğiniz kişisel verinin türüne, hacmine ve aktarım mekanizmalarına göre şekillenir. Sektörden bağımsız olarak veri envanteri, aydınlatma yükümlülüğü ve güvenlik tedbirleri temel gereksinimlerdir.'
+  };
+  var baglamText=sektorBaglam[selectedSektor]||sektorBaglam.diger;
+
+  /* Override detail items + override map for action tagging */
   var overrideItems=[];
-  if(override_s7)overrideItems.push('S7 — Hukuki işleme şartı belirlenmemiş (KVKK Md. 5)');
-  if(override_s10)overrideItems.push('S10 — Yurt dışı aktarım mekanizması yok (KVKK Md. 9)');
-  if(override_s18)overrideItems.push('S18 — Veri işleme kaydı tutulmuyor (KVKK Md. 12)');
-  if(override_s21)overrideItems.push('S21 — İhlal prosedürü yok (KVKK Md. 12/5)');
+  var overrideMap=window._overrideMap||{};
+  if(override_s7)overrideItems.push('S7 \u2014 Hukuki i\u015Fleme \u015Fart\u0131 belirlenmemi\u015F (KVKK Md. 5)');
+  if(override_s10)overrideItems.push('S10 \u2014 Yurt d\u0131\u015F\u0131 aktar\u0131m mekanizmas\u0131 yok (KVKK Md. 9)');
+  if(override_s18)overrideItems.push('S18 \u2014 Veri i\u015Fleme kayd\u0131 tutulmuyor (KVKK Md. 12)');
+  if(override_s21)overrideItems.push('S21 \u2014 \u0130hlal pros\u00E9d\u00FCr\u00FC yok (KVKK Md. 12/5)');
+
+  /* İYİLEŞTİRME 2: Blok skor yorumları */
+  var blokYorumLabels={
+    1:{low:'YZ ara\u00E7 envanteriniz g\u00FCncel ve kontrol alt\u0131nda.',mid:'Baz\u0131 YZ ara\u00E7lar\u0131 hen\u00FCz envantere al\u0131nmam\u0131\u015F olabilir.',high:'YZ ara\u00E7 envanteri ciddi eksik \u2014 hangi verilerin hangi ara\u00E7larla i\u015Flendi\u011Fi belirsiz.'},
+    2:{low:'Veri i\u015Fleme ve aktar\u0131m s\u00FCre\u00E7leriniz uyumlu g\u00F6r\u00FCn\u00FCyor.',mid:'Veri aktar\u0131m mekanizmalar\u0131nda iyile\u015Ftirme gerekiyor.',high:'\u0130\u015Fleme ve aktar\u0131m s\u00FCre\u00E7lerinde acil d\u00FCzeltme gerektiren a\u00E7\u0131klar var.'},
+    3:{low:'Politika ve sorumluluk yap\u0131n\u0131z olgun d\u00FCzeyde.',mid:'Politika belgeleriniz veya sorumluluk atamalar\u0131n\u0131z tamamlanmal\u0131.',high:'Temel politika ve sorumluluk yap\u0131lar\u0131 hen\u00FCz olu\u015Fturulmam\u0131\u015F.'},
+    4:{low:'Hesap verebilirlik mekanizmalar\u0131n\u0131z yerinde.',mid:'Kay\u0131t tutma ve denetim s\u00FCre\u00E7lerinde eksikler mevcut.',high:'Hesap verebilirlik altyap\u0131s\u0131 kurulmam\u0131\u015F \u2014 denetim haz\u0131rl\u0131\u011F\u0131 yetersiz.'}
+  };
 
   /* Collect block scores */
-  var bLabels=['YZ Araç Envanteri','İşleme ve Aktarım','Sorumluluk ve Politika','Hesap Verebilirlik'];
+  var bLabels=['YZ Ara\u00E7 Envanteri','\u0130\u015Fleme ve Aktar\u0131m','Sorumluluk ve Politika','Hesap Verebilirlik'];
   var bVals=[
     document.getElementById('bs1Val').textContent,
     document.getElementById('bs2Val').textContent,
@@ -1298,10 +1416,11 @@ function exportPDF(){
     sec.querySelectorAll('.eylem-item').forEach(function(el){
       items.push({
         sira:el.querySelector('.eylem-num')?el.querySelector('.eylem-num').textContent:'',
-        baslik:el.querySelector('.eylem-baslik')?el.querySelector('.eylem-baslik').textContent:'',
+        baslik:el.querySelector('.eylem-baslik')?el.querySelector('.eylem-baslik').textContent.replace(/Kritik tetikleyici:.*/,'').trim():'',
         dayanak:el.querySelector('.eylem-dayanak')?el.querySelector('.eylem-dayanak').textContent:'',
         aciklama:el.querySelector('.eylem-aciklama')?el.querySelector('.eylem-aciklama').textContent:'',
-        sure:el.querySelector('.eylem-sure')?el.querySelector('.eylem-sure').textContent:''
+        sure:el.querySelector('.eylem-sure')?el.querySelector('.eylem-sure').textContent:'',
+        hasTrigger:!!el.querySelector('.override-tag')
       });
     });
     return items;
@@ -1312,15 +1431,26 @@ function exportPDF(){
 
   function esc(s){return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
 
+  /* İYİLEŞTİRME 3: Override tag in action items */
   function renderSection(title,items,color){
     if(items.length===0)return '';
     var html='<div style="border:1px solid #d8d4cc;margin-bottom:16px;page-break-inside:avoid">';
     html+='<div style="padding:12px 18px;font-family:Georgia,serif;font-size:13px;font-weight:700;color:#1C1E23;border-bottom:1px solid #d8d4cc;background:#f0ede8">'+esc(title)+'</div>';
     html+='<div style="padding:14px 18px">';
     items.forEach(function(e){
+      var triggerHtml='';
+      if(e.hasTrigger){
+        /* Find which trigger matches */
+        var dStr=e.dayanak;
+        Object.keys(overrideMap).forEach(function(k){
+          if(dStr.indexOf(k)!==-1||dStr.indexOf(k.replace('KVKK ',''))!==-1){
+            triggerHtml=' <span style="display:inline-block;font-size:8px;font-weight:700;color:#c44;background:#fff0ee;border:1px solid #e8685a;padding:1px 6px;margin-left:6px;letter-spacing:.03em;vertical-align:middle">Kritik tetikleyici: '+overrideMap[k]+'</span>';
+          }
+        });
+      }
       html+='<div style="padding:10px 0;border-bottom:1px solid #e8e6e2">';
       html+='<div style="font-family:Georgia,serif;font-weight:700;font-size:12px;color:'+color+';margin-bottom:2px">'+esc(e.sira)+'</div>';
-      html+='<div style="font-size:12px;font-weight:700;color:#1C1E23;margin-bottom:3px">'+esc(e.baslik)+'</div>';
+      html+='<div style="font-size:12px;font-weight:700;color:#1C1E23;margin-bottom:3px">'+esc(e.baslik)+triggerHtml+'</div>';
       html+='<div style="font-size:10px;color:#686662;letter-spacing:.04em;margin-bottom:3px">'+esc(e.dayanak)+'</div>';
       html+='<div style="font-size:11px;color:#444240;line-height:1.6">'+esc(e.aciklama)+'</div>';
       if(e.sure)html+='<div style="font-size:10px;color:#686662;margin-top:3px">'+esc(e.sure)+'</div>';
@@ -1330,16 +1460,21 @@ function exportPDF(){
     return html;
   }
 
-  /* Build block scores grid */
+  /* İYİLEŞTİRME 2: Block scores with commentary */
   var bsHtml='<div style="display:grid;grid-template-columns:1fr 1fr;gap:1px;background:#d8d4cc;margin-bottom:20px">';
   for(var i=0;i<4;i++){
     var parts=bVals[i].split('/');
-    var pct=parts.length===2?Math.round((parseInt(parts[0])/parseInt(parts[1]))*100):0;
-    var bColor=pct<=40?'#2a8050':pct<=65?'#B2986C':'#c44';
+    var bSkor=parseInt(parts[0])||0;
+    var bMax=parseInt(parts[1])||1;
+    var pct=Math.round((bSkor/bMax)*100);
+    var bColor=pct<=25?'#2a8050':pct<=60?'#B2986C':'#c44';
+    var yorumLevel=pct<=25?'low':pct<=60?'mid':'high';
+    var yorumText=blokYorumLabels[i+1][yorumLevel];
     bsHtml+='<div style="background:#fff;padding:12px 16px">';
-    bsHtml+='<div style="font-size:9px;color:#686662;letter-spacing:.06em;text-transform:uppercase;margin-bottom:4px">Blok '+(i+1)+' — '+bLabels[i]+'</div>';
+    bsHtml+='<div style="font-size:9px;color:#686662;letter-spacing:.06em;text-transform:uppercase;margin-bottom:4px">Blok '+(i+1)+' \u2014 '+bLabels[i]+'</div>';
     bsHtml+='<div style="font-family:Georgia,serif;font-size:14px;font-weight:700;color:'+bColor+'">'+bVals[i]+'</div>';
     bsHtml+='<div style="height:2px;background:#e8e6e2;margin-top:6px"><div style="height:100%;width:'+pct+'%;background:'+bColor+'"></div></div>';
+    bsHtml+='<div style="font-size:9px;color:#686662;margin-top:5px;line-height:1.4">'+esc(yorumText)+'</div>';
     bsHtml+='</div>';
   }
   bsHtml+='</div>';
@@ -1347,8 +1482,16 @@ function exportPDF(){
   /* Profile color */
   var profilColor=hasOverride?'#c44':sd.totalSkor<=12?'#2a8050':sd.totalSkor<=28?'#B2986C':'#c44';
 
+  /* İYİLEŞTİRME 5: Skor skalası */
+  var skorSkala=[
+    {min:0,max:12,label:'Temel Uyum',color:'#2a8050'},
+    {min:13,max:28,label:'K\u0131smi Uyum',color:'#B2986C'},
+    {min:29,max:44,label:'\u00D6nemli A\u00E7\u0131klar',color:'#c44'},
+    {min:45,max:sd.maxTotal,label:'Y\u00FCksek Risk',color:'#c44'}
+  ];
+
   var w=window.open('','_blank');
-  w.document.write('<!DOCTYPE html><html lang="tr"><head><meta charset="UTF-8"><title>KVKK Uyum Raporu — '+esc(sirket)+'</title>');
+  w.document.write('<!DOCTYPE html><html lang="tr"><head><meta charset="UTF-8"><title>KVKK Uyum Raporu \u2014 '+esc(sirket)+'</title>');
   w.document.write('<style>');
   w.document.write('*{margin:0;padding:0;box-sizing:border-box}');
   w.document.write('body{font-family:Arial,Helvetica,sans-serif;background:#F8F7F5;color:#1C1E23;max-width:800px;margin:0 auto;padding:40px 40px 30px}');
@@ -1359,26 +1502,38 @@ function exportPDF(){
   /* HEADER */
   w.document.write('<div style="display:flex;align-items:center;justify-content:space-between;border-bottom:1.5px solid #1C1E23;padding-bottom:14px;margin-bottom:24px">');
   w.document.write('<div><div style="font-family:Georgia,serif;font-size:10px;letter-spacing:.15em;color:#686662;text-transform:uppercase;margin-bottom:4px">Hexis AI Governance</div>');
-  w.document.write('<div style="font-family:Georgia,serif;font-size:18px;font-weight:700;color:#1C1E23">KVKK × Yapay Zekâ Uyum Raporu</div></div>');
+  w.document.write('<div style="font-family:Georgia,serif;font-size:18px;font-weight:700;color:#1C1E23">KVKK \u00D7 Yapay Zek\u00E2 Uyum Raporu</div></div>');
   w.document.write('<div style="text-align:right"><div style="font-size:10px;color:#686662">'+esc(tarih)+'</div>');
   if(sirket)w.document.write('<div style="font-size:11px;color:#1C1E23;font-weight:700;margin-top:2px">'+esc(sirket)+'</div>');
   if(sektorText)w.document.write('<div style="font-size:10px;color:#686662;margin-top:1px">'+esc(sektorText)+'</div>');
   w.document.write('</div></div>');
 
+  /* İYİLEŞTİRME 1: Sektör bağlam paragrafı */
+  w.document.write('<div style="font-size:10px;color:#444240;line-height:1.65;margin-bottom:18px;padding:12px 16px;background:#f0ede8;border:1px solid #d8d4cc">'+esc(baglamText)+'</div>');
+
   /* EXECUTIVE SUMMARY */
-  w.document.write('<div style="border:1.5px solid #1C1E23;padding:20px;margin-bottom:20px;page-break-inside:avoid">');
+  w.document.write('<div style="border:1.5px solid #1C1E23;padding:20px;margin-bottom:14px;page-break-inside:avoid">');
   w.document.write('<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px">');
   w.document.write('<div style="font-family:Georgia,serif;font-size:18px;font-weight:700;color:'+profilColor+'">'+esc(profilText)+'</div>');
   w.document.write('<div style="font-size:12px;color:#686662">'+esc(skorText)+'</div></div>');
   /* Score bar */
   var pctTotal=Math.min(Math.round((sd.totalSkor/sd.maxTotal)*100),100);
   w.document.write('<div style="height:3px;background:#e8e6e2;margin-bottom:14px"><div style="height:100%;width:'+pctTotal+'%;background:'+profilColor+'"></div></div>');
+
+  /* İYİLEŞTİRME 5: Skor skalası göstergesi */
+  w.document.write('<div style="display:flex;gap:0;margin-bottom:14px;border:1px solid #d8d4cc">');
+  skorSkala.forEach(function(s){
+    var isActive=(sd.totalSkor>=s.min&&sd.totalSkor<=s.max);
+    w.document.write('<div style="flex:1;text-align:center;padding:5px 3px;font-size:8px;letter-spacing:.03em;'+(isActive?'font-weight:700;color:#1C1E23;background:#f0ede8;border-bottom:2px solid '+s.color:'color:#686662;background:#fff')+'">'+esc(s.label)+'<br><span style="font-size:7px;opacity:.6">'+s.min+'\u2013'+s.max+'</span></div>');
+  });
+  w.document.write('</div>');
+
   if(hasOverride){
-    w.document.write('<div style="padding:10px 14px;background:#fff0ee;border:1px solid #e8685a;color:#a03020;font-size:11px;line-height:1.6;margin-bottom:10px">Değerlendirmenizde tespit edilen bir veya daha fazla açık, genel uyum düzeyinden bağımsız olarak doğrudan yasal risk oluşturuyor.</div>');
+    w.document.write('<div style="padding:10px 14px;background:#fff0ee;border:1px solid #e8685a;color:#a03020;font-size:11px;line-height:1.6;margin-bottom:10px">De\u011Ferlendirmenizde tespit edilen bir veya daha fazla a\u00E7\u0131k, genel uyum d\u00FCzeyinden ba\u011F\u0131ms\u0131z olarak do\u011Frudan yasal risk olu\u015Fturuyor.</div>');
     if(overrideItems.length>0){
       w.document.write('<div style="padding:10px 14px;background:#fff0ee;border:1px solid #e8685a;font-size:11px;line-height:1.8">');
       w.document.write('<div style="font-weight:700;color:#a03020;margin-bottom:4px">Kritik Tetikleyiciler:</div>');
-      overrideItems.forEach(function(t){w.document.write('<div style="color:#a03020">• '+esc(t)+'</div>');});
+      overrideItems.forEach(function(t){w.document.write('<div style="color:#a03020">\u2022 '+esc(t)+'</div>');});
       w.document.write('</div>');
     }
   }
@@ -1388,21 +1543,27 @@ function exportPDF(){
   w.document.write(bsHtml);
 
   /* ACTION SECTIONS */
-  w.document.write(renderSection('Acil (0-30 Gün)',acil,'#c44'));
-  w.document.write(renderSection('Önemli (30-90 Gün)',onemli,'#B2986C'));
-  w.document.write(renderSection('Standart (90+ Gün)',standart,'#686662'));
+  w.document.write(renderSection('Acil (0-30 G\u00FCn)',acil,'#c44'));
+  w.document.write(renderSection('\u00D6nemli (30-90 G\u00FCn)',onemli,'#B2986C'));
+  w.document.write(renderSection('Standart (90+ G\u00FCn)',standart,'#686662'));
 
   if(acil.length===0&&onemli.length===0&&standart.length===0){
-    w.document.write('<div style="padding:14px 18px;background:#f0faf2;border:1px solid #3a8;color:#2a6040;font-size:11px;line-height:1.6">Değerlendirmenize göre kritik bir açık tespit edilmedi. Uyum durumunuzu korumak için periyodik gözden geçirme önerilir.</div>');
+    w.document.write('<div style="padding:14px 18px;background:#f0faf2;border:1px solid #3a8;color:#2a6040;font-size:11px;line-height:1.6">De\u011Ferlendirmenize g\u00F6re kritik bir a\u00E7\u0131k tespit edilmedi. Uyum durumunuzu korumak i\u00E7in periyodik g\u00F6zden ge\u00E7irme \u00F6nerilir.</div>');
   }
 
+  /* İYİLEŞTİRME 4: Sonraki adım CTA */
+  w.document.write('<div style="border:1.5px solid #d8d4cc;padding:16px 18px;margin:20px 0;background:#f0ede8;page-break-inside:avoid">');
+  w.document.write('<div style="font-family:Georgia,serif;font-size:12px;font-weight:700;color:#1C1E23;margin-bottom:8px">Sonraki ad\u0131m</div>');
+  w.document.write('<div style="font-size:10px;color:#444240;line-height:1.65">Bu raporu referans alarak uyum s\u00FCrecinize ba\u015Flayabilirsiniz. De\u011Ferlendirmenizi g\u00FCncellemek i\u00E7in: <strong>hexis.center/kvkk/checklist</strong> \u00B7 Detayl\u0131 dan\u0131\u015Fmanl\u0131k i\u00E7in: <strong>contact@hexis.center</strong></div>');
+  w.document.write('</div>');
+
   /* LEGAL DISCLAIMER */
-  w.document.write('<div style="border-left:2px solid #B2986C;padding:12px 18px;margin:24px 0;font-size:10px;color:#444240;line-height:1.65">Bu değerlendirme KVKK uyum sürecinizi yapılandırmanıza yardımcı olmak amacıyla tasarlanmıştır. Hukuki tavsiye niteliği taşımaz. Şirketinize özgü değerlendirme için bir avukata veya KVKK uzmanına danışmanızı öneririz.</div>');
+  w.document.write('<div style="border-left:2px solid #B2986C;padding:12px 18px;margin:16px 0;font-size:10px;color:#444240;line-height:1.65">Bu de\u011Ferlendirme KVKK uyum s\u00FCrecinizi yap\u0131land\u0131rman\u0131za yard\u0131mc\u0131 olmak amac\u0131yla tasarlanm\u0131\u015Ft\u0131r. Hukuki tavsiye niteli\u011Fi ta\u015F\u0131maz. \u015Eirketinize \u00F6zg\u00FC de\u011Ferlendirme i\u00E7in bir avukata veya KVKK uzman\u0131na dan\u0131\u015Fman\u0131z\u0131 \u00F6neririz.</div>');
 
   /* FOOTER */
-  w.document.write('<div style="border-top:1px solid #d8d4cc;padding-top:12px;margin-top:24px;font-size:9px;color:#686662;line-height:1.5">');
-  w.document.write('Resmi Kaynaklar: <a href="https://www.kvkk.gov.tr" style="color:#686662">KVKK</a> · <a href="https://verbis.kvkk.gov.tr" style="color:#686662">VERBİS</a> · <a href="https://www.kvkk.gov.tr/Icerik/8547/uretken-yapay-zeka-ve-kisisel-verilerin-korunmasi-rehberi-15-soruda" style="color:#686662">KVKK Rehberi (15 Soruda)</a><br>');
-  w.document.write('© 2026 Hexis · hexis.center · Bu rapor yalnızca bilgilendirme amaçlıdır.</div>');
+  w.document.write('<div style="border-top:1px solid #d8d4cc;padding-top:12px;margin-top:16px;font-size:9px;color:#686662;line-height:1.5">');
+  w.document.write('Resmi Kaynaklar: <a href="https://www.kvkk.gov.tr" style="color:#686662">KVKK</a> \u00B7 <a href="https://verbis.kvkk.gov.tr" style="color:#686662">VERBİS</a> \u00B7 <a href="https://www.kvkk.gov.tr/Icerik/8547/uretken-yapay-zeka-ve-kisisel-verilerin-korunmasi-rehberi-15-soruda" style="color:#686662">KVKK Rehberi (15 Soruda)</a><br>');
+  w.document.write('\u00A9 2026 Hexis \u00B7 hexis.center \u00B7 Bu rapor yaln\u0131zca bilgilendirme ama\u00E7l\u0131d\u0131r.</div>');
 
   w.document.write('<script>window.onload=function(){window.print()}<\/script>');
   w.document.write('</body></html>');
