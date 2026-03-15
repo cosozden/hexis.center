@@ -177,7 +177,8 @@
   .axis-y-wrap { display: flex; align-items: stretch; gap: 12px; }
   .axis-y-label { writing-mode: vertical-rl; transform: rotate(180deg); font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-muted); white-space: nowrap; display: flex; align-items: center; justify-content: center; width: 14px; }
 
-  .grid { display: grid; grid-template-columns: 130px repeat(4, 1fr); border: 1.5px solid var(--ink); width: 100%; flex: 1; }
+  .grid { display: grid; grid-template-columns: 130px repeat(4, 1fr); border: 1.5px solid var(--ink); width: 100%; flex: 1; min-width: 560px; }
+  .matrix-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; }
 
   .exp-h { padding: 10px 12px; text-align: center; border-left: 1.5px solid var(--ink); border-bottom: 1.5px solid var(--ink); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; }
   .exp-h:first-child { border-left: none; }
@@ -1302,7 +1303,7 @@
 
   <div class="cfg-group">
     <div class="cfg-label">Monitoring</div>
-    <div style="font-family:Arial,sans-serif;font-size:10px;color:var(--stone);line-height:1.5;margin-top:2px;margin-bottom:6px;">Ongoing performance tracking and drift detection post-deployment</div>
+    <div style="font-family:Arial,sans-serif;font-size:10px;color:var(--stone);line-height:1.5;margin-top:2px;margin-bottom:6px;">Ongoing performance tracking — can you detect if the system's outputs change or degrade over time?</div>
     <select class="cfg-select" id="cfg-monitoring">
       <option value="absent" selected>Absent</option>
       <option value="adhoc">Ad Hoc</option>
@@ -1902,7 +1903,7 @@
     {
       num: 'Step 5 of 6',
       text: 'Is this a general-purpose AI (GPAI) model?',
-      hint: 'General-purpose AI models are trained with large amounts of data using self-supervision at scale, capable of competently performing a wide range of distinct tasks (Articles 51\u201356).',
+      hint: 'General-purpose AI models (e.g. ChatGPT, Claude, Gemini) trained on large datasets, capable of performing a wide range of tasks. Providers and deployers have distinct obligations (Articles 51\u201356).',
       options: [
         { id: 'gpai_provider', label: 'Yes — I am a provider of a GPAI model', desc: 'You develop and make available a general-purpose AI model (Art. 51\u201353)' },
         { id: 'gpai_systemic', label: 'Yes — GPAI model with systemic risk', desc: 'GPAI model with high-impact capabilities, trained with total compute \u2265 10\u00B2\u2075 FLOPs (Art. 51\u201355)' },
@@ -2783,11 +2784,11 @@ function targetState(oversight, monitoring, documentation) {
 
 // Immediate action descriptions
 const IMMEDIATE = {
-  absent:     { elevated: 'Structure accountability before next operating cycle. Establish oversight layer prior to continued system use.', high: 'Suspend or constrain system operation until governance layer is in place.' },
-  adhoc:      { elevated: 'Formalize roles and review cadence. Ensure escalation path is documented and tested.', high: 'Mandate human review at every model decision point immediately.' },
-  structured: { elevated: 'Activate scheduled monitoring cadence. Assign metric ownership.', high: 'Escalate to senior oversight. Initiate intensive review cycle.' },
-  continuous: { elevated: 'Enable automated drift alerting. Review performance against baseline.', high: 'Commission external audit. Test failure modes and bias signals.' },
-  embedded:   { elevated: 'Verify regulatory alignment. Check for scope or context changes.', high: 'Engage external auditor for annual assurance review.' },
+  absent:     { low: 'Define system scope and assign an accountable governance owner.', moderate: 'Establish basic oversight roles and document the system purpose.', elevated: 'Structure accountability before next operating cycle. Establish oversight layer prior to continued system use.', high: 'Suspend or constrain system operation until governance layer is in place.' },
+  adhoc:      { low: 'Document existing processes and assign review ownership.', moderate: 'Standardize review cadence and escalation path.', elevated: 'Formalize roles and review cadence. Ensure escalation path is documented and tested.', high: 'Mandate human review at every model decision point immediately.' },
+  structured: { low: 'Maintain documentation currency. Schedule periodic reviews.', moderate: 'Introduce basic performance metrics and review triggers.', elevated: 'Activate scheduled monitoring cadence. Assign metric ownership.', high: 'Escalate to senior oversight. Initiate intensive review cycle.' },
+  continuous: { low: 'Continue standard operations. Review annually.', moderate: 'Verify monitoring coverage and update baselines.', elevated: 'Enable automated alerting. Review performance against baseline.', high: 'Commission external audit. Test failure modes and bias signals.' },
+  embedded:   { low: 'Maintain current posture. Monitor regulatory changes.', moderate: 'Verify continued alignment with evolving standards.', elevated: 'Verify regulatory alignment. Check for scope or context changes.', high: 'Engage external auditor for annual assurance review.' },
 };
 
 function getImmediateAction(maturity, exposure) {
@@ -2807,9 +2808,11 @@ function generateRefNumber() {
 
 // ── RENDER ──
 
+function escHtml(s) { var d = document.createElement('div'); d.textContent = s; return d.innerHTML; }
+
 function generateMatrix() {
   const refNumber    = generateRefNumber();
-  const name         = document.getElementById('cfg-name').value || 'AI System';
+  const name         = escHtml(document.getElementById('cfg-name').value || 'AI System');
   const exposure     = document.getElementById('cfg-exposure').value;
   const oversight    = document.getElementById('cfg-oversight').value;
   const monitoring   = document.getElementById('cfg-monitoring').value;
@@ -2916,6 +2919,7 @@ function generateMatrix() {
 
   <div class="matrix-connector">Position derived from the following governance coordinates:</div>
   <div class="axis-x-label">← Risk Exposure →</div>
+  <div class="matrix-scroll">
   <div class="axis-y-wrap">
     <div class="axis-y-label">← Governance Maturity →</div>
     <div class="grid">
@@ -2927,6 +2931,7 @@ function generateMatrix() {
         </div>`).join('')}
       ${gridRows}
     </div>
+  </div>
   </div>
 
   <div class="callout">
