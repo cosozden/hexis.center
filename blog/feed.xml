@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Hexis AI Governance Blog</title>
+    <link>https://hexis.center/blog/</link>
+    <description>Yapay zeka yönetişimi, EU AI Act uyumu, KVKK ve ISO 42001 hakkında pratik rehberler ve analizler.</description>
+    <language>tr</language>
+    <lastBuildDate>Sat, 15 Mar 2026 00:00:00 +0300</lastBuildDate>
+    <atom:link href="https://hexis.center/blog/feed.xml" rel="self" type="application/rss+xml"/>
+
+    <item>
+      <title>ORIENT ve AIGP BoK: Aynı Dili Konuşuyorlar mı?</title>
+      <link>https://hexis.center/blog/orient-aigp-bok/</link>
+      <guid>https://hexis.center/blog/orient-aigp-bok/</guid>
+      <pubDate>Thu, 12 Mar 2026 00:00:00 +0300</pubDate>
+      <description>HEXIS ORIENT çerçevesi ile IAPP AIGP Body of Knowledge arasındaki yapısal uyum analizi.</description>
+      <category>ORIENT</category>
+    </item>
+
+    <item>
+      <title>Etken Yapay Zekâ (Agentic AI) ve Kişisel Verilere Etkisi</title>
+      <link>https://hexis.center/blog/etken-yapay-zeka-kisisel-verilere-etkisi/</link>
+      <guid>https://hexis.center/blog/etken-yapay-zeka-kisisel-verilere-etkisi/</guid>
+      <pubDate>Sat, 15 Mar 2026 00:00:00 +0300</pubDate>
+      <description>Otonom karar alabilen AI sistemlerinin KVKK kapsamında yarattığı yeni riskler ve uyum gereksinimleri.</description>
+      <category>KVKK</category>
+    </item>
+
+    <item>
+      <title>AI Okuryazarlığı: Madde 4 Yükümlülüğü Ne Gerektirir?</title>
+      <link>https://hexis.center/blog/ai-okuryazarligi-madde-4/</link>
+      <guid>https://hexis.center/blog/ai-okuryazarligi-madde-4/</guid>
+      <pubDate>Sat, 28 Feb 2026 00:00:00 +0300</pubDate>
+      <description>EU AI Act Madde 4 kapsamında yapay zeka okuryazarlığı yükümlülüğü, kimleri kapsar ve nasıl uygulanır.</description>
+      <category>EU AI Act</category>
+    </item>
+
+    <item>
+      <title>KVKK ve Yapay Zekâ: Beş Yılda On İki Yükümlülük</title>
+      <link>https://hexis.center/blog/kvkk-yapay-zeka-bes-yil-on-iki-yukumluluk/</link>
+      <guid>https://hexis.center/blog/kvkk-yapay-zeka-bes-yil-on-iki-yukumluluk/</guid>
+      <pubDate>Wed, 25 Feb 2026 00:00:00 +0300</pubDate>
+      <description>Kişisel Verileri Koruma Kurulu'nun beş yılda çıkardığı yapay zekâ ile ilgili 12 temel yükümlülük.</description>
+      <category>KVKK</category>
+    </item>
+
+    <item>
+      <title>ChatGPT'ye Müşteri Bilgisi Girenler: KVKK Yurt Dışı Aktarım Kuralları</title>
+      <link>https://hexis.center/blog/chatgpt-kvkk-yurt-disi-aktarim/</link>
+      <guid>https://hexis.center/blog/chatgpt-kvkk-yurt-disi-aktarim/</guid>
+      <pubDate>Sun, 22 Feb 2026 00:00:00 +0300</pubDate>
+      <description>Çalışanların ChatGPT'ye müşteri verisi girmesinin KVKK yurt dışı veri aktarımı açısından yarattığı riskler.</description>
+      <category>KVKK</category>
+    </item>
+
+    <item>
+      <title>ISO 42001 ve Governance Olgunluğu: Nereden Başlamalı?</title>
+      <link>https://hexis.center/blog/iso-42001-governance-olgunlugu/</link>
+      <guid>https://hexis.center/blog/iso-42001-governance-olgunlugu/</guid>
+      <pubDate>Tue, 18 Feb 2026 00:00:00 +0300</pubDate>
+      <description>Yapay zeka yönetişim olgunluk seviyeleri, ISO 42001 gereksinimleri ve kurumsal hazırlık değerlendirmesi.</description>
+      <category>ISO 42001</category>
+    </item>
+
+    <item>
+      <title>EU AI Act: Risk Sınıflandırması Rehberi</title>
+      <link>https://hexis.center/blog/eu-ai-act-risk-siniflandirmasi/</link>
+      <guid>https://hexis.center/blog/eu-ai-act-risk-siniflandirmasi/</guid>
+      <pubDate>Tue, 18 Feb 2026 00:00:00 +0300</pubDate>
+      <description>Avrupa Birliği Yapay Zeka Yasası'nın risk sınıflandırma sistemi — yasaklı, yüksek riskli, sınırlı risk ve minimal risk.</description>
+      <category>EU AI Act</category>
+    </item>
+
+    <item>
+      <title>GPAI Kuralları: Madde 51–56 Ne Değişti?</title>
+      <link>https://hexis.center/blog/gpai-kurallari-madde-51-56/</link>
+      <guid>https://hexis.center/blog/gpai-kurallari-madde-51-56/</guid>
+      <pubDate>Tue, 18 Feb 2026 00:00:00 +0300</pubDate>
+      <description>Genel amaçlı yapay zeka (GPAI) modelleri için EU AI Act düzenlemeleri ve sistemik risk yükümlülükleri.</description>
+      <category>EU AI Act</category>
+    </item>
+
+  </channel>
+</rss>

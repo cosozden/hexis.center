@@ -15,8 +15,35 @@
 <meta name="twitter:title" content="Hexis — EU AI Act Compliance Checklist">
 <meta name="twitter:description" content="Interactive compliance checklist for the EU AI Act. Filter by risk level, track progress, export to PDF.">
 <meta name="twitter:image" content="https://hexis.center/assets/og-hexis.png">
+<!-- Analytics: Uncomment your preferred provider -->
+<!-- Plausible: <script defer data-domain="hexis.center" src="https://plausible.io/js/script.js"></script> -->
+<!-- Fathom: <script src="https://cdn.usefathom.com/script.js" data-site="XXXXX" defer></script> -->
 <link rel="icon" href="/assets/favicon.ico">
 <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "SoftwareApplication",
+      "name": "Hexis EU AI Act Compliance Checklist",
+      "applicationCategory": "BusinessApplication",
+      "operatingSystem": "Web Browser",
+      "url": "https://hexis.center/checklist/",
+      "description": "Interactive EU AI Act compliance checklist with progress tracking. 23 items across 6 governance areas.",
+      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "EUR" },
+      "publisher": { "@type": "Organization", "name": "Hexis AI Governance", "url": "https://hexis.center" }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Hexis", "item": "https://hexis.center/" },
+        { "@type": "ListItem", "position": 2, "name": "Checklist" }
+      ]
+    }
+  ]
+}
+</script>
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -1055,6 +1082,7 @@
     <button class="cl-footer-btn cl-footer-btn-primary" onclick="exportPDF()">Export PDF</button>
     <a href="../generator/" class="cl-footer-btn cl-footer-btn-secondary">&larr; Back to Assessment</a>
     <a href="/" class="cl-footer-btn cl-footer-btn-secondary">← hexis.center</a>
+    <a href="/gizlilik/" class="cl-footer-btn cl-footer-btn-secondary">Gizlilik</a>
   </div>
 </div>
 

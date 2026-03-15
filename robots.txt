@@ -1,4 +1,8 @@
 User-agent: *
 Allow: /
+Disallow: /assets/
+Disallow: /blog/_drafts/
+Disallow: /blog/_linkedin/
+Disallow: /kvkk-eu-ai-act/carousel.html
 
 Sitemap: https://hexis.center/sitemap.xml
