@@ -22,14 +22,26 @@
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
-  "@type": "BlogPosting",
-  "headline": "EU AI Act: Risk Sınıflandırması Rehberi",
-  "datePublished": "2026-02-18",
-  "dateModified": "2026-02-18",
-  "author": { "@type": "Organization", "name": "Hexis AI Governance", "url": "https://hexis.center" },
-  "publisher": { "@type": "Organization", "name": "Hexis AI Governance", "logo": { "@type": "ImageObject", "url": "https://hexis.center/assets/logo.png" } },
-  "inLanguage": "tr",
-  "mainEntityOfPage": "https://hexis.center/blog/eu-ai-act-risk-siniflandirmasi/"
+  "@graph": [
+    {
+      "@type": "BlogPosting",
+      "headline": "EU AI Act: Risk Sınıflandırması Rehberi",
+      "datePublished": "2026-02-18",
+      "dateModified": "2026-02-18",
+      "author": { "@type": "Organization", "name": "Hexis AI Governance", "url": "https://hexis.center" },
+      "publisher": { "@type": "Organization", "name": "Hexis AI Governance", "logo": { "@type": "ImageObject", "url": "https://hexis.center/assets/logo.png" } },
+      "inLanguage": "tr",
+      "mainEntityOfPage": "https://hexis.center/blog/eu-ai-act-risk-siniflandirmasi/"
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Hexis", "item": "https://hexis.center/" },
+        { "@type": "ListItem", "position": 2, "name": "Blog", "item": "https://hexis.center/blog/" },
+        { "@type": "ListItem", "position": 3, "name": "EU AI Act: Risk Sınıflandırması Rehberi" }
+      ]
+    }
+  ]
 }
 </script>
 <style>
@@ -207,6 +219,16 @@
     .article-header { padding: 32px 0 24px; }
     .cta-block { padding: 20px; flex-direction: column; align-items: flex-start; }
   }
+
+  /* ─── RELATED POSTS ──────────────────────────────── */
+  .related-posts{margin-top:64px;padding-top:32px;border-top:1px solid var(--rule)}
+  .related-posts h2{font-family:Georgia,serif;font-size:20px;margin-bottom:20px;color:var(--ink);border:none;padding-top:0}
+  .related-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  .related-card{display:block;border:1px solid var(--rule);padding:20px;text-decoration:none;transition:border-color .2s,background .2s}
+  .related-card:hover{border-color:var(--rule);background:rgba(28,30,35,0.04);text-decoration:none}
+  .related-tag{display:inline-block;background:rgba(28,30,35,0.08);padding:2px 8px;font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--stone);margin-bottom:8px}
+  .related-title{display:block;font-family:Georgia,serif;font-size:16px;color:var(--ink);line-height:1.35}
+  @media(max-width:768px){.related-grid{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -302,6 +324,21 @@
     <div class="cta-block-text">Hexis Risk Sınıflandırma Aracı ile AI sisteminizin EU AI Act kapsamındaki risk seviyesini belirleyin.</div>
     <a href="/generator/" class="cta-block-link">Risk Sınıflandırma Aracı →</a>
     <a href="/checklist/" class="cta-block-link" style="margin-left:12px;">Uyum Kontrol Listesi →</a>
+  </div>
+
+  <!-- RELATED POSTS -->
+  <div class="related-posts">
+    <h2>İlgili Yazılar</h2>
+    <div class="related-grid">
+      <a href="/blog/gpai-kurallari-madde-51-56/" class="related-card">
+        <span class="related-tag">EU AI Act</span>
+        <span class="related-title">GPAI Kuralları: Madde 51–56</span>
+      </a>
+      <a href="/blog/ai-okuryazarligi-madde-4/" class="related-card">
+        <span class="related-tag">EU AI Act</span>
+        <span class="related-title">AI Okuryazarlığı: Madde 4 Yükümlülüğü</span>
+      </a>
+    </div>
   </div>
 
 </div>

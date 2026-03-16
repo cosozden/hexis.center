@@ -138,10 +138,21 @@
     <priority>0.8</priority>
   </url>
 
-  <!-- ─── Gizlilik Politikası ─── -->
+  <!-- ─── Gizlilik Politikası (TR ↔ EN) ─── -->
   <url>
     <loc>https://hexis.center/gizlilik/</loc>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://hexis.center/gizlilik/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://hexis.center/privacy/" />
     <lastmod>2026-03-15</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+  </url>
+
+  <url>
+    <loc>https://hexis.center/privacy/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://hexis.center/privacy/" />
+    <xhtml:link rel="alternate" hreflang="tr" href="https://hexis.center/gizlilik/" />
+    <lastmod>2026-03-16</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>
