@@ -492,6 +492,24 @@ section{position:relative;z-index:1;padding-block:72px}
 .cc-arr{color:var(--text2);font-size:14px;transition:color .15s;flex-shrink:0}
 .cc-card:hover .cc-arr{color:var(--text)}
 
+/* ─── NEWSLETTER SIGNUP ──────────────────────────── */
+.nl-section{border-top:1px solid var(--border);padding:48px 48px 40px;text-align:center}
+.nl-inner{max-width:560px;margin:0 auto}
+.nl-title{font-family:Georgia,serif;font-size:22px;color:var(--text);margin-bottom:8px;letter-spacing:.02em}
+.nl-desc{font-size:14px;color:var(--text2);margin-bottom:24px;line-height:1.5}
+.nl-form{display:flex;gap:0;margin-bottom:12px}
+.nl-input{flex:1;padding:10px 14px;background:transparent;border:1px solid var(--border2);color:var(--text);font-size:14px;outline:none;border-right:none}
+.nl-input::placeholder{color:var(--text2);opacity:.6}
+.nl-input:focus{border-color:var(--brass)}
+.nl-btn{padding:10px 24px;background:var(--brass);color:#16181C;font-size:13px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;border:1px solid var(--brass);cursor:pointer;transition:background .2s,color .2s}
+.nl-btn:hover{background:transparent;color:var(--brass)}
+.nl-note{font-size:11px;color:var(--text2);opacity:.5;margin-top:8px}
+@media(max-width:600px){
+  .nl-section{padding:32px 20px}
+  .nl-form{flex-direction:column;gap:8px}
+  .nl-input{border-right:1px solid var(--border2)}
+}
+
 /* ─── FOOTER ─────────────────────────────────────── */
 footer{
   position:relative;z-index:1;
@@ -1016,6 +1034,21 @@ footer{
 
       </div>
     </div>
+  </div>
+</section>
+
+<!-- ══════════ NEWSLETTER SIGNUP ══════════ -->
+<section class="nl-section">
+  <div class="nl-inner">
+    <div class="nl-text">
+      <h2 class="nl-title">AI Governance Türkiye</h2>
+      <p class="nl-desc">Haftalık AI governance haberleri, KVKK & EU AI Act analizi. Her Perşembe gelen kutunuzda.</p>
+    </div>
+    <form class="nl-form" action="https://aigovernanceturkiye.beehiiv.com/subscribe" method="post" target="_blank" onsubmit="if(typeof plausible!=='undefined')plausible('Newsletter Signup')">
+      <input type="email" name="email" placeholder="E-posta adresiniz" required class="nl-input">
+      <button type="submit" class="nl-btn">Abone Ol</button>
+    </form>
+    <p class="nl-note">by Hexis · Kişisel verileriniz yalnızca bülten gönderimi için kullanılır. İstediğiniz zaman abonelikten çıkabilirsiniz.</p>
   </div>
 </section>
 
