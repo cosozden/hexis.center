@@ -1,19 +1,34 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="tr">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>ORIENT Çerçevesi — Hexis AI Governance</title>
-  <meta name="description" content="Hexis ORIENT çerçevesi, şirketlerin AI sistemlerini sorumlu ve sürdürülebilir biçimde yönetmesi için tasarlanmış altı adımlı pratik yönelim modelidir.">
-  <script type="application/ld+json">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ORIENT Metodolojisi v1.0 | Hexis</title>
+<link rel="canonical" href="https://hexis.center/metodoloji/">
+<link rel="alternate" hreflang="tr" href="https://hexis.center/metodoloji/">
+<link rel="alternate" hreflang="en" href="https://hexis.center/methodology/">
+<meta name="description" content="Hexis ORIENT Metodolojisi v1.0: AI yönetişimi için altı aşamalı çerçeve: Observe, Risk, Identify, Evaluate, Navigate, Track. AB AI Yasası ve KVKK uyumu için normatif yönelim modeli.">
+<meta property="og:title" content="Hexis · ORIENT Metodolojisi v1.0">
+<meta property="og:description" content="AI sistemlerini düzenleyici maruziyet ve kurumsal olgunluk düzeyine göre konumlandıran altı aşamalı yönetişim metodolojisi.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://hexis.center/metodoloji/">
+<meta property="og:image" content="https://hexis.center/assets/og-hexis.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Hexis · ORIENT Metodolojisi v1.0">
+<meta name="twitter:description" content="AI sistemlerini düzenleyici maruziyet ve kurumsal olgunluk düzeyine göre konumlandıran altı aşamalı yönetişim metodolojisi.">
+<meta name="twitter:image" content="https://hexis.center/assets/og-hexis.png">
+<script defer data-domain="hexis.center" src="https://plausible.io/js/script.js"></script>
+<link rel="icon" href="/assets/favicon.ico">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+<script type="application/ld+json">
 {
   "@context": "https://schema.org",
   "@graph": [
     {
       "@type": "WebPage",
-      "name": "ORIENT Çerçevesi — Hexis AI Governance Metodolojisi",
+      "name": "ORIENT Metodolojisi | Hexis AI Governance",
       "url": "https://hexis.center/metodoloji/",
-      "description": "ORIENT çerçevesi: Yapay zeka yönetişimi için altı aşamalı metodoloji — Observe, Risk, Identify, Evaluate, Navigate, Track.",
+      "description": "Hexis ORIENT çerçevesi: AI yönetişimi için altı aşamalı metodoloji: Observe, Risk, Identify, Evaluate, Navigate, Track.",
       "inLanguage": "tr",
       "publisher": { "@type": "Organization", "name": "Hexis AI Governance", "url": "https://hexis.center" }
     },
@@ -27,882 +42,1018 @@
   ]
 }
 </script>
-  <style>
-    /* ── tokens ─────────────────────────────────── */
-    :root {
-      --charcoal: #1C1E23;
-      --brass:    #B2986C;
-      --stone:    #686662;
-      --paper:    #F8F7F5;
-      --dark-bg:  #16181C;
-      --dark-type:#E8E6E2;
-      --dark-sub: #8A8884;
-      --bg:       var(--dark-bg);
-      --text:     var(--dark-type);
-      --text2:    var(--dark-sub);
-      --border:   rgba(232,230,226,.10);
-      --border2:  rgba(232,230,226,.18);
-      --card:     rgba(232,230,226,.04);
-      --card2:    rgba(232,230,226,.07);
-    }
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-    /* ── reset ──────────────────────────────────── */
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; }
-    body {
-      font-family: Arial, Helvetica, sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      line-height: 1.6;
-      font-size: 14px;
-    }
+  :root {
+    --charcoal: #1C1E23;
+    --brass:    #B2986C;
+    --stone:    #686662;
+    --paper:    #F8F7F5;
+    --ink:      #1C1E23;
+    --ink-soft: #444240;
+    --ink-muted:#686662;
+    --rule:     rgba(28,30,35,0.14);
+    --rule-s:   rgba(28,30,35,0.08);
+    --absent:     #dedad4;
+    --adhoc:      #c4c2be;
+    --structured: #8a8884;
+    --continuous: var(--stone);
+    --embedded:   var(--charcoal);
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: Arial, Helvetica, sans-serif;
+    line-height: 1.6;
+  }
+
+  /* ── NAV ── */
+  .nav {
+    position: sticky; top: 0;
+    background: var(--charcoal); color: var(--paper);
+    z-index: 100; padding: 0 40px;
+    display: flex; align-items: center; justify-content: space-between;
+    height: 48px;
+    border-bottom: 1px solid rgba(248,247,245,0.08);
+  }
+  .nav-brand { display: flex; align-items: center; text-decoration: none; flex-shrink: 0; }
+  .nav-brand img { display: block; height: 36px; width: auto; }
+  .nav-brand:focus-visible { outline: 2px solid rgba(248,247,245,0.5); outline-offset: 4px; }
+  .nav-links { display: flex; gap: 28px; list-style: none; }
+  .nav-links a {
+    font-size: 9px; letter-spacing: 0.12em; text-transform: uppercase;
+    color: rgba(248,247,245,0.55); text-decoration: none; transition: color .15s;
+  }
+  .nav-links a:hover { color: var(--paper); }
+  a:focus { outline: 2px solid rgba(248,247,245,0.5); outline-offset: 2px; }
+  a:focus:not(:focus-visible) { outline: none; }
+  .nav-cta {
+    font-size: 9px; letter-spacing: 0.1em; text-transform: uppercase;
+    background: transparent; color: var(--paper);
+    border: 1px solid rgba(248,247,245,0.3); padding: 6px 14px;
+    cursor: pointer; text-decoration: none; transition: border-color .15s, color .15s;
+  }
+  .nav-cta:hover { border-color: rgba(248,247,245,0.65); }
+
+  /* ── LAYOUT ── */
+  .container { max-width: 960px; margin: 0 auto; padding: 0 40px; }
+  section { padding: 64px 0; border-bottom: 1px solid var(--rule); }
+  section:last-of-type { border-bottom: none; }
+
+  /* ── SECTION HEADERS ── */
+  .sec-label { font-size: 9px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--ink-muted); margin-bottom: 8px; }
+  .sec-title { font-family: Georgia, 'Times New Roman', serif; font-size: 26px; font-weight: 700; letter-spacing: -0.01em; line-height: 1.2; margin-bottom: 16px; }
+  .sec-lead { font-size: 12px; line-height: 1.7; color: var(--ink-soft); max-width: 640px; margin-bottom: 40px; }
+
+  /* ── HERO ── */
+  .hero { padding: 72px 0 56px; border-bottom: 1px solid var(--rule); }
+  .hero-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 32px; }
+  .hero-badge { display: inline-block; font-size: 9px; letter-spacing: 0.14em; text-transform: uppercase; border: 1px solid var(--rule); padding: 4px 10px; color: var(--ink-muted); margin-bottom: 16px; }
+  .hero-title { font-family: Georgia, 'Times New Roman', serif; font-size: 36px; font-weight: 700; letter-spacing: -0.02em; line-height: 1.15; max-width: 560px; }
+  .hero-sub { font-size: 12px; color: var(--ink-muted); letter-spacing: 0.06em; margin-top: 12px; font-style: italic; font-family: Georgia, 'Times New Roman', serif; }
+  .normative-note { display: inline-block; background: var(--charcoal); color: var(--paper); font-size: 10px; letter-spacing: 0.08em; padding: 10px 18px; margin-top: 24px; font-style: italic; font-family: Georgia, 'Times New Roman', serif; }
+  .etymology { margin-top: 20px; font-size: 11px; color: var(--ink-muted); font-style: italic; font-family: Georgia, 'Times New Roman', serif; line-height: 1.7; }
+  .version-block { text-align: right; }
+  .version-main { font-family: Georgia, 'Times New Roman', serif; font-size: 15px; font-weight: 700; color: var(--charcoal); }
+  .version-meta { font-size: 10px; color: var(--ink-muted); letter-spacing: 0.08em; line-height: 1.8; margin-top: 4px; }
+
+  /* ── INTRO ── */
+  .intro-text { font-size: 12px; line-height: 1.75; color: var(--ink-soft); max-width: 680px; margin-bottom: 16px; }
+  .quote-block { border-left: 2px solid var(--brass); padding: 14px 18px; margin: 24px 0; background: rgba(28,30,35,0.02); }
+  .quote-block blockquote { font-family: Georgia, 'Times New Roman', serif; font-size: 13px; font-style: italic; color: var(--ink); line-height: 1.55; }
+  .quote-attr { font-size: 9px; color: var(--ink-muted); letter-spacing: 0.06em; margin-top: 6px; }
+
+  /* ── ORIENT FLOW ── */
+  .orient-flow { display: grid; grid-template-columns: repeat(6, 1fr); gap: 0; margin-bottom: 24px; }
+  .orient-stage { border: 1.5px solid var(--ink); border-right: none; display: flex; flex-direction: column; }
+  .orient-stage:last-child { border-right: 1.5px solid var(--ink); }
+  .stage-letter-bar { background: var(--charcoal); color: var(--paper); text-align: center; padding: 10px 6px; font-family: Georgia, 'Times New Roman', serif; font-size: 22px; font-weight: 700; letter-spacing: 0.04em; }
+  .stage-head { padding: 14px 12px 10px; border-bottom: 1px solid var(--rule); }
+  .stage-number { font-size: 8px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--ink-muted); margin-bottom: 4px; }
+  .stage-name { font-family: Georgia, 'Times New Roman', serif; font-size: 15px; font-weight: 700; color: var(--ink); }
+  .stage-tagline { font-size: 8.5px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink-muted); margin-top: 4px; }
+  .stage-body { padding: 10px 12px 14px; flex: 1; display: flex; flex-direction: column; gap: 6px; }
+  .stage-desc { font-size: 10px; line-height: 1.55; font-style: italic; font-family: Georgia, 'Times New Roman', serif; color: var(--ink); }
+  .stage-output-label { font-size: 8px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-muted); margin-top: auto; padding-top: 8px; border-top: 1px solid var(--rule); }
+  .stage-output-val { font-size: 9.5px; font-weight: 500; color: var(--ink); margin-top: 2px; }
+
+  .orient-acronym { display: flex; align-items: center; gap: 12px; margin-top: 16px; font-size: 9px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-muted); }
+  .orient-letter-strip { display: flex; gap: 0; }
+  .orient-letter-strip span { display: inline-flex; align-items: center; justify-content: center; width: 28px; height: 28px; background: var(--charcoal); color: var(--paper); font-family: Georgia, 'Times New Roman', serif; font-size: 14px; font-weight: 700; border-right: 1px solid rgba(248,247,245,0.15); }
+  .orient-letter-strip span:last-child { border-right: none; }
+  .acronym-line { flex: 1; height: 1px; background: var(--rule); }
+  .cycle-note { display: flex; align-items: center; gap: 12px; margin-top: 24px; font-size: 9px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-muted); }
+  .cycle-line { flex: 1; height: 1px; background: var(--rule); }
+  .cycle-badge { border: 1px solid var(--rule); padding: 4px 12px; white-space: nowrap; }
+
+  /* ── RISK-BASED PATHWAYS ── */
+  .pathway-diagram { border: 1.5px solid var(--ink); margin-bottom: 28px; }
+  .pathway-header { background: var(--charcoal); color: var(--paper); padding: 14px 20px; display: flex; align-items: center; gap: 12px; }
+  .pathway-header-label { font-size: 9px; letter-spacing: 0.14em; text-transform: uppercase; opacity: 0.6; }
+  .pathway-header-title { font-family: Georgia, 'Times New Roman', serif; font-size: 14px; font-weight: 700; }
+  .pathway-body { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 0; }
+  .pathway-col { padding: 20px; border-right: 1px solid var(--rule); }
+  .pathway-col:last-child { border-right: none; }
+  .pathway-risk-label { font-size: 9px; letter-spacing: 0.12em; text-transform: uppercase; font-weight: 500; margin-bottom: 4px; }
+  .pathway-risk-sub { font-size: 9px; color: var(--ink-muted); margin-bottom: 12px; letter-spacing: 0.04em; }
+  .pathway-stages { display: flex; flex-direction: column; gap: 4px; }
+  .pathway-stage-item { font-size: 10px; padding: 5px 8px; background: rgba(28,30,35,0.03); border-left: 2px solid var(--charcoal); line-height: 1.4; }
+  .pathway-stage-item.dimmed { opacity: 0.4; border-left-color: var(--rule); background: transparent; }
+  .pathway-stage-item.lite { border-left-color: var(--stone); background: rgba(28,30,35,0.02); }
+  .pathway-note { font-size: 9px; color: var(--ink-muted); font-style: italic; font-family: Georgia, 'Times New Roman', serif; margin-top: 10px; line-height: 1.5; }
+
+  /* ── STAGE DETAILS ── */
+  .stage-detail { border: 1.5px solid var(--ink); margin-bottom: 24px; }
+  .stage-detail:last-child { margin-bottom: 0; }
+  .sd-header { display: flex; align-items: stretch; border-bottom: 1px solid var(--rule); }
+  .sd-letter { background: var(--charcoal); color: var(--paper); font-family: Georgia, 'Times New Roman', serif; font-size: 28px; font-weight: 700; display: flex; align-items: center; justify-content: center; min-width: 56px; padding: 14px; }
+  .sd-title-block { padding: 14px 18px; flex: 1; }
+  .sd-stage-num { font-size: 8px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-muted); margin-bottom: 2px; }
+  .sd-stage-name { font-family: Georgia, 'Times New Roman', serif; font-size: 18px; font-weight: 700; }
+  .sd-stage-question { font-size: 10px; color: var(--ink-muted); font-style: italic; font-family: Georgia, 'Times New Roman', serif; margin-top: 3px; }
+  .sd-body { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 0; }
+  .sd-col { padding: 16px 18px; border-right: 1px solid var(--rule); }
+  .sd-col:last-child { border-right: none; }
+  .sd-col-label { font-size: 8px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-muted); margin-bottom: 8px; font-weight: 500; }
+  .sd-col-items { display: flex; flex-direction: column; gap: 4px; }
+  .sd-col-item { font-size: 10px; line-height: 1.45; color: var(--ink-soft); padding-left: 10px; position: relative; }
+  .sd-col-item::before { content: '\2014'; position: absolute; left: 0; color: var(--rule); font-size: 9px; }
+  .sd-footer { border-top: 1px solid var(--rule); display: flex; gap: 0; }
+  .sd-ref { flex: 1; padding: 10px 18px; border-right: 1px solid var(--rule); }
+  .sd-ref:last-child { border-right: none; }
+  .sd-ref-label { font-size: 7.5px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-muted); margin-bottom: 3px; }
+  .sd-ref-val { font-size: 9px; color: var(--ink-soft); line-height: 1.4; }
+  .sd-transition { border-top: 1px solid var(--rule); padding: 10px 18px; display: flex; gap: 24px; align-items: flex-start; }
+  .sd-trans-block { flex: 1; }
+  .sd-trans-label { font-size: 7.5px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-muted); margin-bottom: 3px; }
+  .sd-trans-val { font-size: 9.5px; color: var(--ink-soft); line-height: 1.5; }
+  .sd-tool { border-top: 1px solid var(--rule); padding: 10px 18px; display: flex; align-items: center; gap: 12px; }
+  .sd-tool-label { font-size: 7.5px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-muted); flex-shrink: 0; }
+  .sd-tool-name { font-size: 10px; font-weight: 500; }
+  .sd-tool-status { font-size: 8.5px; letter-spacing: 0.06em; text-transform: uppercase; padding: 2px 8px; margin-left: auto; }
+  .sd-tool-status.live { background: var(--charcoal); color: var(--paper); }
+  .sd-tool-status.planned { border: 1px solid var(--rule); color: var(--ink-muted); }
+
+  /* ── DUAL LENS ── */
+  .dual-lens { border: 1.5px solid var(--ink); margin-bottom: 28px; }
+  .dl-header { display: grid; grid-template-columns: 140px 1fr 1fr; border-bottom: 1.5px solid var(--ink); }
+  .dl-corner { padding: 10px 14px; border-right: 1.5px solid var(--ink); display: flex; align-items: center; }
+  .dl-corner span { font-size: 8px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-muted); }
+  .dl-col-head { padding: 10px 14px; border-right: 1px solid var(--rule); text-align: center; }
+  .dl-col-head:last-child { border-right: none; }
+  .dl-col-title { font-size: 10px; font-weight: 500; letter-spacing: 0.06em; }
+  .dl-col-sub { font-size: 8px; color: var(--ink-muted); letter-spacing: 0.04em; }
+  .dl-row { display: grid; grid-template-columns: 140px 1fr 1fr; border-bottom: 1px solid var(--rule); }
+  .dl-row:last-child { border-bottom: none; }
+  .dl-stage-cell { padding: 10px 14px; border-right: 1.5px solid var(--ink); display: flex; align-items: center; gap: 8px; }
+  .dl-stage-letter { background: var(--charcoal); color: var(--paper); width: 22px; height: 22px; display: inline-flex; align-items: center; justify-content: center; font-family: Georgia, 'Times New Roman', serif; font-size: 12px; font-weight: 700; flex-shrink: 0; }
+  .dl-stage-name { font-size: 10px; font-weight: 500; }
+  .dl-content-cell { padding: 10px 14px; border-right: 1px solid var(--rule); font-size: 9.5px; line-height: 1.5; color: var(--ink-soft); }
+  .dl-content-cell:last-child { border-right: none; }
+
+  /* ── ALIGNMENT TABLE ── */
+  .alignment-table { width: 100%; border-collapse: collapse; border: 1.5px solid var(--ink); }
+  .alignment-table th { text-align: left; padding: 10px 16px; font-size: 8.5px; font-weight: 400; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-muted); border-bottom: 1.5px solid var(--ink); border-right: 1px solid var(--rule); }
+  .alignment-table th:last-child { border-right: none; }
+  .alignment-table td { padding: 10px 16px; border-bottom: 1px solid var(--rule); border-right: 1px solid var(--rule); color: var(--ink-soft); font-size: 10px; line-height: 1.5; vertical-align: top; }
+  .alignment-table td:last-child { border-right: none; }
+  .alignment-table tr:last-child td { border-bottom: none; }
+  .alignment-table td:first-child { color: var(--ink); font-weight: 500; white-space: nowrap; }
+
+  /* ── RETURN TRIGGERS ── */
+  .triggers-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0; border: 1.5px solid var(--rule); }
+  .trigger-cell { padding: 16px 20px; border-right: 1px solid var(--rule); border-bottom: 1px solid var(--rule); }
+  .trigger-cell:nth-child(2n) { border-right: none; }
+  .trigger-cell:nth-last-child(-n+2) { border-bottom: none; }
+  .trigger-condition { font-size: 10px; font-weight: 500; margin-bottom: 4px; }
+  .trigger-target { font-size: 9px; color: var(--ink-muted); letter-spacing: 0.04em; }
+
+  /* ── LIMITATIONS + FEEDBACK ── */
+  .limits-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0; border: 1.5px solid var(--rule); margin-bottom: 32px; }
+  .limit-cell { padding: 18px 22px; border-right: 1px solid var(--rule); border-bottom: 1px solid var(--rule); }
+  .limit-cell:nth-child(2n) { border-right: none; }
+  .limit-cell:nth-last-child(-n+2) { border-bottom: none; }
+  .limit-label { font-size: 8.5px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-muted); margin-bottom: 6px; }
+  .limit-text { font-size: 10.5px; line-height: 1.6; color: var(--ink-soft); }
+  .feedback-block { border: 1.5px solid var(--charcoal); padding: 22px 26px; display: flex; justify-content: space-between; align-items: center; gap: 24px; }
+  .fb-title { font-family: Georgia, 'Times New Roman', serif; font-size: 14px; font-weight: 700; margin-bottom: 6px; }
+  .fb-text { font-size: 10px; color: var(--ink-soft); line-height: 1.5; max-width: 480px; }
+  .fb-link { font-size: 11px; font-weight: 500; color: var(--charcoal); text-decoration: none; border-bottom: 1px solid var(--charcoal); white-space: nowrap; flex-shrink: 0; letter-spacing: 0.04em; transition: color .15s, border-color .15s; }
+
+  /* ── CTA ── */
+  .cta-section { padding: 56px 0; background: var(--charcoal); margin: 0 -40px; padding-left: 40px; padding-right: 40px; text-align: center; border-bottom: none; }
+  .cta-label { font-size: 9px; letter-spacing: 0.16em; text-transform: uppercase; color: rgba(248,247,245,0.45); margin-bottom: 12px; }
+  .cta-title { font-family: Georgia, 'Times New Roman', serif; font-size: 24px; font-weight: 700; color: var(--paper); margin-bottom: 10px; }
+  .cta-sub { font-size: 11px; color: rgba(248,247,245,0.55); margin-bottom: 28px; font-style: italic; font-family: Georgia, 'Times New Roman', serif; }
+  .cta-btn { display: inline-block; background: var(--paper); color: var(--charcoal); font-family: Arial, Helvetica, sans-serif; font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; padding: 12px 28px; text-decoration: none; transition: opacity .15s; margin: 0 8px; }
+  .cta-btn:hover { opacity: 0.85; }
+  .cta-btn-outline { display: inline-block; background: transparent; color: var(--paper); font-family: Arial, Helvetica, sans-serif; font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; padding: 12px 28px; text-decoration: none; transition: opacity .15s; border: 1px solid rgba(248,247,245,0.3); margin: 0 8px; }
+  .cta-btn-outline:hover { border-color: rgba(248,247,245,0.65); }
+
+  /* ── NOTE BLOCK ── */
+  .note-block { padding: 10px 14px; background: rgba(28,30,35,0.04); border-left: 3px solid var(--stone); font-size: 10px; line-height: 1.6; color: var(--ink-soft); }
+  .note-block strong { color: var(--ink); }
+  .italic-note { margin-top: 20px; padding: 10px 14px; background: rgba(28,30,35,0.03); border-left: 3px solid var(--charcoal); font-size: 10px; line-height: 1.6; color: var(--ink-soft); font-style: italic; font-family: Georgia, 'Times New Roman', serif; }
+
+  /* ── PAGE FOOTER ── */
+  .page-footer { padding: 28px 40px; border-top: 1px solid var(--rule); display: flex; justify-content: space-between; align-items: center; max-width: 100%; }
+  .pf-brand { display: flex; align-items: center; text-decoration: none; flex-shrink: 0; }
+  .pf-brand img { display: block; height: auto; width: auto; max-height: 18px; }
+  .pf-brand:focus-visible { outline: 2px solid rgba(28,30,35,0.4); outline-offset: 4px; }
+  .pf-meta { font-size: 9px; color: var(--ink-muted); letter-spacing: 0.08em; text-align: right; line-height: 1.6; }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 900px) {
+    .orient-flow { grid-template-columns: repeat(3, 1fr); }
+    .orient-stage:nth-child(3) { border-right: 1.5px solid var(--ink); }
+    .sd-body { grid-template-columns: 1fr; }
+    .sd-col { border-right: none; border-bottom: 1px solid var(--rule); }
+    .sd-col:last-child { border-bottom: none; }
+    .sd-footer { flex-direction: column; }
+    .sd-ref { border-right: none; border-bottom: 1px solid var(--rule); }
+    .sd-ref:last-child { border-bottom: none; }
+    .pathway-body { grid-template-columns: 1fr; }
+    .pathway-col { border-right: none; border-bottom: 1px solid var(--rule); }
+    .pathway-col:last-child { border-bottom: none; }
+    .triggers-grid { grid-template-columns: 1fr; }
+    .trigger-cell { border-right: none; }
+    .trigger-cell:nth-last-child(-n+2) { border-bottom: 1px solid var(--rule); }
+    .trigger-cell:last-child { border-bottom: none; }
+    .dl-header, .dl-row { grid-template-columns: 100px 1fr 1fr; }
+  }
+  @media (max-width: 600px) {
+    .container { padding: 0 20px; }
+    .nav { padding: 0 20px; }
+    .nav-links { display: none; }
+    .hero-top { flex-direction: column; gap: 24px; }
+    .version-block { text-align: left; }
+    .hero-title { font-size: 28px; }
+    .orient-flow { grid-template-columns: 1fr 1fr; }
+    .orient-stage:nth-child(2n) { border-right: 1.5px solid var(--ink); }
+    .orient-stage:nth-child(3) { border-right: none; }
+    section { padding: 40px 0; }
+    .limits-grid { grid-template-columns: 1fr; }
+    .limit-cell { border-right: none; }
+    .limit-cell:nth-last-child(-n+2) { border-bottom: 1px solid var(--rule); }
+    .limit-cell:last-child { border-bottom: none; }
+    .feedback-block { flex-direction: column; text-align: center; }
+    .dl-header, .dl-row { grid-template-columns: 1fr; }
+    .dl-corner { display: none; }
+    .dl-stage-cell { border-right: none; border-bottom: 1px solid var(--rule); }
+    .dl-content-cell { border-right: none; }
+    .alignment-table { font-size: 9px; }
+  }
+
+  /* ── PRINT ── */
+  @media print {
+    .nav, .cta-section { display: none; }
+    body { background: white; font-size: 10pt; }
+    section { padding: 24px 0; page-break-inside: avoid; }
+    .container { max-width: 100%; padding: 0; }
+    .stage-detail { page-break-inside: avoid; }
+    .orient-flow { grid-template-columns: repeat(6, 1fr); }
     a { color: inherit; text-decoration: none; }
-    img { display: block; max-width: 100%; }
-
-    /* ── layout ─────────────────────────────────── */
-    .wrap { max-width: 960px; margin: 0 auto; padding: 0 48px; }
-
-    /* ── nav ────────────────────────────────────── */
-    nav {
-      position: sticky; top: 0; z-index: 100;
-      height: 60px;
-      background: var(--dark-bg);
-      border-bottom: 1px solid var(--border);
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 0 48px;
-    }
-    .nav-logo img { height: 32px; width: auto; }
-    .nav-links { display: flex; align-items: center; gap: 4px; }
-    .nav-links a {
-      font-size: 12px; letter-spacing: .04em;
-      color: var(--text2); padding: 6px 12px;
-      transition: color .15s; border-radius: 2px;
-    }
-    .nav-links a:hover { color: var(--text); }
-    .nav-links a.active { color: var(--text); }
-    .hamburger {
-      display: none; flex-direction: column; gap: 5px;
-      cursor: pointer; background: none; border: none; padding: 4px;
-    }
-    .hamburger span { width: 22px; height: 1px; background: var(--text2); transition: all .3s; }
-    .hamburger.open span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
-    .hamburger.open span:nth-child(2) { opacity: 0; }
-    .hamburger.open span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
-    .mobile-menu {
-      display: none; position: fixed; top: 60px; left: 0; right: 0;
-      background: var(--dark-bg); border-bottom: 1px solid var(--border);
-      padding: 12px 20px 20px; flex-direction: column; gap: 0; z-index: 99;
-    }
-    .mobile-menu.open { display: flex; }
-    .mobile-menu a {
-      padding: 12px 0; font-size: 14px; color: var(--text2);
-      border-bottom: 1px solid var(--border); display: block;
-      transition: color .15s;
-    }
-    .mobile-menu a:last-child { border-bottom: none; }
-    .mobile-menu a:hover { color: var(--text); }
-
-    /* ── hero ───────────────────────────────────── */
-    #hero {
-      padding-block: 88px 72px;
-      text-align: center;
-      border-bottom: 1px solid var(--border);
-    }
-    .hero-badge {
-      display: inline-block;
-      font-size: 9px; font-weight: 400; letter-spacing: .18em;
-      text-transform: uppercase; color: var(--stone);
-      border: 1px solid var(--border); padding: 5px 16px;
-      border-radius: 2px; margin-bottom: 36px;
-    }
-    .hero-title {
-      font-family: Georgia, 'Times New Roman', serif;
-      font-size: clamp(48px, 8vw, 96px);
-      font-weight: 700; letter-spacing: 5px;
-      line-height: .95; margin-bottom: 0;
-      text-transform: uppercase; color: var(--text);
-    }
-    .hero-title .o { color: var(--brass); }
-    .hero-bar {
-      width: clamp(48px, 6vw, 72px); height: 2px;
-      background: var(--brass); margin: 20px auto 28px;
-    }
-    .hero-sub {
-      font-size: clamp(13px, 1.6vw, 15px); color: var(--text2);
-      line-height: 1.75; max-width: 560px; margin: 0 auto 52px;
-    }
-
-    /* ── pill nav ───────────────────────────────── */
-    .orient-pills {
-      display: flex; align-items: center; justify-content: center;
-      gap: 6px; flex-wrap: wrap;
-    }
-    .orient-pills a {
-      display: inline-flex; align-items: center; justify-content: center;
-      width: 52px; height: 52px;
-      border: 1px solid var(--border2); border-radius: 2px;
-      font-family: Georgia, serif; font-size: 22px; font-weight: 700;
-      color: var(--text2); transition: color .15s, border-color .15s, background .15s;
-      text-transform: uppercase;
-    }
-    .orient-pills a.pill-active {
-      color: var(--brass); border-color: var(--brass);
-    }
-    .orient-pills a:hover {
-      color: var(--text); background: var(--card);
-    }
-    .orient-pills a.pill-active:hover {
-      background: rgba(178,152,108,.08);
-    }
-
-    /* ── section skeleton ───────────────────────── */
-    section { padding-block: 80px; }
-    section + section { border-top: 1px solid var(--border); }
-    .sec-label {
-      font-size: 9px; font-weight: 400; letter-spacing: .18em;
-      text-transform: uppercase; color: var(--stone); margin-bottom: 12px;
-    }
-    .sec-title {
-      font-family: Georgia, serif;
-      font-size: clamp(22px, 3vw, 30px);
-      font-weight: 700; letter-spacing: -.3px;
-      line-height: 1.15; color: var(--text);
-    }
-    .sec-desc {
-      font-size: 14px; color: var(--text2);
-      line-height: 1.7; max-width: 600px; margin-top: 14px;
-    }
-    .sec-head { margin-bottom: 48px; }
-
-    /* ── intro ──────────────────────────────────── */
-    #intro .intro-body { max-width: 680px; }
-    #intro .intro-body p {
-      font-size: 14px; color: var(--text2);
-      line-height: 1.75; margin-bottom: 20px;
-    }
-    .quote-block {
-      border-left: 2px solid var(--brass); padding: 16px 20px;
-      margin: 28px 0; background: var(--card);
-    }
-    .quote-block blockquote {
-      font-family: Georgia, serif; font-size: 15px; font-style: italic;
-      color: var(--text); line-height: 1.55; margin-bottom: 8px;
-    }
-    .quote-attr {
-      font-size: 10px; color: var(--stone); letter-spacing: .06em;
-    }
-    .hexis-note {
-      margin-top: 20px; padding: 16px 20px;
-      border: 1px solid var(--border); background: var(--card);
-      font-size: 13px; color: var(--text2); line-height: 1.7;
-    }
-    .hexis-note strong { color: var(--text); }
-
-    /* ── step cards ─────────────────────────────── */
-    #steps .sec-head { margin-bottom: 0; }
-    .steps-list {
-      display: flex; flex-direction: column;
-      gap: 1px; background: var(--border); margin-top: 48px;
-    }
-    .step-card {
-      background: var(--dark-bg);
-      padding: 40px 40px 36px;
-      border-left: 3px solid var(--border2);
-      transition: border-left-color .2s;
-      scroll-margin-top: 72px;
-    }
-    .step-card:hover  { border-left-color: var(--brass); }
-    .step-card:target { border-left-color: var(--brass); }
-
-    .step-header {
-      display: flex; align-items: flex-start;
-      gap: 24px; margin-bottom: 28px;
-    }
-    .step-glyph {
-      font-family: Georgia, serif; font-size: 72px; font-weight: 700;
-      line-height: 1; color: var(--brass); flex-shrink: 0;
-      width: 72px; text-align: center; opacity: .85;
-    }
-    .step-header-right { flex: 1; min-width: 0; }
-    .step-label {
-      font-size: 10px; letter-spacing: .12em;
-      text-transform: uppercase; color: var(--stone); margin-bottom: 8px;
-    }
-    .step-title {
-      font-family: Georgia, serif;
-      font-size: clamp(17px, 2.2vw, 22px);
-      font-weight: 700; line-height: 1.2; color: var(--text);
-    }
-
-    .step-body { padding-left: 96px; }
-    .step-body p {
-      font-size: 14px; color: var(--text2);
-      line-height: 1.75; margin-bottom: 16px;
-    }
-    .step-body p:last-of-type { margin-bottom: 0; }
-
-    .step-questions { margin: 24px 0; }
-    .step-q-label {
-      font-size: 10px; letter-spacing: .1em;
-      text-transform: uppercase; color: var(--stone);
-      margin-bottom: 10px;
-    }
-    .step-questions ul {
-      list-style: none; display: flex; flex-direction: column; gap: 7px;
-    }
-    .step-questions li {
-      font-size: 13px; color: var(--text2);
-      padding-left: 18px; position: relative; line-height: 1.6;
-    }
-    .step-questions li::before {
-      content: '·'; position: absolute; left: 4px;
-      color: var(--brass); font-weight: 700; font-size: 16px; line-height: 1.4;
-    }
-
-    .step-info-rows {
-      margin: 28px 0 24px;
-      border: 1px solid var(--border);
-    }
-    .step-info-row {
-      display: grid; grid-template-columns: 96px 1fr;
-      border-bottom: 1px solid var(--border);
-    }
-    .step-info-row:last-child { border-bottom: none; }
-    .step-info-label {
-      padding: 12px 14px;
-      font-size: 9px; font-weight: 400; letter-spacing: .1em;
-      text-transform: uppercase; color: var(--stone);
-      border-right: 1px solid var(--border);
-      display: flex; align-items: center;
-      background: var(--card);
-    }
-    .step-info-content {
-      padding: 12px 16px;
-      font-size: 12px; color: var(--text2); line-height: 1.65;
-    }
-
-    .step-badges { display: flex; flex-wrap: wrap; gap: 6px; }
-    .step-badge {
-      display: inline-block; font-size: 9px; letter-spacing: .06em;
-      color: var(--stone); border: 1px solid var(--border);
-      border-radius: 2px; padding: 4px 10px;
-    }
-
-    /* ── orient summary grid ────────────────────── */
-    #summary { text-align: center; }
-    .orient-grid {
-      display: grid; grid-template-columns: repeat(6, 1fr);
-      gap: 1px; background: var(--border);
-    }
-    .orient-block {
-      background: var(--dark-bg); padding: 28px 14px 24px;
-      text-align: center; text-decoration: none;
-      display: flex; flex-direction: column; align-items: center; gap: 10px;
-      transition: background .15s;
-    }
-    .orient-block:hover { background: var(--card2); }
-    .ob-letter {
-      font-family: Georgia, serif; font-size: 40px; font-weight: 700;
-      color: var(--brass); line-height: 1;
-    }
-    .ob-word {
-      font-size: 9px; letter-spacing: .12em; text-transform: uppercase;
-      color: var(--text2); font-weight: 700;
-    }
-    .ob-desc { font-size: 11px; color: var(--stone); line-height: 1.5; }
-
-    /* ── features grid ──────────────────────────── */
-    .feat-grid {
-      display: grid; grid-template-columns: repeat(3, 1fr);
-      gap: 1px; background: var(--border);
-    }
-    .feat-card {
-      background: var(--dark-bg); padding: 28px 24px;
-      display: flex; flex-direction: column; gap: 10px;
-    }
-    .feat-icon { font-size: 20px; line-height: 1; }
-    .feat-card h3 {
-      font-family: Georgia, serif; font-size: 14px; font-weight: 700;
-      color: var(--text); line-height: 1.3;
-    }
-    .feat-card p {
-      font-size: 12px; color: var(--text2); line-height: 1.65; flex: 1;
-    }
-
-    /* ── CTA ────────────────────────────────────── */
-    #cta { text-align: center; background: var(--card); }
-    .cta-title {
-      font-family: Georgia, serif;
-      font-size: clamp(22px, 3vw, 32px); font-weight: 700;
-      letter-spacing: -.3px; color: var(--text); margin-bottom: 14px;
-    }
-    .cta-sub {
-      font-size: 14px; color: var(--text2);
-      max-width: 480px; margin: 0 auto 36px; line-height: 1.65;
-    }
-    .cta-btns {
-      display: flex; align-items: center;
-      justify-content: center; gap: 12px; flex-wrap: wrap;
-    }
-    .btn-primary {
-      background: var(--dark-type); color: var(--charcoal);
-      padding: 11px 24px; border-radius: 2px; font-weight: 700;
-      font-size: 12px; border: none; cursor: pointer; transition: opacity .15s;
-      text-decoration: none; display: inline-flex; align-items: center;
-      gap: 7px; letter-spacing: .04em; font-family: Arial, sans-serif;
-    }
-    .btn-primary:hover { opacity: .88; }
-    .btn-outline {
-      background: transparent; color: var(--text2);
-      padding: 11px 24px; border-radius: 2px; font-weight: 400;
-      font-size: 12px; border: 1px solid var(--border2); cursor: pointer;
-      transition: color .15s, border-color .15s; text-decoration: none;
-      display: inline-flex; align-items: center;
-      gap: 7px; letter-spacing: .04em; font-family: Arial, sans-serif;
-    }
-    .btn-outline:hover { border-color: rgba(232,230,226,.35); color: var(--text); }
-
-    /* ── footer ─────────────────────────────────── */
-    footer {
-      padding: 20px 48px; border-top: 1px solid var(--border);
-      display: flex; align-items: center; justify-content: space-between;
-      gap: 20px; flex-wrap: wrap;
-    }
-    .footer-left { display: flex; align-items: center; gap: 10px; }
-    .footer-sep { color: var(--stone); }
-    .footer-txt { font-size: 11px; color: var(--stone); line-height: 1.5; }
-    .footer-links { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
-    .footer-links a { font-size: 11px; color: var(--stone); transition: color .15s; }
-    .footer-links a:hover { color: var(--text2); }
-
-    /* ── responsive ─────────────────────────────── */
-    @media (max-width: 860px) {
-      nav { padding: 0 20px; }
-      .nav-links { display: none; }
-      .hamburger { display: flex; }
-      .wrap { padding: 0 20px; }
-      section { padding-block: 52px; }
-      #hero { padding-block: 56px 48px; }
-      footer { padding: 16px 20px; flex-direction: column; align-items: flex-start; gap: 12px; }
-      .feat-grid { grid-template-columns: repeat(2, 1fr); }
-      .orient-grid { grid-template-columns: repeat(3, 1fr); }
-      .step-body { padding-left: 0; margin-top: 4px; }
-      .step-header { gap: 16px; }
-      .step-glyph { font-size: 56px; width: 56px; }
-    }
-    @media (max-width: 600px) {
-      .feat-grid { grid-template-columns: 1fr; }
-      .orient-grid { grid-template-columns: repeat(2, 1fr); }
-      .orient-pills a { width: 44px; height: 44px; font-size: 18px; }
-      .cta-btns { flex-direction: column; align-items: center; }
-      .step-card { padding: 28px 20px 24px; }
-      .step-info-row { grid-template-columns: 1fr; }
-      .step-info-label { border-right: none; border-bottom: 1px solid var(--border); }
-    }
-    /* ── alignment table ─────────────────────────────── */
-    .alignment-table-wrap {
-      overflow-x: auto;
-      margin: 40px 0 32px;
-    }
-    .alignment-table {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 13px;
-    }
-    .alignment-table th {
-      text-align: left;
-      padding: 10px 16px;
-      font-size: 10px;
-      font-weight: 400;
-      letter-spacing: .1em;
-      text-transform: uppercase;
-      color: var(--text2);
-      border-bottom: 1px solid var(--border2);
-    }
-    .alignment-table td {
-      padding: 12px 16px;
-      border-bottom: 1px solid var(--border);
-      color: var(--text);
-      vertical-align: top;
-    }
-    .alignment-table td:first-child {
-      color: var(--brass);
-      white-space: nowrap;
-    }
-    .alignment-table tr:last-child td {
-      border-bottom: none;
-    }
-    .turkey-note {
-      border-left: 2px solid var(--brass);
-      padding: 16px 20px;
-      margin-top: 8px;
-    }
-    .turkey-note p {
-      font-size: 13px;
-      color: var(--text2);
-      line-height: 1.7;
-      margin: 0;
-    }
-  </style>
-  <link rel="canonical" href="https://hexis.center/metodoloji/">
-  <link rel="alternate" hreflang="tr" href="https://hexis.center/metodoloji/">
-  <link rel="alternate" hreflang="en" href="https://hexis.center/methodology/">
-  <script defer data-domain="hexis.center" src="https://plausible.io/js/script.js"></script>
-  <!-- Fathom: <script src="https://cdn.usefathom.com/script.js" data-site="XXXXX" defer></script> -->
+  }
+</style>
 </head>
 <body>
 
-<nav id="nav">
-  <a href="../" class="nav-logo">
-    <img src="../assets/logo-light.png" alt="Hexis" width="72" height="40">
+<!-- NAV -->
+<nav class="nav">
+  <a href="/" class="nav-brand">
+    <img src="/assets/logo-light.png" alt="Hexis" width="65" height="36">
   </a>
-  <div class="nav-links">
-    <a href="./" class="active">ORIENT Çerçevesi</a>
-    <a href="../generator/">Generator</a>
-    <a href="../#contact">İletişim</a>
-  </div>
-  <button class="hamburger" id="hamburger" onclick="toggleMenu()" aria-label="Menü">
-    <span></span><span></span><span></span>
-  </button>
+  <ul class="nav-links">
+    <li><a href="#framework">ORIENT</a></li>
+    <li><a href="#pathways">Risk Yolları</a></li>
+    <li><a href="#stages">Aşama Detayları</a></li>
+    <li><a href="#dual-lens">İkili Perspektif</a></li>
+    <li><a href="#alignment">Uyum Tablosu</a></li>
+    <li><a href="#limitations">Sınırlılıklar</a></li>
+  </ul>
+  <a href="/generator/" class="nav-cta">Generator</a>
 </nav>
 
-<div class="mobile-menu" id="mobileMenu">
-  <a href="./" onclick="closeMenu()">ORIENT Çerçevesi</a>
-  <a href="../generator/" onclick="closeMenu()">Generator</a>
-  <a href="../#contact" onclick="closeMenu()">İletişim</a>
-</div>
-
-
-<!-- ══ HERO ══════════════════════════════════════════════════ -->
-<section id="hero">
-  <div class="wrap">
-    <div class="hero-badge">Hexis Metodolojisi</div>
-    <h1 class="hero-title"><span class="o">O</span>RIENT Çerçevesi</h1>
-    <div class="hero-bar"></div>
-    <p class="hero-sub">AI yönetişimini tek seferlik bir uyum listesinden çıkarıp, şirket kültürüne yerleşen sürdürülebilir bir pratik yönelime dönüştüren altı adımlı model.</p>
-    <nav class="orient-pills" aria-label="ORIENT adımları">
-      <a href="#observe" class="pill-active" title="Observe — Haritalandır">O</a>
-      <a href="#risk"      title="Risk — Değerlendir">R</a>
-      <a href="#identify" title="Identify — Yükümlülükleri Belirle">I</a>
-      <a href="#evaluate"  title="Evaluate — Değerlendir">E</a>
-      <a href="#navigate"  title="Navigate — Yönet">N</a>
-      <a href="#track"     title="Track — İzle">T</a>
-    </nav>
-  </div>
-</section>
-
-
-<!-- ══ INTRO ══════════════════════════════════════════════════ -->
-<section id="intro">
-  <div class="wrap">
-    <div class="sec-label">Gerekçe</div>
-    <h2 class="sec-title">Neden Başka Bir Çerçeve?</h2>
-    <div class="intro-body">
-      <p style="margin-top:18px;">Mevcut AI yönetişim yaklaşımlarının büyük çoğunluğu ya çok soyut — ilkeler listesinden öteye geçemiyor — ya da çok teknik — yalnızca BT ve hukuk ekiplerine hitap ediyor. Sonuç: şirket genelinde benimseme gerçekleşmiyor, uyum kağıt üzerinde kalıyor.</p>
-      <p>ORIENT, bu boşluğu kapatmak için tasarlandı. Her adım somut, uygulanabilir ve sektörden bağımsız olarak çalışacak şekilde kurgulandı.</p>
-      <div class="quote-block">
-        <blockquote>"Uyum bir kontrol listesi değil, bir pratik yönelimdir."</blockquote>
-        <div class="quote-attr">— Hexis, ἕξις kavramından ilham alınarak</div>
+<!-- HERO -->
+<section class="hero">
+  <div class="container">
+    <div class="hero-top">
+      <div>
+        <div class="hero-badge">Kamuya Açık Metodoloji Belgesi</div>
+        <div class="hero-title">ORIENT<br>Metodolojisi</div>
+        <div class="hero-sub">AI sistemleri için altı aşamalı yönetişim çerçevesi.</div>
+        <div class="normative-note">"Uyum bir kontrol listesi değil, bir pratik yönelimdir. Yönetişim bir teslimat değil, bir duruş biçimidir."</div>
+        <div class="etymology">Antik Yunanca ἕξις (hexis) &mdash; tekrar ve pratikle kazanılan kararlı bir yönelim. ORIENT yapılandırılmış pratiği sağlar; hexis bu pratiğin ürettiği yönetişim kapasitesidir.</div>
       </div>
-      <p>Antik Yunanca'da <strong style="color:var(--text)">ἕξις (hexis)</strong>, tekrar ve pratikle kazanılan kararlı bir yönelimi, ikinci bir doğa haline gelen bir davranış biçimini ifade eder. AI yönetişimi de böyle işler.</p>
+      <div class="version-block">
+        <div class="version-main">Versiyon 1.0</div>
+        <div class="version-meta">
+          Yayın: Mart 2026<br>
+          Son gözden geçirme: Mart 2026<br>
+          Sonraki planlı gözden geçirme: Eylül 2026<br>
+          Güncelleme modeli: Dahili inceleme<br>
+          Geri bildirim: contact@hexis.center
+        </div>
+      </div>
     </div>
   </div>
 </section>
 
-
-<!-- ══ STEPS ══════════════════════════════════════════════════ -->
-<section id="steps">
-  <div class="wrap">
-    <div class="sec-head">
-      <div class="sec-label">Çerçeve</div>
-      <h2 class="sec-title">Altı Adım, Bir Döngü</h2>
-      <p class="sec-desc">Her adım bir öncekinin üzerine inşa edilir ve son adım ilk adıma geri döner — çünkü AI yönetişimi bir proje değil, bir süreçtir.</p>
-    </div>
-
-    <div class="steps-list">
-
-      <!-- ── O: Observe ── -->
-      <article class="step-card" id="observe">
-        <div class="step-header">
-          <div class="step-glyph">O</div>
-          <div class="step-header-right">
-            <div class="step-label">Adım 1 — Observe</div>
-            <h3 class="step-title">AI Sistemlerinizi Haritalandırın</h3>
-          </div>
-        </div>
-        <div class="step-body">
-          <p>Göremediğiniz riski yönetemezsiniz. Bu adım, şirketinizdeki tüm AI kullanımını — satın alınan araçlar, API entegrasyonları, dahili modeller — görünür kılmakla başlar. Hangi kararları kim veriyor, insan mı model mi? Veriler nereden geliyor, nereye gidiyor?</p>
-          <p>Pek çok şirket bu adımı atlayarak doğrudan uyum belgesi yazmaya çalışır. ORIENT'te gözlem olmadan hiçbir adım sağlam temele oturmaz.</p>
-          <div class="step-questions">
-            <div class="step-q-label">Somut sorular</div>
-            <ul>
-              <li>Şirketinizde kaç AI aracı aktif olarak kullanılıyor?</li>
-              <li>Bu araçların hangisi insan kararını etkiliyor?</li>
-              <li>Veriler hangi sınırları geçiyor?</li>
-              <li>Sistemin öngörülebilir kötüye kullanım senaryoları tanımlandı mı?</li>
-            </ul>
-          </div>
-          <div class="step-info-rows">
-            <div class="step-info-row">
-              <div class="step-info-label">AB AI Act</div>
-              <div class="step-info-content">Madde 9 risk yönetim sistemini zorunlu kılar — ama sistemi tanımadan risk yönetimi başlamaz. Observe adımı, Madde 9 uyumunun fiili başlangıç noktasıdır.</div>
-            </div>
-            <div class="step-info-row">
-              <div class="step-info-label">KVKK</div>
-              <div class="step-info-content">KVKK kapsamındaki veri işleme yükümlülükleriyle örtüşür. VERBİS'e kayıtlı kuruluşlar (Md. 16) mevcut veri envanterlerini bu aşama için başlangıç noktası olarak kullanabilir.</div>
-            </div>
-            <div class="step-info-row">
-              <div class="step-info-label">Hexis</div>
-              <div class="step-info-content">AI sistem haritalama şablonu, veri akışı diyagramı oluşturma rehberi ve envanter metodolojisi.</div>
-            </div>
-          </div>
-          <div class="step-badges">
-            <span class="step-badge">ISO 42001 Md. 6.1</span>
-            <span class="step-badge">EU AI Act Md. 9</span>
-            <span class="step-badge">KVKK Md. 16</span>
-          </div>
-        </div>
-      </article>
-
-      <!-- ── R: Risk ── -->
-      <article class="step-card" id="risk">
-        <div class="step-header">
-          <div class="step-glyph">R</div>
-          <div class="step-header-right">
-            <div class="step-label">Adım 2 — Risk</div>
-            <h3 class="step-title">Sınıflandırın ve Değerlendirin</h3>
-          </div>
-        </div>
-        <div class="step-body">
-          <p>Haritanız hazır; şimdi her AI sisteminin ne kadar risk taşıdığını anlama zamanı. AB AI Yasası risk tabanlı bir sınıflandırma sistemi getiriyor: kabul edilemez, yüksek, sınırlı, minimal. Bu sınıflandırma hangi yükümlülüklerin geçerli olduğunu belirliyor.</p>
-          <p>Risk değerlendirmesi bir kez yapılıp bırakılan bir belge değildir — yeni sistem devreye alındıkça veya mevcut sistemler güncellendiğinde tekrar edilmesi gerekir.</p>
-          <div class="step-questions">
-            <div class="step-q-label">Somut sorular</div>
-            <ul>
-              <li>Hangi AI sisteminiz çalışan, müşteri veya vatandaş kararlarını etkiliyor?</li>
-              <li>Biyometrik veri, kredi, istihdam veya sağlık alanında AI kullanıyor musunuz?</li>
-              <li>Risk sınıflandırmanızı belgeleyen bir kayıt var mı?</li>
-            </ul>
-          </div>
-          <div class="step-info-rows">
-            <div class="step-info-row">
-              <div class="step-info-label">AB AI Act</div>
-              <div class="step-info-content">Madde 6-9 kapsamında yüksek riskli sistemler için zorunlu gereklilikler sıralanır. Yanlış sınıflandırma hem aşırı uyum maliyetine hem de yetersiz uyum riskine yol açar.</div>
-            </div>
-            <div class="step-info-row">
-              <div class="step-info-label">KVKK</div>
-              <div class="step-info-content">KVKK Md. 12 (teknik ve idari tedbirler) yükümlülüğü, AI Act'in yüksek riskli sistem değerlendirmesiyle büyük ölçüde örtüşür. İki süreç birleştirilerek yönetilebilir.</div>
-            </div>
-            <div class="step-info-row">
-              <div class="step-info-label">Hexis</div>
-              <div class="step-info-content">Sektöre özel risk sınıflandırma matrisi, DPIA × AI Act entegre değerlendirme şablonu ve uzman rehberliği.</div>
-            </div>
-          </div>
-          <div class="step-badges">
-            <span class="step-badge">EU AI Act Md. 6-9</span>
-            <span class="step-badge">ISO 42001 Md. 6.2</span>
-            <span class="step-badge">KVKK Md. 12</span>
-          </div>
-        </div>
-      </article>
-
-      <!-- ── I: Identify ── -->
-      <article class="step-card" id="identify">
-        <div class="step-header">
-          <div class="step-glyph">I</div>
-          <div class="step-header-right">
-            <div class="step-label">Adım 3 — Identify</div>
-            <h3 class="step-title">Yasal Yükümlülükleri Haritalandırın</h3>
-          </div>
-        </div>
-        <div class="step-body">
-          <p>Risk seviyesi belirlendi; şimdi bu seviyeye karşılık gelen yasal yükümlülükleri net biçimde ortaya koymak gerekiyor. Hangi AB AI Yasası maddeleri geçerli? Şirket sağlayıcı mı, konuşlandırıcı mı? KVKK'dan doğan örtüşen yükümlülükler neler?</p>
-          <p>Identify adımı olmadan Evaluate anlamsızdır — neyi karşılamanız gerektiğini bilmeden mevcut durumu ölçemezsiniz.</p>
-          <div class="step-questions">
-            <div class="step-q-label">Somut sorular</div>
-            <ul>
-              <li>Şirketiniz bu AI sistemi için sağlayıcı mı, konuşlandırıcı mı?</li>
-              <li>Hangi AB AI Yasası maddeleri ve Ek III kategorileri geçerli?</li>
-              <li>KVKK'dan kaynaklanan örtüşen yükümlülükler tanımlanmış mı?</li>
-            </ul>
-          </div>
-          <div class="step-info-rows">
-            <div class="step-info-row">
-              <div class="step-info-label">AB AI Act</div>
-              <div class="step-info-content">Madde 6 ve Ek III yüksek riskli sistem kategorilerini belirler. Madde 2 kapsam tanımı (sağlayıcı, konuşlandırıcı, ekstrateritoryal etki) yükümlülüklerin tespitinin başlangıç noktasıdır.</div>
-            </div>
-            <div class="step-info-row">
-              <div class="step-info-label">KVKK</div>
-              <div class="step-info-content">KVKK Md. 5-6 veri işleme şartları ile AB AI Act Md. 10 veri yönetimi yükümlülükleri örtüşür. AB pazarına açık veya AB'deki kullanıcılara hizmet veren Türk şirketleri için çift uyum haritası bu adımda çıkarılır.</div>
-            </div>
-            <div class="step-info-row">
-              <div class="step-info-label">Hexis</div>
-              <div class="step-info-content">Sağlayıcı / konuşlandırıcı tespiti, uygulanabilir madde listesi ve KVKK × AB AI Yasası örtüşme haritası.</div>
-            </div>
-          </div>
-          <div class="step-badges">
-            <span class="step-badge">EU AI Act Md. 2, 6</span>
-            <span class="step-badge">Ek III</span>
-            <span class="step-badge">KVKK Md. 5-6</span>
-          </div>
-        </div>
-      </article>
-
-      <!-- ── E: Evaluate ── -->
-      <article class="step-card" id="evaluate">
-        <div class="step-header">
-          <div class="step-glyph">E</div>
-          <div class="step-header-right">
-            <div class="step-label">Adım 4 — Evaluate</div>
-            <h3 class="step-title">Mevcut Kontrolleri Değerlendirin</h3>
-          </div>
-        </div>
-        <div class="step-body">
-          <p>Yükümlülükler belirlendi; şimdi mevcut politikaları, teknik önlemleri ve süreçleri bu yükümlülüklerle karşılaştırarak uyum açıklarını tespit etme zamanı. Evaluate adımının çıktısı bir eksik listesi değil — önceliklendirme için girdi oluşturan net bir durum tespiti belgesidir.</p>
-          <p>Bu adım bir "başarısızlık testi" değil, organizasyonun gerçek durumunu görme fırsatıdır. Açıkları erken tespit etmek, yaptırım sürecinde değil şimdi düzeltme imkânı verir.</p>
-          <div class="step-questions">
-            <div class="step-q-label">Somut sorular</div>
-            <ul>
-              <li>Mevcut kontrolleriniz hangi yükümlülükleri karşılıyor, hangilerini karşılamıyor?</li>
-              <li>Tespit edilen açıklar arasında öncelik sırası belirlenmiş mi?</li>
-              <li>Değerlendirme bağımsız bir gözden geçirme içeriyor mu?</li>
-            </ul>
-          </div>
-          <div class="step-info-rows">
-            <div class="step-info-row">
-              <div class="step-info-label">AB AI Act</div>
-              <div class="step-info-content">Madde 9 risk yönetim sistemi sürekli değerlendirme gerektirir. Madde 43 uygunluk değerlendirmesi için mevcut durumun belgelenmesi ön koşuldur.</div>
-            </div>
-            <div class="step-info-row">
-              <div class="step-info-label">KVKK</div>
-              <div class="step-info-content">KVKK Md. 12 teknik ve idari tedbirler yükümlülüğü, AB AI Act Md. 9 kontrol gereklilikleriyle örtüşür. Tek değerlendirme süreci her iki yükümlülüğü karşılayabilir.</div>
-            </div>
-            <div class="step-info-row">
-              <div class="step-info-label">Hexis</div>
-              <div class="step-info-content">Uyum açığı analiz şablonu, kontrol olgunluk değerlendirmesi ve önceliklendirme matrisi.</div>
-            </div>
-          </div>
-          <div class="step-badges">
-            <span class="step-badge">EU AI Act Md. 9, 43</span>
-            <span class="step-badge">ISO 42001 Md. 8.2, 8.4</span>
-            <span class="step-badge">KVKK Md. 12</span>
-          </div>
-        </div>
-      </article>
-
-      <!-- ── N: Navigate ── -->
-      <article class="step-card" id="navigate">
-        <div class="step-header">
-          <div class="step-glyph">N</div>
-          <div class="step-header-right">
-            <div class="step-label">Adım 5 — Navigate</div>
-            <h3 class="step-title">Uyum Yolunu Planlayın ve Devreye Almaya Hazırlanın</h3>
-          </div>
-        </div>
-        <div class="step-body">
-          <p>Uyum açıkları belirlendi; şimdi bunları kapatmak için önceliklendirilmiş bir yol haritası oluşturma zamanı. Navigate aşaması bulguları eyleme dönüştürür: hangi adım önce, hangi kaynak nereye, hangi süreye gerçekçi hedef konur.</p>
-          <p>Ancak uyum yolunu tamamlamak yeterli değil. Sistem devreye alınmadan önce beş boyutta hazırlık teyit edilmesi gerekiyor: teknik, yönetişim, yasal, operasyonel ve insan denetimi. Bu teyit olmadan devreye alma kararı alınamaz.</p>
-          <div class="step-questions">
-            <div class="step-q-label">Somut sorular</div>
-            <ul>
-              <li>Uyum açıkları öncelik sırasına göre listelenmiş mi?</li>
-              <li>Devreye almadan önce teknik ve yönetişim hazırlığı teyit edildi mi?</li>
-              <li>İnsan denetim mekanizmaları tanımlanmış ve test edilmiş mi?</li>
-            </ul>
-          </div>
-          <div class="step-info-rows">
-            <div class="step-info-row">
-              <div class="step-info-label">AB AI Act</div>
-              <div class="step-info-content">Madde 9 risk yönetim sistemi ve Madde 17 kalite yönetim sistemi, uyum sürecinin belgelenmesini ve devreye alma öncesi kontrol mekanizmalarını zorunlu kılar.</div>
-            </div>
-            <div class="step-info-row">
-              <div class="step-info-label">KVKK</div>
-              <div class="step-info-content">Madde 12 teknik ve idari tedbirler yükümlülüğü; kişisel veri işleyen sistemlerin devreye alınmadan önce veri koruma kontrollerinin tamamlanmasını gerektirir.</div>
-            </div>
-            <div class="step-info-row">
-              <div class="step-info-label">Hexis</div>
-              <div class="step-info-content">Devreye alma hazırlık kontrol listesi (Release Readiness Checklist): beş boyutta hazırlık teyidi — teknik, yönetişim, yasal, operasyonel, insan denetimi.</div>
-            </div>
-          </div>
-          <div class="step-badges">
-            <span class="step-badge">EU AI Act Md. 9, 17</span>
-            <span class="step-badge">ISO 42001 Clause 8</span>
-            <span class="step-badge">KVKK Md. 12</span>
-          </div>
-        </div>
-      </article>
-
-      <!-- ── T: Track ── -->
-      <article class="step-card" id="track">
-        <div class="step-header">
-          <div class="step-glyph">T</div>
-          <div class="step-header-right">
-            <div class="step-label">Adım 6 — Track</div>
-            <h3 class="step-title">Sürekli İzleyin ve Adapte Olun</h3>
-          </div>
-        </div>
-        <div class="step-body">
-          <p>AI sistemleri değişir, düzenlemeler gelişir, şirketin AI kullanımı genişler. Bu nedenle yönetişim bir kez kurulan bir yapı değil, sürekli izlenen ve güncellenen bir pratik olmalıdır.</p>
-          <p>Track adımının çıktısı Observe adımına geri beslenir — döngü kapanır. Bu döngüsellik ORIENT'i diğer uyum çerçevelerinden ayıran temel özelliktir.</p>
-          <div class="step-questions">
-            <div class="step-q-label">Somut sorular</div>
-            <ul>
-              <li>AI sistemlerinizin performansını ve sapma riskini kim izliyor?</li>
-              <li>Yeni düzenleme değişikliklerini ne kadar sürede tespit edip uygulamaya alabiliyorsunuz?</li>
-              <li>Yıllık AI yönetişim gözden geçirme süreciniz var mı?</li>
-            </ul>
-          </div>
-          <div class="step-info-rows">
-            <div class="step-info-row">
-              <div class="step-info-label">AB AI Act</div>
-              <div class="step-info-content">Madde 72-73 piyasa gözetimi ve olay bildirimi yükümlülüklerini getirir. Sürekli izleme altyapısı olmadan bu yükümlülükleri karşılamak reaktif ve maliyetli olur.</div>
-            </div>
-            <div class="step-info-row">
-              <div class="step-info-label">KVKK</div>
-              <div class="step-info-content">Periyodik uyum değerlendirmesi (KVKK Md. 12) ile AI Act'in sürekli izleme gereklilikleri tek bir gözden geçirme döngüsünde birleştirilebilir.</div>
-            </div>
-            <div class="step-info-row">
-              <div class="step-info-label">Hexis</div>
-              <div class="step-info-content">Periyodik AI yönetişim gözden geçirme şablonu, düzenleyici değişiklik takip servisi ve olgunluk ölçüm aracı.</div>
-            </div>
-          </div>
-          <div class="step-badges">
-            <span class="step-badge">EU AI Act Md. 72-73</span>
-            <span class="step-badge">ISO 42001 Md. 10</span>
-            <span class="step-badge">KVKK Md. 12</span>
-          </div>
-        </div>
-      </article>
-
-    </div><!-- /.steps-list -->
-  </div>
-</section>
-
-
-<!-- ══ ORIENT SUMMARY ═══════════════════════════════════════ -->
-<section id="summary">
-  <div class="wrap">
-    <div class="sec-head" style="text-align:center;">
-      <div class="sec-label">Genel Bakış</div>
-      <h2 class="sec-title">ORIENT — Bir Bakışta</h2>
-      <p class="sec-desc" style="margin-left:auto;margin-right:auto;">Her harf bir adımı, tüm çerçeve bir döngüyü temsil eder.</p>
-    </div>
-    <div class="orient-grid">
-      <a href="#observe"   class="orient-block"><div class="ob-letter">O</div><div class="ob-word">Observe</div><div class="ob-desc">Sistemleri haritalandır</div></a>
-      <a href="#risk"      class="orient-block"><div class="ob-letter">R</div><div class="ob-word">Risk</div><div class="ob-desc">Sınıflandır ve değerlendir</div></a>
-      <a href="#identify" class="orient-block"><div class="ob-letter">I</div><div class="ob-word">Identify</div><div class="ob-desc">Yükümlülükleri haritalandır</div></a>
-      <a href="#evaluate"  class="orient-block"><div class="ob-letter">E</div><div class="ob-word">Evaluate</div><div class="ob-desc">Uyum açıklarını değerlendir</div></a>
-      <a href="#navigate"  class="orient-block"><div class="ob-letter">N</div><div class="ob-word">Navigate</div><div class="ob-desc">Paydaşlarla yönet</div></a>
-      <a href="#track"     class="orient-block"><div class="ob-letter">T</div><div class="ob-word">Track</div><div class="ob-desc">İzle ve adapte ol</div></a>
+<!-- INTRO -->
+<section id="intro">
+  <div class="container">
+    <div class="sec-label">Gerekçe</div>
+    <div class="sec-title">Neden Başka Bir Çerçeve?</div>
+    <p class="intro-text">Mevcut AI yönetişim yaklaşımlarının büyük çoğunluğu ya çok soyut &mdash; ilkeler listesinden öteye geçemiyor &mdash; ya da çok teknik &mdash; yalnızca BT ve hukuk ekiplerine hitap ediyor. Sonuç: şirket genelinde benimseme gerçekleşmiyor, uyum kağıt üzerinde kalıyor.</p>
+    <p class="intro-text">ORIENT bu boşluğu kapatmak için tasarlandı. Her aşama somut, uygulanabilir ve sektörden bağımsız olarak çalışacak şekilde kurgulandı. Tek bir süreç içinde hem AB AI Yasası hem de KVKK yükümlülüklerini paralel olarak ele alır.</p>
+    <div class="quote-block">
+      <blockquote>"Uyum bir kontrol listesi değil, bir pratik yönelimdir."</blockquote>
+      <div class="quote-attr">&mdash; Hexis, ἕξις kavramından ilham alınarak</div>
     </div>
   </div>
 </section>
 
+<!-- ORIENT FRAMEWORK FLOW -->
+<section id="framework">
+  <div class="container">
+    <div class="sec-label">Bölüm 01</div>
+    <div class="sec-title">ORIENT Çerçevesi</div>
+    <div class="sec-lead">ORIENT, yönetişim mantığını altı ardışık aşamada uygular. Her aşama, bir sonrakini besleyen tanımlı bir çıktı üretir. Döngü süreklidir &mdash; Track aşaması, sistemler, bağlamlar ve düzenlemeler değiştikçe Observe aşamasına geri besleme yapar.</div>
 
-<!-- ══ FRAMEWORK ALIGNMENT ═══════════════════════════════ -->
+    <div class="orient-flow">
+      <div class="orient-stage">
+        <div class="stage-letter-bar">O</div>
+        <div class="stage-head">
+          <div class="stage-number">Aşama 01</div>
+          <div class="stage-name">Observe</div>
+          <div class="stage-tagline">Bu sistem nedir?</div>
+        </div>
+        <div class="stage-body">
+          <div class="stage-desc">AI sistemini, rolünü, bağlamını ve paydaşlarını tanımlayın. Yönetişim kapsamını belirleyin.</div>
+          <div class="stage-output-label">Çıktı</div>
+          <div class="stage-output-val">AI Sistem Envanter Kartı</div>
+        </div>
+      </div>
+      <div class="orient-stage">
+        <div class="stage-letter-bar">R</div>
+        <div class="stage-head">
+          <div class="stage-number">Aşama 02</div>
+          <div class="stage-name">Risk</div>
+          <div class="stage-tagline">Risk seviyesi nedir?</div>
+        </div>
+        <div class="stage-body">
+          <div class="stage-desc">AB AI Yasası kategorilerine göre risk seviyesini sınıflandırın. Yönetişim yol yoğunluğunu belirleyin.</div>
+          <div class="stage-output-label">Çıktı</div>
+          <div class="stage-output-val">Risk Sınıflandırma Raporu</div>
+        </div>
+      </div>
+      <div class="orient-stage">
+        <div class="stage-letter-bar">I</div>
+        <div class="stage-head">
+          <div class="stage-number">Aşama 03</div>
+          <div class="stage-name">Identify</div>
+          <div class="stage-tagline">Hangi yükümlülükler geçerli?</div>
+        </div>
+        <div class="stage-body">
+          <div class="stage-desc">AB AI Yasası, KVKK ve sektöre özgü düzenlemelerden kaynaklanan yasal yükümlülükleri haritalandırın.</div>
+          <div class="stage-output-label">Çıktı</div>
+          <div class="stage-output-val">Yükümlülük Kayıt Defteri</div>
+        </div>
+      </div>
+      <div class="orient-stage">
+        <div class="stage-letter-bar">E</div>
+        <div class="stage-head">
+          <div class="stage-number">Aşama 04</div>
+          <div class="stage-name">Evaluate</div>
+          <div class="stage-tagline">Neredeyiz?</div>
+        </div>
+        <div class="stage-body">
+          <div class="stage-desc">Mevcut yönetişim olgunluğunu tanımlanan yükümlülüklere karşı değerlendirin. Uyum açıklarını ölçün.</div>
+          <div class="stage-output-label">Çıktı</div>
+          <div class="stage-output-val">Yönetişim Aktivasyon Matrisi</div>
+        </div>
+      </div>
+      <div class="orient-stage">
+        <div class="stage-letter-bar">N</div>
+        <div class="stage-head">
+          <div class="stage-number">Aşama 05</div>
+          <div class="stage-name">Navigate</div>
+          <div class="stage-tagline">Ne yapmalıyız?</div>
+        </div>
+        <div class="stage-body">
+          <div class="stage-desc">Mevcut durumdan uyuma giden yolu çizin. Eylemleri aciliyete ve etkiye göre önceliklendirin.</div>
+          <div class="stage-output-label">Çıktı</div>
+          <div class="stage-output-val">Eylem Yol Haritası</div>
+        </div>
+      </div>
+      <div class="orient-stage">
+        <div class="stage-letter-bar">T</div>
+        <div class="stage-head">
+          <div class="stage-number">Aşama 06</div>
+          <div class="stage-name">Track</div>
+          <div class="stage-tagline">Rotada mıyız?</div>
+        </div>
+        <div class="stage-body">
+          <div class="stage-desc">Son tarihleri, gözden geçirme tetikleyicilerini ve izleme periyodunu belirleyin. Yönetişim duruşunu zaman içinde koruyun.</div>
+          <div class="stage-output-label">Çıktı</div>
+          <div class="stage-output-val">Yönetişim Kaydı ve Gözden Geçirme Takvimi</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="orient-acronym">
+      <div class="orient-letter-strip">
+        <span>O</span><span>R</span><span>I</span><span>E</span><span>N</span><span>T</span>
+      </div>
+      <div class="acronym-line"></div>
+      <span>Observe &middot; Risk &middot; Identify &middot; Evaluate &middot; Navigate &middot; Track</span>
+    </div>
+
+    <div class="cycle-note">
+      <div class="cycle-line"></div>
+      <div class="cycle-badge">Sürekli döngü &mdash; Track her 6 ayda Observe&rsquo;a geri besleme yapar</div>
+      <div class="cycle-line"></div>
+    </div>
+  </div>
+</section>
+
+<!-- RISK-BASED PATHWAYS -->
+<section id="pathways">
+  <div class="container">
+    <div class="sec-label">Bölüm 02</div>
+    <div class="sec-title">Risk Bazlı Yollar</div>
+    <div class="sec-lead">Risk aşamasından sonra ORIENT üç yoğunluk yoluna ayrılır. Her kuruluş Observe ve Risk aşamalarını tamamlar. Sonraki aşamaların derinliği sınıflandırılan risk seviyesine bağlıdır.</div>
+
+    <div class="pathway-diagram">
+      <div class="pathway-header">
+        <div class="pathway-header-label">Aşama 02 (Risk) Sonrası</div>
+        <div class="pathway-header-title">Üç Yönetişim Yolu</div>
+      </div>
+      <div class="pathway-body">
+        <div class="pathway-col">
+          <div class="pathway-risk-label">Yüksek Risk</div>
+          <div class="pathway-risk-sub">AB AI Yasası Ek III / Ek I sistemleri</div>
+          <div class="pathway-stages">
+            <div class="pathway-stage-item">Observe &mdash; Tam sistem envanteri</div>
+            <div class="pathway-stage-item">Risk &mdash; Resmi sınıflandırma</div>
+            <div class="pathway-stage-item">Identify &mdash; Tam yükümlülük haritası</div>
+            <div class="pathway-stage-item">Evaluate &mdash; Kapsamlı açık analizi + FRIA</div>
+            <div class="pathway-stage-item">Navigate &mdash; Ayrıntılı eylem yol haritası</div>
+            <div class="pathway-stage-item">Track &mdash; Sürekli izleme döngüsü</div>
+          </div>
+          <div class="pathway-note">Altı aşamanın tamamı tam derinlikte. Yüksek riskli sistem konuşlandırıcıları için zorunlu FRIA (Madde 27).</div>
+        </div>
+        <div class="pathway-col">
+          <div class="pathway-risk-label">Sınırlı Risk</div>
+          <div class="pathway-risk-sub">Şeffaflık yükümlülükleri (Madde 50) + GPAI</div>
+          <div class="pathway-stages">
+            <div class="pathway-stage-item">Observe &mdash; Sistem envanteri</div>
+            <div class="pathway-stage-item">Risk &mdash; Resmi sınıflandırma</div>
+            <div class="pathway-stage-item lite">Identify &mdash; Şeffaflık yükümlülükleri</div>
+            <div class="pathway-stage-item lite">Evaluate &mdash; Odaklanmış açık kontrolü</div>
+            <div class="pathway-stage-item lite">Navigate &mdash; Hafif eylem planı</div>
+            <div class="pathway-stage-item lite">Track &mdash; Yıllık gözden geçirme</div>
+          </div>
+          <div class="pathway-note">Tüm aşamalar, azaltılmış kapsam. Şeffaflık gereklilikleri ve GPAI model kartlarına odaklanma.</div>
+        </div>
+        <div class="pathway-col">
+          <div class="pathway-risk-label">Minimal Risk</div>
+          <div class="pathway-risk-sub">Gönüllü davranış kuralları (Madde 95)</div>
+          <div class="pathway-stages">
+            <div class="pathway-stage-item">Observe &mdash; Temel envanter</div>
+            <div class="pathway-stage-item">Risk &mdash; Sınıflandırma teyidi</div>
+            <div class="pathway-stage-item dimmed">Identify &mdash; Yalnızca AI okuryazarlığı (Madde 4)</div>
+            <div class="pathway-stage-item dimmed">Evaluate &mdash; Temel öz-değerlendirme</div>
+            <div class="pathway-stage-item dimmed">Navigate &mdash; Yönetişim temelleri</div>
+            <div class="pathway-stage-item dimmed">Track &mdash; Yıllık gözden geçirme</div>
+          </div>
+          <div class="pathway-note">Observe + Risk zorunlu. Kalan aşamalar asgari derinlikte. Kişisel veri işleniyorsa KVKK yükümlülükleri tam olarak geçerli olabilir.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="note-block">
+      <strong>KVKK Notu:</strong> KVKK (6698 Sayılı Kanun) yükümlülükleri, kişisel veri işlendiğinde AB AI Yasası risk seviyesinden bağımsız olarak geçerlidir. Minimal riskli bir AI sistemi, kişisel veri işliyorsa KVKK Madde 5 (işleme şartları), Madde 10 (aydınlatma yükümlülüğü) ve Madde 11(1)(g) (otomatik karar itiraz hakkı) gerekliliklerini karşılamak zorundadır. İkili perspektif yaklaşımı KVKK&rsquo;nın her aşamada değerlendirilmesini güvence altına alır.
+    </div>
+  </div>
+</section>
+
+<!-- STAGE DETAILS -->
+<section id="stages">
+  <div class="container">
+    <div class="sec-label">Bölüm 03</div>
+    <div class="sec-title">Aşama Tanımları</div>
+    <div class="sec-lead">Her ORIENT aşamasının tanımlanmış girdileri, süreçleri, çıktıları, yasal referansları ve geçiş koşulları vardır. Bu yapı, farklı kuruluşlar ve risk seviyeleri arasında izlenebilirliği ve tekrarlanabilirliği sağlar.</div>
+
+    <!-- OBSERVE -->
+    <div class="stage-detail">
+      <div class="sd-header">
+        <div class="sd-letter">O</div>
+        <div class="sd-title-block">
+          <div class="sd-stage-num">Aşama 01</div>
+          <div class="sd-stage-name">Observe</div>
+          <div class="sd-stage-question">Bu AI sistemi nedir ve ne yapar?</div>
+        </div>
+      </div>
+      <div class="sd-body">
+        <div class="sd-col">
+          <div class="sd-col-label">Girdiler</div>
+          <div class="sd-col-items">
+            <div class="sd-col-item">Sistem tanımı veya tedarikçi dokümantasyonu</div>
+            <div class="sd-col-item">Konuşlandırma bağlamı ve kullanım senaryosu</div>
+            <div class="sd-col-item">Paydaş tanımlaması</div>
+            <div class="sd-col-item">Veri akışı genel görünümü</div>
+          </div>
+        </div>
+        <div class="sd-col">
+          <div class="sd-col-label">Süreç</div>
+          <div class="sd-col-items">
+            <div class="sd-col-item">Sistem amacını ve işlevini belgeleyin</div>
+            <div class="sd-col-item">Etkilenen kişileri ve hakları haritalandırın</div>
+            <div class="sd-col-item">AI bileşenlerini geleneksel yazılımdan ayırın</div>
+            <div class="sd-col-item">Yönetişim kapsam sınırlarını tanımlayın</div>
+          </div>
+        </div>
+        <div class="sd-col">
+          <div class="sd-col-label">Çıktılar</div>
+          <div class="sd-col-items">
+            <div class="sd-col-item">AI Sistem Envanter Kartı</div>
+            <div class="sd-col-item">Paydaş haritası</div>
+            <div class="sd-col-item">Kapsam tanımlama belgesi</div>
+          </div>
+        </div>
+      </div>
+      <div class="sd-footer">
+        <div class="sd-ref"><div class="sd-ref-label">AB AI Yasası</div><div class="sd-ref-val">Md. 3 (tanımlar), Md. 4 (AI okuryazarlığı), Md. 9 (risk yönetim sistemi)</div></div>
+        <div class="sd-ref"><div class="sd-ref-label">KVKK</div><div class="sd-ref-val">Md. 3 (tanımlar), Md. 10 (aydınlatma yükümlülüğü)</div></div>
+        <div class="sd-ref"><div class="sd-ref-label">ISO 42001</div><div class="sd-ref-val">&sect;4.1 (bağlam), &sect;4.2 (ilgili taraflar), &sect;6.1 (risk/fırsat)</div></div>
+      </div>
+      <div class="sd-transition">
+        <div class="sd-trans-block"><div class="sd-trans-label">Risk&rsquo;e geçiş</div><div class="sd-trans-val">AI Sistem Envanter Kartı tamamlandı ve onaylandı. Sistem kapsamı tanımlandı.</div></div>
+        <div class="sd-trans-block"><div class="sd-trans-label">Geri dönüş tetikleyicisi</div><div class="sd-trans-val">Kapsam değişikliği, yeni AI bileşeni veya sistem amacı değişikliği &rarr; Observe&rsquo;a dön.</div></div>
+      </div>
+      <div class="sd-tool">
+        <div class="sd-tool-label">Hexis Aracı</div>
+        <div class="sd-tool-name">Generator &mdash; Sistem Tanımlama Formu</div>
+        <div class="sd-tool-status live">Aktif</div>
+      </div>
+    </div>
+
+    <!-- RISK -->
+    <div class="stage-detail">
+      <div class="sd-header">
+        <div class="sd-letter">R</div>
+        <div class="sd-title-block">
+          <div class="sd-stage-num">Aşama 02</div>
+          <div class="sd-stage-name">Risk</div>
+          <div class="sd-stage-question">Bu sistem hangi risk seviyesini taşıyor?</div>
+        </div>
+      </div>
+      <div class="sd-body">
+        <div class="sd-col">
+          <div class="sd-col-label">Girdiler</div>
+          <div class="sd-col-items">
+            <div class="sd-col-item">AI Sistem Envanter Kartı (Observe&rsquo;dan)</div>
+            <div class="sd-col-item">AB AI Yasası risk kategorileri</div>
+            <div class="sd-col-item">Sektöre özgü düzenleme bağlamı</div>
+          </div>
+        </div>
+        <div class="sd-col">
+          <div class="sd-col-label">Süreç</div>
+          <div class="sd-col-items">
+            <div class="sd-col-item">Md. 5 yasaklanan uygulamaları kontrol edin</div>
+            <div class="sd-col-item">Md. 6(1) ürün güvenliği / Ek I değerlendirin</div>
+            <div class="sd-col-item">Md. 6(2) Ek III yüksek risk alanlarını kontrol edin</div>
+            <div class="sd-col-item">Md. 50 şeffaflık yükümlülüklerini değerlendirin</div>
+            <div class="sd-col-item">Md. 51&ndash;56 GPAI sınıflandırmasını değerlendirin</div>
+          </div>
+        </div>
+        <div class="sd-col">
+          <div class="sd-col-label">Çıktılar</div>
+          <div class="sd-col-items">
+            <div class="sd-col-item">Risk Sınıflandırma Raporu</div>
+            <div class="sd-col-item">Geçerli madde referansları</div>
+            <div class="sd-col-item">Yönetişim yolu belirleme</div>
+          </div>
+        </div>
+      </div>
+      <div class="sd-footer">
+        <div class="sd-ref"><div class="sd-ref-label">AB AI Yasası</div><div class="sd-ref-val">Md. 5 (yasaklanan), Md. 6 (yüksek risk), Md. 50 (şeffaflık), Md. 51&ndash;56 (GPAI)</div></div>
+        <div class="sd-ref"><div class="sd-ref-label">KVKK</div><div class="sd-ref-val">Md. 5&ndash;6 (işleme şartları), Md. 11(1)(g) (otomatik karar itiraz hakkı)</div></div>
+        <div class="sd-ref"><div class="sd-ref-label">ISO 42001</div><div class="sd-ref-val">&sect;6.1.2 (risk değerlendirmesi), Ek B (AI risk kaynakları)</div></div>
+      </div>
+      <div class="sd-transition">
+        <div class="sd-trans-block"><div class="sd-trans-label">Identify&rsquo;a geçiş</div><div class="sd-trans-val">Risk sınıflandırması onaylandı. Yönetişim yolu (yüksek/sınırlı/minimal) seçildi.</div></div>
+        <div class="sd-trans-block"><div class="sd-trans-label">Geri dönüş tetikleyicisi</div><div class="sd-trans-val">Düzenleyici yeniden sınıflandırma, yeni Ek güncellemesi veya sistem kapasitesi değişikliği &rarr; Risk&rsquo;e dön.</div></div>
+      </div>
+      <div class="sd-tool">
+        <div class="sd-tool-label">Hexis Aracı</div>
+        <div class="sd-tool-name">Generator &mdash; Risk Sınıflandırma Sihirbazı (6 adım)</div>
+        <div class="sd-tool-status live">Aktif</div>
+      </div>
+    </div>
+
+    <!-- IDENTIFY -->
+    <div class="stage-detail">
+      <div class="sd-header">
+        <div class="sd-letter">I</div>
+        <div class="sd-title-block">
+          <div class="sd-stage-num">Aşama 03</div>
+          <div class="sd-stage-name">Identify</div>
+          <div class="sd-stage-question">Bu sisteme hangi spesifik yükümlülükler uygulanıyor?</div>
+        </div>
+      </div>
+      <div class="sd-body">
+        <div class="sd-col">
+          <div class="sd-col-label">Girdiler</div>
+          <div class="sd-col-items">
+            <div class="sd-col-item">Risk Sınıflandırma Raporu (Risk&rsquo;ten)</div>
+            <div class="sd-col-item">Kuruluş rolü (sağlayıcı/konuşlandırıcı/dağıtıcı)</div>
+            <div class="sd-col-item">Sektöre özgü gereklilikler</div>
+          </div>
+        </div>
+        <div class="sd-col">
+          <div class="sd-col-label">Süreç</div>
+          <div class="sd-col-items">
+            <div class="sd-col-item">AB AI Yasası madde bazlı yükümlülük haritası</div>
+            <div class="sd-col-item">KVKK gereklilikleriyle çapraz referanslama</div>
+            <div class="sd-col-item">Uygunluk değerlendirmesi yolunu belirleyin (Md. 43)</div>
+            <div class="sd-col-item">Teknik dokümantasyon gerekliliklerini haritalandırın (Ek IV)</div>
+          </div>
+        </div>
+        <div class="sd-col">
+          <div class="sd-col-label">Çıktılar</div>
+          <div class="sd-col-items">
+            <div class="sd-col-item">Yükümlülük Kayıt Defteri</div>
+            <div class="sd-col-item">Sisteme özgü uyum kontrol listesi</div>
+            <div class="sd-col-item">KVKK çapraz referans tablosu</div>
+          </div>
+        </div>
+      </div>
+      <div class="sd-footer">
+        <div class="sd-ref"><div class="sd-ref-label">AB AI Yasası</div><div class="sd-ref-val">Md. 8&ndash;15 (yüksek risk gereklilikleri), Md. 16 (sağlayıcı), Md. 26 (konuşlandırıcı), Md. 27 (FRIA), Ek IV</div></div>
+        <div class="sd-ref"><div class="sd-ref-label">KVKK</div><div class="sd-ref-val">Md. 5&ndash;6 (işleme şartları ve özel kategoriler), Md. 8 (aktarım kuralları), Md. 12 (veri sorumlusu yükümlülükleri)</div></div>
+        <div class="sd-ref"><div class="sd-ref-label">ISO 42001</div><div class="sd-ref-val">&sect;6.1.3 (risk iyileştirme), &sect;6.2 (hedefler), Ek A (kontroller)</div></div>
+      </div>
+      <div class="sd-transition">
+        <div class="sd-trans-block"><div class="sd-trans-label">Evaluate&rsquo;a geçiş</div><div class="sd-trans-val">Yükümlülük Kayıt Defteri tamamlandı. Tüm geçerli maddeler ve KVKK çapraz referansları belgelendi.</div></div>
+        <div class="sd-trans-block"><div class="sd-trans-label">Geri dönüş tetikleyicisi</div><div class="sd-trans-val">Yeni yasal gereklilik, kuruluş rolü değişikliği veya sektör düzenlemesi güncellemesi &rarr; Identify&rsquo;a dön.</div></div>
+      </div>
+      <div class="sd-tool">
+        <div class="sd-tool-label">Hexis Aracı</div>
+        <div class="sd-tool-name">AB AI Yasası Uyum Kontrol Listesi</div>
+        <div class="sd-tool-status live">Aktif</div>
+      </div>
+    </div>
+
+    <!-- EVALUATE -->
+    <div class="stage-detail">
+      <div class="sd-header">
+        <div class="sd-letter">E</div>
+        <div class="sd-title-block">
+          <div class="sd-stage-num">Aşama 04</div>
+          <div class="sd-stage-name">Evaluate</div>
+          <div class="sd-stage-question">Yönetişimimiz yükümlülüklere göre nerede duruyor?</div>
+        </div>
+      </div>
+      <div class="sd-body">
+        <div class="sd-col">
+          <div class="sd-col-label">Girdiler</div>
+          <div class="sd-col-items">
+            <div class="sd-col-item">Yükümlülük Kayıt Defteri (Identify&rsquo;dan)</div>
+            <div class="sd-col-item">Mevcut yönetişim dokümantasyonu</div>
+            <div class="sd-col-item">Kurumsal olgunluk öz-değerlendirmesi</div>
+          </div>
+        </div>
+        <div class="sd-col">
+          <div class="sd-col-label">Süreç</div>
+          <div class="sd-col-items">
+            <div class="sd-col-item">Gözetim, izleme, dokümantasyon olgunluğunu puanlayın (5 seviye)</div>
+            <div class="sd-col-item">Ağırlıklı olgunluk hesaplaması uygulayın (G:1.5, İ:1.4, D:1.0)</div>
+            <div class="sd-col-item">Asgari güvence ilkesini uygulayın</div>
+            <div class="sd-col-item">Yönetişim Aktivasyon Matrisi pozisyonunu oluşturun</div>
+            <div class="sd-col-item">Yüksek riskli konuşlandırıcılar için FRIA (Md. 27) gerçekleştirin</div>
+          </div>
+        </div>
+        <div class="sd-col">
+          <div class="sd-col-label">Çıktılar</div>
+          <div class="sd-col-items">
+            <div class="sd-col-item">Yönetişim Aktivasyon Matrisi pozisyonu</div>
+            <div class="sd-col-item">Aktivasyon duruşu + aciliyet endeksi</div>
+            <div class="sd-col-item">Açık analizi raporu</div>
+            <div class="sd-col-item">FRIA raporu (varsa)</div>
+          </div>
+        </div>
+      </div>
+      <div class="sd-footer">
+        <div class="sd-ref"><div class="sd-ref-label">AB AI Yasası</div><div class="sd-ref-val">Md. 9 (risk yönetimi), Md. 14 (insan gözetimi), Md. 27 (FRIA), Md. 17 (kalite yönetim sistemi)</div></div>
+        <div class="sd-ref"><div class="sd-ref-label">KVKK</div><div class="sd-ref-val">Md. 12 (teknik ve idari tedbirler yeterliliği), Md. 11(1)(g) (otomatik karar itiraz hakkı)</div></div>
+        <div class="sd-ref"><div class="sd-ref-label">ISO 42001</div><div class="sd-ref-val">&sect;8.4 (AI risk değerlendirmesi), &sect;9.1 (performans değerlendirmesi)</div></div>
+      </div>
+      <div class="sd-transition">
+        <div class="sd-trans-block"><div class="sd-trans-label">Navigate&rsquo;e geçiş</div><div class="sd-trans-val">Matris pozisyonu hesaplandı. Aktivasyon duruşu ve açık analizi teyit edildi.</div></div>
+        <div class="sd-trans-block"><div class="sd-trans-label">Geri dönüş tetikleyicisi</div><div class="sd-trans-val">Önemli kurumsal değişiklik, yeni yönetişim kapasitesi veya olgunluk gerilemesi &rarr; Evaluate&rsquo;a dön.</div></div>
+      </div>
+      <div class="sd-tool">
+        <div class="sd-tool-label">Hexis Aracı</div>
+        <div class="sd-tool-name">Yönetişim Aktivasyon Matrisi Generator + FRIA Aracı</div>
+        <div class="sd-tool-status live">Aktif</div>
+      </div>
+    </div>
+
+    <!-- NAVIGATE -->
+    <div class="stage-detail">
+      <div class="sd-header">
+        <div class="sd-letter">N</div>
+        <div class="sd-title-block">
+          <div class="sd-stage-num">Aşama 05</div>
+          <div class="sd-stage-name">Navigate</div>
+          <div class="sd-stage-question">Mevcut durumdan uyuma hangi eylemler taşır?</div>
+        </div>
+      </div>
+      <div class="sd-body">
+        <div class="sd-col">
+          <div class="sd-col-label">Girdiler</div>
+          <div class="sd-col-items">
+            <div class="sd-col-item">Aktivasyon duruşu + açık analizi (Evaluate&rsquo;dan)</div>
+            <div class="sd-col-item">Yaptırım takvimi ve son tarihler</div>
+            <div class="sd-col-item">Kurumsal kapasite ve kaynaklar</div>
+          </div>
+        </div>
+        <div class="sd-col">
+          <div class="sd-col-label">Süreç</div>
+          <div class="sd-col-items">
+            <div class="sd-col-item">Açıkları aciliyet endeksine göre önceliklendirin</div>
+            <div class="sd-col-item">Acil eylemleri tanımlayın (0&ndash;30 gün)</div>
+            <div class="sd-col-item">Orta vadeli hedefleri tanımlayın (30&ndash;90 gün)</div>
+            <div class="sd-col-item">Sahiplik ve hesap verebilirlik atayın</div>
+            <div class="sd-col-item">Kaynak gerekliliklerini tahmin edin</div>
+          </div>
+        </div>
+        <div class="sd-col">
+          <div class="sd-col-label">Çıktılar</div>
+          <div class="sd-col-items">
+            <div class="sd-col-item">Son tarihli Eylem Yol Haritası</div>
+            <div class="sd-col-item">Sorumluluk atama matrisi</div>
+            <div class="sd-col-item">Kaynak tahsis planı</div>
+            <div class="sd-col-item">30 günlük hedef durum tanımı</div>
+          </div>
+        </div>
+      </div>
+      <div class="sd-footer">
+        <div class="sd-ref"><div class="sd-ref-label">AB AI Yasası</div><div class="sd-ref-val">Md. 17 (kalite yönetim sistemi), Md. 11 + Ek IV (teknik dokümantasyon), Md. 43 (uygunluk)</div></div>
+        <div class="sd-ref"><div class="sd-ref-label">KVKK</div><div class="sd-ref-val">Md. 12 (yeterli tedbirler), Md. 16 (VERBİS kayıt), Md. 11 (ilgili kişi hakları)</div></div>
+        <div class="sd-ref"><div class="sd-ref-label">ISO 42001</div><div class="sd-ref-val">&sect;6.2 (hedefler ve planlama), &sect;8.1 (operasyonel planlama), &sect;10.1 (iyileştirme)</div></div>
+      </div>
+      <div class="sd-transition">
+        <div class="sd-trans-block"><div class="sd-trans-label">Track&rsquo;e geçiş</div><div class="sd-trans-val">Eylem Yol Haritası onaylandı. Sahiplik atandı. İlk gözden geçirme tarihi belirlendi.</div></div>
+        <div class="sd-trans-block"><div class="sd-trans-label">Geri dönüş tetikleyicisi</div><div class="sd-trans-val">Bütçe kısıtlaması, öncelik değişikliği veya kurumsal yeniden yapılanma &rarr; yeniden önceliklendirme için Navigate&rsquo;e dön.</div></div>
+      </div>
+      <div class="sd-tool">
+        <div class="sd-tool-label">Hexis Aracı</div>
+        <div class="sd-tool-name">Eylem Yol Haritası Şablonu</div>
+        <div class="sd-tool-status planned">Planlandı</div>
+      </div>
+    </div>
+
+    <!-- TRACK -->
+    <div class="stage-detail">
+      <div class="sd-header">
+        <div class="sd-letter">T</div>
+        <div class="sd-title-block">
+          <div class="sd-stage-num">Aşama 06</div>
+          <div class="sd-stage-name">Track</div>
+          <div class="sd-stage-question">Uyumu zaman içinde koruyabiliyor muyuz?</div>
+        </div>
+      </div>
+      <div class="sd-body">
+        <div class="sd-col">
+          <div class="sd-col-label">Girdiler</div>
+          <div class="sd-col-items">
+            <div class="sd-col-item">Eylem Yol Haritası (Navigate&rsquo;den)</div>
+            <div class="sd-col-item">Uygulama kanıtları ve kayıtlar</div>
+            <div class="sd-col-item">Düzenleyici değişiklik izleme akışı</div>
+          </div>
+        </div>
+        <div class="sd-col">
+          <div class="sd-col-label">Süreç</div>
+          <div class="sd-col-items">
+            <div class="sd-col-item">Eylem tamamlanmasını son tarihlere karşı izleyin</div>
+            <div class="sd-col-item">Periyodik yönetişim gözden geçirmeleri yapın</div>
+            <div class="sd-col-item">Düzenleyici değişiklikleri ve yeni rehberleri takip edin</div>
+            <div class="sd-col-item">Olgunluk sapması veya gerilemesini tespit edin</div>
+            <div class="sd-col-item">Koşullar değiştiğinde önceki aşamalara geri dönüşü tetikleyin</div>
+          </div>
+        </div>
+        <div class="sd-col">
+          <div class="sd-col-label">Çıktılar</div>
+          <div class="sd-col-items">
+            <div class="sd-col-item">Yönetişim Kaydı (sürümlü)</div>
+            <div class="sd-col-item">Gözden geçirme takvimi ve denetim izi</div>
+            <div class="sd-col-item">Olgunluk ilerleme takibi</div>
+            <div class="sd-col-item">Geri dönüş tetikleyici bildirimleri</div>
+          </div>
+        </div>
+      </div>
+      <div class="sd-footer">
+        <div class="sd-ref"><div class="sd-ref-label">AB AI Yasası</div><div class="sd-ref-val">Md. 72 (piyasa sonrası izleme), Md. 73 (ciddi olay bildirimi), Md. 17 (kalite yönetim sistemi gözden geçirmesi)</div></div>
+        <div class="sd-ref"><div class="sd-ref-label">KVKK</div><div class="sd-ref-val">Md. 12 (periyodik denetim ve ihlal bildirimi), Md. 15 (veri sorumluları sicili)</div></div>
+        <div class="sd-ref"><div class="sd-ref-label">ISO 42001</div><div class="sd-ref-val">&sect;9.2 (iç denetim), &sect;9.3 (yönetim gözden geçirmesi), &sect;10.2 (sürekli iyileştirme)</div></div>
+      </div>
+      <div class="sd-transition">
+        <div class="sd-trans-block"><div class="sd-trans-label">Observe&rsquo;a döngü</div><div class="sd-trans-val">Her 6 ayda bir veya geri dönüş tetikleyicisi harekete geçtiğinde. Tam ORIENT döngüsü güncellenmiş bağlamla yeniden başlar.</div></div>
+        <div class="sd-trans-block"><div class="sd-trans-label">Geri dönüş tetikleyicileri</div><div class="sd-trans-val">Yeni AI sistemi &rarr; Observe. Düzenleme değişikliği &rarr; Risk. Yeni yükümlülük &rarr; Identify. Olgunluk değişikliği &rarr; Evaluate.</div></div>
+      </div>
+      <div class="sd-tool">
+        <div class="sd-tool-label">Hexis Aracı</div>
+        <div class="sd-tool-name">Yönetişim Gözden Geçirme Takvimi Şablonu</div>
+        <div class="sd-tool-status planned">Planlandı</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DUAL LENS -->
+<section id="dual-lens">
+  <div class="container">
+    <div class="sec-label">Bölüm 04</div>
+    <div class="sec-title">İkili Perspektif: AB AI Yasası &times; KVKK</div>
+    <div class="sec-lead">ORIENT, iki eşzamanlı perspektifle tek bir süreç olarak çalışır. Her aşamada hem AB AI Yasası hem de KVKK gereklilikleri paralel olarak değerlendirilir &mdash; ayrı iş akışları olarak değil, aynı yönetişim sorusuna iki farklı bakış açısı olarak.</div>
+
+    <div class="dual-lens">
+      <div class="dl-header">
+        <div class="dl-corner"><span>Aşama</span></div>
+        <div class="dl-col-head"><div class="dl-col-title">AB AI Yasası Perspektifi</div><div class="dl-col-sub">Regulation (EU) 2024/1689</div></div>
+        <div class="dl-col-head"><div class="dl-col-title">KVKK Perspektifi</div><div class="dl-col-sub">6698 Sayılı Kanun</div></div>
+      </div>
+      <div class="dl-row">
+        <div class="dl-stage-cell"><div class="dl-stage-letter">O</div><div class="dl-stage-name">Observe</div></div>
+        <div class="dl-content-cell">Sistem sınıflandırması: AI sistemi, GPAI modeli veya kapsam dışı mı?</div>
+        <div class="dl-content-cell">Veri işleme envanteri: kişisel veri kategorileri, sınır ötesi aktarımlar?</div>
+      </div>
+      <div class="dl-row">
+        <div class="dl-stage-cell"><div class="dl-stage-letter">R</div><div class="dl-stage-name">Risk</div></div>
+        <div class="dl-content-cell">Md. 5/6/50&rsquo;ye göre risk seviyesi: yasaklanan, yüksek, sınırlı veya minimal?</div>
+        <div class="dl-content-cell">Veri hassasiyeti: özel kategoriler (Md. 6), otomatik kararlar (Md. 11(1)(g))?</div>
+      </div>
+      <div class="dl-row">
+        <div class="dl-stage-cell"><div class="dl-stage-letter">I</div><div class="dl-stage-name">Identify</div></div>
+        <div class="dl-content-cell">Geçerli maddeler, sağlayıcı/konuşlandırıcı yükümlülükleri, uygunluk yolu</div>
+        <div class="dl-content-cell">Hukuki dayanak (Md. 5), veri sorumlusu yükümlülükleri (Md. 12), VERBİS</div>
+      </div>
+      <div class="dl-row">
+        <div class="dl-stage-cell"><div class="dl-stage-letter">E</div><div class="dl-stage-name">Evaluate</div></div>
+        <div class="dl-content-cell">Yönetişim olgunluk değerlendirmesi, FRIA (Md. 27), açık analizi</div>
+        <div class="dl-content-cell">Veri koruma etki değerlendirmesi, teknik/idari tedbirler yeterliliği</div>
+      </div>
+      <div class="dl-row">
+        <div class="dl-stage-cell"><div class="dl-stage-letter">N</div><div class="dl-stage-name">Navigate</div></div>
+        <div class="dl-content-cell">Yaptırım tarihlerine uyumlu uyum yol haritası</div>
+        <div class="dl-content-cell">KVKK uyum eylem planı, ihlal bildirim prosedürleri (Md. 12(5))</div>
+      </div>
+      <div class="dl-row">
+        <div class="dl-stage-cell"><div class="dl-stage-letter">T</div><div class="dl-stage-name">Track</div></div>
+        <div class="dl-content-cell">Piyasa sonrası izleme (Md. 72), düzenleyici değişiklik takibi</div>
+        <div class="dl-content-cell">Periyodik KVKK denetimi (Md. 12), veri ihlali izleme ve bildirimi (Md. 12(5))</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FRAMEWORK ALIGNMENT -->
 <section id="alignment">
-  <div class="wrap">
-    <div class="sec-head">
-      <div class="sec-label">Metodolojik Temel</div>
-      <h2 class="sec-title">Neden Bu Sıra?</h2>
-      <p class="sec-desc">ORIENT'in altı aşaması keyfi değil. Uluslararası alanda kabul görmüş çerçevelerin her biri — farklı dille de olsa — aynı mantığı izliyor: önce tanı, sonra ölç, sonra karar ver, sonra uygula, sonra izle. ORIENT bu ortak mantığı tek bir süreçte, KOBİ için uygulanabilir biçimde ifade eder.</p>
-    </div>
-    <div class="alignment-table-wrap">
-      <table class="alignment-table">
-        <thead>
-          <tr>
-            <th>ORIENT</th>
-            <th>EU AI Act</th>
-            <th>NIST AI RMF</th>
-            <th>ISO/IEC 42001</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td><strong>Observe</strong></td>
-            <td>Md. 9 — risk yönetim sistemi</td>
-            <td>Map</td>
-            <td>Clause 6.1</td>
-          </tr>
-          <tr>
-            <td><strong>Risk</strong></td>
-            <td>Md. 6 — risk sınıflandırması</td>
-            <td>Measure</td>
-            <td>Clause 6.1</td>
-          </tr>
-          <tr>
-            <td><strong>Identify</strong></td>
-            <td>Md. 13, 14, 26 — rol bazlı yükümlülükler</td>
-            <td>Govern</td>
-            <td>Clause 6.2</td>
-          </tr>
-          <tr>
-            <td><strong>Evaluate</strong></td>
-            <td>Md. 27 — temel haklar etki değerlendirmesi</td>
-            <td>Measure</td>
-            <td>Clause 8.4</td>
-          </tr>
-          <tr>
-            <td><strong>Navigate</strong></td>
-            <td>Md. 17 — kalite yönetim sistemi</td>
-            <td>Manage</td>
-            <td>Clause 8</td>
-          </tr>
-          <tr>
-            <td><strong>Track</strong></td>
-            <td>Md. 72 — piyasa sonrası izleme</td>
-            <td>Manage</td>
-            <td>Clause 9–10</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-    <div class="turkey-note">
-      <p>Yukarıdaki çerçevelerin hiçbiri şunu yapamıyor: EU AI Act yükümlülüklerini KVKK yükümlülükleriyle aynı anda, aynı süreçte ele almak. EU AI Act risk sınıfının tetiklediği yükümlülükler ile KVKK'nın kişisel veri işlemenin tetiklediği yükümlülükler farklı mantıklarla çalışıyor; biri risk bazlı, diğeri varlık bazlı. ORIENT'in Risk ve Identify aşamaları bu iki mantığı paralel olarak değerlendiriyor.</p>
+  <div class="container">
+    <div class="sec-label">Bölüm 05</div>
+    <div class="sec-title">Çerçeve Uyumu</div>
+    <div class="sec-lead">ORIENT&rsquo;in altı aşaması keyfi değil. Uluslararası alanda kabul görmüş çerçevelerin her biri &mdash; farklı dille de olsa &mdash; aynı mantığı izliyor: önce tanı, sonra ölç, sonra karar ver, sonra uygula, sonra izle. ORIENT bu ortak mantığı tek bir süreçte ifade eder.</div>
+
+    <table class="alignment-table">
+      <thead>
+        <tr>
+          <th>ORIENT</th>
+          <th>AB AI Yasası</th>
+          <th>NIST AI RMF</th>
+          <th>ISO/IEC 42001</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>Observe</strong></td><td>Md. 9 &mdash; risk yönetim sistemi</td><td>Map</td><td>Clause 4.1, 6.1</td></tr>
+        <tr><td><strong>Risk</strong></td><td>Md. 5&ndash;6 &mdash; risk sınıflandırması</td><td>Measure</td><td>Clause 6.1.2</td></tr>
+        <tr><td><strong>Identify</strong></td><td>Md. 16, 26, 27 &mdash; rol bazlı yükümlülükler</td><td>Govern</td><td>Clause 6.2</td></tr>
+        <tr><td><strong>Evaluate</strong></td><td>Md. 27 &mdash; temel haklar etki değerlendirmesi</td><td>Measure</td><td>Clause 8.4</td></tr>
+        <tr><td><strong>Navigate</strong></td><td>Md. 17 &mdash; kalite yönetim sistemi</td><td>Manage</td><td>Clause 8</td></tr>
+        <tr><td><strong>Track</strong></td><td>Md. 72 &mdash; piyasa sonrası izleme</td><td>Manage</td><td>Clause 9&ndash;10</td></tr>
+      </tbody>
+    </table>
+
+    <div class="note-block" style="margin-top:20px;">
+      <strong>Neden İkili Perspektif?</strong> Yukarıdaki çerçevelerin hiçbiri AB AI Yasası yükümlülüklerini KVKK yükümlülükleriyle aynı anda, aynı süreçte ele alamaz. AB AI Yasası risk bazlı, KVKK varlık bazlı mantıkla çalışır. ORIENT&rsquo;in Risk ve Identify aşamaları bu iki mantığı paralel olarak değerlendirir.
     </div>
   </div>
 </section>
 
+<!-- RETURN TRIGGERS -->
+<section id="triggers">
+  <div class="container">
+    <div class="sec-label">Bölüm 06</div>
+    <div class="sec-title">Geri Dönüş Tetikleyicileri</div>
+    <div class="sec-lead">ORIENT tek yönlü bir süreç değildir. Tanımlanmış koşullar önceki aşamalara geri dönüşü tetikler ve yönetişimin değişen gerçeklikle uyumlu kalmasını sağlar. Track aşaması tüm tetikleyicileri sürekli olarak izler.</div>
 
-<!-- ══ CTA ═══════════════════════════════════════════════════ -->
-<section id="cta">
-  <div class="wrap">
-    <h2 class="cta-title">ORIENT ile Başlamaya Hazır mısınız?</h2>
-    <p class="cta-sub">Şirketinizin AI yönetişim olgunluk düzeyini değerlendirin veya bizimle iletişime geçin.</p>
-    <div class="cta-btns">
-      <a href="/generator/" class="btn-primary">Ücretsiz Uyum Değerlendirmesi →</a>
-      <a href="/checklist/" class="btn-outline">Kontrol Listesine Git →</a>
+    <div class="triggers-grid">
+      <div class="trigger-cell">
+        <div class="trigger-condition">Yeni AI sistemi veya bileşeni eklenmesi</div>
+        <div class="trigger-target">Geri dönüş &rarr; Observe</div>
+      </div>
+      <div class="trigger-cell">
+        <div class="trigger-condition">Sistem amacı veya kapsamının değişmesi</div>
+        <div class="trigger-target">Geri dönüş &rarr; Observe</div>
+      </div>
+      <div class="trigger-cell">
+        <div class="trigger-condition">Düzenleyici yeniden sınıflandırma veya Ek güncellemesi</div>
+        <div class="trigger-target">Geri dönüş &rarr; Risk</div>
+      </div>
+      <div class="trigger-cell">
+        <div class="trigger-condition">Sistem kapasitesi veya performans değişikliği</div>
+        <div class="trigger-target">Geri dönüş &rarr; Risk</div>
+      </div>
+      <div class="trigger-cell">
+        <div class="trigger-condition">Yeni yasal gereklilik veya sektör düzenlemesi</div>
+        <div class="trigger-target">Geri dönüş &rarr; Identify</div>
+      </div>
+      <div class="trigger-cell">
+        <div class="trigger-condition">Kuruluş rolü değişikliği (sağlayıcı &harr; konuşlandırıcı)</div>
+        <div class="trigger-target">Geri dönüş &rarr; Identify</div>
+      </div>
+      <div class="trigger-cell">
+        <div class="trigger-condition">Yönetişim olgunluk gerilemesinin tespit edilmesi</div>
+        <div class="trigger-target">Geri dönüş &rarr; Evaluate</div>
+      </div>
+      <div class="trigger-cell">
+        <div class="trigger-condition">Kurumsal yeniden yapılanma veya kaynak değişikliği</div>
+        <div class="trigger-target">Geri dönüş &rarr; Navigate</div>
+      </div>
+    </div>
+
+    <div class="italic-note">
+      Planlı geri giriş: Her 6 ayda bir, Track aşaması belirli bir tetikleyici ateşlenmese bile Observe üzerinden tam döngü yeniden başlatılmasını tetikler. Bu, yönetişimin sabit ortamlarda bile bayatlamamasını güvence altına alır.
     </div>
   </div>
 </section>
 
+<!-- LIMITATIONS + FEEDBACK -->
+<section id="limitations">
+  <div class="container">
+    <div class="sec-label">Bölüm 07</div>
+    <div class="sec-title">Sınırlılıklar ve Geri Bildirim</div>
+    <div class="sec-lead">ORIENT v1.0, ne yaptığı ve ne yapmadığı konusunda şeffaf olmak üzere tasarlanmıştır.</div>
 
-<!-- ══ FOOTER ═════════════════════════════════════════════════ -->
-<footer>
-  <div class="footer-left">
-    <a href="../"><img src="../assets/logo-light.png" alt="Hexis" width="32" height="18"></a>
-    <span class="footer-sep">·</span>
-    <span class="footer-txt">© 2026 Hexis · Built by Özden Coşkun · Yalnızca bilgilendirme amaçlıdır; hukuki danışmanlık niteliği taşımaz.</span>
+    <div class="limits-grid">
+      <div class="limit-cell">
+        <div class="limit-label">Hukuki danışmanlık değildir</div>
+        <div class="limit-text">ORIENT normatif yönetişim tavsiyeleri üretir, hukuki görüş değil. Bulgular, düzenleyici sunumlardan önce nitelikli hukuk veya uyum danışmanı tarafından gözden geçirilmelidir.</div>
+      </div>
+      <div class="limit-cell">
+        <div class="limit-label">Sertifikasyon değildir</div>
+        <div class="limit-text">Bir ORIENT değerlendirmesi, AB AI Yasası, ISO 42001 veya başka bir standarda uyumluluğun sertifikasyonu niteliği taşımaz. Yapılandırılmış bir değerlendirme girdisidir.</div>
+      </div>
+      <div class="limit-cell">
+        <div class="limit-label">Bağlam-nötr (V1)</div>
+        <div class="limit-text">Versiyon 1.0 tüm sektörlerde tek tip ağırlıklar uygular. Sağlık, İK ve finans bağlamları ayarlanmış profiller gerektirebilir. Sektöre özgü ağırlık profilleri V2 için planlanmıştır.</div>
+      </div>
+      <div class="limit-cell">
+        <div class="limit-label">Normatif, istatistiksel değil</div>
+        <div class="limit-text">Ağırlıklar, düzenleyici öncelik sinyallerini yansıtır &mdash; olaylardan elde edilen ampirik verileri değil. Model bu konuda şeffaftır. Ağırlıklar V3&rsquo;te gerçek kullanım verilerine göre kalibre edilecektir.</div>
+      </div>
+    </div>
+
+    <div class="feedback-block">
+      <div class="fb-left">
+        <div class="fb-title">Geri Bildirim ve Metodoloji Katkısı</div>
+        <div class="fb-text">ORIENT metodolojisi hakkında esaslı geri bildirimleri memnuniyetle karşılıyoruz. Katkılar, metodoloji güncellemeleri sırasında (sonraki: Eylül 2026) incelenir ve dahil edildiğinde kaynak gösterilir.</div>
+      </div>
+      <a href="mailto:contact@hexis.center" class="fb-link">contact@hexis.center</a>
+    </div>
   </div>
-  <div class="footer-links">
-    <a href="./">ORIENT Çerçevesi</a>
-    <a href="../generator/">Generator</a>
-    <a href="../#contact">İletişim</a>
-    <a href="/gizlilik/">Gizlilik</a>
-    <a href="https://eur-lex.europa.eu/legal-content/TR/TXT/?uri=CELEX:32024R1689" target="_blank" rel="noopener noreferrer">EU AI Act</a>
-    <a href="https://www.linkedin.com/in/ozden-coskun-8728a1301" target="_blank" rel="noopener noreferrer">LinkedIn</a>
-  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+  <div class="cta-label">Metodolojiyi uygulayın</div>
+  <div class="cta-title">ORIENT Değerlendirmenize Başlayın</div>
+  <div class="cta-sub">AI sisteminizin riskini sınıflandırın, yönetişim olgunluğunu değerlendirin ve bir aktivasyon raporu oluşturun.</div>
+  <a href="/generator/" class="cta-btn">Generator</a>
+  <a href="/eu-ai-act-checklist.html" class="cta-btn-outline">Kontrol Listesi</a>
+</section>
+
+<!-- PAGE FOOTER -->
+<footer class="page-footer">
+  <a href="/" class="pf-brand"><img src="/assets/logo.png" alt="Hexis" width="32" height="18"></a>
+  <div class="pf-meta">ORIENT Metodolojisi v1.0 &middot; Mart 2026<br>hexis.center/metodoloji &middot; <a href="/gizlilik/" style="color:inherit;text-decoration:underline;">Gizlilik</a></div>
 </footer>
 
-<script>
-  function toggleMenu() {
-    document.getElementById('hamburger').classList.toggle('open');
-    document.getElementById('mobileMenu').classList.toggle('open');
-  }
-  function closeMenu() {
-    document.getElementById('hamburger').classList.remove('open');
-    document.getElementById('mobileMenu').classList.remove('open');
-  }
-</script>
 </body>
 </html>
