@@ -743,6 +743,45 @@
   }
   .obs-idk-helper.visible { display: block; }
 
+  /* Observe form groups */
+  .obs-group {
+    margin-bottom: 28px; padding-bottom: 8px;
+    border-bottom: 1px solid var(--rule-s);
+  }
+  .obs-group:last-of-type { border-bottom: none; }
+  .obs-group-label {
+    font-size: 9px; letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--brass); margin-bottom: 16px; font-weight: 700;
+    font-family: Arial, Helvetica, sans-serif;
+  }
+
+  /* Radio row (inline Yes/No/Not sure) */
+  .obs-radio-row { display: flex; gap: 6px; }
+
+  /* Field hint */
+  .obs-field-hint {
+    font-size: 10px; color: var(--stone); margin-top: 6px;
+    line-height: 1.5; font-style: italic;
+  }
+
+  /* AI component warning */
+  .obs-ai-warning {
+    display: none; margin-top: 8px; padding: 10px 14px;
+    border-left: 2px solid var(--brass);
+    font-size: 11px; color: var(--ink-soft); line-height: 1.6;
+    background: rgba(178,152,108,0.04);
+  }
+  .obs-ai-warning.visible { display: block; }
+
+  /* KVKK block */
+  .obs-kvkk-group {
+    border: 1px solid var(--rule);
+    padding: 20px; margin-top: 4px;
+  }
+  .obs-kvkk-group .obs-group-label {
+    color: var(--stone);
+  }
+
   /* Observe form actions */
   .obs-form-actions {
     display: flex; gap: 10px; margin-top: 24px; padding-top: 16px;
@@ -1157,66 +1196,211 @@
     <!-- ── OBSERVE FORM ── -->
     <div class="obs-form" id="obs-form">
 
-      <!-- Field 1: System Name -->
-      <div class="obs-field">
-        <label class="obs-label" data-en="System Name" data-tr="Sistem Adı">System Name</label>
-        <input class="obs-input" id="obs-system-name" type="text" data-placeholder-en="e.g. CV Screening System, Customer Credit Scoring Model" data-placeholder-tr="örn. CV Filtreleme Sistemi, Müşteri Kredi Skorlama Modeli" placeholder="e.g. CV Screening System, Customer Credit Scoring Model">
-      </div>
+      <!-- ═══ GROUP 1: System Identity ═══ -->
+      <div class="obs-group">
+        <div class="obs-group-label" data-en="System Identity" data-tr="Sistem Kimliği">System Identity</div>
 
-      <!-- Field 2: Sector -->
-      <div class="obs-field">
-        <label class="obs-label" data-en="Sector" data-tr="Sektör">Sector</label>
-        <select class="obs-select" id="obs-sector" onchange="onSectorChange()">
-          <option value="" data-en="— Select —" data-tr="— Seçiniz —">— Select —</option>
-          <option value="hr" data-en="Human Resources" data-tr="İnsan Kaynakları">Human Resources</option>
-          <option value="finance" data-en="Finance &amp; Credit" data-tr="Finans ve Kredi">Finance &amp; Credit</option>
-          <option value="healthcare" data-en="Healthcare" data-tr="Sağlık">Healthcare</option>
-          <option value="retail" data-en="Retail &amp; E-commerce" data-tr="Perakende ve E-ticaret">Retail &amp; E-commerce</option>
-          <option value="legal" data-en="Legal" data-tr="Hukuk">Legal</option>
-          <option value="education" data-en="Education" data-tr="Eğitim">Education</option>
-          <option value="public" data-en="Public Sector" data-tr="Kamu">Public Sector</option>
-          <option value="other" data-en="Other" data-tr="Diğer">Other</option>
-        </select>
-      </div>
+        <!-- Field 1: System Name -->
+        <div class="obs-field">
+          <label class="obs-label" data-en="System Name" data-tr="Sistem Adı">System Name</label>
+          <input class="obs-input" id="obs-system-name" type="text" data-placeholder-en="e.g. CV Screening System, Customer Credit Scoring Model" data-placeholder-tr="örn. CV Filtreleme Sistemi, Müşteri Kredi Skorlama Modeli" placeholder="e.g. CV Screening System, Customer Credit Scoring Model">
+        </div>
 
-      <!-- Field 3: Intended Purpose -->
-      <div class="obs-field">
-        <label class="obs-label" data-en="Intended Purpose" data-tr="Tasarım Amacı">Intended Purpose</label>
-        <textarea class="obs-textarea" id="obs-purpose" data-placeholder-en="Describe what the system produces as output and how that output is used." data-placeholder-tr="Sistemin ürettiği çıktıyı ve bu çıktının nasıl kullanıldığını açıklayın." placeholder="Describe what the system produces as output and how that output is used."></textarea>
-        <button class="obs-toggle" onclick="toggleObsPanel(this)">
-          <span class="obs-toggle-chevron">▸</span>
-          <span data-en="Why does this matter?" data-tr="Bu neden önemli?">Why does this matter?</span>
-        </button>
-        <div class="obs-toggle-content" data-en="Article 3(12) of the EU AI Act requires intended purpose to be explicitly defined before a system is placed on the market or put into service. Your risk classification under Article 6 — and every obligation that follows — is determined by this definition. Without a documented intended purpose, risk assessment has no foundation." data-tr="EU AI Act Madde 3(12), <em>intended purpose</em>'un sistem piyasaya sürülmeden veya hizmete alınmadan önce açıkça tanımlanmasını zorunlu kılar. Madde 6 kapsamındaki risk sınıfınız ve buna bağlı tüm yükümlülükler bu tanıma göre belirlenir. Belgelenmiş bir <em>intended purpose</em> olmadan risk değerlendirmesinin temeli yoktur.">Article 3(12) of the EU AI Act requires intended purpose to be explicitly defined before a system is placed on the market or put into service. Your risk classification under Article 6 — and every obligation that follows — is determined by this definition. Without a documented intended purpose, risk assessment has no foundation.
-          <div class="obs-toggle-examples" data-en="Examples:<br>• &quot;Screens job applications and ranks candidates by fit score&quot;<br>• &quot;Calculates credit risk score for loan applications&quot;<br>• &quot;Recommends products based on customer purchase history&quot;" data-tr="Örnekler:<br>• &quot;İş başvurularını tarar ve adayları uygunluk puanına göre sıralar&quot;<br>• &quot;Kredi başvuruları için kredi risk puanı hesaplar&quot;<br>• &quot;Müşteri satın alma geçmişine göre ürün önerir&quot;">Examples:<br>&bull; "Screens job applications and ranks candidates by fit score"<br>&bull; "Calculates credit risk score for loan applications"<br>&bull; "Recommends products based on customer purchase history"</div>
+        <!-- Field 2: Sector -->
+        <div class="obs-field">
+          <label class="obs-label" data-en="Sector" data-tr="Sektör">Sector</label>
+          <select class="obs-select" id="obs-sector" onchange="onSectorChange()">
+            <option value="" data-en="&mdash; Select &mdash;" data-tr="&mdash; Seçiniz &mdash;">&mdash; Select &mdash;</option>
+            <option value="hr" data-en="Human Resources" data-tr="İnsan Kaynakları">Human Resources</option>
+            <option value="finance" data-en="Finance &amp; Credit" data-tr="Finans ve Kredi">Finance &amp; Credit</option>
+            <option value="healthcare" data-en="Healthcare" data-tr="Sağlık">Healthcare</option>
+            <option value="retail" data-en="Retail &amp; E-commerce" data-tr="Perakende ve E-ticaret">Retail &amp; E-commerce</option>
+            <option value="legal" data-en="Legal" data-tr="Hukuk">Legal</option>
+            <option value="education" data-en="Education" data-tr="Eğitim">Education</option>
+            <option value="public" data-en="Public Sector" data-tr="Kamu">Public Sector</option>
+            <option value="other" data-en="Other" data-tr="Diğer">Other</option>
+          </select>
+        </div>
+
+        <!-- Field 7: AI Component Identification -->
+        <div class="obs-field">
+          <label class="obs-label" data-en="AI Component" data-tr="AI Bileşeni">AI Component</label>
+          <select class="obs-select" id="obs-ai-component" onchange="onAiComponentChange()">
+            <option value="" data-en="&mdash; Select &mdash;" data-tr="&mdash; Seçiniz &mdash;">&mdash; Select &mdash;</option>
+            <option value="ml" data-en="Machine learning model (supervised, unsupervised, reinforcement)" data-tr="Makine öğrenmesi modeli (denetimli, denetimsiz, pekiştirmeli)">Machine learning model (supervised, unsupervised, reinforcement)</option>
+            <option value="genai" data-en="Generative AI / Foundation model / LLM" data-tr="Üretken AI / Temel model / LLM">Generative AI / Foundation model / LLM</option>
+            <option value="expert" data-en="Expert system / Knowledge-based system" data-tr="Uzman sistemi / Bilgi tabanlı sistem">Expert system / Knowledge-based system</option>
+            <option value="hybrid" data-en="Hybrid (AI + rule-based components)" data-tr="Hibrit (AI + kural tabanlı bileşenler)">Hybrid (AI + rule-based components)</option>
+            <option value="rule" data-en="Rule-based automation (no AI component)" data-tr="Kural tabanlı otomasyon (AI bileşeni yok)">Rule-based automation (no AI component)</option>
+            <option value="unsure" data-en="Not sure" data-tr="Emin değilim">Not sure</option>
+          </select>
+          <div class="obs-ai-warning" id="obs-ai-warning" data-en="Rule-based automation systems without AI components are generally outside the scope of the EU AI Act (Article 3(1)). You may still continue to assess governance maturity." data-tr="AI bileşeni içermeyen kural tabanlı otomasyon sistemleri genellikle AB AI Yasası kapsamı dışındadır (Madde 3(1)). Yine de yönetişim olgunluğunu değerlendirmeye devam edebilirsiniz.">Rule-based automation systems without AI components are generally outside the scope of the EU AI Act (Article 3(1)). You may still continue to assess governance maturity.</div>
+          <button class="obs-toggle" onclick="toggleObsPanel(this)">
+            <span class="obs-toggle-chevron">&#9656;</span>
+            <span data-en="Why does this matter?" data-tr="Bu neden önemli?">Why does this matter?</span>
+          </button>
+          <div class="obs-toggle-content" data-en="The EU AI Act applies specifically to AI systems as defined in Article 3(1). Pure rule-based automation that does not involve machine learning, logic-based, or statistical approaches may fall outside the regulation's scope. Identifying the AI component correctly is essential for determining whether the Act applies to your system." data-tr="AB AI Yasası, Madde 3(1)'de tanımlanan AI sistemlerine uygulanır. Makine öğrenmesi, mantık tabanlı veya istatistiksel yaklaşım içermeyen saf kural tabanlı otomasyon, düzenlemenin kapsamı dışında kalabilir. AI bileşenini doğru tanımlamak, Yasa'nın sisteminize uygulanıp uygulanmadığını belirlemek için gereklidir.">The EU AI Act applies specifically to AI systems as defined in Article 3(1). Pure rule-based automation that does not involve machine learning, logic-based, or statistical approaches may fall outside the regulation's scope. Identifying the AI component correctly is essential for determining whether the Act applies to your system.</div>
         </div>
       </div>
 
-      <!-- Field 4: Affected Stakeholders -->
-      <div class="obs-field">
-        <label class="obs-label" data-en="Affected Stakeholders" data-tr="Etkilenen Paydaşlar">Affected Stakeholders</label>
-        <div class="obs-checkbox-group" id="obs-stakeholders"></div>
-        <div class="obs-vulnerable-link" id="obs-vulnerable-link" data-en="Does your system affect vulnerable groups? → <a href='/fria/'>Conduct FRIA</a>" data-tr="Sisteminiz hassas grupları etkiliyor mu? → <a href='/fria/'>FRIA uygulayın</a>">Does your system affect vulnerable groups? → <a href="/fria/">Conduct FRIA</a></div>
-        <button class="obs-toggle" onclick="toggleObsPanel(this)">
-          <span class="obs-toggle-chevron">▸</span>
-          <span data-en="Why does this matter?" data-tr="Bu neden önemli?">Why does this matter?</span>
-        </button>
-        <div class="obs-toggle-content" data-en="The EU AI Act pays particular attention to systems affecting vulnerable groups — minors, persons with disabilities, or those in situations of vulnerability. If your system affects any of these groups, additional obligations may apply, and a Fundamental Rights Impact Assessment (FRIA) under Article 27 may be required." data-tr="EU AI Act, çocuklar, engelli bireyler veya savunmasız konumdaki kişiler gibi hassas grupları etkileyen sistemlere özel dikkat gösterir. Sisteminiz bu grupları etkiliyorsa ek yükümlülükler doğabilir; Madde 27 kapsamında <em>Fundamental Rights Impact Assessment</em> (FRIA, Temel Haklar Etki Değerlendirmesi) gerekebilir.">The EU AI Act pays particular attention to systems affecting vulnerable groups — minors, persons with disabilities, or those in situations of vulnerability. If your system affects any of these groups, additional obligations may apply, and a Fundamental Rights Impact Assessment (FRIA) under Article 27 may be required.</div>
+      <!-- ═══ GROUP 2: Context ═══ -->
+      <div class="obs-group">
+        <div class="obs-group-label" data-en="Context" data-tr="Bağlam">Context</div>
+
+        <!-- Field 3: Intended Purpose -->
+        <div class="obs-field">
+          <label class="obs-label" data-en="Intended Purpose" data-tr="Tasarım Amacı">Intended Purpose</label>
+          <textarea class="obs-textarea" id="obs-purpose" data-placeholder-en="Describe what the system produces as output and how that output is used." data-placeholder-tr="Sistemin ürettiği çıktıyı ve bu çıktının nasıl kullanıldığını açıklayın." placeholder="Describe what the system produces as output and how that output is used."></textarea>
+          <button class="obs-toggle" onclick="toggleObsPanel(this)">
+            <span class="obs-toggle-chevron">&#9656;</span>
+            <span data-en="Why does this matter?" data-tr="Bu neden önemli?">Why does this matter?</span>
+          </button>
+          <div class="obs-toggle-content" data-en="Article 3(12) of the EU AI Act requires intended purpose to be explicitly defined before a system is placed on the market or put into service. Your risk classification under Article 6 &mdash; and every obligation that follows &mdash; is determined by this definition. Without a documented intended purpose, risk assessment has no foundation." data-tr="EU AI Act Madde 3(12), <em>intended purpose</em>'un sistem piyasaya sürülmeden veya hizmete alınmadan önce açıkça tanımlanmasını zorunlu kılar. Madde 6 kapsamındaki risk sınıfınız ve buna bağlı tüm yükümlülükler bu tanıma göre belirlenir. Belgelenmiş bir <em>intended purpose</em> olmadan risk değerlendirmesinin temeli yoktur.">Article 3(12) of the EU AI Act requires intended purpose to be explicitly defined before a system is placed on the market or put into service. Your risk classification under Article 6 &mdash; and every obligation that follows &mdash; is determined by this definition. Without a documented intended purpose, risk assessment has no foundation.
+            <div class="obs-toggle-examples" data-en="Examples:<br>&bull; &quot;Screens job applications and ranks candidates by fit score&quot;<br>&bull; &quot;Calculates credit risk score for loan applications&quot;<br>&bull; &quot;Recommends products based on customer purchase history&quot;" data-tr="Örnekler:<br>&bull; &quot;İş başvurularını tarar ve adayları uygunluk puanına göre sıralar&quot;<br>&bull; &quot;Kredi başvuruları için kredi risk puanı hesaplar&quot;<br>&bull; &quot;Müşteri satın alma geçmişine göre ürün önerir&quot;">Examples:<br>&bull; "Screens job applications and ranks candidates by fit score"<br>&bull; "Calculates credit risk score for loan applications"<br>&bull; "Recommends products based on customer purchase history"</div>
+          </div>
+        </div>
+
+        <!-- Field 6: Organisation Role -->
+        <div class="obs-field">
+          <label class="obs-label" data-en="Organisation Role" data-tr="Kuruluş Rolü">Organisation Role</label>
+          <select class="obs-select" id="obs-role">
+            <option value="" data-en="&mdash; Select &mdash;" data-tr="&mdash; Seçiniz &mdash;">&mdash; Select &mdash;</option>
+            <option value="provider" data-en="Provider &mdash; We develop or commission the AI system" data-tr="Sağlayıcı (Provider) &mdash; AI sistemini geliştiriyoruz veya geliştirtiyoruz">Provider &mdash; We develop or commission the AI system</option>
+            <option value="deployer" data-en="Deployer &mdash; We use the AI system under our authority" data-tr="Konuşlandırıcı (Deployer) &mdash; AI sistemini kendi yetkimiz altında kullanıyoruz">Deployer &mdash; We use the AI system under our authority</option>
+            <option value="provider_deployer" data-en="Both &mdash; We develop and deploy" data-tr="Her ikisi &mdash; Hem geliştiriyoruz hem konuşlandırıyoruz">Both &mdash; We develop and deploy</option>
+            <option value="distributor" data-en="Distributor / Importer" data-tr="Dağıtıcı / İthalatçı">Distributor / Importer</option>
+            <option value="unsure" data-en="Not sure" data-tr="Emin değilim">Not sure</option>
+          </select>
+          <button class="obs-toggle" onclick="toggleObsPanel(this)">
+            <span class="obs-toggle-chevron">&#9656;</span>
+            <span data-en="Why does this matter?" data-tr="Bu neden önemli?">Why does this matter?</span>
+          </button>
+          <div class="obs-toggle-content" data-en="The EU AI Act assigns different obligations based on your role in the AI value chain. Providers (Article 16) bear the heaviest obligations: conformity assessment, technical documentation, post-market monitoring. Deployers (Article 26) must ensure proper use, human oversight, and input data relevance. Distributors and importers have verification duties (Articles 24&ndash;25). Misidentifying your role means misidentifying your obligations." data-tr="AB AI Yasası, AI değer zincirindeki rolünüze göre farklı yükümlülükler atar. Sağlayıcılar (Madde 16) en ağır yükümlülükleri taşır: uygunluk değerlendirmesi, teknik dokümantasyon, pazar sonrası izleme. Konuşlandırıcılar (Madde 26) doğru kullanım, insan gözetimi ve girdi verisi uygunluğunu sağlamalıdır. Dağıtıcı ve ithalatçıların doğrulama görevleri vardır (Madde 24&ndash;25). Rolünüzü yanlış tanımlamak, yükümlülüklerinizi yanlış tanımlamak demektir.">The EU AI Act assigns different obligations based on your role in the AI value chain. Providers (Article 16) bear the heaviest obligations: conformity assessment, technical documentation, post-market monitoring. Deployers (Article 26) must ensure proper use, human oversight, and input data relevance. Distributors and importers have verification duties (Articles 24&ndash;25). Misidentifying your role means misidentifying your obligations.</div>
+        </div>
+
+        <!-- Field 10: EU Market Scope -->
+        <div class="obs-field">
+          <label class="obs-label" data-en="EU Market Scope" data-tr="AB Pazarı Kapsamı">EU Market Scope</label>
+          <div class="obs-radio-row" id="obs-eu-market">
+            <button class="obs-radio-btn" data-val="yes" onclick="setObsRadio('eu-market','yes',this)" data-en="Yes" data-tr="Evet">Yes</button>
+            <button class="obs-radio-btn" data-val="no" onclick="setObsRadio('eu-market','no',this)" data-en="No" data-tr="Hayır">No</button>
+            <button class="obs-radio-btn" data-val="unsure" onclick="setObsRadio('eu-market','unsure',this)" data-en="Not sure" data-tr="Emin değilim">Not sure</button>
+          </div>
+          <div class="obs-field-hint" data-en="Is this system used in the EU market, or does its output affect individuals in the EU?" data-tr="Bu sistem AB pazarında kullanılıyor mu veya çıktısı AB'deki bireyleri etkiliyor mu?">Is this system used in the EU market, or does its output affect individuals in the EU?</div>
+          <button class="obs-toggle" onclick="toggleObsPanel(this)">
+            <span class="obs-toggle-chevron">&#9656;</span>
+            <span data-en="Why does this matter?" data-tr="Bu neden önemli?">Why does this matter?</span>
+          </button>
+          <div class="obs-toggle-content" data-en="Article 2 of the EU AI Act defines its territorial scope. The Act applies to providers placing AI systems on the EU market, deployers established in the EU, and providers/deployers in third countries where AI system output is used in the EU. If your system has no connection to the EU market, the Act may not apply &mdash; though other jurisdictions may have their own requirements." data-tr="AB AI Yasası Madde 2, düzenlemenin coğrafi kapsamını tanımlar. Yasa; AI sistemlerini AB pazarına sunan sağlayıcılara, AB'de yerleşik konuşlandırıcılara ve AI sistem çıktısı AB'de kullanılan üçüncü ülke sağlayıcı/konuşlandırıcılarına uygulanır. Sisteminizin AB pazarıyla bağlantısı yoksa Yasa uygulanmayabilir &mdash; ancak diğer yargı alanlarının kendi gereksinimleri olabilir.">Article 2 of the EU AI Act defines its territorial scope. The Act applies to providers placing AI systems on the EU market, deployers established in the EU, and providers/deployers in third countries where AI system output is used in the EU. If your system has no connection to the EU market, the Act may not apply &mdash; though other jurisdictions may have their own requirements.</div>
+        </div>
       </div>
 
-      <!-- Field 5: Foreseeable Misuse -->
-      <div class="obs-field">
-        <label class="obs-label" data-en="Foreseeable Misuse" data-tr="Öngörülebilir Kötüye Kullanım">Foreseeable Misuse</label>
-        <div id="obs-misuse-scenarios"></div>
-        <button class="obs-toggle" onclick="toggleObsPanel(this)">
-          <span class="obs-toggle-chevron">▸</span>
-          <span data-en="Why does this matter?" data-tr="Bu neden önemli?">Why does this matter?</span>
-        </button>
-        <div class="obs-toggle-content" data-en="Article 3(12) of the EU AI Act includes &quot;reasonably foreseeable misuse&quot; within the definition of intended purpose. Your risk classification must account not only for what the system is designed to do, but also for predictable unintended uses. If foreseeable misuse is not assessed at this stage, the Risk stage begins on an incomplete foundation." data-tr="EU AI Act Madde 3(12), <em>intended purpose</em> tanımına &quot;makul ölçüde öngörülebilir kötüye kullanımı&quot; (<em>reasonably foreseeable misuse</em>) dahil eder. Risk sınıflandırmanız yalnızca sistemin tasarım amacını değil, öngörülebilir istem dışı kullanımları da kapsamalıdır. Bu aşamada <em>foreseeable misuse</em> değerlendirilmezse Risk aşaması eksik temele dayanır.">Article 3(12) of the EU AI Act includes "reasonably foreseeable misuse" within the definition of intended purpose. Your risk classification must account not only for what the system is designed to do, but also for predictable unintended uses. If foreseeable misuse is not assessed at this stage, the Risk stage begins on an incomplete foundation.</div>
+      <!-- ═══ GROUP 3: Impact ═══ -->
+      <div class="obs-group">
+        <div class="obs-group-label" data-en="Impact" data-tr="Etki Alanı">Impact</div>
+
+        <!-- Field 4: Affected Stakeholders -->
+        <div class="obs-field">
+          <label class="obs-label" data-en="Affected Stakeholders" data-tr="Etkilenen Paydaşlar">Affected Stakeholders</label>
+          <div class="obs-checkbox-group" id="obs-stakeholders"></div>
+          <div class="obs-vulnerable-link" id="obs-vulnerable-link" data-en="Does your system affect vulnerable groups? &rarr; <a href='/fria/'>Conduct FRIA</a>" data-tr="Sisteminiz hassas grupları etkiliyor mu? &rarr; <a href='/fria/'>FRIA uygulayın</a>">Does your system affect vulnerable groups? &rarr; <a href="/fria/">Conduct FRIA</a></div>
+          <button class="obs-toggle" onclick="toggleObsPanel(this)">
+            <span class="obs-toggle-chevron">&#9656;</span>
+            <span data-en="Why does this matter?" data-tr="Bu neden önemli?">Why does this matter?</span>
+          </button>
+          <div class="obs-toggle-content" data-en="The EU AI Act pays particular attention to systems affecting vulnerable groups &mdash; minors, persons with disabilities, or those in situations of vulnerability. If your system affects any of these groups, additional obligations may apply, and a Fundamental Rights Impact Assessment (FRIA) under Article 27 may be required." data-tr="EU AI Act, çocuklar, engelli bireyler veya savunmasız konumdaki kişiler gibi hassas grupları etkileyen sistemlere özel dikkat gösterir. Sisteminiz bu grupları etkiliyorsa ek yükümlülükler doğabilir; Madde 27 kapsamında <em>Fundamental Rights Impact Assessment</em> (FRIA, Temel Haklar Etki Değerlendirmesi) gerekebilir.">The EU AI Act pays particular attention to systems affecting vulnerable groups &mdash; minors, persons with disabilities, or those in situations of vulnerability. If your system affects any of these groups, additional obligations may apply, and a Fundamental Rights Impact Assessment (FRIA) under Article 27 may be required.</div>
+        </div>
+
+        <!-- Field 9: Decision Autonomy -->
+        <div class="obs-field">
+          <label class="obs-label" data-en="Decision Autonomy" data-tr="Karar Otonomisi">Decision Autonomy</label>
+          <select class="obs-select" id="obs-autonomy">
+            <option value="" data-en="&mdash; Select &mdash;" data-tr="&mdash; Seçiniz &mdash;">&mdash; Select &mdash;</option>
+            <option value="full_auto" data-en="Fully automated &mdash; Decisions are made without human intervention" data-tr="Tam otomatik &mdash; Kararlar insan müdahalesi olmadan verilir">Fully automated &mdash; Decisions are made without human intervention</option>
+            <option value="human_assisted" data-en="Human-assisted &mdash; System decides, human can override" data-tr="İnsan destekli &mdash; Sistem karar verir, insan geçersiz kılabilir">Human-assisted &mdash; System decides, human can override</option>
+            <option value="recommendation" data-en="Recommendation only &mdash; System suggests, human decides" data-tr="Sadece öneri &mdash; Sistem önerir, insan karar verir">Recommendation only &mdash; System suggests, human decides</option>
+          </select>
+          <button class="obs-toggle" onclick="toggleObsPanel(this)">
+            <span class="obs-toggle-chevron">&#9656;</span>
+            <span data-en="Why does this matter?" data-tr="Bu neden önemli?">Why does this matter?</span>
+          </button>
+          <div class="obs-toggle-content" data-en="Article 14 of the EU AI Act requires high-risk AI systems to have effective human oversight measures. The level of autonomy directly determines the type and extent of human oversight required. Fully automated decision-making also triggers rights under KVKK Article 11(1)(g), which gives individuals the right to object to decisions made solely by automated systems." data-tr="AB AI Yasası Madde 14, yüksek riskli AI sistemlerinde etkin insan gözetimi önlemleri alınmasını zorunlu kılar. Otonomi seviyesi, gereken insan gözetiminin türünü ve kapsamını doğrudan belirler. Tam otomatik karar verme ayrıca KVKK Madde 11(1)(g) kapsamında hak doğurur: bireyler yalnızca otomatik sistemlerle alınan kararlara itiraz edebilir.">Article 14 of the EU AI Act requires high-risk AI systems to have effective human oversight measures. The level of autonomy directly determines the type and extent of human oversight required. Fully automated decision-making also triggers rights under KVKK Article 11(1)(g), which gives individuals the right to object to decisions made solely by automated systems.</div>
+        </div>
+
+        <!-- Field 8: Personal Data Processing -->
+        <div class="obs-field">
+          <label class="obs-label" data-en="Personal Data Processing" data-tr="Kişisel Veri İşleme">Personal Data Processing</label>
+          <div class="obs-radio-row" id="obs-personal-data">
+            <button class="obs-radio-btn" data-val="yes" onclick="setObsRadio('personal-data','yes',this)" data-en="Yes" data-tr="Evet">Yes</button>
+            <button class="obs-radio-btn" data-val="no" onclick="setObsRadio('personal-data','no',this)" data-en="No" data-tr="Hayır">No</button>
+            <button class="obs-radio-btn" data-val="unsure" onclick="setObsRadio('personal-data','unsure',this)" data-en="Not sure" data-tr="Emin değilim">Not sure</button>
+          </div>
+          <div class="obs-field-hint" data-en="Does this system process personal data as input or output?" data-tr="Bu sistem girdi veya çıktı olarak kişisel veri işliyor mu?">Does this system process personal data as input or output?</div>
+        </div>
+      </div>
+
+      <!-- ═══ GROUP 4: Risk Signals ═══ -->
+      <div class="obs-group">
+        <div class="obs-group-label" data-en="Risk Signals" data-tr="Risk Sinyalleri">Risk Signals</div>
+
+        <!-- Field 5: Foreseeable Misuse -->
+        <div class="obs-field">
+          <label class="obs-label" data-en="Foreseeable Misuse" data-tr="Öngörülebilir Kötüye Kullanım">Foreseeable Misuse</label>
+          <div id="obs-misuse-scenarios"></div>
+          <button class="obs-toggle" onclick="toggleObsPanel(this)">
+            <span class="obs-toggle-chevron">&#9656;</span>
+            <span data-en="Why does this matter?" data-tr="Bu neden önemli?">Why does this matter?</span>
+          </button>
+          <div class="obs-toggle-content" data-en="Article 3(12) of the EU AI Act includes &quot;reasonably foreseeable misuse&quot; within the definition of intended purpose. Your risk classification must account not only for what the system is designed to do, but also for predictable unintended uses. If foreseeable misuse is not assessed at this stage, the Risk stage begins on an incomplete foundation." data-tr="EU AI Act Madde 3(12), <em>intended purpose</em> tanımına &quot;makul ölçüde öngörülebilir kötüye kullanımı&quot; (<em>reasonably foreseeable misuse</em>) dahil eder. Risk sınıflandırmanız yalnızca sistemin tasarım amacını değil, öngörülebilir istem dışı kullanımları da kapsamalıdır. Bu aşamada <em>foreseeable misuse</em> değerlendirilmezse Risk aşaması eksik temele dayanır.">Article 3(12) of the EU AI Act includes "reasonably foreseeable misuse" within the definition of intended purpose. Your risk classification must account not only for what the system is designed to do, but also for predictable unintended uses. If foreseeable misuse is not assessed at this stage, the Risk stage begins on an incomplete foundation.</div>
+        </div>
+      </div>
+
+      <!-- ═══ KVKK BLOCK (Optional Toggle) ═══ -->
+      <div class="obs-group obs-kvkk-group" id="obs-kvkk-group" style="display:none">
+        <div class="obs-group-label">KVKK <span style="font-weight:400;font-size:9px;letter-spacing:.04em" data-en="(Turkish Data Protection)" data-tr="(Kişisel Verilerin Korunması)">(Turkish Data Protection)</span></div>
+
+        <!-- KVKK: Data Categories -->
+        <div class="obs-field">
+          <label class="obs-label" data-en="Data Categories" data-tr="Veri Kategorileri">Data Categories</label>
+          <div class="obs-checkbox-group" id="obs-kvkk-categories"></div>
+        </div>
+
+        <!-- KVKK: Legal Basis -->
+        <div class="obs-field">
+          <label class="obs-label" data-en="Legal Basis for Processing" data-tr="İşleme Hukuki Sebebi">Legal Basis for Processing</label>
+          <select class="obs-select" id="obs-kvkk-legal-basis">
+            <option value="" data-en="&mdash; Select &mdash;" data-tr="&mdash; Seçiniz &mdash;">&mdash; Select &mdash;</option>
+            <option value="consent" data-en="Explicit consent (Md. 5(1))" data-tr="Açık rıza (Md. 5(1))">Explicit consent (Md. 5(1))</option>
+            <option value="law" data-en="Required by law (Md. 5(2)(a))" data-tr="Kanunlarda açıkça öngörülme (Md. 5(2)(a))">Required by law (Md. 5(2)(a))</option>
+            <option value="contract" data-en="Necessary for contract performance (Md. 5(2)(c))" data-tr="Sözleşmenin ifası için gerekli (Md. 5(2)(c))">Necessary for contract performance (Md. 5(2)(c))</option>
+            <option value="legitimate" data-en="Legitimate interest (Md. 5(2)(f))" data-tr="Meşru menfaat (Md. 5(2)(f))">Legitimate interest (Md. 5(2)(f))</option>
+            <option value="vital" data-en="Vital interest (Md. 5(2)(b))" data-tr="Hayati çıkar (Md. 5(2)(b))">Vital interest (Md. 5(2)(b))</option>
+            <option value="public" data-en="Public interest (Md. 5(2)(d))" data-tr="Kamu yararı (Md. 5(2)(d))">Public interest (Md. 5(2)(d))</option>
+            <option value="multiple" data-en="Multiple bases" data-tr="Birden fazla sebep">Multiple bases</option>
+            <option value="unsure" data-en="Not sure" data-tr="Emin değilim">Not sure</option>
+          </select>
+        </div>
+
+        <!-- KVKK: VERBİS Registration -->
+        <div class="obs-field">
+          <label class="obs-label" data-en="VERBİS Registration" data-tr="VERBİS Kaydı">VERBİS Registration</label>
+          <div class="obs-radio-row" id="obs-kvkk-verbis">
+            <button class="obs-radio-btn" data-val="yes" onclick="setObsRadio('kvkk-verbis','yes',this)" data-en="Yes" data-tr="Evet">Yes</button>
+            <button class="obs-radio-btn" data-val="no" onclick="setObsRadio('kvkk-verbis','no',this)" data-en="No" data-tr="Hayır">No</button>
+            <button class="obs-radio-btn" data-val="unsure" onclick="setObsRadio('kvkk-verbis','unsure',this)" data-en="Not sure" data-tr="Emin değilim">Not sure</button>
+          </div>
+          <div class="obs-field-hint" data-en="Is the data controller registered in VERBİS (Data Controllers Registry, KVKK Article 16)?" data-tr="Veri sorumlusu VERBİS'e (Veri Sorumluları Sicili, KVKK Madde 16) kayıtlı mı?">Is the data controller registered in VERBİS (Data Controllers Registry, KVKK Article 16)?</div>
+        </div>
+
+        <!-- KVKK: Data Controller Identity -->
+        <div class="obs-field">
+          <label class="obs-label" data-en="Data Controller" data-tr="Veri Sorumlusu">Data Controller</label>
+          <input class="obs-input" id="obs-kvkk-controller" type="text" data-placeholder-en="Name of the data controller organisation" data-placeholder-tr="Veri sorumlusu kuruluşun adı" placeholder="Name of the data controller organisation">
+        </div>
       </div>
 
       <div class="obs-form-actions">
-        <button class="obs-btn-generate" onclick="generateSystemCard()" data-en="Generate AI System Card →" data-tr="AI Sistem Kartı Oluştur →">Generate AI System Card →</button>
+        <button class="obs-btn-generate" onclick="generateSystemCard()" data-en="Generate AI System Card &rarr;" data-tr="AI Sistem Kartı Oluştur &rarr;">Generate AI System Card &rarr;</button>
       </div>
     </div>
 
@@ -1345,6 +1529,35 @@
   window._obsLang = 'en';
   var obsStakeholderSelections = {};
   var obsMisuseAnswers = {};
+  var obsRadioAnswers = {};
+  var obsKvkkCategorySelections = {};
+
+  // KVKK data categories
+  var KVKK_CATEGORIES = {
+    en: [
+      { id: 'identity', label: 'Identity data (name, ID number)' },
+      { id: 'contact', label: 'Contact data (email, phone, address)' },
+      { id: 'financial', label: 'Financial data (income, credit, account)' },
+      { id: 'health', label: 'Health data (special category, Md. 6)' },
+      { id: 'biometric', label: 'Biometric data (special category, Md. 6)' },
+      { id: 'criminal', label: 'Criminal record (special category, Md. 6)' },
+      { id: 'location', label: 'Location data' },
+      { id: 'behavioral', label: 'Behavioral / profiling data' },
+      { id: 'other_data', label: 'Other' }
+    ],
+    tr: [
+      { id: 'identity', label: 'Kimlik verileri (ad, TC kimlik no)' },
+      { id: 'contact', label: 'İletişim verileri (e-posta, telefon, adres)' },
+      { id: 'financial', label: 'Finansal veriler (gelir, kredi, hesap)' },
+      { id: 'health', label: 'Sağlık verileri (özel nitelikli, Md. 6)' },
+      { id: 'biometric', label: 'Biyometrik veriler (özel nitelikli, Md. 6)' },
+      { id: 'criminal', label: 'Ceza mahkumiyeti (özel nitelikli, Md. 6)' },
+      { id: 'location', label: 'Konum verileri' },
+      { id: 'behavioral', label: 'Davranışsal / profilleme verileri' },
+      { id: 'other_data', label: 'Diğer' }
+    ]
+  };
+  var KVKK_SPECIAL = ['health', 'biometric', 'criminal'];
 
   // Stakeholder options
   var STAKEHOLDERS = {
@@ -1470,8 +1683,9 @@
       el.placeholder = el.getAttribute('data-placeholder-' + lang);
     });
 
-    // Rebuild stakeholders and misuse with new language
+    // Rebuild stakeholders, misuse, and KVKK categories with new language
     renderStakeholders();
+    renderKvkkCategories();
     onSectorChange();
   };
 
@@ -1484,6 +1698,50 @@
       chevron.classList.toggle('open');
     }
   };
+
+  // AI Component change handler
+  window.onAiComponentChange = function() {
+    var val = document.getElementById('obs-ai-component').value;
+    var warning = document.getElementById('obs-ai-warning');
+    if (warning) {
+      warning.classList.toggle('visible', val === 'rule');
+    }
+  };
+
+  // Generic radio button handler for inline radio rows
+  window.setObsRadio = function(field, val, btn) {
+    obsRadioAnswers[field] = val;
+    btn.parentNode.querySelectorAll('.obs-radio-btn').forEach(function(b) {
+      b.classList.toggle('selected', b.dataset.val === val);
+    });
+    // KVKK toggle: show/hide KVKK block based on personal-data answer
+    if (field === 'personal-data') {
+      var kvkkGroup = document.getElementById('obs-kvkk-group');
+      if (kvkkGroup) {
+        kvkkGroup.style.display = (val === 'yes') ? 'block' : 'none';
+      }
+    }
+  };
+
+  // Render KVKK data category checkboxes
+  function renderKvkkCategories() {
+    var container = document.getElementById('obs-kvkk-categories');
+    if (!container) return;
+    var items = KVKK_CATEGORIES[obsLang] || KVKK_CATEGORIES.en;
+    container.innerHTML = '';
+    items.forEach(function(item) {
+      var div = document.createElement('div');
+      div.className = 'obs-checkbox-item' + (obsKvkkCategorySelections[item.id] ? ' selected' : '');
+      div.dataset.id = item.id;
+      var isSpecial = KVKK_SPECIAL.indexOf(item.id) >= 0;
+      div.innerHTML = '<div class="obs-checkbox-box"></div><span>' + item.label + '</span>';
+      div.onclick = function() {
+        obsKvkkCategorySelections[item.id] = !obsKvkkCategorySelections[item.id];
+        div.classList.toggle('selected');
+      };
+      container.appendChild(div);
+    });
+  }
 
   // Render stakeholder checkboxes
   function renderStakeholders() {
@@ -1584,10 +1842,24 @@
     var sectorLabel = sectorEl.options[sectorEl.selectedIndex].textContent;
     var purpose = document.getElementById('obs-purpose').value.trim();
 
-    if (!name || !sector || !purpose) {
-      alert(obsLang === 'tr' ? 'Lütfen tüm zorunlu alanları doldurun.' : 'Please fill in all required fields.');
+    var aiComponent = document.getElementById('obs-ai-component').value;
+    var role = document.getElementById('obs-role').value;
+
+    if (!name || !sector || !purpose || !aiComponent || !role) {
+      alert(obsLang === 'tr' ? 'Lütfen tüm zorunlu alanları doldurun (Sistem Adı, Sektör, AI Bileşeni, Tasarım Amacı, Kuruluş Rolü).' : 'Please fill in all required fields (System Name, Sector, AI Component, Intended Purpose, Organisation Role).');
       return;
     }
+
+    // Read new fields
+    var aiComponentEl = document.getElementById('obs-ai-component');
+    var aiComponentLabel = aiComponentEl.options[aiComponentEl.selectedIndex].textContent;
+    var roleEl = document.getElementById('obs-role');
+    var roleLabel = roleEl.options[roleEl.selectedIndex].textContent;
+    var autonomyEl = document.getElementById('obs-autonomy');
+    var autonomy = autonomyEl.value;
+    var autonomyLabel = autonomy ? autonomyEl.options[autonomyEl.selectedIndex].textContent : '';
+    var euMarket = obsRadioAnswers['eu-market'] || '';
+    var personalData = obsRadioAnswers['personal-data'] || '';
 
     // Gather stakeholders
     var stakeholderLabels = [];
@@ -1637,36 +1909,85 @@
     var pdfTextEn = 'Download AI System Card (PDF)';
     var pdfTextTr = 'AI Sistem Kartını İndir (PDF)';
 
+    // KVKK data
+    var kvkkHtml = '';
+    if (personalData === 'yes') {
+      var kvkkCatLabels = [];
+      var catItems = KVKK_CATEGORIES[obsLang] || KVKK_CATEGORIES.en;
+      var hasSpecial = false;
+      catItems.forEach(function(c) {
+        if (obsKvkkCategorySelections[c.id]) {
+          kvkkCatLabels.push(c.label);
+          if (KVKK_SPECIAL.indexOf(c.id) >= 0) hasSpecial = true;
+        }
+      });
+      var kvkkBasisEl = document.getElementById('obs-kvkk-legal-basis');
+      var kvkkBasis = kvkkBasisEl.value ? kvkkBasisEl.options[kvkkBasisEl.selectedIndex].textContent : '\u2014';
+      var kvkkVerbis = obsRadioAnswers['kvkk-verbis'] || '';
+      var verbisLabel = { yes: (obsLang === 'tr' ? 'Evet' : 'Yes'), no: (obsLang === 'tr' ? 'Hay\u0131r' : 'No'), unsure: (obsLang === 'tr' ? 'Emin de\u011filim' : 'Not sure') };
+      var kvkkController = document.getElementById('obs-kvkk-controller').value.trim();
+
+      kvkkHtml =
+        '<div class="system-card-section" style="border-top:1px solid var(--rule);padding-top:12px;margin-top:8px">' +
+          '<div class="system-card-label">KVKK</div>' +
+          '<div class="system-card-value" style="font-size:11px">' +
+            (obsLang === 'tr' ? 'Veri Kategorileri: ' : 'Data Categories: ') + (kvkkCatLabels.length > 0 ? kvkkCatLabels.join(', ') : '\u2014') +
+            (hasSpecial ? '<br><span style="color:var(--brass);font-size:10px">\u26A0 ' + (obsLang === 'tr' ? '\u00d6zel nitelikli ki\u015fisel veri tespit edildi (KVKK Md. 6)' : 'Special category data detected (KVKK Art. 6)') + '</span>' : '') +
+            '<br>' + (obsLang === 'tr' ? 'Hukuki Sebep: ' : 'Legal Basis: ') + kvkkBasis +
+            '<br>VERB\u0130S: ' + (verbisLabel[kvkkVerbis] || '\u2014') +
+            (kvkkController ? '<br>' + (obsLang === 'tr' ? 'Veri Sorumlusu: ' : 'Data Controller: ') + kvkkController : '') +
+          '</div>' +
+        '</div>';
+    }
+
+    // EU market & autonomy labels
+    var euMarketLabels = { yes: (obsLang === 'tr' ? 'Evet' : 'Yes'), no: (obsLang === 'tr' ? 'Hay\u0131r' : 'No'), unsure: (obsLang === 'tr' ? 'Emin de\u011filim' : 'Not sure') };
+    var personalDataLabels = euMarketLabels; // same labels
+
     var cardHtml =
       '<div class="system-card-header">' +
         '<div class="system-card-header-title">AI SYSTEM CARD</div>' +
-        '<div class="system-card-header-sub">Generated by Hexis ORIENT · Observe Stage · ' + today + '</div>' +
+        '<div class="system-card-header-sub">Generated by Hexis ORIENT \u00b7 Observe Stage \u00b7 ' + today + '</div>' +
       '</div>' +
       '<div class="system-card-body">' +
         '<div class="system-card-section">' +
-          '<div class="system-card-label">' + (obsLang === 'tr' ? 'Sistem Kimliği' : 'System Identity') + '</div>' +
-          '<div class="system-card-value">' + name + ' — ' + sectorLabel + '</div>' +
+          '<div class="system-card-label">' + (obsLang === 'tr' ? 'Sistem Kimligi' : 'System Identity') + '</div>' +
+          '<div class="system-card-value">' + name + ' \u2014 ' + sectorLabel + '</div>' +
+          '<div class="system-card-value" style="font-size:11px;color:var(--stone);margin-top:2px">' + (obsLang === 'tr' ? 'AI Bile\u015feni: ' : 'AI Component: ') + aiComponentLabel + '</div>' +
         '</div>' +
         '<div class="system-card-section">' +
-          '<div class="system-card-label">' + (obsLang === 'tr' ? 'Tasarım Amacı' : 'Intended Purpose') + '</div>' +
+          '<div class="system-card-label">' + (obsLang === 'tr' ? 'Ba\u011flam' : 'Context') + '</div>' +
           '<div class="system-card-value">' + purpose + '</div>' +
+          '<div class="system-card-value" style="font-size:11px;color:var(--stone);margin-top:4px">' +
+            (obsLang === 'tr' ? 'Kurulu\u015f Rol\u00fc: ' : 'Organisation Role: ') + roleLabel +
+            ' &nbsp;\u00b7&nbsp; ' + (obsLang === 'tr' ? 'AB Pazar\u0131: ' : 'EU Market: ') + (euMarketLabels[euMarket] || '\u2014') +
+          '</div>' +
         '</div>' +
         '<div class="system-card-section">' +
-          '<div class="system-card-label">' + (obsLang === 'tr' ? 'Etkilenen Paydaşlar' : 'Affected Stakeholders') + '</div>' +
-          '<div class="system-card-value">' + (stakeholderLabels.length > 0 ? stakeholderLabels.join(', ') : '—') + '</div>' +
+          '<div class="system-card-label">' + (obsLang === 'tr' ? 'Etki Alan\u0131' : 'Impact') + '</div>' +
+          '<div class="system-card-value">' + (stakeholderLabels.length > 0 ? stakeholderLabels.join(', ') : '\u2014') + '</div>' +
+          '<div class="system-card-value" style="font-size:11px;color:var(--stone);margin-top:4px">' +
+            (obsLang === 'tr' ? 'Karar Otonomisi: ' : 'Decision Autonomy: ') + (autonomyLabel || '\u2014') +
+            ' &nbsp;\u00b7&nbsp; ' + (obsLang === 'tr' ? 'Ki\u015fisel Veri: ' : 'Personal Data: ') + (personalDataLabels[personalData] || '\u2014') +
+          '</div>' +
         '</div>' +
         '<div class="system-card-section">' +
-          '<div class="system-card-label">' + (obsLang === 'tr' ? 'Foreseeable Misuse Değerlendirmesi' : 'Foreseeable Misuse Assessment') + '</div>' +
+          '<div class="system-card-label">' + (obsLang === 'tr' ? 'Foreseeable Misuse De\u011ferlendirmesi' : 'Foreseeable Misuse Assessment') + '</div>' +
           misuseHtml +
-          (unresolved > 0 ? '<div style="font-size:10px;color:var(--brass);margin-top:6px;">' + (obsLang === 'tr' ? unresolved + ' madde çözümsüz' : unresolved + ' item(s) unresolved') + '</div>' : '') +
+          (unresolved > 0 ? '<div style="font-size:10px;color:var(--brass);margin-top:6px;">' + (obsLang === 'tr' ? unresolved + ' madde \u00e7\u00f6z\u00fcms\u00fcz' : unresolved + ' item(s) unresolved') + '</div>' : '') +
         '</div>' +
+        kvkkHtml +
         warningHtml +
         '<div class="system-card-section">' +
           '<div class="system-card-label">EU AI Act Reference</div>' +
           '<div class="system-card-ref">' +
-            '<span class="system-card-ref-check">\u2713</span> Article 3(12) — Intended purpose documented<br>' +
-            '<span style="color:var(--stone);margin-right:4px;">\u2192</span> Article 6 — Proceed to Risk classification' +
+            '<span class="system-card-ref-check">\u2713</span> Article 3(12) \u2014 Intended purpose documented<br>' +
+            '<span class="system-card-ref-check">\u2713</span> Article 3(3\u20138) \u2014 Value chain role identified<br>' +
+            '<span style="color:var(--stone);margin-right:4px;">\u2192</span> Article 6 \u2014 Proceed to Risk classification' +
           '</div>' +
+        '</div>' +
+        '<div class="system-card-note" style="font-size:10px;color:var(--stone);margin-top:8px;font-style:italic;line-height:1.5">' +
+          (obsLang === 'tr' ? 'Evaluate a\u015famas\u0131nda tamamlanmas\u0131 \u00f6nerilir: sistem versiyonu, veri ak\u0131\u015f\u0131 diyagram\u0131.' : 'Recommended for completion in Evaluate stage: system version, data flow diagram.') +
         '</div>' +
         '<div class="system-card-actions">' +
           '<button class="system-card-btn-pdf" onclick="printSystemCard()">' + (obsLang === 'tr' ? pdfTextTr : pdfTextEn) + '</button>' +
@@ -1690,13 +2011,24 @@
     window._observeData = {
       name: name,
       sector: sector,
+      aiComponent: aiComponent,
+      role: role,
       purpose: purpose,
+      euMarket: euMarket,
+      autonomy: autonomy,
+      personalData: personalData,
       stakeholders: stakeholderLabels,
       unresolved: unresolved,
       lang: obsLang,
       misuse: obsMisuseAnswers,
       misuseScenarios: misuseScenarioList,
-      hasVulnerableGroups: VULNERABLE_IDS.some(function(id) { return obsStakeholderSelections[id]; })
+      hasVulnerableGroups: VULNERABLE_IDS.some(function(id) { return obsStakeholderSelections[id]; }),
+      kvkk: personalData === 'yes' ? {
+        categories: Object.keys(obsKvkkCategorySelections).filter(function(k) { return obsKvkkCategorySelections[k]; }),
+        legalBasis: document.getElementById('obs-kvkk-legal-basis').value,
+        verbis: obsRadioAnswers['kvkk-verbis'] || '',
+        controller: document.getElementById('obs-kvkk-controller').value.trim()
+      } : null
     };
   };
 
@@ -1754,6 +2086,7 @@
   // Initialize stakeholders on load
   function initObserve() {
     renderStakeholders();
+    renderKvkkCategories();
   }
 
   if (document.readyState === 'loading') {
