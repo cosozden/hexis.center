@@ -133,6 +133,21 @@ nav{
 .nav-links a.nav-accent{color:var(--text2);font-weight:400}
 .nav-links a.nav-accent:hover{color:var(--brass)}
 
+/* LANG SWITCH */
+.lang-switch{
+  display:flex;align-items:center;gap:0;margin-left:8px;
+  font-family:Arial,sans-serif;font-size:11px;letter-spacing:.06em;
+  border:1px solid var(--border2);padding:0;background:none;cursor:pointer;
+}
+.lang-btn{
+  padding:5px 10px;color:var(--muted);background:none;border:none;
+  cursor:pointer;font-family:inherit;font-size:inherit;letter-spacing:inherit;
+  transition:color .15s,background .15s;
+}
+.lang-btn:hover{color:var(--text2)}
+.lang-btn.active{color:var(--brass);background:rgba(178,152,108,0.1)}
+.lang-sep{color:var(--border2);font-size:10px;user-select:none}
+
 /* HAMBURGER */
 .hamburger{
   display:none;flex-direction:column;gap:5px;
@@ -580,6 +595,7 @@ footer{
 @media(max-width:860px){
   nav{padding:0 20px}
   .nav-links{display:none}
+  .lang-switch{margin-left:auto;margin-right:8px}
   .hamburger{display:flex}
   .section-inner{padding:0 20px}
   .sec-divider{padding:0 20px}
@@ -606,10 +622,16 @@ footer{
   <a href="/" class="nav-logo">
     <img src="/assets/logo-light.png" alt="Hexis" width="72" height="40">
   </a>
-  <div class="nav-links">
-    <a href="/metodoloji/en/">Orient Framework</a>
-    <a href="/generator/">Tools</a>
-    <a href="#contact">Contact</a>
+  <div class="nav-links" id="navLinks">
+    <a href="/methodology/" data-en-href="/methodology/" data-tr-href="/metodoloji/" data-en="Orient Framework" data-tr="ORIENT Çerçevesi">Orient Framework</a>
+    <a href="/generator/" data-en-href="/generator/" data-tr-href="/generator/" data-en="Tools" data-tr="Araçlar">Tools</a>
+    <a href="/blog/" data-en-href="/blog/" data-tr-href="/blog/" data-en="Blog" data-tr="Blog">Blog</a>
+    <a href="#contact" data-en-href="#contact" data-tr-href="#contact" data-en="Contact" data-tr="İletişim">Contact</a>
+  </div>
+  <div class="lang-switch" id="langSwitch">
+    <button class="lang-btn" data-lang="tr" onclick="setLang('tr')">TR</button>
+    <span class="lang-sep">|</span>
+    <button class="lang-btn active" data-lang="en" onclick="setLang('en')">EN</button>
   </div>
   <button class="hamburger" id="hamburger" onclick="toggleMenu()" aria-label="Menü">
     <span></span><span></span><span></span>
@@ -617,9 +639,10 @@ footer{
 </nav>
 
 <div class="mobile-menu" id="mobileMenu">
-  <a href="/metodoloji/en/" onclick="closeMenu()">Orient Framework</a>
-  <a href="/generator/" onclick="closeMenu()">Tools</a>
-  <a href="#contact" onclick="closeMenu()">Contact</a>
+  <a href="/methodology/" data-en-href="/methodology/" data-tr-href="/metodoloji/" data-en="Orient Framework" data-tr="ORIENT Çerçevesi" onclick="closeMenu()">Orient Framework</a>
+  <a href="/generator/" data-en-href="/generator/" data-tr-href="/generator/" data-en="Tools" data-tr="Araçlar" onclick="closeMenu()">Tools</a>
+  <a href="/blog/" data-en-href="/blog/" data-tr-href="/blog/" data-en="Blog" data-tr="Blog" onclick="closeMenu()">Blog</a>
+  <a href="#contact" data-en-href="#contact" data-tr-href="#contact" data-en="Contact" data-tr="İletişim" onclick="closeMenu()">Contact</a>
 </div>
 
 <!-- ══════════ HERO ══════════ -->
@@ -1086,6 +1109,23 @@ document.addEventListener('click',function(e){
     h.classList.remove('open');m.classList.remove('open');
   }
 });
+
+/* ── Language Switch ── */
+function setLang(lang){
+  document.querySelectorAll('.lang-btn').forEach(function(b){
+    b.classList.toggle('active',b.dataset.lang===lang);
+  });
+  document.querySelectorAll('[data-en]').forEach(function(a){
+    a.textContent=a.dataset[lang];
+    a.href=a.dataset[lang+'Href'];
+  });
+  try{localStorage.setItem('hexis-lang',lang);}catch(e){}
+}
+(function(){
+  var saved;
+  try{saved=localStorage.getItem('hexis-lang');}catch(e){}
+  if(saved==='tr'||saved==='en') setLang(saved);
+})();
 </script>
 </body>
 </html>
