@@ -742,10 +742,11 @@ function updateProg(){
   const circumference=2*Math.PI*29;
   circ.style.strokeDasharray=circumference;
   circ.style.strokeDashoffset=circumference-(pct/100)*circumference;
-  if(done===total&&!window._ms){window._ms=true;setTimeout(()=>document.getElementById('compModal').classList.add('open'),600)}
+  if(done===total&&!window._ms){window._ms=true;if(typeof plausible!=='undefined')plausible('Complete Checklist');setTimeout(()=>document.getElementById('compModal').classList.add('open'),600)}
 }
 function closeModal(){document.getElementById('compModal').classList.remove('open')}
 function exportPDF(){
+  if(typeof plausible!=='undefined')plausible('Export Checklist PDF');
   const done=document.querySelectorAll('.ci.checked').length;
   const pct=Math.round(done/23*100);
   const secs=[];

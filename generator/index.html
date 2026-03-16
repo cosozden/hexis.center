@@ -1577,6 +1577,7 @@
 
   // Generate AI System Card
   window.generateSystemCard = function() {
+    if(typeof plausible!=='undefined')plausible('Generate System Card');
     var name = document.getElementById('obs-system-name').value.trim();
     var sectorEl = document.getElementById('obs-sector');
     var sector = sectorEl.value;
@@ -2811,6 +2812,7 @@ function generateRefNumber() {
 function escHtml(s) { var d = document.createElement('div'); d.textContent = s; return d.innerHTML; }
 
 function generateMatrix() {
+  if(typeof plausible!=='undefined')plausible('Generate Matrix');
   const refNumber    = generateRefNumber();
   const name         = escHtml(document.getElementById('cfg-name').value || 'AI System');
   const exposure     = document.getElementById('cfg-exposure').value;
@@ -3042,6 +3044,7 @@ function generateMatrix() {
 }
 
 function exportPDF() {
+  if(typeof plausible!=='undefined')plausible('Export PDF');
   var reportEl = document.getElementById('report-output');
   if (!reportEl || reportEl.innerHTML.trim() === '') {
     alert('Please generate the report first before exporting.');
