@@ -1,0 +1,766 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gölge Yapay Zekâ (Shadow AI): Türkiye&#x27;de KOBİ&#x27;lerin Görünmeyen Riski — Hexis</title>
+<meta name="description" content="Gölge yapay zekâ nedir? Çalışanların habersiz AI kullanımı KOBİ&#x27;lerde hangi KVKK ve EU AI Act risklerini yaratıyor? Tespit, önleme ve yönetişim rehberi.">
+<meta property="og:title" content="Gölge Yapay Zekâ (Shadow AI): Türkiye&#x27;de KOBİ&#x27;lerin Görünmeyen Riski — Hexis">
+<meta property="og:description" content="Gölge yapay zekâ nedir? Çalışanların habersiz AI kullanımı KOBİ&#x27;lerde hangi KVKK ve EU AI Act risklerini yaratıyor? Tespit, önleme ve yönetişim rehberi.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://hexis.center/blog/golge-yapay-zeka-kobilerin-gorunmeyen-riski/">
+<meta property="og:image" content="https://hexis.center/assets/og-hexis.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Gölge Yapay Zekâ (Shadow AI): Türkiye&#x27;de KOBİ&#x27;lerin Görünmeyen Riski — Hexis">
+<meta name="twitter:description" content="Gölge yapay zekâ nedir? Çalışanların habersiz AI kullanımı KOBİ&#x27;lerde hangi KVKK ve EU AI Act risklerini yaratıyor? Tespit, önleme ve yönetişim rehberi.">
+<meta name="twitter:image" content="https://hexis.center/assets/og-hexis.png">
+<link rel="canonical" href="https://hexis.center/blog/golge-yapay-zeka-kobilerin-gorunmeyen-riski/">
+<script defer data-domain="hexis.center" src="https://plausible.io/js/script.js"></script>
+<link rel="icon" href="/assets/favicon.ico">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "BlogPosting",
+      "headline": "Gölge Yapay Zekâ (Shadow AI): Türkiye'de KOBİ'lerin Görünmeyen Riski",
+      "datePublished": "2026-03-17",
+      "dateModified": "2026-03-17",
+      "author": { "@type": "Organization", "name": "Hexis AI Governance", "url": "https://hexis.center" },
+      "publisher": { "@type": "Organization", "name": "Hexis AI Governance", "logo": { "@type": "ImageObject", "url": "https://hexis.center/assets/logo.png" } },
+      "inLanguage": "tr",
+      "mainEntityOfPage": "https://hexis.center/blog/golge-yapay-zeka-kobilerin-gorunmeyen-riski/"
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Hexis", "item": "https://hexis.center/" },
+        { "@type": "ListItem", "position": 2, "name": "Blog", "item": "https://hexis.center/blog/" },
+        { "@type": "ListItem", "position": 3, "name": "Gölge Yapay Zekâ (Shadow AI): Türkiye'de KOBİ'lerin Görünmeyen Riski" }
+      ]
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Çalışanlarımız ChatGPT'yi yalnızca genel sorular sormak için kullanıyor. Bu da risk mi?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Genel bilgi soruları (örneğin \"Python'da for döngüsü nasıl yazılır?\") kişisel veri içermediği sürece düşük risklidir. Ama sınır çok hızlı bulanıklaşır. Bir çalışan \"genel soru\" niyetiyle başlayıp, bir süre sonra iş verilerini de dahil edebilir. Bu yüzden net bir politikanın varlığı, risk seviyesinden bağımsız olarak önemlidir."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Kurumsal ChatGPT Team kullanıyorsak sorun yok mu?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Kurumsal sürümler, bireysel kullanıma göre çok daha güvenlidir. OpenAI'ın kurumsal sürümlerinde veriler model eğitimine kullanılmaz ve ek güvenlik önlemleri mevcuttur. Ama bu, tüm riskleri ortadan kaldırmaz. Yurt dışı veri aktarımı devam eder, dolayısıyla KVKK kapsamında uygun önlemlerin alınması gerekir."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "KVKK rehberi bağlayıcı mı?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Rehber doğrudan bağlayıcı bir düzenleme değildir, ancak Kurum'un beklentilerini ve değerlendirme kriterlerini yansıtır.¹⁰ Bir denetim veya ihlal durumunda, Kurum'un bu rehberi referans olarak kullanması kuvvetle muhtemeldir. Bu nedenle KOBİ'lerin rehberi ciddiye alması önerilir."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "EU AI Act Türkiye'deki şirketleri etkiler mi?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "AB pazarına hizmet veren, AB'deki kişileri etkileyen yapay zekâ sistemleri kullanan veya AB'den müşterisi olan Türk şirketleri, EU AI Act kapsamına girebilir (Madde 2). Ayrıca, Türkiye'nin AB uyum süreçleri çerçevesinde benzer düzenlemeler getirmesi beklenmektedir."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Gölge yapay zekâyı tamamen yasaklamak çözüm mü?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Hayır. Tam yasağın başarı oranı düşüktür. Çalışanlar kişisel cihazlarından, mobil veri bağlantılarıyla erişmeye devam eder. Doğru yaklaşım, güvenli kullanımı mümkün kılan bir yönetişim çerçevesi oluşturmaktır. KVKK rehberi de bu yaklaşımı destekliyor."
+      }
+    }
+  ]
+}
+</script>
+<style>
+/* ─── BRAND TOKENS ───────────────────────────────── */
+:root{
+  --charcoal:  #1C1E23;
+  --brass:     #B2986C;
+  --stone:     #686662;
+  --paper:     #F8F7F5;
+  --dark-bg:   #16181C;
+  --dark-type: #E8E6E2;
+  --dark-sub:  #8A8884;
+
+  --bg:        var(--dark-bg);
+  --text:      var(--dark-type);
+  --text2:     var(--dark-sub);
+  --muted:     var(--dark-sub);
+
+  --border:    rgba(232,230,226,0.10);
+  --border2:   rgba(232,230,226,0.18);
+  --card:      rgba(232,230,226,0.04);
+  --card2:     rgba(232,230,226,0.07);
+}
+
+/* ─── RESET ──────────────────────────────────────── */
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;font-size:16px}
+body{
+  font-family:Arial,sans-serif;
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+  text-rendering:optimizeLegibility;
+  background:var(--bg);
+  color:var(--text);
+  line-height:1.55;
+  min-height:100vh;
+  overflow-x:hidden;
+}
+p{line-height:1.75;color:var(--text2)}
+
+/* ─── NAV ────────────────────────────────────────── */
+nav{
+  position:sticky;top:0;z-index:100;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 48px;height:60px;
+  background:var(--dark-bg);
+  border-bottom:1px solid var(--border);
+}
+.nav-logo{
+  display:flex;align-items:center;gap:10px;
+  text-decoration:none;color:var(--text);
+  flex-shrink:0;
+}
+.nav-logo img{
+  display:block;
+  height:40px;
+  width:auto;
+}
+@media(max-width:768px){
+  .nav-logo img{ height:32px; }
+}
+.nav-logo:focus-visible{
+  outline:2px solid rgba(232,230,226,0.5);
+  outline-offset:4px;
+}
+.nav-links{display:flex;gap:4px;align-items:center}
+.nav-links a{
+  color:var(--muted);text-decoration:none;font-size:12px;font-weight:400;
+  padding:6px 12px;border-radius:2px;transition:color .15s;letter-spacing:.04em;
+  font-family:Arial,sans-serif;
+}
+.nav-links a:hover{color:var(--text)}
+
+/* HAMBURGER */
+.hamburger{
+  display:none;flex-direction:column;gap:5px;
+  cursor:pointer;background:none;border:none;padding:4px;z-index:200;
+}
+.hamburger span{width:22px;height:1px;background:var(--text2);transition:all .3s}
+.hamburger.open span:nth-child(1){transform:translateY(6px) rotate(45deg)}
+.hamburger.open span:nth-child(2){opacity:0}
+.hamburger.open span:nth-child(3){transform:translateY(-6px) rotate(-45deg)}
+.mobile-menu{
+  display:none;position:fixed;top:60px;left:0;right:0;
+  background:var(--dark-bg);
+  border-bottom:1px solid var(--border);
+  padding:12px 20px 20px;flex-direction:column;gap:0;z-index:99;
+}
+.mobile-menu.open{display:flex}
+.mobile-menu a{
+  color:var(--muted);text-decoration:none;font-size:13px;font-weight:400;
+  padding:11px 4px;border-bottom:1px solid var(--border);
+  transition:color .15s;font-family:Arial,sans-serif;
+}
+.mobile-menu a:last-child{border-bottom:none}
+.mobile-menu a:hover{color:var(--text)}
+
+/* ─── FOOTER ─────────────────────────────────────── */
+footer{
+  position:relative;z-index:1;
+  border-top:1px solid var(--border);
+  padding:20px 48px;
+  display:flex;align-items:center;justify-content:space-between;
+  gap:16px;flex-wrap:wrap;
+}
+.footer-left{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.footer-logo{display:flex;align-items:center;flex-shrink:0;text-decoration:none;}
+.footer-logo img{display:block;height:auto;width:auto;max-height:18px;}
+.footer-logo:focus-visible{outline:2px solid rgba(232,230,226,0.5);outline-offset:4px;}
+.footer-sep{color:var(--stone);margin:0 4px}
+.footer-txt{font-size:10px;color:var(--stone);font-family:Arial,sans-serif;letter-spacing:.02em}
+.footer-links{display:flex;gap:16px;flex-wrap:wrap}
+.footer-links a{font-size:10px;color:var(--stone);text-decoration:none;transition:color .15s;font-family:Arial,sans-serif;letter-spacing:.04em}
+.footer-links a:hover{color:var(--text2)}
+
+/* ─── RESPONSIVE ─────────────────────────────────── */
+/* ─── RELATED POSTS ──────────────────────────────── */
+.related-posts{margin-top:64px;padding-top:32px;border-top:1px solid var(--border)}
+.related-posts h2{font-family:Georgia,serif;font-size:20px;margin-bottom:20px}
+.related-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.related-card{display:block;border:1px solid var(--border);padding:20px;text-decoration:none;transition:border-color .2s,background .2s}
+.related-card:hover{border-color:var(--border2);background:var(--card);text-decoration:none}
+.related-tag{display:inline-block;background:var(--card2);padding:2px 8px;font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--brass);margin-bottom:8px}
+.related-title{display:block;font-family:Georgia,serif;font-size:16px;color:var(--text);line-height:1.35}
+
+@media(max-width:860px){
+  nav{padding:0 20px}
+  .nav-links{display:none}
+  .hamburger{display:flex}
+  footer{flex-direction:column;align-items:flex-start;padding:20px}
+}
+@media(max-width:768px){.related-grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="/" class="nav-logo">
+    <img src="/assets/logo-light.png" alt="Hexis" width="72" height="40">
+  </a>
+  <div class="nav-links">
+    <a href="/metodoloji/">Orient Framework</a>
+    <a href="/generator/">Generator</a>
+    <a href="/#contact">Contact</a>
+  </div>
+  <button class="hamburger" id="hamburger" onclick="toggleMenu()" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<div class="mobile-menu" id="mobileMenu">
+  <a href="/metodoloji/" onclick="closeMenu()">Orient Framework</a>
+  <a href="/generator/" onclick="closeMenu()">Generator</a>
+  <a href="/#contact" onclick="closeMenu()">Contact</a>
+</div>
+
+<!-- BREADCRUMB -->
+<div style="max-width:720px;margin:40px auto 0;padding:0 24px">
+  <a href="/" style="color:var(--stone);font-size:12px;text-decoration:none">&larr; hexis.center</a>
+</div>
+
+<!-- ARTICLE HEADER -->
+<header style="max-width:720px;margin:40px auto 48px;padding:0 24px">
+  <div style="font-size:11px;color:var(--brass);font-family:Arial,sans-serif;letter-spacing:.08em;text-transform:uppercase;margin-bottom:16px">
+    KVKK &middot; Mart 2026
+  </div>
+  <h1 style="font-family:Georgia,serif;font-size:clamp(28px,4vw,44px);font-weight:700;line-height:1.15;letter-spacing:-.5px;color:var(--text);margin-bottom:20px">
+    Gölge Yapay Zekâ (Shadow AI): Türkiye&#x27;de KOBİ&#x27;lerin Görünmeyen Riski
+  </h1>
+  <p style="font-size:16px;line-height:1.7;color:var(--stone);max-width:600px">
+    Gölge yapay zekâ nedir? Çalışanların habersiz AI kullanımı KOBİ&#x27;lerde hangi KVKK ve EU AI Act risklerini yaratıyor? Tespit, önleme ve yönetişim rehberi.
+  </p>
+</header>
+
+<!-- ARTICLE CONTENT -->
+<article style="max-width:720px;margin:0 auto 96px;padding:0 24px;font-family:Arial,sans-serif;font-size:16px;line-height:1.8;color:var(--text2)">
+
+  <h2 style="font-family:Georgia,serif;font-size:24px;font-weight:700;color:var(--text);margin:48px 0 16px">
+    Şirketinizde Kaç Kişi Şu An ChatGPT Kullanıyor?
+  </h2>
+
+  <p>Bu soruyu Türkiye'deki bir KOBİ yöneticisine sorduğunuzda, büyük ihtimalle "birkaç kişi denemiştir" gibi bir cevap alırsınız. Gerçek rakamlar ise çok farklı bir tablo çiziyor.</p>
+
+  <p style="margin-top:16px">Küresel araştırmalara göre çalışanların yüzde 80'inden fazlası, BT departmanının bilgisi veya onayı olmadan yapay zekâ araçları kullanıyor.¹ Dahası, bu kullanıcıların yarısından fazlası bunu haftada en az bir kez yapıyor.² Üst düzey yöneticiler ise en yoğun kullanıcı grubu olarak öne çıkıyor.³</p>
+
+  <p style="margin-top:16px">İşte bu durumun adı var: <strong style="color:var(--text)">gölge yapay zekâ</strong> (<em>shadow AI</em>).</p>
+
+  <p style="margin-top:16px">Gölge yapay zekâ, çalışanların kurumun bilgisi, onayı veya denetimi olmadan yapay zekâ araçlarını iş süreçlerine dahil etmesi anlamına geliyor. ChatGPT'ye müşteri verisi yapıştırmaktan, onaysız bir AI eklentisiyle rapor hazırlamaya kadar geniş bir yelpazeyi kapsıyor.</p>
+
+  <p style="margin-top:16px">Bu yazıda gölge yapay zekânın Türkiye'deki KOBİ'ler için neden özellikle tehlikeli olduğunu, KVKK ve EU AI Act kapsamında hangi riskleri yarattığını ve bu riskleri yönetmek için neler yapılabileceğini ele alıyoruz.</p>
+
+  <h2 style="font-family:Georgia,serif;font-size:24px;font-weight:700;color:var(--text);margin:48px 0 16px">
+    Gölge Yapay Zekâ Nedir? Gölge BT'den Farkı Ne?
+  </h2>
+
+  <p>Gölge BT (<em>shadow IT</em>) kavramı yeni değil. Çalışanların kurumsal BT politikaları dışında kendi araçlarını kullanması, bulut depolamadan kişisel e-posta hesaplarına kadar uzanan bir sorun olarak onlarca yıldır gündemde. Ama gölge yapay zekâ, gölge BT'nin çok daha tehlikeli bir evrimini temsil ediyor.</p>
+
+  <p style="margin-top:16px">Sebebi şu: geleneksel gölge BT'de bir çalışan Dropbox'a dosya yüklediğinde, dosya olduğu gibi kalır. Ama bir çalışan ChatGPT'ye şirket verisi girdiğinde, bu veri potansiyel olarak modelin eğitim verisine dönüşebilir. Veri artık şirketin kontrolünde değildir ve geri alınamaz.</p>
+
+  <p style="margin-top:16px">Gölge yapay zekâ ile gölge BT arasındaki temel farkları şöyle özetleyebiliriz:</p>
+
+  <ul style="margin:20px 0 20px 20px;display:flex;flex-direction:column;gap:8px">
+    <li><strong style="color:var(--text)">Veri dönüşümü:</strong> Gölge BT'de veri saklanır veya taşınır. Gölge AI'da veri işlenir, dönüştürülür ve potansiyel olarak model eğitimine dahil edilir.</li>
+    <li><strong style="color:var(--text)">Sınır ötesi aktarım:</strong> Çoğu üretken yapay zekâ aracı, verileri yurt dışındaki sunucularda işler. Bu, KVKK'nın yurt dışı veri aktarımı kurallarını doğrudan devreye sokar.</li>
+    <li><strong style="color:var(--text)">Çıktı riski:</strong> Gölge BT'de risk genellikle veri kaybıyla sınırlıdır. Gölge AI'da ise üretilen çıktılar (raporlar, analizler, kararlar) hatalı, önyargılı veya yanıltıcı olabilir ve iş süreçlerini doğrudan etkiler.</li>
+    <li><strong style="color:var(--text)">Ölçek ve hız:</strong> Bir çalışan tek bir ChatGPT oturumunda yüzlerce müşteri kaydını işleyebilir. Geleneksel gölge BT'de bu ölçekte veri sızıntısı çok daha yavaş gerçekleşirdi.</li>
+  </ul>
+
+  <h2 style="font-family:Georgia,serif;font-size:24px;font-weight:700;color:var(--text);margin:48px 0 16px">
+    Rakamlar Ne Söylüyor? Küresel ve Yerel Veriler
+  </h2>
+
+  <p>Gölge yapay zekânın boyutunu anlamak için mevcut verilere bakalım.</p>
+
+  <h3 style="font-family:Georgia,serif;font-size:20px;font-weight:700;color:var(--text);margin:36px 0 12px">
+    Küresel Tablo
+  </h3>
+
+  <p>IBM'in 2025 Veri İhlali Maliyeti Raporu'na göre yapay zekâ ile ilişkili veri ihlalleri, kurumlara ortalama 650.000 ABD dolarının üzerinde ek maliyet getiriyor.⁴ Gölge AI kaynaklı ihlaller tüm ihlallerin yüzde 20'sini oluşturuyor ve standart ihlallere kıyasla daha yüksek maliyetli: 4,63 milyon dolara karşılık 3,96 milyon dolar.⁵</p>
+
+  <p style="margin-top:16px">Yapay zekâ araçlarını kullanan çalışanların yüzde 77'si, bu araçlara hassas iş verilerini yapıştırıyor.⁶ Kurumların yüzde 46'sı, üretken yapay zekâ aracılığıyla iç veri sızıntısı yaşandığını raporluyor.⁷</p>
+
+  <p style="margin-top:16px">Gartner'ın tahminine göre 2030'a kadar kurumların yüzde 40'ından fazlası, yetkisiz gölge yapay zekâ kullanımına bağlı güvenlik veya uyumluluk olayları yaşayacak.⁸ Yine Gartner, 2027'ye kadar yapay zekâ kaynaklı veri ihlallerinin yüzde 40'ından fazlasının, sınır ötesi üretken yapay zekâ kötüye kullanımından kaynaklanacağını öngörüyor.⁹</p>
+
+  <h3 style="font-family:Georgia,serif;font-size:20px;font-weight:700;color:var(--text);margin:36px 0 12px">
+    Türkiye Tablosu
+  </h3>
+
+  <p>Kişisel Verileri Koruma Kurumu (KVKK), bu konudaki farkındalığın önemini göstermek adına 24 Şubat 2026 tarihinde "İş Yerlerinde Üretken Yapay Zekâ Araçlarının Kullanımı" başlıklı bir rehber yayımladı.¹⁰ Bu rehber, Türkiye'deki kurumlar için bu alanda yayımlanan ilk kapsamlı ve detaylı çerçeve niteliğinde.</p>
+
+  <p style="margin-top:16px">Rehberin ana odak noktası tam da gölge yapay zekâ: çalışanların kurumun bilgisi, onayı veya denetimi olmadan üretken yapay zekâ araçlarını iş süreçlerine dahil etmesi.¹⁰</p>
+
+  <p style="margin-top:16px">KVKK'nın bu adımı, Türkiye'deki KOBİ'ler için önemli bir sinyal. Kurum, bu alandaki risklerin farkında ve beklentilerini netleştirmeye başlıyor.</p>
+
+  <h2 style="font-family:Georgia,serif;font-size:24px;font-weight:700;color:var(--text);margin:48px 0 16px">
+    Türkiye'deki KOBİ'ler Neden Özellikle Savunmasız?
+  </h2>
+
+  <p>Gölge yapay zekâ her ölçekteki kurum için risk oluşturuyor, ama KOBİ'ler birkaç nedenden dolayı özellikle savunmasız.</p>
+
+  <h3 style="font-family:Georgia,serif;font-size:20px;font-weight:700;color:var(--text);margin:36px 0 12px">
+    Kaynak Kısıtı
+  </h3>
+
+  <p>Büyük kurumlar, yapay zekâ yönetişim ekipleri kurabilir, DLP (<em>Data Loss Prevention</em>) çözümleri uygulayabilir ve çalışan eğitim programları düzenleyebilir. KOBİ'lerde genellikle bu kaynaklar mevcut değil. BT departmanı varsa bile yapay zekâ konusunda uzmanlaşmış personel bulmak zor.</p>
+
+  <h3 style="font-family:Georgia,serif;font-size:20px;font-weight:700;color:var(--text);margin:36px 0 12px">
+    Politika Boşluğu
+  </h3>
+
+  <p>Küresel araştırmalara göre kurumların yalnızca yüzde 37'sinin yapay zekâ kullanımına ilişkin yönetişim politikası bulunuyor.¹¹ Türkiye'deki KOBİ'lerde bu oranın çok daha düşük olduğunu tahmin etmek güç değil. Politika olmadığında, çalışanlar kendi inisiyatiflerini kullanır ve bu genellikle "herkes ChatGPT kullanıyor, biz de kullanalım" şeklinde tezahür eder.</p>
+
+  <h3 style="font-family:Georgia,serif;font-size:20px;font-weight:700;color:var(--text);margin:36px 0 12px">
+    Yanlış Güvenlik Algısı
+  </h3>
+
+  <p>Birçok KOBİ yöneticisi, "biz küçük bir firmayız, bizi kim denetler?" düşüncesine sahip. Ama KVKK'nın yaptırım geçmişi gösteriyor ki, kurum ölçeği ceza almayı engellemez. 2026 yılı için en yüksek idari para cezası 17.092.242 TL olarak belirlendi.¹² Bir KOBİ için bu rakam yıkıcı olabilir.</p>
+
+  <h3 style="font-family:Georgia,serif;font-size:20px;font-weight:700;color:var(--text);margin:36px 0 12px">
+    Hızlı Benimseme, Yavaş Yönetişim
+  </h3>
+
+  <p>Türkiye'de yapay zekâ araçlarının benimsenmesi hızla artıyor, ama yönetişim altyapısı aynı hızda gelişmiyor. Çalışanlar yeni araçları denemeye istekli; şirketler ise bu kullanımı izleme, denetleme ve yönlendirme konusunda geride kalıyor.</p>
+
+  <h2 style="font-family:Georgia,serif;font-size:24px;font-weight:700;color:var(--text);margin:48px 0 16px">
+    KVKK Kapsamında Gölge Yapay Zekâ Riskleri
+  </h2>
+
+  <p>Gölge yapay zekâ, KVKK'nın birçok temel ilkesini doğrudan ihlal edebilir. Bu riskleri somut senaryolarla inceleyelim.</p>
+
+  <h3 style="font-family:Georgia,serif;font-size:20px;font-weight:700;color:var(--text);margin:36px 0 12px">
+    Yurt Dışı Veri Aktarımı (Madde 9)
+  </h3>
+
+  <p>Bir çalışan ChatGPT'ye müşteri verisi girdiğinde, bu veri OpenAI'ın yurt dışındaki sunucularına iletilmiş olur. KVKK Madde 9 uyarınca yurt dışına veri aktarımı, ilgili kişinin açık rızası veya yeterli korumanın bulunması koşuluna bağlıdır.¹³</p>
+
+  <p style="margin-top:16px">Gölge yapay zekâ senaryosunda ise ne açık rıza alınmıştır ne de yeterli koruma değerlendirilmiştir. Veri aktarımı fiilen gerçekleşir, ama hukuki dayanak yoktur.</p>
+
+  <p style="margin-top:16px">Bu konuyu daha detaylı incelediğimiz <a href="/blog/chatgpt-kvkk-yurt-disi-aktarim/" style="color:var(--brass);text-decoration:underline">ChatGPT'ye Müşteri Bilgisi Girenler: KVKK Yurt Dışı Aktarım Kuralları</a> yazımızda, bu senaryonun hukuki boyutlarını ele almıştık.</p>
+
+  <h3 style="font-family:Georgia,serif;font-size:20px;font-weight:700;color:var(--text);margin:36px 0 12px">
+    Aydınlatma Yükümlülüğü (Madde 10)
+  </h3>
+
+  <p>KVKK, veri sorumlusunun ilgili kişileri kişisel verilerinin işlenmesi hakkında bilgilendirmesini zorunlu kılıyor. Bir çalışan müşteri verisini yapay zekâ aracına girdiğinde, müşteriye bu konuda herhangi bir bilgilendirme yapılmamıştır. Aydınlatma metinlerinde "verileriniz üçüncü taraf yapay zekâ araçlarında işlenebilir" gibi bir ifade muhtemelen yer almaz.</p>
+
+  <h3 style="font-family:Georgia,serif;font-size:20px;font-weight:700;color:var(--text);margin:36px 0 12px">
+    Veri Güvenliği (Madde 12)
+  </h3>
+
+  <p>Veri sorumlusu, kişisel verilerin hukuka aykırı olarak işlenmesini önlemek ve verilere hukuka aykırı erişimi engellemek için uygun güvenlik düzeyini sağlamakla yükümlüdür. Gölge yapay zekâ kullanımında şirket, hangi verilerin hangi araçlara aktarıldığını bilmediği için bu güvenlik yükümlülüğünü yerine getirmesi mümkün değildir.</p>
+
+  <h3 style="font-family:Georgia,serif;font-size:20px;font-weight:700;color:var(--text);margin:36px 0 12px">
+    Veri İhlali Bildirim Yükümlülüğü (Madde 12/5)
+  </h3>
+
+  <p>Gölge yapay zekâ aracılığıyla bir veri ihlali yaşanırsa, veri sorumlusu bu durumu en kısa sürede Kurul'a bildirmek zorundadır. KVKK, veri ihlali bildiriminin 72 saat içinde yapılmasını bekliyor.¹² Ama şirket, gölge AI kullanımından habersizse, ihlali tespit etmesi bile mümkün olmayabilir.</p>
+
+  <h3 style="font-family:Georgia,serif;font-size:20px;font-weight:700;color:var(--text);margin:36px 0 12px">
+    Veri Sorumluları Sicili (VERBİS)
+  </h3>
+
+  <p>Kurumlar, VERBİS'e kayıt sırasında veri işleme faaliyetlerini ve aktarım yapılan tarafları beyan eder. Gölge yapay zekâ kullanımı, beyan edilmeyen veri işleme faaliyetleri yaratır. Bu durum, VERBİS kaydının eksik veya yanıltıcı olması anlamına gelir.</p>
+
+  <h2 style="font-family:Georgia,serif;font-size:24px;font-weight:700;color:var(--text);margin:48px 0 16px">
+    EU AI Act Kapsamında Gölge Yapay Zekâ Riskleri
+  </h2>
+
+  <p>KVKK'nın yanı sıra, EU AI Act (Yapay Zekâ Yasası, Regulation (EU) 2024/1689) de gölge yapay zekâ konusunda önemli yükümlülükler getiriyor. Türkiye'deki KOBİ'ler, AB pazarına hizmet veriyorlarsa veya AB'deki müşterileri etkileyecek yapay zekâ sistemleri kullanıyorlarsa, bu yasanın kapsamına girebilir.</p>
+
+  <h3 style="font-family:Georgia,serif;font-size:20px;font-weight:700;color:var(--text);margin:36px 0 12px">
+    AI Okuryazarlığı Yükümlülüğü (Madde 4)
+  </h3>
+
+  <p>EU AI Act'ın ilk yürürlüğe giren yükümlülüklerinden biri, 2 Şubat 2025 tarihinden itibaren geçerli olan AI okuryazarlığı gerekliliğidir.¹⁴ Madde 4, hem sağlayıcıları (<em>provider</em>) hem de kullanıcı kuruluşları (<em>deployer</em>) kapsıyor ve bu kuruluşların personelinin yeterli düzeyde yapay zekâ okuryazarlığına sahip olmasını sağlamak için uygun tedbirleri almalarını gerektiriyor.¹⁵</p>
+
+  <p style="margin-top:16px">Gölge yapay zekâ, doğası gereği bir AI okuryazarlığı eksikliğinin göstergesi. Çalışanlar, kullandıkları araçların risklerini anlasalardı, muhtemelen onaysız kullanımdan kaçınırlardı. Bir kuruluşta yaygın gölge AI kullanımının tespit edilmesi, Madde 4 yükümlülüğünün yerine getirilmediğinin kanıtı olarak değerlendirilebilir.</p>
+
+  <p style="margin-top:16px">Bu konuyu derinlemesine ele aldığımız <a href="/blog/ai-okuryazarligi-madde-4/" style="color:var(--brass);text-decoration:underline">AI Okuryazarlığı: Madde 4 Yükümlülüğü Ne Gerektirir?</a> yazımız, yükümlülüğün kapsamı ve uygulaması hakkında detaylı bilgi sunuyor.</p>
+
+  <h3 style="font-family:Georgia,serif;font-size:20px;font-weight:700;color:var(--text);margin:36px 0 12px">
+    Yasaklı Uygulamalar (Madde 5)
+  </h3>
+
+  <p>EU AI Act'ın yasaklı uygulamalar listesinde yer alan bazı kullanımlar, gölge yapay zekâ yoluyla farkında olmadan gerçekleştirilebilir. Örneğin, çalışanların yapay zekâ araçlarını kullanarak çalışan davranışlarını puanlaması veya müşterilerin duygusal durumlarını analiz etmesi, belirli koşullarda yasaklı uygulamalar kapsamına girebilir.</p>
+
+  <h3 style="font-family:Georgia,serif;font-size:20px;font-weight:700;color:var(--text);margin:36px 0 12px">
+    Şeffaflık Yükümlülükleri (Madde 50)
+  </h3>
+
+  <p>EU AI Act, yapay zekâ tarafından üretilen içeriğin bu şekilde etiketlenmesini gerektiriyor. Gölge yapay zekâ kullanımında, yapay zekâ tarafından üretilen raporlar, e-postalar veya analizler herhangi bir etiketleme olmadan iş süreçlerine girer. Bu durum, şeffaflık yükümlülüklerinin ihlali anlamına gelebilir.</p>
+
+  <h2 style="font-family:Georgia,serif;font-size:24px;font-weight:700;color:var(--text);margin:48px 0 16px">
+    Samsung Vakası: Gölge AI'ın Somut Yüzü
+  </h2>
+
+  <p>Gölge yapay zekânın yarattığı riskleri somut bir örnekle görmek için Samsung vakasına bakalım.</p>
+
+  <p style="margin-top:16px">Mart 2023'te Samsung, ChatGPT kullanımına izin verdikten sadece günler sonra üç ayrı veri sızıntısı olayıyla karşılaştı.¹⁶ Bir mühendis, yarı iletken veritabanından hatalı kaynak kodu ChatGPT'ye yapıştırarak hata düzeltme istedi. Bir başka çalışan, ekipman arızası tespit kodu optimizasyonu için kodu paylaştı. Üçüncü olayda ise bir çalışan, dahili toplantı tutanaklarını ChatGPT'ye özetletmek istedi.¹⁶</p>
+
+  <p style="margin-top:16px">Sonuç: Samsung, tüm çalışanları için üretken yapay zekâ araçlarını yasaklamak zorunda kaldı.¹⁷ Ama o noktada, paylaşılan veriler çoktan OpenAI'ın sunucularında işlenmiş ve potansiyel olarak model eğitimine dahil edilmişti.</p>
+
+  <p style="margin-top:16px">Bu olay bir teknoloji devinde yaşandı. Yapay zekâ yönetişim kaynakları çok daha sınırlı olan bir KOBİ'de benzer bir olayın sonuçlarını hayal etmek zor değil.</p>
+
+  <h2 style="font-family:Georgia,serif;font-size:24px;font-weight:700;color:var(--text);margin:48px 0 16px">
+    Gölge Yapay Zekânın Beş Tipik Senaryosu
+  </h2>
+
+  <p>KOBİ'lerde gölge yapay zekâ genellikle şu senaryolarda ortaya çıkar:</p>
+
+  <h3 style="font-family:Georgia,serif;font-size:20px;font-weight:700;color:var(--text);margin:36px 0 12px">
+    1. Müşteri Verisiyle Prompt Yazma
+  </h3>
+
+  <p>Satış ekibinin müşteri listesini ChatGPT'ye yapıştırarak segmentasyon analizi yapması. Bu senaryoda müşteri isimleri, e-posta adresleri, satın alma geçmişi gibi kişisel veriler yurt dışındaki sunuculara aktarılır.</p>
+
+  <h3 style="font-family:Georgia,serif;font-size:20px;font-weight:700;color:var(--text);margin:36px 0 12px">
+    2. İK Süreçlerinde AI Kullanımı
+  </h3>
+
+  <p>İnsan kaynakları departmanının özgeçmişleri yapay zekâ araçlarına yükleyerek ön eleme yapması. Adayların kişisel verileri (isim, adres, eğitim geçmişi, iş deneyimi) işlenmiş olur ve bu işleme için adayların rızası alınmamıştır.</p>
+
+  <h3 style="font-family:Georgia,serif;font-size:20px;font-weight:700;color:var(--text);margin:36px 0 12px">
+    3. Hukuki Belge Analizi
+  </h3>
+
+  <p>Hukuk departmanının sözleşmeleri veya dava dosyalarını yapay zekâ araçlarına yükleyerek analiz ettirmesi. Bu belgelerde hem kurumsal gizli bilgiler hem de kişisel veriler bulunabilir.</p>
+
+  <h3 style="font-family:Georgia,serif;font-size:20px;font-weight:700;color:var(--text);margin:36px 0 12px">
+    4. Finansal Veri İşleme
+  </h3>
+
+  <p>Muhasebe veya finans ekibinin, müşteri fatura bilgilerini veya finansal raporları yapay zekâ araçlarında işlemesi. Mali veriler ve kişisel veriler bir arada sızma riski taşır.</p>
+
+  <h3 style="font-family:Georgia,serif;font-size:20px;font-weight:700;color:var(--text);margin:36px 0 12px">
+    5. Kod ve Teknik Belge Paylaşımı
+  </h3>
+
+  <p>Yazılım ekibinin, proprietary kodu yapay zekâ araçlarında debug etmesi veya teknik dokümantasyonu özetletmesi. Samsung vakasında olduğu gibi, ticari sırlar ve telif haklı içerik risk altına girer.</p>
+
+  <h2 style="font-family:Georgia,serif;font-size:24px;font-weight:700;color:var(--text);margin:48px 0 16px">
+    Tespit: Gölge Yapay Zekâyı Nasıl Fark Edersiniz?
+  </h2>
+
+  <p>Gölge yapay zekânın en tehlikeli yönü, görünmez olmasıdır. Ama bazı sinyaller, kurumlara ipucu verebilir.</p>
+
+  <h3 style="font-family:Georgia,serif;font-size:20px;font-weight:700;color:var(--text);margin:36px 0 12px">
+    Ağ Trafiği Analizi
+  </h3>
+
+  <p>BT ekipleri, kurumsal ağdan yapay zekâ servis sağlayıcılarına (api.openai.com, bard.google.com, claude.ai vb.) yapılan istekleri izleyebilir. Bu trafiğin varlığı, kurumsal yapay zekâ araçları dışında kullanım olduğunun göstergesidir.</p>
+
+  <h3 style="font-family:Georgia,serif;font-size:20px;font-weight:700;color:var(--text);margin:36px 0 12px">
+    Çalışan Anketleri
+  </h3>
+
+  <p>Anonim anketlerle çalışanların yapay zekâ kullanım alışkanlıkları sorgulanabilir. Araştırmalar, anonim ortamda çalışanların gölge AI kullanımını kabul etme oranının çok daha yüksek olduğunu gösteriyor.</p>
+
+  <h3 style="font-family:Georgia,serif;font-size:20px;font-weight:700;color:var(--text);margin:36px 0 12px">
+    Çıktı Kalitesi Değişimleri
+  </h3>
+
+  <p>Belirli çalışanların çıktı kalitesinde veya hızında ani artışlar, yapay zekâ araç kullanımının göstergesi olabilir. Bu başlı başına bir sorun değildir, ama kurumsal politika yoksa gölge kullanımın habercisi olabilir.</p>
+
+  <h3 style="font-family:Georgia,serif;font-size:20px;font-weight:700;color:var(--text);margin:36px 0 12px">
+    Tarayıcı Uzantı Denetimi
+  </h3>
+
+  <p>Çalışanların tarayıcılarında yüklü yapay zekâ uzantıları (Grammarly AI, ChatGPT eklentileri vb.) kontrol edilebilir. Bu uzantılar, çalışanın ne yazdığını üçüncü taraf sunuculara iletebilir.</p>
+
+  <h2 style="font-family:Georgia,serif;font-size:24px;font-weight:700;color:var(--text);margin:48px 0 16px">
+    Yedi Adımlı KOBİ Yol Haritası: Gölge AI'ı Yönetmek
+  </h2>
+
+  <p>Gölge yapay zekâyla mücadelenin yolu yasaklamak değil, yönetmektir. Tamamen yasaklayan kurumların başarı oranı düşük: çalışanlar alternatif yollar buluyor veya verimlilik kaybı yaşanıyor. Doğru yaklaşım, kullanımı görünür ve yönetilebilir kılmaktır.</p>
+
+  <h3 style="font-family:Georgia,serif;font-size:20px;font-weight:700;color:var(--text);margin:36px 0 12px">
+    Adım 1: Mevcut Durumu Haritalayın (ORIENT: Observe)
+  </h3>
+
+  <p>İlk adım, kurumunuzdaki yapay zekâ kullanımının gerçek resmini çıkarmaktır. Kim, hangi araçları, hangi verilerle kullanıyor? Anonim bir anket yapın. Ağ trafiğini inceleyin. Amacınız cezalandırmak değil, anlamak.</p>
+
+  <h3 style="font-family:Georgia,serif;font-size:20px;font-weight:700;color:var(--text);margin:36px 0 12px">
+    Adım 2: Risk Değerlendirmesi Yapın (ORIENT: Risk)
+  </h3>
+
+  <p>Tespit ettiğiniz kullanım senaryolarını risk seviyesine göre sınıflandırın. Hangi kullanımlar kişisel veri içeriyor? Hangileri yurt dışı veri aktarımı yaratıyor? Hangileri ticari sır riski taşıyor? <a href="https://hexis.center/generator/" style="color:var(--brass);text-decoration:underline">Hexis Risk Classifier</a> aracımız, yapay zekâ sistemlerini risk seviyelerine göre sınıflandırmanıza yardımcı olabilir.</p>
+
+  <h3 style="font-family:Georgia,serif;font-size:20px;font-weight:700;color:var(--text);margin:36px 0 12px">
+    Adım 3: Kabul Edilebilir Kullanım Politikası Oluşturun
+  </h3>
+
+  <p>Net, anlaşılır ve uygulanabilir bir yapay zekâ kullanım politikası hazırlayın. Bu politika şunları içermeli:</p>
+
+  <ul style="margin:20px 0 20px 20px;display:flex;flex-direction:column;gap:8px">
+    <li>Hangi yapay zekâ araçlarının kullanılabileceği</li>
+    <li>Hangi veri türlerinin bu araçlara asla girilemeyeceği (kişisel veri, ticari sır, gizli bilgi)</li>
+    <li>Onay süreçleri: yeni bir araç kullanmadan önce kimden izin alınmalı</li>
+    <li>İhlal durumunda uygulanacak prosedürler</li>
+  </ul>
+
+  <h3 style="font-family:Georgia,serif;font-size:20px;font-weight:700;color:var(--text);margin:36px 0 12px">
+    Adım 4: Onaylı Araç Listesi Belirleyin
+  </h3>
+
+  <p>Çalışanların ihtiyaçlarını karşılayacak, kurumsal güvenlik gereksinimlerini sağlayan yapay zekâ araçlarını belirleyin ve onaylayın. Kurumsal ChatGPT (Team veya Enterprise sürüm), Microsoft Copilot for Business veya benzeri kurumsal çözümler, veri güvenliği açısından bireysel kullanıma göre çok daha güvenlidir.</p>
+
+  <h3 style="font-family:Georgia,serif;font-size:20px;font-weight:700;color:var(--text);margin:36px 0 12px">
+    Adım 5: AI Okuryazarlık Eğitimi Verin
+  </h3>
+
+  <p>KVKK'nın "İş Yerlerinde Üretken Yapay Zekâ Araçlarının Kullanımı" rehberi ve EU AI Act Madde 4 yükümlülüğü, çalışan eğitiminin önemini açıkça vurguluyor.¹⁰·¹⁵ Eğitim şunları kapsamalı:</p>
+
+  <ul style="margin:20px 0 20px 20px;display:flex;flex-direction:column;gap:8px">
+    <li>Yapay zekâ araçlarına veri girmenin hukuki sonuçları</li>
+    <li>Kişisel veri, ticari sır ve gizli bilgi ayrımı</li>
+    <li>Güvenli kullanım pratikleri: veriyi anonimleştirme, hassas bilgileri çıkarma</li>
+    <li>Yapay zekâ çıktılarını doğrulama ve eleştirel değerlendirme</li>
+  </ul>
+
+  <h3 style="font-family:Georgia,serif;font-size:20px;font-weight:700;color:var(--text);margin:36px 0 12px">
+    Adım 6: Teknik Kontroller Uygulayın
+  </h3>
+
+  <p>Politika tek başına yeterli değil. Teknik kontroller de gerekiyor:</p>
+
+  <ul style="margin:20px 0 20px 20px;display:flex;flex-direction:column;gap:8px">
+    <li>Onaysız yapay zekâ sitelerine erişimi kısıtlayan ağ filtreleri</li>
+    <li>DLP (<em>Data Loss Prevention</em>) çözümleri ile hassas veri sızıntısını tespit etme</li>
+    <li>Kurumsal cihazlara onaysız uygulama yükleme kısıtlamaları</li>
+    <li>Yapay zekâ kullanımını izleyen log ve denetim mekanizmaları</li>
+  </ul>
+
+  <h3 style="font-family:Georgia,serif;font-size:20px;font-weight:700;color:var(--text);margin:36px 0 12px">
+    Adım 7: Düzenli Gözden Geçirme (ORIENT: Track)
+  </h3>
+
+  <p>Yapay zekâ ekosistemi hızla değişiyor. Altı ayda bir politikalarınızı, araç listenizi ve risk değerlendirmenizi gözden geçirin. Yeni araçlar piyasaya çıkıyor, mevcut araçların veri politikaları değişiyor, regülasyonlar güncelleniyor. Yönetişim sürekli bir süreçtir, tek seferlik bir proje değil.</p>
+
+  <h2 style="font-family:Georgia,serif;font-size:24px;font-weight:700;color:var(--text);margin:48px 0 16px">
+    KVKK Rehberinin KOBİ'lere Mesajı
+  </h2>
+
+  <p>KVKK'nın 24 Şubat 2026 tarihli "İş Yerlerinde Üretken Yapay Zekâ Araçlarının Kullanımı" rehberi, bağlayıcı bir düzenleme olmasa da Kurum'un beklentilerini ve değerlendirme kriterlerini gösteren önemli bir kaynak.¹⁰</p>
+
+  <p style="margin-top:16px">Rehberin KOBİ'ler için öne çıkan mesajlarını şöyle özetleyebiliriz:</p>
+
+  <ul style="margin:20px 0 20px 20px;display:flex;flex-direction:column;gap:8px">
+    <li><strong style="color:var(--text)">Farkındalık beklentisi:</strong> Kurum, işverenlerin çalışanlarının yapay zekâ kullanımından haberdar olmasını ve bu kullanımı yönlendirmesini bekliyor.</li>
+    <li><strong style="color:var(--text)">Veri sınıflandırması:</strong> Hangi verilerin yapay zekâ araçlarına girilebileceği, hangi verilerin kesinlikle girilmemesi gerektiği netleştirilmeli.</li>
+    <li><strong style="color:var(--text)">Üçüncü taraf değerlendirmesi:</strong> Kullanılan yapay zekâ araçlarının veri işleme politikaları, veri saklama süreleri ve aktarım lokasyonları incelenmeli.</li>
+    <li><strong style="color:var(--text)">Kayıt ve izlenebilirlik:</strong> Yapay zekâ kullanımının kayıt altına alınması ve denetlenebilir olması.</li>
+  </ul>
+
+  <h2 style="font-family:Georgia,serif;font-size:24px;font-weight:700;color:var(--text);margin:48px 0 16px">
+    Maliyet Analizi: Yapmamanın Bedeli vs. Yapmanın Maliyeti
+  </h2>
+
+  <p>KOBİ yöneticilerinin sıklıkla sorduğu soru şu: "Bunları yapmak maliyetli değil mi?"</p>
+
+  <p style="margin-top:16px">Karşılaştıralım.</p>
+
+  <p style="margin-top:16px"><strong style="color:var(--text)">Yapmamanın potansiyel bedeli:</strong></p>
+
+  <ul style="margin:20px 0 20px 20px;display:flex;flex-direction:column;gap:8px">
+    <li>KVKK idari para cezası: 2026 için tavan 17.092.242 TL¹²</li>
+    <li>Veri ihlali bildirim ve yönetim maliyetleri</li>
+    <li>İtibar kaybı ve müşteri güveni erozyonu</li>
+    <li>Potansiyel tazminat davaları</li>
+    <li>EU AI Act kapsamında cezalar: yüksek riskli ihlallerde 15 milyon euro veya küresel cironun yüzde 3'ü (hangisi yüksekse); KOBİ'ler için hangisi düşükse o uygulanır (Madde 99(4)(6))¹⁸</li>
+  </ul>
+
+  <p style="margin-top:16px"><strong style="color:var(--text)">Temel önlemlerin yaklaşık maliyeti:</strong></p>
+
+  <ul style="margin:20px 0 20px 20px;display:flex;flex-direction:column;gap:8px">
+    <li>Yapay zekâ kullanım politikası oluşturma: dahili iş gücü ile yapılabilir</li>
+    <li>Çalışan farkındalık eğitimi: yarım günlük bir atölye çalışması</li>
+    <li>Ağ seviyesinde temel izleme: mevcut BT altyapısının konfigürasyonu</li>
+    <li>Kurumsal yapay zekâ aracı lisansı: kullanıcı başına aylık 20-30 dolar civarı</li>
+  </ul>
+
+  <p style="margin-top:16px">Fark açık: önlem almanın maliyeti, önlem almamanın potansiyel bedelinin yanında çok küçük kalıyor.</p>
+
+  <h2 style="font-family:Georgia,serif;font-size:24px;font-weight:700;color:var(--text);margin:48px 0 16px">
+    2026 Takvimi: Kritik Tarihler
+  </h2>
+
+  <p>Gölge yapay zekâ yönetişimiyle ilgili önemli tarihler:</p>
+
+  <ul style="margin:20px 0 20px 20px;display:flex;flex-direction:column;gap:8px">
+    <li><strong style="color:var(--text)">2 Şubat 2025</strong> (yürürlükte): EU AI Act yasaklı uygulamalar (Madde 5) ve AI okuryazarlığı yükümlülüğü (Madde 4)¹⁴</li>
+    <li><strong style="color:var(--text)">2 Ağustos 2025</strong> (yürürlükte): Genel amaçlı yapay zekâ (GPAI) yükümlülükleri (Madde 51-56)</li>
+    <li><strong style="color:var(--text)">24 Şubat 2026</strong>: KVKK "İş Yerlerinde Üretken Yapay Zekâ Araçlarının Kullanımı" rehberi yayımlandı¹⁰</li>
+    <li><strong style="color:var(--text)">2 Ağustos 2026</strong>: EU AI Act yüksek riskli sistem yükümlülükleri yürürlüğe giriyor (Ek III)</li>
+    <li><strong style="color:var(--text)">2030</strong> (Gartner tahmini): Kurumların yüzde 40'ından fazlası gölge AI kaynaklı güvenlik olayı yaşayacak⁸</li>
+  </ul>
+
+  <h2 style="font-family:Georgia,serif;font-size:24px;font-weight:700;color:var(--text);margin:48px 0 16px">
+    Sıkça Sorulan Sorular
+  </h2>
+
+  <p><strong style="color:var(--text)">Çalışanlarımız ChatGPT'yi yalnızca genel sorular sormak için kullanıyor. Bu da risk mi?</strong></p>
+
+  <p style="margin-top:16px">Genel bilgi soruları (örneğin "Python'da for döngüsü nasıl yazılır?") kişisel veri içermediği sürece düşük risklidir. Ama sınır çok hızlı bulanıklaşır. Bir çalışan "genel soru" niyetiyle başlayıp, bir süre sonra iş verilerini de dahil edebilir. Bu yüzden net bir politikanın varlığı, risk seviyesinden bağımsız olarak önemlidir.</p>
+
+  <p style="margin-top:16px"><strong style="color:var(--text)">Kurumsal ChatGPT Team kullanıyorsak sorun yok mu?</strong></p>
+
+  <p style="margin-top:16px">Kurumsal sürümler, bireysel kullanıma göre çok daha güvenlidir. OpenAI'ın kurumsal sürümlerinde veriler model eğitimine kullanılmaz ve ek güvenlik önlemleri mevcuttur. Ama bu, tüm riskleri ortadan kaldırmaz. Yurt dışı veri aktarımı devam eder, dolayısıyla KVKK kapsamında uygun önlemlerin alınması gerekir.</p>
+
+  <p style="margin-top:16px"><strong style="color:var(--text)">KVKK rehberi bağlayıcı mı?</strong></p>
+
+  <p style="margin-top:16px">Rehber doğrudan bağlayıcı bir düzenleme değildir, ancak Kurum'un beklentilerini ve değerlendirme kriterlerini yansıtır.¹⁰ Bir denetim veya ihlal durumunda, Kurum'un bu rehberi referans olarak kullanması kuvvetle muhtemeldir. Bu nedenle KOBİ'lerin rehberi ciddiye alması önerilir.</p>
+
+  <p style="margin-top:16px"><strong style="color:var(--text)">EU AI Act Türkiye'deki şirketleri etkiler mi?</strong></p>
+
+  <p style="margin-top:16px">AB pazarına hizmet veren, AB'deki kişileri etkileyen yapay zekâ sistemleri kullanan veya AB'den müşterisi olan Türk şirketleri, EU AI Act kapsamına girebilir (Madde 2). Ayrıca, Türkiye'nin AB uyum süreçleri çerçevesinde benzer düzenlemeler getirmesi beklenmektedir.</p>
+
+  <p style="margin-top:16px"><strong style="color:var(--text)">Gölge yapay zekâyı tamamen yasaklamak çözüm mü?</strong></p>
+
+  <p style="margin-top:16px">Hayır. Tam yasağın başarı oranı düşüktür. Çalışanlar kişisel cihazlarından, mobil veri bağlantılarıyla erişmeye devam eder. Doğru yaklaşım, güvenli kullanımı mümkün kılan bir yönetişim çerçevesi oluşturmaktır. KVKK rehberi de bu yaklaşımı destekliyor.</p>
+
+  <h2 style="font-family:Georgia,serif;font-size:24px;font-weight:700;color:var(--text);margin:48px 0 16px">
+    Sonuç: Görünmeyeni Görünür Kılmak
+  </h2>
+
+  <p>Gölge yapay zekâ, Türkiye'deki KOBİ'ler için sessiz ama ciddi bir risk. Çalışanlarınız muhtemelen şu an bir yapay zekâ aracı kullanıyor ve siz muhtemelen bunun farkında değilsiniz.</p>
+
+  <p style="margin-top:16px">İyi haber şu: bu riski yönetmek, düşündüğünüzden daha kolay ve ucuz. Birinci adım, gerçeği görmek. İkinci adım, bir politika oluşturmak. Üçüncü adım, çalışanlarınızı eğitmek.</p>
+
+  <p style="margin-top:16px">KVKK'nın rehberi yayımlandı. EU AI Act yükümlülükleri devreye girmeye başladı. Pencere kapanmadan harekete geçmek, hem hukuki hem ticari açıdan en akıllıca strateji.</p>
+
+  <p style="margin-top:16px">Şirketinizdeki yapay zekâ kullanımının risk haritasını çıkarmak istiyorsanız, <a href="https://hexis.center/generator/" style="color:var(--brass);text-decoration:underline">Hexis Risk Classifier</a> aracımızla başlayabilirsiniz.</p>
+
+  <p style="margin-top:16px">---</p>
+
+  <h2 style="font-family:Georgia,serif;font-size:24px;font-weight:700;color:var(--text);margin:48px 0 16px">
+    Kaynaklar
+  </h2>
+
+  <p>1. UpGuard. <em>Shadow AI is Widespread — and Executives Use It the Most</em>. Cybersecurity Dive, Kasım 2025. <a href="https://www.cybersecuritydive.com/news/shadow-ai-employee-trust-upguard/805280/" style="color:var(--brass);text-decoration:underline">cybersecuritydive.com</a></p>
+
+  <p style="margin-top:16px">2. Zylo. <em>Shadow AI Explained: Causes, Consequences, and Best Practices for Control</em>. 2025. <a href="https://zylo.com/blog/shadow-ai/" style="color:var(--brass);text-decoration:underline">zylo.com</a></p>
+
+  <p style="margin-top:16px">3. UpGuard. <em>Shadow AI is Widespread — and Executives Use It the Most</em>. Cybersecurity Dive, Kasım 2025. <a href="https://www.cybersecuritydive.com/news/shadow-ai-employee-trust-upguard/805280/" style="color:var(--brass);text-decoration:underline">cybersecuritydive.com</a></p>
+
+  <p style="margin-top:16px">4. IBM. <em>2025 Cost of Data Breach Report</em>. IBM Security, 2025. <a href="https://www.ibm.com/think/topics/shadow-ai" style="color:var(--brass);text-decoration:underline">ibm.com</a></p>
+
+  <p style="margin-top:16px">5. CloudRadix. <em>Shadow AI Is Your Biggest Data Risk in 2026</em>. 2026. <a href="https://cloudradix.com/blog/shadow-ai-data-risk/" style="color:var(--brass);text-decoration:underline">cloudradix.com</a></p>
+
+  <p style="margin-top:16px">6. eSecurity Planet. <em>77% of Employees Leak Data via ChatGPT, Report Finds</em>. 2025. <a href="https://www.esecurityplanet.com/news/shadow-ai-chatgpt-dlp/" style="color:var(--brass);text-decoration:underline">esecurityplanet.com</a></p>
+
+  <p style="margin-top:16px">7. Vectra AI. <em>Shadow AI Explained: Risks, Costs, and Enterprise Governance</em>. 2025. <a href="https://www.vectra.ai/topics/shadow-ai" style="color:var(--brass);text-decoration:underline">vectra.ai</a></p>
+
+  <p style="margin-top:16px">8. Gartner. <em>40% of Enterprises Will Experience Shadow AI Breaches by 2030</em>. IT Pro, Kasım 2025. <a href="https://www.itpro.com/technology/artificial-intelligence/gartner-says-40-percent-of-enterprises-will-experience-shadow-ai-breaches-by-2030-educating-staff-is-the-key-to-avoiding-disaster" style="color:var(--brass);text-decoration:underline">itpro.com</a></p>
+
+  <p style="margin-top:16px">9. Gartner. <em>Critical GenAI Blind Spots That CIOs Must Urgently Address</em>. Gartner Newsroom, Kasım 2025. <a href="https://www.gartner.com/en/newsroom/press-releases/2025-11-19-gartner-identifies-critical-genai-blind-spots-that-cios-must-urgently-address0" style="color:var(--brass);text-decoration:underline">gartner.com</a></p>
+
+  <p style="margin-top:16px">10. Kişisel Verileri Koruma Kurumu. <em>İş Yerlerinde Üretken Yapay Zekâ Araçlarının Kullanımı</em>. kvkk.gov.tr, 24 Şubat 2026. <a href="https://www.kvkk.gov.tr/Icerik/8674/is-yerlerinde-uretken-yapay-zeka-araclarinin-kullanimi" style="color:var(--brass);text-decoration:underline">kvkk.gov.tr</a></p>
+
+  <p style="margin-top:16px">11. IBM. <em>2025 Cost of Data Breach Report — Shadow AI Governance Statistics</em>. IBM Security, 2025. <a href="https://www.ibm.com/think/topics/shadow-ai" style="color:var(--brass);text-decoration:underline">ibm.com</a></p>
+
+  <p style="margin-top:16px">12. Nesil Teknoloji. <em>2026 KVKK Cezaları ve Güncel Kurul Kararları</em>. 2026. <a href="https://www.nesilteknoloji.com/kvkk-idari-para-cezalari-guncel-ceza-kararlari-analizi/" style="color:var(--brass);text-decoration:underline">nesilteknoloji.com</a></p>
+
+  <p style="margin-top:16px">13. Kişisel Verileri Koruma Kurumu. <em>6698 Sayılı Kişisel Verilerin Korunması Kanunu</em>. kvkk.gov.tr. <a href="https://www.kvkk.gov.tr/Icerik/6649/6698-SAYILI-KANUN" style="color:var(--brass);text-decoration:underline">kvkk.gov.tr</a></p>
+
+  <p style="margin-top:16px">14. Avrupa Parlamentosu ve Konseyi. <em>Regulation (EU) 2024/1689 — Artificial Intelligence Act</em>. EUR-Lex, 12 Temmuz 2024. <a href="https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R1689" style="color:var(--brass);text-decoration:underline">eur-lex.europa.eu</a></p>
+
+  <p style="margin-top:16px">15. EU Artificial Intelligence Act. <em>Article 4: AI Literacy</em>. artificialintelligenceact.eu. <a href="https://artificialintelligenceact.eu/article/4/" style="color:var(--brass);text-decoration:underline">artificialintelligenceact.eu</a></p>
+
+  <p style="margin-top:16px">16. AI Incident Database. <em>Incident 768: ChatGPT Implicated in Samsung Data Leak</em>. 2023. <a href="https://incidentdatabase.ai/cite/768/" style="color:var(--brass);text-decoration:underline">incidentdatabase.ai</a></p>
+
+  <p style="margin-top:16px">17. Bloomberg. <em>Samsung Bans Generative AI Use by Staff After ChatGPT Data Leak</em>. Mayıs 2023. <a href="https://www.bloomberg.com/news/articles/2023-05-02/samsung-bans-chatgpt-and-other-generative-ai-use-by-staff-after-leak" style="color:var(--brass);text-decoration:underline">bloomberg.com</a></p>
+
+  <p style="margin-top:16px">18. Avrupa Parlamentosu ve Konseyi. <em>Regulation (EU) 2024/1689, Article 99 — Penalties</em>. EUR-Lex. <a href="https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R1689" style="color:var(--brass);text-decoration:underline">eur-lex.europa.eu</a></p>
+
+  <!-- İLGİLİ YAZILAR -->
+  <div class="related-posts">
+    <h2>İlgili Yazılar</h2>
+    <div class="related-grid">
+      <a href="/blog/chatgpt-kvkk-yurt-disi-aktarim/" class="related-card">
+        <span class="related-tag">KVKK</span>
+        <span class="related-title">ChatGPT'ye Müşteri Bilgisi Girenler: KVKK Yurt Dışı Aktarım Kuralları</span>
+      </a>
+      <a href="/blog/etken-yapay-zeka-kisisel-verilere-etkisi/" class="related-card">
+        <span class="related-tag">KVKK</span>
+        <span class="related-title">Etken Yapay Zekâ (Agentic AI) ve Kişisel Verilere Etkisi</span>
+      </a>
+    </div>
+  </div>
+
+</article>
+
+<!-- BACK LINK -->
+<div style="max-width:720px;margin:0 auto 96px;padding:0 24px">
+  <a href="/" style="font-size:13px;color:var(--stone);text-decoration:none;font-family:Arial,sans-serif">
+    &larr; T&uuml;m yaz&#305;lar
+  </a>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-left">
+    <a href="/" class="footer-logo"><img src="/assets/logo-light.png" alt="Hexis" width="32" height="18"></a>
+    <span class="footer-sep">&middot;</span>
+    <span class="footer-txt">&copy; 2026 Hexis &middot; Built by &Ouml;zden Co&#351;kun &middot; Yaln&#305;zca bilgilendirme ama&ccedil;l&#305;d&#305;r; hukuki dan&#305;&#351;manl&#305;k niteli&#287;i ta&#351;&#305;maz.</span>
+  </div>
+  <div class="footer-links">
+    <a href="/metodoloji/">Orient Framework</a>
+    <a href="/generator/">Generator</a>
+    <a href="/#contact">Contact</a>
+    <a href="https://eur-lex.europa.eu/legal-content/TR/TXT/?uri=CELEX:32024R1689" target="_blank" rel="noopener noreferrer">EU AI Act</a>
+    <a href="https://www.linkedin.com/in/ozden-coskun-8728a1301" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+  </div>
+</footer>
+
+<script>
+function toggleMenu(){
+  document.getElementById('hamburger').classList.toggle('open');
+  document.getElementById('mobileMenu').classList.toggle('open');
+}
+function closeMenu(){
+  document.getElementById('hamburger').classList.remove('open');
+  document.getElementById('mobileMenu').classList.remove('open');
+}
+document.addEventListener('click',function(e){
+  const h=document.getElementById('hamburger');
+  const m=document.getElementById('mobileMenu');
+  if(m.classList.contains('open')&&!h.contains(e.target)&&!m.contains(e.target)){
+    h.classList.remove('open');m.classList.remove('open');
+  }
+});
+</script>
+</body>
+</html>

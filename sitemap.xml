@@ -83,6 +83,13 @@
 
   <!-- ─── Blog Yazıları ─── -->
   <url>
+    <loc>https://hexis.center/blog/golge-yapay-zeka-kobilerin-gorunmeyen-riski/</loc>
+    <lastmod>2026-03-17</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
     <loc>https://hexis.center/blog/orient-aigp-bok/</loc>
     <lastmod>2026-03-12</lastmod>
     <changefreq>monthly</changefreq>
@@ -160,7 +167,7 @@
   <!-- ─── Blog Arşiv ─── -->
   <url>
     <loc>https://hexis.center/blog/</loc>
-    <lastmod>2026-03-15</lastmod>
+    <lastmod>2026-03-17</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>

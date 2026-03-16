@@ -5,8 +5,17 @@
     <link>https://hexis.center/blog/</link>
     <description>Yapay zeka yönetişimi, EU AI Act uyumu, KVKK ve ISO 42001 hakkında pratik rehberler ve analizler.</description>
     <language>tr</language>
-    <lastBuildDate>Sat, 15 Mar 2026 00:00:00 +0300</lastBuildDate>
+    <lastBuildDate>Tue, 17 Mar 2026 00:00:00 +0300</lastBuildDate>
     <atom:link href="https://hexis.center/blog/feed.xml" rel="self" type="application/rss+xml"/>
+
+    <item>
+      <title>Gölge Yapay Zekâ (Shadow AI): Türkiye'de KOBİ'lerin Görünmeyen Riski</title>
+      <link>https://hexis.center/blog/golge-yapay-zeka-kobilerin-gorunmeyen-riski/</link>
+      <guid>https://hexis.center/blog/golge-yapay-zeka-kobilerin-gorunmeyen-riski/</guid>
+      <pubDate>Tue, 17 Mar 2026 00:00:00 +0300</pubDate>
+      <description>Gölge yapay zekâ nedir? Çalışanların habersiz AI kullanımı KOBİ'lerde hangi KVKK ve EU AI Act risklerini yaratıyor? Tespit, önleme ve yönetişim rehberi.</description>
+      <category>KVKK</category>
+    </item>
 
     <item>
       <title>ORIENT ve AIGP BoK: Aynı Dili Konuşuyorlar mı?</title>
