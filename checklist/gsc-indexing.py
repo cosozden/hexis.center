@@ -184,13 +184,14 @@ def indexing_api(urls: list[str], creds) -> dict:
 
 def sitemap_ping(creds) -> dict:
     """
-    Search Console Sitemap API ile sitemap yenile.
+    Search Console Webmasters API (v3) ile sitemap yenile.
     Bu sayede Google tüm URL'leri yeniden tarar.
     """
     try:
         import googleapiclient.discovery
+        # Doğru API: webmasters v3 (searchconsole v1 değil)
         service = googleapiclient.discovery.build(
-            "searchconsole", "v1", credentials=creds,
+            "webmasters", "v3", credentials=creds,
             cache_discovery=False
         )
         # Sitemap'i yeniden gönder (Google'ı yeniden taramaya zorlar)

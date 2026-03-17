@@ -1,0 +1,31 @@
+name: GSC Indexing
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '**/*.html'
+      - 'sitemap.xml'
+
+jobs:
+  index:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install google-auth google-auth-httplib2 google-api-python-client requests
+
+      - name: Write credentials
+        run: |
+          echo '${{ secrets.GSC_CREDENTIALS_JSON }}' > checklist/gsc-credentials.json
+          echo '${{ secrets.INDEXNOW_KEY }}' > hexis-indexnow-key.txt
+
+      - name: Run GSC indexing
+        run: python3 checklist/gsc-indexing.py
