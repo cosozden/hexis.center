@@ -848,30 +848,30 @@ body {
 <body>
 <nav class="orient-nav" aria-label="ORIENT methodology stages">
   <div class="orient-nav-inner">
-    <a href="../generator/" class="orient-stage done" data-stage="observe">
+    <a href="/generator/" class="orient-stage done" data-stage="observe">
       <span class="orient-check">✓</span>
       <span class="orient-label">Observe</span>
     </a>
     <span class="orient-arrow">→</span>
-    <a href="../generator/" class="orient-stage done" data-stage="risk">
+    <a href="/generator/" class="orient-stage done" data-stage="risk">
       <span class="orient-check">✓</span>
       <span class="orient-label">Risk</span>
     </a>
     <span class="orient-arrow">→</span>
-    <span class="orient-stage disabled" data-stage="identify" title="Coming soon">
-      <span class="orient-dot">○</span>
+    <a href="/eu-ai-act-checklist.html" class="orient-stage done" data-stage="identify">
+      <span class="orient-check">✓</span>
       <span class="orient-label">Identify</span>
-    </span>
+    </a>
     <span class="orient-arrow">→</span>
-    <a href="../fria/" class="orient-stage active" data-stage="evaluate">
+    <span class="orient-stage active" data-stage="evaluate">
       <span class="orient-dot">●</span>
       <span class="orient-label">Evaluate</span>
-    </a>
+    </span>
     <span class="orient-arrow">→</span>
-    <a href="../checklist/" class="orient-stage" data-stage="navigate">
+    <span class="orient-stage disabled" data-stage="navigate" title="Coming soon">
       <span class="orient-dot">○</span>
       <span class="orient-label">Navigate</span>
-    </a>
+    </span>
     <span class="orient-arrow">→</span>
     <span class="orient-stage disabled" data-stage="track" title="Coming soon">
       <span class="orient-dot">○</span>
@@ -928,7 +928,7 @@ body {
         <option value="limited">No — Limited Risk</option>
         <option value="minimal">No — Minimal Risk</option>
       </select>
-      <div class="fr-hint">Not yet classified? <a href="../generator/" style="color:var(--stone);text-decoration:underline;">Use the Risk Classifier →</a></div>
+      <div class="fr-hint">Not yet classified? <a href="/generator/" style="color:var(--stone);text-decoration:underline;">Use the Risk Classifier →</a></div>
       <div class="fr-error">Please select a risk classification.</div>
     </div>
 
@@ -962,10 +962,10 @@ body {
     </div>
 
     <div class="fr-nav">
-      <a href="../generator/" class="fr-btn-link">← Back to Generator</a>
+      <a href="/generator/" class="fr-btn-link">← Back to Generator</a>
       <div style="display:flex;gap:10px;" id="fr-gate-actions" style="display:none;">
         <button class="fr-btn fr-btn-primary" id="fr-gate-continue" style="display:none;" onclick="nextStep()">Continue to FRIA →</button>
-        <a href="../generator/" class="fr-btn fr-btn-secondary" id="fr-gate-return" style="display:none;">Return to Tools</a>
+        <a href="/generator/" class="fr-btn fr-btn-secondary" id="fr-gate-return" style="display:none;">Return to Tools</a>
       </div>
     </div>
   </div>
@@ -1491,7 +1491,7 @@ body {
   <div class="fr-report-toolbar">
     <button class="fr-btn fr-btn-secondary" onclick="editAssessment()">← Edit Assessment</button>
     <button class="fr-btn fr-btn-primary" onclick="exportPDF()">Export PDF</button>
-    <a href="../checklist/" style="display:inline-flex;align-items:center;font-family:Arial,sans-serif;font-size:12px;letter-spacing:.04em;color:var(--stone);background:transparent;border:1px solid var(--border2);padding:10px 22px;text-decoration:none;transition:color .15s,border-color .15s;" onmouseover="this.style.borderColor='rgba(232,230,226,.35)';this.style.color='var(--dark-type)'" onmouseout="this.style.borderColor='var(--border2)';this.style.color='var(--stone)'">← Back to Checklist</a>
+    <a id="fr-checklist-link" href="/eu-ai-act-checklist.html?risk=high" style="display:inline-flex;align-items:center;font-family:Arial,sans-serif;font-size:12px;letter-spacing:.04em;color:var(--stone);background:transparent;border:1px solid var(--border2);padding:10px 22px;text-decoration:none;transition:color .15s,border-color .15s;" onmouseover="this.style.borderColor='rgba(232,230,226,.35)';this.style.color='var(--dark-type)'" onmouseout="this.style.borderColor='var(--border2)';this.style.color='var(--stone)'">← Back to Checklist</a>
   </div>
   <div class="fr-report" id="fr-report"></div>
 </div>
@@ -1534,8 +1534,8 @@ body {
   <div class="fr-footer-text">Hexis · hexis.center</div>
   <div style="display:flex;gap:16px;align-items:center;">
     <a href="/" class="fr-footer-link">hexis.center</a>
-    <a href="../checklist/?risk=high" class="fr-footer-link">Checklist →</a>
-    <a href="../generator/" class="fr-footer-link">Generator →</a>
+    <a id="fr-footer-checklist" href="/eu-ai-act-checklist.html?risk=high" class="fr-footer-link">Checklist →</a>
+    <a href="/generator/" class="fr-footer-link">Generator →</a>
     <a href="/gizlilik/" class="fr-footer-link">Gizlilik</a>
     <button class="fr-clear-btn" onclick="clearAssessment()">Clear Assessment</button>
   </div>
@@ -1559,6 +1559,23 @@ var currentStep = 0;
 var totalSteps = 6; // 0-5
 var proceedMode = ''; // 'required', 'recommended', 'voluntary', 'not_required'
 var riskCounter = 0;
+
+// Map FRIA risk values to checklist risk params
+var FRIA_TO_CHECKLIST_RISK = {
+  'high_annex_iii': 'high',
+  'high_annex_i': 'high',
+  'limited': 'limited',
+  'minimal': 'minimal'
+};
+function updateChecklistLinks() {
+  var rv = document.getElementById('f-risk-level').value;
+  var cr = FRIA_TO_CHECKLIST_RISK[rv] || 'high';
+  var url = '/eu-ai-act-checklist.html?risk=' + encodeURIComponent(cr);
+  var el1 = document.getElementById('fr-checklist-link');
+  var el2 = document.getElementById('fr-footer-checklist');
+  if (el1) el1.href = url;
+  if (el2) el2.href = url;
+}
 
 var STEP_LABELS = ['Gate', 'System', 'Context', 'Groups', 'Risks', 'Safeguards'];
 
@@ -1612,6 +1629,7 @@ function init() {
     document.getElementById('f-area-wrap').style.display =
       (v === 'high_annex_iii') ? 'block' : 'none';
     evaluateGate();
+    updateChecklistLinks();
   });
   document.getElementById('f-deployer-type').addEventListener('change', evaluateGate);
   document.getElementById('f-annex-area').addEventListener('change', evaluateGate);
@@ -2175,6 +2193,7 @@ function generateReport() {
   document.querySelector('.fr-header').style.display = 'none';
   document.getElementById('fr-progress').style.display = 'none';
   document.getElementById('fr-prog-labels').style.display = 'none';
+  updateChecklistLinks();
   window.scrollTo(0, 0);
 }
 
@@ -2539,6 +2558,7 @@ function applyURLParams() {
       document.getElementById('f-area-wrap').style.display = 'block';
     }
   }
+  updateChecklistLinks();
 }
 
 // ── BOOT ──

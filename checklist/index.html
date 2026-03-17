@@ -524,30 +524,30 @@
 <body>
 <nav class="orient-nav" aria-label="ORIENT methodology stages">
   <div class="orient-nav-inner">
-    <a href="../generator/" class="orient-stage done" data-stage="observe">
+    <a href="/generator/" class="orient-stage done" data-stage="observe">
       <span class="orient-check">✓</span>
       <span class="orient-label">Observe</span>
     </a>
     <span class="orient-arrow">→</span>
-    <a href="../generator/" class="orient-stage done" data-stage="risk">
+    <a href="/generator/" class="orient-stage done" data-stage="risk">
       <span class="orient-check">✓</span>
       <span class="orient-label">Risk</span>
     </a>
     <span class="orient-arrow">→</span>
-    <span class="orient-stage disabled" data-stage="identify" title="Coming soon">
-      <span class="orient-dot">○</span>
+    <span class="orient-stage active" data-stage="identify">
+      <span class="orient-dot">●</span>
       <span class="orient-label">Identify</span>
     </span>
     <span class="orient-arrow">→</span>
-    <a href="../fria/" class="orient-stage done" data-stage="evaluate">
-      <span class="orient-check">✓</span>
+    <a href="/fria/" class="orient-stage" data-stage="evaluate">
+      <span class="orient-dot">○</span>
       <span class="orient-label">Evaluate</span>
     </a>
     <span class="orient-arrow">→</span>
-    <a href="../checklist/" class="orient-stage active" data-stage="navigate">
-      <span class="orient-dot">●</span>
+    <span class="orient-stage disabled" data-stage="navigate" title="Coming soon">
+      <span class="orient-dot">○</span>
       <span class="orient-label">Navigate</span>
-    </a>
+    </span>
     <span class="orient-arrow">→</span>
     <span class="orient-stage disabled" data-stage="track" title="Coming soon">
       <span class="orient-dot">○</span>
@@ -565,15 +565,15 @@
 
 <!-- ── TOOLBAR ── -->
 <div class="cl-toolbar">
-  <a href="../generator/" class="cl-back">&larr; Back to Assessment</a>
+  <a href="/generator/" class="cl-back">&larr; Back to Assessment</a>
   <div class="cl-filter-wrap">
     <span class="cl-filter-label">Risk Filter</span>
     <select class="cl-filter" id="cl-filter" onchange="applyFilter(this.value)">
       <option value="all">All</option>
       <option value="high">High Risk</option>
-      <option value="limited">Limited Risk</option>
-      <option value="gpai-provider">GPAI Provider</option>
-      <option value="gpai-systemic">GPAI Systemic</option>
+      <option value="art6_3">Art. 6(3) Exception</option>
+      <option value="limited">Limited Risk (Transparency)</option>
+      <option value="gpai">General-Purpose AI (GPAI)</option>
       <option value="minimal">Minimal Risk</option>
       <option value="prohibited">Prohibited</option>
     </select>
@@ -592,7 +592,7 @@
     <div class="cl-prohibited-label">Unacceptable Risk</div>
     <div class="cl-prohibited-title">PROHIBITED</div>
     <div class="cl-prohibited-text">This AI system cannot be placed on the EU market. Prohibited AI practices are banned under Article 5 of the EU AI Act, in force since 2 February 2025. Penalties may reach &euro;35 million or 7% of global annual turnover, whichever is higher (Art. 99(3)).</div>
-    <a href="../generator/" class="cl-prohibited-link">&larr; Return to classifier to reclassify</a>
+    <a href="/generator/" class="cl-prohibited-link">&larr; Return to classifier to reclassify</a>
   </div>
 </div>
 
@@ -613,7 +613,7 @@
     </div>
     <div class="cl-section-note">Foundational for all compliance levels</div>
     <div class="cl-section-body">
-      <div class="cl-item" data-risk="all" data-id="1.1">
+      <div class="cl-item" data-risk="high art6_3 limited gpai minimal" data-id="1.1">
         <div class="cl-checkbox" onclick="toggleCheck(this)">
           <svg class="cl-check-icon" viewBox="0 0 10 10"><polyline points="1.5 5.5 4 8 8.5 2"/></svg>
         </div>
@@ -622,7 +622,7 @@
           <div class="cl-refs"><span class="cl-ref">Art. 49</span></div>
         </div>
       </div>
-      <div class="cl-item" data-risk="all" data-id="1.2">
+      <div class="cl-item" data-risk="high art6_3 limited gpai minimal" data-id="1.2">
         <div class="cl-checkbox" onclick="toggleCheck(this)">
           <svg class="cl-check-icon" viewBox="0 0 10 10"><polyline points="1.5 5.5 4 8 8.5 2"/></svg>
         </div>
@@ -631,7 +631,7 @@
           <div class="cl-refs"><span class="cl-ref">Art. 9(2)(a)</span></div>
         </div>
       </div>
-      <div class="cl-item" data-risk="all" data-id="1.3">
+      <div class="cl-item" data-risk="high art6_3 limited gpai minimal" data-id="1.3">
         <div class="cl-checkbox" onclick="toggleCheck(this)">
           <svg class="cl-check-icon" viewBox="0 0 10 10"><polyline points="1.5 5.5 4 8 8.5 2"/></svg>
         </div>
@@ -640,7 +640,7 @@
           <div class="cl-refs"><span class="cl-ref">Art. 6, Annex I/III</span></div>
         </div>
       </div>
-      <div class="cl-item" data-risk="all" data-id="1.4">
+      <div class="cl-item" data-risk="high art6_3 limited gpai minimal" data-id="1.4">
         <div class="cl-checkbox" onclick="toggleCheck(this)">
           <svg class="cl-check-icon" viewBox="0 0 10 10"><polyline points="1.5 5.5 4 8 8.5 2"/></svg>
         </div>
@@ -649,7 +649,7 @@
           <div class="cl-refs"><span class="cl-ref">Art. 25</span></div>
         </div>
       </div>
-      <div class="cl-item" data-risk="high" data-id="1.5">
+      <div class="cl-item" data-risk="high art6_3" data-id="1.5">
         <div class="cl-checkbox" onclick="toggleCheck(this)">
           <svg class="cl-check-icon" viewBox="0 0 10 10"><polyline points="1.5 5.5 4 8 8.5 2"/></svg>
         </div>
@@ -675,7 +675,7 @@
     </div>
     <div class="cl-section-note">In force since 2 February 2025 — &euro;35M or 7% turnover penalty</div>
     <div class="cl-section-body">
-      <div class="cl-item" data-risk="all" data-id="2.1">
+      <div class="cl-item" data-risk="high art6_3 limited gpai minimal" data-id="2.1">
         <div class="cl-checkbox" onclick="toggleCheck(this)">
           <svg class="cl-check-icon" viewBox="0 0 10 10"><polyline points="1.5 5.5 4 8 8.5 2"/></svg>
         </div>
@@ -687,7 +687,7 @@
           </div>
         </div>
       </div>
-      <div class="cl-item" data-risk="all" data-id="2.2">
+      <div class="cl-item" data-risk="high art6_3 limited gpai minimal" data-id="2.2">
         <div class="cl-checkbox" onclick="toggleCheck(this)">
           <svg class="cl-check-icon" viewBox="0 0 10 10"><polyline points="1.5 5.5 4 8 8.5 2"/></svg>
         </div>
@@ -696,7 +696,7 @@
           <div class="cl-refs"><span class="cl-ref">Art. 5(1)(c)</span></div>
         </div>
       </div>
-      <div class="cl-item" data-risk="all" data-id="2.3">
+      <div class="cl-item" data-risk="high art6_3 limited gpai minimal" data-id="2.3">
         <div class="cl-checkbox" onclick="toggleCheck(this)">
           <svg class="cl-check-icon" viewBox="0 0 10 10"><polyline points="1.5 5.5 4 8 8.5 2"/></svg>
         </div>
@@ -705,7 +705,7 @@
           <div class="cl-refs"><span class="cl-ref">Art. 5(1)(f)</span></div>
         </div>
       </div>
-      <div class="cl-item" data-risk="all" data-id="2.4">
+      <div class="cl-item" data-risk="high art6_3 limited gpai minimal" data-id="2.4">
         <div class="cl-checkbox" onclick="toggleCheck(this)">
           <svg class="cl-check-icon" viewBox="0 0 10 10"><polyline points="1.5 5.5 4 8 8.5 2"/></svg>
         </div>
@@ -714,7 +714,7 @@
           <div class="cl-refs"><span class="cl-ref">Art. 5(1)(h)</span></div>
         </div>
       </div>
-      <div class="cl-item" data-risk="all" data-id="2.5">
+      <div class="cl-item" data-risk="high art6_3 limited gpai minimal" data-id="2.5">
         <div class="cl-checkbox" onclick="toggleCheck(this)">
           <svg class="cl-check-icon" viewBox="0 0 10 10"><polyline points="1.5 5.5 4 8 8.5 2"/></svg>
         </div>
@@ -740,7 +740,7 @@
     </div>
     <div class="cl-section-note">Required for high-risk systems — Art. 9</div>
     <div class="cl-section-body">
-      <div class="cl-item" data-risk="high" data-id="3.1">
+      <div class="cl-item" data-risk="high art6_3" data-id="3.1">
         <div class="cl-checkbox" onclick="toggleCheck(this)">
           <svg class="cl-check-icon" viewBox="0 0 10 10"><polyline points="1.5 5.5 4 8 8.5 2"/></svg>
         </div>
@@ -749,7 +749,7 @@
           <div class="cl-refs"><span class="cl-ref">Art. 9(1)</span></div>
         </div>
       </div>
-      <div class="cl-item" data-risk="high" data-id="3.2">
+      <div class="cl-item" data-risk="high art6_3" data-id="3.2">
         <div class="cl-checkbox" onclick="toggleCheck(this)">
           <svg class="cl-check-icon" viewBox="0 0 10 10"><polyline points="1.5 5.5 4 8 8.5 2"/></svg>
         </div>
@@ -758,7 +758,7 @@
           <div class="cl-refs"><span class="cl-ref">Art. 9(2)(a)</span></div>
         </div>
       </div>
-      <div class="cl-item" data-risk="high" data-id="3.3">
+      <div class="cl-item" data-risk="high art6_3" data-id="3.3">
         <div class="cl-checkbox" onclick="toggleCheck(this)">
           <svg class="cl-check-icon" viewBox="0 0 10 10"><polyline points="1.5 5.5 4 8 8.5 2"/></svg>
         </div>
@@ -767,7 +767,7 @@
           <div class="cl-refs"><span class="cl-ref">Art. 9(2)(b)</span></div>
         </div>
       </div>
-      <div class="cl-item" data-risk="high" data-id="3.4">
+      <div class="cl-item" data-risk="high art6_3" data-id="3.4">
         <div class="cl-checkbox" onclick="toggleCheck(this)">
           <svg class="cl-check-icon" viewBox="0 0 10 10"><polyline points="1.5 5.5 4 8 8.5 2"/></svg>
         </div>
@@ -776,7 +776,7 @@
           <div class="cl-refs"><span class="cl-ref">Art. 9(4)</span></div>
         </div>
       </div>
-      <div class="cl-item" data-risk="high" data-id="3.5">
+      <div class="cl-item" data-risk="high art6_3" data-id="3.5">
         <div class="cl-checkbox" onclick="toggleCheck(this)">
           <svg class="cl-check-icon" viewBox="0 0 10 10"><polyline points="1.5 5.5 4 8 8.5 2"/></svg>
         </div>
@@ -802,7 +802,7 @@
     </div>
     <div class="cl-section-note">Training data quality and bias prevention — Art. 10</div>
     <div class="cl-section-body">
-      <div class="cl-item" data-risk="high" data-id="4.1">
+      <div class="cl-item" data-risk="high art6_3" data-id="4.1">
         <div class="cl-checkbox" onclick="toggleCheck(this)">
           <svg class="cl-check-icon" viewBox="0 0 10 10"><polyline points="1.5 5.5 4 8 8.5 2"/></svg>
         </div>
@@ -811,7 +811,7 @@
           <div class="cl-refs"><span class="cl-ref">Art. 10(2)</span></div>
         </div>
       </div>
-      <div class="cl-item" data-risk="high" data-id="4.2">
+      <div class="cl-item" data-risk="high art6_3" data-id="4.2">
         <div class="cl-checkbox" onclick="toggleCheck(this)">
           <svg class="cl-check-icon" viewBox="0 0 10 10"><polyline points="1.5 5.5 4 8 8.5 2"/></svg>
         </div>
@@ -820,7 +820,7 @@
           <div class="cl-refs"><span class="cl-ref">Art. 10(2)(f)</span></div>
         </div>
       </div>
-      <div class="cl-item" data-risk="high" data-id="4.3">
+      <div class="cl-item" data-risk="high art6_3" data-id="4.3">
         <div class="cl-checkbox" onclick="toggleCheck(this)">
           <svg class="cl-check-icon" viewBox="0 0 10 10"><polyline points="1.5 5.5 4 8 8.5 2"/></svg>
         </div>
@@ -829,7 +829,7 @@
           <div class="cl-refs"><span class="cl-ref">Art. 10(3)</span></div>
         </div>
       </div>
-      <div class="cl-item" data-risk="high" data-id="4.4">
+      <div class="cl-item" data-risk="high art6_3" data-id="4.4">
         <div class="cl-checkbox" onclick="toggleCheck(this)">
           <svg class="cl-check-icon" viewBox="0 0 10 10"><polyline points="1.5 5.5 4 8 8.5 2"/></svg>
         </div>
@@ -855,7 +855,7 @@
     </div>
     <div class="cl-section-note">Technical docs for high-risk, disclosure obligations for all AI interactions</div>
     <div class="cl-section-body">
-      <div class="cl-item" data-risk="high gpai-provider gpai-systemic" data-id="5.1">
+      <div class="cl-item" data-risk="high art6_3 gpai" data-id="5.1">
         <div class="cl-checkbox" onclick="toggleCheck(this)">
           <svg class="cl-check-icon" viewBox="0 0 10 10"><polyline points="1.5 5.5 4 8 8.5 2"/></svg>
         </div>
@@ -864,7 +864,7 @@
           <div class="cl-refs"><span class="cl-ref">Art. 11 + Annex IV</span></div>
         </div>
       </div>
-      <div class="cl-item" data-risk="high gpai-provider gpai-systemic" data-id="5.2">
+      <div class="cl-item" data-risk="high art6_3 gpai" data-id="5.2">
         <div class="cl-checkbox" onclick="toggleCheck(this)">
           <svg class="cl-check-icon" viewBox="0 0 10 10"><polyline points="1.5 5.5 4 8 8.5 2"/></svg>
         </div>
@@ -873,7 +873,7 @@
           <div class="cl-refs"><span class="cl-ref">Art. 12</span></div>
         </div>
       </div>
-      <div class="cl-item" data-risk="high gpai-provider gpai-systemic" data-id="5.3">
+      <div class="cl-item" data-risk="high art6_3 gpai" data-id="5.3">
         <div class="cl-checkbox" onclick="toggleCheck(this)">
           <svg class="cl-check-icon" viewBox="0 0 10 10"><polyline points="1.5 5.5 4 8 8.5 2"/></svg>
         </div>
@@ -882,7 +882,7 @@
           <div class="cl-refs"><span class="cl-ref">Art. 13</span></div>
         </div>
       </div>
-      <div class="cl-item" data-risk="high limited gpai-provider gpai-systemic minimal" data-id="5.4">
+      <div class="cl-item" data-risk="high art6_3 limited gpai minimal" data-id="5.4">
         <div class="cl-checkbox" onclick="toggleCheck(this)">
           <svg class="cl-check-icon" viewBox="0 0 10 10"><polyline points="1.5 5.5 4 8 8.5 2"/></svg>
         </div>
@@ -894,7 +894,7 @@
           </div>
         </div>
       </div>
-      <div class="cl-item" data-risk="high limited gpai-provider gpai-systemic minimal" data-id="5.5">
+      <div class="cl-item" data-risk="high art6_3 limited gpai minimal" data-id="5.5">
         <div class="cl-checkbox" onclick="toggleCheck(this)">
           <svg class="cl-check-icon" viewBox="0 0 10 10"><polyline points="1.5 5.5 4 8 8.5 2"/></svg>
         </div>
@@ -903,7 +903,7 @@
           <div class="cl-refs"><span class="cl-ref">Art. 50(2)</span></div>
         </div>
       </div>
-      <div class="cl-item" data-risk="high limited gpai-provider gpai-systemic minimal" data-id="5.6">
+      <div class="cl-item" data-risk="high art6_3 limited gpai minimal" data-id="5.6">
         <div class="cl-checkbox" onclick="toggleCheck(this)">
           <svg class="cl-check-icon" viewBox="0 0 10 10"><polyline points="1.5 5.5 4 8 8.5 2"/></svg>
         </div>
@@ -929,7 +929,7 @@
     </div>
     <div class="cl-section-note">Human-in-the-loop requirements — Art. 14–15</div>
     <div class="cl-section-body">
-      <div class="cl-item" data-risk="high" data-id="6.1">
+      <div class="cl-item" data-risk="high art6_3" data-id="6.1">
         <div class="cl-checkbox" onclick="toggleCheck(this)">
           <svg class="cl-check-icon" viewBox="0 0 10 10"><polyline points="1.5 5.5 4 8 8.5 2"/></svg>
         </div>
@@ -938,7 +938,7 @@
           <div class="cl-refs"><span class="cl-ref">Art. 14(1)</span></div>
         </div>
       </div>
-      <div class="cl-item" data-risk="high" data-id="6.2">
+      <div class="cl-item" data-risk="high art6_3" data-id="6.2">
         <div class="cl-checkbox" onclick="toggleCheck(this)">
           <svg class="cl-check-icon" viewBox="0 0 10 10"><polyline points="1.5 5.5 4 8 8.5 2"/></svg>
         </div>
@@ -947,7 +947,7 @@
           <div class="cl-refs"><span class="cl-ref">Art. 14(4)(a)</span></div>
         </div>
       </div>
-      <div class="cl-item" data-risk="high" data-id="6.3">
+      <div class="cl-item" data-risk="high art6_3" data-id="6.3">
         <div class="cl-checkbox" onclick="toggleCheck(this)">
           <svg class="cl-check-icon" viewBox="0 0 10 10"><polyline points="1.5 5.5 4 8 8.5 2"/></svg>
         </div>
@@ -956,7 +956,7 @@
           <div class="cl-refs"><span class="cl-ref">Art. 14(4)(d)</span></div>
         </div>
       </div>
-      <div class="cl-item" data-risk="high" data-id="6.4">
+      <div class="cl-item" data-risk="high art6_3" data-id="6.4">
         <div class="cl-checkbox" onclick="toggleCheck(this)">
           <svg class="cl-check-icon" viewBox="0 0 10 10"><polyline points="1.5 5.5 4 8 8.5 2"/></svg>
         </div>
@@ -965,7 +965,7 @@
           <div class="cl-refs"><span class="cl-ref">Art. 14(4)(e)</span></div>
         </div>
       </div>
-      <div class="cl-item" data-risk="high" data-id="6.5">
+      <div class="cl-item" data-risk="high art6_3" data-id="6.5">
         <div class="cl-checkbox" onclick="toggleCheck(this)">
           <svg class="cl-check-icon" viewBox="0 0 10 10"><polyline points="1.5 5.5 4 8 8.5 2"/></svg>
         </div>
@@ -991,7 +991,7 @@
     </div>
     <div class="cl-section-note">Organisational governance and mandatory AI literacy</div>
     <div class="cl-section-body">
-      <div class="cl-item" data-risk="all" data-id="7.1">
+      <div class="cl-item" data-risk="high art6_3 limited gpai minimal" data-id="7.1">
         <div class="cl-checkbox" onclick="toggleCheck(this)">
           <svg class="cl-check-icon" viewBox="0 0 10 10"><polyline points="1.5 5.5 4 8 8.5 2"/></svg>
         </div>
@@ -1003,7 +1003,7 @@
           </div>
         </div>
       </div>
-      <div class="cl-item" data-risk="all" data-id="7.2">
+      <div class="cl-item" data-risk="high art6_3 limited gpai minimal" data-id="7.2">
         <div class="cl-checkbox" onclick="toggleCheck(this)">
           <svg class="cl-check-icon" viewBox="0 0 10 10"><polyline points="1.5 5.5 4 8 8.5 2"/></svg>
         </div>
@@ -1012,7 +1012,7 @@
           <div class="cl-refs"><span class="cl-ref">Best Practice — ISO/IEC 42001</span></div>
         </div>
       </div>
-      <div class="cl-item" data-risk="all" data-id="7.3">
+      <div class="cl-item" data-risk="high art6_3 limited gpai minimal" data-id="7.3">
         <div class="cl-checkbox" onclick="toggleCheck(this)">
           <svg class="cl-check-icon" viewBox="0 0 10 10"><polyline points="1.5 5.5 4 8 8.5 2"/></svg>
         </div>
@@ -1021,7 +1021,7 @@
           <div class="cl-refs"><span class="cl-ref">ISO 42001</span></div>
         </div>
       </div>
-      <div class="cl-item" data-risk="high" data-id="7.4">
+      <div class="cl-item" data-risk="high art6_3" data-id="7.4">
         <div class="cl-checkbox" onclick="toggleCheck(this)">
           <svg class="cl-check-icon" viewBox="0 0 10 10"><polyline points="1.5 5.5 4 8 8.5 2"/></svg>
         </div>
@@ -1030,16 +1030,16 @@
           <div class="cl-refs"><span class="cl-ref">Art. 17</span></div>
         </div>
       </div>
-      <div class="cl-item" data-risk="high" data-id="7.5">
+      <div class="cl-item" data-risk="high art6_3" data-id="7.5">
         <div class="cl-checkbox" onclick="toggleCheck(this)">
           <svg class="cl-check-icon" viewBox="0 0 10 10"><polyline points="1.5 5.5 4 8 8.5 2"/></svg>
         </div>
         <div class="cl-content">
           <div class="cl-text">Has a fundamental rights impact assessment (FRIA) been conducted?</div>
-          <div class="cl-refs"><span class="cl-ref">Art. 27</span> <a href="../fria/" style="display:inline-flex;align-items:center;gap:6px;font-size:10px;letter-spacing:0.08em;text-transform:uppercase;color:var(--paper);background:var(--ink);padding:4px 10px;text-decoration:none;transition:opacity .15s;" onmouseover="this.style.opacity='.8'" onmouseout="this.style.opacity='1'">Open FRIA Tool →</a></div>
+          <div class="cl-refs"><span class="cl-ref">Art. 27</span> <a href="/fria/" style="display:inline-flex;align-items:center;gap:6px;font-size:10px;letter-spacing:0.08em;text-transform:uppercase;color:var(--paper);background:var(--ink);padding:4px 10px;text-decoration:none;transition:opacity .15s;" onmouseover="this.style.opacity='.8'" onmouseout="this.style.opacity='1'">Open FRIA Tool →</a></div>
         </div>
       </div>
-      <div class="cl-item" data-risk="high" data-id="7.6">
+      <div class="cl-item" data-risk="high art6_3" data-id="7.6">
         <div class="cl-checkbox" onclick="toggleCheck(this)">
           <svg class="cl-check-icon" viewBox="0 0 10 10"><polyline points="1.5 5.5 4 8 8.5 2"/></svg>
         </div>
@@ -1048,7 +1048,7 @@
           <div class="cl-refs"><span class="cl-ref">Art. 72</span></div>
         </div>
       </div>
-      <div class="cl-item" data-risk="high" data-id="7.7">
+      <div class="cl-item" data-risk="high art6_3" data-id="7.7">
         <div class="cl-checkbox" onclick="toggleCheck(this)">
           <svg class="cl-check-icon" viewBox="0 0 10 10"><polyline points="1.5 5.5 4 8 8.5 2"/></svg>
         </div>
@@ -1057,7 +1057,7 @@
           <div class="cl-refs"><span class="cl-ref">Art. 73</span></div>
         </div>
       </div>
-      <div class="cl-item" data-risk="high" data-id="7.8">
+      <div class="cl-item" data-risk="high art6_3" data-id="7.8">
         <div class="cl-checkbox" onclick="toggleCheck(this)">
           <svg class="cl-check-icon" viewBox="0 0 10 10"><polyline points="1.5 5.5 4 8 8.5 2"/></svg>
         </div>
@@ -1083,7 +1083,7 @@
     </div>
     <div class="cl-section-note">Specific duties for organisations deploying high-risk AI systems — Art. 26</div>
     <div class="cl-section-body">
-      <div class="cl-item" data-risk="high" data-id="8.1">
+      <div class="cl-item" data-risk="high art6_3" data-id="8.1">
         <div class="cl-checkbox" onclick="toggleCheck(this)">
           <svg class="cl-check-icon" viewBox="0 0 10 10"><polyline points="1.5 5.5 4 8 8.5 2"/></svg>
         </div>
@@ -1092,7 +1092,7 @@
           <div class="cl-refs"><span class="cl-ref">Art. 26(1)</span></div>
         </div>
       </div>
-      <div class="cl-item" data-risk="high" data-id="8.2">
+      <div class="cl-item" data-risk="high art6_3" data-id="8.2">
         <div class="cl-checkbox" onclick="toggleCheck(this)">
           <svg class="cl-check-icon" viewBox="0 0 10 10"><polyline points="1.5 5.5 4 8 8.5 2"/></svg>
         </div>
@@ -1101,7 +1101,7 @@
           <div class="cl-refs"><span class="cl-ref">Art. 26(4)</span></div>
         </div>
       </div>
-      <div class="cl-item" data-risk="high" data-id="8.3">
+      <div class="cl-item" data-risk="high art6_3" data-id="8.3">
         <div class="cl-checkbox" onclick="toggleCheck(this)">
           <svg class="cl-check-icon" viewBox="0 0 10 10"><polyline points="1.5 5.5 4 8 8.5 2"/></svg>
         </div>
@@ -1110,7 +1110,7 @@
           <div class="cl-refs"><span class="cl-ref">Art. 26(5)</span></div>
         </div>
       </div>
-      <div class="cl-item" data-risk="high" data-id="8.4">
+      <div class="cl-item" data-risk="high art6_3" data-id="8.4">
         <div class="cl-checkbox" onclick="toggleCheck(this)">
           <svg class="cl-check-icon" viewBox="0 0 10 10"><polyline points="1.5 5.5 4 8 8.5 2"/></svg>
         </div>
@@ -1119,7 +1119,7 @@
           <div class="cl-refs"><span class="cl-ref">Art. 26(7)</span></div>
         </div>
       </div>
-      <div class="cl-item" data-risk="high" data-id="8.5">
+      <div class="cl-item" data-risk="high art6_3" data-id="8.5">
         <div class="cl-checkbox" onclick="toggleCheck(this)">
           <svg class="cl-check-icon" viewBox="0 0 10 10"><polyline points="1.5 5.5 4 8 8.5 2"/></svg>
         </div>
@@ -1172,7 +1172,7 @@
   <div class="cl-footer-disclaimer">This checklist is for guidance only and does not constitute legal advice.</div>
   <div class="cl-footer-actions">
     <button class="cl-footer-btn cl-footer-btn-primary" onclick="exportPDF()">Export PDF</button>
-    <a href="../generator/" class="cl-footer-btn cl-footer-btn-secondary">&larr; Back to Assessment</a>
+    <a href="/generator/" class="cl-footer-btn cl-footer-btn-secondary">&larr; Back to Assessment</a>
     <a href="/" class="cl-footer-btn cl-footer-btn-secondary">← hexis.center</a>
     <a href="/blog/" class="cl-footer-btn cl-footer-btn-secondary">Blog</a>
     <a href="/gizlilik/" class="cl-footer-btn cl-footer-btn-secondary">Gizlilik</a>
@@ -1190,9 +1190,9 @@
   var SECTION_MAP = {
     'all':           [1,2,3,4,5,6,7,8],
     'high':          [1,2,3,4,5,6,7,8],
+    'art6_3':        [1,2,3,4,5,6,7,8],
     'limited':       [1,2,5,7],
-    'gpai-provider': [1,2,5,7],
-    'gpai-systemic': [1,2,5,7],
+    'gpai':          [1,2,5,7],
     'minimal':       [1,2,7],
     'prohibited':    []
   };
@@ -1406,12 +1406,12 @@
     applyFilter(risk);
 
     if (risk !== 'all') {
-      var labels = {high:'High-Risk',limited:'Limited Risk',minimal:'Minimal Risk',prohibited:'Prohibited'};
+      var labels = {high:'High-Risk',art6_3:'Art. 6(3) Exception',limited:'Limited Risk (Transparency)',gpai:'General-Purpose AI (GPAI)',minimal:'Minimal Risk',prohibited:'Prohibited'};
       var systemName = params.get('system') || '';
       var systemLabel = systemName ? ' for <strong style="color:var(--ink);">' + systemName.replace(/</g,'&lt;') + '</strong>' : '';
       var banner = document.createElement('div');
       banner.style.cssText = 'background:var(--rule-s);border-bottom:1px solid var(--rule);padding:8px 40px;font-family:Arial,sans-serif;font-size:11px;color:var(--stone);letter-spacing:.04em;display:flex;align-items:center;justify-content:space-between;';
-      banner.innerHTML = '<span>\u25cf Showing <strong style="color:var(--ink);">' + (labels[risk] || risk) + '</strong> requirements' + systemLabel + ' \u2014 pre-selected from your risk assessment</span><a href="../generator/" style="font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--stone);text-decoration:underline;text-underline-offset:3px;">Change classification \u2192</a>';
+      banner.innerHTML = '<span>\u25cf Showing <strong style="color:var(--ink);">' + (labels[risk] || risk) + '</strong> requirements' + systemLabel + ' \u2014 pre-selected from your risk assessment</span><a href="/generator/" style="font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--stone);text-decoration:underline;text-underline-offset:3px;">Change classification \u2192</a>';
       document.body.insertBefore(banner, document.body.firstChild);
     }
   }

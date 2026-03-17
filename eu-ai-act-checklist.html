@@ -152,6 +152,18 @@ section{position:relative;z-index:1}
 .ci{display:flex;align-items:flex-start;gap:10px;border-bottom:1px solid rgba(232,230,226,.04);cursor:pointer;transition:background .1s;padding:8px;margin:0 -8px}
 .ci:last-child{border-bottom:none}
 .ci:hover{background:rgba(232,230,226,.03)}
+.ci.dimmed{opacity:.25;pointer-events:none;user-select:none}
+.ci.dimmed .cbx{border-color:rgba(232,230,226,.06)}
+.ci.dimmed .ci-tr{text-decoration:none;color:var(--stone)}
+
+/* FILTER BANNER */
+.filter-banner{max-width:900px;margin:0 auto 8px;padding:0 40px}
+.filter-inner{background:rgba(178,152,108,.06);border:1px solid rgba(178,152,108,.18);padding:12px 18px;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.filter-txt{font-size:12px;color:var(--dark-type);font-family:Arial,sans-serif}
+.filter-txt strong{color:var(--brass)}
+.filter-count{font-size:11px;color:var(--stone);font-family:Arial,sans-serif}
+.filter-reset{background:none;border:1px solid var(--border2);color:var(--dark-sub);padding:5px 14px;font-size:11px;cursor:pointer;font-family:Arial,sans-serif;transition:color .15s,border-color .15s}
+.filter-reset:hover{border-color:rgba(232,230,226,.35);color:var(--dark-type)}
 .cbx{width:17px;height:17px;border:1px solid var(--border2);flex-shrink:0;margin-top:2px;display:flex;align-items:center;justify-content:center;transition:all .15s}
 .ci.checked .cbx{background:var(--stone);border-color:var(--stone)}
 .chk-icon{opacity:0;transition:opacity .15s}
@@ -310,30 +322,30 @@ footer a:hover{color:var(--dark-type)}
 <body>
 <nav class="orient-nav" aria-label="ORIENT methodology stages">
   <div class="orient-nav-inner">
-    <a href="generator/" class="orient-stage done" data-stage="observe">
+    <a href="/generator/" class="orient-stage done" data-stage="observe">
       <span class="orient-check">✓</span>
       <span class="orient-label">Observe</span>
     </a>
     <span class="orient-arrow">→</span>
-    <a href="generator/" class="orient-stage active" data-stage="risk">
-      <span class="orient-dot">●</span>
+    <a href="/generator/" class="orient-stage done" data-stage="risk">
+      <span class="orient-check">✓</span>
       <span class="orient-label">Risk</span>
     </a>
     <span class="orient-arrow">→</span>
-    <span class="orient-stage disabled" data-stage="identify" title="Coming soon">
-      <span class="orient-dot">○</span>
+    <span class="orient-stage active" data-stage="identify">
+      <span class="orient-dot">●</span>
       <span class="orient-label">Identify</span>
     </span>
     <span class="orient-arrow">→</span>
-    <a href="fria/" class="orient-stage" data-stage="evaluate">
+    <a href="/fria/" class="orient-stage" data-stage="evaluate">
       <span class="orient-dot">○</span>
       <span class="orient-label">Evaluate</span>
     </a>
     <span class="orient-arrow">→</span>
-    <a href="checklist/" class="orient-stage" data-stage="navigate">
+    <span class="orient-stage disabled" data-stage="navigate" title="Coming soon">
       <span class="orient-dot">○</span>
       <span class="orient-label">Navigate</span>
-    </a>
+    </span>
     <span class="orient-arrow">→</span>
     <span class="orient-stage disabled" data-stage="track" title="Coming soon">
       <span class="orient-dot">○</span>
@@ -457,6 +469,17 @@ footer a:hover{color:var(--dark-type)}
   </div>
 </div>
 
+<!-- FILTER BANNER (shown when ?risk= param present) -->
+<div class="filter-banner" id="filterBanner" style="display:none">
+  <div class="filter-inner">
+    <div>
+      <div class="filter-txt"><strong id="filterRiskLabel">—</strong> risk seviyesine göre filtrelendi</div>
+      <div class="filter-count"><span id="filterActive">0</span> / 23 madde sizin için geçerli</div>
+    </div>
+    <button class="filter-reset" onclick="clearFilter()">Tüm maddeleri göster</button>
+  </div>
+</div>
+
 <!-- PROGRESS -->
 <div class="prog-wrap" id="checklist">
   <div class="prog-card">
@@ -494,10 +517,10 @@ footer a:hover{color:var(--dark-type)}
       <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 9l6 6 6-6"/></svg>
     </div>
     <div class="sc-body"><div class="divider"></div>
-      <div class="ci" onclick="toggleItem(this)"><div class="cbx"><svg class="chk-icon" width="10" height="10" viewBox="0 0 14 14" fill="none"><path d="M2 7l4 4 6-6" stroke="#16181C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="ci-texts"><div class="ci-tr">Şirkette kullanılan tüm AI sistemleri listelendi mi?</div><div class="ci-en">Are all AI systems used in the company listed?</div><div class="ci-refs"><span class="ref">EU AI Act Mad.49</span></div></div></div>
-      <div class="ci" onclick="toggleItem(this)"><div class="cbx"><svg class="chk-icon" width="10" height="10" viewBox="0 0 14 14" fill="none"><path d="M2 7l4 4 6-6" stroke="#16181C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="ci-texts"><div class="ci-tr">Her AI sisteminin amacı ve kullanım alanı tanımlandı mı?</div><div class="ci-en">Is the purpose and use case of each AI system defined?</div></div></div>
-      <div class="ci" onclick="toggleItem(this)"><div class="cbx"><svg class="chk-icon" width="10" height="10" viewBox="0 0 14 14" fill="none"><path d="M2 7l4 4 6-6" stroke="#16181C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="ci-texts"><div class="ci-tr">AI sistemleri risk kategorisine göre sınıflandırıldı mı?</div><div class="ci-en">Are AI systems classified according to risk category?</div><div class="ci-refs"><span class="ref">EU AI Act Mad.6-7</span></div></div></div>
-      <div class="ci" onclick="toggleItem(this)"><div class="cbx"><svg class="chk-icon" width="10" height="10" viewBox="0 0 14 14" fill="none"><path d="M2 7l4 4 6-6" stroke="#16181C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="ci-texts"><div class="ci-tr">Tedarikçilerden sağlanan AI araçları da envantere dahil mi?</div><div class="ci-en">Are AI tools from suppliers also included in the inventory?</div></div></div>
+      <div class="ci" data-risk="high,art6_3,limited,gpai,minimal" onclick="toggleItem(this)"><div class="cbx"><svg class="chk-icon" width="10" height="10" viewBox="0 0 14 14" fill="none"><path d="M2 7l4 4 6-6" stroke="#16181C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="ci-texts"><div class="ci-tr">Şirkette kullanılan tüm AI sistemleri listelendi mi?</div><div class="ci-en">Are all AI systems used in the company listed?</div><div class="ci-refs"><span class="ref">EU AI Act Mad.49</span></div></div></div>
+      <div class="ci" data-risk="high,art6_3,limited,gpai,minimal" onclick="toggleItem(this)"><div class="cbx"><svg class="chk-icon" width="10" height="10" viewBox="0 0 14 14" fill="none"><path d="M2 7l4 4 6-6" stroke="#16181C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="ci-texts"><div class="ci-tr">Her AI sisteminin amacı ve kullanım alanı tanımlandı mı?</div><div class="ci-en">Is the purpose and use case of each AI system defined?</div></div></div>
+      <div class="ci" data-risk="high,art6_3,limited,gpai,minimal" onclick="toggleItem(this)"><div class="cbx"><svg class="chk-icon" width="10" height="10" viewBox="0 0 14 14" fill="none"><path d="M2 7l4 4 6-6" stroke="#16181C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="ci-texts"><div class="ci-tr">AI sistemleri risk kategorisine göre sınıflandırıldı mı?</div><div class="ci-en">Are AI systems classified according to risk category?</div><div class="ci-refs"><span class="ref">EU AI Act Mad.6-7</span></div></div></div>
+      <div class="ci" data-risk="high,art6_3,limited,gpai,minimal" onclick="toggleItem(this)"><div class="cbx"><svg class="chk-icon" width="10" height="10" viewBox="0 0 14 14" fill="none"><path d="M2 7l4 4 6-6" stroke="#16181C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="ci-texts"><div class="ci-tr">Tedarikçilerden sağlanan AI araçları da envantere dahil mi?</div><div class="ci-en">Are AI tools from suppliers also included in the inventory?</div></div></div>
     </div>
   </div>
 
@@ -509,9 +532,9 @@ footer a:hover{color:var(--dark-type)}
       <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 9l6 6 6-6"/></svg>
     </div>
     <div class="sc-body"><div class="divider"></div>
-      <div class="ci" onclick="toggleItem(this)"><div class="cbx"><svg class="chk-icon" width="10" height="10" viewBox="0 0 14 14" fill="none"><path d="M2 7l4 4 6-6" stroke="#16181C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="ci-texts"><div class="ci-tr">Yüksek riskli AI sistemleri tespit edildi mi? (işe alım, kredi, sağlık vb.)</div><div class="ci-en">Have high-risk AI systems been identified?</div><div class="ci-refs"><span class="ref">EU AI Act Ek III</span></div></div></div>
-      <div class="ci" onclick="toggleItem(this)"><div class="cbx"><svg class="chk-icon" width="10" height="10" viewBox="0 0 14 14" fill="none"><path d="M2 7l4 4 6-6" stroke="#16181C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="ci-texts"><div class="ci-tr">Şubat 2025'ten itibaren yasaklanan AI uygulamaları kaldırıldı mı?</div><div class="ci-en">Have prohibited AI practices (effective Feb 2025) been discontinued?</div><div class="ci-refs"><span class="ref">EU AI Act Mad.5 — Aktif</span></div></div></div>
-      <div class="ci" onclick="toggleItem(this)"><div class="cbx"><svg class="chk-icon" width="10" height="10" viewBox="0 0 14 14" fill="none"><path d="M2 7l4 4 6-6" stroke="#16181C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="ci-texts"><div class="ci-tr">Her sistem için risk matrisi oluşturuldu mu?</div><div class="ci-en">Has a risk matrix been created for each system?</div></div></div>
+      <div class="ci" data-risk="high,art6_3" onclick="toggleItem(this)"><div class="cbx"><svg class="chk-icon" width="10" height="10" viewBox="0 0 14 14" fill="none"><path d="M2 7l4 4 6-6" stroke="#16181C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="ci-texts"><div class="ci-tr">Yüksek riskli AI sistemleri tespit edildi mi? (işe alım, kredi, sağlık vb.)</div><div class="ci-en">Have high-risk AI systems been identified?</div><div class="ci-refs"><span class="ref">EU AI Act Ek III</span></div></div></div>
+      <div class="ci" data-risk="high,art6_3,limited,gpai,minimal" onclick="toggleItem(this)"><div class="cbx"><svg class="chk-icon" width="10" height="10" viewBox="0 0 14 14" fill="none"><path d="M2 7l4 4 6-6" stroke="#16181C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="ci-texts"><div class="ci-tr">Şubat 2025'ten itibaren yasaklanan AI uygulamaları kaldırıldı mı?</div><div class="ci-en">Have prohibited AI practices (effective Feb 2025) been discontinued?</div><div class="ci-refs"><span class="ref">EU AI Act Mad.5 — Aktif</span></div></div></div>
+      <div class="ci" data-risk="high,art6_3" onclick="toggleItem(this)"><div class="cbx"><svg class="chk-icon" width="10" height="10" viewBox="0 0 14 14" fill="none"><path d="M2 7l4 4 6-6" stroke="#16181C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="ci-texts"><div class="ci-tr">Her sistem için risk matrisi oluşturuldu mu?</div><div class="ci-en">Has a risk matrix been created for each system?</div></div></div>
     </div>
   </div>
 
@@ -523,10 +546,10 @@ footer a:hover{color:var(--dark-type)}
       <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 9l6 6 6-6"/></svg>
     </div>
     <div class="sc-body"><div class="divider"></div>
-      <div class="ci" onclick="toggleItem(this)"><div class="cbx"><svg class="chk-icon" width="10" height="10" viewBox="0 0 14 14" fill="none"><path d="M2 7l4 4 6-6" stroke="#16181C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="ci-texts"><div class="ci-tr">AI karar mekanizmaları çalışanlara açıklandı mı?</div><div class="ci-en">Have AI decision mechanisms been explained to employees?</div><div class="ci-refs"><span class="ref">EU Mad.13</span><span class="ref">KVKK Rehberi S.7</span></div></div></div>
-      <div class="ci" onclick="toggleItem(this)"><div class="cbx"><svg class="chk-icon" width="10" height="10" viewBox="0 0 14 14" fill="none"><path d="M2 7l4 4 6-6" stroke="#16181C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="ci-texts"><div class="ci-tr">Teknik dokümantasyon hazırlandı mı? (Madde 11)</div><div class="ci-en">Has technical documentation been prepared? (Article 11)</div><div class="ci-refs"><span class="ref">EU AI Act Mad.11</span></div></div></div>
-      <div class="ci" onclick="toggleItem(this)"><div class="cbx"><svg class="chk-icon" width="10" height="10" viewBox="0 0 14 14" fill="none"><path d="M2 7l4 4 6-6" stroke="#16181C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="ci-texts"><div class="ci-tr">Müşterilere AI kullanımı hakkında bilgilendirme yapılıyor mu?</div><div class="ci-en">Are customers informed about AI usage?</div><div class="ci-refs"><span class="ref">EU Mad.50</span><span class="ref">KVKK Rehberi S.8</span></div></div></div>
-      <div class="ci" onclick="toggleItem(this)"><div class="cbx"><svg class="chk-icon" width="10" height="10" viewBox="0 0 14 14" fill="none"><path d="M2 7l4 4 6-6" stroke="#16181C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="ci-texts"><div class="ci-tr">AI sistemi kayıtları (log) düzenli tutuluyor mu?</div><div class="ci-en">Are AI system logs maintained regularly?</div><div class="ci-refs"><span class="ref">EU AI Act Mad.17</span></div></div></div>
+      <div class="ci" data-risk="high,art6_3" onclick="toggleItem(this)"><div class="cbx"><svg class="chk-icon" width="10" height="10" viewBox="0 0 14 14" fill="none"><path d="M2 7l4 4 6-6" stroke="#16181C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="ci-texts"><div class="ci-tr">AI karar mekanizmaları çalışanlara açıklandı mı?</div><div class="ci-en">Have AI decision mechanisms been explained to employees?</div><div class="ci-refs"><span class="ref">EU Mad.13</span><span class="ref">KVKK Rehberi S.7</span></div></div></div>
+      <div class="ci" data-risk="high,art6_3" onclick="toggleItem(this)"><div class="cbx"><svg class="chk-icon" width="10" height="10" viewBox="0 0 14 14" fill="none"><path d="M2 7l4 4 6-6" stroke="#16181C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="ci-texts"><div class="ci-tr">Teknik dokümantasyon hazırlandı mı? (Madde 11)</div><div class="ci-en">Has technical documentation been prepared? (Article 11)</div><div class="ci-refs"><span class="ref">EU AI Act Mad.11</span></div></div></div>
+      <div class="ci" data-risk="high,art6_3,limited,gpai" onclick="toggleItem(this)"><div class="cbx"><svg class="chk-icon" width="10" height="10" viewBox="0 0 14 14" fill="none"><path d="M2 7l4 4 6-6" stroke="#16181C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="ci-texts"><div class="ci-tr">Müşterilere AI kullanımı hakkında bilgilendirme yapılıyor mu?</div><div class="ci-en">Are customers informed about AI usage?</div><div class="ci-refs"><span class="ref">EU Mad.50</span><span class="ref">KVKK Rehberi S.8</span></div></div></div>
+      <div class="ci" data-risk="high,art6_3" onclick="toggleItem(this)"><div class="cbx"><svg class="chk-icon" width="10" height="10" viewBox="0 0 14 14" fill="none"><path d="M2 7l4 4 6-6" stroke="#16181C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="ci-texts"><div class="ci-tr">AI sistemi kayıtları (log) düzenli tutuluyor mu?</div><div class="ci-en">Are AI system logs maintained regularly?</div><div class="ci-refs"><span class="ref">EU AI Act Mad.17</span></div></div></div>
     </div>
   </div>
 
@@ -538,9 +561,9 @@ footer a:hover{color:var(--dark-type)}
       <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 9l6 6 6-6"/></svg>
     </div>
     <div class="sc-body"><div class="divider"></div>
-      <div class="ci" onclick="toggleItem(this)"><div class="cbx"><svg class="chk-icon" width="10" height="10" viewBox="0 0 14 14" fill="none"><path d="M2 7l4 4 6-6" stroke="#16181C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="ci-texts"><div class="ci-tr">Kritik AI kararları için insan onayı mekanizması var mı?</div><div class="ci-en">Is there a human approval mechanism for critical AI decisions?</div><div class="ci-refs"><span class="ref">EU Mad.14</span><span class="ref">KVKK Mad.11</span></div></div></div>
-      <div class="ci" onclick="toggleItem(this)"><div class="cbx"><svg class="chk-icon" width="10" height="10" viewBox="0 0 14 14" fill="none"><path d="M2 7l4 4 6-6" stroke="#16181C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="ci-texts"><div class="ci-tr">AI sistemlerini durdurma yetkisi tanımlandı mı?</div><div class="ci-en">Has the authority to stop AI systems been defined?</div></div></div>
-      <div class="ci" onclick="toggleItem(this)"><div class="cbx"><svg class="chk-icon" width="10" height="10" viewBox="0 0 14 14" fill="none"><path d="M2 7l4 4 6-6" stroke="#16181C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="ci-texts"><div class="ci-tr">Çalışanlar AI çıktılarını sorgulayabiliyor mu?</div><div class="ci-en">Can employees challenge AI outputs?</div></div></div>
+      <div class="ci" data-risk="high,art6_3" onclick="toggleItem(this)"><div class="cbx"><svg class="chk-icon" width="10" height="10" viewBox="0 0 14 14" fill="none"><path d="M2 7l4 4 6-6" stroke="#16181C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="ci-texts"><div class="ci-tr">Kritik AI kararları için insan onayı mekanizması var mı?</div><div class="ci-en">Is there a human approval mechanism for critical AI decisions?</div><div class="ci-refs"><span class="ref">EU Mad.14</span><span class="ref">KVKK Mad.11</span></div></div></div>
+      <div class="ci" data-risk="high,art6_3" onclick="toggleItem(this)"><div class="cbx"><svg class="chk-icon" width="10" height="10" viewBox="0 0 14 14" fill="none"><path d="M2 7l4 4 6-6" stroke="#16181C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="ci-texts"><div class="ci-tr">AI sistemlerini durdurma yetkisi tanımlandı mı?</div><div class="ci-en">Has the authority to stop AI systems been defined?</div></div></div>
+      <div class="ci" data-risk="high,art6_3,limited,gpai,minimal" onclick="toggleItem(this)"><div class="cbx"><svg class="chk-icon" width="10" height="10" viewBox="0 0 14 14" fill="none"><path d="M2 7l4 4 6-6" stroke="#16181C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="ci-texts"><div class="ci-tr">Çalışanlar AI çıktılarını sorgulayabiliyor mu?</div><div class="ci-en">Can employees challenge AI outputs?</div></div></div>
     </div>
   </div>
 
@@ -552,11 +575,11 @@ footer a:hover{color:var(--dark-type)}
       <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 9l6 6 6-6"/></svg>
     </div>
     <div class="sc-body"><div class="divider"></div>
-      <div class="ci" onclick="toggleItem(this)"><div class="cbx"><svg class="chk-icon" width="10" height="10" viewBox="0 0 14 14" fill="none"><path d="M2 7l4 4 6-6" stroke="#16181C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="ci-texts"><div class="ci-tr">ÜYZ sistemleri için veri sorumlusu / veri işleyen rolleri belirlendi mi?</div><div class="ci-en">Have data controller / processor roles been defined for GenAI systems?</div><div class="ci-refs"><span class="ref">KVKK Rehberi S.5</span><span class="ref">KVKK Mad.3</span></div></div></div>
-      <div class="ci" onclick="toggleItem(this)"><div class="cbx"><svg class="chk-icon" width="10" height="10" viewBox="0 0 14 14" fill="none"><path d="M2 7l4 4 6-6" stroke="#16181C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="ci-texts"><div class="ci-tr">Yurt dışı veri aktarımı için KVKK Madde 9 prosedürleri uygulandı mı?</div><div class="ci-en">Have KVKK Article 9 procedures been applied for cross-border data transfers?</div><div class="ci-refs"><span class="ref">KVKK Rehberi S.9</span><span class="ref">KVKK Mad.9</span></div></div></div>
-      <div class="ci" onclick="toggleItem(this)"><div class="cbx"><svg class="chk-icon" width="10" height="10" viewBox="0 0 14 14" fill="none"><path d="M2 7l4 4 6-6" stroke="#16181C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="ci-texts"><div class="ci-tr">Özel nitelikli veriler ÜYZ sistemlerinde işleniyor mu? (yasak kontrol)</div><div class="ci-en">Are special category data processed in GenAI systems? (prohibition check)</div><div class="ci-refs"><span class="ref">KVKK Rehberi S.10</span><span class="ref">KVKK Mad.6</span></div></div></div>
-      <div class="ci" onclick="toggleItem(this)"><div class="cbx"><svg class="chk-icon" width="10" height="10" viewBox="0 0 14 14" fill="none"><path d="M2 7l4 4 6-6" stroke="#16181C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="ci-texts"><div class="ci-tr">Veri kalitesi ve önyargı (bias) testleri yapıldı mı?</div><div class="ci-en">Have data quality and bias tests been conducted?</div><div class="ci-refs"><span class="ref">EU AI Act Mad.10</span></div></div></div>
-      <div class="ci" onclick="toggleItem(this)"><div class="cbx"><svg class="chk-icon" width="10" height="10" viewBox="0 0 14 14" fill="none"><path d="M2 7l4 4 6-6" stroke="#16181C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="ci-texts"><div class="ci-tr">Mahremiyet etkisi değerlendirmesi (PIA) yapıldı mı?</div><div class="ci-en">Has a Privacy Impact Assessment (PIA) been conducted?</div><div class="ci-refs"><span class="ref">KVKK Rehberi S.12</span></div></div></div>
+      <div class="ci" data-risk="high,art6_3,limited,gpai,minimal" onclick="toggleItem(this)"><div class="cbx"><svg class="chk-icon" width="10" height="10" viewBox="0 0 14 14" fill="none"><path d="M2 7l4 4 6-6" stroke="#16181C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="ci-texts"><div class="ci-tr">ÜYZ sistemleri için veri sorumlusu / veri işleyen rolleri belirlendi mi?</div><div class="ci-en">Have data controller / processor roles been defined for GenAI systems?</div><div class="ci-refs"><span class="ref">KVKK Rehberi S.5</span><span class="ref">KVKK Mad.3</span></div></div></div>
+      <div class="ci" data-risk="high,art6_3,limited,gpai,minimal" onclick="toggleItem(this)"><div class="cbx"><svg class="chk-icon" width="10" height="10" viewBox="0 0 14 14" fill="none"><path d="M2 7l4 4 6-6" stroke="#16181C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="ci-texts"><div class="ci-tr">Yurt dışı veri aktarımı için KVKK Madde 9 prosedürleri uygulandı mı?</div><div class="ci-en">Have KVKK Article 9 procedures been applied for cross-border data transfers?</div><div class="ci-refs"><span class="ref">KVKK Rehberi S.9</span><span class="ref">KVKK Mad.9</span></div></div></div>
+      <div class="ci" data-risk="high,art6_3,limited,gpai,minimal" onclick="toggleItem(this)"><div class="cbx"><svg class="chk-icon" width="10" height="10" viewBox="0 0 14 14" fill="none"><path d="M2 7l4 4 6-6" stroke="#16181C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="ci-texts"><div class="ci-tr">Özel nitelikli veriler ÜYZ sistemlerinde işleniyor mu? (yasak kontrol)</div><div class="ci-en">Are special category data processed in GenAI systems? (prohibition check)</div><div class="ci-refs"><span class="ref">KVKK Rehberi S.10</span><span class="ref">KVKK Mad.6</span></div></div></div>
+      <div class="ci" data-risk="high,art6_3" onclick="toggleItem(this)"><div class="cbx"><svg class="chk-icon" width="10" height="10" viewBox="0 0 14 14" fill="none"><path d="M2 7l4 4 6-6" stroke="#16181C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="ci-texts"><div class="ci-tr">Veri kalitesi ve önyargı (bias) testleri yapıldı mı?</div><div class="ci-en">Have data quality and bias tests been conducted?</div><div class="ci-refs"><span class="ref">EU AI Act Mad.10</span></div></div></div>
+      <div class="ci" data-risk="high,art6_3,limited,gpai" onclick="toggleItem(this)"><div class="cbx"><svg class="chk-icon" width="10" height="10" viewBox="0 0 14 14" fill="none"><path d="M2 7l4 4 6-6" stroke="#16181C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="ci-texts"><div class="ci-tr">Mahremiyet etkisi değerlendirmesi (PIA) yapıldı mı?</div><div class="ci-en">Has a Privacy Impact Assessment (PIA) been conducted?</div><div class="ci-refs"><span class="ref">KVKK Rehberi S.12</span></div></div></div>
     </div>
   </div>
 
@@ -568,10 +591,10 @@ footer a:hover{color:var(--dark-type)}
       <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 9l6 6 6-6"/></svg>
     </div>
     <div class="sc-body"><div class="divider"></div>
-      <div class="ci" onclick="toggleItem(this)"><div class="cbx"><svg class="chk-icon" width="10" height="10" viewBox="0 0 14 14" fill="none"><path d="M2 7l4 4 6-6" stroke="#16181C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="ci-texts"><div class="ci-tr">AI sorumluluğu için bir yetkili/ekip atandı mı?</div><div class="ci-en">Has an owner/team been assigned for AI accountability?</div></div></div>
-      <div class="ci" onclick="toggleItem(this)"><div class="cbx"><svg class="chk-icon" width="10" height="10" viewBox="0 0 14 14" fill="none"><path d="M2 7l4 4 6-6" stroke="#16181C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="ci-texts"><div class="ci-tr">AI politikası ve kullanım kuralları yazılı mı?</div><div class="ci-en">Are AI policy and usage rules documented?</div><div class="ci-refs"><span class="ref">KVKK Rehberi S.15</span></div></div></div>
-      <div class="ci" onclick="toggleItem(this)"><div class="cbx"><svg class="chk-icon" width="10" height="10" viewBox="0 0 14 14" fill="none"><path d="M2 7l4 4 6-6" stroke="#16181C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="ci-texts"><div class="ci-tr">AI okuryazarlığı eğitimi tamamlandı mı? (Madde 4 — Şub 2025'ten zorunlu)</div><div class="ci-en">Is AI literacy training completed? (Article 4 — mandatory since Feb 2025)</div><div class="ci-refs"><span class="ref">EU AI Act Mad.4 — Aktif</span></div></div></div>
-      <div class="ci" onclick="toggleItem(this)"><div class="cbx"><svg class="chk-icon" width="10" height="10" viewBox="0 0 14 14" fill="none"><path d="M2 7l4 4 6-6" stroke="#16181C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="ci-texts"><div class="ci-tr">GPAI araçları için Ağustos 2025 gereksinimleri karşılandı mı?</div><div class="ci-en">Have August 2025 requirements for GPAI tools been met?</div><div class="ci-refs"><span class="ref">EU AI Act Bölüm V</span><span class="ref">KVKK Rehberi S.4</span></div></div></div>
+      <div class="ci" data-risk="high,art6_3,limited,gpai,minimal" onclick="toggleItem(this)"><div class="cbx"><svg class="chk-icon" width="10" height="10" viewBox="0 0 14 14" fill="none"><path d="M2 7l4 4 6-6" stroke="#16181C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="ci-texts"><div class="ci-tr">AI sorumluluğu için bir yetkili/ekip atandı mı?</div><div class="ci-en">Has an owner/team been assigned for AI accountability?</div></div></div>
+      <div class="ci" data-risk="high,art6_3,limited,gpai,minimal" onclick="toggleItem(this)"><div class="cbx"><svg class="chk-icon" width="10" height="10" viewBox="0 0 14 14" fill="none"><path d="M2 7l4 4 6-6" stroke="#16181C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="ci-texts"><div class="ci-tr">AI politikası ve kullanım kuralları yazılı mı?</div><div class="ci-en">Are AI policy and usage rules documented?</div><div class="ci-refs"><span class="ref">KVKK Rehberi S.15</span></div></div></div>
+      <div class="ci" data-risk="high,art6_3,limited,gpai,minimal" onclick="toggleItem(this)"><div class="cbx"><svg class="chk-icon" width="10" height="10" viewBox="0 0 14 14" fill="none"><path d="M2 7l4 4 6-6" stroke="#16181C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="ci-texts"><div class="ci-tr">AI okuryazarlığı eğitimi tamamlandı mı? (Madde 4 — Şub 2025'ten zorunlu)</div><div class="ci-en">Is AI literacy training completed? (Article 4 — mandatory since Feb 2025)</div><div class="ci-refs"><span class="ref">EU AI Act Mad.4 — Aktif</span></div></div></div>
+      <div class="ci" data-risk="gpai" onclick="toggleItem(this)"><div class="cbx"><svg class="chk-icon" width="10" height="10" viewBox="0 0 14 14" fill="none"><path d="M2 7l4 4 6-6" stroke="#16181C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="ci-texts"><div class="ci-tr">GPAI araçları için Ağustos 2025 gereksinimleri karşılandı mı?</div><div class="ci-en">Have August 2025 requirements for GPAI tools been met?</div><div class="ci-refs"><span class="ref">EU AI Act Bölüm V</span><span class="ref">KVKK Rehberi S.4</span></div></div></div>
     </div>
   </div>
 </div>
@@ -723,26 +746,105 @@ document.addEventListener('click',function(e){
 });
 
 const TOTALS=[4,3,4,3,5,4];
-function toggleSec(h){h.closest('.sc').classList.toggle('open')}
-function toggleItem(i){i.classList.toggle('checked');updateProg()}
-function updateProg(){
-  let done=0,total=23;
-  document.querySelectorAll('.sc').forEach((c,si)=>{
-    const its=c.querySelectorAll('.ci'),sd=Array.from(its).filter(i=>i.classList.contains('checked')).length;
-    done+=sd;
-    document.getElementById('p'+si).textContent=sd+'/'+TOTALS[si];
-    c.classList.toggle('completed',sd===TOTALS[si]);
+var _activeRisk=null;
+
+/* ── Risk Filter ── */
+var RISK_LABELS={
+  'high':'Yüksek Risk (High-Risk)',
+  'art6_3':'Madde 6(3) İstisna',
+  'limited':'Sınırlı Risk (Transparency)',
+  'gpai':'Genel Amaçlı AI (GPAI)',
+  'minimal':'Minimal Risk'
+};
+
+function applyFilter(riskLevel){
+  _activeRisk=riskLevel;
+  var activeCount=0;
+  document.querySelectorAll('.ci').forEach(function(ci){
+    var risks=ci.getAttribute('data-risk')||'';
+    if(risks.split(',').indexOf(riskLevel)!==-1){
+      ci.classList.remove('dimmed');
+      activeCount++;
+    } else {
+      ci.classList.add('dimmed');
+    }
   });
-  const pct=Math.round(done/total*100);
+  /* Show filter banner */
+  var banner=document.getElementById('filterBanner');
+  banner.style.display='block';
+  document.getElementById('filterRiskLabel').textContent=RISK_LABELS[riskLevel]||riskLevel;
+  document.getElementById('filterActive').textContent=activeCount;
+  /* Update section badges dynamically */
+  document.querySelectorAll('.sc').forEach(function(sec){
+    var items=sec.querySelectorAll('.ci');
+    var activeInSec=0;
+    items.forEach(function(ci){if(!ci.classList.contains('dimmed'))activeInSec++});
+    var badge=sec.querySelector('.rb');
+    if(activeInSec===0){
+      sec.style.opacity='.35';
+      if(badge)badge.textContent='Geçerli değil';
+    } else {
+      sec.style.opacity='1';
+      if(badge)badge.textContent=activeInSec+'/'+items.length+' madde';
+    }
+  });
+  updateProg();
+  if(typeof plausible!=='undefined')plausible('Filter Checklist',{props:{risk:riskLevel}});
+}
+
+function clearFilter(){
+  _activeRisk=null;
+  document.querySelectorAll('.ci').forEach(function(ci){ci.classList.remove('dimmed')});
+  document.getElementById('filterBanner').style.display='none';
+  /* Restore original badges */
+  var badgeLabels=['Yüksek','Yüksek','Orta','Orta','Yüksek','Düşük'];
+  document.querySelectorAll('.sc').forEach(function(sec,i){
+    sec.style.opacity='1';
+    var badge=sec.querySelector('.rb');
+    if(badge)badge.textContent=badgeLabels[i];
+  });
+  updateProg();
+}
+
+/* Read URL params on load */
+(function(){
+  var params=new URLSearchParams(window.location.search);
+  var risk=params.get('risk');
+  if(risk && RISK_LABELS[risk]){
+    applyFilter(risk);
+  }
+})();
+
+function toggleSec(h){h.closest('.sc').classList.toggle('open')}
+function toggleItem(i){if(i.classList.contains('dimmed'))return;i.classList.toggle('checked');updateProg()}
+function updateProg(){
+  var done=0,total=0;
+  document.querySelectorAll('.sc').forEach(function(c,si){
+    var its=c.querySelectorAll('.ci');
+    var secActive=0,secDone=0;
+    its.forEach(function(ci){
+      var isDimmed=ci.classList.contains('dimmed');
+      if(!isDimmed){
+        secActive++;
+        if(ci.classList.contains('checked'))secDone++;
+      }
+    });
+    done+=secDone;
+    total+=secActive;
+    document.getElementById('p'+si).textContent=secDone+'/'+secActive;
+    c.classList.toggle('completed',secActive>0&&secDone===secActive);
+  });
+  if(total===0)total=1;
+  var pct=Math.round(done/total*100);
   document.getElementById('progPct').textContent=pct+'%';
   document.getElementById('progBar').style.width=pct+'%';
   document.getElementById('cDone').textContent=done;
   document.getElementById('cLeft').textContent=total-done;
-  const circ=document.getElementById('progCircle');
-  const circumference=2*Math.PI*29;
+  var circ=document.getElementById('progCircle');
+  var circumference=2*Math.PI*29;
   circ.style.strokeDasharray=circumference;
   circ.style.strokeDashoffset=circumference-(pct/100)*circumference;
-  if(done===total&&!window._ms){window._ms=true;if(typeof plausible!=='undefined')plausible('Complete Checklist');setTimeout(()=>document.getElementById('compModal').classList.add('open'),600)}
+  if(done===total&&done>0&&!window._ms){window._ms=true;if(typeof plausible!=='undefined')plausible('Complete Checklist');setTimeout(function(){document.getElementById('compModal').classList.add('open')},600)}
 }
 function closeModal(){document.getElementById('compModal').classList.remove('open')}
 function exportPDF(){

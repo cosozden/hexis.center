@@ -1164,12 +1164,12 @@
 <body>
 <nav class="orient-nav" aria-label="ORIENT methodology stages">
   <div class="orient-nav-inner">
-    <a href="../generator/" class="orient-stage done" data-stage="observe">
+    <a href="/generator/" class="orient-stage done" data-stage="observe">
       <span class="orient-check">✓</span>
       <span class="orient-label">Observe</span>
     </a>
     <span class="orient-arrow">→</span>
-    <a href="../generator/" class="orient-stage active" data-stage="risk">
+    <a href="/generator/" class="orient-stage active" data-stage="risk">
       <span class="orient-dot">●</span>
       <span class="orient-label">Risk</span>
     </a>
@@ -2491,7 +2491,7 @@
       articles: 'Articles 51\u201355', deadline: '2025-08-02', deadlineLabel: '2 August 2025',
       obligations: GPAI_SYSTEMIC_OBLIGATIONS.slice(),
       penalty: 'Up to \u20AC15 million or 3% of total worldwide annual turnover, whichever is higher',
-      exposureMapping: 'high', checklistRisk: 'high', supplementary: [],
+      exposureMapping: 'high', checklistRisk: 'gpai', supplementary: [],
       hasFRIA: false, isGPAIDeployer: false, prohibitedArticle: null
     },
     'gpai_standard': {
@@ -2499,7 +2499,7 @@
       articles: 'Articles 51\u201353', deadline: '2025-08-02', deadlineLabel: '2 August 2025',
       obligations: GPAI_OBLIGATIONS.slice(),
       penalty: 'Up to \u20AC15 million or 3% of total worldwide annual turnover, whichever is higher',
-      exposureMapping: 'moderate', checklistRisk: 'moderate', supplementary: [],
+      exposureMapping: 'moderate', checklistRisk: 'gpai', supplementary: [],
       hasFRIA: false, isGPAIDeployer: false, prohibitedArticle: null
     },
     'transparency': {
@@ -2642,7 +2642,7 @@
             '<div class="clf-result-obl">Deployers of AI systems for risk assessment and pricing in life and health insurance (Annex III, point 5(c))</div>' +
           '</div>' +
           '<div class="clf-fria-exception" style="margin-top:10px;">Other deployers: voluntary but strongly recommended. Where the FRIA reveals high risks, appropriate mitigation measures must be implemented before deployment.</div>' +
-          '<div style="margin-top:10px;"><a href="../fria/" class="clf-fria-link">Open FRIA Assessment Tool \u2192</a></div>' +
+          '<div style="margin-top:10px;"><a href="/fria/?risk=high&system=' + encodeURIComponent(data.systemName || '') + '" class="clf-fria-link">Open FRIA Assessment Tool \u2192</a></div>' +
         '</div>';
     } else if (isTransparency && !data.hasFRIA) {
       friaHtml =
@@ -2749,7 +2749,8 @@
       actionsHtml += '<button class="clf-result-continue" onclick="proceedToEvaluate(\'' + data.exposureMapping + '\')">Proceed to Evaluate \u2192</button>';
     }
     if (!isProhibited) {
-      actionsHtml += '<a href="/eu-ai-act-checklist.html" class="clf-result-checklist">Identify: Checklist \u2192</a>';
+      var clRisk = data.checklistRisk || 'high';
+      actionsHtml += '<a href="/eu-ai-act-checklist.html?risk=' + encodeURIComponent(clRisk) + '" class="clf-result-checklist">Identify: Checklist \u2192</a>';
     }
     actionsHtml += '<button class="clf-result-restart" onclick="reclassify()">\u2190 Reclassify</button>';
     actionsHtml += '</div>';
@@ -2987,7 +2988,7 @@
       ];
       penalty = 'Up to \u20AC7.5 million or 1% of total worldwide annual turnover, whichever is higher, for incorrect information (Art. 99(5))';
       exposureMapping = 'moderate';
-      checklistRisk = 'limited';
+      checklistRisk = 'art6_3';
       supplementary.push('Art. 6(3) exception applied \u2014 provider must document this assessment and update if conditions change');
       supplementary.push('If system subsequently performs profiling, it automatically becomes high-risk (Art. 6(3) last paragraph)');
       if (isAnnexI) {
@@ -3021,7 +3022,7 @@
       obligations = GPAI_SYSTEMIC_OBLIGATIONS.slice();
       penalty = 'Up to \u20AC15 million or 3% of total worldwide annual turnover, whichever is higher';
       exposureMapping = 'high';
-      checklistRisk = 'gpai-systemic';
+      checklistRisk = 'gpai';
     } else if (isGPAI) {
       level = 'GENERAL-PURPOSE AI';
       category = 'Provider Obligations \u2014 Chapter V';
@@ -3031,7 +3032,7 @@
       obligations = GPAI_OBLIGATIONS.slice();
       penalty = 'Up to \u20AC15 million or 3% of total worldwide annual turnover, whichever is higher';
       exposureMapping = 'elevated';
-      checklistRisk = 'gpai-provider';
+      checklistRisk = 'gpai';
     } else if (hasTransparency) {
       level = 'LIMITED RISK';
       category = 'Transparency Obligations';
@@ -3126,8 +3127,8 @@
         var personalDataSectors = ['hr', 'finance', 'healthcare', 'education', 'retail'];
         var hasPersonalData = personalDataSectors.indexOf(obs.sector) !== -1;
         if (!hasPersonalData) return 'minimal';
-        if (rl === 'high' || rl === 'gpai-systemic') return 'full';
-        if (rl === 'elevated' || rl === 'moderate' || rl === 'limited' || rl === 'gpai-provider') return 'partial';
+        if (rl === 'high' || rl === 'gpai') return 'full';
+        if (rl === 'elevated' || rl === 'moderate' || rl === 'limited' || rl === 'art6_3') return 'partial';
         return 'minimal';
       })()
     };
@@ -3214,8 +3215,8 @@
         var personalDataSectors = ['hr', 'finance', 'healthcare', 'education', 'retail'];
         var hasPersonalData = personalDataSectors.indexOf(obs.sector) !== -1;
         if (!hasPersonalData) return 'minimal';
-        if (rl === 'high' || rl === 'gpai-systemic') return 'full';
-        if (rl === 'elevated' || rl === 'moderate' || rl === 'limited' || rl === 'gpai-provider') return 'partial';
+        if (rl === 'high' || rl === 'gpai') return 'full';
+        if (rl === 'elevated' || rl === 'moderate' || rl === 'limited' || rl === 'art6_3') return 'partial';
         return 'minimal';
       })()
     };
@@ -3615,8 +3616,8 @@ function generateMatrix() {
       <div class="ns-step"><span class="ns-letter">T</span><span class="ns-name">Track</span></div>
     </div>
     <div class="next-steps-actions">
-      <a href="../checklist/?risk=${({high:'high',elevated:'high',moderate:'limited',low:'minimal'})[exposure] || 'high'}&system=${encodeURIComponent(name)}" class="ns-btn ns-btn-primary">Identify: Compliance Checklist \u2192</a>
-      ${(exposure === 'high' || exposure === 'elevated') ? '<a href="../fria/?risk=high&system=' + encodeURIComponent(name) + '&sector=' + encodeURIComponent(({high:'employment',elevated:'employment',moderate:'',low:''})[exposure] || '') + '" class="ns-btn">Evaluate: Fundamental Rights Impact Assessment \u2192</a>' : ''}
+      <a href="/eu-ai-act-checklist.html?risk=${(window._complianceProfile && window._complianceProfile.riskLevel) || ({high:'high',elevated:'high',moderate:'limited',low:'minimal'})[exposure] || 'high'}&system=${encodeURIComponent(name)}" class="ns-btn ns-btn-primary">Identify: Compliance Checklist \u2192</a>
+      ${(exposure === 'high' || exposure === 'elevated') ? '<a href="/fria/?risk=high&system=' + encodeURIComponent(name) + '&sector=' + encodeURIComponent(({high:'employment',elevated:'employment',moderate:'',low:''})[exposure] || '') + '" class="ns-btn">Evaluate: Fundamental Rights Impact Assessment \u2192</a>' : ''}
     </div>
   </div>
 
