@@ -163,17 +163,19 @@ hexis.center/
 ## 5. Generator Architecture (generator/index.html)
 
 ### Component A: Risk Classifier Wizard (top of page)
-6-step decision tree following EU AI Act classification logic:
+7-step decision tree following EU AI Act classification logic:
 1. Prohibited practices (Art. 5) — early termination if positive
 2. Product safety / Annex I (Art. 6(1))
 3. Annex III domain selection — 8 high-risk areas (Art. 6(2))
-4. Transparency obligations (Art. 50)
+3b. Art. 6(3) exception check — conditional (only shown if Annex III selected). 4 exception conditions + profiling always-high-risk rule
+4. Transparency obligations (Art. 50) — includes Art. 50(3) emotion/biometric disclosure
 5. GPAI classification (Art. 51–56) — provider / systemic / deployer
 6. Fundamental rights impact assessment
 
-**Result card:** Risk level + article references + obligation list + deadline countdown
+**Result card:** Risk level + article references + obligation table + deadline countdown + KVKK block (if personal data=yes from Observe) + EU database registration (Art. 49) + pre-assessment signals (rule-based) + Identify checklist link
 **Skip option:** "I know my risk level →" bypasses wizard
 **On completion:** Auto-fills Risk Exposure dropdown and triggers matrix generation
+**Observe → Risk data flow:** EU market scope, AI component, organisation role transferred. Banner warnings for non-EU market, rule-based systems. Role auto-applied to result card.
 
 ### Component B: Configurator (dark bar)
 - System Name (text input)
@@ -264,7 +266,7 @@ The HEXIS ecosystem has two repos that share classification logic:
 ### hexis.center Live Tools
 | File | Tool | ORIENT Stage |
 |------|------|-------------|
-| `generator/index.html` | Observe form + Risk Classifier (Steps 1–6) + Governance Activation Matrix | Observe → Risk |
+| `generator/index.html` | Observe form (v2, 4 groups + KVKK block) + Risk Classifier (Steps 1–7, incl. Art. 6(3) exception) + Governance Activation Matrix | Observe → Risk → Evaluate |
 | `checklist/index.html` | EU AI Act compliance checklist | Identify → Evaluate |
 | `fria/index.html` | FRIA (Fundamental Rights Impact Assessment) | Evaluate |
 | `eu-ai-act-checklist.html` | Standalone EU AI Act checklist | Identify |
@@ -275,6 +277,9 @@ The HEXIS ecosystem has two repos that share classification logic:
 - Governance Activation Blueprint (Annex IV technical docs) → Evaluate/Navigate
 - Release Readiness Checklist (5 dimensions) → Navigate
 - AI Governance Summary Report PDF → all stages
+
+### V2 Backlog — API Integration
+- **AI System Card "Ön Değerlendirme Sinyalleri" → Anthropic API:** Currently rule-based keyword matching on intended purpose field. V2 will POST purpose text + form data to backend → Anthropic Claude API for intelligent pre-assessment. API key never exposed in browser (backend proxy required). Target: after Navigate/Track tools are built.
 
 ---
 
@@ -334,6 +339,12 @@ Before any commit:
 - Web: Risk Classifier wizard in generator ✅
 
 **Sprint 2 (Compliance Documenter + Platform Integration):** ⏳ CURRENT
+- ✅ Observe form v2 (4 groups + KVKK block)
+- ✅ Risk Classifier v2 (Art. 6(3) exception, Art. 50(3), Observe→Risk data flow, KVKK risk block, Identify link)
+- ⏳ Identify stage tool analysis (EU AI Act Checklist — risk-level filtering)
+- ⏳ Evaluate stage tool analysis (FRIA + Governance Activation Matrix)
+- Navigate stage tool — NO TOOL EXISTS, needs creation
+- Track stage tool — NO TOOL EXISTS, needs creation
 - FRIA template generator (Art. 27)
 - Technical documentation template (Art. 11 + Annex IV)
 - Conformity assessment guidance (Art. 43)

@@ -554,6 +554,37 @@
   .clf-result-checklist:hover { border-color: var(--ink); color: var(--ink); }
   .classifier-wrap.collapsed { display: none; }
 
+  /* ── Art. 6(3) Exception Panel ── */
+  .clf-exception-panel {
+    display: none; margin-top: 16px; margin-bottom: 16px;
+    border: 1px solid var(--rule); padding: 20px 24px;
+  }
+  .clf-exception-panel.visible { display: block; }
+  .clf-exception-label {
+    font-size: 9px; letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--brass); margin-bottom: 10px;
+  }
+  .clf-exception-q {
+    font-family: Georgia, 'Times New Roman', serif; font-size: 14px;
+    font-weight: 700; color: var(--ink); line-height: 1.4; margin-bottom: 12px;
+  }
+  .clf-exception-hint {
+    font-size: 10px; color: var(--stone); line-height: 1.5;
+    margin-bottom: 14px; font-style: italic;
+  }
+  .clf-exception-warning {
+    font-size: 10px; color: var(--ink-soft); line-height: 1.5;
+    margin-top: 10px; padding: 8px 12px;
+    border-left: 2px solid var(--brass); background: rgba(178,152,108,0.04);
+  }
+
+  /* ── KVKK Risk Note in result card ── */
+  .clf-kvkk-block {
+    border-left: 3px solid var(--brass); padding: 14px 16px;
+    margin-top: 14px; margin-bottom: 4px;
+  }
+  .clf-kvkk-block .clf-result-label { color: var(--brass); }
+
   /* ── OBSERVE STAGE ── */
   .observe-wrap {
     background: var(--paper); border-bottom: 1.5px solid var(--ink);
@@ -1143,20 +1174,20 @@
       <span class="orient-label">Risk</span>
     </a>
     <span class="orient-arrow">→</span>
-    <span class="orient-stage disabled" data-stage="identify" title="Coming soon">
+    <a href="/eu-ai-act-checklist.html" class="orient-stage" data-stage="identify">
       <span class="orient-dot">○</span>
       <span class="orient-label">Identify</span>
-    </span>
+    </a>
     <span class="orient-arrow">→</span>
-    <a href="../fria/" class="orient-stage" data-stage="evaluate">
+    <a href="/fria/" class="orient-stage" data-stage="evaluate">
       <span class="orient-dot">○</span>
       <span class="orient-label">Evaluate</span>
     </a>
     <span class="orient-arrow">→</span>
-    <a href="../checklist/" class="orient-stage" data-stage="navigate">
+    <span class="orient-stage disabled" data-stage="navigate" title="Coming soon">
       <span class="orient-dot">○</span>
       <span class="orient-label">Navigate</span>
-    </a>
+    </span>
     <span class="orient-arrow">→</span>
     <span class="orient-stage disabled" data-stage="track" title="Coming soon">
       <span class="orient-dot">○</span>
@@ -1944,6 +1975,80 @@
     var euMarketLabels = { yes: (obsLang === 'tr' ? 'Evet' : 'Yes'), no: (obsLang === 'tr' ? 'Hay\u0131r' : 'No'), unsure: (obsLang === 'tr' ? 'Emin de\u011filim' : 'Not sure') };
     var personalDataLabels = euMarketLabels; // same labels
 
+    // ── AI-Powered Pre-Assessment (rule-based signals from purpose + fields) ──
+    var signals = [];
+    var purposeLower = purpose.toLowerCase();
+
+    // Detect high-risk keywords in purpose field
+    var hrKeywords = {
+      en: { 'recruit': 'Employment/HR', 'hiring': 'Employment/HR', 'screening': 'Employment/HR', 'credit': 'Financial services', 'loan': 'Financial services', 'insurance': 'Financial services', 'diagnos': 'Healthcare', 'patient': 'Healthcare', 'medical': 'Healthcare', 'student': 'Education', 'exam': 'Education', 'grading': 'Education', 'border': 'Migration', 'asylum': 'Migration', 'biometric': 'Biometrics', 'facial': 'Biometrics', 'surveillance': 'Law enforcement', 'criminal': 'Law enforcement', 'policing': 'Law enforcement', 'infrastructure': 'Critical infrastructure', 'energy': 'Critical infrastructure', 'water': 'Critical infrastructure' },
+      tr: { 'i\u015fe al': '\u0130stihdam', 'aday': '\u0130stihdam', 'tarama': '\u0130stihdam', 'kredi': 'Finans', 'sigorta': 'Finans', 'puan': 'Finans', 'te\u015fhis': 'Sa\u011fl\u0131k', 'hasta': 'Sa\u011fl\u0131k', 't\u0131bbi': 'Sa\u011fl\u0131k', '\u00f6\u011frenci': 'E\u011fitim', 's\u0131nav': 'E\u011fitim', 'not': 'E\u011fitim', 's\u0131n\u0131r': 'G\u00f6\u00e7', 'iltica': 'G\u00f6\u00e7', 'biyometrik': 'Biyometri', 'y\u00fcz tan\u0131ma': 'Biyometri', 'g\u00f6zetim': 'Kolluk', 'su\u00e7': 'Kolluk', 'altyap\u0131': 'Kritik altyap\u0131', 'enerji': 'Kritik altyap\u0131' }
+    };
+    var kw = hrKeywords[obsLang] || hrKeywords.en;
+    var detectedDomains = [];
+    Object.keys(kw).forEach(function(keyword) {
+      if (purposeLower.indexOf(keyword) >= 0 && detectedDomains.indexOf(kw[keyword]) === -1) {
+        detectedDomains.push(kw[keyword]);
+      }
+    });
+
+    if (detectedDomains.length > 0) {
+      signals.push({
+        type: 'warning',
+        text: obsLang === 'tr'
+          ? 'Tasar\u0131m amac\u0131nda y\u00fcksek riskli alan tespiti: ' + detectedDomains.join(', ') + '. Annex III kapsam\u0131n\u0131 kontrol edin.'
+          : 'High-risk domain detected in intended purpose: ' + detectedDomains.join(', ') + '. Verify Annex III scope.'
+      });
+    }
+
+    if (autonomy === 'fully_automated' && personalData === 'yes') {
+      signals.push({
+        type: 'warning',
+        text: obsLang === 'tr'
+          ? 'Tam otomatik karar alma + ki\u015fisel veri: KVKK Md. 11(1)(g) bilgilendirme ve itiraz hakk\u0131 zorunlu. GDPR Art. 22 muadili kontrol edin.'
+          : 'Fully automated decision-making + personal data: KVKK Art. 11(1)(g) information and objection rights mandatory. Check GDPR Art. 22 equivalent.'
+      });
+    }
+
+    if (euMarket === 'no' && role !== 'deployer') {
+      signals.push({
+        type: 'info',
+        text: obsLang === 'tr'
+          ? 'AB pazar\u0131 d\u0131\u015f\u0131 belirtildi. EU AI Act do\u011frudan uygulanmayabilir, ancak AB\'deki kullan\u0131c\u0131lar\u0131 etkiliyorsa ekstra-teritoryal uygulama m\u00fcmk\u00fcn (Art. 2(1)(c)).'
+          : 'Non-EU market indicated. EU AI Act may not directly apply, but extra-territorial application possible if affecting EU users (Art. 2(1)(c)).'
+      });
+    }
+
+    if (aiComponent === 'rule_based') {
+      signals.push({
+        type: 'info',
+        text: obsLang === 'tr'
+          ? 'Kural tabanl\u0131 sistem: Art. 3(1) AI sistemi tan\u0131m\u0131na girmeyebilir. Ancak hybrid veya ML bile\u015fenleri eklendik\u00e7e kapsam de\u011fi\u015febilir.'
+          : 'Rule-based system: may not fall under Art. 3(1) AI system definition. However, scope may change if ML or hybrid components are added.'
+      });
+    }
+
+    if (unresolved > 0) {
+      signals.push({
+        type: 'warning',
+        text: obsLang === 'tr'
+          ? unresolved + ' foreseeable misuse maddesi \u00e7\u00f6z\u00fcms\u00fcz. Risk s\u0131n\u0131fland\u0131rmas\u0131ndan \u00f6nce mutlaka de\u011ferlendirin.'
+          : unresolved + ' foreseeable misuse item(s) unresolved. Must be assessed before Risk classification.'
+      });
+    }
+
+    var preAssessHtml = '';
+    if (signals.length > 0) {
+      preAssessHtml =
+        '<div class="system-card-section" style="border-left:2px solid var(--brass);padding-left:14px;margin-top:8px;">' +
+          '<div class="system-card-label">' + (obsLang === 'tr' ? '\u00d6n De\u011ferlendirme Sinyalleri' : 'Pre-Assessment Signals') + '</div>';
+      signals.forEach(function(s) {
+        var icon = s.type === 'warning' ? '\u26A0' : '\u2139\uFE0F';
+        preAssessHtml += '<div style="font-size:11px;color:var(--ink-soft);line-height:1.5;margin-bottom:4px;">' + icon + ' ' + s.text + '</div>';
+      });
+      preAssessHtml += '</div>';
+    }
+
     var cardHtml =
       '<div class="system-card-header">' +
         '<div class="system-card-header-title">AI SYSTEM CARD</div>' +
@@ -1977,6 +2082,7 @@
           (unresolved > 0 ? '<div style="font-size:10px;color:var(--brass);margin-top:6px;">' + (obsLang === 'tr' ? unresolved + ' madde \u00e7\u00f6z\u00fcms\u00fcz' : unresolved + ' item(s) unresolved') + '</div>' : '') +
         '</div>' +
         kvkkHtml +
+        preAssessHtml +
         warningHtml +
         '<div class="system-card-section">' +
           '<div class="system-card-label">EU AI Act Reference</div>' +
@@ -2066,6 +2172,30 @@
       }
     }
 
+    // EU Market scope check — if "no", show advisory note
+    if (data.euMarket === 'no') {
+      var banner = document.getElementById('clf-observe-banner');
+      if (banner) {
+        var euNote = data.lang === 'tr'
+          ? '\u2139\uFE0F Observe a\u015Famas\u0131nda AB pazar\u0131na sunulmayaca\u011F\u0131n\u0131 belirttiniz. EU AI Act do\u011Frudan uygulanmayabilir, ancak ihtiyati olarak s\u0131n\u0131fland\u0131rmay\u0131 tamamlaman\u0131z\u0131 \u00F6neriyoruz.'
+          : '\u2139\uFE0F You indicated the system is not placed on the EU market. The EU AI Act may not directly apply, but we recommend completing the classification as a precaution.';
+        banner.textContent = (banner.textContent ? banner.textContent + ' ' : '') + euNote;
+        banner.classList.add('visible');
+      }
+    }
+
+    // AI Component check — if rule-based, note scope limitation
+    if (data.aiComponent === 'rule_based') {
+      var banner = document.getElementById('clf-observe-banner');
+      if (banner) {
+        var ruleNote = data.lang === 'tr'
+          ? '\u26A0 Kural tabanl\u0131 sistemler Art. 3(1) kapsam\u0131nda AI sistemi say\u0131lmayabilir. S\u0131n\u0131fland\u0131rma sonucunu bu ba\u011Flamda de\u011Ferlendirin.'
+          : '\u26A0 Rule-based systems may not qualify as AI systems under Art. 3(1). Evaluate the classification result in this context.';
+        banner.textContent = (banner.textContent ? banner.textContent + ' ' : '') + ruleNote;
+        banner.classList.add('visible');
+      }
+    }
+
     // Sector → Annex III pre-fill
     var sectorToAnnexIII = {
       hr: 'area4',
@@ -2074,6 +2204,11 @@
     };
     if (data.sector && sectorToAnnexIII[data.sector]) {
       window._observePreFill = sectorToAnnexIII[data.sector];
+    }
+
+    // Role pre-fill from Observe → Result card role selector
+    if (data.role) {
+      window._observeRolePreFill = data.role;
     }
 
     // Scroll to classifier
@@ -2102,7 +2237,7 @@
 (function() {
   'use strict';
 
-  var CLF_TOTAL_STEPS = 6;
+  var CLF_TOTAL_STEPS = 7;
 
   var TR_CLF = {
     questions: [
@@ -2147,6 +2282,18 @@
           { label: 'Yukar\u0131dakilerin hi\u00E7biri', desc: 'Sistemim Ek III kapsam\u0131ndaki y\u00FCksek riskli bir alana girmiyor' }
         ]
       },
+      // Step 3b — Art. 6(3) Exception
+      {
+        text: 'AI sisteminiz bu istisnai ko\u015Fullardan herhangi birini kar\u015F\u0131l\u0131yor mu?',
+        hint: 'Madde 6(3) uyar\u0131nca, Ek III kapsam\u0131ndaki bir AI sistemi, sa\u011Fl\u0131k, g\u00FCvenlik veya temel haklar a\u00E7\u0131s\u0131ndan \u00F6nemli bir risk olu\u015Fturmuyorsa ve belirli ko\u015Fullar\u0131 kar\u015F\u0131l\u0131yorsa y\u00FCksek riskli say\u0131lmayabilir. Ancak profilleme yapan sistemler HER ZAMAN y\u00FCksek risktir \u2014 istisna uygulanmaz.',
+        options: [
+          { label: 'Dar prosed\u00FCrel bir g\u00F6rev ger\u00E7ekle\u015Ftirir', desc: 'Sistem yaln\u0131zca s\u0131n\u0131rl\u0131, dar kapsaml\u0131 bir prosed\u00FCrel i\u015Flem yapar' },
+          { label: 'Tamamlanm\u0131\u015F bir insan faaliyetini iyile\u015Ftirir', desc: '\u0130nsan taraf\u0131ndan \u00F6nceden tamamlanm\u0131\u015F bir de\u011Ferlendirmeyi veya \u00E7\u0131kt\u0131y\u0131 iyile\u015Ftirmek i\u00E7in kullan\u0131l\u0131r' },
+          { label: 'Karar kal\u0131plar\u0131n\u0131 tespit eder', desc: '\u00D6nceki insan de\u011Ferlendirmelerinden sapmalar\u0131 tespit eder ancak insan karar\u0131n\u0131 de\u011Fi\u015Ftirmez veya ikame etmez' },
+          { label: 'De\u011Ferlendirme i\u00E7in haz\u0131rl\u0131k g\u00F6revi yapar', desc: 'Ek III kapsam\u0131ndaki kullan\u0131m ama\u00E7lar\u0131 i\u00E7in de\u011Ferlendirmeye y\u00F6nelik haz\u0131rl\u0131k niteli\u011Finde bir g\u00F6rev \u00FCstlenir' },
+          { label: 'Hay\u0131r \u2014 yukar\u0131dakilerin hi\u00E7biri ge\u00E7erli de\u011Fil', desc: 'Sistem bu ko\u015Fullar\u0131n hi\u00E7birini kar\u015F\u0131lam\u0131yor veya profilleme yap\u0131yor' }
+        ]
+      },
       // Step 4 — Transparency
       {
         text: 'AI sisteminiz Madde 50 kapsam\u0131nda \u015Feffafl\u0131k y\u00FCk\u00FCml\u00FCl\u00FC\u011F\u00FC ta\u015F\u0131yor mu?',
@@ -2154,6 +2301,7 @@
         options: [
           { label: 'G\u00F6r\u00FCnt\u00FC, ses veya video i\u00E7eri\u011Fi \u00FCretir ya da manip\u00FCle eder', desc: 'Derin sahte (deepfake), sentetik medya, ger\u00E7ek ki\u015Filere, nesnelere veya olaylara benzeyen yapay zeka taraf\u0131ndan \u00FCretilen i\u00E7erik' },
           { label: 'Do\u011Fal ki\u015Filerle do\u011Frudan etkile\u015Fime girer', desc: 'Kullan\u0131c\u0131lar\u0131n bir AI ile etkile\u015Fimde olduklar\u0131n\u0131 fark etmeyebilece\u011Fi sohbet robotlar\u0131, sanal asistanlar ve benzeri sistemler' },
+          { label: 'Duygu tan\u0131ma veya biyometrik kategorilendirme kullan\u0131r', desc: 'Bireylerin duygular\u0131n\u0131 tespit eden veya biyometrik olarak kategorilendiren sistemler, etkilenen ki\u015Filere bunu a\u00E7\u0131klamak zorundad\u0131r (Md. 50(3))' },
           { label: 'Kamuyu bilgilendirmek amac\u0131yla metin \u00FCretir', desc: 'Kamuoyunu ilgilendiren konularda bilgilendirme amac\u0131yla yay\u0131mlanan AI taraf\u0131ndan olu\u015Fturulmu\u015F metin' },
           { label: '\u015Eeffafl\u0131k y\u00FCk\u00FCml\u00FCl\u00FC\u011F\u00FC uygulanm\u0131yor', desc: 'Sistem herhangi bir Madde 50 \u015Feffafl\u0131k kategorisine girmiyor' }
         ]
@@ -2183,7 +2331,7 @@
 
   var CLF_QUESTIONS = [
     {
-      num: 'Step 1 of 6',
+      num: 'Step 1 of 7',
       text: 'Does your AI system involve any prohibited practice?',
       hint: 'Article 5 of the EU AI Act prohibits certain AI practices that pose unacceptable risk. If any apply, the system cannot be placed on the EU market.',
       options: [
@@ -2199,7 +2347,7 @@
       ]
     },
     {
-      num: 'Step 2 of 6',
+      num: 'Step 2 of 7',
       text: 'Is your AI system a safety component of, or itself a product covered by EU harmonisation legislation listed in Annex I?',
       hint: 'Annex I covers product safety legislation including machinery, medical devices, toys, lifts, radio equipment, civil aviation, motor vehicles, and marine equipment.',
       options: [
@@ -2208,7 +2356,7 @@
       ]
     },
     {
-      num: 'Step 3 of 6',
+      num: 'Step 3 of 7',
       text: 'Does your AI system fall within any high-risk area listed in Annex III?',
       hint: 'Article 6(2) designates AI systems in these domains as high-risk when they pose significant risks to health, safety, or fundamental rights.',
       options: [
@@ -2224,18 +2372,31 @@
       ]
     },
     {
-      num: 'Step 4 of 6',
+      num: 'Step 3b of 7',
+      text: 'Does your AI system meet any of these exception conditions?',
+      hint: 'Under Article 6(3), an Annex III system may not be high-risk if it does not pose a significant risk of harm and meets one of four conditions. However, systems that perform profiling of natural persons are ALWAYS high-risk \u2014 no exception applies.',
+      options: [
+        { id: 'narrow_procedural', label: 'Performs a narrow procedural task', desc: 'The system only carries out a limited, narrow procedural operation' },
+        { id: 'improve_human', label: 'Improves a previously completed human activity', desc: 'Used to improve the result of a previously completed human assessment or output' },
+        { id: 'detect_patterns', label: 'Detects decision-making patterns', desc: 'Detects deviations from prior human decision-making patterns but does not replace or influence the human assessment' },
+        { id: 'preparatory', label: 'Performs a preparatory task for assessment', desc: 'Carries out a preparatory task to an assessment relevant for the Annex III use cases' },
+        { id: 'none', label: 'No \u2014 none of the above apply', desc: 'The system does not meet any exception condition, or it performs profiling of natural persons' }
+      ]
+    },
+    {
+      num: 'Step 4 of 7',
       text: 'Does your AI system have transparency obligations under Article 50?',
       hint: 'Certain AI systems must ensure that users are informed they are interacting with AI, or that content is AI-generated.',
       options: [
         { id: 'deepfake', label: 'Generates or manipulates image, audio or video content', desc: 'Deepfakes, synthetic media, AI-generated content that resembles real persons, objects, places or events' },
         { id: 'chatbot', label: 'Interacts directly with natural persons', desc: 'Chatbots, virtual assistants, or other systems where persons may not realise they are interacting with AI' },
+        { id: 'emotion_biometric', label: 'Uses emotion recognition or biometric categorisation', desc: 'Systems that detect emotions or categorise persons biometrically must disclose this to affected persons (Art. 50(3))' },
         { id: 'public_content', label: 'Generates text used to inform the public', desc: 'AI-generated text published to inform the public on matters of public interest' },
         { id: 'none', label: 'No transparency obligations apply', desc: 'The system does not fall into any Article 50 transparency category' }
       ]
     },
     {
-      num: 'Step 5 of 6',
+      num: 'Step 5 of 7',
       text: 'Is this a general-purpose AI (GPAI) model?',
       hint: 'General-purpose AI models (e.g. ChatGPT, Claude, Gemini) trained on large datasets, capable of performing a wide range of tasks. Providers and deployers have distinct obligations (Articles 51\u201356).',
       options: [
@@ -2246,7 +2407,7 @@
       ]
     },
     {
-      num: 'Step 6 of 6',
+      num: 'Step 6 of 7',
       text: 'Is your AI system likely to have a significant impact on fundamental rights?',
       hint: 'Article 27 requires deployers of high-risk AI systems to carry out a fundamental rights impact assessment (FRIA) before putting a system into use.',
       options: [
@@ -2284,6 +2445,7 @@
   var TRANSPARENCY_OBLIGATIONS = [
     'Inform natural persons they are interacting with an AI system (Art. 50(1))',
     'Mark AI-generated or manipulated content as artificially generated (Art. 50(2))',
+    'Disclose use of emotion recognition or biometric categorisation to affected persons (Art. 50(3))',
     'Label deepfake content with machine-readable disclosure (Art. 50(4))'
   ];
 
@@ -2366,6 +2528,7 @@
 
     var isProhibited = data.state === 'PROHIBITED';
     var isHighRisk = data.state === 'HIGH_RISK_ANNEX_III' || data.state === 'HIGH_RISK_ANNEX_I';
+    var isArt6Exception = data.state === 'ART6_3_EXCEPTION';
     var isGPAI = data.state === 'GPAI_SYSTEMIC' || data.state === 'GPAI_STANDARD';
     var isTransparency = data.state === 'TRANSPARENCY';
     var isMinimal = data.state === 'MINIMAL';
@@ -2392,6 +2555,7 @@
     var stateIcon = '';
     if (isProhibited) stateIcon = '\u26D4 ';
     else if (isHighRisk || isGPAI) stateIcon = '\uD83D\uDD34 ';
+    else if (isArt6Exception) stateIcon = '\uD83D\uDFE0 ';
     else if (isTransparency) stateIcon = '\uD83D\uDFE1 ';
     else if (isMinimal) stateIcon = '\uD83D\uDFE2 ';
 
@@ -2422,6 +2586,15 @@
       oblHtml =
         '<div class="clf-result-section">' +
           '<div class="clf-result-label">Immediate Actions Required</div>' +
+          '<div class="clf-result-obligations">';
+      data.obligations.forEach(function(o) {
+        oblHtml += '<div class="clf-result-obl">' + o + '</div>';
+      });
+      oblHtml += '</div></div>';
+    } else if (isArt6Exception) {
+      oblHtml =
+        '<div class="clf-result-section">' +
+          '<div class="clf-result-label">Obligations (Art. 6(3) Exception)</div>' +
           '<div class="clf-result-obligations">';
       data.obligations.forEach(function(o) {
         oblHtml += '<div class="clf-result-obl">' + o + '</div>';
@@ -2518,6 +2691,45 @@
         '</div>';
     }
 
+    /* ── KVKK Risk Note ── */
+    var kvkkHtml = '';
+    var obs = window._observeData || {};
+    if (obs.personalData === 'yes' && !isProhibited) {
+      var kvkkItems = [];
+      if (isHighRisk) {
+        kvkkItems.push('KVKK Veri Etki De\u011Ferlendirmesi (VED) zorunlu \u2014 y\u00FCksek riskli AI + ki\u015Fisel veri i\u015Fleme');
+        kvkkItems.push('KVKK Md. 12 \u2014 Veri sorumlusu y\u00FCk\u00FCml\u00FCl\u00FCkleri (ayd\u0131nlatma, veri g\u00FCvenli\u011Fi, kay\u0131t)');
+      }
+      if (obs.kvkk && obs.kvkk.hasSpecialCategory) {
+        kvkkItems.push('KVKK Md. 6 \u2014 \u00D6zel nitelikli ki\u015Fisel veri i\u015Fleme i\u00E7in ek korumalar gerekli');
+      }
+      if (obs.autonomy === 'fully_automated') {
+        kvkkItems.push('KVKK Md. 11(1)(g) \u2014 Otomatik karar alma: ilgili ki\u015Fiyi bilgilendirme ve itiraz hakk\u0131');
+      }
+      kvkkItems.push('KVKK Md. 16 \u2014 Veri Sorumluları Sicili (VERB\u0130S) kay\u0131t y\u00FCk\u00FCml\u00FCl\u00FC\u011F\u00FC kontrol edilmeli');
+      kvkkHtml =
+        '<div class="clf-kvkk-block">' +
+          '<div class="clf-result-label">KVKK Y\u00FCk\u00FCml\u00FCl\u00FCkleri</div>' +
+          '<div class="clf-result-obligations">';
+      kvkkItems.forEach(function(item) {
+        kvkkHtml += '<div class="clf-result-obl">' + item + '</div>';
+      });
+      kvkkHtml += '</div></div>';
+    }
+
+    /* ── EU Database Registration (Art. 49) ── */
+    var registrationHtml = '';
+    if ((isHighRisk || isArt6Exception) && !isProhibited) {
+      registrationHtml =
+        '<div class="clf-result-section">' +
+          '<div class="clf-result-label">EU Database Registration</div>' +
+          '<div class="clf-result-obligations">' +
+            '<div class="clf-result-obl">Providers and deployers must register high-risk AI systems in the EU database before placing on market (Art. 49)</div>' +
+            (isArt6Exception ? '<div class="clf-result-obl">Art. 6(3) exception assessment must also be registered (Art. 49(2))</div>' : '') +
+          '</div>' +
+        '</div>';
+    }
+
     /* ── Action buttons ── */
     var systemName = '';
     if (window._observeData && window._observeData.name) systemName = window._observeData.name;
@@ -2536,6 +2748,9 @@
     if (!isProhibited && data.exposureMapping) {
       actionsHtml += '<button class="clf-result-continue" onclick="proceedToEvaluate(\'' + data.exposureMapping + '\')">Proceed to Evaluate \u2192</button>';
     }
+    if (!isProhibited) {
+      actionsHtml += '<a href="/eu-ai-act-checklist.html" class="clf-result-checklist">Identify: Checklist \u2192</a>';
+    }
     actionsHtml += '<button class="clf-result-restart" onclick="reclassify()">\u2190 Reclassify</button>';
     actionsHtml += '</div>';
 
@@ -2547,11 +2762,23 @@
         gpaiDeployerHtml +
         oblHtml +
         friaHtml +
+        registrationHtml +
+        kvkkHtml +
         penaltyHtml +
         roleHtml +
         actionsHtml +
       '</div>';
     resultEl.classList.add('visible');
+
+    // Auto-apply role from Observe if available
+    if (window._observeRolePreFill && !isProhibited) {
+      var roleMap = { provider: 'provider', deployer: 'deployer', both: 'both' };
+      var mappedRole = roleMap[window._observeRolePreFill];
+      if (mappedRole && typeof window.setRole === 'function') {
+        setTimeout(function() { window.setRole(mappedRole); }, 100);
+      }
+      window._observeRolePreFill = null;
+    }
   }
 
   var clfCurrentStep = 0;
@@ -2710,16 +2937,19 @@
   }
 
   function computeClassification() {
-    var step2 = clfSelections[1];
-    var step3 = clfSelections[2];
-    var step4 = clfSelections[3];
-    var step5 = clfSelections[4];
-    var step6 = clfSelections[5];
+    var step2 = clfSelections[1];      // Annex I
+    var step3 = clfSelections[2];      // Annex III
+    var step3b = clfSelections[3];     // Art. 6(3) exception
+    var step4 = clfSelections[4];      // Transparency
+    var step5 = clfSelections[5];      // GPAI
+    var step6 = clfSelections[6];      // FRIA
 
     var isAnnexI = step2 === 'yes';
     var isAnnexIII = step3 && step3 !== 'none';
     var annexIIIOption = isAnnexIII ? CLF_QUESTIONS[2].options.find(function(o) { return o.id === step3; }) : null;
     var annexIIIArea = annexIIIOption ? annexIIIOption.area : null;
+    // Art. 6(3) exception: if Annex III selected AND an exception condition is met (not 'none')
+    var hasArt6Exception = isAnnexIII && step3b && step3b !== 'none';
     var hasTransparency = step4 && step4 !== 'none';
     var isGPAI = step5 === 'gpai_provider';
     var isGPAISystemic = step5 === 'gpai_systemic';
@@ -2729,7 +2959,7 @@
     var level, category, articles, deadline, deadlineLabel, obligations, penalty, exposureMapping, checklistRisk;
     var supplementary = [];
 
-    if (isAnnexIII) {
+    if (isAnnexIII && !hasArt6Exception) {
       level = 'HIGH RISK';
       category = 'Annex III \u2014 Area ' + annexIIIArea;
       articles = 'Article 6(2), Annex III Area ' + annexIIIArea;
@@ -2741,6 +2971,36 @@
       checklistRisk = 'high';
       if (isAnnexI) {
         supplementary.push('Also covered by Annex I product safety legislation (Art. 6(1)) \u2014 additional deadline 2 August 2027');
+      }
+    } else if (isAnnexIII && hasArt6Exception) {
+      // Art. 6(3) exception: system falls under Annex III but is not high-risk
+      level = 'NOT HIGH-RISK (Art. 6(3) Exception)';
+      category = 'Annex III Area ' + annexIIIArea + ' \u2014 Exception Applied';
+      articles = 'Article 6(3), Annex III Area ' + annexIIIArea;
+      deadline = '2026-08-02';
+      deadlineLabel = '2 August 2026';
+      obligations = [
+        'Document your Article 6(3) assessment before placing on market (Art. 6(4))',
+        'Register system in EU database with Art. 6(3) assessment (Art. 49(2))',
+        'Voluntary codes of conduct encouraged (Art. 95)',
+        'Monitor regulatory developments for reclassification triggers'
+      ];
+      penalty = 'Up to \u20AC7.5 million or 1% of total worldwide annual turnover, whichever is higher, for incorrect information (Art. 99(5))';
+      exposureMapping = 'moderate';
+      checklistRisk = 'limited';
+      supplementary.push('Art. 6(3) exception applied \u2014 provider must document this assessment and update if conditions change');
+      supplementary.push('If system subsequently performs profiling, it automatically becomes high-risk (Art. 6(3) last paragraph)');
+      if (isAnnexI) {
+        supplementary.push('Also covered by Annex I product safety legislation (Art. 6(1)) \u2014 high-risk obligations still apply for Annex I');
+        // Annex I overrides the exception for product safety
+        level = 'HIGH RISK';
+        category = 'Annex I + Annex III Area ' + annexIIIArea + ' (Art. 6(3) exception on Annex III only)';
+        articles = 'Article 6(1) + Article 6(3), Annex I + Annex III Area ' + annexIIIArea;
+        obligations = HIGH_RISK_OBLIGATIONS.slice();
+        obligations.push('Document Art. 6(3) assessment for Annex III component (Art. 6(4))');
+        penalty = 'Up to \u20AC15 million or 3% of total worldwide annual turnover, whichever is higher';
+        exposureMapping = 'high';
+        checklistRisk = 'high';
       }
     } else if (isAnnexI) {
       level = 'HIGH RISK';
@@ -2819,15 +3079,19 @@
   function showClassificationResult() {
     var result = computeClassification();
     var step3 = clfSelections[2];
+    var step3b = clfSelections[3];
     var isAnnexIII = step3 && step3 !== 'none';
+    var hasArt6Exception = isAnnexIII && step3b && step3b !== 'none';
     var step2 = clfSelections[1];
     var isAnnexI = step2 === 'yes';
-    var step5 = clfSelections[4];
+    var step5 = clfSelections[5];
     var isGPAIDeployer = step5 === 'gpai_deployer';
-    var hasFRIA = clfSelections[5] === 'yes';
+    var hasFRIA = clfSelections[6] === 'yes';
 
     var state;
-    if (isAnnexIII) state = 'HIGH_RISK_ANNEX_III';
+    if (isAnnexIII && !hasArt6Exception) state = 'HIGH_RISK_ANNEX_III';
+    else if (isAnnexIII && hasArt6Exception && !isAnnexI) state = 'ART6_3_EXCEPTION';
+    else if (isAnnexIII && hasArt6Exception && isAnnexI) state = 'HIGH_RISK_ANNEX_I';
     else if (isAnnexI) state = 'HIGH_RISK_ANNEX_I';
     else if (step5 === 'gpai_systemic') state = 'GPAI_SYSTEMIC';
     else if (step5 === 'gpai_provider') state = 'GPAI_STANDARD';
@@ -2846,14 +3110,15 @@
       exposureMapping: result.exposureMapping,
       checklistRisk: result.checklistRisk,
       supplementary: result.supplementary,
-      hasFRIA: hasFRIA && (isAnnexIII || isAnnexI),
+      hasFRIA: hasFRIA && ((isAnnexIII && !hasArt6Exception) || isAnnexI),
       isGPAIDeployer: isGPAIDeployer,
-      prohibitedArticle: null
+      prohibitedArticle: null,
+      hasArt6Exception: hasArt6Exception
     });
     window._complianceProfile = {
       riskLevel: result.checklistRisk,
       exposureMapping: result.exposureMapping,
-      friaRequired: !!(hasFRIA && (isAnnexIII || isAnnexI)),
+      friaRequired: !!(hasFRIA && ((isAnnexIII && !hasArt6Exception) || isAnnexI)),
       role: null,
       kvkkScope: (function() {
         var obs = window._observeData || {};
@@ -2891,6 +3156,13 @@
 
     if (clfCurrentStep < CLF_TOTAL_STEPS - 1) {
       clfCurrentStep++;
+      // Skip Step 3b (index 3) if Annex III was NOT selected in Step 3 (index 2)
+      if (clfCurrentStep === 3) {
+        var step3Selection = clfSelections[2];
+        if (!step3Selection || step3Selection === 'none') {
+          clfCurrentStep++; // skip to index 4 (Transparency)
+        }
+      }
       renderClfStep();
     } else {
       showClassificationResult();
@@ -2900,6 +3172,13 @@
   window.clfBack = function() {
     if (clfCurrentStep > 0) {
       clfCurrentStep--;
+      // Skip Step 3b (index 3) backwards if Annex III was NOT selected
+      if (clfCurrentStep === 3) {
+        var step3Selection = clfSelections[2];
+        if (!step3Selection || step3Selection === 'none') {
+          clfCurrentStep--; // skip back to index 2 (Annex III)
+        }
+      }
       renderClfStep();
     }
   };
