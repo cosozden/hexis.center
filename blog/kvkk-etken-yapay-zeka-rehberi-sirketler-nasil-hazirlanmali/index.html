@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>KVKK Etken Yapay Zekâ Rehberini Yayımladı: Şirketler Nasıl Hazırlanmalı? — Hexis</title>
+<meta name="description" content="KVKK&#x27;nın Şubat 2026 Etken YZ rehberi: amaçla sınırlılık kayması, sorumluluk boşluğu ve kara kutu riski. ORIENT çerçevesiyle şirketler için pratik adımlar.">
+<meta property="og:title" content="KVKK Etken Yapay Zekâ Rehberini Yayımladı: Şirketler Nasıl Hazırlanmalı? — Hexis">
+<meta property="og:description" content="KVKK&#x27;nın Şubat 2026 Etken YZ rehberi: amaçla sınırlılık kayması, sorumluluk boşluğu ve kara kutu riski. ORIENT çerçevesiyle şirketler için pratik adımlar.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://hexis.center/blog/kvkk-etken-yapay-zeka-rehberi-sirketler-nasil-hazirlanmali/">
+<meta property="og:image" content="https://hexis.center/assets/og-hexis.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="KVKK Etken Yapay Zekâ Rehberini Yayımladı: Şirketler Nasıl Hazırlanmalı? — Hexis">
+<meta name="twitter:description" content="KVKK&#x27;nın Şubat 2026 Etken YZ rehberi: amaçla sınırlılık kayması, sorumluluk boşluğu ve kara kutu riski. ORIENT çerçevesiyle şirketler için pratik adımlar.">
+<meta name="twitter:image" content="https://hexis.center/assets/og-hexis.png">
+<link rel="icon" href="/assets/favicon.ico">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+<style>
+/* ─── BRAND TOKENS ───────────────────────────────── */
+:root{
+  --charcoal:  #1C1E23;
+  --brass:     #B2986C;
+  --stone:     #686662;
+  --paper:     #F8F7F5;
+  --dark-bg:   #16181C;
+  --dark-type: #E8E6E2;
+  --dark-sub:  #8A8884;
+
+  --bg:        var(--dark-bg);
+  --text:      var(--dark-type);
+  --text2:     var(--dark-sub);
+  --muted:     var(--dark-sub);
+
+  --border:    rgba(232,230,226,0.10);
+  --border2:   rgba(232,230,226,0.18);
+  --card:      rgba(232,230,226,0.04);
+  --card2:     rgba(232,230,226,0.07);
+}
+
+/* ─── RESET ──────────────────────────────────────── */
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;font-size:16px}
+body{
+  font-family:Arial,sans-serif;
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+  text-rendering:optimizeLegibility;
+  background:var(--bg);
+  color:var(--text);
+  line-height:1.55;
+  min-height:100vh;
+  overflow-x:hidden;
+}
+p{line-height:1.75;color:var(--text2)}
+
+/* ─── NAV ────────────────────────────────────────── */
+nav{
+  position:sticky;top:0;z-index:100;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 48px;height:60px;
+  background:var(--dark-bg);
+  border-bottom:1px solid var(--border);
+}
+.nav-logo{
+  display:flex;align-items:center;gap:10px;
+  text-decoration:none;color:var(--text);
+  flex-shrink:0;
+}
+.nav-logo img{
+  display:block;
+  height:40px;
+  width:auto;
+}
+@media(max-width:768px){
+  .nav-logo img{ height:32px; }
+}
+.nav-logo:focus-visible{
+  outline:2px solid rgba(232,230,226,0.5);
+  outline-offset:4px;
+}
+.nav-links{display:flex;gap:4px;align-items:center}
+.nav-links a{
+  color:var(--muted);text-decoration:none;font-size:12px;font-weight:400;
+  padding:6px 12px;border-radius:2px;transition:color .15s;letter-spacing:.04em;
+  font-family:Arial,sans-serif;
+}
+.nav-links a:hover{color:var(--text)}
+
+/* HAMBURGER */
+.hamburger{
+  display:none;flex-direction:column;gap:5px;
+  cursor:pointer;background:none;border:none;padding:4px;z-index:200;
+}
+.hamburger span{width:22px;height:1px;background:var(--text2);transition:all .3s}
+.hamburger.open span:nth-child(1){transform:translateY(6px) rotate(45deg)}
+.hamburger.open span:nth-child(2){opacity:0}
+.hamburger.open span:nth-child(3){transform:translateY(-6px) rotate(-45deg)}
+.mobile-menu{
+  display:none;position:fixed;top:60px;left:0;right:0;
+  background:var(--dark-bg);
+  border-bottom:1px solid var(--border);
+  padding:12px 20px 20px;flex-direction:column;gap:0;z-index:99;
+}
+.mobile-menu.open{display:flex}
+.mobile-menu a{
+  color:var(--muted);text-decoration:none;font-size:13px;font-weight:400;
+  padding:11px 4px;border-bottom:1px solid var(--border);
+  transition:color .15s;font-family:Arial,sans-serif;
+}
+.mobile-menu a:last-child{border-bottom:none}
+.mobile-menu a:hover{color:var(--text)}
+
+/* ─── FOOTER ─────────────────────────────────────── */
+footer{
+  position:relative;z-index:1;
+  border-top:1px solid var(--border);
+  padding:20px 48px;
+  display:flex;align-items:center;justify-content:space-between;
+  gap:16px;flex-wrap:wrap;
+}
+.footer-left{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.footer-logo{display:flex;align-items:center;flex-shrink:0;text-decoration:none;}
+.footer-logo img{display:block;height:auto;width:auto;max-height:18px;}
+.footer-logo:focus-visible{outline:2px solid rgba(232,230,226,0.5);outline-offset:4px;}
+.footer-sep{color:var(--stone);margin:0 4px}
+.footer-txt{font-size:10px;color:var(--stone);font-family:Arial,sans-serif;letter-spacing:.02em}
+.footer-links{display:flex;gap:16px;flex-wrap:wrap}
+.footer-links a{font-size:10px;color:var(--stone);text-decoration:none;transition:color .15s;font-family:Arial,sans-serif;letter-spacing:.04em}
+.footer-links a:hover{color:var(--text2)}
+
+/* ─── RESPONSIVE ─────────────────────────────────── */
+@media(max-width:860px){
+  nav{padding:0 20px}
+  .nav-links{display:none}
+  .hamburger{display:flex}
+  footer{flex-direction:column;align-items:flex-start;padding:20px}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="/" class="nav-logo">
+    <img src="/assets/logo-light.png" alt="Hexis" width="72" height="40">
+  </a>
+  <div class="nav-links">
+    <a href="/metodoloji/">Orient Framework</a>
+    <a href="/generator/">Generator</a>
+    <a href="/#contact">Contact</a>
+  </div>
+  <button class="hamburger" id="hamburger" onclick="toggleMenu()" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<div class="mobile-menu" id="mobileMenu">
+  <a href="/metodoloji/" onclick="closeMenu()">Orient Framework</a>
+  <a href="/generator/" onclick="closeMenu()">Generator</a>
+  <a href="/#contact" onclick="closeMenu()">Contact</a>
+</div>
+
+<!-- BREADCRUMB -->
+<div style="max-width:720px;margin:40px auto 0;padding:0 24px">
+  <a href="/" style="color:var(--stone);font-size:12px;text-decoration:none">&larr; hexis.center</a>
+</div>
+
+<!-- ARTICLE HEADER -->
+<header style="max-width:720px;margin:40px auto 48px;padding:0 24px">
+  <div style="font-size:11px;color:var(--brass);font-family:Arial,sans-serif;letter-spacing:.08em;text-transform:uppercase;margin-bottom:16px">
+    KVKK &middot; Mart 2026
+  </div>
+  <h1 style="font-family:Georgia,serif;font-size:clamp(28px,4vw,44px);font-weight:700;line-height:1.15;letter-spacing:-.5px;color:var(--text);margin-bottom:20px">
+    KVKK Etken Yapay Zekâ Rehberini Yayımladı: Şirketler Nasıl Hazırlanmalı?
+  </h1>
+  <p style="font-size:16px;line-height:1.7;color:var(--stone);max-width:600px">
+    KVKK&#x27;nın Şubat 2026 Etken YZ rehberi: amaçla sınırlılık kayması, sorumluluk boşluğu ve kara kutu riski. ORIENT çerçevesiyle şirketler için pratik adımlar.
+  </p>
+</header>
+
+<!-- ARTICLE CONTENT -->
+<article style="max-width:720px;margin:0 auto 96px;padding:0 24px;font-family:Arial,sans-serif;font-size:16px;line-height:1.8;color:var(--text2)">
+
+  <h2 style="font-family:Georgia,serif;font-size:24px;font-weight:700;color:var(--text);margin:48px 0 16px">
+    KVKK ve Etken Yapay Zekâ: Soru Soruldu, Cevap Şirkete Bırakıldı
+  </h2>
+
+  <p>KVKK, Şubat 2026'da "Etken Yapay Zekâ" başlıklı 46 sayfalık bir çalışma yayımladı.¹ Etken YZ sistemlerini kişisel verilerin korunması perspektifinden bu derinlikte ele alan bir analiz Türkiye'de ilk kez resmi olarak yayımlanıyor. Rehber, riskleri net biçimde ortaya koyuyor. Ancak bir soru yanıtsız kalıyor: Şirketler pratik olarak ne yapmalı?</p>
+
+  <p style="margin-top:16px">Bu yazıda rehberin öne çıkardığı üç kritik KVKK riskini özetleyeceğiz, ardından ORIENT çerçevesiyle somut adımlara geçeceğiz.</p>
+
+  <h2 style="font-family:Georgia,serif;font-size:24px;font-weight:700;color:var(--text);margin:48px 0 16px">
+    Etken YZ Nedir? (30 Saniyelik Özet)
+  </h2>
+
+  <p><em>Agentic AI</em>, belirli bir hedef doğrultusunda birden fazla <em>YZ aracısının</em> (<em>AI Agent</em>) koordineli çalıştığı, değişen koşullara uyum sağlayan ve insan müdahalesi olmaksızın eylem dizileri yürütebilen sistemlerdir. KVKK rehberinin kullandığı analoji yerinde: Etken YZ sistemi bir restoranın baş şefi gibidir; <em>YZ aracıları</em> ise farklı görevlerde uzmanlaşmış aşçılardır.¹</p>
+
+  <p style="margin-top:16px">Geleneksel bir <em>chatbot</em> sorulara yanıt verir. Etken YZ sistemi ise hedef alır, görevleri planlar, farklı araçları çağırır ve koşullar değişirse planı günceller. Bu fark, kişisel veri işleme boyutunda tamamen yeni riskler doğuruyor.</p>
+
+  <h2 style="font-family:Georgia,serif;font-size:24px;font-weight:700;color:var(--text);margin:48px 0 16px">
+    KVKK'nın Tespit Ettiği 3 Kritik Risk
+  </h2>
+
+  <p>Rehber, geniş bir risk haritası sunuyor. Ancak KVKK perspektifinden üç risk özellikle öne çıkıyor.</p>
+
+  <p style="margin-top:16px"><strong style="color:var(--text)">1. Amaçla sınırlılık kayması</strong></p>
+
+  <p style="margin-top:16px">Etken YZ sistemleri, görev ilerledikçe başlangıçta öngörülmeyen veri kümelerine erişebilir. Bir hukuki araştırma sistemini düşünün: önce ilgili davaları araştırır, ardından ilgili kişilerin kamuya açık sosyal medya paylaşımlarına yönelir, ardından haber arşivlerinden çapraz referans alır. Her adım tek başına masum görünür. Ancak sistem genelinde bakıldığında, başlangıçta tanımlanan işleme amacının ve hukuki sebebin çok ötesine geçilmiş olabilir.¹</p>
+
+  <p style="margin-top:16px">KVKK bunu doğrudan tespit ediyor: "veri işleme faaliyetlerinin hangi işleme şartına (hukuki sebebe) dayandığına ilişkin değerlendirmeleri de doğrudan etkileyebilmektedir."</p>
+
+  <p style="margin-top:16px"><strong style="color:var(--text)">2. Sorumluluk boşluğu</strong></p>
+
+  <p style="margin-top:16px"><em>Çoklu YZ aracısı</em> (<em>multi-agent</em>) yapılarında hangi aşamada hangi kararın alındığını izlemek güçleşiyor. Bir veri ihlali yaşandığında sorumluluk kimin? Sistemin teknik tasarımcısının mı? Sistemi işleten <em>yerleştiricinin</em> (<em>deployer</em>) mi? Üçüncü taraf bir <em>YZ aracısı</em> sağlayıcısının mı? Rehber bu soruyu soruyor, ama yanıtı şirketlere bırakıyor: rollerin önceden yazılı biçimde tanımlanması gerekiyor.¹</p>
+
+  <p style="margin-top:16px"><strong style="color:var(--text)">3. Kara kutu ve veri doğruluğu</strong></p>
+
+  <p style="margin-top:16px"><em>Multi-agent</em> yapılarında karar zincirleri dağıtık bir yapı kazanıyor. Hangi <em>YZ aracısı</em> hangi kararı verdi, hangi veri bu kararı tetikledi? Bu soruların yanıtını açık biçimde ortaya koymak her zaman mümkün olmayabiliyor. Buna ek olarak büyük dil modellerinin "halüsinasyon" üretmesi, hatalı değerlendirmelerin sistem içinde yayılarak kişisel veri doğruluğunu bozmasına yol açabiliyor.¹</p>
+
+  <h2 style="font-family:Georgia,serif;font-size:24px;font-weight:700;color:var(--text);margin:48px 0 16px">
+    Rehber Ne Söylemedi?
+  </h2>
+
+  <p>KVKK riskleri eksiksiz tanımladı. Peki şirket olarak ne yapılmalı?</p>
+
+  <p style="margin-top:16px">Rehberin 6. bölümü ("Dikkate Alınabilecek Hususlar") yön gösterici olmakla birlikte, şirkete özgü bir eylem planı sunmuyor. "İnsan gözetimini tanımlayın", "<em>privacy by design</em> (tasarımdan itibaren mahremiyet) uygulayın", "rolleri netleştirin" gibi öneriler doğru; ancak nereden başlayacağını bilmeyen bir şirket için yeterince somut değil.</p>
+
+  <p style="margin-top:16px">Bu, rehberin bir eksikliği değil; doğası gereği böyle. Bir regülatör genel çerçeve çizer. Operasyonel uyum ise şirkete özgü bir iştir.</p>
+
+  <h2 style="font-family:Georgia,serif;font-size:24px;font-weight:700;color:var(--text);margin:48px 0 16px">
+    ORIENT Çerçevesiyle Pratik Adımlar
+  </h2>
+
+  <p>ORIENT metodolojisini kullanarak bu rehberi eyleme dönüştürelim.</p>
+
+  <p style="margin-top:16px"><strong style="color:var(--text)">Observe:</strong> Kullandığınız veya değerlendirdiğiniz tüm <em>agentic AI</em> sistemlerini envantere alın. Kaç <em>YZ aracısı</em> var? Hangi dış sistemlere ve veri kaynaklarına bağlanıyor? Bu soruları yanıtlamadan risk değerlendirmesi yapamazsınız.</p>
+
+  <p style="margin-top:16px"><strong style="color:var(--text)">Risk:</strong> Sistemin otonomi düzeyini değerlendirin. Tamamen otonom mu, yoksa insan onayı gerektiren adımlar var mı? Kişisel veri işleniyor mu? Özel nitelikli veri (sağlık, finans, biyometrik) akışı var mı? "Otonomi düzeyi × veri duyarlılığı" formülü risk profilinizi belirler.</p>
+
+  <p style="margin-top:16px"><strong style="color:var(--text)">Identify:</strong> KVKK'nın tespit ettiği üç kritik risk için yükümlülükleri haritalandırın. Her görev akışı için işleme şartını belirleyin. Geliştirici, <em>deployer</em> ve diğer aktörlerin sorumlulukları yazılı mı? KVKK Madde 10 kapsamında aydınlatma yükümlülüğünüzü <em>agentic AI</em> özelinde nasıl yerine getireceksiniz?²</p>
+
+  <p style="margin-top:16px"><strong style="color:var(--text)">Evaluate:</strong> <em>Privacy by design</em> boşluklarını değerlendirin. Sistem tasarım aşamasında veri minimizasyonu gözetildi mi? İnsan gözetimi hangi koşullarda ve hangi aşamada devreye giriyor; bu kriterler belgelenmiş mi? Hatalı <em>YZ aracısı</em> çıktılarının sistem içinde yayılmasını önleyecek bir kontrol mekanizması var mı?</p>
+
+  <p style="margin-top:16px"><strong style="color:var(--text)">Navigate:</strong> İnsan gözetim noktalarını tanımlayın ve belgeleyin. <em>YZ aracısı</em> ekosisteminiz için rol ve sorumluluk matrisini oluşturun. <em>Privacy by default</em> (<em>varsayılan olarak mahremiyet</em>) yaklaşımını işleyişe entegre edin.</p>
+
+  <p style="margin-top:16px"><strong style="color:var(--text)">Track:</strong> Sistemi periyodik olarak gözden geçirin. KVKK rehberi açıkça belirtiyor: "alandaki gelişmeler doğrultusunda değişiklik gösterebileceği" göz önünde bulundurulmalıdır.¹ Bu hem teknik hem hukuki izlemeyi kapsıyor.</p>
+
+  <h2 style="font-family:Georgia,serif;font-size:24px;font-weight:700;color:var(--text);margin:48px 0 16px">
+    Başlamak İçin Tek Bir Soru
+  </h2>
+
+  <p>Şu an kullandığınız veya değerlendirdiğiniz bir <em>agentic AI</em> sistemi varsa, kendinize şunu sorun: "Bu sistem kaç farklı veri kaynağına bağlanıyor ve her biri için ayrı bir işleme şartımız var mı?"</p>
+
+  <p style="margin-top:16px">Cevabınız net değilse, <a href="https://hexis.center/generator/" style="color:var(--brass);text-decoration:underline">uyum değerlendirmesine</a> buradan başlayabilirsiniz.</p>
+
+  <p style="margin-top:16px">---</p>
+
+  <h2 style="font-family:Georgia,serif;font-size:24px;font-weight:700;color:var(--text);margin:48px 0 16px">
+    Kaynaklar
+  </h2>
+
+  <p>1. Kişisel Verileri Koruma Kurumu. <em>Etken Yapay Zekâ (Agentic AI)</em>. KVKK, Şubat 2026. <a href="https://www.kvkk.gov.tr/Icerik/8683/etken-yapay-zeka-agentic-ai" style="color:var(--brass);text-decoration:underline">kvkk.gov.tr</a></p>
+
+  <p style="margin-top:16px">2. Kişisel Verileri Koruma Kurumu. <em>6698 Sayılı Kişisel Verilerin Korunması Kanunu, Madde 10: Veri Sorumlusunun Aydınlatma Yükümlülüğü</em>. <a href="https://www.kvkk.gov.tr/Icerik/6649/6698-SAYILI-KANUN" style="color:var(--brass);text-decoration:underline">kvkk.gov.tr</a></p>
+
+</article>
+
+<!-- BACK LINK -->
+<div style="max-width:720px;margin:0 auto 96px;padding:0 24px">
+  <a href="/" style="font-size:13px;color:var(--stone);text-decoration:none;font-family:Arial,sans-serif">
+    &larr; T&uuml;m yaz&#305;lar
+  </a>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-left">
+    <a href="/" class="footer-logo"><img src="/assets/logo-light.png" alt="Hexis" width="32" height="18"></a>
+    <span class="footer-sep">&middot;</span>
+    <span class="footer-txt">&copy; 2026 Hexis &middot; Built by &Ouml;zden Co&#351;kun &middot; Yaln&#305;zca bilgilendirme ama&ccedil;l&#305;d&#305;r; hukuki dan&#305;&#351;manl&#305;k niteli&#287;i ta&#351;&#305;maz.</span>
+  </div>
+  <div class="footer-links">
+    <a href="/metodoloji/">Orient Framework</a>
+    <a href="/generator/">Generator</a>
+    <a href="/#contact">Contact</a>
+    <a href="https://eur-lex.europa.eu/legal-content/TR/TXT/?uri=CELEX:32024R1689" target="_blank" rel="noopener noreferrer">EU AI Act</a>
+    <a href="https://www.linkedin.com/in/ozden-coskun-8728a1301" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+  </div>
+</footer>
+
+<script>
+function toggleMenu(){
+  document.getElementById('hamburger').classList.toggle('open');
+  document.getElementById('mobileMenu').classList.toggle('open');
+}
+function closeMenu(){
+  document.getElementById('hamburger').classList.remove('open');
+  document.getElementById('mobileMenu').classList.remove('open');
+}
+document.addEventListener('click',function(e){
+  const h=document.getElementById('hamburger');
+  const m=document.getElementById('mobileMenu');
+  if(m.classList.contains('open')&&!h.contains(e.target)&&!m.contains(e.target)){
+    h.classList.remove('open');m.classList.remove('open');
+  }
+});
+</script>
+</body>
+</html>
