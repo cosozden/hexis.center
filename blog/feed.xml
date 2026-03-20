@@ -6,8 +6,17 @@
     <link>https://hexis.center/blog/</link>
     <description>Yapay zeka yönetişimi, EU AI Act uyumu, KVKK ve ISO 42001 hakkında pratik rehberler ve analizler.</description>
     <language>tr</language>
-    <lastBuildDate>Tue, 17 Mar 2026 00:00:00 +0300</lastBuildDate>
+    <lastBuildDate>Fri, 20 Mar 2026 00:00:00 +0300</lastBuildDate>
     <atom:link href="https://hexis.center/blog/feed.xml" rel="self" type="application/rss+xml"/>
+
+    <item>
+      <title>KVKK Etken Yapay Zekâ Rehberini Yayımladı: Şirketler Nasıl Hazırlanmalı?</title>
+      <link>https://hexis.center/blog/kvkk-etken-yapay-zeka-rehberi-sirketler-nasil-hazirlanmali/</link>
+      <guid>https://hexis.center/blog/kvkk-etken-yapay-zeka-rehberi-sirketler-nasil-hazirlanmali/</guid>
+      <pubDate>Thu, 19 Mar 2026 00:00:00 +0300</pubDate>
+      <description>KVKK'nın Şubat 2026 Etken YZ rehberi: amaçla sınırlılık kayması, sorumluluk boşluğu ve kara kutu riski. ORIENT çerçevesiyle şirketler için pratik adımlar.</description>
+      <category>KVKK</category>
+    </item>
 
     <item>
       <title>Gölge Yapay Zekâ (Shadow AI): Türkiye'de KOBİ'lerin Görünmeyen Riski</title>
