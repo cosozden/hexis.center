@@ -4,5 +4,6 @@ Disallow: /assets/
 Disallow: /blog/_drafts/
 Disallow: /blog/_linkedin/
 Disallow: /kvkk-eu-ai-act/carousel.html
+Disallow: /metodoloji/en/
 
 Sitemap: https://hexis.center/sitemap.xml

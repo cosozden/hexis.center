@@ -37,6 +37,7 @@
     <loc>https://hexis.center/metodoloji/</loc>
     <xhtml:link rel="alternate" hreflang="tr" href="https://hexis.center/metodoloji/" />
     <xhtml:link rel="alternate" hreflang="en" href="https://hexis.center/methodology/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://hexis.center/methodology/" />
     <lastmod>2026-03-16</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
@@ -46,6 +47,7 @@
     <loc>https://hexis.center/methodology/</loc>
     <xhtml:link rel="alternate" hreflang="en" href="https://hexis.center/methodology/" />
     <xhtml:link rel="alternate" hreflang="tr" href="https://hexis.center/metodoloji/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://hexis.center/methodology/" />
     <lastmod>2026-03-16</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
@@ -157,6 +159,7 @@
     <loc>https://hexis.center/gizlilik/</loc>
     <xhtml:link rel="alternate" hreflang="tr" href="https://hexis.center/gizlilik/" />
     <xhtml:link rel="alternate" hreflang="en" href="https://hexis.center/privacy/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://hexis.center/privacy/" />
     <lastmod>2026-03-16</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
@@ -166,6 +169,7 @@
     <loc>https://hexis.center/privacy/</loc>
     <xhtml:link rel="alternate" hreflang="en" href="https://hexis.center/privacy/" />
     <xhtml:link rel="alternate" hreflang="tr" href="https://hexis.center/gizlilik/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://hexis.center/privacy/" />
     <lastmod>2026-03-16</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
