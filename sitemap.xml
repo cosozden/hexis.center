@@ -175,6 +175,21 @@
     <priority>0.3</priority>
   </url>
 
+  <!-- ─── Yasal Sayfalar ─── -->
+  <url>
+    <loc>https://hexis.center/terms/</loc>
+    <lastmod>2026-03-25</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+  </url>
+
+  <url>
+    <loc>https://hexis.center/refund/</loc>
+    <lastmod>2026-03-25</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+  </url>
+
   <!-- ─── Blog Arşiv ─── -->
   <url>
     <loc>https://hexis.center/blog/</loc>
