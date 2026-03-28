@@ -1,0 +1,27 @@
+Bir AI governance çerçevesi ne zaman "gerçek" sayılır?
+
+Bence cevap basit: uluslararası standartlarla tutarlı olduğunda.
+
+IAPP'ın AIGP sertifikası, AI governance alanındaki en kapsamlı bilgi çerçevelerinden biri. Body of Knowledge v2.1.0, dört domain üzerine kurulu: temel kavramlar, yasal çerçeveler, geliştirme yönetimi ve dağıtım yönetimi.
+
+ORIENT'i tasarlarken fark ettiğim bir şey var: altı aşamanın her biri, BoK'taki belirli yetkinliklerle doğrudan örtüşüyor.
+
+Observe → Kullanım Amacı Değerlendirmesi
+Risk → Risk ve Zarar Türleri
+Identify → Tasarımda Etik, Veri Edinimi
+Evaluate → Eğitim ve Test, Belgeleme
+Navigate → Çok Fonksiyonlu İşbirliği
+Track → İzleme, Olay Yönetimi
+
+Bu tesadüf değil. İkisi de aynı soruyu cevaplıyor: bir organizasyon AI sistemlerini sorumlu biçimde nasıl yönetir?
+
+AB pazarıyla bağlantılı Türk şirketleri için ekstra bir katman var: EU AI Act ve KVKK aynı anda geçerli. Tek bir metodoloji, iki düzenleyici çerçevenin gerekliliklerini aynı anda karşılayabilmeli. ORIENT bunu yapıyor.
+
+Detaylı analiz ve karşılaştırma tablosu blogda:
+→ https://hexis.center/blog/orient-aigp-bok/
+
+Sizin şirketinizde AI governance hangi aşamada? Yorumlarda konuşalım.
+
+📍 ORIENT: Tüm aşamalar
+
+#AIYönetişimi #AIAct #KVKK #Hexis #AIGP

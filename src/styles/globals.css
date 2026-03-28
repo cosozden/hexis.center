@@ -1,0 +1,171 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ━━━ HEXIS DESIGN SYSTEM — CSS CUSTOM PROPERTIES ━━━ */
+:root {
+  /* Dark theme (default for app) */
+  --dark-bg: #16181C;
+  --charcoal: #1C1E23;
+  --dark-type: #E8E6E2;
+  --dark-sub: #8A8884;
+  --border: rgba(232, 230, 226, 0.10);
+  --border2: rgba(232, 230, 226, 0.18);
+  --card: rgba(232, 230, 226, 0.04);
+  --card-hover: rgba(232, 230, 226, 0.07);
+
+  /* Accent */
+  --brass: #B2986C;
+  --stone: #686662;
+
+  /* Light theme tokens (for specific components) */
+  --paper: #F8F7F5;
+  --ink: #1C1E23;
+  --ink-soft: #444240;
+  --ink-muted: #686662;
+  --rule: rgba(28, 30, 35, 0.14);
+  --rule-s: rgba(28, 30, 35, 0.08);
+
+  /* Governance maturity */
+  --absent: #dedad4;
+  --adhoc: #c4c2be;
+  --structured: #8a8884;
+  --continuous: var(--stone);
+  --embedded: var(--charcoal);
+
+  /* Semantic */
+  --success: #6B8F71;
+  --warning: #B2986C;
+  --danger: #8B5C5C;
+  --info: #6B7F8F;
+}
+
+/* ━━━ BASE STYLES ━━━ */
+html {
+  background-color: var(--dark-bg);
+  color: var(--dark-type);
+}
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ━━━ HEXIS TYPOGRAPHY ━━━ */
+h1, h2, h3, h4, h5, h6 {
+  font-family: Georgia, 'Times New Roman', serif;
+  font-weight: normal;
+}
+
+/* Uppercase labels — Hexis signature style */
+.label-upper {
+  font-size: 9px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--dark-sub);
+}
+
+/* ━━━ HEXIS COMPONENT PATTERNS ━━━ */
+
+/* Card — no rounded corners, no shadow, subtle border */
+.hexis-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  padding: 1.5rem;
+  transition: background-color 150ms ease;
+}
+
+.hexis-card:hover {
+  background: var(--card-hover);
+}
+
+/* Divider */
+.hexis-divider {
+  border: none;
+  border-top: 1px solid var(--border);
+  margin: 1.5rem 0;
+}
+
+/* Input fields */
+.hexis-input {
+  background: transparent;
+  border: 1px solid var(--border2);
+  color: var(--dark-type);
+  padding: 0.625rem 0.875rem;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 0.875rem;
+  width: 100%;
+  outline: none;
+  transition: border-color 150ms ease;
+}
+
+.hexis-input:focus {
+  border-color: var(--brass);
+}
+
+.hexis-input::placeholder {
+  color: var(--dark-sub);
+}
+
+/* Button — primary (brass accent) */
+.hexis-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.625rem 1.25rem;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 0.8125rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  border: 1px solid var(--border2);
+  background: transparent;
+  color: var(--dark-type);
+  cursor: pointer;
+  transition: all 150ms ease;
+}
+
+.hexis-btn:hover {
+  border-color: var(--brass);
+  color: var(--brass);
+}
+
+.hexis-btn-primary {
+  background: var(--brass);
+  border-color: var(--brass);
+  color: var(--charcoal);
+}
+
+.hexis-btn-primary:hover {
+  background: transparent;
+  color: var(--brass);
+}
+
+/* ━━━ SCROLLBAR ━━━ */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--dark-bg);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border2);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--dark-sub);
+}
+
+/* ━━━ PRINT STYLES ━━━ */
+@media print {
+  body {
+    background: white;
+    color: black;
+  }
+
+  .no-print {
+    display: none !important;
+  }
+}
