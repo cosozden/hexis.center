@@ -88,7 +88,7 @@ export async function authenticateRequest(): Promise<AuthResult> {
 
 /**
  * Check if user has exceeded daily AI request limit.
- * Uses ai_usage_logs table to count requests in the last 24h.
+ * Uses api_usage table to count requests in the last 24h.
  */
 export async function checkRateLimit(
   ctx: AuthContext,
@@ -101,7 +101,7 @@ export async function checkRateLimit(
   ).toISOString();
 
   const { count } = await supabase
-    .from('ai_usage_logs')
+    .from('api_usage')
     .select('id', { count: 'exact', head: true })
     .eq('user_id', userId)
     .gte('created_at', twentyFourHoursAgo);
@@ -133,18 +133,19 @@ export async function logUsage(
   ctx: AuthContext,
   endpoint: string,
   model: string,
-  usage: { inputTokens: number; outputTokens: number },
+  usage: { inputTokens: number; outputTokens: number; cacheReadTokens?: number },
   latencyMs: number,
 ): Promise<void> {
   const { supabase, userId, orgId } = ctx;
 
-  await supabase.from('ai_usage_logs').insert({
+  await supabase.from('api_usage').insert({
     user_id: userId,
     org_id: orgId,
     endpoint,
     model,
     input_tokens: usage.inputTokens,
     output_tokens: usage.outputTokens,
+    cached_tokens: usage.cacheReadTokens ?? 0,
     latency_ms: latencyMs,
   });
 }
