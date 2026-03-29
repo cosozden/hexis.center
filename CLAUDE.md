@@ -336,44 +336,63 @@ Before any commit:
 
 **MANDATORY:** Run this checklist before EVERY commit. No exceptions.
 
-### Phase 1: Automated Checks
-```
-npx next build          # Must compile with 0 errors
-npx vitest run          # All tests must pass
+### Automated Validation Suite (scripts/)
+
+Three automated scripts catch the most dangerous bug classes before commit:
+
+```bash
+npm run validate          # Quick: schema + contracts + routes (~10s)
+npm run validate:full     # Full: above + next build (~60s)
 ```
 
-### Phase 2: Import & Dependency Audit
+| Script | What it catches | Command |
+|--------|----------------|---------|
+| `validate:schema` | Migration SQL ↔ database.ts drift (missing tables, phantom columns) | `npx tsx scripts/validate-schema.ts` |
+| `validate:contracts` | Wrong Supabase table/column names in .from()/.select()/.insert() | `npx tsx scripts/validate-api-contracts.ts` |
+| `validate:routes` | Broken Link href / router.push / redirect → nonexistent routes | `npx tsx scripts/validate-routes.ts` |
+
+**Git hook setup:** `bash scripts/install-hooks.sh` — installs pre-commit hook that runs `npm run validate` automatically.
+
+### Phase 1: Automated Checks (CI + local)
+```
+npm run validate          # Schema + contracts + routes (MUST pass)
+npx next build            # Must compile with 0 errors
+npx vitest run            # All tests must pass
+```
+
+### Phase 2: Import & Dependency Audit (Claude review)
 For EVERY new or modified file, verify:
 1. **Import paths resolve** — every `@/...` import maps to an existing file
 2. **Named exports exist** — imported functions/components actually exported from source
 3. **Type compatibility** — DB types match component props (check `database.ts` Insert/Row types)
 4. **Required fields included** — especially `org_id`, `created_by` for DB inserts (multi-tenancy critical)
 
-### Phase 3: CSS & Token Audit
+### Phase 3: CSS & Token Audit (Claude review)
 1. **No undefined CSS tokens** — every Tailwind class must resolve to a defined value in `tailwind.config.ts` or `globals.css`
 2. **Theme scope correct** — `.theme-light` classes used in dashboard, dark theme classes used in auth/landing
 3. **CSS variable chain intact** — Tailwind token → CSS variable → `:root` / `.theme-light` definition all present
 
-### Phase 4: Navigation & Link Audit
-1. **All `href` values point to existing routes** — check `src/app/` directory structure
-2. **Dashboard routes prefixed with `/dashboard/`** — sidebar, CTA buttons, redirects
-3. **Router.push destinations exist** — form submit redirects, cancel buttons
+### Phase 4: Navigation & Link Audit (AUTOMATED — validate:routes)
+1. **All `href` values point to existing routes** — ✅ automated by `validate-routes.ts`
+2. **Dashboard routes prefixed with `/dashboard/`** — ✅ automated
+3. **Router.push destinations exist** — ✅ automated
 
-### Phase 5: API Contract Audit (for API routes)
-1. **Request/response shapes match** — client sends what server expects (Zod schema)
-2. **Error handling non-fatal** — Claude failure, DB logging failure must not crash response
-3. **Auth + rate limit present** — every API route starts with `authenticateRequest()` + `checkRateLimit()`
-4. **Type assertions justified** — no unsafe `as` casts without validation
+### Phase 5: API Contract Audit (PARTIALLY AUTOMATED — validate:contracts)
+1. **Table/column names valid** — ✅ automated by `validate-api-contracts.ts`
+2. **Request/response shapes match** — Claude review (Zod schema)
+3. **Error handling non-fatal** — Claude review
+4. **Auth + rate limit present** — Claude review: every API route starts with `authenticateRequest()` + `checkRateLimit()`
 
-### Phase 6: Logic Audit
+### Phase 6: Logic Audit (Claude review)
 1. **Race conditions** — concurrent requests can't corrupt data
 2. **Null/undefined handling** — optional fields have fallbacks
 3. **Graceful degradation** — Claude API failure returns deterministic result
+4. **Supabase relationship joins** — verify `Relationships` array has FK definitions before using `!inner()` syntax
 
 ### Severity Guide
 | Severity | Examples | Action |
 |----------|----------|--------|
-| **CRITICAL** | Missing `org_id`, broken auth, data leak | Block commit — fix immediately |
+| **CRITICAL** | Missing `org_id`, broken auth, data leak, wrong table name | Block commit — fix immediately |
 | **HIGH** | Wrong route paths, undefined tokens, type mismatches | Block commit — fix before push |
 | **MEDIUM** | Missing default props, no cn() utility, style issues | Fix if time allows, otherwise track |
 | **LOW** | Code style, unused imports, comment quality | Optional |
