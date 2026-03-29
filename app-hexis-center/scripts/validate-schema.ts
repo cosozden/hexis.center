@@ -49,7 +49,7 @@ function parseMigrations(): SqlTable[] {
   for (const file of files) {
     const content = readFileSync(join(MIGRATIONS_DIR, file), "utf-8");
     // Match CREATE TABLE statements
-    const createRegex = /create\s+table\s+(?:if\s+not\s+exists\s+)?(\w+)\s*\(([\s\S]*?)\);/gi;
+    const createRegex = /create\s+table\s+(?:if\s+not\s+exists\s+)?(?:\w+\.)?(\w+)\s*\(([\s\S]*?)\);/gi;
     let match;
 
     while ((match = createRegex.exec(content)) !== null) {
@@ -96,7 +96,7 @@ function parseMigrations(): SqlTable[] {
     }
 
     // Also check ALTER TABLE ADD COLUMN
-    const alterRegex = /alter\s+table\s+(\w+)\s+add\s+(?:column\s+)?(\w+)\s+(\w[\w\s()[\],]*?)(?:\s+(not\s+null))?\s*(?:default\s+(.+?))?\s*;/gi;
+    const alterRegex = /alter\s+table\s+(?:\w+\.)?(\w+)\s+add\s+(?:column\s+)?(\w+)\s+(\w[\w\s()[\],]*?)(?:\s+(not\s+null))?\s*(?:default\s+(.+?))?\s*;/gi;
     while ((match = alterRegex.exec(content)) !== null) {
       const tableName = match[1];
       const colName = match[2];
@@ -142,42 +142,103 @@ function parseDatabaseTs(): TsTable[] {
   }
 
   const content = readFileSync(DATABASE_TS, "utf-8");
+  const lines = content.split("\n");
 
-  // Find each table block using indentation-based parsing
-  // Pattern: tableName: { Row: { ... }; Insert: { ... }; Update: { ... }; Relationships: ... }
-  const tableRegex = /(\w+):\s*\{[\s\S]*?Row:\s*\{([\s\S]*?)\};\s*Insert:\s*\{([\s\S]*?)\}/g;
-  let match;
+  // State machine: track indentation to find table definitions
+  // database.ts structure:
+  //   Tables: {                    ← indent 4 (Tables block start)
+  //     organizations: {           ← indent 6 (table name)
+  //       Row: {                   ← indent 8 (Row block)
+  //         id: string;            ← indent 10 (column)
+  //       };
+  //       Insert: {                ← indent 8
+  //       };
+  //       Update: {                ← indent 8
+  //       };
 
-  while ((match = tableRegex.exec(content)) !== null) {
-    const tableName = match[1];
-    const rowBlock = match[2];
-    const insertBlock = match[3];
+  let inTablesBlock = false;
+  let currentTable: string | null = null;
+  let currentSection: "row" | "insert" | "update" | null = null;
+  let braceDepth = 0;
+  let sectionBraceDepth = 0;
 
-    // Skip non-table entries
-    if (["Tables", "Views", "Functions", "Enums", "CompositeTypes"].includes(tableName)) continue;
+  const SKIP_NAMES = new Set(["Tables", "Views", "Functions", "Enums", "CompositeTypes", "public"]);
 
-    const rowColumns: TsColumn[] = [];
-    const insertColumns: TsColumn[] = [];
+  for (const line of lines) {
+    const trimmed = line.trimStart();
+    const indent = line.length - trimmed.length;
 
-    // Parse Row columns
-    const colRegex = /(\w+)(\??):\s*/g;
-    let colMatch;
-
-    while ((colMatch = colRegex.exec(rowBlock)) !== null) {
-      rowColumns.push({
-        name: colMatch[1],
-        optional: colMatch[2] === "?",
-      });
+    // Detect Tables block
+    if (trimmed.startsWith("Tables:")) {
+      inTablesBlock = true;
+      continue;
+    }
+    if (inTablesBlock && indent <= 4 && (trimmed.startsWith("Views:") || trimmed.startsWith("Functions:") || trimmed === "};")) {
+      inTablesBlock = false;
+      currentTable = null;
+      currentSection = null;
+      continue;
     }
 
-    while ((colMatch = colRegex.exec(insertBlock)) !== null) {
-      insertColumns.push({
-        name: colMatch[1],
-        optional: colMatch[2] === "?",
-      });
+    if (!inTablesBlock) continue;
+
+    // Detect table name (indent ~6, pattern: tableName: {)
+    const tableMatch = trimmed.match(/^(\w+):\s*\{/);
+    if (tableMatch && indent >= 4 && indent <= 8 && !currentSection) {
+      const name = tableMatch[1];
+      if (!SKIP_NAMES.has(name) && !["Row", "Insert", "Update", "Relationships"].includes(name)) {
+        currentTable = name;
+        tables.push({ name, rowColumns: [], insertColumns: [] });
+      }
     }
 
-    tables.push({ name: tableName, rowColumns, insertColumns });
+    // Detect Row/Insert/Update section
+    if (currentTable && trimmed.startsWith("Row: {")) {
+      currentSection = "row";
+      sectionBraceDepth = 1;
+      continue;
+    }
+    if (currentTable && trimmed.startsWith("Insert: {")) {
+      currentSection = "insert";
+      sectionBraceDepth = 1;
+      continue;
+    }
+    if (currentTable && trimmed.startsWith("Update: {")) {
+      currentSection = "update";
+      sectionBraceDepth = 1;
+      continue;
+    }
+
+    // Track brace depth in section
+    if (currentSection) {
+      // Count braces
+      for (const ch of trimmed) {
+        if (ch === "{") sectionBraceDepth++;
+        if (ch === "}") sectionBraceDepth--;
+      }
+
+      if (sectionBraceDepth <= 0) {
+        currentSection = null;
+        continue;
+      }
+
+      // Parse column: fieldName?: type;
+      const colMatch = trimmed.match(/^(\w+)(\??):\s*/);
+      if (colMatch) {
+        const table = tables.find((t) => t.name === currentTable);
+        if (table) {
+          const col: TsColumn = { name: colMatch[1], optional: colMatch[2] === "?" };
+          if (currentSection === "row") table.rowColumns.push(col);
+          else if (currentSection === "insert") table.insertColumns.push(col);
+        }
+      }
+    }
+
+    // Detect end of table (Relationships line or closing brace at table indent)
+    if (currentTable && trimmed.startsWith("Relationships:")) {
+      currentTable = null;
+      currentSection = null;
+    }
   }
 
   return tables;
