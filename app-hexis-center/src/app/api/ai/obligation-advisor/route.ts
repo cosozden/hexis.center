@@ -104,10 +104,10 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: message }, { status: 400 });
   }
 
-  // 4. Fetch obligation with system context
+  // 4. Fetch obligation
   const { data: obligation } = await ctx.supabase
     .from('obligations')
-    .select('*, ai_systems!inner(id, name, purpose, description, organisation_role)')
+    .select('*')
     .eq('id', body.obligationId)
     .single();
 
@@ -127,14 +127,19 @@ export async function POST(request: Request) {
     });
   }
 
-  // 6. Fetch system's classification for additional context
-  const system = obligation.ai_systems as unknown as {
-    id: string;
-    name: string;
-    purpose: string | null;
-    description: string | null;
-    organisation_role: string;
-  };
+  // 6. Fetch system context (separate query — avoids Supabase relationship join issue)
+  const { data: system } = await ctx.supabase
+    .from('ai_systems')
+    .select('id, name, purpose, description, organisation_role')
+    .eq('id', obligation.system_id)
+    .single();
+
+  if (!system) {
+    return NextResponse.json(
+      { error: 'AI system not found for this obligation' },
+      { status: 404 },
+    );
+  }
 
   const { data: classification } = await ctx.supabase
     .from('risk_classifications')
