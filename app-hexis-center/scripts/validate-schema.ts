@@ -46,8 +46,27 @@ function parseMigrations(): SqlTable[] {
     .filter((f) => f.endsWith(".sql"))
     .sort();
 
+  // SQL keywords that start a non-column line inside CREATE TABLE
+  const NON_COLUMN_KEYWORDS = new Set([
+    "primary", "unique", "check", "constraint", "foreign", "create",
+    "alter", "grant", "revoke", "comment", "index",
+  ]);
+
+  // SQL type keywords (first word of a type)
+  const SQL_TYPES = new Set([
+    "uuid", "text", "integer", "int", "bigint", "smallint", "serial", "bigserial",
+    "boolean", "bool", "numeric", "decimal", "real", "float", "double",
+    "date", "time", "timestamp", "timestamptz", "interval",
+    "jsonb", "json", "bytea", "varchar", "char",
+    "text[]", "uuid[]", "integer[]", "int[]",
+  ]);
+
   for (const file of files) {
-    const content = readFileSync(join(MIGRATIONS_DIR, file), "utf-8");
+    let content = readFileSync(join(MIGRATIONS_DIR, file), "utf-8");
+
+    // Pre-process: strip inline comments
+    content = content.replace(/--[^\n]*/g, "");
+
     // Match CREATE TABLE statements
     const createRegex = /create\s+table\s+(?:if\s+not\s+exists\s+)?(?:\w+\.)?(\w+)\s*\(([\s\S]*?)\);/gi;
     let match;
@@ -56,35 +75,76 @@ function parseMigrations(): SqlTable[] {
       const tableName = match[1];
       const body = match[2];
 
-      // Skip internal tables
-      if (tableName.startsWith("pg_") || tableName.startsWith("auth.")) continue;
+      if (tableName.startsWith("pg_")) continue;
 
       const columns: SqlColumn[] = [];
-      // Split by lines, filter actual column definitions
-      const lines = body.split("\n").map((l) => l.trim()).filter(Boolean);
 
-      for (const line of lines) {
-        // Skip constraints, indexes, policies
-        if (/^(primary\s+key|unique|check|constraint|foreign\s+key|create\s)/i.test(line)) continue;
-        // Skip closing paren
-        if (line === ")") continue;
+      // Join multi-line definitions: if a line starts with whitespace and
+      // doesn't look like a new column, append it to the previous line
+      const rawLines = body.split("\n").map((l) => l.trimEnd()).filter(Boolean);
+      const joined: string[] = [];
 
-        // Parse column: name type [NOT NULL] [DEFAULT ...]
-        const colMatch = line.match(/^(\w+)\s+(\w[\w\s()[\],]*?)(?:\s+(not\s+null))?\s*(?:default\s+(.+?))?(?:\s+check\s*\(.*?\))?\s*(?:references\s+.*?)?\s*,?\s*$/i);
-        if (colMatch) {
-          columns.push({
-            name: colMatch[1],
-            type: colMatch[2].trim().toLowerCase(),
-            nullable: !colMatch[3],
-            hasDefault: !!colMatch[4],
-          });
+      for (const line of rawLines) {
+        const trimmed = line.trimStart();
+        const indent = line.length - trimmed.length;
+
+        // Continuation line: starts with extra indent and first word isn't a column name+type
+        if (joined.length > 0 && indent >= 4 && /^(check|references|on\s|not\s|default\s)/i.test(trimmed)) {
+          joined[joined.length - 1] += " " + trimmed;
+        } else {
+          joined.push(trimmed);
         }
       }
 
-      // Check if this table already exists (ALTER TABLE ADD COLUMN in later migration)
+      for (const line of joined) {
+        const trimmed = line.trim();
+        if (!trimmed) continue;
+
+        // Get first word
+        const firstWord = trimmed.split(/\s+/)[0].toLowerCase().replace(/[^a-z_]/g, "");
+
+        // Skip non-column lines
+        if (NON_COLUMN_KEYWORDS.has(firstWord)) continue;
+        if (trimmed === ")") continue;
+
+        // Try to extract: columnName type [...]
+        // Simple approach: first word = name, second word (possibly with []) = type
+        const parts = trimmed.split(/\s+/);
+        if (parts.length < 2) continue;
+
+        const colName = parts[0].replace(/,$/,  "");
+        let colType = parts[1].toLowerCase().replace(/,$/,  "");
+
+        // Skip if colName looks like a keyword, not a column
+        if (NON_COLUMN_KEYWORDS.has(colName.toLowerCase())) continue;
+        // Skip if colName contains non-identifier chars
+        if (!/^\w+$/.test(colName)) continue;
+
+        // Recognize type (may include [] for arrays)
+        if (colType.endsWith("[]")) {
+          colType = colType; // keep as-is
+        }
+
+        // Check basic type validity — strip array suffix and parameterized parts
+        // e.g. "numeric(4,2)" → "numeric", "varchar(255)" → "varchar", "text[]" → "text"
+        const baseType = colType.replace("[]", "").replace(/\(.*\)/, "");
+        if (!SQL_TYPES.has(colType) && !SQL_TYPES.has(baseType)) {
+          // If second word isn't a type, skip (probably a constraint line)
+          continue;
+        }
+
+        const fullLine = trimmed.toLowerCase();
+        columns.push({
+          name: colName,
+          type: colType,
+          nullable: !fullLine.includes("not null"),
+          hasDefault: fullLine.includes("default "),
+        });
+      }
+
+      // Merge or add
       const existing = tables.find((t) => t.name === tableName);
       if (existing) {
-        // Merge columns (later migration adds columns)
         for (const col of columns) {
           if (!existing.columns.some((c) => c.name === col.name)) {
             existing.columns.push(col);
@@ -95,14 +155,12 @@ function parseMigrations(): SqlTable[] {
       }
     }
 
-    // Also check ALTER TABLE ADD COLUMN
-    const alterRegex = /alter\s+table\s+(?:\w+\.)?(\w+)\s+add\s+(?:column\s+)?(\w+)\s+(\w[\w\s()[\],]*?)(?:\s+(not\s+null))?\s*(?:default\s+(.+?))?\s*;/gi;
+    // Also check ALTER TABLE ADD COLUMN (with optional IF NOT EXISTS)
+    const alterRegex = /alter\s+table\s+(?:\w+\.)?(\w+)\s+add\s+(?:column\s+)?(?:if\s+not\s+exists\s+)?(\w+)\s+(\w+(?:\[\])?)/gi;
     while ((match = alterRegex.exec(content)) !== null) {
       const tableName = match[1];
       const colName = match[2];
-      const colType = match[3].trim().toLowerCase();
-      const notNull = !!match[4];
-      const hasDefault = !!match[5];
+      const colType = match[3].toLowerCase();
 
       const table = tables.find((t) => t.name === tableName);
       if (table) {
@@ -110,8 +168,8 @@ function parseMigrations(): SqlTable[] {
           table.columns.push({
             name: colName,
             type: colType,
-            nullable: !notNull,
-            hasDefault,
+            nullable: true,
+            hasDefault: false,
           });
         }
       }
