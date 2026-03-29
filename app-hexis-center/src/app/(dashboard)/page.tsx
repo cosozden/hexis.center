@@ -64,7 +64,7 @@ export default async function DashboardPage() {
             Start with the ORIENT flow: describe your AI system and we will guide
             you through risk classification, obligations, and compliance planning.
           </p>
-          <a href="/systems/new" className="hexis-btn-primary hexis-btn">
+          <a href="/dashboard/systems/new" className="hexis-btn-primary hexis-btn">
             Register AI System
           </a>
         </div>
