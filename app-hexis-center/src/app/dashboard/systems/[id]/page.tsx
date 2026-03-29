@@ -41,7 +41,7 @@ interface OrientStep {
   status: "done" | "next" | "locked";
 }
 
-function buildOrientSteps(hasClassification: boolean): OrientStep[] {
+function buildOrientSteps(hasClassification: boolean, hasObligations: boolean): OrientStep[] {
   return [
     {
       letter: "O",
@@ -58,14 +58,14 @@ function buildOrientSteps(hasClassification: boolean): OrientStep[] {
     {
       letter: "I",
       name: "Identify",
-      hint: "Map obligations",
-      status: hasClassification ? "next" : "locked",
+      hint: hasObligations ? "Obligations mapped" : "Map obligations",
+      status: hasObligations ? "done" : hasClassification ? "next" : "locked",
     },
     {
       letter: "E",
       name: "Evaluate",
       hint: "Assess gaps",
-      status: "locked",
+      status: hasObligations ? "next" : "locked",
     },
     {
       letter: "N",
@@ -108,8 +108,15 @@ export default async function SystemDetailPage({
     .limit(1)
     .maybeSingle();
 
+  // Fetch obligation count for ORIENT progress
+  const { count: obligationCount } = await supabase
+    .from("obligations")
+    .select("id", { count: "exact", head: true })
+    .eq("system_id", id);
+
   const hasClassification = !!classification;
-  const steps = buildOrientSteps(hasClassification);
+  const hasObligations = (obligationCount ?? 0) > 0;
+  const steps = buildOrientSteps(hasClassification, hasObligations);
   const riskInfo = classification ? RISK_BADGE[classification.risk_level] : null;
   const completedCount = steps.filter((s) => s.status === "done").length;
 
@@ -190,12 +197,9 @@ export default async function SystemDetailPage({
             The risk classifier will walk you through Articles 5, 6, and 50 to determine
             your obligations and deadlines.
           </p>
-          <Button size="sm" disabled>
-            Start Risk Classification
-          </Button>
-          <p className="text-[10px] text-muted-foreground mt-2">
-            Coming soon &mdash; Risk wizard is being built.
-          </p>
+          <Link href={`/dashboard/systems/${system.id}/classify`}>
+            <Button size="sm">Start Risk Classification</Button>
+          </Link>
         </Card>
       ) : (
         <Card accent className="p-5 mb-8">
@@ -206,14 +210,12 @@ export default async function SystemDetailPage({
             Identify your legal obligations based on the classification result.
           </p>
           <p className="text-xs text-muted-foreground mb-4">
-            We will map specific EU AI Act articles and requirements to your system.
+            Map specific EU AI Act articles and requirements to your system based on
+            your risk level and organisation role.
           </p>
-          <Button size="sm" disabled>
-            Map Obligations
-          </Button>
-          <p className="text-[10px] text-muted-foreground mt-2">
-            Coming soon &mdash; Obligation mapping is being built.
-          </p>
+          <Link href={`/dashboard/systems/${system.id}/obligations`}>
+            <Button size="sm">Map Obligations</Button>
+          </Link>
         </Card>
       )}
 

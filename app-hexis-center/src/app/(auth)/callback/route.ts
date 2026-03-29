@@ -26,17 +26,17 @@ export async function GET(request: Request) {
 
         if (!profile?.org_id) {
           // New user — create org from signup metadata
-          const orgName = user.user_metadata?.org_name || `${user.email}'s Organization`;
+          const orgName = String(user.user_metadata?.org_name || `${user.email}'s Organization`);
           const { data: org } = await supabase
             .from('organizations')
             .insert({ name: orgName })
-            .select()
+            .select('id')
             .single();
 
           if (org) {
             await supabase
               .from('profiles')
-              .update({ org_id: org.id, role: 'owner' })
+              .update({ org_id: org.id, role: 'owner' as const })
               .eq('id', user.id);
           }
         }
