@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AIPA Yapay Zeka Rehberi: EU AI Act ve KVKK ile Örtüşüyor mu? — Hexis</title>
+<meta name="description" content="AIPA'nın Mart 2026'da yayımladığı Yapay Zeka Etiği ve Yönetişimi rehberini EU AI Act ve KVKK perspektifinden analiz ediyoruz. Örtüşmeler, boşluklar ve pratik çıkarımlar.">
+<meta property="og:title" content="AIPA Yapay Zeka Rehberi: EU AI Act ve KVKK ile Örtüşüyor mu? — Hexis">
+<meta property="og:description" content="AIPA'nın Mart 2026'da yayımladığı Yapay Zeka Etiği ve Yönetişimi rehberini EU AI Act ve KVKK perspektifinden analiz ediyoruz.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://hexis.center/blog/aipa-rehberi-eu-ai-act-kvkk-analiz/">
+<meta property="og:image" content="https://hexis.center/assets/og-hexis.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="AIPA Yapay Zeka Rehberi: EU AI Act ve KVKK ile Örtüşüyor mu? — Hexis">
+<meta name="twitter:description" content="AIPA'nın Yapay Zeka Etiği ve Yönetişimi rehberini EU AI Act ve KVKK perspektifinden analiz ediyoruz.">
+<meta name="twitter:image" content="https://hexis.center/assets/og-hexis.png">
+<link rel="canonical" href="https://hexis.center/blog/aipa-rehberi-eu-ai-act-kvkk-analiz/">
+<script defer data-domain="hexis.center" src="https://plausible.io/js/script.js"></script>
+<link rel="icon" href="/assets/favicon.ico">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "BlogPosting",
+      "headline": "AIPA Yapay Zeka Rehberi: EU AI Act ve KVKK ile Örtüşüyor mu?",
+      "datePublished": "2026-03-31",
+      "dateModified": "2026-03-31",
+      "keywords": "AIPA rehberi, yapay zeka yönetişim Türkiye, EU AI Act Türkçe, KVKK yapay zeka, AI ethics Turkey",
+      "author": { "@type": "Person", "name": "Özden Coşkun", "jobTitle": "AI Governance Practitioner", "worksFor": { "@type": "Organization", "name": "Hexis AI Governance", "url": "https://hexis.center" }, "url": "https://hexis.center", "sameAs": ["https://www.linkedin.com/in/ozdencoskun/"], "hasCredential": { "@type": "EducationalOccupationalCredential", "name": "ISO/IEC 42001 Implementer", "credentialCategory": "certification" } },
+      "publisher": { "@type": "Organization", "name": "Hexis AI Governance", "logo": { "@type": "ImageObject", "url": "https://hexis.center/assets/logo.png" } },
+      "inLanguage": "tr",
+      "mainEntityOfPage": "https://hexis.center/blog/aipa-rehberi-eu-ai-act-kvkk-analiz/"
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Hexis", "item": "https://hexis.center/" },
+        { "@type": "ListItem", "position": 2, "name": "Blog", "item": "https://hexis.center/blog/" },
+        { "@type": "ListItem", "position": 3, "name": "AIPA Yapay Zeka Rehberi: EU AI Act ve KVKK ile Örtüşüyor mu?" }
+      ]
+    }
+  ]
+}
+</script>
+<style>
+/* ─── BRAND TOKENS ───────────────────────────────── */
+:root{
+  --charcoal:  #1C1E23;
+  --brass:     #B2986C;
+  --stone:     #686662;
+  --paper:     #F8F7F5;
+  --dark-bg:   #16181C;
+  --dark-type: #E8E6E2;
+  --dark-sub:  #8A8884;
+
+  --bg:        var(--dark-bg);
+  --text:      var(--dark-type);
+  --text2:     var(--dark-sub);
+  --muted:     var(--dark-sub);
+
+  --border:    rgba(232,230,226,0.10);
+  --border2:   rgba(232,230,226,0.18);
+  --card:      rgba(232,230,226,0.04);
+  --card2:     rgba(232,230,226,0.07);
+}
+
+/* ─── RESET ──────────────────────────────────────── */
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;font-size:16px}
+body{
+  font-family:Arial,sans-serif;
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+  text-rendering:optimizeLegibility;
+  background:var(--bg);
+  color:var(--text);
+  line-height:1.55;
+  min-height:100vh;
+  overflow-x:hidden;
+}
+p{line-height:1.75;color:var(--text2)}
+
+/* ─── NAV ────────────────────────────────────────── */
+nav{
+  position:sticky;top:0;z-index:100;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 48px;height:60px;
+  background:var(--dark-bg);
+  border-bottom:1px solid var(--border);
+}
+.nav-logo{
+  display:flex;align-items:center;gap:10px;
+  text-decoration:none;color:var(--text);
+  flex-shrink:0;
+}
+.nav-logo img{
+  display:block;
+  height:40px;
+  width:auto;
+}
+@media(max-width:768px){
+  .nav-logo img{ height:32px; }
+}
+.nav-logo:focus-visible{
+  outline:2px solid rgba(232,230,226,0.5);
+  outline-offset:4px;
+}
+.nav-links{display:flex;gap:4px;align-items:center}
+.nav-links a{
+  color:var(--muted);text-decoration:none;font-size:12px;font-weight:400;
+  padding:6px 12px;border-radius:2px;transition:color .15s;letter-spacing:.04em;
+  font-family:Arial,sans-serif;
+}
+.nav-links a:hover{color:var(--text)}
+
+/* HAMBURGER */
+.hamburger{
+  display:none;flex-direction:column;gap:5px;
+  cursor:pointer;background:none;border:none;padding:4px;z-index:200;
+}
+.hamburger span{width:22px;height:1px;background:var(--text2);transition:all .3s}
+.hamburger.open span:nth-child(1){transform:translateY(6px) rotate(45deg)}
+.hamburger.open span:nth-child(2){opacity:0}
+.hamburger.open span:nth-child(3){transform:translateY(-6px) rotate(-45deg)}
+.mobile-menu{
+  display:none;position:fixed;top:60px;left:0;right:0;
+  background:var(--dark-bg);
+  border-bottom:1px solid var(--border);
+  padding:12px 20px 20px;flex-direction:column;gap:0;z-index:99;
+}
+.mobile-menu.open{display:flex}
+.mobile-menu a{
+  color:var(--muted);text-decoration:none;font-size:13px;font-weight:400;
+  padding:11px 4px;border-bottom:1px solid var(--border);
+  transition:color .15s;font-family:Arial,sans-serif;
+}
+.mobile-menu a:last-child{border-bottom:none}
+.mobile-menu a:hover{color:var(--text)}
+
+/* ─── FOOTER ─────────────────────────────────────── */
+footer{
+  position:relative;z-index:1;
+  border-top:1px solid var(--border);
+  padding:20px 48px;
+  display:flex;align-items:center;justify-content:space-between;
+  gap:16px;flex-wrap:wrap;
+}
+.footer-left{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.footer-logo{display:flex;align-items:center;flex-shrink:0;text-decoration:none;}
+.footer-logo img{display:block;height:auto;width:auto;max-height:18px;}
+.footer-logo:focus-visible{outline:2px solid rgba(232,230,226,0.5);outline-offset:4px;}
+.footer-sep{color:var(--stone);margin:0 4px}
+.footer-txt{font-size:10px;color:var(--stone);font-family:Arial,sans-serif;letter-spacing:.02em}
+.footer-links{display:flex;gap:16px;flex-wrap:wrap}
+.footer-links a{font-size:10px;color:var(--stone);text-decoration:none;transition:color .15s;font-family:Arial,sans-serif;letter-spacing:.04em}
+.footer-links a:hover{color:var(--text2)}
+
+/* ─── RESPONSIVE ─────────────────────────────────── */
+@media(max-width:860px){
+  nav{padding:0 20px}
+  .nav-links{display:none}
+  .hamburger{display:flex}
+  footer{flex-direction:column;align-items:flex-start;padding:20px}
+}
+
+/* ─── RELATED POSTS ──────────────────────────────── */
+.related-posts{margin-top:64px;padding-top:32px;border-top:1px solid var(--border)}
+.related-posts h2{font-family:Georgia,serif;font-size:20px;margin-bottom:20px}
+.related-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.related-card{display:block;border:1px solid var(--border);padding:20px;text-decoration:none;transition:border-color .2s,background .2s}
+.related-card:hover{border-color:var(--border2);background:var(--card);text-decoration:none}
+.related-tag{display:inline-block;background:var(--card2);padding:2px 8px;font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--brass);margin-bottom:8px}
+.related-title{display:block;font-family:Georgia,serif;font-size:16px;color:var(--text);line-height:1.35}
+@media(max-width:768px){.related-grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+<!-- ══════════ NAV ══════════ -->
+<nav>
+  <a href="/" class="nav-logo">
+    <img src="/assets/logo-light.png" alt="Hexis" width="72" height="40">
+  </a>
+  <div class="nav-links">
+    <a href="/metodoloji/">Orient Framework</a>
+    <a href="/generator/">Generator</a>
+    <a href="/#contact">Contact</a>
+  </div>
+  <button class="hamburger" id="hamburger" onclick="toggleMenu()" aria-label="Men&uuml;">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<div class="mobile-menu" id="mobileMenu">
+  <a href="/metodoloji/" onclick="closeMenu()">Orient Framework</a>
+  <a href="/generator/" onclick="closeMenu()">Generator</a>
+  <a href="/#contact" onclick="closeMenu()">Contact</a>
+</div>
+
+<!-- ══════════ BREADCRUMB ══════════ -->
+<div style="max-width:720px;margin:40px auto 0;padding:0 24px">
+  <a href="/" style="color:var(--stone);font-size:12px;text-decoration:none">&larr; hexis.center</a>
+</div>
+
+<!-- ══════════ ARTICLE HEADER ══════════ -->
+<header style="max-width:720px;margin:40px auto 48px;padding:0 24px">
+  <div style="font-size:11px;color:var(--brass);font-family:Arial,sans-serif;letter-spacing:.08em;text-transform:uppercase;margin-bottom:16px">
+    AI Governance &middot; Mart 2026
+  </div>
+  <h1 style="font-family:Georgia,serif;font-size:clamp(28px,4vw,44px);font-weight:700;line-height:1.15;letter-spacing:-.5px;color:var(--text);margin-bottom:20px">
+    AIPA Yapay Zeka Rehberi: EU AI Act ve KVKK ile <em>&Ouml;rt&uuml;&#351;&uuml;yor mu?</em>
+  </h1>
+  <p style="font-size:16px;line-height:1.7;color:var(--stone);max-width:600px">
+    Yapay Zeka Politikaları Derneği (AIPA) Mart 2026'da
+    &ldquo;Yapay Zek&acirc; Eti&#287;i ve Y&ouml;neti&#351;imi &dot;yi Uygulamalar Rehberi&rdquo;ni
+    yay&#305;mlad&#305;. Rehber neyi kaps&#305;yor, EU AI Act'le nerede
+    &ouml;rt&uuml;&#351;&uuml;yor, KVKK'y&#305; nerede atlıyor?
+    Ba&#287;&#305;ms&#305;z bir analiz.
+  </p>
+</header>
+
+<!-- ══════════ ARTICLE CONTENT ══════════ -->
+<article style="max-width:720px;margin:0 auto 96px;padding:0 24px;font-family:Arial,sans-serif;font-size:16px;line-height:1.8;color:var(--text2)">
+
+  <!-- BÖLÜM 1 -->
+  <h2 style="font-family:Georgia,serif;font-size:24px;font-weight:700;color:var(--text);margin:48px 0 16px">
+    Rehber Ne S&ouml;yl&uuml;yor?
+  </h2>
+  <p>AIPA (Yapay Zeka Politikaları Derneği), 16 Mart 2026'da Türkiye'de yapay zeka sistemlerinin sorumlu biçimde geliştirilmesi ve kullanılması için bir çerçeve sunmayı amaçlayan rehberini yayımladı. Rehber dört ana tema üzerine kurulu: veri yönetişimi, model geliştirme süreçleri, izleme ve denetim mekanizmaları ve kurumsal yönetişim yapıları.</p>
+  <p style="margin-top:16px">Rehberin etik boyutu ise beş başlıkta şekilleniyor: ayrımcılık riski, veri kullanımı, karar süreçlerinin şeffaflığı, insan müdahalesinin sınırları ve hesap sorulabilirlik. Bu başlıklar, pratikte kuruluşların kendi AI sistemlerini değerlendirebileceği somut kontrol listeleriyle desteklenmiş.</p>
+  <p style="margin-top:16px">Temel mesaj net: AI sistemleri sadece işlevsel değil; aynı zamanda anlaşılabilir, izlenebilir ve denetlenebilir yapılar halinde kurulmalı. Bu framing'i önemli buluyorum. Türkiye'de AI yönetişimi tartışması çoğunlukla "ne yapmalıyız?" sorusunda takılıp kalıyor. AIPA rehberi "nerede durduğumuzu nasıl anlarız?" sorusuna da yanıt arıyor.</p>
+
+  <blockquote style="margin:32px 0;padding:20px 24px;border-left:2px solid var(--brass);color:var(--text);font-style:italic;font-family:Georgia,serif;font-size:18px">
+    &ldquo;Anla&#351;&#305;labilir, izlenebilir ve denetlenebilir yapılar&rdquo; &mdash; bu &uuml;&ccedil; kavram hem AIPA rehberinin hem EU AI Act'in &#351;effafl&#305;k yükümlülüklerinin ortak paydas&#305;.
+  </blockquote>
+
+  <!-- BÖLÜM 2 -->
+  <h2 style="font-family:Georgia,serif;font-size:24px;font-weight:700;color:var(--text);margin:48px 0 16px">
+    EU AI Act ile Nerede &Ouml;rt&uuml;&#351;&uuml;yor?
+  </h2>
+  <p>Rehberin kapsamı, EU AI Act'in yüksek riskli sistemlere yönelik yükümlülük çerçevesiyle önemli ölçüde örtüşüyor. Madde 9 (risk yönetim sistemi), Madde 10 (veri ve veri yönetişimi), Madde 12 (kayıt tutma ve izlenebilirlik) ve Madde 14 (insan gözetimi) gibi temel hükümler, AIPA rehberinin gündemindeki konularla doğrudan ilişkili.</p>
+  <p style="margin-top:16px">Örtüşmenin en güçlü olduğu alan insan gözetimi. Her iki çerçeve de insan müdahalesini "isteğe bağlı iyi niyet" değil, sistematik bir gereklilik olarak konumlandırıyor. EU AI Act Madde 14 bunu açıkça düzenliyor: yüksek riskli sistemlerde *human oversight* (insan gözetimi) teknik ve örgütsel önlemlerle güvence altına alınmak zorunda.</p>
+  <p style="margin-top:16px">Şeffaflık boyutunda da paralel bir dil var. Rehberin "karar süreçlerinin şeffaflığı" vurgusu, EU AI Act Madde 13'ün *transparency* (şeffaflık) ve *interpretability* (yorumlanabilirlik) gerekliliklerini yansıtıyor. Hesap sorulabilirlik başlığı ise Madde 16-29 arasındaki sağlayıcı ve kullanıcı kuruluş yükümlülükleriyle örtüşüyor.</p>
+  <p style="margin-top:16px">Ayrımcılık riski meselesinde de önemli bir bağlantı var. Rehber bu riski etik bir ilke olarak işlerken, EU AI Act Madde 10 bunu somut bir veri yönetişimi yükümlülüğüne dönüştürüyor: eğitim verisi, doğrulama verisi ve test verisi ayrımcılık açısından değerlendirilmek zorunda.</p>
+
+  <!-- BÖLÜM 3 -->
+  <h2 style="font-family:Georgia,serif;font-size:24px;font-weight:700;color:var(--text);margin:48px 0 16px">
+    Nerede Ayrışıyor? Gördüğüm Üç Boşluk
+  </h2>
+  <p>Örtüşmenin güçlü olduğu alanlara rağmen, rehberle EU AI Act arasında önemli bir yapısal fark var: bağlayıcılık.</p>
+  <p style="margin-top:16px"><strong style="color:var(--text)">Birinci boşluk: Risk sınıflandırması.</strong> AIPA rehberi, AI sistemlerini yaşam döngüsü boyunca yönetmek için kapsamlı prensipler sunuyor. Ancak EU AI Act'in Madde 5 (yasaklı uygulamalar), Madde 6 ve Ek III (yüksek riskli sistemler) gibi risk kategorileri burada eksik. Hangi sistemin hangi yükümlülük kümesine tabi olduğunu belirlemek için hâlâ EU AI Act metnine bakmak gerekiyor. İyi uygulamalar rehberi, risk sınıflandırmasının yerini tutmuyor.</p>
+  <p style="margin-top:16px"><strong style="color:var(--text)">İkinci boşluk: Yaptırım mekanizması.</strong> Rehber iyi niyet çerçevesi sunuyor; AB yönetmeliği ise yaptırım öngörüyor. Yasak uygulamalar için 35 milyon Euro veya küresel ciron yüzde yedisi (hangisi yüksekse), yüksek riskli ihlallerde 15 milyon Euro veya yüzde üçü (hangisi yüksekse). KOBİ ve girişimler için sabit tutar ile yüzde arasından düşük olan uygulanır (Madde 99(6)). Türk şirketleri AB pazarında ya da AB kullanıcılarına hizmet sunuyorsa, bu rakamlar soyut değil.¹</p>
+  <p style="margin-top:16px"><strong style="color:var(--text)">Üçüncü boşluk: GPAI modelleri.</strong> Rehber genel hatlarıyla yapay zeka sistemlerini ele alıyor. Oysa EU AI Act Madde 51-56, *general-purpose AI* (genel amaçlı yapay zeka) modelleri için ayrı bir yükümlülük katmanı öngörüyor. Bu modelleri geliştiren ya da entegre eden kuruluşlar, Türkiye'nin iç düzenlemesi ne olursa olsun Ağustos 2025 itibarıyla yürürlüğe girmiş bu hükümlere tabi.</p>
+
+  <!-- BÖLÜM 4 -->
+  <h2 style="font-family:Georgia,serif;font-size:24px;font-weight:700;color:var(--text);margin:48px 0 16px">
+    KVKK Boyutu: Rehber Nereye Kadar Gidiyor?
+  </h2>
+  <p>Rehberin veri yönetişimi başlığı, KVKK açısından umut verici bir başlangıç noktası sunuyor. Veri kalitesi, erişim kontrolü, veri işleme süreçlerinin belgelenmesi: bunlar hem iyi AI yönetişiminin hem KVKK uyumunun yapı taşları.</p>
+  <p style="margin-top:16px">Ama KVKK'nın AI bağlamındaki spesifik gereklilikleri bu genel çerçevenin ötesine geçiyor. KVKK Kurumu'nun Mart 2026'da yayımladığı <em>Etken Yapay Zeka (Agentic AI)</em> rehberi, otonom karar alan sistemlerin kişisel veri işleme döngüsü üzerindeki etkilerini ayrıntılı biçimde ele alıyor.² Bu iki belge, birbirini tamamlayan ama henüz birbiriyle konuşmayan iki çerçeve gibi duruyor.</p>
+  <p style="margin-top:16px">KVKK'nın özellikle kritik olduğu iki alan, AIPA rehberinde zayıf kalmış gibi görünüyor. Birincisi, otomatik bireysel karar alma: KVKK Madde 11(1)(g) kapsamında bireylerin otomatik kararları itiraz etme hakkı, AI sistemlerinde somut bir yükümlülük doğuruyor. İkincisi, veri minimizasyonu: rehber genel olarak veri kalitesinden söz etse de KVKK'nın kişisel verilerin işlenmesini amaçla sınırlı tutma ilkesi, veri stratejisine doğrudan yansımalı.</p>
+
+  <!-- BÖLÜM 5 -->
+  <h2 style="font-family:Georgia,serif;font-size:24px;font-weight:700;color:var(--text);margin:48px 0 16px">
+    Türk Şirketleri İçin Ne Anlam İfade Ediyor?
+  </h2>
+  <p>Açıkçası, AIPA rehberini iyi bir başlangıç olarak görüyorum. Türkiye'de AI yönetişimi tartışmasını "güvenli ve sorumlu AI" düzeyinden "kurumsal pratik" düzeyine taşıyan bir belge bu. Kontrol listeleri ve iyi uygulama önerileri içermesi, özellikle kaynak kısıtlı KOBİ'ler için değerli.</p>
+  <p style="margin-top:16px">Ama rehberin sınırlarını da görmek gerekiyor. AB pazarında faaliyet gösteren, AB kullanıcılarına hizmet sunan ya da AB'den veri alan Türk şirketleri için EU AI Act'in doğrudan uygulanabilirliği var. Bu şirketler için AIPA rehberi iyi niyetli bir ek, temel başvuru kaynağı değil.</p>
+  <p style="margin-top:16px">Peki nereden başlamalı? ORIENT çerçevesinde önerdiğimiz sıra şu: önce sistemi tanımla (Observe), ardından EU AI Act kapsamında risk sınıfını belirle (Risk), uygulanabilir yasal yükümlülükleri haritalandır (Identify), mevcut boşlukları değerlendir (Evaluate), eylem planı çıkar (Navigate), sürekli izleme kur (Track). AIPA rehberi, bu akışın özellikle Evaluate ve Navigate aşamalarına katkı sağlıyor. Ama Observe ve Risk aşamaları için EU AI Act metnine dönmek kaçınılmaz.</p>
+
+  <div style="margin:32px 0;padding:20px 24px;border:1px solid var(--border);background:var(--card)">
+    <div style="font-size:12px;color:var(--stone);font-family:Arial,sans-serif;letter-spacing:.06em;text-transform:uppercase;margin-bottom:12px">Hızlı Referans</div>
+    <table style="width:100%;border-collapse:collapse;font-size:14px;font-family:Arial,sans-serif">
+      <thead>
+        <tr style="border-bottom:1px solid var(--border2)">
+          <th style="text-align:left;padding:8px 12px 8px 0;color:var(--text);font-weight:600;font-size:12px;letter-spacing:.04em">Konu</th>
+          <th style="text-align:center;padding:8px 6px;color:var(--text);font-weight:600;font-size:12px;letter-spacing:.04em">AIPA Rehberi</th>
+          <th style="text-align:center;padding:8px 6px;color:var(--text);font-weight:600;font-size:12px;letter-spacing:.04em">EU AI Act</th>
+          <th style="text-align:center;padding:8px 0 8px 6px;color:var(--text);font-weight:600;font-size:12px;letter-spacing:.04em">KVKK</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr style="border-bottom:1px solid var(--border)">
+          <td style="padding:10px 12px 10px 0;color:var(--text2)">Veri yönetişimi</td>
+          <td style="text-align:center;padding:10px 6px;color:var(--brass)">&#10003;</td>
+          <td style="text-align:center;padding:10px 6px;color:var(--brass)">&#10003;</td>
+          <td style="text-align:center;padding:10px 0 10px 6px;color:var(--brass)">&#10003;</td>
+        </tr>
+        <tr style="border-bottom:1px solid var(--border)">
+          <td style="padding:10px 12px 10px 0;color:var(--text2)">Risk sınıflandırması (Ek III)</td>
+          <td style="text-align:center;padding:10px 6px;color:var(--stone)">&#8212;</td>
+          <td style="text-align:center;padding:10px 6px;color:var(--brass)">&#10003;</td>
+          <td style="text-align:center;padding:10px 0 10px 6px;color:var(--stone)">&#8212;</td>
+        </tr>
+        <tr style="border-bottom:1px solid var(--border)">
+          <td style="padding:10px 12px 10px 0;color:var(--text2)">İnsan gözetimi</td>
+          <td style="text-align:center;padding:10px 6px;color:var(--brass)">&#10003;</td>
+          <td style="text-align:center;padding:10px 6px;color:var(--brass)">&#10003;</td>
+          <td style="text-align:center;padding:10px 0 10px 6px;color:var(--stone)">&#8212;</td>
+        </tr>
+        <tr style="border-bottom:1px solid var(--border)">
+          <td style="padding:10px 12px 10px 0;color:var(--text2)">Otomatik karar itiraz hakkı</td>
+          <td style="text-align:center;padding:10px 6px;color:var(--stone)">&#8212;</td>
+          <td style="text-align:center;padding:10px 6px;color:var(--stone)">&#8212;</td>
+          <td style="text-align:center;padding:10px 0 10px 6px;color:var(--brass)">&#10003;</td>
+        </tr>
+        <tr style="border-bottom:1px solid var(--border)">
+          <td style="padding:10px 12px 10px 0;color:var(--text2)">Şeffaflık yükümlülüğü</td>
+          <td style="text-align:center;padding:10px 6px;color:var(--brass)">&#10003;</td>
+          <td style="text-align:center;padding:10px 6px;color:var(--brass)">&#10003;</td>
+          <td style="text-align:center;padding:10px 0 10px 6px;color:var(--stone)">&#8212;</td>
+        </tr>
+        <tr>
+          <td style="padding:10px 12px 10px 0;color:var(--text2)">Yaptırım mekanizması</td>
+          <td style="text-align:center;padding:10px 6px;color:var(--stone)">&#8212;</td>
+          <td style="text-align:center;padding:10px 6px;color:var(--brass)">&#10003;</td>
+          <td style="text-align:center;padding:10px 0 10px 6px;color:var(--brass)">&#10003;</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- BÖLÜM 6: SONUÇ -->
+  <h2 style="font-family:Georgia,serif;font-size:24px;font-weight:700;color:var(--text);margin:48px 0 16px">
+    Sonuç: İyi Rehber, Eksik Çerçeve
+  </h2>
+  <p>AIPA rehberi, Türkiye'deki AI yönetişimi tartışmasına değerli bir katkı. Kontrol listeleri, iyi uygulama önerileri ve pratik değerlendirme araçlarıyla kuruluşlara somut bir başlangıç noktası sunuyor. Özellikle AB mevzuatından bağımsız kalmak isteyen ya da henüz düzenleyici uyum sürecine girmemiş şirketler için faydalı bir kaynak.</p>
+  <p style="margin-top:16px">Ama rehberin kapsamının ötesini de görmek gerek. AB pazarında yer alan ya da AB kullanıcılarına hizmet sunan Türk şirketleri için EU AI Act gönüllü değil, zorunlu. 2 Ağustos 2026 yüksek riskli sistem uyum tarihi yaklaşıyor. Bu şirketlerin AIPA rehberini ek bir kaynak olarak kullanması, ancak EU AI Act'i temel referans olarak alması gerekiyor.</p>
+  <p style="margin-top:16px">Türkiye'de bu iki çerçeveyi, yani iyi uygulama rehberleri ile bağlayıcı AB mevzuatını, birlikte ele alan bağımsız analiz henüz az. Bu boşluğu doldurmaya devam edeceğiz.</p>
+
+  <!-- KAYNAK NOTU -->
+  <div style="margin:64px 0 0;padding:24px;border:1px solid var(--border);background:var(--card)">
+    <div style="font-size:13px;color:var(--text2);font-family:Arial,sans-serif;font-weight:600;margin-bottom:16px">Kaynaklar</div>
+    <div style="font-size:12px;color:var(--stone);font-family:Arial,sans-serif;line-height:1.9">
+      <p>1. Avrupa Parlamentos ve Konseyi. <em>Regulation (EU) 2024/1689 — Artificial Intelligence Act</em>, Madde 99. EUR-Lex, 12 Temmuz 2024.
+      <a href="https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R1689" target="_blank" rel="noopener noreferrer" style="color:var(--brass);text-decoration:none">eur-lex.europa.eu</a></p>
+      <p style="margin-top:10px">2. Kişisel Verileri Koruma Kurumu. <em>Etken Yapay Zekâ (Agentic AI) Rehberi</em>. Mart 2026.
+      <a href="https://www.kvkk.gov.tr" target="_blank" rel="noopener noreferrer" style="color:var(--brass);text-decoration:none">kvkk.gov.tr</a></p>
+      <p style="margin-top:10px">3. Yapay Zeka Politikaları Derneği (AIPA). <em>Yapay Zekâ Etiği ve Yönetişimi İyi Uygulamalar Rehberi</em>. 16 Mart 2026.
+      <a href="https://aipaturkey.org/tr/" target="_blank" rel="noopener noreferrer" style="color:var(--brass);text-decoration:none">aipaturkey.org</a></p>
+    </div>
+  </div>
+
+</article>
+
+<!-- ══════════ BACK LINK ══════════ -->
+<div style="max-width:720px;margin:0 auto 32px;padding:0 24px">
+  <p style="font-size:14px;font-family:Arial,sans-serif;color:var(--stone);line-height:1.7">AI sisteminizin risk sınıfını belirlemek için <a href="https://hexis.center/generator/" style="color:var(--brass);text-decoration:underline">EU AI Act risk sınıflandırma ve yönetişim matrisi aracı</a>nı kullanabilir, uyum adımlarını <a href="https://hexis.center/eu-ai-act-checklist.html" style="color:var(--brass);text-decoration:underline">Türkçe EU AI Act kontrol listesi</a> ile takip edebilirsiniz.</p>
+</div>
+
+<div style="max-width:720px;margin:0 auto 64px;padding:0 24px">
+  <a href="/" style="font-size:13px;color:var(--stone);text-decoration:none;font-family:Arial,sans-serif">
+    &larr; T&uuml;m yaz&#305;lar
+  </a>
+</div>
+
+<!-- ══════════ RELATED POSTS ══════════ -->
+<div style="max-width:720px;margin:0 auto 96px;padding:0 24px">
+  <div class="related-posts">
+    <h2>İlgili Yazılar</h2>
+    <div class="related-grid">
+      <a href="/blog/kvkk-etken-yapay-zeka-rehberi-sirketler-nasil-hazirlanmali/" class="related-card">
+        <span class="related-tag">KVKK</span>
+        <span class="related-title">KVKK ve Agentic AI: Türk Şirketleri Ne Yapmalı?</span>
+      </a>
+      <a href="/blog/eu-ai-act-risk-siniflandirmasi/" class="related-card">
+        <span class="related-tag">EU AI Act</span>
+        <span class="related-title">EU AI Act Risk Sınıflandırması: Dört Katman, Bir Karar Ağacı</span>
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════ FOOTER ══════════ -->
+<footer>
+  <div class="footer-left">
+    <a href="/" class="footer-logo"><img src="/assets/logo-light.png" alt="Hexis" width="32" height="18"></a>
+    <span class="footer-sep">&middot;</span>
+    <span class="footer-txt">&copy; 2026 Hexis &middot; Built by &Ouml;zden Co&#351;kun &middot; Yaln&#305;zca bilgilendirme ama&ccedil;l&#305;d&#305;r; hukuki dan&#305;&#351;manl&#305;k niteli&#287;i ta&#351;&#305;maz.</span>
+  </div>
+  <div class="footer-links">
+    <a href="/metodoloji/">Orient Framework</a>
+    <a href="/generator/">Generator</a>
+    <a href="/#contact">Contact</a>
+    <a href="https://eur-lex.europa.eu/legal-content/TR/TXT/?uri=CELEX:32024R1689" target="_blank" rel="noopener noreferrer">EU AI Act</a>
+    <a href="https://www.linkedin.com/in/ozden-coskun-8728a1301" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+  </div>
+</footer>
+
+<script>
+function toggleMenu(){
+  document.getElementById('hamburger').classList.toggle('open');
+  document.getElementById('mobileMenu').classList.toggle('open');
+}
+function closeMenu(){
+  document.getElementById('hamburger').classList.remove('open');
+  document.getElementById('mobileMenu').classList.remove('open');
+}
+document.addEventListener('click',function(e){
+  const h=document.getElementById('hamburger');
+  const m=document.getElementById('mobileMenu');
+  if(m.classList.contains('open')&&!h.contains(e.target)&&!m.contains(e.target)){
+    h.classList.remove('open');m.classList.remove('open');
+  }
+});
+</script>
+</body>
+</html>
