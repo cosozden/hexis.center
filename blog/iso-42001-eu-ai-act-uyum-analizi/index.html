@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ISO 42001 Sertifikam Varsa EU AI Act&#x27;tan Muaf miyim? — Hexis</title>
+<meta name="description" content="ISO 42001 sertifikası EU AI Act yükümlülüklerini ne kadar karşılar? Hangi maddeler örtüşür, kritik boşluklar nerede?">
+<meta property="og:title" content="ISO 42001 Sertifikam Varsa EU AI Act&#x27;tan Muaf miyim? — Hexis">
+<meta property="og:description" content="ISO 42001 sertifikası EU AI Act yükümlülüklerini ne kadar karşılar? Hangi maddeler örtüşür, kritik boşluklar nerede?">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://hexis.center/blog/iso-42001-eu-ai-act-uyum-analizi/">
+<meta property="og:image" content="https://hexis.center/assets/og-hexis.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="ISO 42001 Sertifikam Varsa EU AI Act&#x27;tan Muaf miyim? — Hexis">
+<meta name="twitter:description" content="ISO 42001 sertifikası EU AI Act yükümlülüklerini ne kadar karşılar? Hangi maddeler örtüşür, kritik boşluklar nerede?">
+<meta name="twitter:image" content="https://hexis.center/assets/og-hexis.png">
+<link rel="icon" href="/assets/favicon.ico">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "ISO 42001 sertifikası EU AI Act uyumu için zorunlu mu?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Hayır, EU AI Act ISO 42001 sertifikasını zorunlu kılmıyor. Ancak yüksek riskli AI sistemi işleten kuruluşlar için güçlü bir zemin oluşturuyor ve denetim süreçlerini kolaylaştırıyor. Düzenleme standarda değil sonuca bakıyor; ISO 42001 o sonuca ulaşmanın kanıtlanmış bir yolu."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "ISO 42001 ile EU AI Act arasındaki örtüşme oranı nedir?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Literatürde yüksek riskli sistem gereksinimleri (Maddeler 9-15) için %70-80 örtüşme tahmin ediliyor. Risk yönetimi, dokümantasyon, şeffaflık ve insan gözetimi konularında güçlü hizalama var. Boşluklar ağırlıklı olarak otomatik kayıt, uygunluk değerlendirmesi prosedürleri ve AB veritabanı kaydında."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "ISO 42001 implementasyonu ne kadar sürer?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Kuruluşun büyüklüğüne ve mevcut AI yönetişim olgunluğuna göre değişiyor. Sıfırdan başlayan bir KOBİ için 6-12 ay gerçekçi bir tahmin. Eğer ISO 9001 veya ISO 27001 gibi standartlara aşinalık varsa, bu süre belirgin biçimde kısalabiliyor."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Türkiye'deki şirketlerin EU AI Act kapsamında olup olmadığını nasıl anlarım?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "EU AI Act'ın kapsam maddesi (Madde 2) coğrafi değil, etki bazlı çalışıyor. AB pazarına hizmet veren, AB'deki kullanıcıları etkileyen veya AB çıktısı kullanan AI sistemleri kapsam içinde. Türk şirketlerin büyük bölümü, AB ile ticari veya hizmet ilişkisi varsa kapsama giriyor."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Mevcut ISO 27001 sertifikam ISO 42001'e geçişi kolaylaştırır mı?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Evet, anlamlı ölçüde. Her iki standart da ISO Yüksek Yapısını (High Level Structure) kullanıyor; liderlik taahhüdü, risk yönetimi ve sürekli iyileştirme bölümleri yapısal olarak benzer. ISO 27001 sahibi kuruluşlar genellikle adaptasyon sürecini daha hızlı tamamlıyor."
+      }
+    }
+  ]
+}
+</script>
+<style>
+/* ─── BRAND TOKENS ───────────────────────────────── */
+:root{
+  --charcoal:  #1C1E23;
+  --brass:     #B2986C;
+  --stone:     #686662;
+  --paper:     #F8F7F5;
+  --dark-bg:   #16181C;
+  --dark-type: #E8E6E2;
+  --dark-sub:  #8A8884;
+
+  --bg:        var(--dark-bg);
+  --text:      var(--dark-type);
+  --text2:     var(--dark-sub);
+  --muted:     var(--dark-sub);
+
+  --border:    rgba(232,230,226,0.10);
+  --border2:   rgba(232,230,226,0.18);
+  --card:      rgba(232,230,226,0.04);
+  --card2:     rgba(232,230,226,0.07);
+}
+
+/* ─── RESET ──────────────────────────────────────── */
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;font-size:16px}
+body{
+  font-family:Arial,sans-serif;
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+  text-rendering:optimizeLegibility;
+  background:var(--bg);
+  color:var(--text);
+  line-height:1.55;
+  min-height:100vh;
+  overflow-x:hidden;
+}
+p{line-height:1.75;color:var(--text2)}
+
+/* ─── NAV ────────────────────────────────────────── */
+nav{
+  position:sticky;top:0;z-index:100;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 48px;height:60px;
+  background:var(--dark-bg);
+  border-bottom:1px solid var(--border);
+}
+.nav-logo{
+  display:flex;align-items:center;gap:10px;
+  text-decoration:none;color:var(--text);
+  flex-shrink:0;
+}
+.nav-logo img{
+  display:block;
+  height:40px;
+  width:auto;
+}
+@media(max-width:768px){
+  .nav-logo img{ height:32px; }
+}
+.nav-logo:focus-visible{
+  outline:2px solid rgba(232,230,226,0.5);
+  outline-offset:4px;
+}
+.nav-links{display:flex;gap:4px;align-items:center}
+.nav-links a{
+  color:var(--muted);text-decoration:none;font-size:12px;font-weight:400;
+  padding:6px 12px;border-radius:2px;transition:color .15s;letter-spacing:.04em;
+  font-family:Arial,sans-serif;
+}
+.nav-links a:hover{color:var(--text)}
+
+/* HAMBURGER */
+.hamburger{
+  display:none;flex-direction:column;gap:5px;
+  cursor:pointer;background:none;border:none;padding:4px;z-index:200;
+}
+.hamburger span{width:22px;height:1px;background:var(--text2);transition:all .3s}
+.hamburger.open span:nth-child(1){transform:translateY(6px) rotate(45deg)}
+.hamburger.open span:nth-child(2){opacity:0}
+.hamburger.open span:nth-child(3){transform:translateY(-6px) rotate(-45deg)}
+.mobile-menu{
+  display:none;position:fixed;top:60px;left:0;right:0;
+  background:var(--dark-bg);
+  border-bottom:1px solid var(--border);
+  padding:12px 20px 20px;flex-direction:column;gap:0;z-index:99;
+}
+.mobile-menu.open{display:flex}
+.mobile-menu a{
+  color:var(--muted);text-decoration:none;font-size:13px;font-weight:400;
+  padding:11px 4px;border-bottom:1px solid var(--border);
+  transition:color .15s;font-family:Arial,sans-serif;
+}
+.mobile-menu a:last-child{border-bottom:none}
+.mobile-menu a:hover{color:var(--text)}
+
+/* ─── FOOTER ─────────────────────────────────────── */
+footer{
+  position:relative;z-index:1;
+  border-top:1px solid var(--border);
+  padding:20px 48px;
+  display:flex;align-items:center;justify-content:space-between;
+  gap:16px;flex-wrap:wrap;
+}
+.footer-left{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.footer-logo{display:flex;align-items:center;flex-shrink:0;text-decoration:none;}
+.footer-logo img{display:block;height:auto;width:auto;max-height:18px;}
+.footer-logo:focus-visible{outline:2px solid rgba(232,230,226,0.5);outline-offset:4px;}
+.footer-sep{color:var(--stone);margin:0 4px}
+.footer-txt{font-size:10px;color:var(--stone);font-family:Arial,sans-serif;letter-spacing:.02em}
+.footer-links{display:flex;gap:16px;flex-wrap:wrap}
+.footer-links a{font-size:10px;color:var(--stone);text-decoration:none;transition:color .15s;font-family:Arial,sans-serif;letter-spacing:.04em}
+.footer-links a:hover{color:var(--text2)}
+
+/* ─── RESPONSIVE ─────────────────────────────────── */
+@media(max-width:860px){
+  nav{padding:0 20px}
+  .nav-links{display:none}
+  .hamburger{display:flex}
+  footer{flex-direction:column;align-items:flex-start;padding:20px}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="/" class="nav-logo">
+    <img src="/assets/logo-light.png" alt="Hexis" width="72" height="40">
+  </a>
+  <div class="nav-links">
+    <a href="/metodoloji/">Orient Framework</a>
+    <a href="/generator/">Generator</a>
+    <a href="/#contact">Contact</a>
+  </div>
+  <button class="hamburger" id="hamburger" onclick="toggleMenu()" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<div class="mobile-menu" id="mobileMenu">
+  <a href="/metodoloji/" onclick="closeMenu()">Orient Framework</a>
+  <a href="/generator/" onclick="closeMenu()">Generator</a>
+  <a href="/#contact" onclick="closeMenu()">Contact</a>
+</div>
+
+<!-- BREADCRUMB -->
+<div style="max-width:720px;margin:40px auto 0;padding:0 24px">
+  <a href="/" style="color:var(--stone);font-size:12px;text-decoration:none">&larr; hexis.center</a>
+</div>
+
+<!-- ARTICLE HEADER -->
+<header style="max-width:720px;margin:40px auto 48px;padding:0 24px">
+  <div style="font-size:11px;color:var(--brass);font-family:Arial,sans-serif;letter-spacing:.08em;text-transform:uppercase;margin-bottom:16px">
+    ISO 42001 &middot; Nisan 2026
+  </div>
+  <h1 style="font-family:Georgia,serif;font-size:clamp(28px,4vw,44px);font-weight:700;line-height:1.15;letter-spacing:-.5px;color:var(--text);margin-bottom:20px">
+    ISO 42001 Sertifikam Varsa EU AI Act&#x27;tan Muaf miyim?
+  </h1>
+  <p style="font-size:16px;line-height:1.7;color:var(--stone);max-width:600px">
+    ISO 42001 sertifikası EU AI Act yükümlülüklerini ne kadar karşılar? Hangi maddeler örtüşür, kritik boşluklar nerede?
+  </p>
+</header>
+
+<!-- ARTICLE CONTENT -->
+<article style="max-width:720px;margin:0 auto 96px;padding:0 24px;font-family:Arial,sans-serif;font-size:16px;line-height:1.8;color:var(--text2)">
+
+  <h2 style="font-family:Georgia,serif;font-size:24px;font-weight:700;color:var(--text);margin:48px 0 16px">
+    ISO 42001 Sertifikanız Var. Peki Bu Yeterli mi?
+  </h2>
+
+  <p>Bu soruyu son birkaç ayda çok aldım: "ISO/IEC 42001 sertifikamı alırsam EU AI Act uyumum tamamlanmış sayılır mı?"</p>
+
+  <p style="margin-top:16px">Kısa cevap: hayır. Ama hikaye burada bitmiyor.</p>
+
+  <p style="margin-top:16px">ISO 42001 ile EU AI Act arasında anlamlı bir örtüşme var; literatürde bu oran yüksek riskli sistem gereksinimleri için %70-80 olarak tahmin ediliyor.¹ Ama kalan %20-30, tam olarak denetçilerin ve düzenleyicilerin baktığı yerler. Bu yazıda neyin örtüştüğünü, neyin örtüşmediğini ve önceliklendirmenizi nasıl yapmanız gerektiğini somut biçimde ele alacağım.</p>
+
+  <h2 style="font-family:Georgia,serif;font-size:24px;font-weight:700;color:var(--text);margin:48px 0 16px">
+    ISO 42001 Nedir, Tam Olarak Ne Yapar?
+  </h2>
+
+  <p>ISO/IEC 42001:2023, yapay zeka yönetim sistemleri için dünyanın ilk uluslararası standardıdır.² Aralık 2023'te yayımlandı. ISO 9001 veya ISO 27001'e aşinaysanız, yapıyı tanıyacaksınız: Madde 4'ten 10'a uzanan bir çerçeve; bağlam, liderlik, planlama, destek, operasyon, performans değerlendirme ve iyileştirme.</p>
+
+  <p style="margin-top:16px">Ama ISO 42001'in özü şu: bir <em>yapay zeka yönetim sistemi</em> (AIMS) kurmanızı ve bunu sürdürmenizi talep eder. Bu, AI ile ne yaptığınızı biliyor olmanız, riskleri değerlendirmeniz, politika sahibi olmanız ve bunu kanıtlayabilmeniz anlamına gelir.</p>
+
+  <p style="margin-top:16px">EU AI Act ise farklı bir şey yapar. O bir yönetim sistemi standardı değil, bir düzenlemedir. Size "nasıl yönetin" değil, "neyi yapın veya yapmayın" der. Ayrımı önemli.</p>
+
+  <h2 style="font-family:Georgia,serif;font-size:24px;font-weight:700;color:var(--text);margin:48px 0 16px">
+    Hangi Maddeler Örtüşüyor?
+  </h2>
+
+  <p>Somut eşleşmelere bakalım. ISO 42001 Madde 6.1.2 (AI risk değerlendirmesi), EU AI Act Madde 9'daki (yüksek riskli sistemler için risk yönetim sistemi) gereksinimlerle güçlü biçimde örtüşüyor.³ Her ikisi de risklerin tanımlanmasını, analiz edilmesini ve kontrol altına alınmasını talep ediyor.</p>
+
+  <p style="margin-top:16px">Benzer şekilde ISO 42001 Madde 7 (destek ve kaynaklar) ile EU AI Act Madde 11 (teknik dokümantasyon) arasında pratik bir bağ var. ISO 42001 için hazırladığınız AIMS dokümantasyonu, EU AI Act Ek IV gereksinimlerinin önemli bir bölümüne zemin oluşturuyor.</p>
+
+  <p style="margin-top:16px">Şeffaflık ve insan gözetimi konularında da benzer tablo geçerli. ISO 42001 Madde 8, AI sistemlerinin sorumlu biçimde işletilmesini ve izlenmesini gerektiriyor. EU AI Act Madde 13 (şeffaflık) ve Madde 14 (insan gözetimi) bu alanla çakışıyor.</p>
+
+  <p style="margin-top:16px">Performans izleme de kesişiyor. ISO 42001 Madde 9'daki sürekli ölçüm ve denetim gereksinimleri, EU AI Act Madde 72'deki (piyasa sonrası izleme) ruhu taşıyor.</p>
+
+  <p style="margin-top:16px">Kısaca: ISO 42001'i ciddiye alıp doğru uyguladıysanız, yüksek riskli sistem gereksinimlerinin büyük bölümüne güçlü bir altyapı kurmuşsunuz demektir.</p>
+
+  <h2 style="font-family:Georgia,serif;font-size:24px;font-weight:700;color:var(--text);margin:48px 0 16px">
+    Kritik Boşluklar: ISO 42001'in Kapsamadığı Alan
+  </h2>
+
+  <p>Asıl kritik nokta burada.</p>
+
+  <p style="margin-top:16px"><strong style="color:var(--text)">Otomatik kayıt (Madde 12).</strong> EU AI Act, yüksek riskli sistemlerin operasyon sırasında olayları otomatik olarak kaydetmesini zorunlu kılıyor; bu kayıtlara yetkili makamlar erişebilmeli. ISO 42001 izleme ve ölçüm gerektiriyor, ama uygulama esnekliğini kuruluşa bırakıyor. Düzenleme bu konuda çok daha spesifik.</p>
+
+  <p style="margin-top:16px"><strong style="color:var(--text)">Uygunluk değerlendirmesi ve CE işareti (Madde 43).</strong> Yüksek riskli AI sistemleri için AB'nin belirlediği usule göre uygunluk değerlendirmesi yapmanız gerekiyor. ISO 42001 sertifikası bu prosedürün yerini almıyor; tamamlayıcı bir kanıt niteliği taşıyor.</p>
+
+  <p style="margin-top:16px"><strong style="color:var(--text)">AB veritabanı kaydı (Madde 49).</strong> Belirli yüksek riskli sistemler için piyasaya sürülmeden önce AB veritabanına kayıt zorunluluğu var. Bu tamamen düzenleyici bir prosedür; ISO 42001 kapsamı dışında.</p>
+
+  <p style="margin-top:16px"><strong style="color:var(--text)">Yasaklı uygulamalar (Madde 5).</strong> Madde 5 kapsamında yasaklanan AI kullanımları (sosyal skorlama, bilinçaltı manipülasyon vb.) bir yönetim sistemi standardıyla ele alınan konular değil. Bunlar doğrudan hukuki yasaklar.</p>
+
+  <p style="margin-top:16px">Özetle: ISO 42001 "nasıl iyi yönetirim" sorusunu cevaplıyor. EU AI Act ise ek olarak "hangi prosedürü izlerim, nereye kayıt yaptırırım, nasıl belgelerim" sorularına da cevap istiyor.</p>
+
+  <h2 style="font-family:Georgia,serif;font-size:24px;font-weight:700;color:var(--text);margin:48px 0 16px">
+    Türk Şirketler İçin Öncelik Sırası
+  </h2>
+
+  <p>Eğer ISO 42001 sertifikanız varsa veya süreçteyseniz, tebrikler: başlangıç noktanız zaten iyi. Şimdi yapmanız gereken şey bir <em>boşluk analizi</em> (gap analysis).</p>
+
+  <p style="margin-top:16px">ORIENT çerçevesini kullanırsak, bulunduğunuz yer Evaluate aşamasının başlangıcı. ISO 42001 altyapınızın EU AI Act gereksinimlerini ne ölçüde karşıladığını madde bazında haritalandırmanız gerekiyor.</p>
+
+  <p style="margin-top:16px">Pratik başlangıç noktaları:</p>
+
+  <p style="margin-top:16px"><strong style="color:var(--text)">1. Risk değerlendirmenizi EU AI Act diliyle genişletin.</strong> ISO 42001 Madde 6.1.2 çalışmanız varsa, bu değerlendirmeye "sağlık, güvenlik ve temel haklar" perspektifini ekleyin. EU AI Act Madde 9 bu ifadeyi özellikle kullanıyor.</p>
+
+  <p style="margin-top:16px"><strong style="color:var(--text)">2. Teknik dokümantasyonunuzu Ek IV'e göre gözden geçirin.</strong> AIMS dokümantasyonunuzun Ek IV gereksinimlerini karşılayıp karşılamadığına bakın; sistem amaçları, test yöntemleri, risk değerlendirme sonuçları bu listede.</p>
+
+  <p style="margin-top:16px"><strong style="color:var(--text)">3. Otomatik kayıt mekanizmanızı değerlendirin.</strong> Mevcut izleme altyapınız Madde 12'nin "otomatik kayıt" gereksinimini karşılıyor mu? Bu genellikle teknik bir geliştirme gerektiriyor.</p>
+
+  <p style="margin-top:16px"><strong style="color:var(--text)">4. Uygunluk değerlendirmesi yolunu netleştirin.</strong> Sisteminizin Ek I mi (ürün güvenliği, 2027) yoksa Ek III mi (2026) kapsamında olduğunu belirleyin. Bu, önceliklerinizi doğrudan etkiliyor.</p>
+
+  <p style="margin-top:16px">Sisteminizin hangi risk kategorisine girdiğinden emin değilseniz, <a href="https://hexis.center/generator/" style="color:var(--brass);text-decoration:underline">EU AI Act Risk Sınıflandırıcısını</a> kullanarak 7 adımda netleştirebilirsiniz.</p>
+
+  <h2 style="font-family:Georgia,serif;font-size:24px;font-weight:700;color:var(--text);margin:48px 0 16px">
+    ISO 42001'in Gerçek Değeri: Kanıt Üretme Kapasitesi
+  </h2>
+
+  <p>ISO 42001 sertifikasının EU AI Act'a kıyasla genellikle eksik anlatılan bir boyutu var: kanıt üretme kapasitesi.</p>
+
+  <p style="margin-top:16px">EU AI Act denetimlerinde düzenleyici otorite, uyumu belgeleyen kanıtlar isteyecek. ISO 42001 implementasyonu, bu kanıtları sistematik biçimde üretmenizi sağlayan süreçleri kurar. Audit trail'ler, yönetim gözden geçirmeleri, iç denetim raporları; bunların hepsi EU AI Act denetiminde kullanabileceğiniz materyaller.</p>
+
+  <p style="margin-top:16px">Bu açıdan bakıldığında ISO 42001, EU AI Act uyumunun "nasıl ispat ederim" sorusuna güçlü bir cevap. Yalnız başına yeterli değil, ama olmadan gitmek çok daha zor.</p>
+
+  <h2 style="font-family:Georgia,serif;font-size:24px;font-weight:700;color:var(--text);margin:48px 0 16px">
+    Sıkça Sorulan Sorular {#sss}
+  </h2>
+
+  <p><strong style="color:var(--text)">ISO 42001 sertifikası EU AI Act uyumu için zorunlu mu?</strong></p>
+
+  <p style="margin-top:16px">Hayır, EU AI Act ISO 42001 sertifikasını zorunlu kılmıyor. Ancak yüksek riskli AI sistemi işleten kuruluşlar için güçlü bir zemin oluşturuyor ve denetim süreçlerini kolaylaştırıyor. Düzenleme standarda değil sonuca bakıyor; ISO 42001 o sonuca ulaşmanın kanıtlanmış bir yolu.</p>
+
+  <p style="margin-top:16px"><strong style="color:var(--text)">ISO 42001 ile EU AI Act arasındaki örtüşme oranı nedir?</strong></p>
+
+  <p style="margin-top:16px">Literatürde yüksek riskli sistem gereksinimleri (Maddeler 9-15) için %70-80 örtüşme tahmin ediliyor. Risk yönetimi, dokümantasyon, şeffaflık ve insan gözetimi konularında güçlü hizalama var. Boşluklar ağırlıklı olarak otomatik kayıt, uygunluk değerlendirmesi prosedürleri ve AB veritabanı kaydında.</p>
+
+  <p style="margin-top:16px"><strong style="color:var(--text)">ISO 42001 implementasyonu ne kadar sürer?</strong></p>
+
+  <p style="margin-top:16px">Kuruluşun büyüklüğüne ve mevcut AI yönetişim olgunluğuna göre değişiyor. Sıfırdan başlayan bir KOBİ için 6-12 ay gerçekçi bir tahmin. Eğer ISO 9001 veya ISO 27001 gibi standartlara aşinalık varsa, bu süre belirgin biçimde kısalabiliyor.</p>
+
+  <p style="margin-top:16px"><strong style="color:var(--text)">Türkiye'deki şirketlerin EU AI Act kapsamında olup olmadığını nasıl anlarım?</strong></p>
+
+  <p style="margin-top:16px">EU AI Act'ın kapsam maddesi (Madde 2) coğrafi değil, etki bazlı çalışıyor. AB pazarına hizmet veren, AB'deki kullanıcıları etkileyen veya AB çıktısı kullanan AI sistemleri kapsam içinde. Türk şirketlerin büyük bölümü, AB ile ticari veya hizmet ilişkisi varsa kapsama giriyor.</p>
+
+  <p style="margin-top:16px"><strong style="color:var(--text)">Mevcut ISO 27001 sertifikam ISO 42001'e geçişi kolaylaştırır mı?</strong></p>
+
+  <p style="margin-top:16px">Evet, anlamlı ölçüde. Her iki standart da ISO Yüksek Yapısını (<em>High Level Structure</em>) kullanıyor; liderlik taahhüdü, risk yönetimi ve sürekli iyileştirme bölümleri yapısal olarak benzer. ISO 27001 sahibi kuruluşlar genellikle adaptasyon sürecini daha hızlı tamamlıyor.</p>
+
+  <p style="margin-top:16px">---</p>
+
+  <h2 style="font-family:Georgia,serif;font-size:24px;font-weight:700;color:var(--text);margin:48px 0 16px">
+    Kaynaklar
+  </h2>
+
+  <p>1. Glocert International. <em>EU AI Act Preparation Using ISO 42001: Practical Mapping Guide</em>. glocertinternational.com. <a href="https://www.glocertinternational.com/resources/guides/eu-ai-act-mapping-iso-42001/" style="color:var(--brass);text-decoration:underline">glocertinternational.com</a></p>
+
+  <p style="margin-top:16px">2. International Organization for Standardization. <em>ISO/IEC 42001:2023 — Information technology — Artificial intelligence — Management system</em>. iso.org, Aralık 2023. <a href="https://www.iso.org/standard/42001" style="color:var(--brass);text-decoration:underline">iso.org</a></p>
+
+  <p style="margin-top:16px">3. European Union AI Act Service Desk. <em>Article 9: Risk management system</em>. Avrupa Komisyonu. <a href="https://ai-act-service-desk.ec.europa.eu/en/ai-act/article-9" style="color:var(--brass);text-decoration:underline">ai-act-service-desk.ec.europa.eu</a></p>
+
+  <p style="margin-top:16px">4. ISMS.online. <em>Is Your AI Risk Management Ready for Article 9 and ISO 42001?</em> isms.online. <a href="https://www.isms.online/iso-42001/eu-ai-act/article-9/" style="color:var(--brass);text-decoration:underline">isms.online</a></p>
+
+  <p style="margin-top:16px">5. Avrupa Parlamentosu ve Konseyi. <em>Regulation (EU) 2024/1689 — Artificial Intelligence Act</em>. EUR-Lex, 12 Temmuz 2024. <a href="https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R1689" style="color:var(--brass);text-decoration:underline">eur-lex.europa.eu</a></p>
+
+</article>
+
+<!-- BACK LINK -->
+<div style="max-width:720px;margin:0 auto 96px;padding:0 24px">
+  <a href="/" style="font-size:13px;color:var(--stone);text-decoration:none;font-family:Arial,sans-serif">
+    &larr; T&uuml;m yaz&#305;lar
+  </a>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-left">
+    <a href="/" class="footer-logo"><img src="/assets/logo-light.png" alt="Hexis" width="32" height="18"></a>
+    <span class="footer-sep">&middot;</span>
+    <span class="footer-txt">&copy; 2026 Hexis &middot; Built by &Ouml;zden Co&#351;kun &middot; Yaln&#305;zca bilgilendirme ama&ccedil;l&#305;d&#305;r; hukuki dan&#305;&#351;manl&#305;k niteli&#287;i ta&#351;&#305;maz.</span>
+  </div>
+  <div class="footer-links">
+    <a href="/metodoloji/">Orient Framework</a>
+    <a href="/generator/">Generator</a>
+    <a href="/#contact">Contact</a>
+    <a href="https://eur-lex.europa.eu/legal-content/TR/TXT/?uri=CELEX:32024R1689" target="_blank" rel="noopener noreferrer">EU AI Act</a>
+    <a href="https://www.linkedin.com/in/ozden-coskun-8728a1301" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+  </div>
+</footer>
+
+<script>
+function toggleMenu(){
+  document.getElementById('hamburger').classList.toggle('open');
+  document.getElementById('mobileMenu').classList.toggle('open');
+}
+function closeMenu(){
+  document.getElementById('hamburger').classList.remove('open');
+  document.getElementById('mobileMenu').classList.remove('open');
+}
+document.addEventListener('click',function(e){
+  const h=document.getElementById('hamburger');
+  const m=document.getElementById('mobileMenu');
+  if(m.classList.contains('open')&&!h.contains(e.target)&&!m.contains(e.target)){
+    h.classList.remove('open');m.classList.remove('open');
+  }
+});
+</script>
+</body>
+</html>

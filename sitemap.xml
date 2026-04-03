@@ -85,6 +85,13 @@
 
   <!-- ─── Blog Yazıları ─── -->
   <url>
+    <loc>https://hexis.center/blog/iso-42001-eu-ai-act-uyum-analizi/</loc>
+    <lastmod>2026-04-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
     <loc>https://hexis.center/blog/aipa-rehberi-eu-ai-act-kvkk-analiz/</loc>
     <lastmod>2026-03-31</lastmod>
     <changefreq>monthly</changefreq>
