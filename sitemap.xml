@@ -218,10 +218,51 @@
     <priority>0.3</priority>
   </url>
 
+  <!-- ─── EN Blog Posts (TR ↔ EN pairs) ─── -->
+  <url>
+    <loc>https://hexis.center/blog/digital-omnibus-eu-ai-act-delay/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://hexis.center/blog/digital-omnibus-eu-ai-act-delay/" />
+    <xhtml:link rel="alternate" hreflang="tr" href="https://hexis.center/blog/digital-omnibus-eu-ai-act-erteleme/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://hexis.center/blog/digital-omnibus-eu-ai-act-delay/" />
+    <lastmod>2026-04-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <url>
+    <loc>https://hexis.center/blog/eu-ai-act-risk-classification-guide/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://hexis.center/blog/eu-ai-act-risk-classification-guide/" />
+    <xhtml:link rel="alternate" hreflang="tr" href="https://hexis.center/blog/eu-ai-act-risk-siniflandirmasi/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://hexis.center/blog/eu-ai-act-risk-classification-guide/" />
+    <lastmod>2026-04-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://hexis.center/blog/gpai-rules-articles-51-56/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://hexis.center/blog/gpai-rules-articles-51-56/" />
+    <xhtml:link rel="alternate" hreflang="tr" href="https://hexis.center/blog/gpai-kurallari-madde-51-56/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://hexis.center/blog/gpai-rules-articles-51-56/" />
+    <lastmod>2026-04-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://hexis.center/blog/iso-42001-governance-maturity/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://hexis.center/blog/iso-42001-governance-maturity/" />
+    <xhtml:link rel="alternate" hreflang="tr" href="https://hexis.center/blog/iso-42001-governance-olgunlugu/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://hexis.center/blog/iso-42001-governance-maturity/" />
+    <lastmod>2026-04-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
   <!-- ─── Blog Arşiv ─── -->
   <url>
     <loc>https://hexis.center/blog/</loc>
-    <lastmod>2026-03-20</lastmod>
+    <lastmod>2026-04-03</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>

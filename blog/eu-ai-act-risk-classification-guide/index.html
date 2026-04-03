@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EU AI Act: Complete Risk Classification Guide — Hexis</title>
+<meta name="description" content="EU AI Act risk classification for organisations operating in Turkey: prohibited, high-risk, limited risk, and minimal risk AI systems. Practical starting point with three key questions.">
+<meta property="og:title" content="EU AI Act: Complete Risk Classification Guide — Hexis">
+<meta property="og:description" content="Four risk tiers, common mistakes, and three practical questions to classify any AI system under EU AI Act. For organisations operating in or serving the EU market.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://hexis.center/blog/eu-ai-act-risk-classification-guide/">
+<meta property="og:image" content="https://hexis.center/assets/og-hexis.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="EU AI Act: Risk Classification Guide — Hexis">
+<meta name="twitter:description" content="Four risk tiers and three practical questions to classify any AI system under EU AI Act.">
+<meta name="twitter:image" content="https://hexis.center/assets/og-hexis.png">
+<link rel="canonical" href="https://hexis.center/blog/eu-ai-act-risk-classification-guide/">
+<link rel="alternate" hreflang="en" href="https://hexis.center/blog/eu-ai-act-risk-classification-guide/">
+<link rel="alternate" hreflang="tr" href="https://hexis.center/blog/eu-ai-act-risk-siniflandirmasi/">
+<script defer data-domain="hexis.center" src="https://plausible.io/js/script.js"></script>
+<link rel="icon" href="/assets/favicon.ico">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "BlogPosting",
+      "headline": "EU AI Act: Complete Risk Classification Guide",
+      "datePublished": "2026-02-18",
+      "dateModified": "2026-02-18",
+      "keywords": "EU AI Act risk classification, high-risk AI systems, prohibited AI practices, AI Act Article 6, AI governance Turkey, EU AI regulation compliance",
+      "author": { "@type": "Person", "name": "Özden Coşkun", "jobTitle": "AI Governance Practitioner", "worksFor": { "@type": "Organization", "name": "Hexis AI Governance", "url": "https://hexis.center" }, "url": "https://hexis.center", "sameAs": ["https://www.linkedin.com/in/ozdencoskun/"], "hasCredential": { "@type": "EducationalOccupationalCredential", "name": "ISO/IEC 42001 Implementer", "credentialCategory": "certification" } },
+      "publisher": { "@type": "Organization", "name": "Hexis AI Governance", "logo": { "@type": "ImageObject", "url": "https://hexis.center/assets/logo.png" } },
+      "inLanguage": "en",
+      "mainEntityOfPage": "https://hexis.center/blog/eu-ai-act-risk-classification-guide/"
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Hexis", "item": "https://hexis.center/" },
+        { "@type": "ListItem", "position": 2, "name": "Blog", "item": "https://hexis.center/blog/" },
+        { "@type": "ListItem", "position": 3, "name": "EU AI Act: Complete Risk Classification Guide" }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Does EU AI Act apply to companies based in Turkey?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. EU AI Act applies when an AI system is placed on the EU market, deployed for use by EU users, or affects EU individuals — regardless of where the provider or deployer is established. Geographic location is not the deciding factor; impact and market reach are."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What are the four risk categories under EU AI Act?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "EU AI Act classifies AI systems into four tiers: (1) Prohibited systems — banned under Article 5, including social scoring and real-time biometric surveillance; (2) High-risk systems — subject to the most comprehensive obligations under Article 6 and Annexes I and III; (3) Limited risk systems — transparency obligations under Article 50; (4) Minimal risk systems — voluntary codes of conduct only."
+          }
+        }
+      ]
+    }
+  ]
+}
+</script>
+<style>
+:root{
+  --dark-bg:#16181C;
+  --charcoal:#1C1E23;
+  --brass:#B2986C;
+  --stone:#8A8884;
+  --dark-type:#E8E6E2;
+  --dark-sub:#8A8884;
+  --border:rgba(232,230,226,0.10);
+  --border2:rgba(232,230,226,0.18);
+  --card:rgba(232,230,226,0.04);
+  --card2:rgba(232,230,226,0.06);
+  --text:var(--dark-type);
+  --text2:rgba(232,230,226,0.70);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{background:var(--dark-bg)}
+body{background:var(--dark-bg);color:var(--dark-type);font-family:Arial,Helvetica,sans-serif;line-height:1.6}
+
+/* ─── NAV ─────────────────────────────────────────── */
+nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:0 40px;height:56px;background:var(--dark-bg);border-bottom:1px solid var(--border)}
+.nav-logo{display:flex;align-items:center;text-decoration:none}
+.nav-links{display:flex;gap:4px;align-items:center}
+.nav-links a{color:var(--stone);text-decoration:none;font-size:12px;font-weight:400;padding:5px 11px;transition:color .15s;letter-spacing:.04em;font-family:Arial,sans-serif}
+.nav-links a:hover{color:var(--dark-type)}
+.nav-lang{display:flex;align-items:center;gap:4px}
+.nav-lang a,.nav-lang span{font-size:11px;font-weight:500;letter-spacing:.08em;font-family:Arial,sans-serif;text-decoration:none;padding:4px 7px;color:var(--stone);transition:color .15s}
+.nav-lang a:hover{color:var(--dark-type)}
+.nav-lang .active{color:var(--brass);background:rgba(178,152,108,.1)}
+.nav-lang .sep{color:rgba(232,230,226,.18);font-size:10px;user-select:none}
+.hamburger{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:4px}
+.hamburger span{display:block;width:20px;height:1.5px;background:var(--stone);transition:.2s}
+.hamburger.open span:nth-child(1){transform:translateY(6.5px) rotate(45deg)}
+.hamburger.open span:nth-child(2){opacity:0}
+.hamburger.open span:nth-child(3){transform:translateY(-6.5px) rotate(-45deg)}
+.mobile-menu{display:none;flex-direction:column;background:var(--charcoal);border-bottom:1px solid var(--border);padding:8px 0}
+.mobile-menu.open{display:flex}
+.mobile-menu a{color:var(--stone);text-decoration:none;padding:10px 24px;font-size:13px;transition:color .15s}
+.mobile-menu a:hover{color:var(--dark-type)}
+
+/* ─── RISK BLOCKS ────────────────────────────────── */
+.risk-block{
+  border-left:3px solid var(--border2);
+  padding:20px 24px;margin:20px 0;
+  background:var(--card);
+}
+.risk-block.risk-banned{border-color:var(--dark-type)}
+.risk-block.risk-high{border-color:#8a8884}
+.risk-block.risk-limited{border-color:rgba(232,230,226,0.35)}
+.risk-block.risk-minimal{border-color:rgba(232,230,226,0.20)}
+.risk-num{font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--stone);margin-bottom:8px;font-family:Arial,sans-serif}
+.risk-title{font-family:Georgia,serif;font-weight:700;font-size:16px;color:var(--text);margin-bottom:10px}
+.risk-body{font-size:14px;color:var(--text2);line-height:1.7}
+
+/* ─── QUESTION LIST ──────────────────────────────── */
+.question-list{counter-reset:q;list-style:none;margin:20px 0 28px;display:flex;flex-direction:column;gap:20px}
+.question-list li{counter-increment:q;display:flex;gap:20px;font-size:15px;color:var(--text2);line-height:1.7}
+.question-list li::before{content:counter(q);font-family:Georgia,serif;font-weight:700;font-size:22px;color:var(--text);min-width:24px;line-height:1.2}
+.q-strong{font-weight:700;color:var(--text);display:block;margin-bottom:6px;font-family:Arial,sans-serif;font-size:14px}
+
+/* ─── CTA BLOCK ──────────────────────────────────── */
+.cta-block{
+  background:var(--charcoal);border:1px solid var(--border2);
+  padding:28px 32px;margin:48px 0;
+  display:flex;gap:20px;align-items:center;justify-content:space-between;flex-wrap:wrap;
+}
+.cta-block-text{font-size:14px;line-height:1.6;max-width:440px;color:var(--text2)}
+.cta-link{
+  font-size:10px;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--text);text-decoration:none;
+  border:1px solid var(--border2);padding:9px 18px;
+  white-space:nowrap;transition:border-color .15s;flex-shrink:0;
+}
+.cta-link:hover{border-color:var(--dark-type)}
+
+/* ─── RELATED POSTS ──────────────────────────────── */
+.related-posts{margin-top:64px;padding-top:32px;border-top:1px solid var(--border)}
+.related-posts h2{font-family:Georgia,serif;font-size:20px;margin-bottom:20px;color:var(--text)}
+.related-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.related-card{display:block;border:1px solid var(--border);padding:20px;text-decoration:none;transition:border-color .2s,background .2s}
+.related-card:hover{border-color:var(--border2);background:var(--card);text-decoration:none}
+.related-tag{display:inline-block;background:var(--card2);padding:2px 8px;font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--brass);margin-bottom:8px}
+.related-title{display:block;font-family:Georgia,serif;font-size:16px;color:var(--text);line-height:1.35}
+
+/* ─── FOOTER ─────────────────────────────────────── */
+footer{
+  position:relative;z-index:1;
+  border-top:1px solid var(--border);
+  padding:20px 48px;
+  display:flex;align-items:center;justify-content:space-between;
+  gap:16px;flex-wrap:wrap;
+}
+.footer-left{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.footer-logo{display:flex;align-items:center;flex-shrink:0;text-decoration:none}
+.footer-logo img{display:block;height:auto;width:auto;max-height:18px}
+.footer-sep{color:var(--stone);margin:0 4px}
+.footer-txt{font-size:10px;color:var(--stone);font-family:Arial,sans-serif;letter-spacing:.02em}
+.footer-links{display:flex;gap:16px;flex-wrap:wrap}
+.footer-links a{font-size:10px;color:var(--stone);text-decoration:none;transition:color .15s;font-family:Arial,sans-serif;letter-spacing:.04em}
+.footer-links a:hover{color:var(--text2)}
+
+/* ─── RESPONSIVE ─────────────────────────────────── */
+@media(max-width:860px){
+  nav{padding:0 20px}
+  .nav-links{display:none}
+  .hamburger{display:flex}
+  footer{flex-direction:column;align-items:flex-start;padding:20px}
+  .related-grid{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="/" class="nav-logo">
+    <img src="/assets/logo-light.png" alt="Hexis" width="72" height="40">
+  </a>
+  <div class="nav-links">
+    <a href="/methodology/">ORIENT Framework</a>
+    <a href="/generator/">Generator</a>
+    <a href="/#contact">Contact</a>
+  </div>
+  <div class="nav-lang">
+    <span class="active">EN</span>
+    <span class="sep">|</span>
+    <a href="/blog/eu-ai-act-risk-siniflandirmasi/">TR</a>
+  </div>
+  <button class="hamburger" id="hamburger" onclick="toggleMenu()" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<div class="mobile-menu" id="mobileMenu">
+  <a href="/methodology/" onclick="closeMenu()">ORIENT Framework</a>
+  <a href="/generator/" onclick="closeMenu()">Generator</a>
+  <a href="/#contact" onclick="closeMenu()">Contact</a>
+  <a href="/blog/eu-ai-act-risk-siniflandirmasi/" onclick="closeMenu()">Türkçe versiyonu →</a>
+</div>
+
+<!-- BREADCRUMB -->
+<div style="max-width:720px;margin:40px auto 0;padding:0 24px">
+  <a href="/" style="color:var(--stone);font-size:12px;text-decoration:none">&larr; hexis.center</a>
+</div>
+
+<!-- ARTICLE HEADER -->
+<header style="max-width:720px;margin:40px auto 48px;padding:0 24px">
+  <div style="font-size:11px;color:var(--brass);font-family:Arial,sans-serif;letter-spacing:.08em;text-transform:uppercase;margin-bottom:16px">
+    EU AI Act &middot; February 2026
+  </div>
+  <h1 style="font-family:Georgia,serif;font-size:clamp(28px,4vw,44px);font-weight:700;line-height:1.15;letter-spacing:-.5px;color:var(--text);margin-bottom:20px">
+    EU AI Act: Risk Classification Guide
+  </h1>
+  <p style="font-size:16px;line-height:1.7;color:var(--stone);max-width:600px">
+    A practical starting point for organisations operating in Turkey. Four risk tiers, common misunderstandings, and three questions to classify any AI system.
+  </p>
+</header>
+
+<!-- ARTICLE CONTENT -->
+<article style="max-width:720px;margin:0 auto 96px;padding:0 24px;font-family:Arial,sans-serif;font-size:16px;line-height:1.8;color:var(--text2)">
+
+  <p>The EU AI Act entered into force in August 2024 and applies to organisations based in Turkey. If your system touches the EU market, affects EU citizens, or sits within an EU company's supply chain — the regulation applies to you.</p>
+
+  <p>So where do you start?</p>
+
+  <p>The first step is always the same: understand which risk category your system falls into.</p>
+
+  <h2 style="font-family:Georgia,serif;font-size:24px;font-weight:700;color:var(--text);margin:48px 0 16px">
+    Four Tiers, One Question
+  </h2>
+
+  <p>EU AI Act classifies AI systems into four risk tiers. This classification directly determines your compliance obligations.</p>
+
+  <div class="risk-block risk-banned">
+    <div class="risk-num">Tier 1</div>
+    <div class="risk-title">Prohibited Systems</div>
+    <div class="risk-body">Cannot be deployed under any circumstances. Social scoring systems, real-time biometric surveillance in public spaces (outside narrow exceptions), and subliminal manipulation tools fall into this category. If your system meets this definition, the question is not compliance — it is prohibition. Article 5, Regulation (EU) 2024/1689. In force since 2 February 2025.</div>
+  </div>
+
+  <div class="risk-block risk-high">
+    <div class="risk-num">Tier 2</div>
+    <div class="risk-title">High-Risk Systems</div>
+    <div class="risk-body">The most comprehensive obligation tier. Full enforcement begins 2 August 2026 for Annex III systems. Hiring and employee evaluation systems, credit scoring tools, educational assessment systems, and critical infrastructure management fall into this category. High-risk operators must conduct risk assessments, implement human oversight, maintain technical documentation, and keep logs. Article 6 + Annexes I and III.</div>
+  </div>
+
+  <div class="risk-block risk-limited">
+    <div class="risk-num">Tier 3</div>
+    <div class="risk-title">Limited Risk Systems</div>
+    <div class="risk-body">Transparency obligations apply, but the burden is lighter than high-risk. You must inform users that they are interacting with an AI system. Customer-facing chatbots and content recommendation systems typically fall here. Article 50.</div>
+  </div>
+
+  <div class="risk-block risk-minimal">
+    <div class="risk-num">Tier 4</div>
+    <div class="risk-title">Minimal Risk Systems</div>
+    <div class="risk-body">Spam filters and AI features in games. No mandatory legal obligations — voluntary codes of conduct are sufficient. Article 95.</div>
+  </div>
+
+  <h2 style="font-family:Georgia,serif;font-size:24px;font-weight:700;color:var(--text);margin:48px 0 16px">
+    Where Turkish Companies Most Often Get Stuck
+  </h2>
+
+  <p>In practice, Turkish organisations tend to encounter difficulties in two areas.</p>
+
+  <p>First, they don't know the risk category of the SaaS tools they use. Recruitment platforms, automated CV screening features, and performance management software can fall within the high-risk category. Not having developed the tool yourself does not exempt you from obligations — deployers are liable too.</p>
+
+  <p>Second, the "we're not in the EU" assumption. A company based in Turkey that serves EU customers or evaluates EU employees is covered by the regulation. Geographic location is not the deciding factor — scope of impact is.</p>
+
+  <h2 style="font-family:Georgia,serif;font-size:24px;font-weight:700;color:var(--text);margin:48px 0 16px">
+    Three Practical Questions to Classify Any System
+  </h2>
+
+  <p>Use these three questions to position your system quickly.</p>
+
+  <ol class="question-list">
+    <li>
+      <div>
+        <span class="q-strong">Does this system make decisions about an individual?</span>
+        If it produces outputs about specific people in hiring, credit, education, healthcare, or justice contexts, you are close to the high-risk category.
+      </div>
+    </li>
+    <li>
+      <div>
+        <span class="q-strong">How binding is the output?</span>
+        Is the system offering a recommendation or directly shaping a decision? How real is human oversight — genuine review or nominal rubber-stamping?
+      </div>
+    </li>
+    <li>
+      <div>
+        <span class="q-strong">What data does it process?</span>
+        If the system handles biometric, behavioural, or sensitive personal data, the risk level increases automatically.
+      </div>
+    </li>
+  </ol>
+
+  <p>The answers to these three questions will point you to the right category. If the answers are ambiguous — as they usually are at the start — that is itself a signal: your system needs better documentation.</p>
+
+  <h2 style="font-family:Georgia,serif;font-size:24px;font-weight:700;color:var(--text);margin:48px 0 16px">
+    Classification Is Not a One-Time Event
+  </h2>
+
+  <p>The most important mindset shift EU AI Act introduces is this: risk classification is not a checklist exercise — it is an ongoing evaluation practice. As systems are updated, deployment contexts change, and data flows evolve, the category can shift.</p>
+
+  <p>The starting point is straightforward: know where your system stands today.</p>
+
+  <div class="cta-block">
+    <div class="cta-block-text">Use the Hexis Risk Classifier to determine the EU AI Act risk level of your AI system — step by step, with article references and obligation mapping.</div>
+    <a href="/generator/" class="cta-link">Risk Classifier →</a>
+    <a href="/checklist/" class="cta-link">Compliance Checklist →</a>
+  </div>
+
+  <!-- RELATED POSTS -->
+  <div class="related-posts">
+    <h2>Related Articles</h2>
+    <div class="related-grid">
+      <a href="/blog/gpai-rules-articles-51-56/" class="related-card">
+        <span class="related-tag">EU AI Act</span>
+        <span class="related-title">GPAI Models: Articles 51–56 Obligations</span>
+      </a>
+      <a href="/blog/iso-42001-governance-maturity/" class="related-card">
+        <span class="related-tag">ISO 42001</span>
+        <span class="related-title">ISO 42001 and Governance Maturity: Where to Start</span>
+      </a>
+    </div>
+  </div>
+
+  <p style="font-size:12px;color:var(--stone);margin-top:48px;padding-top:24px;border-top:1px solid var(--border)">
+    Note: This article is based on information available as of February 2026. Article references are to Regulation (EU) 2024/1689. For information on proposed amendments, see our article on the <a href="/blog/digital-omnibus-eu-ai-act-delay/" style="color:var(--brass);text-decoration:none">Digital Omnibus</a>. This article does not constitute legal advice.
+  </p>
+
+</article>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-left">
+    <a href="/" class="footer-logo">
+      <img src="/assets/logo.png" alt="Hexis">
+    </a>
+    <span class="footer-sep">·</span>
+    <span class="footer-txt">© 2026 Hexis · For informational purposes only. Does not constitute legal advice.</span>
+  </div>
+  <div class="footer-links">
+    <a href="/methodology/">ORIENT Framework</a>
+    <a href="/generator/">Generator</a>
+    <a href="/checklist/">Checklist</a>
+  </div>
+</footer>
+
+<script>
+function toggleMenu(){
+  var h=document.getElementById('hamburger'),m=document.getElementById('mobileMenu');
+  h.classList.toggle('open');m.classList.toggle('open');
+}
+function closeMenu(){
+  document.getElementById('hamburger').classList.remove('open');
+  document.getElementById('mobileMenu').classList.remove('open');
+}
+</script>
+</body>
+</html>

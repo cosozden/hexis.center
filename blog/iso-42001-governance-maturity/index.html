@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ISO 42001 and Governance Maturity: Where to Start — Hexis</title>
+<meta name="description" content="ISO/IEC 42001: what it is, what it is not, how it intersects with EU AI Act, and practical first steps for organisations building AI governance systems from scratch.">
+<meta property="og:title" content="ISO 42001 and Governance Maturity: Where to Start — Hexis">
+<meta property="og:description" content="A structured view of AI governance maturity. How ISO 42001 and EU AI Act complement each other, and why inventory always comes first.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://hexis.center/blog/iso-42001-governance-maturity/">
+<meta property="og:image" content="https://hexis.center/assets/og-hexis.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="ISO 42001 and Governance Maturity — Hexis">
+<meta name="twitter:description" content="What ISO 42001 is, what it is not, and practical first steps for AI governance maturity.">
+<meta name="twitter:image" content="https://hexis.center/assets/og-hexis.png">
+<link rel="canonical" href="https://hexis.center/blog/iso-42001-governance-maturity/">
+<link rel="alternate" hreflang="en" href="https://hexis.center/blog/iso-42001-governance-maturity/">
+<link rel="alternate" hreflang="tr" href="https://hexis.center/blog/iso-42001-governance-olgunlugu/">
+<script defer data-domain="hexis.center" src="https://plausible.io/js/script.js"></script>
+<link rel="icon" href="/assets/favicon.ico">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "BlogPosting",
+      "headline": "ISO 42001 and Governance Maturity: Where to Start",
+      "datePublished": "2026-02-18",
+      "dateModified": "2026-02-18",
+      "keywords": "ISO 42001 AI governance, ISO IEC 42001 implementation, AI management system, governance maturity, EU AI Act ISO 42001, AI governance Turkey, AI system inventory",
+      "author": { "@type": "Person", "name": "Özden Coşkun", "jobTitle": "AI Governance Practitioner", "worksFor": { "@type": "Organization", "name": "Hexis AI Governance", "url": "https://hexis.center" }, "url": "https://hexis.center", "sameAs": ["https://www.linkedin.com/in/ozdencoskun/"], "hasCredential": { "@type": "EducationalOccupationalCredential", "name": "ISO/IEC 42001 Implementer", "credentialCategory": "certification" } },
+      "publisher": { "@type": "Organization", "name": "Hexis AI Governance", "logo": { "@type": "ImageObject", "url": "https://hexis.center/assets/logo.png" } },
+      "inLanguage": "en",
+      "mainEntityOfPage": "https://hexis.center/blog/iso-42001-governance-maturity/"
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Hexis", "item": "https://hexis.center/" },
+        { "@type": "ListItem", "position": 2, "name": "Blog", "item": "https://hexis.center/blog/" },
+        { "@type": "ListItem", "position": 3, "name": "ISO 42001 and Governance Maturity: Where to Start" }
+      ]
+    }
+  ]
+}
+</script>
+<style>
+:root{
+  --dark-bg:#16181C;
+  --charcoal:#1C1E23;
+  --brass:#B2986C;
+  --stone:#8A8884;
+  --dark-type:#E8E6E2;
+  --dark-sub:#8A8884;
+  --border:rgba(232,230,226,0.10);
+  --border2:rgba(232,230,226,0.18);
+  --card:rgba(232,230,226,0.04);
+  --card2:rgba(232,230,226,0.06);
+  --text:var(--dark-type);
+  --text2:rgba(232,230,226,0.70);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{background:var(--dark-bg)}
+body{background:var(--dark-bg);color:var(--dark-type);font-family:Arial,Helvetica,sans-serif;line-height:1.6}
+
+/* ─── NAV ─────────────────────────────────────────── */
+nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:0 40px;height:56px;background:var(--dark-bg);border-bottom:1px solid var(--border)}
+.nav-logo{display:flex;align-items:center;text-decoration:none}
+.nav-links{display:flex;gap:4px;align-items:center}
+.nav-links a{color:var(--stone);text-decoration:none;font-size:12px;font-weight:400;padding:5px 11px;transition:color .15s;letter-spacing:.04em;font-family:Arial,sans-serif}
+.nav-links a:hover{color:var(--dark-type)}
+.nav-lang{display:flex;align-items:center;gap:4px}
+.nav-lang a,.nav-lang span{font-size:11px;font-weight:500;letter-spacing:.08em;font-family:Arial,sans-serif;text-decoration:none;padding:4px 7px;color:var(--stone);transition:color .15s}
+.nav-lang a:hover{color:var(--dark-type)}
+.nav-lang .active{color:var(--brass);background:rgba(178,152,108,.1)}
+.nav-lang .sep{color:rgba(232,230,226,.18);font-size:10px;user-select:none}
+.hamburger{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:4px}
+.hamburger span{display:block;width:20px;height:1.5px;background:var(--stone);transition:.2s}
+.hamburger.open span:nth-child(1){transform:translateY(6.5px) rotate(45deg)}
+.hamburger.open span:nth-child(2){opacity:0}
+.hamburger.open span:nth-child(3){transform:translateY(-6.5px) rotate(-45deg)}
+.mobile-menu{display:none;flex-direction:column;background:var(--charcoal);border-bottom:1px solid var(--border);padding:8px 0}
+.mobile-menu.open{display:flex}
+.mobile-menu a{color:var(--stone);text-decoration:none;padding:10px 24px;font-size:13px;transition:color .15s}
+.mobile-menu a:hover{color:var(--dark-type)}
+
+/* ─── COMPARE GRID ───────────────────────────────── */
+.compare-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--border2);margin:28px 0}
+.compare-cell{background:var(--dark-bg);padding:20px 24px}
+.compare-label{font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--stone);margin-bottom:10px;font-family:Arial,sans-serif}
+.compare-body{font-size:13px;color:var(--text2);line-height:1.65}
+
+/* ─── STEPS LIST ─────────────────────────────────── */
+.steps-list{counter-reset:step;list-style:none;display:flex;flex-direction:column;gap:0;margin:28px 0;border:1px solid var(--border2)}
+.steps-list li{counter-increment:step;display:flex;gap:20px;align-items:flex-start;padding:20px 24px;border-bottom:1px solid var(--border)}
+.steps-list li:last-child{border-bottom:none}
+.step-num{font-family:Georgia,serif;font-weight:700;font-size:22px;color:var(--text);min-width:26px;line-height:1.2;flex-shrink:0}
+.step-body{flex:1}
+.step-title{font-size:13px;font-weight:700;letter-spacing:.04em;color:var(--text);margin-bottom:8px}
+.step-desc{font-size:14px;color:var(--text2);line-height:1.65}
+
+/* ─── MAPPING TABLE ──────────────────────────────── */
+.mapping-block{border:1px solid var(--border2);margin:28px 0}
+.mapping-row{display:grid;grid-template-columns:1fr 1fr;border-bottom:1px solid var(--border)}
+.mapping-row:last-child{border-bottom:none}
+.mapping-cell{padding:14px 18px;font-size:13px;color:var(--text2);line-height:1.5}
+.mapping-cell:first-child{border-right:1px solid var(--border);font-weight:700;color:var(--text);font-size:12px}
+.mapping-head .mapping-cell{font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--stone);font-weight:400;background:rgba(232,230,226,0.02)}
+.mapping-head .mapping-cell:first-child{color:var(--stone);font-weight:400}
+
+/* ─── PERSPECTIVE BLOCK ──────────────────────────── */
+.perspective-block{
+  border:1px solid var(--border2);padding:24px 28px;margin:36px 0;
+  background:var(--card);
+}
+.perspective-label{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--stone);margin-bottom:14px}
+.perspective-block p{font-family:Georgia,serif;font-style:italic;font-size:15px;line-height:1.75;color:var(--text2);margin-bottom:16px}
+.perspective-block p:last-child{margin-bottom:0}
+
+/* ─── CTA BLOCK ──────────────────────────────────── */
+.cta-block{
+  background:var(--charcoal);border:1px solid var(--border2);
+  padding:28px 32px;margin:48px 0;
+  display:flex;gap:20px;align-items:center;justify-content:space-between;flex-wrap:wrap;
+}
+.cta-block-text{font-size:14px;line-height:1.6;max-width:440px;color:var(--text2)}
+.cta-link{
+  font-size:10px;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--text);text-decoration:none;
+  border:1px solid var(--border2);padding:9px 18px;
+  white-space:nowrap;transition:border-color .15s;flex-shrink:0;
+}
+.cta-link:hover{border-color:var(--dark-type)}
+
+/* ─── RELATED POSTS ──────────────────────────────── */
+.related-posts{margin-top:64px;padding-top:32px;border-top:1px solid var(--border)}
+.related-posts h2{font-family:Georgia,serif;font-size:20px;margin-bottom:20px;color:var(--text)}
+.related-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.related-card{display:block;border:1px solid var(--border);padding:20px;text-decoration:none;transition:border-color .2s,background .2s}
+.related-card:hover{border-color:var(--border2);background:var(--card);text-decoration:none}
+.related-tag{display:inline-block;background:var(--card2);padding:2px 8px;font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--brass);margin-bottom:8px}
+.related-title{display:block;font-family:Georgia,serif;font-size:16px;color:var(--text);line-height:1.35}
+
+/* ─── FOOTER ─────────────────────────────────────── */
+footer{
+  position:relative;z-index:1;
+  border-top:1px solid var(--border);
+  padding:20px 48px;
+  display:flex;align-items:center;justify-content:space-between;
+  gap:16px;flex-wrap:wrap;
+}
+.footer-left{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.footer-logo{display:flex;align-items:center;flex-shrink:0;text-decoration:none}
+.footer-logo img{display:block;height:auto;width:auto;max-height:18px}
+.footer-sep{color:var(--stone);margin:0 4px}
+.footer-txt{font-size:10px;color:var(--stone);font-family:Arial,sans-serif;letter-spacing:.02em}
+.footer-links{display:flex;gap:16px;flex-wrap:wrap}
+.footer-links a{font-size:10px;color:var(--stone);text-decoration:none;transition:color .15s;font-family:Arial,sans-serif;letter-spacing:.04em}
+.footer-links a:hover{color:var(--text2)}
+
+/* ─── RESPONSIVE ─────────────────────────────────── */
+@media(max-width:860px){
+  nav{padding:0 20px}
+  .nav-links{display:none}
+  .hamburger{display:flex}
+  footer{flex-direction:column;align-items:flex-start;padding:20px}
+  .related-grid{grid-template-columns:1fr}
+  .compare-grid,.mapping-row{grid-template-columns:1fr}
+  .mapping-cell:first-child{border-right:none;border-bottom:1px solid var(--border)}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="/" class="nav-logo">
+    <img src="/assets/logo-light.png" alt="Hexis" width="72" height="40">
+  </a>
+  <div class="nav-links">
+    <a href="/methodology/">ORIENT Framework</a>
+    <a href="/generator/">Generator</a>
+    <a href="/#contact">Contact</a>
+  </div>
+  <div class="nav-lang">
+    <span class="active">EN</span>
+    <span class="sep">|</span>
+    <a href="/blog/iso-42001-governance-olgunlugu/">TR</a>
+  </div>
+  <button class="hamburger" id="hamburger" onclick="toggleMenu()" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<div class="mobile-menu" id="mobileMenu">
+  <a href="/methodology/" onclick="closeMenu()">ORIENT Framework</a>
+  <a href="/generator/" onclick="closeMenu()">Generator</a>
+  <a href="/#contact" onclick="closeMenu()">Contact</a>
+  <a href="/blog/iso-42001-governance-olgunlugu/" onclick="closeMenu()">Türkçe versiyonu →</a>
+</div>
+
+<!-- BREADCRUMB -->
+<div style="max-width:720px;margin:40px auto 0;padding:0 24px">
+  <a href="/" style="color:var(--stone);font-size:12px;text-decoration:none">&larr; hexis.center</a>
+</div>
+
+<!-- ARTICLE HEADER -->
+<header style="max-width:720px;margin:40px auto 48px;padding:0 24px">
+  <div style="font-size:11px;color:var(--brass);font-family:Arial,sans-serif;letter-spacing:.08em;text-transform:uppercase;margin-bottom:16px">
+    ISO 42001 &middot; February 2026
+  </div>
+  <h1 style="font-family:Georgia,serif;font-size:clamp(28px,4vw,44px);font-weight:700;line-height:1.15;letter-spacing:-.5px;color:var(--text);margin-bottom:20px">
+    ISO 42001 and Governance Maturity:<br>Where to Start
+  </h1>
+  <p style="font-size:16px;line-height:1.7;color:var(--stone);max-width:600px">
+    Practical starting points for building an AI management system. What ISO 42001 is, what it is not, and how it intersects with EU AI Act.
+  </p>
+</header>
+
+<!-- ARTICLE CONTENT -->
+<article style="max-width:720px;margin:0 auto 96px;padding:0 24px;font-family:Arial,sans-serif;font-size:16px;line-height:1.8;color:var(--text2)">
+
+  <p>ISO/IEC 42001 is the international standard for AI management systems. Published in 2023, it provides a framework for organisations to develop, use, and govern AI systems responsibly.</p>
+
+  <p>But let's establish one thing clearly first: ISO 42001 is not a compliance certificate — it is a management system standard.</p>
+
+  <h2 style="font-family:Georgia,serif;font-size:24px;font-weight:700;color:var(--text);margin:48px 0 16px">
+    What ISO 42001 Is — and Isn't
+  </h2>
+
+  <p>ISO 42001 systematises how your organisation identifies, manages, and monitors AI-related risks. What ISO 9001 does for quality management, ISO 42001 does for AI governance.</p>
+
+  <div class="compare-grid">
+    <div class="compare-cell">
+      <div class="compare-label">What ISO 42001 Is</div>
+      <div class="compare-body">A management system standard that systematises the processes for identifying, managing, and monitoring AI risks. It structures the existence and consistency of those processes.</div>
+    </div>
+    <div class="compare-cell">
+      <div class="compare-label">What ISO 42001 Is Not</div>
+      <div class="compare-body">Not a checklist. Achieving certification does not guarantee that your AI systems are safe or ethical. The standard verifies the existence of processes — not outcomes.</div>
+    </div>
+  </div>
+
+  <p>ISO 42001 also does not replace EU AI Act. The two address different questions: EU AI Act asks "is this system lawful?" — ISO 42001 asks "how are we governing this system?"</p>
+
+  <h2 style="font-family:Georgia,serif;font-size:24px;font-weight:700;color:var(--text);margin:48px 0 16px">
+    Where It Intersects with EU AI Act
+  </h2>
+
+  <p>These two frameworks complement each other. EU AI Act mandates technical documentation, risk management, and human oversight for high-risk systems. ISO 42001 provides a roadmap for building precisely the management infrastructure needed to meet those requirements.</p>
+
+  <p>In practice, this means: for an organisation working toward EU AI Act compliance, ISO 42001 is the most efficient way to build systematic governance — rather than assembling ad hoc measures. The standard shows which processes need to be built, and in which order.</p>
+
+  <h2 style="font-family:Georgia,serif;font-size:24px;font-weight:700;color:var(--text);margin:48px 0 16px">
+    How Is Governance Maturity Measured?
+  </h2>
+
+  <p>ISO 42001 evaluates governance maturity across four core dimensions: leadership and commitment, risk management processes, operational controls, and continual improvement.</p>
+
+  <p>These dimensions map directly onto the phases of the Hexis Model:</p>
+
+  <div class="mapping-block">
+    <div class="mapping-row mapping-head">
+      <div class="mapping-cell">Hexis Model</div>
+      <div class="mapping-cell">ISO 42001 Equivalent</div>
+    </div>
+    <div class="mapping-row">
+      <div class="mapping-cell">Diagnose</div>
+      <div class="mapping-cell">Risk assessment requirements — defining the scope and impact domain of the system</div>
+    </div>
+    <div class="mapping-row">
+      <div class="mapping-cell">Structure</div>
+      <div class="mapping-cell">Responsibility and accountability structures — who is authorised for what, and who is accountable to whom</div>
+    </div>
+    <div class="mapping-row">
+      <div class="mapping-cell">Govern</div>
+      <div class="mapping-cell">Operational controls — oversight mechanisms across the full AI system lifecycle</div>
+    </div>
+    <div class="mapping-row">
+      <div class="mapping-cell">Sustain</div>
+      <div class="mapping-cell">Continual improvement cycle — adapting to changing context and evolving regulation</div>
+    </div>
+  </div>
+
+  <p>Maturity is not binary. "Compliant" or "non-compliant" is the wrong framing. The right question is: where on this spectrum does your organisation sit today?</p>
+
+  <h2 style="font-family:Georgia,serif;font-size:24px;font-weight:700;color:var(--text);margin:48px 0 16px">
+    Practical First Steps for Organisations Starting from Scratch
+  </h2>
+
+  <p>Most organisations approach ISO 42001 with the question: "where do we begin?" The answer is always the same: start with inventory.</p>
+
+  <ul class="steps-list">
+    <li>
+      <div class="step-num">1</div>
+      <div class="step-body">
+        <div class="step-title">Build Your AI System Inventory</div>
+        <div class="step-desc">List all AI systems and tools in your organisation. Internally developed systems, purchased SaaS tools, integrated APIs — all of them belong in this inventory. You cannot build a management system for what you haven't mapped.</div>
+      </div>
+    </li>
+    <li>
+      <div class="step-num">2</div>
+      <div class="step-body">
+        <div class="step-title">Answer the Core Questions for Each System</div>
+        <div class="step-desc">What does this system do? Who is responsible for it? What data does it process? How does human oversight work? These questions are the starting point for both ISO 42001 and EU AI Act.</div>
+      </div>
+    </li>
+    <li>
+      <div class="step-num">3</div>
+      <div class="step-body">
+        <div class="step-title">Document the Gaps</div>
+        <div class="step-desc">Which processes exist, and which need to be built? This gap analysis maps the standard's requirements against your organisation's reality — and shows you exactly what to build next.</div>
+      </div>
+    </li>
+  </ul>
+
+  <h2 style="font-family:Georgia,serif;font-size:24px;font-weight:700;color:var(--text);margin:48px 0 16px">
+    Hexis Perspective
+  </h2>
+
+  <div class="perspective-block">
+    <div class="perspective-label">Hexis · Governance Perspectives</div>
+    <p>When ISO 42001 certification is treated as the destination, the process tends to collapse into document production. Policies are written, procedures are drafted, audits are passed. What typically follows: documents sit in drawers, and actual governance practice remains unchanged.</p>
+    <p>Hexis approaches the standard differently — as an orientation tool. ISO 42001's real value does not lie in the certificate. It emerges during the process of systematising your organisation's relationship with its AI systems: determining which questions need to be asked, who is accountable for what, and when reviews are triggered.</p>
+    <p>Governance maturity is not about having the right documents. It is about making the right questions a habit.</p>
+  </div>
+
+  <h2 style="font-family:Georgia,serif;font-size:24px;font-weight:700;color:var(--text);margin:48px 0 16px">
+    Conclusion
+  </h2>
+
+  <p>ISO 42001 is a powerful framework for AI governance. But a framework is only as valuable as the intent of the organisation using it.</p>
+
+  <p>The starting point is simple: build your AI system inventory. You cannot govern what you haven't mapped.</p>
+
+  <div class="cta-block">
+    <div class="cta-block-text">Use the Hexis Governance Matrix to assess your AI system's maturity level and build your compliance roadmap.</div>
+    <a href="/generator/" class="cta-link">Governance Matrix →</a>
+    <a href="/checklist/" class="cta-link">Compliance Checklist →</a>
+  </div>
+
+  <!-- RELATED POSTS -->
+  <div class="related-posts">
+    <h2>Related Articles</h2>
+    <div class="related-grid">
+      <a href="/blog/eu-ai-act-risk-classification-guide/" class="related-card">
+        <span class="related-tag">EU AI Act</span>
+        <span class="related-title">EU AI Act: Risk Classification Guide</span>
+      </a>
+      <a href="/blog/gpai-rules-articles-51-56/" class="related-card">
+        <span class="related-tag">EU AI Act</span>
+        <span class="related-title">GPAI Models: Articles 51–56 Obligations</span>
+      </a>
+    </div>
+  </div>
+
+  <p style="font-size:12px;color:var(--stone);margin-top:48px;padding-top:24px;border-top:1px solid var(--border)">
+    Note: This article is based on information available as of February 2026. ISO/IEC 42001 references are to the 2023 edition. EU AI Act references are to Regulation (EU) 2024/1689. This article does not constitute legal advice.
+  </p>
+
+</article>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-left">
+    <a href="/" class="footer-logo">
+      <img src="/assets/logo.png" alt="Hexis">
+    </a>
+    <span class="footer-sep">·</span>
+    <span class="footer-txt">© 2026 Hexis · For informational purposes only. Does not constitute legal advice.</span>
+  </div>
+  <div class="footer-links">
+    <a href="/methodology/">ORIENT Framework</a>
+    <a href="/generator/">Generator</a>
+    <a href="/checklist/">Checklist</a>
+  </div>
+</footer>
+
+<script>
+function toggleMenu(){
+  var h=document.getElementById('hamburger'),m=document.getElementById('mobileMenu');
+  h.classList.toggle('open');m.classList.toggle('open');
+}
+function closeMenu(){
+  document.getElementById('hamburger').classList.remove('open');
+  document.getElementById('mobileMenu').classList.remove('open');
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GPAI Models: EU AI Act Articles 51–56 Obligations — Hexis</title>
+<meta name="description" content="EU AI Act Articles 51–56: new obligations for general-purpose AI models. Provider and deployer responsibilities, systemic risk threshold, and what it means for organisations using GPAI-based tools.">
+<meta property="og:title" content="GPAI Models: EU AI Act Articles 51–56 Obligations — Hexis">
+<meta property="og:description" content="What GPAI rules require, who they apply to, and what Turkish companies using ChatGPT, Claude, or Gemini APIs need to know.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://hexis.center/blog/gpai-rules-articles-51-56/">
+<meta property="og:image" content="https://hexis.center/assets/og-hexis.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="GPAI Models: EU AI Act Articles 51–56 — Hexis">
+<meta name="twitter:description" content="New GPAI framework and what it means for organisations using general-purpose AI models in the EU market.">
+<meta name="twitter:image" content="https://hexis.center/assets/og-hexis.png">
+<link rel="canonical" href="https://hexis.center/blog/gpai-rules-articles-51-56/">
+<link rel="alternate" hreflang="en" href="https://hexis.center/blog/gpai-rules-articles-51-56/">
+<link rel="alternate" hreflang="tr" href="https://hexis.center/blog/gpai-kurallari-madde-51-56/">
+<script defer data-domain="hexis.center" src="https://plausible.io/js/script.js"></script>
+<link rel="icon" href="/assets/favicon.ico">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "BlogPosting",
+      "headline": "GPAI Models: EU AI Act Articles 51–56 Obligations",
+      "datePublished": "2026-02-18",
+      "dateModified": "2026-02-18",
+      "keywords": "GPAI EU AI Act, general purpose AI models, Articles 51-56, AI Act systemic risk, GPAI obligations, AI governance Turkey, AI Office EU",
+      "author": { "@type": "Person", "name": "Özden Coşkun", "jobTitle": "AI Governance Practitioner", "worksFor": { "@type": "Organization", "name": "Hexis AI Governance", "url": "https://hexis.center" }, "url": "https://hexis.center", "sameAs": ["https://www.linkedin.com/in/ozdencoskun/"], "hasCredential": { "@type": "EducationalOccupationalCredential", "name": "ISO/IEC 42001 Implementer", "credentialCategory": "certification" } },
+      "publisher": { "@type": "Organization", "name": "Hexis AI Governance", "logo": { "@type": "ImageObject", "url": "https://hexis.center/assets/logo.png" } },
+      "inLanguage": "en",
+      "mainEntityOfPage": "https://hexis.center/blog/gpai-rules-articles-51-56/"
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Hexis", "item": "https://hexis.center/" },
+        { "@type": "ListItem", "position": 2, "name": "Blog", "item": "https://hexis.center/blog/" },
+        { "@type": "ListItem", "position": 3, "name": "GPAI Models: EU AI Act Articles 51–56 Obligations" }
+      ]
+    }
+  ]
+}
+</script>
+<style>
+:root{
+  --dark-bg:#16181C;
+  --charcoal:#1C1E23;
+  --brass:#B2986C;
+  --stone:#8A8884;
+  --dark-type:#E8E6E2;
+  --dark-sub:#8A8884;
+  --border:rgba(232,230,226,0.10);
+  --border2:rgba(232,230,226,0.18);
+  --card:rgba(232,230,226,0.04);
+  --card2:rgba(232,230,226,0.06);
+  --text:var(--dark-type);
+  --text2:rgba(232,230,226,0.70);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{background:var(--dark-bg)}
+body{background:var(--dark-bg);color:var(--dark-type);font-family:Arial,Helvetica,sans-serif;line-height:1.6}
+
+/* ─── NAV ─────────────────────────────────────────── */
+nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:0 40px;height:56px;background:var(--dark-bg);border-bottom:1px solid var(--border)}
+.nav-logo{display:flex;align-items:center;text-decoration:none}
+.nav-links{display:flex;gap:4px;align-items:center}
+.nav-links a{color:var(--stone);text-decoration:none;font-size:12px;font-weight:400;padding:5px 11px;transition:color .15s;letter-spacing:.04em;font-family:Arial,sans-serif}
+.nav-links a:hover{color:var(--dark-type)}
+.nav-lang{display:flex;align-items:center;gap:4px}
+.nav-lang a,.nav-lang span{font-size:11px;font-weight:500;letter-spacing:.08em;font-family:Arial,sans-serif;text-decoration:none;padding:4px 7px;color:var(--stone);transition:color .15s}
+.nav-lang a:hover{color:var(--dark-type)}
+.nav-lang .active{color:var(--brass);background:rgba(178,152,108,.1)}
+.nav-lang .sep{color:rgba(232,230,226,.18);font-size:10px;user-select:none}
+.hamburger{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:4px}
+.hamburger span{display:block;width:20px;height:1.5px;background:var(--stone);transition:.2s}
+.hamburger.open span:nth-child(1){transform:translateY(6.5px) rotate(45deg)}
+.hamburger.open span:nth-child(2){opacity:0}
+.hamburger.open span:nth-child(3){transform:translateY(-6.5px) rotate(-45deg)}
+.mobile-menu{display:none;flex-direction:column;background:var(--charcoal);border-bottom:1px solid var(--border);padding:8px 0}
+.mobile-menu.open{display:flex}
+.mobile-menu a{color:var(--stone);text-decoration:none;padding:10px 24px;font-size:13px;transition:color .15s}
+.mobile-menu a:hover{color:var(--dark-type)}
+
+/* ─── REQUIREMENT BLOCKS ─────────────────────────── */
+.req-block{
+  border-left:3px solid var(--border2);
+  padding:20px 24px;margin:20px 0;
+  background:var(--card);
+}
+.req-block.req-base{border-color:rgba(232,230,226,0.35)}
+.req-block.req-systemic{border-color:var(--dark-type)}
+.req-tier{font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--stone);margin-bottom:12px;font-family:Arial,sans-serif}
+.req-list{list-style:none;display:flex;flex-direction:column;gap:10px}
+.req-list li{font-size:14px;color:var(--text2);line-height:1.7;padding-left:16px;position:relative}
+.req-list li::before{content:'—';position:absolute;left:0;color:var(--stone)}
+.req-list li strong{color:var(--text);font-weight:700}
+
+/* ─── DISTINCTION GRID ───────────────────────────── */
+.distinction-block{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--border2);margin:28px 0}
+.dist-cell{background:var(--dark-bg);padding:20px 24px}
+.dist-label{font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--stone);margin-bottom:10px}
+.dist-title{font-family:Georgia,serif;font-weight:700;font-size:14px;color:var(--text);margin-bottom:10px}
+.dist-body{font-size:13px;color:var(--text2);line-height:1.65}
+
+/* ─── STATUS GRID ────────────────────────────────── */
+.status-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--border2);margin:28px 0}
+.status-cell{background:var(--dark-bg);padding:20px 24px}
+.status-label{font-size:10px;letter-spacing:.12em;text-transform:uppercase;margin-bottom:12px;font-family:Arial,sans-serif}
+.status-label.active{color:var(--dark-type)}
+.status-label.pending{color:var(--stone)}
+.status-list{list-style:none;display:flex;flex-direction:column;gap:8px}
+.status-list li{font-size:13px;color:var(--text2);line-height:1.5;padding-left:16px;position:relative}
+.status-list li::before{content:'·';position:absolute;left:0;color:var(--stone)}
+
+/* ─── PERSPECTIVE BLOCK ──────────────────────────── */
+.perspective-block{
+  border:1px solid var(--border2);padding:24px 28px;margin:36px 0;
+  background:var(--card);
+}
+.perspective-label{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--stone);margin-bottom:14px}
+.perspective-block p{font-family:Georgia,serif;font-style:italic;font-size:15px;line-height:1.75;color:var(--text2);margin-bottom:16px}
+.perspective-block p:last-child{margin-bottom:0}
+
+/* ─── CTA BLOCK ──────────────────────────────────── */
+.cta-block{
+  background:var(--charcoal);border:1px solid var(--border2);
+  padding:28px 32px;margin:48px 0;
+  display:flex;gap:20px;align-items:center;justify-content:space-between;flex-wrap:wrap;
+}
+.cta-block-text{font-size:14px;line-height:1.6;max-width:440px;color:var(--text2)}
+.cta-link{
+  font-size:10px;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--text);text-decoration:none;
+  border:1px solid var(--border2);padding:9px 18px;
+  white-space:nowrap;transition:border-color .15s;flex-shrink:0;
+}
+.cta-link:hover{border-color:var(--dark-type)}
+
+/* ─── RELATED POSTS ──────────────────────────────── */
+.related-posts{margin-top:64px;padding-top:32px;border-top:1px solid var(--border)}
+.related-posts h2{font-family:Georgia,serif;font-size:20px;margin-bottom:20px;color:var(--text)}
+.related-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.related-card{display:block;border:1px solid var(--border);padding:20px;text-decoration:none;transition:border-color .2s,background .2s}
+.related-card:hover{border-color:var(--border2);background:var(--card);text-decoration:none}
+.related-tag{display:inline-block;background:var(--card2);padding:2px 8px;font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--brass);margin-bottom:8px}
+.related-title{display:block;font-family:Georgia,serif;font-size:16px;color:var(--text);line-height:1.35}
+
+/* ─── FOOTER ─────────────────────────────────────── */
+footer{
+  position:relative;z-index:1;
+  border-top:1px solid var(--border);
+  padding:20px 48px;
+  display:flex;align-items:center;justify-content:space-between;
+  gap:16px;flex-wrap:wrap;
+}
+.footer-left{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.footer-logo{display:flex;align-items:center;flex-shrink:0;text-decoration:none}
+.footer-logo img{display:block;height:auto;width:auto;max-height:18px}
+.footer-sep{color:var(--stone);margin:0 4px}
+.footer-txt{font-size:10px;color:var(--stone);font-family:Arial,sans-serif;letter-spacing:.02em}
+.footer-links{display:flex;gap:16px;flex-wrap:wrap}
+.footer-links a{font-size:10px;color:var(--stone);text-decoration:none;transition:color .15s;font-family:Arial,sans-serif;letter-spacing:.04em}
+.footer-links a:hover{color:var(--text2)}
+
+/* ─── RESPONSIVE ─────────────────────────────────── */
+@media(max-width:860px){
+  nav{padding:0 20px}
+  .nav-links{display:none}
+  .hamburger{display:flex}
+  footer{flex-direction:column;align-items:flex-start;padding:20px}
+  .related-grid{grid-template-columns:1fr}
+  .distinction-block,.status-grid{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="/" class="nav-logo">
+    <img src="/assets/logo-light.png" alt="Hexis" width="72" height="40">
+  </a>
+  <div class="nav-links">
+    <a href="/methodology/">ORIENT Framework</a>
+    <a href="/generator/">Generator</a>
+    <a href="/#contact">Contact</a>
+  </div>
+  <div class="nav-lang">
+    <span class="active">EN</span>
+    <span class="sep">|</span>
+    <a href="/blog/gpai-kurallari-madde-51-56/">TR</a>
+  </div>
+  <button class="hamburger" id="hamburger" onclick="toggleMenu()" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<div class="mobile-menu" id="mobileMenu">
+  <a href="/methodology/" onclick="closeMenu()">ORIENT Framework</a>
+  <a href="/generator/" onclick="closeMenu()">Generator</a>
+  <a href="/#contact" onclick="closeMenu()">Contact</a>
+  <a href="/blog/gpai-kurallari-madde-51-56/" onclick="closeMenu()">Türkçe versiyonu →</a>
+</div>
+
+<!-- BREADCRUMB -->
+<div style="max-width:720px;margin:40px auto 0;padding:0 24px">
+  <a href="/" style="color:var(--stone);font-size:12px;text-decoration:none">&larr; hexis.center</a>
+</div>
+
+<!-- ARTICLE HEADER -->
+<header style="max-width:720px;margin:40px auto 48px;padding:0 24px">
+  <div style="font-size:11px;color:var(--brass);font-family:Arial,sans-serif;letter-spacing:.08em;text-transform:uppercase;margin-bottom:16px">
+    GPAI &middot; February 2026
+  </div>
+  <h1 style="font-family:Georgia,serif;font-size:clamp(28px,4vw,44px);font-weight:700;line-height:1.15;letter-spacing:-.5px;color:var(--text);margin-bottom:20px">
+    GPAI Models: Articles 51–56 Obligations
+  </h1>
+  <p style="font-size:16px;line-height:1.7;color:var(--stone);max-width:600px">
+    A new framework for general-purpose AI and its implications for organisations using GPAI-based tools in the EU market.
+  </p>
+</header>
+
+<!-- ARTICLE CONTENT -->
+<article style="max-width:720px;margin:0 auto 96px;padding:0 24px;font-family:Arial,sans-serif;font-size:16px;line-height:1.8;color:var(--text2)">
+
+  <p>August 2025. The most debated chapter of EU AI Act entered into force: Articles 51–56 introduce rules for general-purpose AI (GPAI) models. Who do these rules cover, what do they require, and what do they mean for organisations operating in Turkey?</p>
+
+  <h2 style="font-family:Georgia,serif;font-size:24px;font-weight:700;color:var(--text);margin:48px 0 16px">
+    What Is GPAI and Why Does It Matter?
+  </h2>
+
+  <p>GPAI — General Purpose AI — refers to models like ChatGPT, Claude, Gemini, and Llama. Their defining characteristic is that they are designed for a wide range of applications, not a single task.</p>
+
+  <p>EU AI Act treats these models as a distinct category because assessing their risk is far more complex. The risk profile of a recruitment system is relatively fixed; the risk profile of a language model that can operate in any context varies with deployment.</p>
+
+  <h2 style="font-family:Georgia,serif;font-size:24px;font-weight:700;color:var(--text);margin:48px 0 16px">
+    What Do Articles 51–56 Require?
+  </h2>
+
+  <p>These articles establish a two-tier obligation structure: baseline requirements for all GPAI models, and additional requirements for models that pose systemic risk.</p>
+
+  <div class="req-block req-base">
+    <div class="req-tier">All GPAI Models — Baseline Requirements</div>
+    <ul class="req-list">
+      <li><strong>Technical documentation is mandatory:</strong> how the model was trained, what data it uses, its capabilities and limitations must be documented in writing.</li>
+      <li><strong>Copyright policy must be disclosed:</strong> compliance with EU copyright law regarding training data must be demonstrated.</li>
+      <li><strong>A model card must be published:</strong> transparent information to allow users to properly evaluate the model.</li>
+    </ul>
+  </div>
+
+  <div class="req-block req-systemic">
+    <div class="req-tier">Systemic Risk Models — Additional Obligations</div>
+    <ul class="req-list">
+      <li><strong>Threshold:</strong> models trained on more than 10²⁵ FLOPs fall into this category — representing the upper boundary of computational resources used to train today's most powerful models.</li>
+      <li><strong>Regular risk assessments</strong> and cybersecurity testing are mandatory.</li>
+      <li><strong>Serious incidents</strong> must be reported to the European AI Office.</li>
+    </ul>
+  </div>
+
+  <h2 style="font-family:Georgia,serif;font-size:24px;font-weight:700;color:var(--text);margin:48px 0 16px">
+    Which Organisations Are Affected?
+  </h2>
+
+  <p>A critical distinction applies here: model developers versus model users.</p>
+
+  <div class="distinction-block">
+    <div class="dist-cell">
+      <div class="dist-label">Model Developers</div>
+      <div class="dist-title">Directly obligated</div>
+      <div class="dist-body">Companies like OpenAI, Google, Anthropic, and Meta fall squarely within this scope. The number of Turkish companies developing GPAI models is still small — but that is changing.</div>
+    </div>
+    <div class="dist-cell">
+      <div class="dist-label">Model Users</div>
+      <div class="dist-title">Indirectly affected</div>
+      <div class="dist-body">A Turkish company that integrates the ChatGPT API into its product needs to know whether the underlying model complies with these rules. If the company is building a high-risk application, it must understand the model's documentation and limitations.</div>
+    </div>
+  </div>
+
+  <p>In short: even if you did not develop the model, what you build on top of it remains your responsibility.</p>
+
+  <h2 style="font-family:Georgia,serif;font-size:24px;font-weight:700;color:var(--text);margin:48px 0 16px">
+    What Changed in August 2025, and What Remains Unclear?
+  </h2>
+
+  <div class="status-grid">
+    <div class="status-cell">
+      <div class="status-label active">&#10003; Now in Force</div>
+      <ul class="status-list">
+        <li>Technical documentation and model card requirements are active</li>
+        <li>The European AI Office has begun exercising its supervisory authority</li>
+        <li>Major model providers have started disclosing their compliance processes</li>
+      </ul>
+    </div>
+    <div class="status-cell">
+      <div class="status-label pending">&rarr; Still Unclear</div>
+      <ul class="status-list">
+        <li>How the systemic risk threshold will be updated over time has not been settled</li>
+        <li>How open-source models will be assessed remains contested</li>
+        <li>Third-party audit mechanisms are not yet mature</li>
+      </ul>
+    </div>
+  </div>
+
+  <h2 style="font-family:Georgia,serif;font-size:24px;font-weight:700;color:var(--text);margin:48px 0 16px">
+    Hexis Perspective
+  </h2>
+
+  <div class="perspective-block">
+    <div class="perspective-label">Hexis · Governance Perspectives</div>
+    <p>Articles 51–56 are typically read as a technical compliance exercise: produce documentation, publish a model card, clear the threshold or don't. That reading is incomplete.</p>
+    <p>These articles are asking a more fundamental question: what is underneath your system, and do you actually know?</p>
+    <p>If a company uses a GPAI-based product, it cannot establish real human oversight without understanding the model's limitations, training data policy, and potential failure modes. Documentation is not the end state — it is the starting point.</p>
+    <p>Hexis treats these obligations as orientation, not endpoints. The rules will change; the underlying question will not: do you understand your system well enough to govern it?</p>
+  </div>
+
+  <h2 style="font-family:Georgia,serif;font-size:24px;font-weight:700;color:var(--text);margin:48px 0 16px">
+    Conclusion
+  </h2>
+
+  <p>GPAI rules demonstrate why AI governance cannot be limited to high-risk systems alone. The foundational models you use also require a governance framework.</p>
+
+  <p>The starting point: request documentation for the GPAI-based tools you deploy, and document what your own system does on top of that model.</p>
+
+  <div class="cta-block">
+    <div class="cta-block-text">Hexis AI governance tools help you determine your system's risk classification and governance maturity — step by step.</div>
+    <a href="/generator/" class="cta-link">EU AI Act Risk Classifier →</a>
+  </div>
+
+  <p style="margin-top:16px;font-size:15px;color:var(--text2)">Once you have determined whether you fall within the GPAI scope, use the <a href="/checklist/" style="color:var(--brass);text-decoration:none">EU AI Act Compliance Checklist</a> to track your obligations step by step.</p>
+
+  <!-- RELATED POSTS -->
+  <div class="related-posts">
+    <h2>Related Articles</h2>
+    <div class="related-grid">
+      <a href="/blog/eu-ai-act-risk-classification-guide/" class="related-card">
+        <span class="related-tag">EU AI Act</span>
+        <span class="related-title">EU AI Act: Risk Classification Guide</span>
+      </a>
+      <a href="/blog/iso-42001-governance-maturity/" class="related-card">
+        <span class="related-tag">ISO 42001</span>
+        <span class="related-title">ISO 42001 and Governance Maturity: Where to Start</span>
+      </a>
+    </div>
+  </div>
+
+  <p style="font-size:12px;color:var(--stone);margin-top:48px;padding-top:24px;border-top:1px solid var(--border)">
+    Note: This article is based on information available as of February 2026. Article references are to Regulation (EU) 2024/1689 (EU AI Act). This article does not constitute legal advice.
+  </p>
+
+</article>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-left">
+    <a href="/" class="footer-logo">
+      <img src="/assets/logo.png" alt="Hexis">
+    </a>
+    <span class="footer-sep">·</span>
+    <span class="footer-txt">© 2026 Hexis · For informational purposes only. Does not constitute legal advice.</span>
+  </div>
+  <div class="footer-links">
+    <a href="/methodology/">ORIENT Framework</a>
+    <a href="/generator/">Generator</a>
+    <a href="/checklist/">Checklist</a>
+  </div>
+</footer>
+
+<script>
+function toggleMenu(){
+  var h=document.getElementById('hamburger'),m=document.getElementById('mobileMenu');
+  h.classList.toggle('open');m.classList.toggle('open');
+}
+function closeMenu(){
+  document.getElementById('hamburger').classList.remove('open');
+  document.getElementById('mobileMenu').classList.remove('open');
+}
+</script>
+</body>
+</html>
