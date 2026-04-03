@@ -3,21 +3,20 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Blog — Hexis AI Governance</title>
-<meta name="description" content="Hexis AI Governance blog: Yapay zeka yönetişimi, EU AI Act, KVKK, ISO 42001, ORIENT çerçevesi ve AI okuryazarlığı hakkında Türkçe içerikler.">
+<title data-en="Blog — Hexis AI Governance" data-tr="Blog — Hexis AI Governance">Blog — Hexis AI Governance</title>
+<meta name="description" content="Hexis AI Governance blog: Yapay zeka yönetişimi, EU AI Act, KVKK, ISO 42001, ORIENT çerçevesi ve AI okuryazarlığı hakkında Türkçe ve İngilizce içerikler.">
 <meta property="og:title" content="Blog — Hexis AI Governance">
-<meta property="og:description" content="Yapay zeka yönetişimi, EU AI Act, KVKK ve ISO 42001 hakkında Türkçe içerikler.">
+<meta property="og:description" content="Yapay zeka yönetişimi, EU AI Act, KVKK ve ISO 42001 hakkında içerikler.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://hexis.center/blog/">
 <meta property="og:image" content="https://hexis.center/assets/og-hexis.png">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Blog — Hexis AI Governance">
-<meta name="twitter:description" content="Yapay zeka yönetişimi, EU AI Act, KVKK ve ISO 42001 hakkında Türkçe içerikler.">
+<meta name="twitter:description" content="AI governance, EU AI Act and ISO 42001 articles in Turkish and English.">
 <meta name="twitter:image" content="https://hexis.center/assets/og-hexis.png">
 <link rel="canonical" href="https://hexis.center/blog/">
 <link rel="alternate" type="application/rss+xml" title="Hexis Blog RSS" href="https://hexis.center/blog/feed.xml">
 <script defer data-domain="hexis.center" src="https://plausible.io/js/script.js"></script>
-<!-- Fathom: <script src="https://cdn.usefathom.com/script.js" data-site="XXXXX" defer></script> -->
 <link rel="icon" href="/assets/favicon.ico">
 <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
 <script type="application/ld+json">
@@ -28,8 +27,7 @@
       "@type": "CollectionPage",
       "name": "Hexis AI Governance Blog",
       "url": "https://hexis.center/blog/",
-      "description": "Yapay zeka yönetişimi, EU AI Act, KVKK ve ISO 42001 hakkında Türkçe içerikler.",
-      "inLanguage": "tr",
+      "description": "AI governance, EU AI Act, KVKK and ISO 42001 articles.",
       "publisher": { "@type": "Organization", "name": "Hexis AI Governance", "url": "https://hexis.center" }
     },
     {
@@ -61,15 +59,24 @@ nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;justify-co
 .nav-logo{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--text)}
 .nav-logo img{height:18px;width:auto}
 .nav-logo span{font-family:Georgia,serif;font-size:15px;letter-spacing:0.04em}
+.nav-right{display:flex;align-items:center;gap:24px}
 .nav-links{display:flex;gap:24px}
 .nav-links a{color:var(--text2);font-size:13px;text-decoration:none;letter-spacing:0.02em}
 .nav-links a:hover{color:var(--text)}
+.lang-switcher{display:flex;gap:0;border:1px solid var(--border2)}
+.lang-btn{padding:4px 12px;font-size:12px;cursor:pointer;background:transparent;border:none;color:var(--text2);letter-spacing:0.04em;transition:all 0.2s}
+.lang-btn.active{background:var(--border2);color:var(--text)}
+.lang-btn:hover:not(.active){color:var(--text)}
 
 .hero{max-width:800px;margin:0 auto;padding:64px 24px 32px;text-align:center}
 .hero h1{font-family:Georgia,serif;font-size:clamp(28px,4vw,40px);margin-bottom:12px}
 .hero p{font-size:15px;max-width:560px;margin:0 auto}
 .hero .rss-link{display:inline-block;margin-top:16px;font-size:13px;color:var(--brass);border:1px solid var(--border2);padding:6px 16px}
 .hero .rss-link:hover{background:var(--card2);text-decoration:none}
+
+/* LANG NOTE */
+.lang-note{max-width:800px;margin:0 auto 8px;padding:0 24px}
+.lang-note p{font-size:12px;color:var(--dark-sub);opacity:.7;text-align:center;font-style:italic}
 
 /* FILTERS */
 .filters{max-width:800px;margin:0 auto;padding:0 24px 24px;display:flex;gap:8px;flex-wrap:wrap;justify-content:center}
@@ -115,7 +122,7 @@ footer{padding:32px 48px;border-top:1px solid var(--border);display:flex;justify
   .nl-input{border-right:1px solid var(--border2)}
   footer{padding:24px 20px;flex-direction:column;align-items:flex-start}
 }
-@media print{nav,footer,.filters,.hero .rss-link{display:none}.hero{padding-top:24px}}
+@media print{nav,footer,.filters,.hero .rss-link,.lang-switcher,.lang-note{display:none}.hero{padding-top:24px}}
 </style>
 </head>
 <body>
@@ -124,23 +131,33 @@ footer{padding:32px 48px;border-top:1px solid var(--border);display:flex;justify
     <img src="/assets/logo-light.png" alt="Hexis" width="auto" height="18">
     <span>Hexis</span>
   </a>
-  <div class="nav-links">
-    <a href="/generator/">Generator</a>
-    <a href="/checklist/">Checklist</a>
-    <a href="/fria/">FRIA</a>
-    <a href="/metodoloji/">Metodoloji</a>
-    <a href="/blog/" style="color:var(--text)">Blog</a>
+  <div class="nav-right">
+    <div class="nav-links">
+      <a href="/generator/">Generator</a>
+      <a href="/checklist/">Checklist</a>
+      <a href="/fria/">FRIA</a>
+      <a href="/metodoloji/" data-en-href="/methodology/" data-tr-href="/metodoloji/" data-en="Methodology" data-tr="Metodoloji">Metodoloji</a>
+      <a href="/blog/" style="color:var(--text)">Blog</a>
+    </div>
+    <div class="lang-switcher">
+      <button class="lang-btn active" onclick="setLang('tr')">TR</button>
+      <button class="lang-btn" onclick="setLang('en')">EN</button>
+    </div>
   </div>
 </nav>
 
 <div class="hero">
-  <h1>Hexis Blog</h1>
-  <p>Yapay zeka yönetişimi, EU AI Act uyumu, KVKK ve ISO 42001 hakkında pratik rehberler ve analizler.</p>
-  <a href="/blog/feed.xml" class="rss-link">RSS ile takip et ↗</a>
+  <h1 data-en="Hexis Blog" data-tr="Hexis Blog">Hexis Blog</h1>
+  <p data-en="Practical guides and analysis on AI governance, EU AI Act compliance, and ISO 42001." data-tr="Yapay zeka yönetişimi, EU AI Act uyumu, KVKK ve ISO 42001 hakkında pratik rehberler ve analizler.">Yapay zeka yönetişimi, EU AI Act uyumu, KVKK ve ISO 42001 hakkında pratik rehberler ve analizler.</p>
+  <a href="/blog/feed.xml" class="rss-link" data-en="Follow via RSS ↗" data-tr="RSS ile takip et ↗">RSS ile takip et ↗</a>
+</div>
+
+<div class="lang-note">
+  <p data-en="Core EU AI Act and ISO 42001 articles are available in English. KVKK and methodology content is currently published in Turkish only." data-tr="EU AI Act ve ISO 42001 temel yazıları Türkçe ve İngilizce olarak yayımlanmaktadır. KVKK ve metodoloji içerikleri şu an yalnızca Türkçedir." style="display:none"></p>
 </div>
 
 <div class="filters">
-  <button class="filter-btn active" data-filter="all">Tümü</button>
+  <button class="filter-btn active" data-filter="all" data-en="All" data-tr="Tümü">Tümü</button>
   <button class="filter-btn" data-filter="ai-act">EU AI Act</button>
   <button class="filter-btn" data-filter="kvkk">KVKK</button>
   <button class="filter-btn" data-filter="iso-42001">ISO 42001</button>
@@ -149,17 +166,23 @@ footer{padding:32px 48px;border-top:1px solid var(--border);display:flex;justify
 
 <div class="posts">
 
-  <a href="/blog/digital-omnibus-eu-ai-act-erteleme/" class="post-card" data-tags="ai-act">
+  <!-- ── BILINGUAL: Digital Omnibus ── -->
+  <a href="/blog/digital-omnibus-eu-ai-act-erteleme/" class="post-card" data-tags="ai-act"
+     data-en-href="/blog/digital-omnibus-eu-ai-act-delay/"
+     data-tr-href="/blog/digital-omnibus-eu-ai-act-erteleme/">
     <div class="post-meta">
-      <span class="post-tag">EU AI Act</span>
-      <span>3 Nisan 2026</span>
+      <span class="post-tag" data-en="EU AI Act" data-tr="EU AI Act">EU AI Act</span>
+      <span data-en="3 April 2026" data-tr="3 Nisan 2026">3 Nisan 2026</span>
     </div>
-    <h2>EU AI Act ve Digital Omnibus: Türk Şirketler Ne Yapmalı?</h2>
-    <p>AB Parlamentosu 26 Mart 2026'da Digital Omnibus'u onayladı. Annex III tarihleri ertelenebilir — ama trilogue tamamlanmadan hiçbir şey kesinleşmiyor. Türk şirketler için analiz.</p>
-    <span class="post-reading">~8 dk okuma</span>
+    <h2 data-en="EU AI Act and the Digital Omnibus: What Should Companies Do Now?"
+        data-tr="EU AI Act ve Digital Omnibus: Türk Şirketler Ne Yapmalı?">EU AI Act ve Digital Omnibus: Türk Şirketler Ne Yapmalı?</h2>
+    <p data-en="The European Parliament approved the Digital Omnibus on 26 March 2026. Annex III deadlines may be extended — but nothing is final until trilogue is complete. Analysis for companies operating in Türkiye."
+       data-tr="AB Parlamentosu 26 Mart 2026'da Digital Omnibus'u onayladı. Annex III tarihleri ertelenebilir — ama trilogue tamamlanmadan hiçbir şey kesinleşmiyor. Türk şirketler için analiz.">AB Parlamentosu 26 Mart 2026'da Digital Omnibus'u onayladı. Annex III tarihleri ertelenebilir — ama trilogue tamamlanmadan hiçbir şey kesinleşmiyor. Türk şirketler için analiz.</p>
+    <span class="post-reading" data-en="~8 min read" data-tr="~8 dk okuma">~8 dk okuma</span>
   </a>
 
-  <a href="/blog/iso-42001-eu-ai-act-uyum-analizi/" class="post-card" data-tags="iso-42001">
+  <!-- ── TR-ONLY: ISO 42001 x EU AI Act Uyum Analizi ── -->
+  <a href="/blog/iso-42001-eu-ai-act-uyum-analizi/" class="post-card lang-tr" data-tags="iso-42001">
     <div class="post-meta">
       <span class="post-tag">ISO 42001</span>
       <span>3 Nisan 2026</span>
@@ -169,7 +192,8 @@ footer{padding:32px 48px;border-top:1px solid var(--border);display:flex;justify
     <span class="post-reading">~7 dk okuma</span>
   </a>
 
-  <a href="/blog/aipa-rehberi-eu-ai-act-kvkk-analiz/" class="post-card" data-tags="ai-act">
+  <!-- ── TR-ONLY: AIPA Rehberi ── -->
+  <a href="/blog/aipa-rehberi-eu-ai-act-kvkk-analiz/" class="post-card lang-tr" data-tags="ai-act">
     <div class="post-meta">
       <span class="post-tag">AI Governance</span>
       <span>31 Mart 2026</span>
@@ -179,7 +203,8 @@ footer{padding:32px 48px;border-top:1px solid var(--border);display:flex;justify
     <span class="post-reading">~6 dk okuma</span>
   </a>
 
-  <a href="/blog/kvkk-etken-yapay-zeka-rehberi-sirketler-nasil-hazirlanmali/" class="post-card" data-tags="kvkk">
+  <!-- ── TR-ONLY: KVKK Etken YZ ── -->
+  <a href="/blog/kvkk-etken-yapay-zeka-rehberi-sirketler-nasil-hazirlanmali/" class="post-card lang-tr" data-tags="kvkk">
     <div class="post-meta">
       <span class="post-tag">KVKK</span>
       <span>20 Mart 2026</span>
@@ -189,7 +214,8 @@ footer{padding:32px 48px;border-top:1px solid var(--border);display:flex;justify
     <span class="post-reading">~6 dk okuma</span>
   </a>
 
-  <a href="/blog/golge-yapay-zeka-kobilerin-gorunmeyen-riski/" class="post-card" data-tags="kvkk">
+  <!-- ── TR-ONLY: Gölge YZ ── -->
+  <a href="/blog/golge-yapay-zeka-kobilerin-gorunmeyen-riski/" class="post-card lang-tr" data-tags="kvkk">
     <div class="post-meta">
       <span class="post-tag">KVKK</span>
       <span>17 Mart 2026</span>
@@ -199,7 +225,8 @@ footer{padding:32px 48px;border-top:1px solid var(--border);display:flex;justify
     <span class="post-reading">~22 dk okuma</span>
   </a>
 
-  <a href="/blog/orient-aigp-bok/" class="post-card" data-tags="orient">
+  <!-- ── TR-ONLY: ORIENT AIGP BoK ── -->
+  <a href="/blog/orient-aigp-bok/" class="post-card lang-tr" data-tags="orient">
     <div class="post-meta">
       <span class="post-tag">ORIENT</span>
       <span>12 Mart 2026</span>
@@ -209,7 +236,8 @@ footer{padding:32px 48px;border-top:1px solid var(--border);display:flex;justify
     <span class="post-reading">~8 dk okuma</span>
   </a>
 
-  <a href="/blog/etken-yapay-zeka-kisisel-verilere-etkisi/" class="post-card" data-tags="kvkk">
+  <!-- ── TR-ONLY: Etken YZ Kişisel Veriler ── -->
+  <a href="/blog/etken-yapay-zeka-kisisel-verilere-etkisi/" class="post-card lang-tr" data-tags="kvkk">
     <div class="post-meta">
       <span class="post-tag">KVKK</span>
       <span>15 Mart 2026</span>
@@ -219,7 +247,8 @@ footer{padding:32px 48px;border-top:1px solid var(--border);display:flex;justify
     <span class="post-reading">~7 dk okuma</span>
   </a>
 
-  <a href="/blog/ai-okuryazarligi-madde-4/" class="post-card" data-tags="ai-act">
+  <!-- ── TR-ONLY: AI Okuryazarlığı ── -->
+  <a href="/blog/ai-okuryazarligi-madde-4/" class="post-card lang-tr" data-tags="ai-act">
     <div class="post-meta">
       <span class="post-tag">EU AI Act</span>
       <span>28 Şubat 2026</span>
@@ -229,7 +258,8 @@ footer{padding:32px 48px;border-top:1px solid var(--border);display:flex;justify
     <span class="post-reading">~8 dk okuma</span>
   </a>
 
-  <a href="/blog/kvkk-yapay-zeka-bes-yil-on-iki-yukumluluk/" class="post-card" data-tags="kvkk">
+  <!-- ── TR-ONLY: KVKK Beş Yıl On İki ── -->
+  <a href="/blog/kvkk-yapay-zeka-bes-yil-on-iki-yukumluluk/" class="post-card lang-tr" data-tags="kvkk">
     <div class="post-meta">
       <span class="post-tag">KVKK</span>
       <span>25 Şubat 2026</span>
@@ -239,7 +269,8 @@ footer{padding:32px 48px;border-top:1px solid var(--border);display:flex;justify
     <span class="post-reading">~9 dk okuma</span>
   </a>
 
-  <a href="/blog/chatgpt-kvkk-yurt-disi-aktarim/" class="post-card" data-tags="kvkk">
+  <!-- ── TR-ONLY: ChatGPT KVKK ── -->
+  <a href="/blog/chatgpt-kvkk-yurt-disi-aktarim/" class="post-card lang-tr" data-tags="kvkk">
     <div class="post-meta">
       <span class="post-tag">KVKK</span>
       <span>22 Şubat 2026</span>
@@ -249,74 +280,144 @@ footer{padding:32px 48px;border-top:1px solid var(--border);display:flex;justify
     <span class="post-reading">~7 dk okuma</span>
   </a>
 
-  <a href="/blog/iso-42001-governance-olgunlugu/" class="post-card" data-tags="iso-42001">
+  <!-- ── BILINGUAL: ISO 42001 Governance Maturity ── -->
+  <a href="/blog/iso-42001-governance-olgunlugu/" class="post-card" data-tags="iso-42001"
+     data-en-href="/blog/iso-42001-governance-maturity/"
+     data-tr-href="/blog/iso-42001-governance-olgunlugu/">
     <div class="post-meta">
-      <span class="post-tag">ISO 42001</span>
-      <span>18 Şubat 2026</span>
+      <span class="post-tag" data-en="ISO 42001" data-tr="ISO 42001">ISO 42001</span>
+      <span data-en="18 February 2026" data-tr="18 Şubat 2026">18 Şubat 2026</span>
     </div>
-    <h2>ISO 42001 ve Governance Olgunluğu: Nereden Başlamalı?</h2>
-    <p>Yapay zeka yönetişim olgunluk seviyeleri, ISO 42001 gereksinimleri ve kurumsal hazırlık değerlendirmesi.</p>
-    <span class="post-reading">~8 dk okuma</span>
+    <h2 data-en="ISO 42001 and Governance Maturity: Where to Start?"
+        data-tr="ISO 42001 ve Governance Olgunluğu: Nereden Başlamalı?">ISO 42001 ve Governance Olgunluğu: Nereden Başlamalı?</h2>
+    <p data-en="AI governance maturity levels, ISO 42001 requirements, and institutional readiness assessment. A practical guide."
+       data-tr="Yapay zeka yönetişim olgunluk seviyeleri, ISO 42001 gereksinimleri ve kurumsal hazırlık değerlendirmesi.">Yapay zeka yönetişim olgunluk seviyeleri, ISO 42001 gereksinimleri ve kurumsal hazırlık değerlendirmesi.</p>
+    <span class="post-reading" data-en="~8 min read" data-tr="~8 dk okuma">~8 dk okuma</span>
   </a>
 
-  <a href="/blog/eu-ai-act-risk-siniflandirmasi/" class="post-card" data-tags="ai-act">
+  <!-- ── BILINGUAL: EU AI Act Risk Classification ── -->
+  <a href="/blog/eu-ai-act-risk-siniflandirmasi/" class="post-card" data-tags="ai-act"
+     data-en-href="/blog/eu-ai-act-risk-classification-guide/"
+     data-tr-href="/blog/eu-ai-act-risk-siniflandirmasi/">
     <div class="post-meta">
-      <span class="post-tag">EU AI Act</span>
-      <span>18 Şubat 2026</span>
+      <span class="post-tag" data-en="EU AI Act" data-tr="EU AI Act">EU AI Act</span>
+      <span data-en="18 February 2026" data-tr="18 Şubat 2026">18 Şubat 2026</span>
     </div>
-    <h2>EU AI Act: Risk Sınıflandırması Rehberi</h2>
-    <p>Avrupa Birliği Yapay Zeka Yasası'nın risk sınıflandırma sistemi — yasaklı, yüksek riskli, sınırlı risk ve minimal risk.</p>
-    <span class="post-reading">~10 dk okuma</span>
+    <h2 data-en="EU AI Act: Risk Classification Guide"
+        data-tr="EU AI Act: Risk Sınıflandırması Rehberi">EU AI Act: Risk Sınıflandırması Rehberi</h2>
+    <p data-en="The EU AI Act's four-tier risk classification system — prohibited, high-risk, limited risk, and minimal risk. A practical guide with article references."
+       data-tr="Avrupa Birliği Yapay Zeka Yasası'nın risk sınıflandırma sistemi — yasaklı, yüksek riskli, sınırlı risk ve minimal risk.">Avrupa Birliği Yapay Zeka Yasası'nın risk sınıflandırma sistemi — yasaklı, yüksek riskli, sınırlı risk ve minimal risk.</p>
+    <span class="post-reading" data-en="~10 min read" data-tr="~10 dk okuma">~10 dk okuma</span>
   </a>
 
-  <a href="/blog/gpai-kurallari-madde-51-56/" class="post-card" data-tags="ai-act">
+  <!-- ── BILINGUAL: GPAI Rules Articles 51-56 ── -->
+  <a href="/blog/gpai-kurallari-madde-51-56/" class="post-card" data-tags="ai-act"
+     data-en-href="/blog/gpai-rules-articles-51-56/"
+     data-tr-href="/blog/gpai-kurallari-madde-51-56/">
     <div class="post-meta">
-      <span class="post-tag">EU AI Act</span>
-      <span>18 Şubat 2026</span>
+      <span class="post-tag" data-en="EU AI Act" data-tr="EU AI Act">EU AI Act</span>
+      <span data-en="18 February 2026" data-tr="18 Şubat 2026">18 Şubat 2026</span>
     </div>
-    <h2>GPAI Kuralları: Madde 51–56 Ne Değişti?</h2>
-    <p>Genel amaçlı yapay zeka (GPAI) modelleri için EU AI Act düzenlemeleri ve sistemik risk yükümlülükleri.</p>
-    <span class="post-reading">~9 dk okuma</span>
+    <h2 data-en="GPAI Rules: What Changed in Articles 51–56?"
+        data-tr="GPAI Kuralları: Madde 51–56 Ne Değişti?">GPAI Kuralları: Madde 51–56 Ne Değişti?</h2>
+    <p data-en="EU AI Act regulations for general-purpose AI (GPAI) models and systemic risk obligations. In force since August 2025."
+       data-tr="Genel amaçlı yapay zeka (GPAI) modelleri için EU AI Act düzenlemeleri ve sistemik risk yükümlülükleri.">Genel amaçlı yapay zeka (GPAI) modelleri için EU AI Act düzenlemeleri ve sistemik risk yükümlülükleri.</p>
+    <span class="post-reading" data-en="~9 min read" data-tr="~9 dk okuma">~9 dk okuma</span>
   </a>
 
 </div>
 
 <section class="nl-section">
   <div class="nl-inner">
-    <h2 class="nl-title">AI Governance Türkiye</h2>
-    <p class="nl-desc">Haftalık AI governance haberleri, KVKK & EU AI Act analizi. Her Perşembe gelen kutunuzda.</p>
+    <h2 class="nl-title" data-en="AI Governance Türkiye" data-tr="AI Governance Türkiye">AI Governance Türkiye</h2>
+    <p class="nl-desc" data-en="Weekly AI governance news, KVKK and EU AI Act analysis. In your inbox every Thursday." data-tr="Haftalık AI governance haberleri, KVKK &amp; EU AI Act analizi. Her Perşembe gelen kutunuzda.">Haftalık AI governance haberleri, KVKK &amp; EU AI Act analizi. Her Perşembe gelen kutunuzda.</p>
     <form class="nl-form" action="https://aigovernanceturkiye.beehiiv.com/subscribe" method="post" target="_blank" onsubmit="if(typeof plausible!=='undefined')plausible('Newsletter Signup')">
-      <input type="email" name="email" placeholder="E-posta adresiniz" required class="nl-input">
-      <button type="submit" class="nl-btn">Abone Ol</button>
+      <input type="email" name="email" placeholder="E-posta adresiniz" required class="nl-input" data-en-placeholder="Your email address" data-tr-placeholder="E-posta adresiniz">
+      <button type="submit" class="nl-btn" data-en="Subscribe" data-tr="Abone Ol">Abone Ol</button>
     </form>
-    <p class="nl-note">by Hexis · Kişisel verileriniz yalnızca bülten gönderimi için kullanılır.</p>
+    <p class="nl-note" data-en="by Hexis · Your data is used only for newsletter delivery." data-tr="by Hexis · Kişisel verileriniz yalnızca bülten gönderimi için kullanılır.">by Hexis · Kişisel verileriniz yalnızca bülten gönderimi için kullanılır.</p>
   </div>
 </section>
 
 <footer>
   <div>
-    <span class="footer-txt">© 2026 Hexis AI Governance · Yalnızca bilgilendirme amaçlıdır.</span>
+    <span class="footer-txt" data-en="© 2026 Hexis AI Governance · For informational purposes only." data-tr="© 2026 Hexis AI Governance · Yalnızca bilgilendirme amaçlıdır.">© 2026 Hexis AI Governance · Yalnızca bilgilendirme amaçlıdır.</span>
   </div>
   <div class="footer-links">
-    <a href="/">Ana Sayfa</a>
+    <a href="/" data-en="Home" data-tr="Ana Sayfa">Ana Sayfa</a>
     <a href="/generator/">Generator</a>
-    <a href="/metodoloji/">Metodoloji</a>
-    <a href="/gizlilik/">Gizlilik Politikası</a>
+    <a href="/metodoloji/" data-en-href="/methodology/" data-tr-href="/metodoloji/" data-en="Methodology" data-tr="Metodoloji">Metodoloji</a>
+    <a href="/gizlilik/" data-en-href="/privacy/" data-tr-href="/gizlilik/" data-en="Privacy Policy" data-tr="Gizlilik Politikası">Gizlilik Politikası</a>
   </div>
 </footer>
 
 <script>
-document.querySelectorAll('.filter-btn').forEach(btn => {
-  btn.addEventListener('click', () => {
-    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+/* ── LANG SWITCHER ── */
+var currentLang = 'tr';
+
+function setLang(lang) {
+  currentLang = lang;
+  document.documentElement.lang = lang;
+
+  /* Update lang buttons */
+  document.querySelectorAll('.lang-btn').forEach(function(btn) {
+    btn.classList.toggle('active', btn.textContent.trim().toLowerCase() === lang);
+  });
+
+  /* Swap [data-en] / [data-tr] text content */
+  document.querySelectorAll('[data-en]').forEach(function(el) {
+    el.textContent = lang === 'en' ? el.dataset.en : el.dataset.tr;
+  });
+
+  /* Swap [data-en-href] links (no text swap) */
+  document.querySelectorAll('[data-en-href]:not([data-en])').forEach(function(el) {
+    var href = el.dataset[lang + 'Href'];
+    if (href) el.href = href;
+  });
+
+  /* Swap [data-en-href] on elements that also have [data-en] (e.g. nav links) */
+  document.querySelectorAll('[data-en-href][data-en]').forEach(function(el) {
+    var href = el.dataset[lang + 'Href'];
+    if (href) el.href = href;
+  });
+
+  /* Swap input placeholders */
+  document.querySelectorAll('[data-en-placeholder]').forEach(function(el) {
+    el.placeholder = lang === 'en' ? el.dataset.enPlaceholder : el.dataset.trPlaceholder;
+  });
+
+  /* Show/hide lang-tr cards */
+  document.querySelectorAll('.lang-tr').forEach(function(el) {
+    el.style.display = lang === 'tr' ? '' : 'none';
+  });
+
+  /* Show/hide lang note */
+  var note = document.querySelector('.lang-note p');
+  if (note) note.style.display = lang === 'en' ? '' : 'none';
+
+  /* Reset filter to "all" when switching language */
+  document.querySelectorAll('.filter-btn').forEach(function(b) { b.classList.remove('active'); });
+  var allBtn = document.querySelector('.filter-btn[data-filter="all"]');
+  if (allBtn) {
+    allBtn.classList.add('active');
+    allBtn.textContent = lang === 'en' ? (allBtn.dataset.en || 'All') : (allBtn.dataset.tr || 'Tümü');
+  }
+  document.querySelectorAll('.post-card').forEach(function(card) {
+    var isLangHidden = card.classList.contains('lang-tr') && lang === 'en';
+    if (!isLangHidden) card.style.display = '';
+  });
+}
+
+/* ── FILTER ── */
+document.querySelectorAll('.filter-btn').forEach(function(btn) {
+  btn.addEventListener('click', function() {
+    document.querySelectorAll('.filter-btn').forEach(function(b) { b.classList.remove('active'); });
     btn.classList.add('active');
-    const filter = btn.dataset.filter;
-    document.querySelectorAll('.post-card').forEach(card => {
-      if (filter === 'all' || card.dataset.tags.includes(filter)) {
-        card.style.display = '';
-      } else {
-        card.style.display = 'none';
-      }
+    var filter = btn.dataset.filter;
+    document.querySelectorAll('.post-card').forEach(function(card) {
+      var isLangHidden = card.classList.contains('lang-tr') && currentLang === 'en';
+      var tagOk = filter === 'all' || (card.dataset.tags || '').includes(filter);
+      card.style.display = (!isLangHidden && tagOk) ? '' : 'none';
     });
   });
 });
