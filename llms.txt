@@ -29,6 +29,7 @@
 - [KVKK Yapay Zeka 5 Yıl 12 Yükümlülük](https://hexis.center/blog/kvkk-yapay-zeka-bes-yil-on-iki-yukumluluk/): KVKK'nın yürürlük sürecinde yapay zeka yükümlülükleri
 - [ChatGPT KVKK Yurt Dışı Aktarım](https://hexis.center/blog/chatgpt-kvkk-yurt-disi-aktarim/): ChatGPT kullanımı ve KVKK aktarım hükümleri
 - [ORIENT × AIGP BoK](https://hexis.center/blog/orient-aigp-bok/): ORIENT çerçevesi ve IAPP AIGP sınav içeriği
+- [AIPA Yapay Zekâ Etiği ve Yönetişimi Rehberi: Notlar](https://hexis.center/blog/aipa-rehberi-eu-ai-act-kvkk-analiz/): AIPA Mart 2026 rehberini EU AI Act ve KVKK perspektifinden analiz; gönüllü iyi uygulama sınırları ve eksikler
 
 ## Hakkında
 
