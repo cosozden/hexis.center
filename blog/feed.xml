@@ -6,8 +6,35 @@
     <link>https://hexis.center/blog/</link>
     <description>Yapay zeka yönetişimi, EU AI Act uyumu, KVKK ve ISO 42001 hakkında pratik rehberler ve analizler.</description>
     <language>tr</language>
-    <lastBuildDate>Fri, 20 Mar 2026 00:00:00 +0300</lastBuildDate>
+    <lastBuildDate>Fri, 03 Apr 2026 00:00:00 +0300</lastBuildDate>
     <atom:link href="https://hexis.center/blog/feed.xml" rel="self" type="application/rss+xml"/>
+
+    <item>
+      <title>EU AI Act ve Digital Omnibus: Türk Şirketler Ne Yapmalı?</title>
+      <link>https://hexis.center/blog/digital-omnibus-eu-ai-act-erteleme/</link>
+      <guid>https://hexis.center/blog/digital-omnibus-eu-ai-act-erteleme/</guid>
+      <pubDate>Fri, 03 Apr 2026 10:00:00 +0300</pubDate>
+      <description>AB Parlamentosu 26 Mart 2026'da Digital Omnibus'u onayladı. Annex III tarihleri ertelenebilir — ama trilogue tamamlanmadan hiçbir şey kesinleşmiyor. Türk şirketler için analiz.</description>
+      <category>EU AI Act</category>
+    </item>
+
+    <item>
+      <title>ISO 42001 × EU AI Act Uyum Analizi: Sertifika Hangi Yükümlülükleri Karşılar?</title>
+      <link>https://hexis.center/blog/iso-42001-eu-ai-act-uyum-analizi/</link>
+      <guid>https://hexis.center/blog/iso-42001-eu-ai-act-uyum-analizi/</guid>
+      <pubDate>Fri, 03 Apr 2026 09:00:00 +0300</pubDate>
+      <description>ISO 42001 sertifikası EU AI Act yükümlülüklerini ne kadar karşılar? Hangi maddeler örtüşür, kritik boşluklar nerede?</description>
+      <category>ISO 42001</category>
+    </item>
+
+    <item>
+      <title>AIPA YZ Etiği Rehberi: Türkiye İçin Ne Söylüyor, Ne Söylemiyor?</title>
+      <link>https://hexis.center/blog/aipa-rehberi-eu-ai-act-kvkk-analiz/</link>
+      <guid>https://hexis.center/blog/aipa-rehberi-eu-ai-act-kvkk-analiz/</guid>
+      <pubDate>Tue, 31 Mar 2026 09:00:00 +0300</pubDate>
+      <description>AIPA'nın Mart 2026'da yayımladığı Yapay Zeka Etiği ve Yönetişimi rehberini EU AI Act ve KVKK perspektifinden analiz ediyoruz.</description>
+      <category>EU AI Act</category>
+    </item>
 
     <item>
       <title>KVKK Etken Yapay Zekâ Rehberini Yayımladı: Şirketler Nasıl Hazırlanmalı?</title>

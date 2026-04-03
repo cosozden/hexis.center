@@ -25,7 +25,7 @@
       "@type": "BlogPosting",
       "headline": "KVKK Etken Yapay Zekâ Rehberini Yayımladı: Şirketler Nasıl Hazırlanmalı?",
       "datePublished": "2026-03-20",
-      "dateModified": "2026-03-20",
+      "dateModified": "2026-04-03",
       "author": { "@type": "Person", "name": "Özden Coşkun", "jobTitle": "AI Governance Practitioner", "worksFor": { "@type": "Organization", "name": "Hexis AI Governance", "url": "https://hexis.center" }, "url": "https://hexis.center", "sameAs": ["https://www.linkedin.com/in/ozdencoskun/"], "hasCredential": { "@type": "EducationalOccupationalCredential", "name": "ISO/IEC 42001 Implementer", "credentialCategory": "certification" } },
       "publisher": { "@type": "Organization", "name": "Hexis AI Governance", "logo": { "@type": "ImageObject", "url": "https://hexis.center/assets/logo.png" } },
       "inLanguage": "tr",
@@ -155,12 +155,22 @@ footer{
 .footer-links a{font-size:10px;color:var(--stone);text-decoration:none;transition:color .15s;font-family:Arial,sans-serif;letter-spacing:.04em}
 .footer-links a:hover{color:var(--text2)}
 
+/* ─── RELATED POSTS ──────────────────────────────── */
+.related-posts{margin-top:64px;padding-top:32px;border-top:1px solid var(--border)}
+.related-posts h2{font-family:Georgia,serif;font-size:20px;margin-bottom:20px}
+.related-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.related-card{display:block;border:1px solid var(--border);padding:20px;text-decoration:none;transition:border-color .2s,background .2s}
+.related-card:hover{border-color:var(--border2);background:var(--card);text-decoration:none}
+.related-tag{display:inline-block;background:var(--card2);padding:2px 8px;font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--brass);margin-bottom:8px}
+.related-title{display:block;font-family:Georgia,serif;font-size:16px;color:var(--text);line-height:1.35}
+
 /* ─── RESPONSIVE ─────────────────────────────────── */
 @media(max-width:860px){
   nav{padding:0 20px}
   .nav-links{display:none}
   .hamburger{display:flex}
   footer{flex-direction:column;align-items:flex-start;padding:20px}
+  .related-grid{grid-template-columns:1fr}
 }
 </style>
 </head>
@@ -222,7 +232,7 @@ footer{
 
   <p><em>Agentic AI</em>, belirli bir hedef doğrultusunda birden fazla <em>YZ aracısının</em> (<em>AI Agent</em>) koordineli çalıştığı, değişen koşullara uyum sağlayan ve insan müdahalesi olmaksızın eylem dizileri yürütebilen sistemlerdir. KVKK rehberinin kullandığı analoji yerinde: Etken YZ sistemi bir restoranın baş şefi gibidir; <em>YZ aracıları</em> ise farklı görevlerde uzmanlaşmış aşçılardır.¹</p>
 
-  <p style="margin-top:16px">Geleneksel bir <em>chatbot</em> sorulara yanıt verir. Etken YZ sistemi ise hedef alır, görevleri planlar, farklı araçları çağırır ve koşullar değişirse planı günceller. Bu fark, kişisel veri işleme boyutunda tamamen yeni riskler doğuruyor.</p>
+  <p style="margin-top:16px">Geleneksel bir <em>chatbot</em> sorulara yanıt verir. Etken YZ sistemi ise hedef alır, görevleri planlar, farklı araçları çağırır ve koşullar değişirse planı günceller. Bu fark, kişisel veri işleme boyutunda tamamen yeni riskler doğuruyor. Etken YZ sistemlerinin kişisel verilerle nasıl etkileşime girdiğini teknik düzeyde inceleyen <a href="/blog/etken-yapay-zeka-kisisel-verilere-etkisi/" style="color:var(--brass);text-decoration:underline">Etken Yapay Zekâ (Agentic AI) ve Kişisel Verilere Etkisi</a> yazımıza göz atabilirsiniz.</p>
 
   <h2 style="font-family:Georgia,serif;font-size:24px;font-weight:700;color:var(--text);margin:48px 0 16px">
     KVKK'nın Tespit Ettiği 3 Kritik Risk
@@ -260,11 +270,11 @@ footer{
 
   <p>ORIENT metodolojisini kullanarak bu rehberi eyleme dönüştürelim.</p>
 
-  <p style="margin-top:16px"><strong style="color:var(--text)">Observe:</strong> Kullandığınız veya değerlendirdiğiniz tüm <em>agentic AI</em> sistemlerini envantere alın. Kaç <em>YZ aracısı</em> var? Hangi dış sistemlere ve veri kaynaklarına bağlanıyor? Bu soruları yanıtlamadan risk değerlendirmesi yapamazsınız.</p>
+  <p style="margin-top:16px"><strong style="color:var(--text)">Observe:</strong> Kullandığınız veya değerlendirdiğiniz tüm <em>agentic AI</em> sistemlerini envantere alın. Kaç <em>YZ aracısı</em> var? Hangi dış sistemlere ve veri kaynaklarına bağlanıyor? Bu soruları yanıtlamadan risk değerlendirmesi yapamazsınız. Çalışanların habersiz kullandığı AI araçlarını kapsayan <a href="/blog/golge-yapay-zeka-kobilerin-gorunmeyen-riski/" style="color:var(--brass);text-decoration:underline">Gölge Yapay Zekâ: Türkiye'de KOBİ'lerin Görünmeyen Riski</a> yazımız, envanter sürecini nasıl başlatacağınız konusunda somut bir çerçeve sunuyor.</p>
 
   <p style="margin-top:16px"><strong style="color:var(--text)">Risk:</strong> Sistemin otonomi düzeyini değerlendirin. Tamamen otonom mu, yoksa insan onayı gerektiren adımlar var mı? Kişisel veri işleniyor mu? Özel nitelikli veri (sağlık, finans, biyometrik) akışı var mı? "Otonomi düzeyi × veri duyarlılığı" formülü risk profilinizi belirler.</p>
 
-  <p style="margin-top:16px"><strong style="color:var(--text)">Identify:</strong> KVKK'nın tespit ettiği üç kritik risk için yükümlülükleri haritalandırın. Her görev akışı için işleme şartını belirleyin. Geliştirici, <em>deployer</em> ve diğer aktörlerin sorumlulukları yazılı mı? KVKK Madde 10 kapsamında aydınlatma yükümlülüğünüzü <em>agentic AI</em> özelinde nasıl yerine getireceksiniz?²</p>
+  <p style="margin-top:16px"><strong style="color:var(--text)">Identify:</strong> KVKK'nın tespit ettiği üç kritik risk için yükümlülükleri haritalandırın. Türk şirketlere yönelik temel KVKK yükümlülüklerinin genel çerçevesi için <a href="/blog/kvkk-yapay-zeka-bes-yil-on-iki-yukumluluk/" style="color:var(--brass);text-decoration:underline">KVKK ve Yapay Zekâ: Beş Yılda Ne Değişti?</a> yazımıza bakabilirsiniz. Her görev akışı için işleme şartını belirleyin. Geliştirici, <em>deployer</em> ve diğer aktörlerin sorumlulukları yazılı mı? KVKK Madde 10 kapsamında aydınlatma yükümlülüğünüzü <em>agentic AI</em> özelinde nasıl yerine getireceksiniz?²</p>
 
   <p style="margin-top:16px"><strong style="color:var(--text)">Evaluate:</strong> <em>Privacy by design</em> boşluklarını değerlendirin. Sistem tasarım aşamasında veri minimizasyonu gözetildi mi? İnsan gözetimi hangi koşullarda ve hangi aşamada devreye giriyor; bu kriterler belgelenmiş mi? Hatalı <em>YZ aracısı</em> çıktılarının sistem içinde yayılmasını önleyecek bir kontrol mekanizması var mı?</p>
 
@@ -291,6 +301,31 @@ footer{
   <p style="margin-top:16px">2. Kişisel Verileri Koruma Kurumu. <em>6698 Sayılı Kişisel Verilerin Korunması Kanunu, Madde 10: Veri Sorumlusunun Aydınlatma Yükümlülüğü</em>. <a href="https://www.kvkk.gov.tr/Icerik/6649/6698-SAYILI-KANUN" style="color:var(--brass);text-decoration:underline">kvkk.gov.tr</a></p>
 
 </article>
+
+<!-- RELATED POSTS -->
+<div style="max-width:720px;margin:0 auto 64px;padding:0 24px">
+  <div class="related-posts">
+    <h2>İlgili Yazılar</h2>
+    <div class="related-grid">
+      <a href="/blog/etken-yapay-zeka-kisisel-verilere-etkisi/" class="related-card">
+        <span class="related-tag">KVKK</span>
+        <span class="related-title">Etken Yapay Zekâ (Agentic AI) ve Kişisel Verilere Etkisi</span>
+      </a>
+      <a href="/blog/golge-yapay-zeka-kobilerin-gorunmeyen-riski/" class="related-card">
+        <span class="related-tag">KVKK</span>
+        <span class="related-title">Gölge Yapay Zekâ (Shadow AI): Türkiye'de KOBİ'lerin Görünmeyen Riski</span>
+      </a>
+      <a href="/blog/chatgpt-kvkk-yurt-disi-aktarim/" class="related-card">
+        <span class="related-tag">KVKK</span>
+        <span class="related-title">ChatGPT'ye Müşteri Bilgisi Girenler: KVKK Yurt Dışı Aktarım Kuralları</span>
+      </a>
+      <a href="/blog/kvkk-yapay-zeka-bes-yil-on-iki-yukumluluk/" class="related-card">
+        <span class="related-tag">KVKK</span>
+        <span class="related-title">KVKK ve Yapay Zekâ: Beş Yılda Türk Şirketleri İçin Ne Değişti?</span>
+      </a>
+    </div>
+  </div>
+</div>
 
 <!-- BACK LINK -->
 <div style="max-width:720px;margin:0 auto 96px;padding:0 24px">
