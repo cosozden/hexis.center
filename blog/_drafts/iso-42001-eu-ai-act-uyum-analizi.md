@@ -16,7 +16,7 @@ Kısa cevap: hayır. Ama hikaye burada bitmiyor.
 
 ISO 42001 ile EU AI Act arasında anlamlı bir örtüşme var; literatürde bu oran yüksek riskli sistem gereksinimleri için %70-80 olarak tahmin ediliyor.¹ Ama kalan %20-30, tam olarak denetçilerin ve düzenleyicilerin baktığı yerler. Bu yazıda neyin örtüştüğünü, neyin örtüşmediğini ve önceliklendirmenizi nasıl yapmanız gerektiğini somut biçimde ele alacağım.
 
-## ISO 42001 Nedir, Tam Olarak Ne Yapar?
+## ISO 42001 Kapsamı Nedir?
 
 ISO/IEC 42001:2023, yapay zeka yönetim sistemleri için dünyanın ilk uluslararası standardıdır.² Aralık 2023'te yayımlandı. ISO 9001 veya ISO 27001'e aşinaysanız, yapıyı tanıyacaksınız: Madde 4'ten 10'a uzanan bir çerçeve; bağlam, liderlik, planlama, destek, operasyon, performans değerlendirme ve iyileştirme.
 
