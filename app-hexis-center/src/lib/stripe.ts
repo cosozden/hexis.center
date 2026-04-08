@@ -7,14 +7,21 @@
 
 import Stripe from 'stripe';
 
-if (!process.env.STRIPE_SECRET_KEY) {
-  throw new Error('STRIPE_SECRET_KEY is not set');
+// Lazy initialization — avoid crashing at build time when env vars are missing
+function getStripe(): Stripe | null {
+  if (!process.env.STRIPE_SECRET_KEY) {
+    if (process.env.NODE_ENV === 'production' && typeof window === 'undefined') {
+      console.warn('STRIPE_SECRET_KEY is not set — Stripe features disabled');
+    }
+    return null;
+  }
+  return new Stripe(process.env.STRIPE_SECRET_KEY, {
+    apiVersion: '2025-12-18.acacia' as Stripe.LatestApiVersion,
+    typescript: true,
+  });
 }
 
-export const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
-  apiVersion: '2025-12-18.acacia' as Stripe.LatestApiVersion,
-  typescript: true,
-});
+export const stripe = getStripe();
 
 /**
  * Create a Stripe Checkout session for new subscription
@@ -31,6 +38,7 @@ export async function createCheckoutSession({
   successUrl: string;
   cancelUrl: string;
 }) {
+  if (!stripe) throw new Error('Stripe is not configured');
   const session = await stripe.checkout.sessions.create({
     mode: 'subscription',
     payment_method_types: ['card'],
@@ -70,6 +78,7 @@ export async function createPortalSession({
   customerId: string;
   returnUrl: string;
 }) {
+  if (!stripe) throw new Error('Stripe is not configured');
   const session = await stripe.billingPortal.sessions.create({
     customer: customerId,
     return_url: returnUrl,
