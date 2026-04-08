@@ -58,8 +58,8 @@ export async function POST(request: Request) {
   const { ctx } = auth;
 
   // 2. Rate limit
-  const rateCheck = await checkRateLimit(ctx.userId);
-  if (!rateCheck.ok) return rateCheck.error;
+  const rateCheck = await checkRateLimit(ctx, 'ai/matrix-insight');
+  if (!rateCheck.allowed) return rateCheck.error;
 
   // 3. Validate input
   let input: z.infer<typeof MatrixInsightSchema>;
@@ -144,6 +144,7 @@ export async function POST(request: Request) {
   });
 
   // 9. Call Claude
+  const startTime = Date.now();
   try {
     const response = await callClaude({
       systemPrompt: prompt,
@@ -162,14 +163,13 @@ export async function POST(request: Request) {
     const insight = response.toolResult as Record<string, string> | null;
 
     // 10. Log usage (non-fatal)
+    const latencyMs = Date.now() - startTime;
     try {
-      await logUsage(ctx.userId, 'matrix_insight', {
-        systemId: input.systemId,
+      await logUsage(ctx, 'ai/matrix-insight', response.model, {
         inputTokens: response.usage.inputTokens,
         outputTokens: response.usage.outputTokens,
         cacheReadTokens: response.usage.cacheReadTokens,
-        model: response.model,
-      });
+      }, latencyMs);
     } catch {
       // Non-fatal — don't block response
     }
