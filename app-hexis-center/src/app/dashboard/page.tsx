@@ -1,12 +1,25 @@
 import Link from 'next/link';
 import { createServerSupabaseClient } from '@/lib/supabase/server';
-import { Card, Button } from '@/components/ui';
+import { Card, Badge, Button } from '@/components/ui';
 
 export const dynamic = 'force-dynamic';
 
+// ━━━ CONSTANTS ━━━
+
+const RISK_BADGE: Record<
+  string,
+  { label: string; variant: 'prohibited' | 'high' | 'limited' | 'gpai' | 'minimal' }
+> = {
+  prohibited: { label: 'Prohibited', variant: 'prohibited' },
+  high: { label: 'High Risk', variant: 'high' },
+  limited: { label: 'Limited Risk', variant: 'limited' },
+  gpai: { label: 'GPAI', variant: 'gpai' },
+  minimal: { label: 'Minimal Risk', variant: 'minimal' },
+};
+
 /**
- * Dashboard — Track (Step 6) overview
- * Shows: compliance score, system count, upcoming deadlines, recent activity
+ * Dashboard — AI Governance Overview
+ * Shows: metrics, recent systems, ORIENT flow, empty state
  */
 export default async function DashboardPage() {
   const supabase = await createServerSupabaseClient();
@@ -15,6 +28,46 @@ export default async function DashboardPage() {
   const { count: systemCount } = await supabase
     .from('ai_systems')
     .select('*', { count: 'exact', head: true });
+
+  // Get recent systems (up to 5) with latest classification
+  const { data: recentSystems } = await supabase
+    .from('ai_systems')
+    .select('id, name, purpose, organisation_role, deployment_status, created_at')
+    .order('created_at', { ascending: false })
+    .limit(5);
+
+  // Fetch classifications for recent systems
+  const recentIds = (recentSystems || []).map((s) => s.id);
+  let recentClassifications: Record<string, string> = {};
+  if (recentIds.length > 0) {
+    const { data: classData } = await supabase
+      .from('risk_classifications')
+      .select('system_id, risk_level')
+      .in('system_id', recentIds)
+      .order('classified_at', { ascending: false });
+
+    if (classData) {
+      for (const c of classData) {
+        if (!recentClassifications[c.system_id]) {
+          recentClassifications[c.system_id] = c.risk_level;
+        }
+      }
+    }
+  }
+
+  // Count obligations across all systems
+  const { count: totalObligations } = await supabase
+    .from('obligations')
+    .select('*', { count: 'exact', head: true });
+
+  const { count: completedObligations } = await supabase
+    .from('obligations')
+    .select('*', { count: 'exact', head: true })
+    .eq('status', 'completed');
+
+  const total = systemCount ?? 0;
+  const oblTotal = totalObligations ?? 0;
+  const oblDone = completedObligations ?? 0;
 
   return (
     <div className="max-w-5xl">
@@ -30,20 +83,31 @@ export default async function DashboardPage() {
 
       {/* Metric cards */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
-        <Card featured className="p-6">
-          <p className="text-[9px] uppercase tracking-[0.1em] text-muted-foreground mb-2">AI Systems</p>
-          <p className="font-heading text-3xl text-primary">
-            {systemCount ?? 0}
-          </p>
-          <p className="text-sm text-muted-foreground mt-1">registered</p>
-        </Card>
+        <Link href="/dashboard/systems">
+          <Card featured className="p-6 hover:border-primary/40 transition-colors cursor-pointer">
+            <p className="text-[9px] uppercase tracking-[0.1em] text-muted-foreground mb-2">AI Systems</p>
+            <p className="font-heading text-3xl text-primary">
+              {total}
+            </p>
+            <p className="text-sm text-muted-foreground mt-1">registered</p>
+          </Card>
+        </Link>
 
         <Card featured className="p-6">
-          <p className="text-[9px] uppercase tracking-[0.1em] text-muted-foreground mb-2">Compliance Score</p>
-          <p className="font-heading text-3xl text-primary">&mdash;</p>
-          <p className="text-sm text-muted-foreground mt-1">
-            complete a system assessment to see your score
-          </p>
+          <p className="text-[9px] uppercase tracking-[0.1em] text-muted-foreground mb-2">Obligations</p>
+          {oblTotal > 0 ? (
+            <>
+              <p className="font-heading text-3xl text-primary">
+                {oblDone}/{oblTotal}
+              </p>
+              <p className="text-sm text-muted-foreground mt-1">completed</p>
+            </>
+          ) : (
+            <>
+              <p className="font-heading text-3xl text-primary">&mdash;</p>
+              <p className="text-sm text-muted-foreground mt-1">classify a system to see obligations</p>
+            </>
+          )}
         </Card>
 
         <Card featured className="p-6">
@@ -58,8 +122,8 @@ export default async function DashboardPage() {
       </div>
 
       {/* Empty state — call to action */}
-      {(systemCount ?? 0) === 0 && (
-        <Card accent className="text-center py-12 px-6">
+      {total === 0 && (
+        <Card accent className="text-center py-12 px-6 mb-8">
           <p className="text-[9px] uppercase tracking-[0.1em] text-primary mb-3">Getting Started</p>
           <h3 className="font-heading text-xl text-foreground mb-2">
             Register your first AI system
@@ -72,6 +136,59 @@ export default async function DashboardPage() {
             <Button size="lg">Register AI System</Button>
           </Link>
         </Card>
+      )}
+
+      {/* Recent systems */}
+      {total > 0 && recentSystems && recentSystems.length > 0 && (
+        <div className="mb-8">
+          <div className="flex items-center justify-between mb-4">
+            <p className="text-[9px] uppercase tracking-[0.1em] text-muted-foreground">
+              Recent Systems
+            </p>
+            <Link
+              href="/dashboard/systems"
+              className="text-xs text-primary hover:underline"
+            >
+              View all ({total})
+            </Link>
+          </div>
+
+          <div className="space-y-2">
+            {recentSystems.map((system) => {
+              const riskLevel = recentClassifications[system.id];
+              const riskInfo = riskLevel ? RISK_BADGE[riskLevel] : null;
+
+              return (
+                <Link
+                  key={system.id}
+                  href={`/dashboard/systems/${system.id}`}
+                  className="block group"
+                >
+                  <Card className="p-4 transition-colors duration-150 hover:border-primary/40">
+                    <div className="flex items-center justify-between gap-3">
+                      <div className="flex items-center gap-3 min-w-0">
+                        <h3 className="text-sm font-medium text-foreground group-hover:text-primary transition-colors truncate">
+                          {system.name}
+                        </h3>
+                        {riskInfo ? (
+                          <Badge variant={riskInfo.variant}>{riskInfo.label}</Badge>
+                        ) : (
+                          <Badge>Unclassified</Badge>
+                        )}
+                      </div>
+                      <span className="text-xs text-muted-foreground shrink-0">
+                        {new Date(system.created_at).toLocaleDateString('en-GB', {
+                          day: 'numeric',
+                          month: 'short',
+                        })}
+                      </span>
+                    </div>
+                  </Card>
+                </Link>
+              );
+            })}
+          </div>
+        </div>
       )}
 
       {/* ORIENT flow explanation */}

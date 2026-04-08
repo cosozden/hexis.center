@@ -124,10 +124,10 @@ export default async function SystemDetailPage({
     <div className="max-w-3xl">
       {/* Back link */}
       <Link
-        href="/dashboard"
+        href="/dashboard/systems"
         className="text-xs text-muted-foreground hover:text-foreground transition-colors"
       >
-        &larr; Dashboard
+        &larr; All Systems
       </Link>
 
       {/* System name + badge */}

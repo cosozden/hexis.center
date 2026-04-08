@@ -526,4 +526,144 @@ hexis.center ana sitesi de aynı shadcn/ui + Hexis theme component'lerini kullan
 
 ---
 
-*Bu doküman, 20 Mart 2026 tarihli strateji tartışmasının kesinleşen kararlarını içermektedir. 27 Mart 2026'da "Claude IS the Consultant" paradigma revizyonu, güvenlik mimarisi, halüsinasyon önleme stratejisi ve revize MVP planı eklenmiştir. Aynı gün ikinci oturumda bütçe analizi, Claude API maliyet projeksiyonu, fiyatlama kararı ve açık soruların çözümü tamamlanmıştır. 28 Mart 2026'da UI/UX kararları, KVKK stratejik netleştirme ve sprint ilerleme durumu eklenmiştir.*
+---
+
+## 9. REVİZYON — 8 Nisan 2026: Stratejik Derinleştirme
+
+**Bağlam:** Kapsamlı platform incelemesi sonrası alınan kararlar. Tüm kararlar hexis-platform-tam-vizyon.md'de detaylandırılmıştır.
+
+### 9.1 Temel İlke Değişikliği
+
+**Yeni ilke:** "AI-assisted, not AI-dependent" — deterministik motor karar verir, Claude zenginleştirir.
+
+Bu ilke tüm platform mimarisini şekillendirir:
+- classifier-engine.ts, matrix-engine.ts, obligation-engine.ts → kural-tabanlı, deterministik
+- Claude API → yalnızca bağlamsal yorum, öneri ve rehberlik katmanı
+- Her sonuçta görsel ayrım: "Kural-tabanlı sonuç" vs "AI yorumu"
+- Manuel Mod: kullanıcı Claude'u tamamen kapatabilir
+
+### 9.2 Risk-Adaptive Flow (YENİ)
+
+Kullanıcılar risk seviyesine göre farklı yollardan ilerler:
+- **Prohibited** → Kırmızı uyarı + bilgi sayfası → çıkış
+- **Minimal risk** → Basit checklist → bitti (10 dakika)
+- **Limited risk (Art. 50)** → Şeffaflık yükümlülükleri → basit değerlendirme
+- **High-risk / GPAI** → Tam 6 adım (Observe → Track)
+
+### 9.3 Claude Güvenilirlik Katmanı (YENİ)
+
+"AI yönetişimini AI ile mi denetliyorsunuz?" eleştirisine cevap:
+1. **Madde doğrulama katmanı:** Claude her referansta Art. numarasını doğrular
+2. **4 seviyeli güven göstergesi:** Certain (mevzuat metni), High Confidence, Moderate, Interpretation
+3. **"Kaynağı göster" butonu:** Her Claude yanıtında orijinal madde metni
+4. **Denetim günlüğü:** AI yorumları ayrı loglanır — denetçi kanıt dosyasında YER ALMAZ
+
+### 9.4 Evaluate Rehber Anket (YENİ)
+
+Kullanıcılar maturity seviyelerini kendileri belirlerken rehber anket sunar:
+- Oversight, Monitoring, Documentation için 3-5 soruluk anket
+- Her soruda somut kriterler (ör. "Bu konuda yazılı bir prosedürünüz var mı?")
+- Cevaplara göre maturity seviyesi otomatik önerilir
+- Kullanıcı öneriyi kabul veya düzeltebilir
+
+### 9.5 API Maliyet Optimizasyonu (GÜNCELLEME)
+
+Önceki tahmin (€1.650/ay @ 100 org) revize edildi:
+- **Gerçek maliyet:** ~$15-23/ay @ 100 org
+- **Prompt caching:** 32.5K token system prompt'ta %90 indirim
+- **Model stratejisi:** Haiku 4.5 agresif kullanım, Sonnet sadece karmaşık analiz
+- **Response caching:** Cache key = tam sistem kartı, 7 gün TTL, sistem verisi değişince invalidate
+- **Batch API:** Sadece arka plan görevleri (gece rapor üretimi, toplu güncelleme)
+- **Sonuç:** %95+ marj — API maliyeti pricing kararını ETKİLEMEZ
+
+### 9.6 Güvenlik Mimarisi — 8 Katman (KESİNLEŞTİ)
+
+1. **RLS (Row Level Security):** org_id bazlı izolasyon
+2. **Claude API veri güvenliği:** Sadece mevcut sistem verisi gönderilir, çapraz veri sızıntısı yok
+3. **Veri minimizasyonu:** Claude'a gereksiz veri gitmez
+4. **Auth sertleştirme:** MFA, session rotation, brute force koruması
+5. **Denetim izi:** Kim, ne zaman, ne yaptı — değiştirilemez log
+6. **Veri yerleşimi:** Supabase EU Frankfurt
+7. **Trust sayfası:** Teknik detaylar açıkça paylaşılır
+8. **Rapor veri onayı:** PDF üretmeden önce kullanıcı verilerini doğrular
+
+### 9.7 Regulatory Radar (YENİ — Killer Feature)
+
+Platform yapışkanlığını sağlayan sürekli değer önerisi:
+- EU AI Act değişiklik/güncelleme takibi
+- Digital Omnibus ve diğer düzenleyici gelişmeler
+- Kullanıcının risk seviyesine göre filtrelenmiş bildirimler
+- "Son 30 günde sizi ilgilendiren 3 güncelleme var" → dashboard bildirimi
+- Recurring gelirin ve platform bağımlılığının temel sürücüsü
+
+### 9.8 Navigate & Track — İterasyon Stratejisi (KESİNLEŞTİ)
+
+**Navigate:**
+- Lansman: Liste görünümü (tamamen fonksiyonel — önceliklendirilmiş görev listesi + Claude ile revize)
+- Post-lansman: Kanban board eklenir
+
+**Track:**
+- Lansman: 1 PDF format (yönetim kurulu raporu)
+- Post-lansman: 3 format (yönetim kurulu, teknik denetim, denetçi kanıt dosyası)
+- Denetçi kanıt dosyası: SADECE denetim izi — Claude yorumu ASLA yer almaz
+
+### 9.9 Şeffaflık Stratejisi (KESİNLEŞTİ)
+
+**Kullanıcı kararı:** "Bu şeffaflık bizim lansmanda gücümüz olacak ve bunu çok ayrıntılı ortaya koymalıyız."
+
+Trust sayfası (hexis.center/trust) şunları içerecek:
+- Deterministik motor vs Claude zenginleştirme ayrımı
+- Manuel Mod açıklaması
+- Veri güvenliği mimarisi (8 katman detaylı)
+- Prompt tasarımı yaklaşımı (hallüsinasyon önleme)
+- GDPR/veri yerleşimi bilgisi
+- Bağımsız denetim planı
+
+### 9.10 Yasal Yapı & Şirket Kurulumu (KESİNLEŞTİ)
+
+- **e-Residency:** Başvuru onaylandı, kart 2-4 hafta içinde konsolosluğa gelecek
+- **Şirket kurulumu:** Fiziksel kart ZORUNLU — kart alınana kadar şirket kurulamaz
+- **Servis sağlayıcı:** Xolo Leap (tahmini maliyet ~€1.508 ilk yıl)
+- **TOS & Privacy Policy:** Xolo'nun sunduğu template'lerle başlanacak
+- **AI Disclaimer:** Trust sayfasına eklenecek özel AI kullanım disclaimer'ı
+- **Türk avukat:** KVKK/AB hukuku çapraz konularda danışmanlık planlandı
+
+### 9.11 Revize Zaman Çizelgesi (14 Hafta → 15 Haziran)
+
+| Faz | Haftalar | Odak |
+|-----|----------|------|
+| Faz 1: Observe + Risk | H1-H3 (8-27 Nisan) | Sistem ekleme, risk sınıflandırma, dashboard |
+| Faz 2: Identify + Evaluate | H4-H6 (28 Nis-18 May) | Yükümlülük haritası, rehber anket, matrix |
+| Faz 3: Navigate + Track | H7-H9 (19 May-8 Haz) | Aksiyon planı, dashboard, PDF rapor |
+| Faz 4: Ödeme + Lansman | H10-H11 (9-22 Haz) | Stripe, onboarding, landing, trust, polish |
+| Faz 5: QA + Soft Launch | H12-H14 (23 Haz-13 Tem) | Test, bug fix, beta kullanıcılar |
+
+**Paralel iş akışları:** Xolo şirket kurulumu, avukat görüşmeleri, rekabet analizi
+
+### 9.12 Sprint Durumu (8 Nisan)
+
+**Hafta 1-2 (Altyapı):** ✅ TAMAMLANDI
+**Hafta 3 (Observe + Risk motorları):** ✅ TAMAMLANDI
+- classifier-engine.ts ✅ (25 test)
+- matrix-engine.ts ✅ (26 test)
+- obligation-engine.ts ✅
+- 3 API route ✅
+- Pre-commit validation suite ✅ (schema + contracts + routes)
+
+**Hafta 4+ (UI entegrasyon):** ⏳ BAŞLIYOR
+- Observe form UI → dashboard entegrasyonu
+- Risk wizard UI → engine bağlantısı
+- Dashboard ana sayfa → sistem listesi + risk özeti + boş durum
+- Manuel mod toggle
+
+### 9.13 Altyapı Düzeltmeleri (8 Nisan)
+
+- ✅ Supabase projesi restore edildi (paused → aktif)
+- ✅ Vercel duplicate projeler temizlendi (3 → 1: hexis-app)
+- ✅ validate-schema.ts parameterized type fix (numeric(4,2), varchar(255))
+- ⏳ Supabase migration 002 çalıştırılacak
+- ⏳ @supabase/ssr + @supabase/supabase-js güncelleme → ignoreBuildErrors kaldırma
+
+---
+
+*Bu doküman, 20 Mart 2026 tarihli strateji tartışmasının kesinleşen kararlarını içermektedir. 27 Mart 2026'da "Claude IS the Consultant" paradigma revizyonu, güvenlik mimarisi, halüsinasyon önleme stratejisi ve revize MVP planı eklenmiştir. Aynı gün ikinci oturumda bütçe analizi, Claude API maliyet projeksiyonu, fiyatlama kararı ve açık soruların çözümü tamamlanmıştır. 28 Mart 2026'da UI/UX kararları, KVKK stratejik netleştirme ve sprint ilerleme durumu eklenmiştir. 8 Nisan 2026'da stratejik derinleştirme: AI-assisted ilkesi, Risk-Adaptive Flow, güvenilirlik katmanı, güvenlik mimarisi kesinleştirme, Regulatory Radar, Navigate/Track iterasyon stratejisi, şeffaflık kararı, yasal yapı ve revize zaman çizelgesi eklenmiştir.*
