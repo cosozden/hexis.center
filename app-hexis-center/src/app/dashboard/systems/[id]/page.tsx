@@ -41,7 +41,11 @@ interface OrientStep {
   status: "done" | "next" | "locked";
 }
 
-function buildOrientSteps(hasClassification: boolean, hasObligations: boolean): OrientStep[] {
+function buildOrientSteps(
+  hasClassification: boolean,
+  hasObligations: boolean,
+  hasAssessment: boolean,
+): OrientStep[] {
   return [
     {
       letter: "O",
@@ -64,14 +68,14 @@ function buildOrientSteps(hasClassification: boolean, hasObligations: boolean): 
     {
       letter: "E",
       name: "Evaluate",
-      hint: "Assess gaps",
-      status: hasObligations ? "next" : "locked",
+      hint: hasAssessment ? "Assessed" : "Assess gaps",
+      status: hasAssessment ? "done" : hasObligations ? "next" : "locked",
     },
     {
       letter: "N",
       name: "Navigate",
       hint: "Plan actions",
-      status: "locked",
+      status: hasAssessment ? "next" : "locked",
     },
     {
       letter: "T",
@@ -114,9 +118,16 @@ export default async function SystemDetailPage({
     .select("id", { count: "exact", head: true })
     .eq("system_id", id);
 
+  // Fetch assessment count for ORIENT progress
+  const { count: assessmentCount } = await supabase
+    .from("assessments")
+    .select("id", { count: "exact", head: true })
+    .eq("system_id", id);
+
   const hasClassification = !!classification;
   const hasObligations = (obligationCount ?? 0) > 0;
-  const steps = buildOrientSteps(hasClassification, hasObligations);
+  const hasAssessment = (assessmentCount ?? 0) > 0;
+  const steps = buildOrientSteps(hasClassification, hasObligations, hasAssessment);
   const riskInfo = classification ? RISK_BADGE[classification.risk_level] : null;
   const completedCount = steps.filter((s) => s.status === "done").length;
 
@@ -188,7 +199,7 @@ export default async function SystemDetailPage({
       {!hasClassification ? (
         <Card accent className="p-5 mb-8">
           <p className="text-[9px] uppercase tracking-[0.1em] text-primary mb-2">
-            Next Step
+            Next Step &mdash; Risk
           </p>
           <p className="text-sm text-foreground mb-1">
             Classify your system&apos;s risk level under the EU AI Act.
@@ -201,10 +212,10 @@ export default async function SystemDetailPage({
             <Button size="sm">Start Risk Classification</Button>
           </Link>
         </Card>
-      ) : (
+      ) : !hasObligations ? (
         <Card accent className="p-5 mb-8">
           <p className="text-[9px] uppercase tracking-[0.1em] text-primary mb-2">
-            Next Step
+            Next Step &mdash; Identify
           </p>
           <p className="text-sm text-foreground mb-1">
             Identify your legal obligations based on the classification result.
@@ -215,6 +226,38 @@ export default async function SystemDetailPage({
           </p>
           <Link href={`/dashboard/systems/${system.id}/obligations`}>
             <Button size="sm">Map Obligations</Button>
+          </Link>
+        </Card>
+      ) : !hasAssessment ? (
+        <Card accent className="p-5 mb-8">
+          <p className="text-[9px] uppercase tracking-[0.1em] text-primary mb-2">
+            Next Step &mdash; Evaluate
+          </p>
+          <p className="text-sm text-foreground mb-1">
+            Assess your governance maturity and identify critical gaps.
+          </p>
+          <p className="text-xs text-muted-foreground mb-4">
+            Rate your oversight, monitoring, and documentation practices.
+            The matrix engine calculates your activation posture and urgency level.
+          </p>
+          <Link href={`/dashboard/systems/${system.id}/assess`}>
+            <Button size="sm">Start Assessment</Button>
+          </Link>
+        </Card>
+      ) : (
+        <Card accent className="p-5 mb-8">
+          <p className="text-[9px] uppercase tracking-[0.1em] text-primary mb-2">
+            Next Step &mdash; Navigate
+          </p>
+          <p className="text-sm text-foreground mb-1">
+            Generate your compliance action plan.
+          </p>
+          <p className="text-xs text-muted-foreground mb-4">
+            Based on your risk level, obligations, and governance gaps,
+            create a prioritized roadmap with deadlines and resource estimates.
+          </p>
+          <Link href={`/dashboard/systems/${system.id}/roadmap`}>
+            <Button size="sm">Generate Action Plan</Button>
           </Link>
         </Card>
       )}
