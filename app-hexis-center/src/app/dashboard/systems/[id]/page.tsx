@@ -281,6 +281,9 @@ export default async function SystemDetailPage({
             reports for board, DPO, and auditors.
           </p>
           <div className="flex gap-3">
+            <Link href={`/dashboard/systems/${system.id}/track`}>
+              <Button size="sm">Open Tracker</Button>
+            </Link>
             <Link href={`/dashboard/systems/${system.id}/roadmap`}>
               <Button variant="outline" size="sm">View Action Plan</Button>
             </Link>
