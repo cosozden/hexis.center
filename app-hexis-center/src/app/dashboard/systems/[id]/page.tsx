@@ -45,6 +45,7 @@ function buildOrientSteps(
   hasClassification: boolean,
   hasObligations: boolean,
   hasAssessment: boolean,
+  hasActions: boolean,
 ): OrientStep[] {
   return [
     {
@@ -74,14 +75,14 @@ function buildOrientSteps(
     {
       letter: "N",
       name: "Navigate",
-      hint: "Plan actions",
-      status: hasAssessment ? "next" : "locked",
+      hint: hasActions ? "Plan created" : "Plan actions",
+      status: hasActions ? "done" : hasAssessment ? "next" : "locked",
     },
     {
       letter: "T",
       name: "Track",
       hint: "Monitor progress",
-      status: "locked",
+      status: hasActions ? "next" : "locked",
     },
   ];
 }
@@ -124,10 +125,17 @@ export default async function SystemDetailPage({
     .select("id", { count: "exact", head: true })
     .eq("system_id", id);
 
+  // Fetch actions count for ORIENT progress
+  const { count: actionsCount } = await supabase
+    .from("actions")
+    .select("id", { count: "exact", head: true })
+    .eq("system_id", id);
+
   const hasClassification = !!classification;
   const hasObligations = (obligationCount ?? 0) > 0;
   const hasAssessment = (assessmentCount ?? 0) > 0;
-  const steps = buildOrientSteps(hasClassification, hasObligations, hasAssessment);
+  const hasActions = (actionsCount ?? 0) > 0;
+  const steps = buildOrientSteps(hasClassification, hasObligations, hasAssessment, hasActions);
   const riskInfo = classification ? RISK_BADGE[classification.risk_level] : null;
   const completedCount = steps.filter((s) => s.status === "done").length;
 
@@ -244,7 +252,7 @@ export default async function SystemDetailPage({
             <Button size="sm">Start Assessment</Button>
           </Link>
         </Card>
-      ) : (
+      ) : !hasActions ? (
         <Card accent className="p-5 mb-8">
           <p className="text-[9px] uppercase tracking-[0.1em] text-primary mb-2">
             Next Step &mdash; Navigate
@@ -259,6 +267,24 @@ export default async function SystemDetailPage({
           <Link href={`/dashboard/systems/${system.id}/roadmap`}>
             <Button size="sm">Generate Action Plan</Button>
           </Link>
+        </Card>
+      ) : (
+        <Card accent className="p-5 mb-8">
+          <p className="text-[9px] uppercase tracking-[0.1em] text-primary mb-2">
+            Next Step &mdash; Track
+          </p>
+          <p className="text-sm text-foreground mb-1">
+            Monitor your compliance progress.
+          </p>
+          <p className="text-xs text-muted-foreground mb-4">
+            Dashboard with compliance score, progress tracking, and automated
+            reports for board, DPO, and auditors.
+          </p>
+          <div className="flex gap-3">
+            <Link href={`/dashboard/systems/${system.id}/roadmap`}>
+              <Button variant="outline" size="sm">View Action Plan</Button>
+            </Link>
+          </div>
         </Card>
       )}
 
