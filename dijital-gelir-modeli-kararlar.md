@@ -666,4 +666,173 @@ Trust sayfası (hexis.center/trust) şunları içerecek:
 
 ---
 
-*Bu doküman, 20 Mart 2026 tarihli strateji tartışmasının kesinleşen kararlarını içermektedir. 27 Mart 2026'da "Claude IS the Consultant" paradigma revizyonu, güvenlik mimarisi, halüsinasyon önleme stratejisi ve revize MVP planı eklenmiştir. Aynı gün ikinci oturumda bütçe analizi, Claude API maliyet projeksiyonu, fiyatlama kararı ve açık soruların çözümü tamamlanmıştır. 28 Mart 2026'da UI/UX kararları, KVKK stratejik netleştirme ve sprint ilerleme durumu eklenmiştir. 8 Nisan 2026'da stratejik derinleştirme: AI-assisted ilkesi, Risk-Adaptive Flow, güvenilirlik katmanı, güvenlik mimarisi kesinleştirme, Regulatory Radar, Navigate/Track iterasyon stratejisi, şeffaflık kararı, yasal yapı ve revize zaman çizelgesi eklenmiştir.*
+*Bu doküman, 20 Mart 2026 tarihli strateji tartışmasının kesinleşen kararlarını içermektedir. 27 Mart 2026'da "Claude IS the Consultant" paradigma revizyonu, güvenlik mimarisi, halüsinasyon önleme stratejisi ve revize MVP planı eklenmiştir. Aynı gün ikinci oturumda bütçe analizi, Claude API maliyet projeksiyonu, fiyatlama kararı ve açık soruların çözümü tamamlanmıştır. 28 Mart 2026'da UI/UX kararları, KVKK stratejik netleştirme ve sprint ilerleme durumu eklenmiştir. 8 Nisan 2026'da stratejik derinleştirme: AI-assisted ilkesi, Risk-Adaptive Flow, güvenilirlik katmanı, güvenlik mimarisi kesinleştirme, Regulatory Radar, Navigate/Track iterasyon stratejisi, şeffaflık kararı, yasal yapı ve revize zaman çizelgesi eklenmiştir. 9 Nisan 2026'da köklü stratejik yeniden konumlandırma: "AI Governance Engineering" disiplini, Üç Dönem çerçevesi, GovOps mimari altyapısı ve eğitim içerik önceliklendirmesi eklenmiştir.*
+
+---
+
+---
+
+## 10. REVİZYON — 9 Nisan 2026: Stratejik Yeniden Konumlandırma + GovOps Altyapısı
+
+**Bağlam:** Hexis'in gelir çeşitlendirmesi tartışması ile başlayan, şirketin kimliğini ve uzun vadeli vizyonunu köklü olarak yeniden tanımlayan oturum. Üç ana alanda (strateji, SaaS mimari, QA) kritik kararlar alındı ve uygulandı.
+
+### 10.1 Kimlik Değişikliği — AI Governance Engineering
+
+**ESKİ:** "Compliance şirketi" — EU AI Act uyum araçları satan yazılım şirketi
+**YENİ:** "AI Governance Engineering" disiplininin öncüsü teknoloji şirketi
+
+> Hexis bir "compliance firması" değil — "AI Governance Engineering" disiplininin öncüsüdür. Bugünkü araçlar (ORIENT, Matrix, SaaS) bu disiplinin ilk uygulamalarıdır.
+
+**Neden önemli:**
+- Compliance şirketi = reaktif, deadline-driven, yarışta geç kalmış
+- AI Governance Engineering = proaktif, disiplin kurucu, pazar tanımlayıcı
+- Bu pozisyonlama ücretli eğitim, danışmanlık ve partner ekosistemi kapısını açar
+- "Disiplin öncüsü" olarak premium fiyatlandırma meşruiyeti sağlar
+
+### 10.2 Üç Dönem Çerçevesi (YENİ)
+
+Hexis'in ürün evrimini ve pazarın olgunlaşmasını tanımlayan stratejik çerçeve:
+
+| Dönem | Adı | Pazar Durumu | Hexis Ürünü | Süre |
+|-------|-----|-------------|-------------|------|
+| **Dönem 1** | **Checkbox** | "Compliance checklist mi doldurayım?" | SaaS + şablonlar — ORIENT süreci, risk sınıflandırma, gap analiz | Şimdi → 2027 |
+| **Dönem 2** | **GovOps** | "AI governance'ı operasyonlarıma nasıl entegre ederim?" | Continuous monitoring, event-driven, API entegrasyonları | 2027-2029 |
+| **Dönem 3** | **Otonom** | "AI sistemi kendini denetleyebilir mi?" | Autonomous compliance agents, self-healing governance | 2029+ |
+
+**Karar:** Dönem 1 MVP'ye Dönem 2'ye kapı açan minimal GovOps altyapısı eklendi. Tamamen Dönem 2 build etmek değil — temel veri yapılarını şimdiden oluşturmak.
+
+### 10.3 API Modeli Gerçekçilik Testi
+
+**Dürüst kabul:** API/marketplace modeli (Hexis API'sini 3. parti araçlara satma) erken aşamada gerçekçi değil:
+- Henüz kullanıcı tabanı yok
+- API'nin ne sunacağı belirsiz
+- Entegrasyon partnerleri bulmak zor
+- MCP marketplace henüz olgunlaşmadı
+
+**Karar:** API/marketplace gelir kanalı Dönem 2'ye ertelendi. Şimdi doğrudan kullanıcıya değer sunan kanallara odaklanılacak.
+
+### 10.4 Eğitim İçeriği Önceliklendirmesi (YENİ)
+
+**Karar:** Eğitim içerikleri bugün başlanması gereken öncelikli gelir kanalıdır.
+
+| İçerik Türü | Format | Platform | Gelir Modeli | Zamanlama |
+|-------------|--------|----------|-------------|-----------|
+| Blog serisi | "AI Governance Engineering Manifesto" | hexis.center | Ücretsiz (SEO + otorite) | Hemen |
+| Newsletter | Haftalık GovOps insights | Beehiiv | Ücretsiz → premium | Hemen |
+| Mini kurs | "EU AI Act in 30 Days" | Hazırlanacak | Ücretli (€49-99) | Ay 2-3 |
+| Workshop | Canlı online "ORIENT Masterclass" | Zoom + replay | Ücretli (€149-299) | Ay 4-6 |
+
+**İlk aksiyon:** "AI Governance Engineering Manifesto" blog makalesi — Hexis'in yeni pozisyonlamasını tanımlayan founding document.
+
+### 10.5 GovOps Mimari Altyapısı (SaaS Teknik Kararlar)
+
+Dönem 1 MVP'ye eklenen Dönem 2 temeli. Her mimari karar tartışılarak onaylandı:
+
+**10.5.1 governance_events Tablosu (Immutable Audit Trail)**
+- Her değişiklik (assessment update, obligation completion, action status change) bir event olarak kaydedilir
+- `previous_value` + `new_value` — tam değişiklik izi
+- `event_type`: assessment_updated, obligation_completed, action_created, classification_changed, snapshot_created vb.
+- Immutable — güncelleme/silme yok, sadece INSERT
+- Denetçi kanıt dosyasının temel veri kaynağı
+- Dönem 2'de: event stream, webhook trigger, 3. parti entegrasyon
+
+**10.5.2 Üç Katmanlı Invalidasyon Mantığı**
+Bir ORIENT adımında değişiklik olduğunda sonraki adımların geçerliliğini yöneten sistem:
+
+| Katman | Mekanizma | Uygulama |
+|--------|-----------|----------|
+| 1. Deterministik | Doğrudan etkilenen adımı hemen invalidate et | `invalidation-config.ts` — kural tabanlı etki haritası |
+| 2. Claude Değerlendirme | İçerik değişikliğinin etkisini Claude'a analiz ettir | API endpoint — "Bu değişiklik sonraki adımları etkiler mi?" |
+| 3. Banner Bildirimi | Kullanıcıya "Bu adım güncel olmayabilir" uyarısı göster | UI banner — kullanıcı karar verir (güncelle / yoksay) |
+
+Invalidation kuralları `invalidation-config.ts`'de tanımlı:
+- observe → risk + identify (sistem amacı değişirse risk sınıfı etkilenir)
+- risk → identify + evaluate + navigate (risk seviyesi değişirse yükümlülükler değişir)
+- identify → navigate (yükümlülük durumu aksiyon planını etkiler)
+- evaluate → navigate (maturity gap değişirse önceliklendirme değişir)
+- navigate → track (aksiyon planı değişirse skor değişir)
+
+**10.5.3 next_review_date (Manuel)**
+- Her adımda kullanıcının ayarlayabileceği "sonraki gözden geçirme tarihi"
+- Dönem 1'de manuel — kullanıcı kendisi tarih belirler
+- Dönem 2'de: otomatik öneriler (risk seviyesine göre), takvim entegrasyonu, e-posta hatırlatma
+
+**10.5.4 orient_guides Kaynak Rehberi**
+- Her ORIENT adımı için başlangıç rehberi ve bağlam bilgisi
+- `orient-guides.ts` — adım başına: başlık, açıklama, neden önemli, ne yapılacak, ipuçları, tahmini süre
+- UI'da "Bu adımda ne yapacaksınız?" kartı olarak gösterilir
+- Kullanıcıya self-serve deneyim sunar — danışmana sormadan ilerleyebilir
+
+### 10.6 Oluşturulan GovOps Dosyaları
+
+| Dosya | İşlev | Satır |
+|-------|-------|-------|
+| `src/lib/config/invalidation-config.ts` | Uygulama seviyesi akıllı etki tespiti — hangi ORIENT adımı değişince hangi adımlar invalidate olur | ~150 |
+| `src/lib/config/orient-guides.ts` | ORIENT adım kaynak rehberi — her adım için bağlam, açıklama, ipuçları | ~200 |
+| `supabase/migrations/003_govops_foundation.sql` | governance_events tablosu, next_review_date sütunları, related indexes | ~80 |
+
+### 10.7 QA Sonuçları (9 Nisan)
+
+3 fazlı HEXIS QA protokolü uygulandı, 4 hata bulundu ve düzeltildi:
+
+| Hata | Seviye | Düzeltme |
+|------|--------|----------|
+| OrientStep DB uyumsuzluğu — TypeScript `'observe'` vs DB `'observe'` enum mismatch | **Kritik** | Tür tanımları senkronize edildi |
+| Art. 61 → Art. 73 (post-market monitoring) | Yüksek | Doğru madde referansı ile güncellendi |
+| Art. 52 → Art. 51 (GPAI yükümlülükleri) | Yüksek | Doğru madde referansı ile güncellendi |
+| Art. 9(9) → Art. 9 (paragraf referansı) | Orta | Genel madde referansına düzeltildi |
+
+### 10.8 Sprint Durumu (9 Nisan — Güncel)
+
+**ORIENT Adımları (SaaS):**
+- ✅ Observe (Adım 1) — Sistem envanteri + Claude serbest metin parse
+- ✅ Risk (Adım 2) — Deterministik wizard + Claude zenginleştirme
+- ✅ Identify (Adım 3) — Yükümlülük eşleme + Claude multi-turn advisor
+- ✅ Evaluate (Adım 4) — Governance Matrix + Claude gap analiz
+- ✅ Navigate (Adım 5) — Claude aksiyon planı + navigate-engine + roadmap UI
+- ✅ Track (Adım 6) — score-engine + compliance tracker + generate-report API
+
+**GovOps Altyapı:**
+- ✅ invalidation-config.ts (etki haritası)
+- ✅ orient-guides.ts (adım rehberi)
+- ✅ 003_govops_foundation.sql (governance_events + next_review_date)
+- ⏳ Supabase migration çalıştırılacak
+
+**Bekleyen:**
+- ⏳ AI Governance Engineering Manifesto makalesi
+- ⏳ Newsletter konusu (GovOps kavramı)
+- ⏳ Supabase migration uygulama (003)
+- ⏳ MCP Server v1
+- ⏳ Stripe ödeme entegrasyonu
+- ⏳ Onboarding akışı
+- ⏳ Trust sayfası
+
+### 10.9 Gelir Kanalları Güncel Tablo
+
+| Kanal | Durum | Öncelik | Not |
+|-------|-------|---------|-----|
+| Starter Kit (€99-109) | ✅ Satışta | Aktif | Etsy + LemonSqueezy |
+| SaaS Pro (€9→€29/ay) | ⏳ Geliştirmede | Yüksek | ORIENT 6/6 adım complete, ödeme + onboarding kaldı |
+| Eğitim içerikleri | 🆕 Yeni kanal | Yüksek | Blog manifesto + newsletter hemen, mini kurs Ay 2-3 |
+| FRIA Bundle (€149) | ⏳ Planlanıyor | Orta | SaaS MVP sonrası |
+| Complete Toolkit (€249) | ⏳ Planlanıyor | Düşük | Tam kit |
+| API/Marketplace | ❌ Ertelendi | — | Dönem 2'ye bırakıldı |
+
+### 10.10 Açık Kalan Konular (Güncel — 9 Nisan)
+
+| Konu | Durum | Not |
+|------|-------|-----|
+| AI Governance Engineering Manifesto | ⚠️ Öncelikli | Yeni pozisyonlamayı tanımlayan founding document |
+| Newsletter başlatma | ⚠️ Öncelikli | Beehiiv — GovOps insights haftalık |
+| Supabase migration 003 | ⏳ Teknik | governance_events tablosu + next_review_date |
+| MCP Server v1 | ⏳ Sprint 2 | Read-only, 5 tool |
+| Stripe entegrasyonu | ⏳ Sprint 2 | €9 intro → €29 geçiş |
+| Trust sayfası | ⏳ Lansman öncesi | hexis.center/trust |
+| Onboarding akışı | ⏳ Lansman öncesi | "3 adımda başlayın" |
+
+### 10.11 Revize Vizyon Cümlesi
+
+> **Eski:** "EU AI Act uyumunu Excel tablolarından ve pahalı danışmanlardan kurtarın."
+> **Yeni:** "Hexis, AI Governance Engineering disiplininin öncüsüdür. Bugünkü araçlarımız (ORIENT, Matrix, SaaS) bu disiplinin ilk uygulamalarıdır — yarının otonom yönetişim sistemlerinin temelini bugün inşa ediyoruz."
+
+---

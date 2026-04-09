@@ -6,6 +6,7 @@ Workplace shorthand, acronyms, and internal language.
 | Term | Meaning | Context |
 |------|---------|---------|
 | ORIENT | Observe-Risk-Identify-Evaluate-Navigate-Track | Hexis normative methodology v0.2.1 |
+| GovOps | Governance Operations | Dönem 2 kavramı — continuous monitoring, event-driven AI governance |
 | CCA-F | Claude Certified Architect — Foundations | Anthropic sertifika programı |
 | AIGP | AI Governance Professional | IAPP sertifikası — Özden üye ama belge henüz yok |
 | KVKK | Kişisel Verilerin Korunması Kanunu | Türkiye veri koruma yasası |
@@ -14,6 +15,7 @@ Workplace shorthand, acronyms, and internal language.
 | OÜ | Osaühing | Estonya LTD şirket tipi |
 | SaaS | Software as a Service | app.hexis.center planı |
 | MVP | Minimum Viable Product | SaaS ilk versiyonu |
+| AGE | AI Governance Engineering | Hexis'in tanımladığı yeni disiplin — compliance'ın ötesinde |
 
 ## Internal Terms
 | Term | Meaning |
@@ -25,6 +27,9 @@ Workplace shorthand, acronyms, and internal language.
 | Web Repo | hexis.center GitHub reposu (web sitesi) |
 | Web Palette | hexis.center için grayscale + brass renk paleti |
 | Plugin Palette | LinkedIn/sunum için dark navy + agate blue paleti |
+| Üç Dönem | Hexis stratejik çerçeve: Checkbox → GovOps → Otonom (9 Nisan 2026) |
+| Manifesto | "AI Governance Engineering Manifesto" — Hexis'in yeni pozisyonlamasını tanımlayan founding document |
+| Invalidation | ORIENT adımları arası etki yayılımı — bir adım değiştiğinde sonraki adımların geçerliliğini yöneten sistem |
 
 ## Platform Accounts
 | Platform | Status | Notes |
@@ -40,3 +45,5 @@ Workplace shorthand, acronyms, and internal language.
 | Starter Kit | İlk dijital ürün — Etsy + LemonSqueezy |
 | SaaS MVP | app.hexis.center — AI governance platformu |
 | e-Residency | Estonya e-Residency + OÜ şirket kuruluşu |
+| GovOps Foundation | Dönem 2 temeli — governance_events, invalidation, next_review_date |
+| AGE Manifesto | AI Governance Engineering tanımlayıcı blog makalesi |

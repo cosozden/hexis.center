@@ -12,9 +12,10 @@
 - CCA-F (Claude Certified Architect) — aktif çalışma hedefi (Partner Network sonrası sınav)
 
 ## Current Focus
-- EU AI Act compliance danışmanlığı
+- AI Governance Engineering disiplini tanımlama ve pozisyonlama
 - Hexis dijital ürün satışları (Starter Kit)
-- SaaS MVP geliştirme (app.hexis.center)
+- SaaS platform tamamlama (ORIENT 6/6 complete, ödeme+onboarding kaldı)
+- Eğitim içerikleri başlatma (AGE Manifesto, newsletter)
 - Estonya e-Residency ile AB şirketi kuruluşu
 
 ## Preferences
