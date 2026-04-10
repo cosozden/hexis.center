@@ -13,6 +13,7 @@
 import { NextResponse } from 'next/server';
 import { z } from 'zod';
 import { authenticateRequest, checkRateLimit, logUsage } from '@/lib/api/auth';
+import { logGovernanceEvent, triggerInvalidation, EVENT_TYPES } from '@/lib/governance/event-logger';
 import { callClaude } from '@/lib/claude/client';
 import { GENERATE_ACTION_PLAN } from '@/lib/claude/tools';
 import { NAVIGATE_PROMPT, fillPrompt } from '@/lib/claude/prompts';
@@ -278,6 +279,33 @@ export async function POST(request: Request) {
         outputTokens: response.usage.outputTokens,
         cacheReadTokens: response.usage.cacheReadTokens,
       }, latencyMs);
+    } catch {
+      // Non-fatal
+    }
+
+    // 12b. Log governance event + trigger invalidation (non-fatal)
+    try {
+      await logGovernanceEvent(ctx.supabase, {
+        orgId: ctx.orgId,
+        systemId: input.systemId,
+        eventType: EVENT_TYPES.ACTION_CREATED,
+        orientStep: 'navigate',
+        actorId: ctx.userId,
+        newValue: {
+          actions_count: plan.actions.length,
+          critical_path: plan.critical_path,
+          executive_summary: plan.executive_summary.slice(0, 200),
+        },
+      });
+
+      // Navigate changed → invalidate downstream (track)
+      await triggerInvalidation(ctx.supabase, {
+        orgId: ctx.orgId,
+        systemId: input.systemId,
+        sourceStep: 'navigate',
+        actorId: ctx.userId,
+        changeDescription: `Action plan generated: ${plan.actions.length} actions`,
+      });
     } catch {
       // Non-fatal
     }

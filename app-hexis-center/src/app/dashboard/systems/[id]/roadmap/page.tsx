@@ -13,6 +13,7 @@
 import { redirect, notFound } from "next/navigation";
 import { createServerSupabaseClient } from "@/lib/supabase/server";
 import { ActionPlan } from "@/components/roadmap/action-plan";
+import { ChangeBanner } from "@/components/systems/change-banner";
 
 export const dynamic = "force-dynamic";
 
@@ -24,10 +25,10 @@ export default async function RoadmapPage({
   const { id } = await params;
   const supabase = await createServerSupabaseClient();
 
-  // Fetch system
+  // Fetch system (including invalidation status)
   const { data: system } = await supabase
     .from("ai_systems")
-    .select("id, name, purpose")
+    .select("id, name, purpose, invalidated_steps")
     .eq("id", id)
     .single();
 
@@ -76,13 +77,23 @@ export default async function RoadmapPage({
     .eq("system_id", id)
     .order("sort_order", { ascending: true });
 
+  const invalidatedSteps = (system.invalidated_steps as string[]) ?? [];
+
   return (
-    <ActionPlan
-      systemId={system.id}
-      systemName={system.name}
-      riskLevel={classification.risk_level}
-      initialActions={actions ?? []}
-      initialPlan={null}
-    />
+    <>
+      <ChangeBanner
+        systemId={system.id}
+        currentStep="navigate"
+        invalidatedSteps={invalidatedSteps}
+        sourceStep="evaluate"
+      />
+      <ActionPlan
+        systemId={system.id}
+        systemName={system.name}
+        riskLevel={classification.risk_level}
+        initialActions={actions ?? []}
+        initialPlan={null}
+      />
+    </>
   );
 }

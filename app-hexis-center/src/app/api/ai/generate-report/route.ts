@@ -15,6 +15,7 @@
 import { NextResponse } from 'next/server';
 import { z } from 'zod';
 import { authenticateRequest, checkRateLimit, logUsage } from '@/lib/api/auth';
+import { logGovernanceEvent, EVENT_TYPES } from '@/lib/governance/event-logger';
 import { callClaude } from '@/lib/claude/client';
 import { GENERATE_REPORT } from '@/lib/claude/tools';
 import { TRACK_PROMPT, fillPrompt } from '@/lib/claude/prompts';
@@ -250,6 +251,24 @@ ${trendData}
         outputTokens: response.usage.outputTokens,
         cacheReadTokens: response.usage.cacheReadTokens,
       }, latencyMs);
+    } catch {
+      // Non-fatal
+    }
+
+    // 10b. Log governance event (non-fatal)
+    try {
+      await logGovernanceEvent(ctx.supabase, {
+        orgId: ctx.orgId,
+        systemId: input.systemId,
+        eventType: EVENT_TYPES.REPORT_GENERATED,
+        orientStep: 'track',
+        actorId: ctx.userId,
+        newValue: {
+          audience: input.audience,
+          score: complianceScore.overall,
+          score_level: complianceScore.level,
+        },
+      });
     } catch {
       // Non-fatal
     }

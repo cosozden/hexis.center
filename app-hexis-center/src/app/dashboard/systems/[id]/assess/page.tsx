@@ -8,6 +8,7 @@
 import { notFound, redirect } from "next/navigation";
 import { createServerSupabaseClient } from "@/lib/supabase/server";
 import { GovernanceMatrix } from "@/components/matrix/governance-matrix";
+import { ChangeBanner } from "@/components/systems/change-banner";
 import type { ExposureLevel } from "@/lib/engines/matrix-engine";
 
 export const dynamic = "force-dynamic";
@@ -35,10 +36,10 @@ export default async function AssessPage({
   const { id: systemId } = await params;
   const supabase = await createServerSupabaseClient();
 
-  // Fetch system
+  // Fetch system (including invalidation status)
   const { data: system } = await supabase
     .from("ai_systems")
-    .select("id, name, purpose, organisation_role")
+    .select("id, name, purpose, organisation_role, invalidated_steps")
     .eq("id", systemId)
     .single();
 
@@ -68,14 +69,23 @@ export default async function AssessPage({
     .maybeSingle();
 
   const riskExposure = riskToExposure(classification.risk_level);
+  const invalidatedSteps = (system.invalidated_steps as string[]) ?? [];
 
   return (
-    <GovernanceMatrix
-      systemId={system.id}
-      systemName={system.name}
-      riskLevel={classification.risk_level}
-      riskExposure={riskExposure}
-      previousAssessment={previousAssessment}
-    />
+    <>
+      <ChangeBanner
+        systemId={systemId}
+        currentStep="evaluate"
+        invalidatedSteps={invalidatedSteps}
+        sourceStep="identify"
+      />
+      <GovernanceMatrix
+        systemId={system.id}
+        systemName={system.name}
+        riskLevel={classification.risk_level}
+        riskExposure={riskExposure}
+        previousAssessment={previousAssessment}
+      />
+    </>
   );
 }

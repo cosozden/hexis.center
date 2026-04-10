@@ -14,6 +14,7 @@
 import { redirect, notFound } from "next/navigation";
 import { createServerSupabaseClient } from "@/lib/supabase/server";
 import { ComplianceTracker } from "@/components/track/compliance-tracker";
+import { ChangeBanner } from "@/components/systems/change-banner";
 import {
   calculateComplianceScore,
   type ScoreInput,
@@ -29,10 +30,10 @@ export default async function TrackPage({
   const { id } = await params;
   const supabase = await createServerSupabaseClient();
 
-  // Fetch system
+  // Fetch system (including invalidation status)
   const { data: system } = await supabase
     .from("ai_systems")
-    .select("id, name, purpose")
+    .select("id, name, purpose, invalidated_steps")
     .eq("id", id)
     .single();
 
@@ -131,13 +132,23 @@ export default async function TrackPage({
     .order("snapshot_at", { ascending: false })
     .limit(30);
 
+  const invalidatedSteps = (system.invalidated_steps as string[]) ?? [];
+
   return (
-    <ComplianceTracker
-      systemId={system.id}
-      systemName={system.name}
-      riskLevel={classification.risk_level}
-      initialScore={initialScore}
-      initialSnapshots={snapshots ?? []}
-    />
+    <>
+      <ChangeBanner
+        systemId={system.id}
+        currentStep="track"
+        invalidatedSteps={invalidatedSteps}
+        sourceStep="navigate"
+      />
+      <ComplianceTracker
+        systemId={system.id}
+        systemName={system.name}
+        riskLevel={classification.risk_level}
+        initialScore={initialScore}
+        initialSnapshots={snapshots ?? []}
+      />
+    </>
   );
 }

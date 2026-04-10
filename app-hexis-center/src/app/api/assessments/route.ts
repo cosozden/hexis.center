@@ -7,6 +7,7 @@
 import { NextResponse } from 'next/server';
 import { z } from 'zod';
 import { authenticateRequest } from '@/lib/api/auth';
+import { logGovernanceEvent, triggerInvalidation, EVENT_TYPES } from '@/lib/governance/event-logger';
 
 const AssessmentSchema = z.object({
   systemId: z.string().uuid(),
@@ -73,6 +74,34 @@ export async function POST(request: Request) {
       { error: 'Failed to save assessment' },
       { status: 500 }
     );
+  }
+
+  // Log governance event + trigger invalidation (non-fatal)
+  try {
+    await logGovernanceEvent(ctx.supabase, {
+      orgId: ctx.orgId,
+      systemId: input.systemId,
+      eventType: EVENT_TYPES.ASSESSMENT_CREATED,
+      orientStep: 'evaluate',
+      actorId: ctx.userId,
+      newValue: {
+        weighted_maturity: input.weightedMaturity,
+        activation_posture: input.activationPosture,
+        risk_exposure: input.riskExposure,
+        urgency_index: input.urgencyIndex,
+      },
+    });
+
+    // Evaluate changed → invalidate downstream (navigate, track)
+    await triggerInvalidation(ctx.supabase, {
+      orgId: ctx.orgId,
+      systemId: input.systemId,
+      sourceStep: 'evaluate',
+      actorId: ctx.userId,
+      changeDescription: `Assessment created: ${input.activationPosture} posture, ${input.riskExposure} exposure`,
+    });
+  } catch (err) {
+    console.warn('[assessments] Governance event logging failed (non-fatal):', err);
   }
 
   return NextResponse.json({ id: assessment.id });

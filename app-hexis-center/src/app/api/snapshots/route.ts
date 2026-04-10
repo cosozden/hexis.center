@@ -12,6 +12,7 @@
 import { NextResponse } from 'next/server';
 import { z } from 'zod';
 import { authenticateRequest } from '@/lib/api/auth';
+import { logGovernanceEvent, EVENT_TYPES } from '@/lib/governance/event-logger';
 import {
   calculateComplianceScore,
   buildSnapshotData,
@@ -178,6 +179,26 @@ export async function POST(request: Request) {
   if (insertError) {
     console.error('Failed to save snapshot:', insertError);
     return NextResponse.json({ error: 'Failed to save snapshot' }, { status: 500 });
+  }
+
+  // Log governance event (non-fatal)
+  try {
+    await logGovernanceEvent(ctx.supabase, {
+      orgId: system.org_id,
+      systemId: input.systemId,
+      eventType: EVENT_TYPES.SNAPSHOT_CREATED,
+      orientStep: 'track',
+      actorId: ctx.userId,
+      newValue: {
+        score: snapshotData.score,
+        obligations_total: snapshotData.obligationsTotal,
+        obligations_completed: snapshotData.obligationsCompleted,
+        actions_total: snapshotData.actionsTotal,
+        actions_completed: snapshotData.actionsCompleted,
+      },
+    });
+  } catch (err) {
+    console.warn('[snapshots] Governance event logging failed (non-fatal):', err);
   }
 
   return NextResponse.json({

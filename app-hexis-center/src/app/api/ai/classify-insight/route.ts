@@ -26,6 +26,7 @@ import { callClaude } from '@/lib/claude/client';
 import { CLASSIFY_RISK_INSIGHT } from '@/lib/claude/tools';
 import { RISK_PROMPT, fillPrompt } from '@/lib/claude/prompts';
 import { authenticateRequest, checkRateLimit, logUsage } from '@/lib/api/auth';
+import { logGovernanceEvent, triggerInvalidation, EVENT_TYPES } from '@/lib/governance/event-logger';
 
 // ━━━ INPUT VALIDATION ━━━
 
@@ -224,6 +225,42 @@ export async function POST(request: Request) {
     } catch (err) {
       console.warn('[classify-insight] Failed to log usage:', err);
     }
+  }
+
+  // 7b. Log governance event + trigger invalidation (non-fatal)
+  try {
+    const savedRiskLevel = classificationResult.riskLevel === 'high_art6_3_override'
+      ? 'high'
+      : classificationResult.riskLevel === 'not_high_risk'
+        ? 'minimal'
+        : classificationResult.riskLevel === 'gpai_systemic'
+          ? 'gpai'
+          : classificationResult.riskLevel;
+
+    await logGovernanceEvent(ctx.supabase, {
+      orgId: ctx.orgId,
+      systemId: body.systemId,
+      eventType: EVENT_TYPES.CLASSIFICATION_CREATED,
+      orientStep: 'risk',
+      actorId: ctx.userId,
+      newValue: {
+        risk_level: savedRiskLevel,
+        display_level: classificationResult.displayLevel,
+        articles: classificationResult.articleReferences,
+        enriched: !!aiInsight && !(aiInsight as Record<string, unknown>)?.fallback,
+      },
+    });
+
+    // Risk changed → invalidate downstream steps (identify, evaluate, navigate, track)
+    await triggerInvalidation(ctx.supabase, {
+      orgId: ctx.orgId,
+      systemId: body.systemId,
+      sourceStep: 'risk',
+      actorId: ctx.userId,
+      changeDescription: `Risk classified as ${classificationResult.displayLevel}`,
+    });
+  } catch (err) {
+    console.warn('[classify-insight] Governance event logging failed (non-fatal):', err);
   }
 
   // 8. Return combined result

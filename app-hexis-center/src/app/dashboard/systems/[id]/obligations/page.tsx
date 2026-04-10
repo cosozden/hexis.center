@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation";
 import { createServerSupabaseClient } from "@/lib/supabase/server";
 import { ObligationsTracker } from "@/components/obligations/obligations-tracker";
+import { ChangeBanner } from "@/components/systems/change-banner";
 
 export const dynamic = "force-dynamic";
 
@@ -12,10 +13,10 @@ export default async function ObligationsPage({
   const { id: systemId } = await params;
   const supabase = await createServerSupabaseClient();
 
-  // Fetch system
+  // Fetch system (including invalidation status)
   const { data: system } = await supabase
     .from("ai_systems")
-    .select("id, name, organisation_role")
+    .select("id, name, organisation_role, invalidated_steps")
     .eq("id", systemId)
     .single();
 
@@ -37,14 +38,24 @@ export default async function ObligationsPage({
     .eq("system_id", systemId)
     .order("sort_order", { ascending: true });
 
+  const invalidatedSteps = (system.invalidated_steps as string[]) ?? [];
+
   return (
-    <ObligationsTracker
-      systemId={systemId}
-      systemName={system.name}
-      organisationRole={system.organisation_role}
-      riskLevel={classification?.risk_level ?? null}
-      initialObligations={obligations ?? []}
-      hasClassification={!!classification}
-    />
+    <>
+      <ChangeBanner
+        systemId={systemId}
+        currentStep="identify"
+        invalidatedSteps={invalidatedSteps}
+        sourceStep="risk"
+      />
+      <ObligationsTracker
+        systemId={systemId}
+        systemName={system.name}
+        organisationRole={system.organisation_role}
+        riskLevel={classification?.risk_level ?? null}
+        initialObligations={obligations ?? []}
+        hasClassification={!!classification}
+      />
+    </>
   );
 }
