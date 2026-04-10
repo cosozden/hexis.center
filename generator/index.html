@@ -1251,13 +1251,13 @@
 <h1 class="visually-hidden">EU AI Act Risk Sınıflandırma ve Yapay Zeka Yönetişim Matrisi — Türk Şirketler için Ücretsiz Uyum Aracı</h1>
 <nav class="orient-nav" aria-label="ORIENT methodology stages">
   <div class="orient-nav-inner">
-    <a href="/generator/" class="orient-stage done" data-stage="observe">
-      <span class="orient-check">✓</span>
+    <a href="/generator/" class="orient-stage active" data-stage="observe">
+      <span class="orient-dot">●</span>
       <span class="orient-label">Observe</span>
     </a>
     <span class="orient-arrow">→</span>
-    <a href="/generator/" class="orient-stage active" data-stage="risk">
-      <span class="orient-dot">●</span>
+    <a href="/generator/" class="orient-stage" data-stage="risk">
+      <span class="orient-dot">○</span>
       <span class="orient-label">Risk</span>
     </a>
     <span class="orient-arrow">→</span>
@@ -2297,6 +2297,20 @@
     if (data.role) {
       window._observeRolePreFill = data.role;
     }
+
+    // Update ORIENT nav bar: Observe → done, Risk → active
+    var orientStages = document.querySelectorAll('.orient-stage');
+    orientStages.forEach(function(s){
+      if(s.dataset.stage==='observe'){
+        s.classList.remove('active');
+        s.classList.add('done');
+        s.innerHTML='<span class="orient-check">✓</span><span class="orient-label">Observe</span>';
+      }
+      if(s.dataset.stage==='risk'){
+        s.classList.add('active');
+        s.innerHTML='<span class="orient-dot">●</span><span class="orient-label">Risk</span>';
+      }
+    });
 
     // Scroll to classifier
     classifierWrap.scrollIntoView({ behavior: 'smooth', block: 'start' });
