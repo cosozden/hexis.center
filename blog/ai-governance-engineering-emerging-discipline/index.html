@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Governance Engineering: The Anatomy of a New Engineering Discipline — Hexis</title>
+<meta name="description" content="AI governance is fragmented. This article maps AI Governance Engineering as a new discipline and proposes a four-layer competency model.">
+<meta property="og:title" content="AI Governance Engineering: The Anatomy of a New Engineering Discipline — Hexis">
+<meta property="og:description" content="AI governance is fragmented. This article maps AI Governance Engineering as a new discipline and proposes a four-layer competency model.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://hexis.center/blog/ai-governance-engineering-emerging-discipline/">
+<meta property="og:image" content="https://hexis.center/assets/og-hexis.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="AI Governance Engineering: The Anatomy of a New Engineering Discipline — Hexis">
+<meta name="twitter:description" content="AI governance is fragmented. This article maps AI Governance Engineering as a new discipline and proposes a four-layer competency model.">
+<meta name="twitter:image" content="https://hexis.center/assets/og-hexis.png">
+<link rel="icon" href="/assets/favicon.ico">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+<style>
+/* ─── BRAND TOKENS ───────────────────────────────── */
+:root{
+  --charcoal:  #1C1E23;
+  --brass:     #B2986C;
+  --stone:     #686662;
+  --paper:     #F8F7F5;
+  --dark-bg:   #16181C;
+  --dark-type: #E8E6E2;
+  --dark-sub:  #8A8884;
+
+  --bg:        var(--dark-bg);
+  --text:      var(--dark-type);
+  --text2:     var(--dark-sub);
+  --muted:     var(--dark-sub);
+
+  --border:    rgba(232,230,226,0.10);
+  --border2:   rgba(232,230,226,0.18);
+  --card:      rgba(232,230,226,0.04);
+  --card2:     rgba(232,230,226,0.07);
+}
+
+/* ─── RESET ──────────────────────────────────────── */
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;font-size:16px}
+body{
+  font-family:Arial,sans-serif;
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+  text-rendering:optimizeLegibility;
+  background:var(--bg);
+  color:var(--text);
+  line-height:1.55;
+  min-height:100vh;
+  overflow-x:hidden;
+}
+p{line-height:1.75;color:var(--text2)}
+
+/* ─── NAV ────────────────────────────────────────── */
+nav{
+  position:sticky;top:0;z-index:100;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 48px;height:60px;
+  background:var(--dark-bg);
+  border-bottom:1px solid var(--border);
+}
+.nav-logo{
+  display:flex;align-items:center;gap:10px;
+  text-decoration:none;color:var(--text);
+  flex-shrink:0;
+}
+.nav-logo img{
+  display:block;
+  height:40px;
+  width:auto;
+}
+@media(max-width:768px){
+  .nav-logo img{ height:32px; }
+}
+.nav-logo:focus-visible{
+  outline:2px solid rgba(232,230,226,0.5);
+  outline-offset:4px;
+}
+.nav-links{display:flex;gap:4px;align-items:center}
+.nav-links a{
+  color:var(--muted);text-decoration:none;font-size:12px;font-weight:400;
+  padding:6px 12px;border-radius:2px;transition:color .15s;letter-spacing:.04em;
+  font-family:Arial,sans-serif;
+}
+.nav-links a:hover{color:var(--text)}
+
+/* HAMBURGER */
+.hamburger{
+  display:none;flex-direction:column;gap:5px;
+  cursor:pointer;background:none;border:none;padding:4px;z-index:200;
+}
+.hamburger span{width:22px;height:1px;background:var(--text2);transition:all .3s}
+.hamburger.open span:nth-child(1){transform:translateY(6px) rotate(45deg)}
+.hamburger.open span:nth-child(2){opacity:0}
+.hamburger.open span:nth-child(3){transform:translateY(-6px) rotate(-45deg)}
+.mobile-menu{
+  display:none;position:fixed;top:60px;left:0;right:0;
+  background:var(--dark-bg);
+  border-bottom:1px solid var(--border);
+  padding:12px 20px 20px;flex-direction:column;gap:0;z-index:99;
+}
+.mobile-menu.open{display:flex}
+.mobile-menu a{
+  color:var(--muted);text-decoration:none;font-size:13px;font-weight:400;
+  padding:11px 4px;border-bottom:1px solid var(--border);
+  transition:color .15s;font-family:Arial,sans-serif;
+}
+.mobile-menu a:last-child{border-bottom:none}
+.mobile-menu a:hover{color:var(--text)}
+
+/* ─── FOOTER ─────────────────────────────────────── */
+footer{
+  position:relative;z-index:1;
+  border-top:1px solid var(--border);
+  padding:20px 48px;
+  display:flex;align-items:center;justify-content:space-between;
+  gap:16px;flex-wrap:wrap;
+}
+.footer-left{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.footer-logo{display:flex;align-items:center;flex-shrink:0;text-decoration:none;}
+.footer-logo img{display:block;height:auto;width:auto;max-height:18px;}
+.footer-logo:focus-visible{outline:2px solid rgba(232,230,226,0.5);outline-offset:4px;}
+.footer-sep{color:var(--stone);margin:0 4px}
+.footer-txt{font-size:10px;color:var(--stone);font-family:Arial,sans-serif;letter-spacing:.02em}
+.footer-links{display:flex;gap:16px;flex-wrap:wrap}
+.footer-links a{font-size:10px;color:var(--stone);text-decoration:none;transition:color .15s;font-family:Arial,sans-serif;letter-spacing:.04em}
+.footer-links a:hover{color:var(--text2)}
+
+/* ─── RESPONSIVE ─────────────────────────────────── */
+@media(max-width:860px){
+  nav{padding:0 20px}
+  .nav-links{display:none}
+  .hamburger{display:flex}
+  footer{flex-direction:column;align-items:flex-start;padding:20px}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="/" class="nav-logo">
+    <img src="/assets/logo-light.png" alt="Hexis" width="72" height="40">
+  </a>
+  <div class="nav-links">
+    <a href="/metodoloji/">Orient Framework</a>
+    <a href="/generator/">Generator</a>
+    <a href="/#contact">Contact</a>
+  </div>
+  <button class="hamburger" id="hamburger" onclick="toggleMenu()" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<div class="mobile-menu" id="mobileMenu">
+  <a href="/metodoloji/" onclick="closeMenu()">Orient Framework</a>
+  <a href="/generator/" onclick="closeMenu()">Generator</a>
+  <a href="/#contact" onclick="closeMenu()">Contact</a>
+</div>
+
+<!-- BREADCRUMB -->
+<div style="max-width:720px;margin:40px auto 0;padding:0 24px">
+  <a href="/" style="color:var(--stone);font-size:12px;text-decoration:none">&larr; hexis.center</a>
+</div>
+
+<!-- ARTICLE HEADER -->
+<header style="max-width:720px;margin:40px auto 48px;padding:0 24px">
+  <div style="font-size:11px;color:var(--brass);font-family:Arial,sans-serif;letter-spacing:.08em;text-transform:uppercase;margin-bottom:16px">
+    AI Governance &middot; Nisan 2026
+  </div>
+  <h1 style="font-family:Georgia,serif;font-size:clamp(28px,4vw,44px);font-weight:700;line-height:1.15;letter-spacing:-.5px;color:var(--text);margin-bottom:20px">
+    AI Governance Engineering: The Anatomy of a New Engineering Discipline
+  </h1>
+  <p style="font-size:16px;line-height:1.7;color:var(--stone);max-width:600px">
+    AI governance is fragmented. This article maps AI Governance Engineering as a new discipline and proposes a four-layer competency model.
+  </p>
+</header>
+
+<!-- ARTICLE CONTENT -->
+<article style="max-width:720px;margin:0 auto 96px;padding:0 24px;font-family:Arial,sans-serif;font-size:16px;line-height:1.8;color:var(--text2)">
+
+  <h2 style="font-family:Georgia,serif;font-size:24px;font-weight:700;color:var(--text);margin:48px 0 16px">
+    When Google Named SRE, System Administrators Already Existed
+  </h2>
+
+  <p>In 2003, Google took a step that reshaped the software industry. It did not invent a new technology; it named a discipline.</p>
+
+  <p style="margin-top:16px">System administrators had been keeping servers running for decades. Operations teams had their own practices, tools, and tribal knowledge. But nobody had organized these practices into an engineering discipline with defined principles, career paths, and measurable outcomes.</p>
+
+  <p style="margin-top:16px">Google called it Site Reliability Engineering (SRE). The core insight was simple but consequential: "Reliability is not an operations problem; it is an engineering problem." And engineering problems require engineering solutions — automation, error budgets, service level objectives, and code that replaces manual toil.¹</p>
+
+  <p style="margin-top:16px">Today, AI governance is moving toward a similar point.</p>
+
+  <p style="margin-top:16px">Organizations worldwide are building governance structures for their AI systems. Legal teams interpret regulations. Compliance officers write policies. Risk managers fill assessment forms. Data scientists monitor model performance. But these efforts remain fragmented across departmental silos, connected by spreadsheets and email chains rather than by engineering infrastructure.</p>
+
+  <p style="margin-top:16px">The IAPP AI Governance Profession Report 2025 — based on survey data from over 670 professionals across 45 countries — identifies a critical shortage: while technical talent is abundant, there is a pronounced lack of professionals who can integrate governance, ethics, and compliance with the technical realities of AI deployment.² Thirty-three percent of respondents cited a lack of professional training and certification, and 31% pointed to a complete absence of qualified professionals as key barriers.²</p>
+
+  <p style="margin-top:16px">This article argues that the missing piece is not more policies or more compliance officers. What is taking shape is the birth of a new engineering discipline: AI Governance Engineering.</p>
+
+  <h2 style="font-family:Georgia,serif;font-size:24px;font-weight:700;color:var(--text);margin:48px 0 16px">
+    A Fragmented Landscape
+  </h2>
+
+  <p>The components of this discipline already exist. They are scattered across different communities, each with its own terminology and priorities.</p>
+
+  <p style="margin-top:16px"><strong style="color:var(--text)">Policy and Management Layer.</strong> The most mature segment. Organizations like IAPP have created certification programs (AIGP), consulting firms offer compliance assessments, and law firms advise on regulatory interpretation. The EU AI Act, ISO/IEC 42001, and NIST AI RMF provide the regulatory scaffolding.³ By 2025, over 60% of Fortune 500 companies had established dedicated AI governance structures.² This layer answers the question: "What rules must we follow?"</p>
+
+  <p style="margin-top:16px"><strong style="color:var(--text)">Systems Engineering Layer.</strong> A smaller but growing community. EWSolutions, led by David Marco, PhD, uses the term "AI Governance Systems Engineering" to describe the practice of transforming governance principles into working architectures with clear inputs, outputs, controls, and feedback loops.⁴ This moves beyond policy documents toward process design, but remains primarily at the organizational and architectural level. This layer answers the question: "How should governance processes be designed?"</p>
+
+  <p style="margin-top:16px"><strong style="color:var(--text)">Technical Infrastructure Layer.</strong> The newest and fastest-growing segment. This is where governance meets code. In April 2026, Microsoft released the Agent Governance Toolkit — a seven-package open-source system providing sub-millisecond policy enforcement for AI agents, addressing all OWASP Agentic AI risks.⁵ In February 2026, Kyndryl announced a policy-as-code capability that translates organizational rules and regulatory requirements into machine-readable policies.⁶ Open Policy Agent (OPA) and its Rego policy language, already an industry standard for infrastructure governance, are being adapted for AI-specific enforcement.⁷ Freeman Jackson's November 2025 paper proposes a unified policy-as-code governance architecture for autonomous AI agents with multi-layer risk, compliance, and zero-trust control.⁸</p>
+
+  <p style="margin-top:16px">This layer answers the question: "How do we embed governance directly into the systems we build?"</p>
+
+  <p style="margin-top:16px">The critical observation is this: these three layers are not competing approaches — they are maturity levels of the same underlying need. Organizations start with policies (Layer 1), design processes around them (Layer 2), and eventually embed them into their technical infrastructure (Layer 3). But today, no defined discipline spans all three.</p>
+
+  <h2 style="font-family:Georgia,serif;font-size:24px;font-weight:700;color:var(--text);margin:48px 0 16px">
+    What Is AI Governance Engineering?
+  </h2>
+
+  <p>AI Governance Engineering: the engineering practice of translating regulatory requirements, ethical principles, and organizational policies into executable, testable, and auditable technical controls embedded directly into AI system lifecycles.</p>
+
+  <p style="margin-top:16px">This definition is distinct from AI governance management (focused on policy creation and organizational oversight) and from AI governance systems engineering (focused on process architecture and organizational design). The difference between the three can best be understood through a concrete example.</p>
+
+  <p style="margin-top:16px"><strong style="color:var(--text)">Requirement:</strong> EU AI Act Article 9 mandates a risk management system for high-risk AI systems.</p>
+
+  <p style="margin-top:16px"><strong style="color:var(--text)">Governance Management approach:</strong> A compliance team writes a risk management policy document. They create an Excel template for risk assessments. Every quarter, someone manually checks completion. If incomplete, they send a reminder email.</p>
+
+  <p style="margin-top:16px"><strong style="color:var(--text)">Systems Engineering approach:</strong> A governance architect designs a risk management workflow. It defines roles (who performs the assessment), timing (when it must occur), and escalation paths (what happens when deadlines are missed). This is documented in a process map.</p>
+
+  <p style="margin-top:16px"><strong style="color:var(--text)">Governance Engineering approach:</strong> A governance engineer writes a policy-as-code rule — for example, in OPA's Rego language. This rule automatically evaluates whether a risk assessment exists and is current before a model can be deployed. If the assessment is missing, deployment is blocked at the pipeline level. Every decision is logged as an immutable governance event. Changes to the AI system automatically trigger re-evaluation of affected governance steps.</p>
+
+  <p style="margin-top:16px">A point worth emphasizing: the third approach does not eliminate the need for the first two. Policy documents still guide human decision-making. Process designs still coordinate teams. But the engineering layer ensures that critical controls are enforced consistently, automatically, and with full traceability — regardless of whether someone remembered to check the spreadsheet.</p>
+
+  <h2 style="font-family:Georgia,serif;font-size:24px;font-weight:700;color:var(--text);margin:48px 0 16px">
+    The Human Oversight Question: Where Does Automation End?
+  </h2>
+
+  <p>A legitimate question arises: does automating governance mean removing humans from governance decisions?</p>
+
+  <p style="margin-top:16px">Both regulation and industry practice give a clear answer: no.</p>
+
+  <p style="margin-top:16px">EU AI Act Article 14 explicitly requires that high-risk AI systems be designed so that "natural persons can effectively oversee their functioning."³ This is not optional — it is a legal requirement. Moody's research confirms that only approximately 5% of surveyed professionals are comfortable with fully autonomous AI systems.¹²</p>
+
+  <p style="margin-top:16px">But "human oversight" does not mean "humans do everything manually." As the IAPP has noted, a human review process that is too shallow, too slow, or too disconnected from the underlying AI decision chain does not constitute meaningful oversight — and regulators are beginning to say so explicitly.¹³</p>
+
+  <p style="margin-top:16px">AI Governance Engineering positions itself precisely at the design of this balance. Determining what should be automated, where human judgment is indispensable, and how to design the transition points between the two is a core responsibility of this discipline:</p>
+
+  <p style="margin-top:16px"><strong style="color:var(--text)">Automate the deterministic:</strong> Risk classification checks, bias test result validation, deployment blocking for non-compliant systems, audit log generation. These are rule-based, repetitive, and error-prone when manual.</p>
+
+  <p style="margin-top:16px"><strong style="color:var(--text)">Inform and empower the human:</strong> When a model drift alert fires, the system should automatically assemble relevant context — what changed, what the potential impact is, what the regulatory implications are — and present it to a human decision-maker. The system informs; the human decides.</p>
+
+  <p style="margin-top:16px"><strong style="color:var(--text)">Design the transition points:</strong> Which decisions are fully automated, which require human approval, which are fully human? Defining these boundaries is one of the AI Governance Engineer's core tasks.</p>
+
+  <p style="margin-top:16px">In short, AI Governance Engineering is not about handing governance over to automation. It is about strengthening the governance process with engineering principles. The rapid pace of technological advancement makes it imperative that we approach the AI governance process with greater technical rigor.</p>
+
+  <h2 style="font-family:Georgia,serif;font-size:24px;font-weight:700;color:var(--text);margin:48px 0 16px">
+    A Four-Layer Competency Model
+  </h2>
+
+  <p>What competencies does this discipline require? Based on an analysis of the current landscape, regulatory frameworks, and technical infrastructure, a four-layer model can be proposed.</p>
+
+  <h3 style="font-family:Georgia,serif;font-size:20px;font-weight:700;color:var(--text);margin:36px 0 12px">
+    Layer 1: Regulatory Engineering
+  </h3>
+
+  <p>The ability to translate legal and regulatory text into technical requirements.</p>
+
+  <p style="margin-top:16px">This goes beyond reading the law. It requires decomposing regulatory obligations into implementable technical specifications. EU AI Act Article 9 does not merely say "do risk management." It specifies continuous iterative processes, identification and analysis of known and reasonably foreseeable risks, estimation of risks from intended use and reasonably foreseeable misuse, and evaluation of risks from post-market monitoring data.³</p>
+
+  <p style="margin-top:16px">The competency is in converting these legal concepts into engineering specifications: what data to collect, what thresholds to set, what monitoring signals to track. This requires fluency in both regulatory language and technical systems — the very combination that the IAPP report identifies as scarce.²</p>
+
+  <h3 style="font-family:Georgia,serif;font-size:20px;font-weight:700;color:var(--text);margin:36px 0 12px">
+    Layer 2: Technical Infrastructure
+  </h3>
+
+  <p>The ability to implement governance controls using policy-as-code, monitoring, and automation tools.</p>
+
+  <p style="margin-top:16px">This is the hands-on engineering layer. An AI Governance Engineer at this level can write OPA/Rego policies for runtime governance rule enforcement, build ML observability pipelines using tools like Evidently AI, Langfuse, or AIF360, construct CI/CD governance gates that block non-compliant deployments, and implement immutable audit trails using event-driven architectures.⁷ ¹⁰ ¹¹</p>
+
+  <p style="margin-top:16px">This does not mean the AI Governance Engineer must be a full-stack software engineer. But they must be technically proficient enough to configure policies, read rule sets, and integrate governance checkpoints into existing development pipelines.</p>
+
+  <h3 style="font-family:Georgia,serif;font-size:20px;font-weight:700;color:var(--text);margin:36px 0 12px">
+    Layer 3: Operational Design
+  </h3>
+
+  <p>The ability to design governance workflows, incident response plans, and cross-functional coordination mechanisms.</p>
+
+  <p style="margin-top:16px">An AI system that fails a bias test at 2 AM on a Saturday needs more than an automated alert. Someone must know what to do, who to notify, and when to escalate. The AI Governance Engineer designs these operational workflows — not as abstract process maps, but as runbooks integrated with the technical infrastructure.</p>
+
+  <p style="margin-top:16px">An important distinction: the AI Governance Engineer does not replace the lawyer, the data scientist, or the security specialist. These experts continue their work within their domains. The AI Governance Engineer's role is orchestration — ensuring that a legal requirement flows seamlessly into a technical control, a technical control into a monitoring alert, and an alert into an incident response procedure. The person who connects the pieces and designs the transitions between them.</p>
+
+  <h3 style="font-family:Georgia,serif;font-size:20px;font-weight:700;color:var(--text);margin:36px 0 12px">
+    Layer 4: Strategic Foresight
+  </h3>
+
+  <p>The ability to anticipate the evolution of AI governance requirements and prepare today's systems for tomorrow.</p>
+
+  <p style="margin-top:16px">AI governance is not a static field, and its evolution continues at pace. Today, most organizations operate with manual processes, consultant-driven assessments, and template-based documentation. But developments across the industry point toward governance being progressively embedded into software development pipelines (CI/CD), compliance-as-code approaches becoming widespread, and automated re-assessment on system changes becoming the norm.</p>
+
+  <p style="margin-top:16px">Looking further ahead, as AI agents become more autonomous, governance mechanisms may need to incorporate more autonomous elements as well. Microsoft's Agent Governance Toolkit and Kyndryl's policy-governed workflows represent the first concrete steps in this direction.⁵ ⁶</p>
+
+  <p style="margin-top:16px">The essence of this competency layer is ensuring that every governance control built today remains adaptable to tomorrow's changing requirements. Strategic foresight is not about making precise predictions; it is about embedding flexibility into the design.</p>
+
+  <h2 style="font-family:Georgia,serif;font-size:24px;font-weight:700;color:var(--text);margin:48px 0 16px">
+    What This Means in Practice
+  </h2>
+
+  <p>What we have described so far is a framework. What does it mean in practice today?</p>
+
+  <p style="margin-top:16px">The honest answer: a professional profile that fully spans all four layers is not yet common. This is a natural consequence of the discipline being in its early formation. SRE was the same in its early years — Google's first SRE teams were composed of existing software engineers, and the discipline crystallized over time.</p>
+
+  <p style="margin-top:16px">What is concrete today is this: the building blocks exist. OPA, Evidently, Langfuse, and Microsoft's Agent Governance Toolkit are production-grade, open-source tools.⁵ ⁷ ¹⁰ ¹¹ Regulatory frameworks (EU AI Act, ISO 42001) are defining technical requirements with increasing specificity.³ And most importantly, the talent gap that the IAPP report identifies continues to grow — the demand for professionals who can bridge governance and engineering is rising.²</p>
+
+  <p style="margin-top:16px">Against this backdrop, direct messages can be offered to three audiences:</p>
+
+  <p style="margin-top:16px"><strong style="color:var(--text)">For organizations deploying AI systems:</strong> The question is not whether you need governance — regulation already mandates it. The question is whether your governance will be a manual burden that scales linearly with the number of AI systems, or an engineering capability that scales efficiently.</p>
+
+  <p style="margin-top:16px"><strong style="color:var(--text)">For governance professionals:</strong> Technical literacy — not deep coding skills, but the ability to understand policy-as-code tools, monitoring platforms, and CI/CD concepts — is becoming increasingly important for career progression in AI governance.</p>
+
+  <p style="margin-top:16px"><strong style="color:var(--text)">For educators and certification bodies:</strong> The four-layer competency model suggests a natural curriculum structure. Regulatory Engineering builds on existing legal education. Technical Infrastructure requires hands-on lab work. Operational Design draws on incident management traditions. Strategic Foresight integrates scenario planning and trend analysis. No such integrated curriculum exists today.</p>
+
+  <h2 style="font-family:Georgia,serif;font-size:24px;font-weight:700;color:var(--text);margin:48px 0 16px">
+    Conclusion: Naming the Discipline
+  </h2>
+
+  <p>The components of AI Governance Engineering are not new. Regulatory frameworks exist. Policy-as-code tools exist. ML monitoring platforms exist. Process design methodologies exist. What has been missing is the recognition that these components, taken together, constitute a coherent engineering practice.</p>
+
+  <p style="margin-top:16px">Google did not invent server operations when they named SRE. They recognized that reliability was an engineering problem and organized a discipline around that insight.</p>
+
+  <p style="margin-top:16px">A similar recognition is knocking at the door of the AI governance process: for AI systems operating at scale, under complex regulatory requirements, in high-stakes environments, governance is an engineering problem. And this problem calls for a holistic engineering approach rather than fragmented, piecemeal solutions.</p>
+
+  <p style="margin-top:16px">---</p>
+
+  <h2 style="font-family:Georgia,serif;font-size:24px;font-weight:700;color:var(--text);margin:48px 0 16px">
+    References
+  </h2>
+
+  <p>1. Beyer, B., Jones, C., Petoff, J., & Murphy, N.R. <em>Site Reliability Engineering: How Google Runs Production Systems</em>. O'Reilly Media, 2016. <a href="https://sre.google/sre-book/table-of-contents/" style="color:var(--brass);text-decoration:underline">sre.google</a></p>
+
+  <p style="margin-top:16px">2. IAPP & Credo AI. <em>AI Governance Profession Report 2025</em>. International Association of Privacy Professionals. <a href="https://iapp.org/resources/article/ai-governance-profession-report" style="color:var(--brass);text-decoration:underline">iapp.org</a></p>
+
+  <p style="margin-top:16px">3. European Parliament and Council. <em>Regulation (EU) 2024/1689 — Artificial Intelligence Act</em>. EUR-Lex, 12 July 2024. <a href="https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R1689" style="color:var(--brass);text-decoration:underline">eur-lex.europa.eu</a></p>
+
+  <p style="margin-top:16px">4. EWSolutions. <em>AI Governance Systems Engineering: The Executive Playbook for Responsible AI</em>. <a href="https://www.ewsolutions.com/ai-governance-systems-engineering/" style="color:var(--brass);text-decoration:underline">ewsolutions.com</a></p>
+
+  <p style="margin-top:16px">5. Microsoft. <em>Introducing the Agent Governance Toolkit: Open-source runtime security for AI agents</em>. Microsoft Open Source Blog, 2 April 2026. <a href="https://opensource.microsoft.com/blog/2026/04/02/introducing-the-agent-governance-toolkit-open-source-runtime-security-for-ai-agents/" style="color:var(--brass);text-decoration:underline">opensource.microsoft.com</a></p>
+
+  <p style="margin-top:16px">6. Kyndryl. <em>Kyndryl Introduces Policy-Governed Agentic AI</em>. 11 February 2026. <a href="https://www.kyndryl.com/us/en/about-us/news/2026/02/policy-as-code-agentic-ai-governance" style="color:var(--brass);text-decoration:underline">kyndryl.com</a></p>
+
+  <p style="margin-top:16px">7. Open Policy Agent. <em>Policy Language — Rego</em>. <a href="https://www.openpolicyagent.org/docs/policy-language" style="color:var(--brass);text-decoration:underline">openpolicyagent.org</a></p>
+
+  <p style="margin-top:16px">8. Jackson, F. <em>Governing Autonomous AI Agents with Policy-as-Code: A Multi-Layer Architecture for Risk, Compliance, and Zero-Trust Control</em>. SSRN, November 2025. <a href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=5820262" style="color:var(--brass);text-decoration:underline">ssrn.com</a></p>
+
+  <p style="margin-top:16px">9. NexaStack. <em>Agent Governance at Scale: Policy-as-Code Approaches in Action</em>. <a href="https://www.nexastack.ai/blog/agent-governance-at-scale" style="color:var(--brass);text-decoration:underline">nexastack.ai</a></p>
+
+  <p style="margin-top:16px">10. Evidently AI. <em>Open-source ML and LLM observability</em>. <a href="https://docs.evidentlyai.com" style="color:var(--brass);text-decoration:underline">docs.evidentlyai.com</a></p>
+
+  <p style="margin-top:16px">11. Langfuse. <em>Open-source LLM engineering platform</em>. <a href="https://langfuse.com" style="color:var(--brass);text-decoration:underline">langfuse.com</a></p>
+
+  <p style="margin-top:16px">12. Moody's. <em>Human in the Loop: Why Human Oversight Still Matters in AI-Driven Risk and Compliance</em>. <a href="https://www.moodys.com/web/en/us/insights/ai/human-in-the-loop-why-human-oversight-still-matters-in-ai-driven-risk-and-compliance.html" style="color:var(--brass);text-decoration:underline">moodys.com</a></p>
+
+  <p style="margin-top:16px">13. IAPP. <em>'Human in the Loop' in AI Risk Management — Not a Cure-All Approach</em>. <a href="https://iapp.org/news/a/-human-in-the-loop-in-ai-risk-management-not-a-cure-all-approach" style="color:var(--brass);text-decoration:underline">iapp.org</a></p>
+
+  <p style="margin-top:16px">14. Axial Search. <em>Market Analysis of 146 AI Governance Job Postings</em>. <a href="https://axialsearch.com/insights/ai-governance-jobs/" style="color:var(--brass);text-decoration:underline">axialsearch.com</a></p>
+
+  <p style="margin-top:16px">---</p>
+
+  <p style="margin-top:16px"><em>Ozden Coskun is the founder of Hexis. He holds ISO/IEC 42001:2023 certification and is a member of the IAPP. Hexis develops the ORIENT methodology for AI governance assessment and builds governance tools at <a href="https://hexis.center" style="color:var(--brass);text-decoration:underline">hexis.center</a>.</em></p>
+
+</article>
+
+<!-- BACK LINK -->
+<div style="max-width:720px;margin:0 auto 96px;padding:0 24px">
+  <a href="/" style="font-size:13px;color:var(--stone);text-decoration:none;font-family:Arial,sans-serif">
+    &larr; T&uuml;m yaz&#305;lar
+  </a>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-left">
+    <a href="/" class="footer-logo"><img src="/assets/logo-light.png" alt="Hexis" width="32" height="18"></a>
+    <span class="footer-sep">&middot;</span>
+    <span class="footer-txt">&copy; 2026 Hexis &middot; Built by &Ouml;zden Co&#351;kun &middot; Yaln&#305;zca bilgilendirme ama&ccedil;l&#305;d&#305;r; hukuki dan&#305;&#351;manl&#305;k niteli&#287;i ta&#351;&#305;maz.</span>
+  </div>
+  <div class="footer-links">
+    <a href="/metodoloji/">Orient Framework</a>
+    <a href="/generator/">Generator</a>
+    <a href="/#contact">Contact</a>
+    <a href="https://eur-lex.europa.eu/legal-content/TR/TXT/?uri=CELEX:32024R1689" target="_blank" rel="noopener noreferrer">EU AI Act</a>
+    <a href="https://www.linkedin.com/in/ozden-coskun-8728a1301" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+  </div>
+</footer>
+
+<script>
+function toggleMenu(){
+  document.getElementById('hamburger').classList.toggle('open');
+  document.getElementById('mobileMenu').classList.toggle('open');
+}
+function closeMenu(){
+  document.getElementById('hamburger').classList.remove('open');
+  document.getElementById('mobileMenu').classList.remove('open');
+}
+document.addEventListener('click',function(e){
+  const h=document.getElementById('hamburger');
+  const m=document.getElementById('mobileMenu');
+  if(m.classList.contains('open')&&!h.contains(e.target)&&!m.contains(e.target)){
+    h.classList.remove('open');m.classList.remove('open');
+  }
+});
+</script>
+</body>
+</html>
