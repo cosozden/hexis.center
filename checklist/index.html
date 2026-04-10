@@ -1446,7 +1446,10 @@
 </script>
 <script>
 function setLang(lang){
-  document.documentElement.lang=lang==='tr'?'tr':'en';
+  try{localStorage.setItem('hexis-lang',lang);}catch(e){}
+  /* This is the EN checklist — if user switches to TR, redirect to /kvkk/ */
+  if(lang==='tr'){window.location.href='/kvkk/';return;}
+  document.documentElement.lang='en';
   document.querySelectorAll('.lang-btn').forEach(function(b){
     b.classList.toggle('active',b.dataset.lang===lang);
     if(b.dataset.lang===lang){b.style.background='rgba(232,230,226,0.18)';b.style.color='#E8E6E2';}
@@ -1461,9 +1464,14 @@ function setLang(lang){
   });
   document.querySelectorAll('.lang-tr').forEach(function(el){el.style.display=lang==='tr'?'':'none';});
   document.querySelectorAll('.lang-en').forEach(function(el){el.style.display=lang==='en'?'':'none';});
-  try{localStorage.setItem('hexis-lang',lang);}catch(e){}
 }
-(function(){var s;try{s=localStorage.getItem('hexis-lang');}catch(e){}setLang(s||(/^tr/i.test(navigator.language)?'tr':'en'));})();
+(function(){
+  var s;try{s=localStorage.getItem('hexis-lang');}catch(e){}
+  var lang=s||(/^tr/i.test(navigator.language)?'tr':'en');
+  /* Auto-redirect TR users to /kvkk/ */
+  if(lang==='tr'){window.location.href='/kvkk/';return;}
+  setLang('en');
+})();
 </script>
 </body>
 </html>

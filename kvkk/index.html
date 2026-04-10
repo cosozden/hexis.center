@@ -235,31 +235,31 @@ document.addEventListener('click',function(e){
 });
 /* ── Language Switch ── */
 function setLang(lang){
-  /* html lang attribute for accessibility/SEO */
-  document.documentElement.lang=lang==='tr'?'tr':'en';
-  /* button states */
+  try{localStorage.setItem('hexis-lang',lang);}catch(e){}
+  /* This is the TR KVKK checklist — if user switches to EN, redirect to /checklist/ */
+  if(lang==='en'){window.location.href='/checklist/';return;}
+  document.documentElement.lang='tr';
   document.querySelectorAll('.lang-btn').forEach(function(b){
     b.classList.toggle('active',b.dataset.lang===lang);
   });
-  /* data-en / data-tr: text + href */
   document.querySelectorAll('[data-en]').forEach(function(el){
     var txt=el.dataset[lang];
     if(txt!==undefined) el.innerHTML=txt;
     var href=el.dataset[lang+'Href'];
     if(href) el.href=href;
   });
-  /* data-en-href / data-tr-href: href-only elements (no text swap) */
   document.querySelectorAll('[data-en-href]:not([data-en])').forEach(function(el){
     var href=el.dataset[lang+'Href'];
     if(href) el.href=href;
   });
-  try{localStorage.setItem('hexis-lang',lang);}catch(e){}
 }
 (function(){
   var saved;
   try{saved=localStorage.getItem('hexis-lang');}catch(e){}
-  /* default: detect from browser language */
-  setLang(saved||(/^tr/i.test(navigator.language)?'tr':'en'));
+  var lang=saved||(/^tr/i.test(navigator.language)?'tr':'en');
+  /* Auto-redirect EN users to /checklist/ */
+  if(lang==='en'){window.location.href='/checklist/';return;}
+  setLang('tr');
 })();
 </script>
 </body>

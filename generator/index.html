@@ -1533,18 +1533,24 @@
 <!-- ── EU AI ACT RISK CLASSIFIER ── -->
 <div class="classifier-wrap" id="classifier-wrap">
   <div class="classifier">
+    <div style="margin-bottom:12px">
+      <a href="#" onclick="returnToObserve();return false;" style="font-size:11px;color:var(--stone);text-decoration:none;font-family:Arial,sans-serif;letter-spacing:.04em;transition:color .15s" onmouseover="this.style.color='var(--ink)'" onmouseout="this.style.color='var(--stone)'"
+        data-en="← Back to Observe"
+        data-tr="← Observe'e Dön"
+      >← Back to Observe</a>
+    </div>
     <div class="clf-header">
       <div>
         <div class="clf-brand">Hexis · EU AI Act Risk Classifier</div>
         <div class="clf-title" data-en="Risk — Determine Your System's Legal Position" data-tr="Risk — Sisteminizin Yasal Konumunu Belirleyin">Risk — Determine Your System's Legal Position</div>
         <div class="clf-subtitle" data-en="An unclassified system cannot be governed. This stage establishes which obligations apply to you — and which do not." data-tr="Sınıflandırılmamış bir sistem yönetilemez. Bu aşama, hangi yükümlülüklerin sizin için geçerli olduğunu netleştirir.">An unclassified system cannot be governed. This stage establishes which obligations apply to you — and which do not.</div>
       </div>
-      <button class="clf-skip" onclick="toggleSkipPanel()">I know my risk level &#x2192;</button>
+      <button class="clf-skip" onclick="toggleSkipPanel()" data-en="I know my risk level →" data-tr="Risk seviyemi biliyorum →">I know my risk level &#x2192;</button>
     </div>
     <div class="clf-skip-panel" id="clf-skip-panel">
       <div class="clf-skip-panel-inner">
         <select class="clf-skip-select" id="clf-skip-select">
-          <option value="">Select your risk classification&#x2026;</option>
+          <option value="" data-en="Select your risk classification…" data-tr="Risk sınıflandırmanızı seçin…">Select your risk classification…</option>
           <option value="prohibited">Prohibited (Unacceptable Risk) \u2014 Art. 5</option>
           <option value="high_risk_annex_iii">High-Risk \u2014 Annex III (Art. 6(2))</option>
           <option value="high_risk_annex_i">High-Risk \u2014 Annex I / Product Safety (Art. 6(1))</option>
@@ -1553,7 +1559,7 @@
           <option value="transparency">Limited Risk / Transparency (Art. 50)</option>
           <option value="minimal">Minimal Risk (Art. 95)</option>
         </select>
-        <button class="clf-skip-submit" id="clf-skip-submit" onclick="showSkipResult()" disabled>View My Obligations &#x2192;</button>
+        <button class="clf-skip-submit" id="clf-skip-submit" onclick="showSkipResult()" disabled data-en="View My Obligations →" data-tr="Yükümlülüklerimi Görüntüle →">View My Obligations &#x2192;</button>
       </div>
     </div>
     <div class="clf-context-note" id="clf-context-note" data-en="Your system information from the Observe stage has been used to pre-fill parts of this assessment. Review each step and confirm — or correct where needed. Classification is your decision." data-tr="Observe aşamasındaki sistem bilgileriniz bu değerlendirmenin bir kısmını önceden doldurdu. Her adımı gözden geçirin ve onaylayın; gerekirse düzeltin. Sınıflandırma sizin kararınız.">Your system information from the Observe stage has been used to pre-fill parts of this assessment. Review each step and confirm — or correct where needed. Classification is your decision.</div>
@@ -3333,6 +3339,26 @@
     else setTimeout(ready, 0);
   })();
 
+  window.returnToObserve = function() {
+    var observeWrap = document.getElementById('observe-wrap');
+    var classifierWrap = document.getElementById('classifier-wrap');
+    if (observeWrap) observeWrap.classList.remove('collapsed');
+    if (classifierWrap) classifierWrap.classList.add('collapsed');
+    /* Update ORIENT nav bar: Observe → active, Risk → inactive */
+    document.querySelectorAll('.orient-stage').forEach(function(s){
+      if(s.dataset.stage==='observe'){
+        s.classList.add('active');
+        s.classList.remove('done');
+        s.innerHTML='<span class="orient-dot">●</span><span class="orient-label">Observe</span>';
+      }
+      if(s.dataset.stage==='risk'){
+        s.classList.remove('active');
+        s.innerHTML='<span class="orient-dot">○</span><span class="orient-label">Risk</span>';
+      }
+    });
+    observeWrap.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  };
+
   window.restartClassifier = function() {
     clfCurrentStep = 0;
     clfSelections = {};
@@ -4107,7 +4133,10 @@ function setLang(lang){
   });
   document.querySelectorAll('[data-en]').forEach(function(el){
     var txt=el.dataset[lang];
-    if(txt!==undefined) el.innerHTML=txt;
+    if(txt!==undefined){
+      if(el.tagName==='OPTION') el.textContent=txt;
+      else el.innerHTML=txt;
+    }
     var href=el.dataset[lang+'Href'];
     if(href) el.href=href;
   });
