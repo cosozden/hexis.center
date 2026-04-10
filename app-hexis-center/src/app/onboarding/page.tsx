@@ -14,7 +14,6 @@
 
 import { useState, useCallback } from "react";
 import { useRouter } from "next/navigation";
-import { createClient } from "@/lib/supabase/client";
 
 // ━━━ TYPES ━━━
 
@@ -58,7 +57,6 @@ const ROLES = [
 
 export default function OnboardingPage() {
   const router = useRouter();
-  const supabase = createClient();
 
   const [step, setStep] = useState<Step>(1);
   const [data, setData] = useState<OnboardingData>({
@@ -85,67 +83,33 @@ export default function OnboardingPage() {
     setError(null);
 
     try {
-      const {
-        data: { user },
-      } = await supabase.auth.getUser();
-      if (!user) throw new Error("Not authenticated");
+      // Call server-side API route (handles org creation, profile link, system creation)
+      const res = await fetch("/api/onboarding", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          orgName: data.orgName,
+          industry: data.industry,
+          role: data.role,
+          firstSystemName: data.firstSystemName.trim(),
+          firstSystemPurpose: data.firstSystemPurpose.trim(),
+        }),
+      });
 
-      // 1. Create organisation
-      const slug = data.orgName
-        .toLowerCase()
-        .replace(/[^a-z0-9]+/g, "-")
-        .replace(/^-|-$/g, "")
-        .slice(0, 40);
+      const result = await res.json();
 
-      const { data: org, error: orgError } = await supabase
-        .from("organizations")
-        .insert({
-          name: data.orgName,
-          slug: `${slug}-${Date.now().toString(36)}`,
-          settings: {
-            industry: data.industry,
-            onboarded_at: new Date().toISOString(),
-          },
-        })
-        .select("id")
-        .single();
-
-      if (orgError) throw new Error(orgError.message);
-
-      // 2. Link profile to org
-      const { error: profileError } = await supabase
-        .from("profiles")
-        .update({
-          org_id: org.id,
-          role: "owner",
-          onboarding_completed: true,
-        })
-        .eq("id", user.id);
-
-      if (profileError) throw new Error(profileError.message);
-
-      // 3. Create first AI system if provided
-      if (data.firstSystemName.trim()) {
-        await supabase.from("ai_systems").insert({
-          org_id: org.id,
-          name: data.firstSystemName.trim(),
-          purpose: data.firstSystemPurpose.trim() || null,
-          created_by: user.id,
-          observe_metadata: {
-            onboarding_source: true,
-            user_role: data.role,
-          },
-        });
+      if (!res.ok) {
+        throw new Error(result.error || "Onboarding failed");
       }
 
-      // 4. Redirect to dashboard
+      // Redirect to dashboard
       router.push("/dashboard");
       router.refresh();
     } catch (err) {
       setError(err instanceof Error ? err.message : "Something went wrong");
       setLoading(false);
     }
-  }, [data, supabase, router]);
+  }, [data, router]);
 
   // ━━━ STEP NAVIGATION ━━━
 

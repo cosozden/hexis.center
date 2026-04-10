@@ -27,6 +27,18 @@ function getResend(): Resend {
   return resendClient;
 }
 
+// ━━━ HTML ESCAPING ━━━
+// Prevents XSS / HTML injection in email templates from user-supplied fields
+
+function escapeHtml(unsafe: string): string {
+  return unsafe
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#039;');
+}
+
 // ━━━ CONFIG ━━━
 
 const FROM_EMAIL = process.env.RESEND_FROM_EMAIL || 'Hexis <noreply@hexis.center>';
@@ -54,7 +66,7 @@ export async function sendWelcomeEmail(
     const { data, error } = await resend.emails.send({
       from: FROM_EMAIL,
       to,
-      subject: `Welcome to Hexis — ${orgName} is set up`,
+      subject: `Welcome to Hexis — ${orgName.replace(/[\r\n]/g, '')} is set up`,
       html: welcomeTemplate(userName, orgName),
     });
 
@@ -83,7 +95,7 @@ export async function sendDeadlineReminder(
     const { data, error } = await resend.emails.send({
       from: FROM_EMAIL,
       to,
-      subject: `[${urgency}] ${obligationTitle} — ${daysLeft} day${daysLeft !== 1 ? 's' : ''} left`,
+      subject: `[${urgency}] ${obligationTitle.replace(/[\r\n]/g, '')} — ${daysLeft} day${daysLeft !== 1 ? 's' : ''} left`,
       html: deadlineTemplate(userName, systemName, obligationTitle, daysLeft, articleRef),
     });
 
@@ -109,7 +121,7 @@ export async function sendWeeklySummary(
     const { data, error } = await resend.emails.send({
       from: FROM_EMAIL,
       to,
-      subject: `Hexis Weekly — ${orgName} compliance update`,
+      subject: `Hexis Weekly — ${orgName.replace(/[\r\n]/g, '')} compliance update`,
       html: weeklySummaryTemplate(userName, orgName, summary),
     });
 
@@ -182,10 +194,12 @@ function emailWrapper(content: string): string {
 }
 
 function welcomeTemplate(userName: string, orgName: string): string {
+  const safeUser = escapeHtml(userName);
+  const safeOrg = escapeHtml(orgName);
   return emailWrapper(`
-    <h2 style="${STYLES.h2}">Welcome, ${userName}</h2>
+    <h2 style="${STYLES.h2}">Welcome, ${safeUser}</h2>
     <p style="${STYLES.text}">
-      Your organisation <strong style="color: #E8E6E2;">${orgName}</strong> is set up on Hexis.
+      Your organisation <strong style="color: #E8E6E2;">${safeOrg}</strong> is set up on Hexis.
       You're ready to start mapping your AI governance posture.
     </p>
     <div style="${STYLES.card}">
@@ -210,22 +224,26 @@ function deadlineTemplate(
   daysLeft: number,
   articleRef: string
 ): string {
+  const safeUser = escapeHtml(userName);
+  const safeSystem = escapeHtml(systemName);
+  const safeTitle = escapeHtml(title);
+  const safeArticle = escapeHtml(articleRef);
   const urgencyStyle = daysLeft <= 1 ? STYLES.urgent : daysLeft <= 3 ? STYLES.warning : '';
   const urgencyLabel = daysLeft <= 1 ? 'OVERDUE / DUE TODAY' : `${daysLeft} days remaining`;
 
   return emailWrapper(`
     <p style="${STYLES.label}">Deadline Reminder</p>
-    <h2 style="${STYLES.h2}">${title}</h2>
+    <h2 style="${STYLES.h2}">${safeTitle}</h2>
     <div style="${STYLES.card}">
       <p style="${STYLES.text}">
-        <strong style="color: #E8E6E2;">System:</strong> ${systemName}<br>
-        <strong style="color: #E8E6E2;">Article:</strong> ${articleRef}<br>
+        <strong style="color: #E8E6E2;">System:</strong> ${safeSystem}<br>
+        <strong style="color: #E8E6E2;">Article:</strong> ${safeArticle}<br>
         <strong style="${urgencyStyle || 'color: #E8E6E2;'}">Status:</strong>
         <span style="${urgencyStyle}">${urgencyLabel}</span>
       </p>
     </div>
     <p style="${STYLES.text}">
-      ${userName}, this obligation requires attention.
+      ${safeUser}, this obligation requires attention.
       Visit the Hexis platform to review and update its status.
     </p>
     <a href="https://app.hexis.center/dashboard" style="${STYLES.btn}">Review Now</a>
@@ -237,14 +255,16 @@ function weeklySummaryTemplate(
   orgName: string,
   data: WeeklySummaryData
 ): string {
+  const safeUser = escapeHtml(userName);
+  const safeOrg = escapeHtml(orgName);
   const deadlineRows = data.upcomingDeadlines
     .slice(0, 5)
     .map(
       (d) =>
         `<tr>
-          <td style="padding: 6px 0; font-size: 12px; color: #E8E6E2; border-bottom: 1px solid rgba(232,230,226,0.06);">${d.title}</td>
+          <td style="padding: 6px 0; font-size: 12px; color: #E8E6E2; border-bottom: 1px solid rgba(232,230,226,0.06);">${escapeHtml(d.title)}</td>
           <td style="padding: 6px 0; font-size: 12px; color: #8A8884; border-bottom: 1px solid rgba(232,230,226,0.06); text-align: right;">
-            <span style="${d.daysLeft <= 7 ? STYLES.warning : ''}">${d.daysLeft}d</span> · ${d.systemName}
+            <span style="${d.daysLeft <= 7 ? STYLES.warning : ''}">${d.daysLeft}d</span> · ${escapeHtml(d.systemName)}
           </td>
         </tr>`
     )
@@ -257,8 +277,8 @@ function weeklySummaryTemplate(
     : '';
 
   return emailWrapper(`
-    <p style="${STYLES.label}">Weekly Summary — ${orgName}</p>
-    <h2 style="${STYLES.h2}">Hi ${userName}, here's your week</h2>
+    <p style="${STYLES.label}">Weekly Summary — ${safeOrg}</p>
+    <h2 style="${STYLES.h2}">Hi ${safeUser}, here's your week</h2>
 
     <div style="${STYLES.card}">
       <table style="width: 100%;" cellpadding="0" cellspacing="0">

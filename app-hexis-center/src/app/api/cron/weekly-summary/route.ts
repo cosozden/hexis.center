@@ -16,10 +16,21 @@ const CRON_SECRET = process.env.CRON_SECRET || '';
 const SUPABASE_URL = process.env.NEXT_PUBLIC_SUPABASE_URL || '';
 const SUPABASE_SERVICE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY || '';
 
-export async function POST(request: Request) {
-  // 1. Verify cron auth
+function verifyCronAuth(request: Request): boolean {
+  // Method 1: Vercel Cron header (set automatically by Vercel Cron Jobs)
+  const vercelCron = request.headers.get('x-vercel-cron');
+  if (vercelCron === '1') return true;
+
+  // Method 2: Bearer token (manual trigger, e.g. from admin panel)
   const authHeader = request.headers.get('authorization');
-  if (CRON_SECRET && authHeader !== `Bearer ${CRON_SECRET}`) {
+  if (CRON_SECRET && authHeader === `Bearer ${CRON_SECRET}`) return true;
+
+  return false;
+}
+
+export async function POST(request: Request) {
+  // 1. Verify cron auth — reject if neither Vercel Cron nor valid secret
+  if (!verifyCronAuth(request)) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   }
 

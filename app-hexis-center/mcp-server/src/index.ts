@@ -36,28 +36,34 @@ if (!SUPABASE_URL || !SUPABASE_SERVICE_KEY || !USER_API_TOKEN) {
 const supabase: SupabaseClient = createClient(SUPABASE_URL, SUPABASE_SERVICE_KEY);
 
 // ━━━ AUTH: Resolve API token → org_id ━━━
+// Token format: hexis_{user_id}_{random_hex}
+// Stored in profiles.settings->>'api_token'
+// Each token maps to exactly one user → one org
 
 let cachedOrgId: string | null = null;
 
 async function getOrgId(): Promise<string> {
   if (cachedOrgId) return cachedOrgId;
 
-  // API token format: hexis_{profile_id}_{random}
-  // For MVP, token is stored in profiles.settings.api_token
-  // We look up the profile by matching the token
-  const { data: profiles } = await supabase
-    .from('profiles')
-    .select('org_id')
-    .not('org_id', 'is', null);
-
-  // In v1, we trust the env-provided token and use it to find the org
-  // For production: implement proper API token table
-  if (!profiles || profiles.length === 0) {
-    throw new Error('No profiles found — check your API token');
+  if (!USER_API_TOKEN.startsWith('hexis_')) {
+    throw new Error('Invalid API token format — must start with hexis_');
   }
 
-  // For MVP: Use the first profile's org (single-tenant assumption)
-  cachedOrgId = profiles[0].org_id as string;
+  // Look up the profile whose settings.api_token matches
+  const { data: profile, error } = await supabase
+    .from('profiles')
+    .select('org_id')
+    .eq('settings->>api_token', USER_API_TOKEN)
+    .not('org_id', 'is', null)
+    .single();
+
+  if (error || !profile?.org_id) {
+    throw new Error(
+      'API token not recognized — generate a new token from Settings in the Hexis platform'
+    );
+  }
+
+  cachedOrgId = profile.org_id as string;
   return cachedOrgId;
 }
 

@@ -20,6 +20,7 @@ import {
   renderToBuffer,
   Font,
 } from '@react-pdf/renderer';
+import { z } from 'zod';
 import { authenticateRequest } from '@/lib/api/auth';
 
 // ━━━ TYPES ━━━
@@ -534,6 +535,31 @@ function HexisReport({ report, systemName, riskLevel, score }: PDFRequest) {
   );
 }
 
+// ━━━ ZOD SCHEMA ━━━
+
+const ReportMetricSchema = z.object({
+  label: z.string().max(200),
+  value: z.string().max(200),
+  trend: z.enum(['improving', 'declining', 'stable']).optional(),
+});
+
+const ReportDataSchema = z.object({
+  audience: z.string().max(50),
+  title: z.string().max(300),
+  executive_summary: z.string().max(10000),
+  key_metrics: z.array(ReportMetricSchema).max(20).optional(),
+  risk_highlights: z.array(z.string().max(2000)).max(50).optional(),
+  recommendations: z.array(z.string().max(2000)).max(50).optional(),
+  next_review_date: z.string().max(50).optional(),
+});
+
+const PDFRequestSchema = z.object({
+  report: ReportDataSchema,
+  systemName: z.string().min(1).max(200),
+  riskLevel: z.string().max(50),
+  score: z.number().min(0).max(100),
+});
+
 // ━━━ ROUTE HANDLER ━━━
 
 export async function POST(request: Request) {
@@ -543,11 +569,18 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   }
 
-  // 2. Parse body
+  // 2. Parse & validate body
   let body: PDFRequest;
   try {
-    body = await request.json();
-  } catch {
+    const raw = await request.json();
+    body = PDFRequestSchema.parse(raw) as PDFRequest;
+  } catch (err) {
+    if (err instanceof z.ZodError) {
+      return NextResponse.json(
+        { error: 'Validation failed', details: err.errors.map((e) => e.message) },
+        { status: 400 }
+      );
+    }
     return NextResponse.json(
       { error: 'Invalid request body' },
       { status: 400 }
@@ -555,13 +588,6 @@ export async function POST(request: Request) {
   }
 
   const { report, systemName, riskLevel, score } = body;
-
-  if (!report || !systemName || !riskLevel || score === undefined) {
-    return NextResponse.json(
-      { error: 'Missing required fields: report, systemName, riskLevel, score' },
-      { status: 400 }
-    );
-  }
 
   // 3. Generate PDF
   try {
