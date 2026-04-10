@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hexis Platform — AI Governance for EU AI Act Compliance</title>
+<meta name="description" content="Manage your entire AI governance lifecycle in one platform. Risk classification, obligation tracking, compliance scoring, and reporting — powered by AI. From €9/month.">
+<meta property="og:title" content="Hexis Platform — AI Governance for EU AI Act Compliance">
+<meta property="og:description" content="Manage your entire AI governance lifecycle in one platform. Risk classification, obligation tracking, compliance scoring, and reporting — powered by AI.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://hexis.center/platform/">
+<meta property="og:image" content="https://hexis.center/assets/og-hexis.png">
+<link rel="canonical" href="https://hexis.center/platform/">
+<link rel="icon" href="/assets/favicon.ico">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+<script defer data-domain="hexis.center" src="https://plausible.io/js/script.js"></script>
+<style>
+/* ─── BRAND TOKENS ─── */
+:root {
+  --charcoal: #1C1E23;
+  --brass: #B2986C;
+  --stone: #686662;
+  --paper: #F8F7F5;
+  --dark-bg: #16181C;
+  --dark-type: #E8E6E2;
+  --dark-sub: #8A8884;
+  --border: rgba(232,230,226,0.10);
+  --border2: rgba(232,230,226,0.18);
+  --card: rgba(232,230,226,0.04);
+}
+
+/* ─── RESET ─── */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  background: var(--dark-bg);
+  color: var(--dark-type);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+a { color: inherit; text-decoration: none; }
+
+/* ─── LAYOUT ─── */
+.container { max-width: 960px; margin: 0 auto; padding: 0 24px; }
+.label {
+  font-size: 9px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--brass);
+  margin-bottom: 12px;
+}
+
+/* ─── NAV ─── */
+nav {
+  border-bottom: 1px solid var(--border);
+  padding: 20px 0;
+}
+nav .container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.nav-brand {
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 16px;
+  letter-spacing: 0.15em;
+  color: var(--dark-type);
+}
+.nav-links { display: flex; gap: 24px; align-items: center; }
+.nav-links a {
+  font-size: 12px;
+  color: var(--dark-sub);
+  transition: color 0.2s;
+}
+.nav-links a:hover { color: var(--dark-type); }
+.nav-cta {
+  font-size: 11px;
+  letter-spacing: 0.05em;
+  padding: 8px 20px;
+  border: 1px solid var(--dark-type);
+  color: var(--dark-type) !important;
+  transition: background 0.2s;
+}
+.nav-cta:hover { background: rgba(232,230,226,0.05); }
+
+/* ─── HERO ─── */
+.hero {
+  padding: 100px 0 80px;
+  text-align: center;
+  border-bottom: 1px solid var(--border);
+}
+.hero h1 {
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: clamp(28px, 4vw, 42px);
+  line-height: 1.2;
+  margin-bottom: 20px;
+  max-width: 700px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.hero p {
+  font-size: 15px;
+  color: var(--dark-sub);
+  max-width: 540px;
+  margin: 0 auto 32px;
+  line-height: 1.7;
+}
+.hero-cta {
+  display: inline-block;
+  font-size: 13px;
+  letter-spacing: 0.05em;
+  padding: 14px 36px;
+  border: 1.5px solid var(--dark-type);
+  color: var(--dark-type);
+  transition: background 0.2s;
+}
+.hero-cta:hover { background: rgba(232,230,226,0.05); }
+.hero-price {
+  display: block;
+  margin-top: 16px;
+  font-size: 12px;
+  color: var(--dark-sub);
+}
+
+/* ─── STEPS ─── */
+.steps {
+  padding: 80px 0;
+  border-bottom: 1px solid var(--border);
+}
+.steps-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-top: 32px;
+}
+@media (max-width: 700px) { .steps-grid { grid-template-columns: 1fr; } }
+.step-card {
+  border: 1px solid var(--border);
+  background: var(--card);
+  padding: 24px;
+}
+.step-num {
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 24px;
+  color: var(--brass);
+  margin-bottom: 12px;
+}
+.step-card h3 {
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 15px;
+  margin-bottom: 8px;
+}
+.step-card p {
+  font-size: 12px;
+  color: var(--dark-sub);
+  line-height: 1.6;
+}
+
+/* ─── FEATURES ─── */
+.features {
+  padding: 80px 0;
+  border-bottom: 1px solid var(--border);
+}
+.features-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-top: 32px;
+}
+@media (max-width: 700px) { .features-grid { grid-template-columns: 1fr; } }
+.feature-card {
+  border: 1px solid var(--border);
+  padding: 24px;
+}
+.feature-card h3 {
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 14px;
+  margin-bottom: 8px;
+}
+.feature-card p {
+  font-size: 12px;
+  color: var(--dark-sub);
+  line-height: 1.6;
+}
+
+/* ─── PRICING ─── */
+.pricing {
+  padding: 80px 0;
+  border-bottom: 1px solid var(--border);
+}
+.pricing-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-top: 32px;
+}
+@media (max-width: 700px) { .pricing-grid { grid-template-columns: 1fr; } }
+.pricing-card {
+  border: 1px solid var(--border);
+  padding: 32px 24px;
+  text-align: center;
+}
+.pricing-card.featured { border-color: var(--brass); }
+.pricing-name {
+  font-size: 9px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--dark-sub);
+  margin-bottom: 16px;
+}
+.pricing-price {
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 36px;
+  margin-bottom: 4px;
+}
+.pricing-period { font-size: 11px; color: var(--dark-sub); margin-bottom: 24px; }
+.pricing-features {
+  list-style: none;
+  text-align: left;
+  margin-bottom: 24px;
+}
+.pricing-features li {
+  font-size: 12px;
+  color: var(--dark-sub);
+  padding: 6px 0;
+  border-bottom: 1px solid var(--border);
+}
+.pricing-features li::before { content: '— '; color: var(--brass); }
+.pricing-btn {
+  display: inline-block;
+  width: 100%;
+  font-size: 12px;
+  padding: 12px;
+  border: 1px solid var(--dark-type);
+  color: var(--dark-type);
+  text-align: center;
+  transition: background 0.2s;
+}
+.pricing-btn:hover { background: rgba(232,230,226,0.05); }
+
+/* ─── TRUST ─── */
+.trust {
+  padding: 80px 0;
+  border-bottom: 1px solid var(--border);
+}
+.trust-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  margin-top: 32px;
+}
+@media (max-width: 700px) { .trust-grid { grid-template-columns: 1fr 1fr; } }
+.trust-item { text-align: center; padding: 20px 12px; }
+.trust-item h4 {
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 13px;
+  margin-bottom: 6px;
+}
+.trust-item p { font-size: 11px; color: var(--dark-sub); }
+
+/* ─── CTA ─── */
+.cta-section {
+  padding: 80px 0;
+  text-align: center;
+}
+.cta-section h2 {
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 28px;
+  margin-bottom: 16px;
+}
+.cta-section p {
+  font-size: 13px;
+  color: var(--dark-sub);
+  max-width: 480px;
+  margin: 0 auto 32px;
+}
+
+/* ─── FOOTER ─── */
+footer {
+  border-top: 1px solid var(--border);
+  padding: 32px 0;
+  text-align: center;
+}
+footer p { font-size: 11px; color: var(--dark-sub); }
+footer a { color: var(--dark-sub); border-bottom: 1px solid var(--border2); }
+
+/* ─── PRINT ─── */
+@media print { body { background: #fff; color: #000; } }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="container">
+    <a href="/" class="nav-brand">HEXIS</a>
+    <div class="nav-links">
+      <a href="#features">Features</a>
+      <a href="#pricing">Pricing</a>
+      <a href="/generator/">Free Tools</a>
+      <a href="https://app.hexis.center/signup" class="nav-cta">Get Started</a>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="container">
+    <p class="label">AI Governance Platform</p>
+    <h1>EU AI Act compliance without the consultant dependency</h1>
+    <p>
+      Register your AI systems, classify risk, map obligations,
+      assess governance maturity, and track compliance progress.
+      All in one platform, guided by AI.
+    </p>
+    <a href="https://app.hexis.center/signup" class="hero-cta">Start Your Compliance Journey</a>
+    <span class="hero-price">From &euro;9 for your first month. No credit card for free tools.</span>
+  </div>
+</section>
+
+<!-- 6 STEPS -->
+<section class="steps">
+  <div class="container">
+    <p class="label">The ORIENT Process</p>
+    <h2 style="font-family: Georgia, 'Times New Roman', serif; font-size: 22px; margin-bottom: 8px;">
+      Six steps from awareness to compliance
+    </h2>
+    <p style="font-size: 13px; color: var(--dark-sub); max-width: 500px;">
+      The platform walks you through a structured governance process.
+      Each step builds on the last. AI assists at every stage.
+    </p>
+    <div class="steps-grid">
+      <div class="step-card">
+        <div class="step-num">1</div>
+        <h3>Observe</h3>
+        <p>Register your AI systems. Describe what they do, what data they use, and who is responsible. AI helps extract structured data from free-text descriptions.</p>
+      </div>
+      <div class="step-card">
+        <div class="step-num">2</div>
+        <h3>Risk</h3>
+        <p>Classify each system's risk level under the EU AI Act. The decision-tree wizard follows Articles 5, 6, 50, and 51-56. AI enriches with contextual analysis.</p>
+      </div>
+      <div class="step-card">
+        <div class="step-num">3</div>
+        <h3>Identify</h3>
+        <p>Map your legal obligations based on risk level. Each item includes article references, deadlines, and AI-guided "how to comply" advisory.</p>
+      </div>
+      <div class="step-card">
+        <div class="step-num">4</div>
+        <h3>Evaluate</h3>
+        <p>Assess your governance maturity across oversight, monitoring, and documentation. The Governance Activation Matrix reveals your critical gaps.</p>
+      </div>
+      <div class="step-card">
+        <div class="step-num">5</div>
+        <h3>Navigate</h3>
+        <p>AI generates a prioritised action plan based on your obligations, gaps, and resources. Discuss and refine through conversation.</p>
+      </div>
+      <div class="step-card">
+        <div class="step-num">6</div>
+        <h3>Track</h3>
+        <p>Monitor compliance scores over time, set review schedules, and generate audience-adapted reports for board, DPO, or auditor audiences.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section class="features" id="features">
+  <div class="container">
+    <p class="label">What makes Hexis different</p>
+    <div class="features-grid">
+      <div class="feature-card">
+        <h3>AI compliance advisor, not a chatbot</h3>
+        <p>Claude analyses your specific system context against the full EU AI Act text. Every recommendation is article-referenced and grounded in the regulation.</p>
+      </div>
+      <div class="feature-card">
+        <h3>Deterministic + AI hybrid</h3>
+        <p>Risk classification and scoring use deterministic rules. AI enriches but never overrides. Auditable, reproducible, defensible.</p>
+      </div>
+      <div class="feature-card">
+        <h3>Built for SMEs</h3>
+        <p>No enterprise sales process, no consultant fees. Sign up, pay, and start governing. Designed for DPOs and compliance officers who work alone.</p>
+      </div>
+      <div class="feature-card">
+        <h3>Change detection</h3>
+        <p>Update a risk classification and downstream steps are automatically flagged for review. The platform maintains governance integrity over time.</p>
+      </div>
+      <div class="feature-card">
+        <h3>Professional PDF reports</h3>
+        <p>Generate Hexis-branded compliance reports adapted for different audiences. Present to your board, share with your DPO, or submit to an auditor.</p>
+      </div>
+      <div class="feature-card">
+        <h3>Claude Desktop integration</h3>
+        <p>Connect via MCP to access your governance data directly from Claude Desktop. Ask "What's my compliance score?" without opening a browser.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section class="pricing" id="pricing">
+  <div class="container">
+    <p class="label">Pricing</p>
+    <h2 style="font-family: Georgia, 'Times New Roman', serif; font-size: 22px; margin-bottom: 8px;">
+      Straightforward pricing
+    </h2>
+    <p style="font-size: 13px; color: var(--dark-sub);">
+      No hidden fees. No annual lock-in. Cancel anytime.
+    </p>
+    <div class="pricing-grid">
+      <div class="pricing-card">
+        <p class="pricing-name">First Month</p>
+        <p class="pricing-price">&euro;9</p>
+        <p class="pricing-period">one-time introductory</p>
+        <ul class="pricing-features">
+          <li>Full platform access</li>
+          <li>All 6 ORIENT steps</li>
+          <li>AI compliance advisor</li>
+          <li>PDF report generation</li>
+        </ul>
+        <a href="https://app.hexis.center/signup" class="pricing-btn">Get Started</a>
+      </div>
+      <div class="pricing-card featured">
+        <p class="pricing-name">Pro</p>
+        <p class="pricing-price">&euro;29</p>
+        <p class="pricing-period">per month</p>
+        <ul class="pricing-features">
+          <li>Everything in First Month</li>
+          <li>Unlimited AI advisor queries</li>
+          <li>Weekly compliance digest</li>
+          <li>Deadline email reminders</li>
+          <li>MCP server access</li>
+        </ul>
+        <a href="https://app.hexis.center/signup" class="pricing-btn">Start with Pro</a>
+      </div>
+      <div class="pricing-card">
+        <p class="pricing-name">Business</p>
+        <p class="pricing-price">&euro;79</p>
+        <p class="pricing-period">per month (up to 5 users)</p>
+        <ul class="pricing-features">
+          <li>Everything in Pro</li>
+          <li>Team collaboration</li>
+          <li>Role-based access</li>
+          <li>Priority support</li>
+          <li>Custom report branding</li>
+        </ul>
+        <a href="https://app.hexis.center/signup" class="pricing-btn">Start with Business</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TRUST -->
+<section class="trust">
+  <div class="container">
+    <p class="label">Trust &amp; Security</p>
+    <div class="trust-grid">
+      <div class="trust-item">
+        <h4>EU Data Residency</h4>
+        <p>All data stored in Frankfurt (eu-central-1). Supabase SOC 2 Type II certified.</p>
+      </div>
+      <div class="trust-item">
+        <h4>No Training on Your Data</h4>
+        <p>Anthropic API ToS: your data is never used for model training.</p>
+      </div>
+      <div class="trust-item">
+        <h4>Built by a Practitioner</h4>
+        <p>ISO/IEC 42001 Lead Implementer. IAPP member. Not a template factory.</p>
+      </div>
+      <div class="trust-item">
+        <h4>GDPR Compliant</h4>
+        <p>Data minimisation, right to erasure, DPA available on request.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<section class="cta-section">
+  <div class="container">
+    <h2>August 2026 is closer than you think</h2>
+    <p>
+      EU AI Act Annex III obligations take effect in 4 months.
+      Start mapping your governance posture today.
+    </p>
+    <a href="https://app.hexis.center/signup" class="hero-cta">Start Your Compliance Journey</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <p>
+      &copy; 2026 Hexis AI Governance &middot;
+      <a href="/">hexis.center</a> &middot;
+      <a href="/generator/">Free Tools</a> &middot;
+      <a href="/blog/">Blog</a> &middot;
+      <a href="/methodology/">Methodology</a>
+    </p>
+  </div>
+</footer>
+
+</body>
+</html>

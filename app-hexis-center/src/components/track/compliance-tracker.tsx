@@ -121,6 +121,7 @@ export function ComplianceTracker({
   const [report, setReport] = useState<Report | null>(null);
   const [snapshotLoading, setSnapshotLoading] = useState(false);
   const [reportLoading, setReportLoading] = useState(false);
+  const [pdfLoading, setPdfLoading] = useState(false);
   const [selectedAudience, setSelectedAudience] = useState<string>("board");
   const [error, setError] = useState<string | null>(null);
 
@@ -182,6 +183,46 @@ export function ComplianceTracker({
       setReportLoading(false);
     }
   }, [systemId, selectedAudience]);
+
+  // ━━━ EXPORT PDF ━━━
+
+  const exportPdf = useCallback(async () => {
+    if (!report || !score) return;
+    setPdfLoading(true);
+    setError(null);
+    try {
+      const res = await fetch("/api/reports/pdf", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          report,
+          systemName,
+          riskLevel,
+          score: score.overall,
+        }),
+      });
+      if (!res.ok) {
+        const data = await res.json().catch(() => ({}));
+        throw new Error((data as { error?: string }).error || "Failed to generate PDF");
+      }
+      const blob = await res.blob();
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      // Extract filename from Content-Disposition or use fallback
+      const disposition = res.headers.get("content-disposition");
+      const match = disposition?.match(/filename="(.+)"/);
+      a.download = match?.[1] || `hexis-report-${new Date().toISOString().slice(0, 10)}.pdf`;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Failed to export PDF");
+    } finally {
+      setPdfLoading(false);
+    }
+  }, [report, score, systemName, riskLevel]);
 
   // ━━━ RENDER: NO SCORE YET ━━━
 
@@ -498,6 +539,22 @@ export function ComplianceTracker({
               Suggested next review: {report.next_review_date}
             </p>
           )}
+
+          {/* Export PDF */}
+          <Separator className="my-4" />
+          <div className="flex items-center justify-between">
+            <p className="text-xs text-muted-foreground">
+              Download as Hexis-branded A4 PDF
+            </p>
+            <Button
+              size="sm"
+              variant="outline"
+              onClick={exportPdf}
+              disabled={pdfLoading}
+            >
+              {pdfLoading ? "Generating PDF..." : "Export PDF"}
+            </Button>
+          </div>
         </Card>
       )}
 
