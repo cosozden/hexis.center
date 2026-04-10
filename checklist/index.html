@@ -522,6 +522,22 @@
 </style>
 </head>
 <body>
+<nav style="position:sticky;top:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:0 48px;height:60px;background:#16181C;border-bottom:1px solid rgba(232,230,226,0.10)">
+  <a href="/" style="display:flex;align-items:center;gap:8px;text-decoration:none;color:#E8E6E2">
+    <img src="/assets/logo-light.png" alt="Hexis" height="18">
+    <span style="font-family:Georgia,serif;font-size:15px;letter-spacing:.04em">Hexis</span>
+  </a>
+  <div style="display:flex;gap:20px;align-items:center">
+    <a href="/methodology/" style="color:#8A8884;font-size:12px;text-decoration:none;letter-spacing:.04em" data-en-href="/methodology/" data-tr-href="/metodoloji/">ORIENT</a>
+    <a href="/generator/" style="color:#8A8884;font-size:12px;text-decoration:none;letter-spacing:.04em">Generator</a>
+    <a href="/checklist/" style="color:#E8E6E2;font-size:12px;text-decoration:none;letter-spacing:.04em;font-weight:600" data-en="Checklist" data-tr="Kontrol Listesi">Checklist</a>
+    <a href="/blog/" style="color:#8A8884;font-size:12px;text-decoration:none;letter-spacing:.04em">Blog</a>
+    <div style="display:flex;gap:0;margin-left:8px;border:1px solid rgba(232,230,226,0.18)">
+      <button class="lang-btn" data-lang="en" onclick="setLang('en')" style="padding:4px 10px;font-size:11px;cursor:pointer;background:transparent;border:none;color:#8A8884;letter-spacing:.04em">EN</button>
+      <button class="lang-btn active" data-lang="tr" onclick="setLang('tr')" style="padding:4px 10px;font-size:11px;cursor:pointer;background:rgba(232,230,226,0.18);border:none;color:#E8E6E2;letter-spacing:.04em">TR</button>
+    </div>
+  </div>
+</nav>
 <nav class="orient-nav" aria-label="ORIENT methodology stages">
   <div class="orient-nav-inner">
     <a href="/generator/" class="orient-stage done" data-stage="observe">
@@ -1427,6 +1443,27 @@
     init();
   }
 })();
+</script>
+<script>
+function setLang(lang){
+  document.documentElement.lang=lang==='tr'?'tr':'en';
+  document.querySelectorAll('.lang-btn').forEach(function(b){
+    b.classList.toggle('active',b.dataset.lang===lang);
+    if(b.dataset.lang===lang){b.style.background='rgba(232,230,226,0.18)';b.style.color='#E8E6E2';}
+    else{b.style.background='transparent';b.style.color='#8A8884';}
+  });
+  document.querySelectorAll('[data-en]').forEach(function(el){
+    var txt=el.dataset[lang];if(txt!==undefined)el.innerHTML=txt;
+    var href=el.dataset[lang+'Href'];if(href)el.href=href;
+  });
+  document.querySelectorAll('[data-en-href]:not([data-en])').forEach(function(el){
+    var href=el.dataset[lang+'Href'];if(href)el.href=href;
+  });
+  document.querySelectorAll('.lang-tr').forEach(function(el){el.style.display=lang==='tr'?'':'none';});
+  document.querySelectorAll('.lang-en').forEach(function(el){el.style.display=lang==='en'?'':'none';});
+  try{localStorage.setItem('hexis-lang',lang);}catch(e){}
+}
+(function(){var s;try{s=localStorage.getItem('hexis-lang');}catch(e){}setLang(s||(/^tr/i.test(navigator.language)?'tr':'en'));})();
 </script>
 </body>
 </html>

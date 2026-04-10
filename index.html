@@ -245,48 +245,7 @@ section{position:relative;z-index:1;padding-block:72px}
   letter-spacing:.04em;
 }
 .btn-outline:hover{border-color:rgba(232,230,226,.35);color:var(--text)}
-.btn-primary-tr{
-  background:var(--charcoal);
-  color:var(--dark-type);
-  padding:14px 28px;
-  font-weight:700;
-  font-size:13px;
-  border:1px solid var(--border2);
-  border-bottom:2px solid var(--brass);
-  cursor:pointer;
-  transition:opacity .15s,border-color .15s;
-  font-family:Arial,sans-serif;
-  letter-spacing:.04em;
-  text-decoration:none;
-  display:inline-flex;
-  align-items:center;
-}
-.btn-primary-tr:hover{border-bottom-color:var(--dark-type);opacity:.9}
-.btn-primary-en{
-  background:transparent;
-  color:var(--brass);
-  padding:14px 28px;
-  font-weight:700;
-  font-size:13px;
-  border:1px solid var(--brass);
-  cursor:pointer;
-  transition:background .15s,color .15s;
-  font-family:Arial,sans-serif;
-  letter-spacing:.04em;
-  text-decoration:none;
-  display:inline-flex;
-  align-items:center;
-}
-.btn-primary-en:hover{background:rgba(178,152,108,.08)}
-.btn-sub-tr, .btn-sub-en {
-  font-size: 11px;
-  color: var(--stone);
-  margin-top: 4px;
-  margin-bottom: 8px;
-  letter-spacing: .02em;
-  font-family: Arial, sans-serif;
-  text-align: center;
-}
+/* btn-primary-tr, btn-primary-en, btn-sub-tr, btn-sub-en removed — replaced by toggle-aware CTA */
 .btn-secondary-sm{
   background:transparent;
   color:var(--stone);
@@ -624,10 +583,10 @@ footer{
     <img src="/assets/logo-light.png" alt="Hexis" width="72" height="40">
   </a>
   <div class="nav-links" id="navLinks">
-    <a href="/methodology/" data-en-href="/methodology/" data-tr-href="/metodoloji/" data-en="Orient Framework" data-tr="ORIENT Çerçevesi">Orient Framework</a>
-    <a href="/generator/" data-en-href="/generator/" data-tr-href="/generator/" data-en="Tools" data-tr="Araçlar">Tools</a>
-    <a href="/blog/" data-en-href="/blog/" data-tr-href="/blog/" data-en="Blog" data-tr="Blog">Blog</a>
-    <a href="#contact" data-en-href="#contact" data-tr-href="#contact" data-en="Contact" data-tr="İletişim">Contact</a>
+    <a href="/methodology/" data-en-href="/methodology/" data-tr-href="/metodoloji/" data-en="ORIENT" data-tr="ORIENT">ORIENT</a>
+    <a href="/generator/">Generator</a>
+    <a href="/checklist/" data-en="Checklist" data-tr="Kontrol Listesi">Checklist</a>
+    <a href="/blog/">Blog</a>
   </div>
   <div class="lang-switch" id="langSwitch">
     <button class="lang-btn" data-lang="tr" onclick="setLang('tr')">TR</button>
@@ -640,10 +599,10 @@ footer{
 </nav>
 
 <div class="mobile-menu" id="mobileMenu">
-  <a href="/methodology/" data-en-href="/methodology/" data-tr-href="/metodoloji/" data-en="Orient Framework" data-tr="ORIENT Çerçevesi" onclick="closeMenu()">Orient Framework</a>
-  <a href="/generator/" data-en-href="/generator/" data-tr-href="/generator/" data-en="Tools" data-tr="Araçlar" onclick="closeMenu()">Tools</a>
-  <a href="/blog/" data-en-href="/blog/" data-tr-href="/blog/" data-en="Blog" data-tr="Blog" onclick="closeMenu()">Blog</a>
-  <a href="#contact" data-en-href="#contact" data-tr-href="#contact" data-en="Contact" data-tr="İletişim" onclick="closeMenu()">Contact</a>
+  <a href="/methodology/" data-en-href="/methodology/" data-tr-href="/metodoloji/" data-en="ORIENT" data-tr="ORIENT" onclick="closeMenu()">ORIENT</a>
+  <a href="/generator/" onclick="closeMenu()">Generator</a>
+  <a href="/checklist/" data-en="Checklist" data-tr="Kontrol Listesi" onclick="closeMenu()">Checklist</a>
+  <a href="/blog/" onclick="closeMenu()">Blog</a>
 </div>
 
 <!-- ══════════ HERO ══════════ -->
@@ -669,22 +628,14 @@ footer{
     >Türkiye'deki AI sistemleri için EU AI Act ve KVKK uyum altyapısı.</span>
 
     <div class="hero-actions">
-      <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
-        <div style="text-align:center">
-          <a href="/kvkk/" class="btn-primary-tr"
-            data-tr="KVKK Uyumunu Değerlendir →"
-            data-en="Assess KVKK Compliance →"
-          >KVKK Uyumunu Değerlendir →</a>
-          <div class="btn-sub-tr"
-            data-tr="Yapay zekâ kullanımınızı KVKK yükümlülükleriyle değerlendirin."
-            data-en="Assess your AI usage against Turkey's data protection law."
-          >Yapay zekâ kullanımınızı KVKK yükümlülükleriyle değerlendirin.</div>
-        </div>
-        <div style="text-align:center">
-          <a href="/generator/" class="btn-primary-en">Classify Your AI System →</a>
-          <div class="btn-sub-en">EU AI Act risk classification for your AI system.</div>
-        </div>
-      </div>
+      <a href="/generator/" class="btn-primary"
+        data-en="Classify Your AI System →"
+        data-tr="AI Sisteminizi Sınıflandırın →"
+      >Classify Your AI System →</a>
+      <a href="/checklist/" class="btn-outline"
+        data-en="Compliance Checklist →"
+        data-tr="Uyum Kontrol Listesi →"
+      >Compliance Checklist →</a>
     </div>
   </div>
 </section>
@@ -696,7 +647,7 @@ footer{
   <div class="section-inner">
     <div class="about-grid">
       <div class="about-left prose">
-        <div class="about-label">Misyon / Mission</div>
+        <div class="about-label" data-en="Mission" data-tr="Misyon">Mission</div>
 
         <!-- EN version -->
         <h2 class="lang-en">Governance as a<br><em>design practice</em>.</h2>
@@ -866,7 +817,7 @@ footer{
   <div class="section-inner">
     <div class="thinking-hdr">
       <div>
-        <div class="thinking-label">Düşünce / Thinking</div>
+        <div class="thinking-label" data-en="Thinking" data-tr="Düşünce">Thinking</div>
         <h2 style="font-family:Georgia,serif;font-size:clamp(22px,3vw,32px);font-weight:700;letter-spacing:-.5px;line-height:1.1;color:var(--text)">
           Governance <em style="font-style:italic">Perspectives</em>
         </h2>
@@ -878,22 +829,20 @@ footer{
     </div>
 
     <div class="thinking-grid">
-      <a href="/blog/ai-governance-engineering-emerging-discipline/" class="thinking-card">
+      <a href="/blog/ai-governance-engineering-emerging-discipline/" class="thinking-card"
+        data-en-href="/blog/ai-governance-engineering-emerging-discipline/"
+        data-tr-href="/blog/ai-governance-engineering-yeni-disiplin/">
         <div class="thinking-card-tag">AI Governance</div>
-        <h3>AI Governance Engineering: The Anatomy of a New Engineering Discipline</h3>
-        <p>AI governance is fragmented. This article maps AI Governance Engineering as a new discipline and proposes a four-layer competency model.</p>
+        <h3
+          data-en="AI Governance Engineering: The Anatomy of a New Engineering Discipline"
+          data-tr="AI Governance Engineering: Yeni Bir Mühendislik Disiplininin Anatomisi"
+        >AI Governance Engineering: The Anatomy of a New Engineering Discipline</h3>
+        <p
+          data-en="AI governance is fragmented. This article maps AI Governance Engineering as a new discipline and proposes a four-layer competency model."
+          data-tr="AI governance parçalanmış durumda. Bu makale AI Governance Engineering disiplinini haritalıyor ve dört katmanlı bir yetkinlik modeli öneriyor."
+        >AI governance is fragmented. This article maps AI Governance Engineering as a new discipline and proposes a four-layer competency model.</p>
         <div class="thinking-card-footer">
-          <span>Nisan 2026</span>
-          <span class="thinking-card-arrow">→</span>
-        </div>
-      </a>
-
-      <a href="/blog/ai-governance-engineering-yeni-disiplin/" class="thinking-card">
-        <div class="thinking-card-tag">AI Governance</div>
-        <h3>AI Governance Engineering: Yeni Bir Mühendislik Disiplininin Anatomisi</h3>
-        <p>AI governance parçalanmış durumda. Bu makale AI Governance Engineering disiplinini haritalıyor ve dört katmanlı bir yetkinlik modeli öneriyor.</p>
-        <div class="thinking-card-footer">
-          <span>Nisan 2026</span>
+          <span data-en="April 2026" data-tr="Nisan 2026">April 2026</span>
           <span class="thinking-card-arrow">→</span>
         </div>
       </a>
@@ -980,68 +929,18 @@ footer{
         </div>
       </a>
 
-      <a href="/blog/chatgpt-kvkk-yurt-disi-aktarim/" class="thinking-card lang-tr">
-        <div class="thinking-card-tag">KVKK</div>
-        <h3
-          data-en="Entering Customer Data into ChatGPT: Are You Aware of Your KVKK Obligations?"
-          data-tr="ChatGPT&#x27;ye Müşteri Bilgisi Girenler: Bu KVKK Yükümlülüğünden Haberiniz Var mı?"
-        >ChatGPT&#x27;ye Müşteri Bilgisi Girenler: Bu KVKK Yükümlülüğünden Haberiniz Var mı?</h3>
-        <p
-          data-en="Every company entering customer or employee data into ChatGPT faces KVKK's cross-border transfer obligations. What your position is, and what to do."
-          data-tr="ChatGPT&#x27;ye müşteri veya çalışan bilgisi giren her şirket KVKK&#x27;nın yurt dışı aktarım yükümlülüğüyle karşı karşıya. Durumunuzu ve yapmanız gerekenler..."
-        >ChatGPT&#x27;ye müşteri veya çalışan bilgisi giren her şirket KVKK&#x27;nın yurt dışı aktarım yükümlülüğüyle karşı karşıya. Durumunuzu ve yapmanız gerekenler...</p>
-        <div class="thinking-card-footer">
-          <span data-en="March 2026" data-tr="Mart 2026">Mart 2026</span>
-          <span class="thinking-card-arrow">→</span>
-        </div>
-      </a>
-
-      <a href="/blog/kvkk-yapay-zeka-bes-yil-on-iki-yukumluluk/" class="thinking-card lang-tr">
-        <div class="thinking-card-tag">KVKK</div>
-        <h3
-          data-en="KVKK and AI: What Has Changed for Turkish Companies in Five Years?"
-          data-tr="KVKK ve Yapay Zekâ: Beş Yılda Türk Şirketleri İçin Ne Değişti?"
-        >KVKK ve Yapay Zekâ: Beş Yılda Türk Şirketleri İçin Ne Değişti?</h3>
-        <p
-          data-en="KVKK published five documents on AI from 2021 to 2026. Twelve concrete obligations for Turkish companies — and where to start."
-          data-tr="KVKK 2021&#x27;den 2026&#x27;ya beş yılda beş belge yayımladı. Türk şirketleri için on iki somut yükümlülüğü ve nereden başlamanız gerektiğini bu yazıda bula..."
-        >KVKK 2021&#x27;den 2026&#x27;ya beş yılda beş belge yayımladı. Türk şirketleri için on iki somut yükümlülüğü ve nereden başlamanız gerektiğini bu yazıda bula...</p>
-        <div class="thinking-card-footer">
-          <span data-en="March 2026" data-tr="Mart 2026">Mart 2026</span>
-          <span class="thinking-card-arrow">→</span>
-        </div>
-      </a>
-
-      <a href="/blog/orient-aigp-bok/" class="thinking-card lang-tr">
-        <div class="thinking-card-tag"
-          data-en="Methodology" data-tr="Metodoloji"
-        >Metodoloji</div>
-        <h3
-          data-en="ORIENT and AIGP BoK: Speaking the Same Language"
-          data-tr="ORIENT ve AIGP BoK: Aynı Dili Konuşuyorlar"
-        >ORIENT ve AIGP BoK: Aynı Dili Konuşuyorlar</h3>
-        <p
-          data-en="Structural alignment between the Hexis ORIENT framework and IAPP's AIGP Body of Knowledge — and what it means for practitioners."
-          data-tr="Hexis'in ORIENT çerçevesi ile IAPP'ın AIGP Bilgi Çerçevesi arasındaki yapısal örtüşme; bu örtüşmenin Türk şirketleri için ne anlama geldiği."
-        >Hexis'in ORIENT çerçevesi ile IAPP'ın AIGP Bilgi Çerçevesi arasındaki yapısal örtüşme; bu örtüşmenin Türk şirketleri için ne anlama geldiği.</p>
-        <div class="thinking-card-footer">
-          <span data-en="March 2026" data-tr="Mart 2026">Mart 2026</span>
-          <span class="thinking-card-arrow">→</span>
-        </div>
-      </a>
-
       <a href="/blog/eu-ai-act-risk-siniflandirmasi/" class="thinking-card" data-en-href="/blog/eu-ai-act-risk-classification-guide/" data-tr-href="/blog/eu-ai-act-risk-siniflandirmasi/">
         <div class="thinking-card-tag">EU AI Act</div>
         <h3
           data-en="EU AI Act: A Guide to Risk Classification"
           data-tr="EU AI Act: Risk Sınıflandırması Rehberi"
-        >EU AI Act: Risk Sınıflandırması Rehberi</h3>
+        >EU AI Act: A Guide to Risk Classification</h3>
         <p
-          data-en="A structured analysis of how prohibited, high-risk, limited-risk, and minimal-risk systems are distinguished under Reg. (EU) 2024/1689, and what it means for organisations in Turkey."
-          data-tr="Yasaklı, yüksek riskli, sınırlı riskli ve minimum riskli sistemlerin nasıl ayrıştırıldığı ve bu sınıflandırmanın Türk şirketleri için ne anlama geldiği üzerine yapılandırılmış bir analiz."
-        >Yasaklı, yüksek riskli, sınırlı riskli ve minimum riskli sistemlerin nasıl ayrıştırıldığı ve bu sınıflandırmanın Türk şirketleri için ne anlama geldiği üzerine yapılandırılmış bir analiz.</p>
+          data-en="A structured analysis of how prohibited, high-risk, limited-risk, and minimal-risk systems are distinguished under Reg. (EU) 2024/1689."
+          data-tr="Yasaklı, yüksek riskli, sınırlı riskli ve minimum riskli sistemlerin nasıl ayrıştırıldığı ve bu sınıflandırmanın Türk şirketleri için ne anlama geldiği."
+        >A structured analysis of how prohibited, high-risk, limited-risk, and minimal-risk systems are distinguished under Reg. (EU) 2024/1689.</p>
         <div class="thinking-card-footer">
-          <span data-en="February 2026" data-tr="Şubat 2026">Şubat 2026</span>
+          <span data-en="February 2026" data-tr="Şubat 2026">February 2026</span>
           <span class="thinking-card-arrow">→</span>
         </div>
       </a>
@@ -1051,60 +950,24 @@ footer{
         <h3
           data-en="GPAI Rules: What Changed with Articles 51–56?"
           data-tr="GPAI Kuralları: Madde 51–56 Ne Değişti?"
-        >GPAI Kuralları: Madde 51–56 Ne Değişti?</h3>
+        >GPAI Rules: What Changed with Articles 51–56?</h3>
         <p
-          data-en="Notes on the scope, obligation hierarchy, and positioning for organisations under the GPAI rules that came into force in August 2025."
-          data-tr="Genel amaçlı yapay zekâ modelleri için Ağustos 2025'te devreye giren kuralların kapsamı, yükümlülük hiyerarşisi ve şirketlerin alması gereken pozisyon üzerine notlar."
-        >Genel amaçlı yapay zekâ modelleri için Ağustos 2025'te devreye giren kuralların kapsamı, yükümlülük hiyerarşisi ve şirketlerin alması gereken pozisyon üzerine notlar.</p>
+          data-en="Scope, obligation hierarchy, and positioning for organisations under the GPAI rules in force since August 2025."
+          data-tr="Genel amaçlı yapay zekâ modelleri için Ağustos 2025'te devreye giren kuralların kapsamı, yükümlülük hiyerarşisi ve şirketlerin pozisyonu."
+        >Scope, obligation hierarchy, and positioning for organisations under the GPAI rules in force since August 2025.</p>
         <div class="thinking-card-footer">
-          <span data-en="February 2026" data-tr="Şubat 2026">Şubat 2026</span>
-          <span class="thinking-card-arrow">→</span>
-        </div>
-      </a>
-
-      <a href="/blog/iso-42001-governance-olgunlugu/" class="thinking-card" data-en-href="/blog/iso-42001-governance-maturity/" data-tr-href="/blog/iso-42001-governance-olgunlugu/">
-        <div class="thinking-card-tag">ISO 42001</div>
-        <h3
-          data-en="ISO 42001 and Governance Maturity"
-          data-tr="ISO 42001 ve Governance Olgunluğu"
-        >ISO 42001 ve Governance Olgunluğu</h3>
-        <p
-          data-en="The ISO/IEC 42001 structure, its overlap with EU AI Act and KVKK, and practical first steps for building an AI management system."
-          data-tr="ISO/IEC 42001 yapısı, EU AI Act ve KVKK çerçeveleriyle örtüşme noktaları ve bir AI yönetim sistemini sıfırdan kurmak için pratik başlangıç adımları."
-        >ISO/IEC 42001 yapısı, EU AI Act ve KVKK çerçeveleriyle örtüşme noktaları ve bir AI yönetim sistemini sıfırdan kurmak için pratik başlangıç adımları.</p>
-        <div class="thinking-card-footer">
-          <span data-en="February 2026" data-tr="Şubat 2026">Şubat 2026</span>
-          <span class="thinking-card-arrow">→</span>
-        </div>
-      </a>
-
-      <a href="/blog/ai-okuryazarligi-madde-4/" class="thinking-card lang-tr">
-        <div class="thinking-card-tag"
-          data-en="Governance" data-tr="Yönetişim"
-        >Yönetişim</div>
-        <h3
-          data-en="AI Literacy: What Does the Article 4 Obligation Require?"
-          data-tr="AI Okuryazarlığı: Mad.4 Yükümlülüğü Ne Gerektirir?"
-        >AI Okuryazarlığı: Mad.4 Yükümlülüğü Ne Gerektirir?</h3>
-        <p
-          data-en="The AI literacy obligation under EU AI Act Article 4 has been in force since February 2025. Which roles and content areas does it cover?"
-          data-tr="EU AI Act Madde 4 kapsamındaki AI okuryazarlığı zorunluluğu Şubat 2025'ten itibaren uygulamada. Bu yükümlülük hangi pozisyonları ve hangi içerikleri kapsıyor?"
-        >EU AI Act Madde 4 kapsamındaki AI okuryazarlığı zorunluluğu Şubat 2025'ten itibaren uygulamada. Bu yükümlülük hangi pozisyonları ve hangi içerikleri kapsıyor?</p>
-        <div class="thinking-card-footer">
-          <span data-en="February 2026" data-tr="Şubat 2026">Şubat 2026</span>
+          <span data-en="February 2026" data-tr="Şubat 2026">February 2026</span>
           <span class="thinking-card-arrow">→</span>
         </div>
       </a>
 
     </div>
 
-    <div class="thinking-note lang-tr">
-      Şimdilik yazılar LinkedIn'de yayınlanıyor; burada Hexis çerçevesinin kanonik sürümleri
-      ve araç güncellemeleri yer alacak.
-    </div>
-    <div class="thinking-note lang-en">
-      Core EU AI Act and ISO 42001 articles are now available in English. KVKK and methodology
-      content is currently published in Turkish only. Follow on LinkedIn for updates.
+    <div style="text-align:center;margin-top:24px">
+      <a href="/blog/" class="btn-outline" style="font-size:12px;padding:10px 24px"
+        data-en="All Articles →"
+        data-tr="Tüm Yazılar →"
+      >All Articles →</a>
     </div>
   </div>
 </section>
@@ -1116,7 +979,7 @@ footer{
   <div class="section-inner">
     <div class="res-hdr">
       <div>
-        <div class="res-label">Araçlar / Tools</div>
+        <div class="res-label" data-en="Tools" data-tr="Araçlar">Tools</div>
         <h2>Governance <em>Tools</em></h2>
       </div>
     </div>
@@ -1235,7 +1098,7 @@ footer{
     <div class="contact-grid">
 
       <div class="contact-left">
-        <div class="res-label">İletişim / Contact</div>
+        <div class="res-label" data-en="Contact" data-tr="İletişim">Contact</div>
         <h2 class="lang-en"><em>Collaboration</em> &amp; Contact</h2>
         <h2 class="lang-tr"><em>İşbirliği</em> &amp; İletişim</h2>
         <p data-en="Hexis aims to build connections with organisations, researchers, and policy makers working in AI governance."
@@ -1404,8 +1267,8 @@ function setLang(lang){
 (function(){
   var saved;
   try{saved=localStorage.getItem('hexis-lang');}catch(e){}
-  /* default: EN (international market) */
-  setLang(saved==='tr'?'tr':'en');
+  /* default: detect from browser language */
+  setLang(saved||(/^tr/i.test(navigator.language)?'tr':'en'));
 })();
 </script>
 </body>

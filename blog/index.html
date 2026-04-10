@@ -133,15 +133,14 @@ footer{padding:32px 48px;border-top:1px solid var(--border);display:flex;justify
   </a>
   <div class="nav-right">
     <div class="nav-links">
+      <a href="/methodology/" data-en-href="/methodology/" data-tr-href="/metodoloji/">ORIENT</a>
       <a href="/generator/">Generator</a>
-      <a href="/checklist/">Checklist</a>
-      <a href="/fria/">FRIA</a>
-      <a href="/metodoloji/" data-en-href="/methodology/" data-tr-href="/metodoloji/" data-en="Methodology" data-tr="Metodoloji">Metodoloji</a>
+      <a href="/checklist/" data-en="Checklist" data-tr="Kontrol Listesi">Checklist</a>
       <a href="/blog/" style="color:var(--text)">Blog</a>
     </div>
     <div class="lang-switcher">
-      <button class="lang-btn active" onclick="setLang('tr')">TR</button>
-      <button class="lang-btn" onclick="setLang('en')">EN</button>
+      <button class="lang-btn" data-lang="en" onclick="setLang('en')">EN</button>
+      <button class="lang-btn active" data-lang="tr" onclick="setLang('tr')">TR</button>
     </div>
   </div>
 </nav>
@@ -352,21 +351,24 @@ footer{padding:32px 48px;border-top:1px solid var(--border);display:flex;justify
 </footer>
 
 <script>
-/* ── LANG SWITCHER ── */
+/* ── LANG SWITCHER (consistent across all pages) ── */
 var currentLang = 'tr';
 
 function setLang(lang) {
   currentLang = lang;
   document.documentElement.lang = lang;
 
-  /* Update lang buttons */
+  /* Update lang buttons — use data-lang attribute */
   document.querySelectorAll('.lang-btn').forEach(function(btn) {
-    btn.classList.toggle('active', btn.textContent.trim().toLowerCase() === lang);
+    btn.classList.toggle('active', btn.dataset.lang === lang);
   });
 
-  /* Swap [data-en] / [data-tr] text content */
+  /* Swap [data-en] / [data-tr] text + href */
   document.querySelectorAll('[data-en]').forEach(function(el) {
-    el.textContent = lang === 'en' ? el.dataset.en : el.dataset.tr;
+    var txt = el.dataset[lang];
+    if (txt !== undefined) el.innerHTML = txt;
+    var href = el.dataset[lang + 'Href'];
+    if (href) el.href = href;
   });
 
   /* Swap [data-en-href] links (no text swap) */
@@ -375,20 +377,18 @@ function setLang(lang) {
     if (href) el.href = href;
   });
 
-  /* Swap [data-en-href] on elements that also have [data-en] (e.g. nav links) */
-  document.querySelectorAll('[data-en-href][data-en]').forEach(function(el) {
-    var href = el.dataset[lang + 'Href'];
-    if (href) el.href = href;
-  });
-
   /* Swap input placeholders */
   document.querySelectorAll('[data-en-placeholder]').forEach(function(el) {
-    el.placeholder = lang === 'en' ? el.dataset.enPlaceholder : el.dataset.trPlaceholder;
+    var ph = el.dataset[lang + 'Placeholder'];
+    if (ph) el.placeholder = ph;
   });
 
-  /* Show/hide lang-tr cards */
+  /* Show/hide lang-tr / lang-en blocks */
   document.querySelectorAll('.lang-tr').forEach(function(el) {
     el.style.display = lang === 'tr' ? '' : 'none';
+  });
+  document.querySelectorAll('.lang-en').forEach(function(el) {
+    el.style.display = lang === 'en' ? '' : 'none';
   });
 
   /* Show/hide lang note */
@@ -406,6 +406,8 @@ function setLang(lang) {
     var isLangHidden = card.classList.contains('lang-tr') && lang === 'en';
     if (!isLangHidden) card.style.display = '';
   });
+
+  try { localStorage.setItem('hexis-lang', lang); } catch(e) {}
 }
 
 /* ── FILTER ── */
@@ -421,6 +423,13 @@ document.querySelectorAll('.filter-btn').forEach(function(btn) {
     });
   });
 });
+
+/* ── INIT: use saved lang or detect from browser ── */
+(function(){
+  var saved;
+  try { saved = localStorage.getItem('hexis-lang'); } catch(e) {}
+  setLang(saved || (/^tr/i.test(navigator.language) ? 'tr' : 'en'));
+})();
 </script>
 </body>
 </html>

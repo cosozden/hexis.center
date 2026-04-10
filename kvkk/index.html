@@ -63,8 +63,11 @@ nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;justify-co
 .nav-links{display:flex;gap:4px;align-items:center}
 .nav-links a{color:var(--stone);text-decoration:none;font-size:12px;font-weight:400;padding:5px 11px;transition:color .15s;letter-spacing:.04em;font-family:Arial,sans-serif}
 .nav-links a:hover{color:var(--dark-type)}
-.nav-cta{color:var(--dark-type)!important;border:1px solid var(--border2);padding:5px 14px!important;transition:border-color .15s!important}
-.nav-cta:hover{border-color:rgba(232,230,226,.35)!important}
+.lang-switch{display:flex;align-items:center;gap:0;margin-left:8px;font-family:Arial,sans-serif;font-size:11px;letter-spacing:.06em;border:1px solid var(--border2);padding:0;background:none;cursor:pointer}
+.lang-btn{padding:5px 10px;color:var(--stone);background:none;border:none;cursor:pointer;font-family:inherit;font-size:inherit;letter-spacing:inherit;transition:color .15s,background .15s}
+.lang-btn:hover{color:var(--dark-sub)}
+.lang-btn.active{color:var(--brass);background:rgba(178,152,108,0.1)}
+.lang-sep{color:var(--border2);font-size:10px;user-select:none}
 
 /* HAMBURGER */
 .hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:4px;z-index:200}
@@ -120,6 +123,7 @@ footer p a:hover{color:var(--dark-sub)}
 @media(max-width:768px){
   nav{padding:0 20px}
   .nav-links{display:none}
+  .lang-switch{margin-left:auto;margin-right:8px}
   .hamburger{display:flex}
   .section-inner{padding:0 20px}
   .hero{padding:56px 0 40px}
@@ -134,11 +138,16 @@ footer p a:hover{color:var(--dark-sub)}
   <a href="/" class="nav-logo">
     <img src="/assets/logo-light.png" alt="Hexis" width="72" height="36">
   </a>
-  <div class="nav-links">
-    <a href="/eu-ai-act-checklist.html">EU AI Act Checklist</a>
-    <a href="/generator/">Risk Matrisi</a>
-    <a href="/metodoloji/">Metodoloji</a>
-    <a href="https://www.linkedin.com/in/ozden-coskun-8728a1301" target="_blank" class="nav-cta" rel="noopener noreferrer">LinkedIn</a>
+  <div class="nav-links" id="navLinks">
+    <a href="/methodology/" data-en-href="/methodology/" data-tr-href="/metodoloji/" data-en="ORIENT" data-tr="ORIENT">ORIENT</a>
+    <a href="/generator/">Generator</a>
+    <a href="/checklist/" data-en="Checklist" data-tr="Kontrol Listesi">Checklist</a>
+    <a href="/blog/">Blog</a>
+  </div>
+  <div class="lang-switch" id="langSwitch">
+    <button class="lang-btn" data-lang="tr" onclick="setLang('tr')">TR</button>
+    <span class="lang-sep">|</span>
+    <button class="lang-btn active" data-lang="en" onclick="setLang('en')">EN</button>
   </div>
   <button class="hamburger" id="hamburger" onclick="toggleMenu()" aria-label="Menü">
     <span></span><span></span><span></span>
@@ -146,10 +155,10 @@ footer p a:hover{color:var(--dark-sub)}
 </nav>
 
 <div class="mobile-menu" id="mobileMenu">
-  <a href="/eu-ai-act-checklist.html" onclick="closeMenu()">EU AI Act Checklist</a>
-  <a href="/generator/" onclick="closeMenu()">Risk Matrisi</a>
-  <a href="/metodoloji/" onclick="closeMenu()">Metodoloji</a>
-  <a href="https://www.linkedin.com/in/ozden-coskun-8728a1301" target="_blank" rel="noopener noreferrer" onclick="closeMenu()">LinkedIn</a>
+  <a href="/methodology/" data-en-href="/methodology/" data-tr-href="/metodoloji/" data-en="ORIENT" data-tr="ORIENT" onclick="closeMenu()">ORIENT</a>
+  <a href="/generator/" onclick="closeMenu()">Generator</a>
+  <a href="/checklist/" data-en="Checklist" data-tr="Kontrol Listesi" onclick="closeMenu()">Checklist</a>
+  <a href="/blog/" onclick="closeMenu()">Blog</a>
 </div>
 
 <!-- HERO -->
@@ -224,6 +233,34 @@ document.addEventListener('click',function(e){
   const menu=document.getElementById('mobileMenu');
   if(!nav.contains(e.target)&&!menu.contains(e.target)){closeMenu();}
 });
+/* ── Language Switch ── */
+function setLang(lang){
+  /* html lang attribute for accessibility/SEO */
+  document.documentElement.lang=lang==='tr'?'tr':'en';
+  /* button states */
+  document.querySelectorAll('.lang-btn').forEach(function(b){
+    b.classList.toggle('active',b.dataset.lang===lang);
+  });
+  /* data-en / data-tr: text + href */
+  document.querySelectorAll('[data-en]').forEach(function(el){
+    var txt=el.dataset[lang];
+    if(txt!==undefined) el.innerHTML=txt;
+    var href=el.dataset[lang+'Href'];
+    if(href) el.href=href;
+  });
+  /* data-en-href / data-tr-href: href-only elements (no text swap) */
+  document.querySelectorAll('[data-en-href]:not([data-en])').forEach(function(el){
+    var href=el.dataset[lang+'Href'];
+    if(href) el.href=href;
+  });
+  try{localStorage.setItem('hexis-lang',lang);}catch(e){}
+}
+(function(){
+  var saved;
+  try{saved=localStorage.getItem('hexis-lang');}catch(e){}
+  /* default: detect from browser language */
+  setLang(saved||(/^tr/i.test(navigator.language)?'tr':'en'));
+})();
 </script>
 </body>
 </html>

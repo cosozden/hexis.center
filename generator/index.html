@@ -113,6 +113,30 @@
     --dim: 0.28;
   }
 
+  /* ── SITE NAV ── */
+  .site-nav{
+    position:sticky;top:0;z-index:100;
+    display:flex;align-items:center;justify-content:space-between;
+    padding:0 32px;height:52px;
+    background:var(--paper);
+    border-bottom:1px solid var(--rule);
+  }
+  .site-nav-logo{display:flex;align-items:center;gap:8px;text-decoration:none;color:var(--ink)}
+  .site-nav-logo img{height:16px;width:auto}
+  .site-nav-logo span{font-family:Georgia,serif;font-size:14px;letter-spacing:.04em}
+  .site-nav-links{display:flex;gap:20px;align-items:center}
+  .site-nav-links a{color:var(--ink-muted);font-size:12px;text-decoration:none;letter-spacing:.04em;transition:color .15s}
+  .site-nav-links a:hover{color:var(--ink)}
+  .site-nav-links a.active{color:var(--ink);font-weight:600}
+  .site-nav .lang-switch{display:flex;gap:0;margin-left:12px;border:1px solid var(--rule)}
+  .site-nav .lang-btn{padding:4px 10px;font-size:11px;cursor:pointer;background:transparent;border:none;color:var(--ink-muted);letter-spacing:.04em;transition:all .15s}
+  .site-nav .lang-btn:hover{color:var(--ink)}
+  .site-nav .lang-btn.active{background:var(--rule);color:var(--ink)}
+  @media(max-width:768px){
+    .site-nav{padding:0 16px}
+    .site-nav-links a{font-size:11px}
+  }
+
   /* ── CONFIGURATOR UI ── */
   body { background: var(--paper); font-family: Arial, Helvetica, sans-serif; }
   .visually-hidden { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
@@ -1208,6 +1232,22 @@
 </style>
 </head>
 <body>
+<nav class="site-nav">
+  <a href="/" class="site-nav-logo">
+    <img src="/assets/logo.png" alt="Hexis" height="16">
+    <span>Hexis</span>
+  </a>
+  <div class="site-nav-links">
+    <a href="/methodology/" data-en-href="/methodology/" data-tr-href="/metodoloji/">ORIENT</a>
+    <a href="/generator/" class="active">Generator</a>
+    <a href="/checklist/" data-en="Checklist" data-tr="Kontrol Listesi">Checklist</a>
+    <a href="/blog/">Blog</a>
+    <div class="lang-switch">
+      <button class="lang-btn" data-lang="en" onclick="setLang('en')">EN</button>
+      <button class="lang-btn active" data-lang="tr" onclick="setLang('tr')">TR</button>
+    </div>
+  </div>
+</nav>
 <h1 class="visually-hidden">EU AI Act Risk Sınıflandırma ve Yapay Zeka Yönetişim Matrisi — Türk Şirketler için Ücretsiz Uyum Aracı</h1>
 <nav class="orient-nav" aria-label="ORIENT methodology stages">
   <div class="orient-nav-inner">
@@ -1531,7 +1571,7 @@
 
 <!-- ── CONFIGURATOR ── -->
 <div class="configurator">
-  <div class="cfg-nav">
+  <div class="cfg-nav" style="display:none">
     <a href="/" class="cfg-back">← hexis.center</a>
   </div>
   <div class="cfg-title">Hexis · Contextual Matrix Generator</div>
@@ -4044,5 +4084,40 @@ generateMatrix();
 </section>
 <!-- /SEO: Risk Sınıflandırması İçerik Bloğu -->
 
+<script>
+/* ── Language Switch (shared across all pages) ── */
+function setLang(lang){
+  document.documentElement.lang=lang==='tr'?'tr':'en';
+  document.querySelectorAll('.lang-btn').forEach(function(b){
+    b.classList.toggle('active',b.dataset.lang===lang);
+  });
+  document.querySelectorAll('[data-en]').forEach(function(el){
+    var txt=el.dataset[lang];
+    if(txt!==undefined) el.innerHTML=txt;
+    var href=el.dataset[lang+'Href'];
+    if(href) el.href=href;
+  });
+  document.querySelectorAll('[data-en-placeholder]').forEach(function(el){
+    var ph=el.dataset[lang+'Placeholder'];
+    if(ph) el.placeholder=ph;
+  });
+  document.querySelectorAll('[data-en-href]:not([data-en])').forEach(function(el){
+    var href=el.dataset[lang+'Href'];
+    if(href) el.href=href;
+  });
+  document.querySelectorAll('.lang-tr').forEach(function(el){
+    el.style.display=lang==='tr'?'':'none';
+  });
+  document.querySelectorAll('.lang-en').forEach(function(el){
+    el.style.display=lang==='en'?'':'none';
+  });
+  try{localStorage.setItem('hexis-lang',lang);}catch(e){}
+}
+(function(){
+  var saved;
+  try{saved=localStorage.getItem('hexis-lang');}catch(e){}
+  setLang(saved||(/^tr/i.test(navigator.language)?'tr':'en'));
+})();
+</script>
 </body>
 </html>
