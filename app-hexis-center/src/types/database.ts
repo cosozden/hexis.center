@@ -111,6 +111,9 @@ export interface Database {
           responsible_person: string | null;
           responsible_unit: string | null;
           observe_metadata: Json;
+          invalidated_steps: string[];
+          next_review_date: string | null;
+          review_frequency_days: number;
           created_by: string | null;
           created_at: string;
           updated_at: string;
@@ -131,6 +134,9 @@ export interface Database {
           responsible_person?: string | null;
           responsible_unit?: string | null;
           observe_metadata?: Json;
+          invalidated_steps?: string[];
+          next_review_date?: string | null;
+          review_frequency_days?: number;
           created_by?: string | null;
         };
         Update: {
@@ -149,6 +155,9 @@ export interface Database {
           responsible_person?: string | null;
           responsible_unit?: string | null;
           observe_metadata?: Json;
+          invalidated_steps?: string[];
+          next_review_date?: string | null;
+          review_frequency_days?: number;
           created_by?: string | null;
           created_at?: string;
           updated_at?: string;
@@ -386,6 +395,7 @@ export interface Database {
           actions_total: number;
           actions_completed: number;
           metadata: Json;
+          score_breakdown: Json | null;
           snapshot_at: string;
         };
         Insert: {
@@ -398,6 +408,7 @@ export interface Database {
           actions_total?: number;
           actions_completed?: number;
           metadata?: Json;
+          score_breakdown?: Json | null;
         };
         Update: {
           id?: string;
@@ -409,6 +420,7 @@ export interface Database {
           actions_total?: number;
           actions_completed?: number;
           metadata?: Json;
+          score_breakdown?: Json | null;
           snapshot_at?: string;
         };
         Relationships: [];
@@ -487,6 +499,44 @@ export interface Database {
           output_tokens?: number;
           cached_tokens?: number;
           latency_ms?: number | null;
+          created_at?: string;
+        };
+        Relationships: [];
+      };
+      governance_events: {
+        Row: {
+          id: string;
+          org_id: string;
+          system_id: string | null;
+          event_type: string;
+          orient_step: string | null;
+          actor_id: string | null;
+          previous_value: Json | null;
+          new_value: Json | null;
+          metadata: Json | null;
+          created_at: string;
+        };
+        Insert: {
+          id?: string;
+          org_id: string;
+          system_id?: string | null;
+          event_type: string;
+          orient_step?: string | null;
+          actor_id?: string | null;
+          previous_value?: Json | null;
+          new_value?: Json | null;
+          metadata?: Json | null;
+        };
+        Update: {
+          id?: string;
+          org_id?: string;
+          system_id?: string | null;
+          event_type?: string;
+          orient_step?: string | null;
+          actor_id?: string | null;
+          previous_value?: Json | null;
+          new_value?: Json | null;
+          metadata?: Json | null;
           created_at?: string;
         };
         Relationships: [];
