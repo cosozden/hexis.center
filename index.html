@@ -298,15 +298,6 @@ section{position:relative;z-index:1;padding-block:72px}
   font-family:Arial,sans-serif;
 }
 .about-left p strong{color:var(--text);font-weight:700}
-.about-tags{display:flex;flex-wrap:wrap;gap:7px;margin-top:22px}
-.atag{
-  background:transparent;border:1px solid var(--border);
-  border-radius:2px;padding:4px 10px;
-  font-size:10px;font-weight:400;color:var(--stone);
-  transition:color .15s,border-color .15s;
-  font-family:Arial,sans-serif;letter-spacing:.04em;
-}
-.atag:hover{color:var(--text2);border-color:var(--border2)}
 .about-manifesto{
   display:flex;flex-direction:column;gap:8px;
   border-left:1px solid var(--border2);
@@ -373,36 +364,6 @@ section{position:relative;z-index:1;padding-block:72px}
 .res-hdr h2{font-family:Georgia,serif;font-size:clamp(22px,3vw,32px);font-weight:700;letter-spacing:-.5px;line-height:1.1;color:var(--text)}
 .res-hdr h2 em{font-style:italic;color:var(--text)}
 
-/* featured card */
-.feat-card{
-  background:var(--card);
-  border:1px solid var(--border);border-left:2px solid var(--brass);
-  padding:36px;display:grid;grid-template-columns:1fr auto;gap:28px;align-items:center;
-  margin-bottom:1px;position:relative;
-  text-decoration:none;color:inherit;transition:background .15s;
-}
-.feat-card:hover{background:var(--card2)}
-.feat-badge{
-  display:inline-flex;align-items:center;gap:6px;
-  font-size:9px;font-weight:400;color:var(--text2);letter-spacing:.1em;
-  text-transform:uppercase;margin-bottom:14px;font-family:Arial,sans-serif;
-}
-.feat-badge-dot{width:5px;height:5px;border-radius:50%;background:var(--text2);flex-shrink:0}
-.feat-title{font-family:Georgia,serif;font-size:clamp(17px,2.2vw,24px);font-weight:700;letter-spacing:-.3px;margin-bottom:10px;line-height:1.2;color:var(--text)}
-.feat-desc{font-size:12px;color:var(--text2);line-height:1.7;max-width:500px;margin-bottom:20px;font-weight:400;font-family:Arial,sans-serif}
-.feat-pills{display:flex;flex-wrap:wrap;gap:7px}
-.feat-pill{
-  background:transparent;border:1px solid var(--border);
-  padding:3px 10px;font-size:9px;font-weight:400;color:var(--stone);
-  letter-spacing:.04em;font-family:Arial,sans-serif;
-}
-.feat-visual{
-  width:100px;height:100px;
-  background:var(--card);border:1px solid var(--border);
-  display:flex;align-items:center;justify-content:center;font-size:40px;
-  flex-shrink:0;
-}
-
 /* tool grid cards */
 .res-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border)}
 .res-card{
@@ -411,7 +372,6 @@ section{position:relative;z-index:1;padding-block:72px}
   display:flex;flex-direction:column;gap:10px;
 }
 .res-card:hover{background:var(--card2)}
-.res-card.disabled{cursor:default;opacity:.5;pointer-events:none}
 .res-card-icon{width:32px;height:32px;display:flex;align-items:center;justify-content:center;font-size:16px}
 .res-card h3{font-family:Georgia,serif;font-weight:700;font-size:13px;line-height:1.4;color:var(--text)}
 .res-card p{font-size:11px;color:var(--text2);line-height:1.6;flex:1;font-family:Arial,sans-serif}
@@ -424,15 +384,6 @@ section{position:relative;z-index:1;padding-block:72px}
   font-size:9px;font-weight:400;color:var(--text2);letter-spacing:.08em;text-transform:uppercase;
   margin-bottom:6px;font-family:Arial,sans-serif;
 }
-.tool-badge-soon{
-  display:inline-flex;align-items:center;gap:5px;
-  font-size:9px;font-weight:400;color:var(--stone);letter-spacing:.08em;text-transform:uppercase;
-  margin-bottom:6px;font-family:Arial,sans-serif;
-}
-.ref-links{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px;align-items:center}
-.ref-link{font-size:11px;color:var(--stone);text-decoration:none;transition:color .15s;font-family:Arial,sans-serif}
-.ref-link:hover{color:var(--text2)}
-.ref-sep{color:var(--border2);font-size:11px}
 
 /* ─── CONTACT ────────────────────────────────────── */
 #contact{padding-bottom:32px}
@@ -563,8 +514,6 @@ footer{
   .contact-grid{grid-template-columns:1fr}
   .res-grid{grid-template-columns:1fr}
   .thinking-grid{grid-template-columns:1fr}
-  .feat-card{grid-template-columns:1fr}
-  .feat-visual{display:none}
   .hstat{padding:16px 10px}
   .hstat-num{font-size:15px}
   footer{flex-direction:column;align-items:flex-start;padding:20px}
@@ -664,16 +613,6 @@ footer{
           This is not a race for speed.<br>
           <strong>It is knowing when to slow down and ask the right question.</strong>
         </p>
-        <div class="about-tags lang-en">
-          <span class="atag">EU AI Act</span>
-          <span class="atag">KVKK Guidance</span>
-          <span class="atag">ISO/IEC 42001</span>
-          <span class="atag">Risk Assessment</span>
-          <span class="atag">AI Literacy</span>
-          <span class="atag">GPAI Compliance</span>
-          <span class="atag">Data Governance</span>
-          <span class="atag">Human Oversight</span>
-        </div>
 
         <!-- TR version -->
         <h2 class="lang-tr">Yönetişim,<br><em>tasarımın parçasıdır</em>.</h2>
@@ -691,16 +630,6 @@ footer{
           Bu bir hız yarışı değil.<br>
           <strong>Doğru soruyu sorabilmek için durmayı bilmektir.</strong>
         </p>
-        <div class="about-tags lang-tr">
-          <span class="atag">EU AI Act</span>
-          <span class="atag">KVKK Rehberi</span>
-          <span class="atag">ISO/IEC 42001</span>
-          <span class="atag">Risk Değerlendirmesi</span>
-          <span class="atag">AI Okuryazarlığı</span>
-          <span class="atag">GPAI Uyumu</span>
-          <span class="atag">Veri Yönetişimi</span>
-          <span class="atag">İnsan Gözetimi</span>
-        </div>
       </div>
     </div>
   </div>
@@ -724,15 +653,13 @@ footer{
 
       <div class="model-card">
         <div class="model-step"><span class="model-step-num">O</span>Observe</div>
-        <h3>Observe</h3>
         <p data-en="Map the AI system, its role, and operational context. This is where governance begins."
-           data-tr="AI sistemini, rolünü ve operasyonel bağlamını haritalandır. Governance'ın temeli burada atılır."
-        >AI sistemini, rolünü ve operasyonel bağlamını haritalandır. Governance'ın temeli burada atılır.</p>
+           data-tr="AI sistemini, rolünü ve operasyonel bağlamını haritalandır. Yönetişimin temeli burada atılır."
+        >AI sistemini, rolünü ve operasyonel bağlamını haritalandır. Yönetişimin temeli burada atılır.</p>
       </div>
 
       <div class="model-card">
         <div class="model-step"><span class="model-step-num">R</span>Risk</div>
-        <h3>Risk</h3>
         <p data-en="Classify the risk level per the EU AI Act: prohibited, high-risk, limited risk, or minimal."
            data-tr="AB AI Yasası çerçevesinde risk seviyesini sınıflandır. Yasak, yüksek riskli, sınırlı riskli veya minimal."
         >AB AI Yasası çerçevesinde risk seviyesini sınıflandır. Yasak, yüksek riskli, sınırlı riskli veya minimal.</p>
@@ -740,7 +667,6 @@ footer{
 
       <div class="model-card">
         <div class="model-step"><span class="model-step-num">I</span>Identify</div>
-        <h3>Identify</h3>
         <p data-en="Map applicable legal obligations. Provider or deployer? Which articles apply?"
            data-tr="Uygulanabilir yasal yükümlülükleri haritalandır. Sağlayıcı mı, konuşlandırıcı mı? Hangi maddeler geçerli?"
         >Uygulanabilir yasal yükümlülükleri haritalandır. Sağlayıcı mı, konuşlandırıcı mı? Hangi maddeler geçerli?</p>
@@ -748,7 +674,6 @@ footer{
 
       <div class="model-card">
         <div class="model-step"><span class="model-step-num">E</span>Evaluate</div>
-        <h3>Evaluate</h3>
         <p data-en="Compare existing controls against obligations. Identify and prioritise compliance gaps."
            data-tr="Mevcut kontrolleri yükümlülüklerle karşılaştır. Uyum açıklarını tespit et, önceliklendir."
         >Mevcut kontrolleri yükümlülüklerle karşılaştır. Uyum açıklarını tespit et, önceliklendir.</p>
@@ -756,7 +681,6 @@ footer{
 
       <div class="model-card">
         <div class="model-step"><span class="model-step-num">N</span>Navigate</div>
-        <h3>Navigate</h3>
         <p data-en="Build a prioritised action roadmap suited to the organisation's maturity level and resources."
            data-tr="Organizasyonun olgunluk seviyesine ve kaynaklarına göre önceliklendirilmiş aksiyon haritası oluştur."
         >Organizasyonun olgunluk seviyesine ve kaynaklarına göre önceliklendirilmiş aksiyon haritası oluştur.</p>
@@ -764,7 +688,6 @@ footer{
 
       <div class="model-card">
         <div class="model-step"><span class="model-step-num">T</span>Track</div>
-        <h3>Track</h3>
         <p data-en="Continuous monitoring and improvement cycle. Track loops back to Observe — the cycle closes."
            data-tr="Sürekli izleme ve iyileştirme döngüsü. Track adımı Observe'e geri döner; döngü kapanır."
         >Sürekli izleme ve iyileştirme döngüsü. Track adımı Observe'e geri döner; döngü kapanır.</p>
@@ -856,85 +779,7 @@ footer{
         </div>
       </a>
 
-      <a href="/blog/kvkk-etken-yapay-zeka-rehberi-sirketler-nasil-hazirlanmali/" class="thinking-card">
-        <div class="thinking-card-tag">KVKK</div>
-        <h3
-          data-en="KVKK Publishes Agentic AI Guidance: How Should Companies Prepare?"
-          data-tr="KVKK Etken Yapay Zekâ Rehberini Yayımladı: Şirketler Nasıl Hazırlanmalı?"
-        >KVKK Etken Yapay Zekâ Rehberini Yayımladı: Şirketler Nasıl Hazırlanmalı?</h3>
-        <p
-          data-en="KVKK's February 2026 Agentic AI guide: purpose limitation drift, accountability gaps, and black-box risk. Practical steps using the ORIENT framework."
-          data-tr="KVKK&#x27;nın Şubat 2026 Etken YZ rehberi: amaçla sınırlılık kayması, sorumluluk boşluğu ve kara kutu riski. ORIENT çerçevesiyle şirketler için pratik adımlar."
-        >KVKK&#x27;nın Şubat 2026 Etken YZ rehberi: amaçla sınırlılık kayması, sorumluluk boşluğu ve kara kutu riski. ORIENT çerçevesiyle şirketler için pratik adımlar.</p>
-        <div class="thinking-card-footer">
-          <span data-en="March 2026" data-tr="Mart 2026">Mart 2026</span>
-          <span class="thinking-card-arrow">→</span>
-        </div>
-      </a>
-
-      <a href="/blog/golge-yapay-zeka-kobilerin-gorunmeyen-riski/" class="thinking-card">
-        <div class="thinking-card-tag">KVKK</div>
-        <h3
-          data-en="Shadow AI: The Hidden Risk for SMEs in Turkey"
-          data-tr="Gölge Yapay Zekâ (Shadow AI): Türkiye&#x27;de KOBİ&#x27;lerin Görünmeyen Riski"
-        >Gölge Yapay Zekâ (Shadow AI): Türkiye&#x27;de KOBİ&#x27;lerin Görünmeyen Riski</h3>
-        <p
-          data-en="What is shadow AI? What KVKK and EU AI Act risks does unsanctioned AI use create for SMEs? A guide to detection, prevention, and governance."
-          data-tr="Gölge yapay zekâ nedir? Çalışanların habersiz AI kullanımı KOBİ&#x27;lerde hangi KVKK ve EU AI Act risklerini yaratıyor? Tespit, önleme ve yönetişim rehberi."
-        >Gölge yapay zekâ nedir? Çalışanların habersiz AI kullanımı KOBİ&#x27;lerde hangi KVKK ve EU AI Act risklerini yaratıyor? Tespit, önleme ve yönetişim rehberi.</p>
-        <div class="thinking-card-footer">
-          <span data-en="March 2026" data-tr="Mart 2026">Mart 2026</span>
-          <span class="thinking-card-arrow">→</span>
-        </div>
-      </a>
-
-      <a href="/blog/etken-yapay-zeka-kisisel-verilere-etkisi/" class="thinking-card">
-        <div class="thinking-card-tag">KVKK</div>
-        <h3
-          data-en="How Does Agentic AI Affect Personal Data? Analysis of the KVKK Report"
-          data-tr="Etken Yapay Zekâ (Agentic AI) Kişisel Verileri Nasıl Etkiliyor? KVKK Raporu Analizi"
-        >Etken Yapay Zekâ (Agentic AI) Kişisel Verileri Nasıl Etkiliyor? KVKK Raporu Analizi</h3>
-        <p
-          data-en="Analysing KVKK's Agentic AI report. Five risk areas that challenge personal data protection principles, and compliance recommendations."
-          data-tr="KVKK&#x27;nın Etken Yapay Zekâ (Agentic AI) raporunu analiz ediyoruz. Kişisel veri koruma ilkelerini zorlayan beş risk alanı ve uyum önerileri."
-        >KVKK&#x27;nın Etken Yapay Zekâ (Agentic AI) raporunu analiz ediyoruz. Kişisel veri koruma ilkelerini zorlayan beş risk alanı ve uyum önerileri.</p>
-        <div class="thinking-card-footer">
-          <span data-en="March 2026" data-tr="Mart 2026">Mart 2026</span>
-          <span class="thinking-card-arrow">→</span>
-        </div>
-      </a>
-
-      <a href="/blog/eu-ai-act-risk-siniflandirmasi/" class="thinking-card" data-en-href="/blog/eu-ai-act-risk-classification-guide/" data-tr-href="/blog/eu-ai-act-risk-siniflandirmasi/">
-        <div class="thinking-card-tag">EU AI Act</div>
-        <h3
-          data-en="EU AI Act: A Guide to Risk Classification"
-          data-tr="EU AI Act: Risk Sınıflandırması Rehberi"
-        >EU AI Act: A Guide to Risk Classification</h3>
-        <p
-          data-en="A structured analysis of how prohibited, high-risk, limited-risk, and minimal-risk systems are distinguished under Reg. (EU) 2024/1689."
-          data-tr="Yasaklı, yüksek riskli, sınırlı riskli ve minimum riskli sistemlerin nasıl ayrıştırıldığı ve bu sınıflandırmanın Türk şirketleri için ne anlama geldiği."
-        >A structured analysis of how prohibited, high-risk, limited-risk, and minimal-risk systems are distinguished under Reg. (EU) 2024/1689.</p>
-        <div class="thinking-card-footer">
-          <span data-en="February 2026" data-tr="Şubat 2026">February 2026</span>
-          <span class="thinking-card-arrow">→</span>
-        </div>
-      </a>
-
-      <a href="/blog/gpai-kurallari-madde-51-56/" class="thinking-card" data-en-href="/blog/gpai-rules-articles-51-56/" data-tr-href="/blog/gpai-kurallari-madde-51-56/">
-        <div class="thinking-card-tag">GPAI</div>
-        <h3
-          data-en="GPAI Rules: What Changed with Articles 51–56?"
-          data-tr="GPAI Kuralları: Madde 51–56 Ne Değişti?"
-        >GPAI Rules: What Changed with Articles 51–56?</h3>
-        <p
-          data-en="Scope, obligation hierarchy, and positioning for organisations under the GPAI rules in force since August 2025."
-          data-tr="Genel amaçlı yapay zekâ modelleri için Ağustos 2025'te devreye giren kuralların kapsamı, yükümlülük hiyerarşisi ve şirketlerin pozisyonu."
-        >Scope, obligation hierarchy, and positioning for organisations under the GPAI rules in force since August 2025.</p>
-        <div class="thinking-card-footer">
-          <span data-en="February 2026" data-tr="Şubat 2026">February 2026</span>
-          <span class="thinking-card-arrow">→</span>
-        </div>
-      </a>
+      <!-- Older articles available at /blog/ -->
 
     </div>
 
@@ -959,51 +804,31 @@ footer{
       </div>
     </div>
 
-    <!-- FEATURED: CHECKLIST -->
-    <a href="/checklist/" class="feat-card"
-      data-en-href="/checklist/"
-      data-tr-href="/kvkk/">
-      <div>
-        <div class="feat-badge">
-          <span class="feat-badge-dot"></span>
-          <span data-en="Live — Free Tool" data-tr="Live — Ücretsiz Araç">Live — Ücretsiz Araç</span>
-        </div>
-        <div class="feat-title"
-          data-en="EU AI Act + KVKK<br>Compliance Checklist"
-          data-tr="EU AI Act + KVKK<br>Hazırlık Kontrol Listesi"
-        >EU AI Act + KVKK<br>Hazırlık Kontrol Listesi</div>
-        <div class="feat-desc"
-          data-en="An interactive 23-item compliance checklist covering Reg. (EU) 2024/1689 and the KVKK Generative AI Guide for companies operating in Turkey. Download a PDF report on completion."
-          data-tr="Türk KOBİ'leri için Reg. (EU) 2024/1689 ve KVKK Rehberi'ni (15 Soruda) kapsayan 23 maddelik interaktif uyumluluk kontrol listesi. Tamamladıktan sonra PDF rapor indirin."
-        >Türk KOBİ'leri için Reg. (EU) 2024/1689 ve KVKK Rehberi'ni (15 Soruda) kapsayan 23 maddelik interaktif uyumluluk kontrol listesi. Tamamladıktan sonra PDF rapor indirin.</div>
-        <div class="feat-pills">
-          <span class="feat-pill" data-en="6 Categories" data-tr="6 Kategori">6 Kategori</span>
-          <span class="feat-pill" data-en="23 Checklist Items" data-tr="23 Kontrol Maddesi">23 Kontrol Maddesi</span>
-          <span class="feat-pill">PDF Report</span>
-          <span class="feat-pill">EU AI Act + KVKK</span>
-          <span class="feat-pill" data-en="Free" data-tr="Ücretsiz">Ücretsiz</span>
-        </div>
-      </div>
-      <div class="feat-visual">
-        <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" width="48" height="48" aria-label="Checklist ikonu" role="img">
-          <rect x="8" y="12" width="48" height="40" rx="0" stroke="#686662" stroke-width="1.5" fill="none" opacity=".6"/>
-          <path d="M16 24h32M16 32h20M16 40h14" stroke="#E8E6E2" stroke-width="1.5" stroke-linecap="square" opacity=".5"/>
-          <circle cx="46" cy="40" r="10" fill="none" stroke="#8A8884" stroke-width="1.5"/>
-          <path d="M41 40l3.5 3.5L51 36" stroke="#E8E6E2" stroke-width="1.5" stroke-linecap="square" stroke-linejoin="miter"/>
-        </svg>
-      </div>
-    </a>
-
     <!-- HEXIS V1 TOOLS -->
     <div class="res-grid" style="margin-top:1px">
+
+      <a href="/checklist/" class="res-card" style="text-decoration:none;display:flex;border-left:2px solid var(--brass)"
+        data-en-href="/checklist/"
+        data-tr-href="/kvkk/">
+        <div class="tool-badge-live">Live</div>
+        <div class="res-card-icon" style="font-size:20px">✓</div>
+        <h3 data-en="EU AI Act + KVKK Compliance Checklist" data-tr="EU AI Act + KVKK Hazırlık Kontrol Listesi">EU AI Act + KVKK Hazırlık Kontrol Listesi</h3>
+        <p data-en="23-item interactive checklist covering Reg. (EU) 2024/1689 and the KVKK Generative AI Guide. PDF report on completion."
+           data-tr="Reg. (EU) 2024/1689 ve KVKK Rehberi'ni kapsayan 23 maddelik interaktif kontrol listesi. Tamamladıktan sonra PDF rapor."
+        >Reg. (EU) 2024/1689 ve KVKK Rehberi'ni kapsayan 23 maddelik interaktif kontrol listesi. Tamamladıktan sonra PDF rapor.</p>
+        <div class="rc-footer">
+          <span class="rc-src">Checklist</span>
+          <span class="rc-arr">→</span>
+        </div>
+      </a>
 
       <a href="/generator/" class="res-card" style="text-decoration:none;display:flex">
         <div class="tool-badge-live">Live</div>
         <div class="res-card-icon" style="font-size:20px">⚙️</div>
-        <h3>AI System Risk Classifier & Governance Report</h3>
+        <h3 data-en="AI System Risk Classifier &amp; Governance Report" data-tr="AI Sistem Risk Sınıflandırıcısı &amp; Yönetişim Raporu">AI System Risk Classifier &amp; Governance Report</h3>
         <p data-en="Define your system, classify its risk level, generate your governance profile. Observe → Risk → Governance Report."
-           data-tr="Sistemini tanımla, risk kategorisini belirle, yönetişim profilini oluştur. Observe → Risk → Governance Raporu."
-        >Sistemini tanımla, risk kategorisini belirle, yönetişim profilini oluştur. Observe → Risk → Governance Raporu.</p>
+           data-tr="Sistemini tanımla, risk kategorisini belirle, yönetişim profilini oluştur. Observe → Risk → Yönetişim Raporu."
+        >Define your system, classify its risk level, generate your governance profile. Observe → Risk → Governance Report.</p>
         <div class="rc-footer">
           <span class="rc-src">Generator</span>
           <span class="rc-arr">→</span>
@@ -1025,42 +850,7 @@ footer{
 
     </div>
 
-    <!-- OTHER TOOLS (coming soon) -->
-    <div class="res-grid" style="margin-top:1px">
 
-      <div class="res-card disabled">
-        <div class="tool-badge-soon" data-en="Coming Soon" data-tr="Yakında">Yakında</div>
-        <div class="res-card-icon">📋</div>
-        <h3 data-en="ISO 42001 Mapping Tool" data-tr="ISO 42001 Eşleme Aracı">ISO 42001 Eşleme Aracı</h3>
-        <p data-en="Cross-mapping table between EU AI Act articles and ISO/IEC 42001 control points."
-           data-tr="EU AI Act maddeleri ile ISO/IEC 42001 kontrol noktaları arasındaki çapraz eşleme tablosu."
-        >EU AI Act maddeleri ile ISO/IEC 42001 kontrol noktaları arasındaki çapraz eşleme tablosu.</p>
-        <div class="rc-footer">
-          <span class="rc-src" data-en="Coming Soon" data-tr="Yakında">Yakında</span>
-          <span class="rc-arr" style="opacity:.3">→</span>
-        </div>
-      </div>
-
-    </div>
-
-    <div class="ref-links">
-      <a href="https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R1689" target="_blank" rel="noopener noreferrer" class="ref-link"
-        data-en="EU AI Act Full Text ↗"
-        data-tr="EU AI Act Tam Metin ↗"
-        data-en-href="https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R1689"
-        data-tr-href="https://eur-lex.europa.eu/legal-content/TR/TXT/?uri=CELEX:32024R1689"
-      >EU AI Act Tam Metin ↗</a>
-      <span class="ref-sep">·</span>
-      <a href="https://www.kvkk.gov.tr/Icerik/8547/uretken-yapay-zeka-ve-kisisel-verilerin-korunmasi-rehberi-15-soruda" target="_blank" rel="noopener noreferrer" class="ref-link"
-        data-en="KVKK AI Guidance ↗"
-        data-tr="KVKK ÜYZ Rehberi ↗"
-      >KVKK ÜYZ Rehberi ↗</a>
-      <span class="ref-sep">·</span>
-      <a href="https://artificialintelligenceact.eu/implementation-timeline/" target="_blank" rel="noopener noreferrer" class="ref-link"
-        data-en="Implementation Timeline ↗"
-        data-tr="Uygulama Takvimi ↗"
-      >Uygulama Takvimi ↗</a>
-    </div>
 
   </div>
 </section>
@@ -1178,6 +968,15 @@ footer{
     <a href="/gizlilik/"
       data-en="Privacy" data-tr="Gizlilik"
     >Gizlilik</a>
+    <span class="footer-sep" style="opacity:.3">|</span>
+    <a href="https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R1689" target="_blank" rel="noopener noreferrer"
+      data-en="EU AI Act ↗" data-tr="EU AI Act ↗"
+      data-en-href="https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R1689"
+      data-tr-href="https://eur-lex.europa.eu/legal-content/TR/TXT/?uri=CELEX:32024R1689"
+    >EU AI Act ↗</a>
+    <a href="https://www.kvkk.gov.tr/Icerik/8547/uretken-yapay-zeka-ve-kisisel-verilerin-korunmasi-rehberi-15-soruda" target="_blank" rel="noopener noreferrer"
+      data-en="KVKK Guide ↗" data-tr="KVKK Rehberi ↗"
+    >KVKK Rehberi ↗</a>
   </div>
 </footer>
 
