@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { createServerSupabaseClient } from "@/lib/supabase/server";
 import { Card, Button } from "@/components/ui";
 import { RiskClassifierWizard } from "@/components/classifier/risk-classifier-wizard";
+import { ComplianceAdvisor } from "@/components/advisor/compliance-advisor";
 
 export const dynamic = "force-dynamic";
 
@@ -77,6 +78,16 @@ export default async function ClassifyPage({
           <RiskClassifierWizard systemId={system.id} systemName={system.name} />
         )}
       </div>
+
+      <ComplianceAdvisor
+        systemId={system.id}
+        orientStep="risk"
+        contextHint={
+          classification
+            ? `System "${system.name}" classified as ${classification.risk_level} risk`
+            : `User is classifying system "${system.name}" — risk level not yet determined`
+        }
+      />
     </div>
   );
 }

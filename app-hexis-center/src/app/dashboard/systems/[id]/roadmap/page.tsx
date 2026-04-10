@@ -14,6 +14,7 @@ import { redirect, notFound } from "next/navigation";
 import { createServerSupabaseClient } from "@/lib/supabase/server";
 import { ActionPlan } from "@/components/roadmap/action-plan";
 import { ChangeBanner } from "@/components/systems/change-banner";
+import { ComplianceAdvisor } from "@/components/advisor/compliance-advisor";
 
 export const dynamic = "force-dynamic";
 
@@ -79,6 +80,9 @@ export default async function RoadmapPage({
 
   const invalidatedSteps = (system.invalidated_steps as string[]) ?? [];
 
+  const completedActions = (actions ?? []).filter((a: { status: string }) => a.status === "done").length;
+  const totalActions = (actions ?? []).length;
+
   return (
     <>
       <ChangeBanner
@@ -93,6 +97,11 @@ export default async function RoadmapPage({
         riskLevel={classification.risk_level}
         initialActions={actions ?? []}
         initialPlan={null}
+      />
+      <ComplianceAdvisor
+        systemId={system.id}
+        orientStep="navigate"
+        contextHint={`System "${system.name}" — ${classification.risk_level} risk, action plan: ${completedActions}/${totalActions} actions done`}
       />
     </>
   );

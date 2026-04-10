@@ -2,6 +2,7 @@ import { notFound } from "next/navigation";
 import { createServerSupabaseClient } from "@/lib/supabase/server";
 import { ObligationsTracker } from "@/components/obligations/obligations-tracker";
 import { ChangeBanner } from "@/components/systems/change-banner";
+import { ComplianceAdvisor } from "@/components/advisor/compliance-advisor";
 
 export const dynamic = "force-dynamic";
 
@@ -40,6 +41,9 @@ export default async function ObligationsPage({
 
   const invalidatedSteps = (system.invalidated_steps as string[]) ?? [];
 
+  const completedCount = (obligations ?? []).filter((o: { status: string }) => o.status === "completed").length;
+  const totalCount = (obligations ?? []).length;
+
   return (
     <>
       <ChangeBanner
@@ -55,6 +59,11 @@ export default async function ObligationsPage({
         riskLevel={classification?.risk_level ?? null}
         initialObligations={obligations ?? []}
         hasClassification={!!classification}
+      />
+      <ComplianceAdvisor
+        systemId={systemId}
+        orientStep="identify"
+        contextHint={`System "${system.name}" — ${classification?.risk_level ?? "unclassified"} risk, role: ${system.organisation_role ?? "not set"}, obligations: ${completedCount}/${totalCount} completed`}
       />
     </>
   );

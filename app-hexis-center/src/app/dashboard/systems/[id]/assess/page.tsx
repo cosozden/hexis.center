@@ -9,6 +9,7 @@ import { notFound, redirect } from "next/navigation";
 import { createServerSupabaseClient } from "@/lib/supabase/server";
 import { GovernanceMatrix } from "@/components/matrix/governance-matrix";
 import { ChangeBanner } from "@/components/systems/change-banner";
+import { ComplianceAdvisor } from "@/components/advisor/compliance-advisor";
 import type { ExposureLevel } from "@/lib/engines/matrix-engine";
 
 export const dynamic = "force-dynamic";
@@ -85,6 +86,11 @@ export default async function AssessPage({
         riskLevel={classification.risk_level}
         riskExposure={riskExposure}
         previousAssessment={previousAssessment}
+      />
+      <ComplianceAdvisor
+        systemId={system.id}
+        orientStep="evaluate"
+        contextHint={`System "${system.name}" — ${classification.risk_level} risk, exposure: ${riskExposure}${previousAssessment ? ", has previous assessment for comparison" : ", first assessment"}`}
       />
     </>
   );

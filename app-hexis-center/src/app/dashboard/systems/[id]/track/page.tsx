@@ -15,6 +15,7 @@ import { redirect, notFound } from "next/navigation";
 import { createServerSupabaseClient } from "@/lib/supabase/server";
 import { ComplianceTracker } from "@/components/track/compliance-tracker";
 import { ChangeBanner } from "@/components/systems/change-banner";
+import { ComplianceAdvisor } from "@/components/advisor/compliance-advisor";
 import {
   calculateComplianceScore,
   type ScoreInput,
@@ -148,6 +149,11 @@ export default async function TrackPage({
         riskLevel={classification.risk_level}
         initialScore={initialScore}
         initialSnapshots={snapshots ?? []}
+      />
+      <ComplianceAdvisor
+        systemId={system.id}
+        orientStep="track"
+        contextHint={`System "${system.name}" — ${classification.risk_level} risk, compliance score: ${Math.round(initialScore.overall)}/100, ${(snapshots ?? []).length} historical snapshots`}
       />
     </>
   );
