@@ -100,13 +100,6 @@
 
   <!-- ─── Blog Yazıları ─── -->
   <url>
-    <loc>https://hexis.center/blog/iso-42001-eu-ai-act-uyum-analizi/</loc>
-    <lastmod>2026-04-03</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-
-  <url>
     <loc>https://hexis.center/blog/digital-omnibus-eu-ai-act-erteleme/</loc>
     <lastmod>2026-04-03</lastmod>
     <changefreq>weekly</changefreq>
@@ -235,6 +228,26 @@
 
   <!-- ─── EN Blog Posts (TR ↔ EN pairs) ─── -->
   <url>
+    <loc>https://hexis.center/blog/ai-governance-engineering-emerging-discipline/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://hexis.center/blog/ai-governance-engineering-emerging-discipline/" />
+    <xhtml:link rel="alternate" hreflang="tr" href="https://hexis.center/blog/ai-governance-engineering-yeni-disiplin/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://hexis.center/blog/ai-governance-engineering-emerging-discipline/" />
+    <lastmod>2026-04-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://hexis.center/blog/ai-governance-engineering-yeni-disiplin/</loc>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://hexis.center/blog/ai-governance-engineering-yeni-disiplin/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://hexis.center/blog/ai-governance-engineering-emerging-discipline/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://hexis.center/blog/ai-governance-engineering-emerging-discipline/" />
+    <lastmod>2026-04-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
     <loc>https://hexis.center/blog/digital-omnibus-eu-ai-act-delay/</loc>
     <xhtml:link rel="alternate" hreflang="en" href="https://hexis.center/blog/digital-omnibus-eu-ai-act-delay/" />
     <xhtml:link rel="alternate" hreflang="tr" href="https://hexis.center/blog/digital-omnibus-eu-ai-act-erteleme/" />
@@ -277,7 +290,7 @@
   <!-- ─── Blog Arşiv ─── -->
   <url>
     <loc>https://hexis.center/blog/</loc>
-    <lastmod>2026-04-03</lastmod>
+    <lastmod>2026-04-11</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>

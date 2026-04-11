@@ -6,8 +6,17 @@
     <link>https://hexis.center/blog/</link>
     <description>Yapay zeka yönetişimi, EU AI Act uyumu, KVKK ve ISO 42001 hakkında pratik rehberler ve analizler.</description>
     <language>tr</language>
-    <lastBuildDate>Fri, 03 Apr 2026 00:00:00 +0300</lastBuildDate>
+    <lastBuildDate>Fri, 10 Apr 2026 12:00:00 +0300</lastBuildDate>
     <atom:link href="https://hexis.center/blog/feed.xml" rel="self" type="application/rss+xml"/>
+
+    <item>
+      <title>AI Governance Engineering: Yeni Bir Mühendislik Disiplininin Anatomisi</title>
+      <link>https://hexis.center/blog/ai-governance-engineering-yeni-disiplin/</link>
+      <guid>https://hexis.center/blog/ai-governance-engineering-yeni-disiplin/</guid>
+      <pubDate>Thu, 10 Apr 2026 12:00:00 +0300</pubDate>
+      <description>AI governance parçalanmış durumda. Bu makale AI Governance Engineering disiplinini haritalıyor ve dört katmanlı bir yetkinlik modeli öneriyor.</description>
+      <category>AI Governance</category>
+    </item>
 
     <item>
       <title>EU AI Act ve Digital Omnibus: Türk Şirketler Ne Yapmalı?</title>
