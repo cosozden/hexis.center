@@ -1261,7 +1261,8 @@
       <span class="orient-label">Risk</span>
     </a>
     <span class="orient-arrow">→</span>
-    <a href="/eu-ai-act-checklist.html" class="orient-stage" data-stage="identify">
+    <a href="/checklist/" class="orient-stage" data-stage="identify"
+       data-en-href="/checklist/" data-tr-href="/eu-ai-act-checklist.html">
       <span class="orient-dot">○</span>
       <span class="orient-label">Identify</span>
     </a>
@@ -2857,7 +2858,8 @@
     }
     if (!isProhibited) {
       var clRisk = data.checklistRisk || 'high';
-      actionsHtml += '<a href="/eu-ai-act-checklist.html?risk=' + encodeURIComponent(clRisk) + '" class="clf-result-checklist">Identify: Checklist \u2192</a>';
+      var clBase = document.documentElement.lang === 'tr' ? '/eu-ai-act-checklist.html' : '/checklist/';
+      actionsHtml += '<a href="' + clBase + '?risk=' + encodeURIComponent(clRisk) + '" class="clf-result-checklist">Identify: Checklist \u2192</a>';
     }
     actionsHtml += '<button class="clf-result-restart" onclick="reclassify()">\u2190 Reclassify</button>';
     actionsHtml += '</div>';
@@ -3743,7 +3745,7 @@ function generateMatrix() {
       <div class="ns-step"><span class="ns-letter">T</span><span class="ns-name">Track</span></div>
     </div>
     <div class="next-steps-actions">
-      <a href="/eu-ai-act-checklist.html?risk=${(window._complianceProfile && window._complianceProfile.riskLevel) || ({high:'high',elevated:'high',moderate:'limited',low:'minimal'})[exposure] || 'high'}&system=${encodeURIComponent(name)}" class="ns-btn ns-btn-primary">Identify: Compliance Checklist \u2192</a>
+      <a href="${document.documentElement.lang === 'tr' ? '/eu-ai-act-checklist.html' : '/checklist/'}?risk=${(window._complianceProfile && window._complianceProfile.riskLevel) || ({high:'high',elevated:'high',moderate:'limited',low:'minimal'})[exposure] || 'high'}&system=${encodeURIComponent(name)}" class="ns-btn ns-btn-primary">Identify: Compliance Checklist \u2192</a>
       ${(exposure === 'high' || exposure === 'elevated') ? '<a href="/fria/?risk=high&system=' + encodeURIComponent(name) + '&sector=' + encodeURIComponent(({high:'employment',elevated:'employment',moderate:'',low:''})[exposure] || '') + '" class="ns-btn">Evaluate: Fundamental Rights Impact Assessment \u2192</a>' : ''}
       <a href="https://hexis.lemonsqueezy.com/checkout/buy/eb5408bb-a385-4cdb-b026-affabcb2c24a" target="_blank" class="ns-btn" style="background:var(--brass);color:#fff;border-color:var(--brass);">Get the Full Starter Kit — €109 →</a>
     </div>
