@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bias Audit with Linear Regression: A Practical Method for EU AI Act Article 10 — Hexis</title>
+<meta name="description" content="Detecting gender and age bias in a credit scoring model using linear regression coefficients. A data-driven approach for EU AI Act Article 10 compliance.">
+<meta property="og:title" content="Bias Audit with Linear Regression: A Practical Method for EU AI Act Article 10 — Hexis">
+<meta property="og:description" content="Detecting gender and age bias in a credit scoring model using linear regression coefficients. A data-driven approach for EU AI Act Article 10 compliance.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://hexis.center/blog/linear-regression-bias-audit-eu-ai-act/">
+<meta property="og:image" content="https://hexis.center/assets/og-hexis.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Bias Audit with Linear Regression: A Practical Method for EU AI Act Article 10 — Hexis">
+<meta name="twitter:description" content="Detecting gender and age bias in a credit scoring model using linear regression coefficients. A data-driven approach for EU AI Act Article 10 compliance.">
+<meta name="twitter:image" content="https://hexis.center/assets/og-hexis.png">
+<link rel="icon" href="/assets/favicon.ico">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+<style>
+/* ─── BRAND TOKENS ───────────────────────────────── */
+:root{
+  --charcoal:  #1C1E23;
+  --brass:     #B2986C;
+  --stone:     #686662;
+  --paper:     #F8F7F5;
+  --dark-bg:   #16181C;
+  --dark-type: #E8E6E2;
+  --dark-sub:  #8A8884;
+
+  --bg:        var(--dark-bg);
+  --text:      var(--dark-type);
+  --text2:     var(--dark-sub);
+  --muted:     var(--dark-sub);
+
+  --border:    rgba(232,230,226,0.10);
+  --border2:   rgba(232,230,226,0.18);
+  --card:      rgba(232,230,226,0.04);
+  --card2:     rgba(232,230,226,0.07);
+}
+
+/* ─── RESET ──────────────────────────────────────── */
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;font-size:16px}
+body{
+  font-family:Arial,sans-serif;
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+  text-rendering:optimizeLegibility;
+  background:var(--bg);
+  color:var(--text);
+  line-height:1.55;
+  min-height:100vh;
+  overflow-x:hidden;
+}
+p{line-height:1.75;color:var(--text2)}
+
+/* ─── NAV ────────────────────────────────────────── */
+nav{
+  position:sticky;top:0;z-index:100;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 48px;height:60px;
+  background:var(--dark-bg);
+  border-bottom:1px solid var(--border);
+}
+.nav-logo{
+  display:flex;align-items:center;gap:10px;
+  text-decoration:none;color:var(--text);
+  flex-shrink:0;
+}
+.nav-logo img{
+  display:block;
+  height:40px;
+  width:auto;
+}
+@media(max-width:768px){
+  .nav-logo img{ height:32px; }
+}
+.nav-logo:focus-visible{
+  outline:2px solid rgba(232,230,226,0.5);
+  outline-offset:4px;
+}
+.nav-links{display:flex;gap:4px;align-items:center}
+.nav-links a{
+  color:var(--muted);text-decoration:none;font-size:12px;font-weight:400;
+  padding:6px 12px;border-radius:2px;transition:color .15s;letter-spacing:.04em;
+  font-family:Arial,sans-serif;
+}
+.nav-links a:hover{color:var(--text)}
+
+/* HAMBURGER */
+.hamburger{
+  display:none;flex-direction:column;gap:5px;
+  cursor:pointer;background:none;border:none;padding:4px;z-index:200;
+}
+.hamburger span{width:22px;height:1px;background:var(--text2);transition:all .3s}
+.hamburger.open span:nth-child(1){transform:translateY(6px) rotate(45deg)}
+.hamburger.open span:nth-child(2){opacity:0}
+.hamburger.open span:nth-child(3){transform:translateY(-6px) rotate(-45deg)}
+.mobile-menu{
+  display:none;position:fixed;top:60px;left:0;right:0;
+  background:var(--dark-bg);
+  border-bottom:1px solid var(--border);
+  padding:12px 20px 20px;flex-direction:column;gap:0;z-index:99;
+}
+.mobile-menu.open{display:flex}
+.mobile-menu a{
+  color:var(--muted);text-decoration:none;font-size:13px;font-weight:400;
+  padding:11px 4px;border-bottom:1px solid var(--border);
+  transition:color .15s;font-family:Arial,sans-serif;
+}
+.mobile-menu a:last-child{border-bottom:none}
+.mobile-menu a:hover{color:var(--text)}
+
+/* ─── FOOTER ─────────────────────────────────────── */
+footer{
+  position:relative;z-index:1;
+  border-top:1px solid var(--border);
+  padding:20px 48px;
+  display:flex;align-items:center;justify-content:space-between;
+  gap:16px;flex-wrap:wrap;
+}
+.footer-left{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.footer-logo{display:flex;align-items:center;flex-shrink:0;text-decoration:none;}
+.footer-logo img{display:block;height:auto;width:auto;max-height:18px;}
+.footer-logo:focus-visible{outline:2px solid rgba(232,230,226,0.5);outline-offset:4px;}
+.footer-sep{color:var(--stone);margin:0 4px}
+.footer-txt{font-size:10px;color:var(--stone);font-family:Arial,sans-serif;letter-spacing:.02em}
+.footer-links{display:flex;gap:16px;flex-wrap:wrap}
+.footer-links a{font-size:10px;color:var(--stone);text-decoration:none;transition:color .15s;font-family:Arial,sans-serif;letter-spacing:.04em}
+.footer-links a:hover{color:var(--text2)}
+
+/* ─── RESPONSIVE ─────────────────────────────────── */
+@media(max-width:860px){
+  nav{padding:0 20px}
+  .nav-links{display:none}
+  .hamburger{display:flex}
+  footer{flex-direction:column;align-items:flex-start;padding:20px}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="/" class="nav-logo">
+    <img src="/assets/logo-light.png" alt="Hexis" width="72" height="40">
+  </a>
+  <div class="nav-links">
+    <a href="/metodoloji/">Orient Framework</a>
+    <a href="/generator/">Generator</a>
+    <a href="/#contact">Contact</a>
+  </div>
+  <button class="hamburger" id="hamburger" onclick="toggleMenu()" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<div class="mobile-menu" id="mobileMenu">
+  <a href="/metodoloji/" onclick="closeMenu()">Orient Framework</a>
+  <a href="/generator/" onclick="closeMenu()">Generator</a>
+  <a href="/#contact" onclick="closeMenu()">Contact</a>
+</div>
+
+<!-- BREADCRUMB -->
+<div style="max-width:720px;margin:40px auto 0;padding:0 24px">
+  <a href="/" style="color:var(--stone);font-size:12px;text-decoration:none">&larr; hexis.center</a>
+</div>
+
+<!-- ARTICLE HEADER -->
+<header style="max-width:720px;margin:40px auto 48px;padding:0 24px">
+  <div style="font-size:11px;color:var(--brass);font-family:Arial,sans-serif;letter-spacing:.08em;text-transform:uppercase;margin-bottom:16px">
+    EU AI Act &middot; Nisan 2026
+  </div>
+  <h1 style="font-family:Georgia,serif;font-size:clamp(28px,4vw,44px);font-weight:700;line-height:1.15;letter-spacing:-.5px;color:var(--text);margin-bottom:20px">
+    Bias Audit with Linear Regression: A Practical Method for EU AI Act Article 10
+  </h1>
+  <p style="font-size:16px;line-height:1.7;color:var(--stone);max-width:600px">
+    Detecting gender and age bias in a credit scoring model using linear regression coefficients. A data-driven approach for EU AI Act Article 10 compliance.
+  </p>
+</header>
+
+<!-- ARTICLE CONTENT -->
+<article style="max-width:720px;margin:0 auto 96px;padding:0 24px;font-family:Arial,sans-serif;font-size:16px;line-height:1.8;color:var(--text2)">
+
+  <h2 style="font-family:Georgia,serif;font-size:24px;font-weight:700;color:var(--text);margin:48px 0 16px">
+    The Problem: "Check for Bias" — But How?
+  </h2>
+
+  <p>EU AI Act Article 10(2)(f) is clear: training data for high-risk AI systems must be examined for possible biases.¹ But how exactly is that examination done in practice?</p>
+
+  <p style="margin-top:16px">The regulation says "detect and mitigate bias" but doesn't prescribe a concrete method. In this article, we use linear regression as a bias audit tool — on real data, with executable code.</p>
+
+  <p style="margin-top:16px">The project targets an area classified as high-risk under Annex III: creditworthiness assessment.² We used the German Credit Dataset (UCI), which describes 1,000 credit applications across 20 features.</p>
+
+  <h2 style="font-family:Georgia,serif;font-size:24px;font-weight:700;color:var(--text);margin:48px 0 16px">
+    Why Linear Regression?
+  </h2>
+
+  <p>Why a simple model instead of something more complex for bias detection?</p>
+
+  <p style="margin-top:16px">In linear regression, coefficients are directly interpretable. `is_female = -0.05` means "being female, all else being equal, reduces credit approval probability by 0.05 points." You can't get this level of clarity from a random forest or neural network.</p>
+
+  <p style="margin-top:16px">Furthermore, EU AI Act Article 13 requires transparency and explainability for high-risk systems.³ A linear model explains its decision mechanism directly, which aligns with regulatory expectations.</p>
+
+  <p style="margin-top:16px">Another reason: statistical significance testing (p-values) is directly applicable. It gives a clear answer to the question "is this coefficient coincidental or systematic?"</p>
+
+  <h2 style="font-family:Georgia,serif;font-size:24px;font-weight:700;color:var(--text);margin:48px 0 16px">
+    Method: Two-Stage Bias Analysis
+  </h2>
+
+  <p>Our analysis consists of two stages:</p>
+
+  <p style="margin-top:16px">(1) regression coefficients for individual-level bias detection,</p>
+
+  <p style="margin-top:16px">(2) Disparate Impact ratio for group-level effect measurement.</p>
+
+  <h3 style="font-family:Georgia,serif;font-size:20px;font-weight:700;color:var(--text);margin:36px 0 12px">
+    Protected Attributes
+  </h3>
+
+  <p>We identified two protected attributes in the dataset:</p>
+
+  <ul style="margin:20px 0 20px 20px;display:flex;flex-direction:column;gap:8px">
+    <li><strong style="color:var(--text)">is_female:</strong> Gender (female = 1, male = 0)</li>
+    <li><strong style="color:var(--text)">age / is_young:</strong> Age (under 25 = 1, other = 0)</li>
+  </ul>
+
+  <p style="margin-top:16px">These attributes are protected under both EU AI Act and Turkish law (Constitution Art. 10, Labour Law Art. 5) — variables that should not lead to discrimination.</p>
+
+  <h3 style="font-family:Georgia,serif;font-size:20px;font-weight:700;color:var(--text);margin:36px 0 12px">
+    Data Preparation
+  </h3>
+
+  <p>Numerical features (credit amount, duration, installment rate, existing credits, etc.) were scaled using <em>StandardScaler</em>. This step is critical: without scaling, coefficients are incomparable because they operate on different units (months vs. euros vs. ratios).</p>
+
+  <p style="margin-top:16px">The dataset was split 80/20 for training and testing, with target variable balance preserved (<em>stratified split</em>).</p>
+
+  <h2 style="font-family:Georgia,serif;font-size:24px;font-weight:700;color:var(--text);margin:48px 0 16px">
+    Findings
+  </h2>
+
+  <h3 style="font-family:Georgia,serif;font-size:20px;font-weight:700;color:var(--text);margin:36px 0 12px">
+    1. Coefficient Analysis
+  </h3>
+
+  <p>OLS regression results showed:</p>
+
+  <ul style="margin:20px 0 20px 20px;display:flex;flex-direction:column;gap:8px">
+    <li><strong style="color:var(--text)">is_female coefficient: negative and statistically significant (p < 0.05)</strong>. The model systematically uses gender in credit decisions, disadvantaging female applicants.</li>
+    <li><strong style="color:var(--text)">age coefficient: positive</strong>. As age increases, the model tends to approve credit; younger applicants are disadvantaged.</li>
+  </ul>
+
+  <p style="margin-top:16px">This finding alone is an EU AI Act Article 10(2)(f) non-compliance signal: the training data carries systematic bias on a protected attribute, and the model has learned it.</p>
+
+  <h3 style="font-family:Georgia,serif;font-size:20px;font-weight:700;color:var(--text);margin:36px 0 12px">
+    2. Model Comparison: The Cost of Fairness
+  </h3>
+
+  <p>We compared two models:</p>
+
+  <ul style="margin:20px 0 20px 20px;display:flex;flex-direction:column;gap:8px">
+    <li><strong style="color:var(--text)">Model A:</strong> All features included (protected attributes present)</li>
+    <li><strong style="color:var(--text)">Model B:</strong> Protected attributes removed (<em>fairness-aware</em>)</li>
+  </ul>
+
+  <p style="margin-top:16px">Result: only a <strong style="color:var(--text)">1% accuracy difference</strong> between the two models. This is a critical finding — removing gender from the model costs almost no performance. There is no valid business justification for keeping protected attributes in the model.</p>
+
+  <h3 style="font-family:Georgia,serif;font-size:20px;font-weight:700;color:var(--text);margin:36px 0 12px">
+    3. Disparate Impact Analysis: One Metric Is Not Enough
+  </h3>
+
+  <p>The <em>Disparate Impact</em> (DI) ratio is based on the EEOC's 80% rule (<em>Four-Fifths Rule</em>): if the selection rate for the disadvantaged group is less than 80% of the advantaged group's rate, disparate impact exists.</p>
+
+  <p style="margin-top:16px">| Group | Model A | Model B (fair) |</p>
+
+  <p style="margin-top:16px">|-------|---------|----------------|</p>
+
+  <p style="margin-top:16px">| Gender (F/M) | 0.951 | 1.025 |</p>
+
+  <p style="margin-top:16px">| Age (young/other) | 0.804 | 0.974 |</p>
+
+  <p style="margin-top:16px">Here is the project's most critical finding: <strong style="color:var(--text)">the gender DI ratio is 0.951, above the 80% threshold</strong>. Looking only at the DI test, no problem would be detected. But the regression coefficient and p-value tell a different story: the model systematically uses gender.</p>
+
+  <p style="margin-top:16px">For age, the picture is clearer: Model A has DI = 0.804, very close to the threshold. Model B jumps to 0.974 — removing protected attributes nearly eliminates age bias entirely.</p>
+
+  <p style="margin-top:16px">This demonstrates why multi-method auditing is essential. Relying on a single fairness metric can cause you to miss hidden bias.</p>
+
+  <h2 style="font-family:Georgia,serif;font-size:24px;font-weight:700;color:var(--text);margin:48px 0 16px">
+    EU AI Act Perspective
+  </h2>
+
+  <p>This analysis corresponds to the <strong style="color:var(--text)">Evaluate</strong> stage of the ORIENT framework: "Where are the compliance gaps in the current system?"</p>
+
+  <p style="margin-top:16px">Governance actions from the findings:</p>
+
+  <p style="margin-top:16px"><strong style="color:var(--text)">Article 10(2)(f):</strong> Systematic gender-based bias detected in training data. The examination obligation is not met.¹</p>
+
+  <p style="margin-top:16px"><strong style="color:var(--text)">Article 10(2)(g):</strong> Removing protected attributes is a viable bias mitigation strategy. The 1% performance loss is within acceptable bounds.¹</p>
+
+  <p style="margin-top:16px"><strong style="color:var(--text)">Article 13:</strong> Linear regression coefficients transparently explain the model's decision mechanism, meeting the explainability requirements for high-risk systems.³</p>
+
+  <p style="margin-top:16px"><strong style="color:var(--text)">Annex III, point 5(b):</strong> Creditworthiness assessment is classified as a high-risk AI system. Such systems are subject to all obligations from 2 August 2026.²</p>
+
+  <h2 style="font-family:Georgia,serif;font-size:24px;font-weight:700;color:var(--text);margin:48px 0 16px">
+    Try the Project
+  </h2>
+
+  <p>We prepared the complete analysis as an executable Jupyter Notebook. You can open it in Google Colab and run it cell by cell. The notebook includes data loading, exploratory analysis, model building, statistical testing, and visualization with detailed explanations.</p>
+
+  <p style="margin-top:16px">Access the notebook on GitHub: <a href="https://github.com/cosozden/hexis.center/blob/main/bias_audit_linear_regression.ipynb" style="color:var(--brass);text-decoration:underline">Bias Audit with Linear Regression</a></p>
+
+  <h2 style="font-family:Georgia,serif;font-size:24px;font-weight:700;color:var(--text);margin:48px 0 16px">
+    Conclusion
+  </h2>
+
+  <p>Bias detection doesn't require complex methods. Even a fundamental tool like linear regression can provide powerful answers when the right questions are asked. The real issue isn't which algorithm you use — it's whether you're asking the right questions.</p>
+
+  <p style="margin-top:16px">If you're developing or deploying a high-risk AI system, start with these three questions:</p>
+
+  <ul style="margin:20px 0 20px 20px;display:flex;flex-direction:column;gap:8px">
+    <li>Do protected attributes affect model decisions?</li>
+    <li>Is that effect statistically significant?</li>
+    <li>Are you relying on a single fairness metric, or using multiple methods?</li>
+  </ul>
+
+  <p style="margin-top:16px">Answering these questions is the first step toward EU AI Act Article 10 compliance. You can determine your system's risk level with the Hexis <a href="https://hexis.center/generator/" style="color:var(--brass);text-decoration:underline">Risk Classifier</a>, then evaluate compliance gaps with technical analyses like this one.</p>
+
+  <p style="margin-top:16px">---</p>
+
+  <h2 style="font-family:Georgia,serif;font-size:24px;font-weight:700;color:var(--text);margin:48px 0 16px">
+    References
+  </h2>
+
+  <p>1. European Parliament and Council. <em>Regulation (EU) 2024/1689, Article 10 — Data and Data Governance</em>. EUR-Lex, 12 July 2024. <a href="https://artificialintelligenceact.eu/article/10/" style="color:var(--brass);text-decoration:underline">artificialintelligenceact.eu/article/10</a></p>
+
+  <p style="margin-top:16px">2. European Parliament and Council. <em>Regulation (EU) 2024/1689, Annex III — High-Risk AI Systems</em>. EUR-Lex, 12 July 2024. <a href="https://artificialintelligenceact.eu/annex/3/" style="color:var(--brass);text-decoration:underline">artificialintelligenceact.eu/annex/3</a></p>
+
+  <p style="margin-top:16px">3. European Parliament and Council. <em>Regulation (EU) 2024/1689, Article 13 — Transparency and Provision of Information to Deployers</em>. EUR-Lex, 12 July 2024. <a href="https://artificialintelligenceact.eu/article/13/" style="color:var(--brass);text-decoration:underline">artificialintelligenceact.eu/article/13</a></p>
+
+</article>
+
+<!-- BACK LINK -->
+<div style="max-width:720px;margin:0 auto 96px;padding:0 24px">
+  <a href="/" style="font-size:13px;color:var(--stone);text-decoration:none;font-family:Arial,sans-serif">
+    &larr; T&uuml;m yaz&#305;lar
+  </a>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-left">
+    <a href="/" class="footer-logo"><img src="/assets/logo-light.png" alt="Hexis" width="32" height="18"></a>
+    <span class="footer-sep">&middot;</span>
+    <span class="footer-txt">&copy; 2026 Hexis &middot; Built by &Ouml;zden Co&#351;kun &middot; Yaln&#305;zca bilgilendirme ama&ccedil;l&#305;d&#305;r; hukuki dan&#305;&#351;manl&#305;k niteli&#287;i ta&#351;&#305;maz.</span>
+  </div>
+  <div class="footer-links">
+    <a href="/metodoloji/">Orient Framework</a>
+    <a href="/generator/">Generator</a>
+    <a href="/#contact">Contact</a>
+    <a href="https://eur-lex.europa.eu/legal-content/TR/TXT/?uri=CELEX:32024R1689" target="_blank" rel="noopener noreferrer">EU AI Act</a>
+    <a href="https://www.linkedin.com/in/ozden-coskun-8728a1301" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+  </div>
+</footer>
+
+<script>
+function toggleMenu(){
+  document.getElementById('hamburger').classList.toggle('open');
+  document.getElementById('mobileMenu').classList.toggle('open');
+}
+function closeMenu(){
+  document.getElementById('hamburger').classList.remove('open');
+  document.getElementById('mobileMenu').classList.remove('open');
+}
+document.addEventListener('click',function(e){
+  const h=document.getElementById('hamburger');
+  const m=document.getElementById('mobileMenu');
+  if(m.classList.contains('open')&&!h.contains(e.target)&&!m.contains(e.target)){
+    h.classList.remove('open');m.classList.remove('open');
+  }
+});
+</script>
+</body>
+</html>
