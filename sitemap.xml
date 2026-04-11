@@ -90,13 +90,9 @@
     <priority>0.7</priority>
   </url>
 
-  <!-- ─── EU AI Act Checklist ─── -->
-  <url>
-    <loc>https://hexis.center/eu-ai-act-checklist.html</loc>
-    <lastmod>2026-03-31</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
-  </url>
+  <!-- ─── EU AI Act Checklist (eski URL → /checklist/ redirect) ───
+       /eu-ai-act-checklist.html artık 301 ile /checklist/'e yönlendirilir.
+       Sitemap'te /checklist/ zaten mevcut (yukarıda). -->
 
   <!-- ─── Blog Yazıları ─── -->
   <url>
