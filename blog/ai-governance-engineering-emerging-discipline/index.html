@@ -1,24 +1,87 @@
 <!DOCTYPE html>
-<html lang="tr">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AI Governance Engineering: The Anatomy of a New Engineering Discipline — Hexis</title>
-<meta name="description" content="AI governance is fragmented. This article maps AI Governance Engineering as a new discipline and proposes a four-layer competency model.">
-<meta property="og:title" content="AI Governance Engineering: The Anatomy of a New Engineering Discipline — Hexis">
-<meta property="og:description" content="AI governance is fragmented. This article maps AI Governance Engineering as a new discipline and proposes a four-layer competency model.">
+<title>AI Governance Engineering: New Discipline Explained — Hexis</title>
+<meta name="description" content="AI governance is fragmented. This article maps AI Governance Engineering as a discipline: four-layer competency model, tooling landscape, and EU AI Act compliance links.">
+<meta property="og:title" content="AI Governance Engineering: New Discipline Explained — Hexis">
+<meta property="og:description" content="AI governance is fragmented. This article maps AI Governance Engineering as a discipline: four-layer competency model, tooling landscape, and EU AI Act compliance links.">
 <meta property="og:type" content="article">
 <meta property="og:url" content="https://hexis.center/blog/ai-governance-engineering-emerging-discipline/">
 <meta property="og:image" content="https://hexis.center/assets/og-hexis.png">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="AI Governance Engineering: The Anatomy of a New Engineering Discipline — Hexis">
-<meta name="twitter:description" content="AI governance is fragmented. This article maps AI Governance Engineering as a new discipline and proposes a four-layer competency model.">
+<meta name="twitter:title" content="AI Governance Engineering: New Discipline Explained — Hexis">
+<meta name="twitter:description" content="AI governance is fragmented. This article maps AI Governance Engineering as a discipline: four-layer competency model, tooling landscape, and EU AI Act compliance links.">
 <meta name="twitter:image" content="https://hexis.center/assets/og-hexis.png">
 <link rel="canonical" href="https://hexis.center/blog/ai-governance-engineering-emerging-discipline/">
 <link rel="alternate" hreflang="en" href="https://hexis.center/blog/ai-governance-engineering-emerging-discipline/">
 <link rel="alternate" hreflang="tr" href="https://hexis.center/blog/ai-governance-engineering-yeni-disiplin/">
 <link rel="icon" href="/assets/favicon.ico">
 <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "BlogPosting",
+      "headline": "AI Governance Engineering: The Anatomy of a New Engineering Discipline",
+      "datePublished": "2026-04-10",
+      "dateModified": "2026-04-10",
+      "keywords": "AI governance engineering, AI governance discipline, EU AI Act compliance, policy-as-code, ORIENT framework, AI competency model",
+      "author": { "@type": "Person", "name": "Özden Coşkun", "jobTitle": "AI Governance Practitioner", "worksFor": { "@type": "Organization", "name": "Hexis AI Governance", "url": "https://hexis.center" }, "url": "https://hexis.center", "sameAs": ["https://www.linkedin.com/in/ozdencoskun/"], "hasCredential": { "@type": "EducationalOccupationalCredential", "name": "ISO/IEC 42001 Implementer", "credentialCategory": "certification" } },
+      "publisher": { "@type": "Organization", "name": "Hexis AI Governance", "logo": { "@type": "ImageObject", "url": "https://hexis.center/assets/logo.png" } },
+      "inLanguage": "en",
+      "mainEntityOfPage": "https://hexis.center/blog/ai-governance-engineering-emerging-discipline/"
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Hexis", "item": "https://hexis.center/" },
+        { "@type": "ListItem", "position": 2, "name": "Blog", "item": "https://hexis.center/blog/" },
+        { "@type": "ListItem", "position": 3, "name": "AI Governance Engineering: The Anatomy of a New Engineering Discipline" }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What is AI Governance Engineering?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "AI Governance Engineering is the engineering practice of translating regulatory requirements, ethical principles, and organizational policies into executable, testable, and auditable technical controls embedded directly into AI system lifecycles. It differs from AI governance management (policy creation and corporate oversight) by integrating governance directly into system architecture."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What are the four layers of the AI Governance Engineering competency model?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "The four layers are: (1) Policy & Management Layer — regulatory frameworks and corporate governance structures; (2) Systems Engineering Layer — governance process architecture and organizational design; (3) Technical Infrastructure Layer — policy-as-code, ML observability, and auditable AI infrastructure; (4) Human Oversight Layer — design principles for meaningful human supervision of AI systems."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Does automating AI governance eliminate human oversight?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. EU AI Act Article 14 explicitly requires that high-risk AI systems be designed so that natural persons can effectively oversee their operation. AI Governance Engineering defines what can be automated (risk classification checks, bias test validation, deployment blocking) and where human judgment is indispensable (ethical dilemmas, novel risk scenarios, context-dependent decisions)."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How does AI Governance Engineering relate to EU AI Act compliance?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "EU AI Act imposes technical requirements on high-risk systems including a risk management system (Article 9), technical documentation (Article 11), and human oversight (Article 14). AI Governance Engineering aims to meet these requirements not as policy documents but as automated controls embedded directly into system architecture, making compliance continuous and auditable."
+          }
+        }
+      ]
+    }
+  ]
+}
+</script>
 <style>
 /* ─── BRAND TOKENS ───────────────────────────────── */
 :root{
@@ -375,10 +438,21 @@ footer{
 
 </article>
 
+<!-- RELATED POSTS -->
+<div style="max-width:720px;margin:0 auto 64px;padding:0 24px;border-top:1px solid rgba(28,30,35,0.12);padding-top:48px">
+  <p style="font-size:11px;color:var(--stone);font-family:Arial,sans-serif;letter-spacing:.1em;text-transform:uppercase;margin-bottom:20px">Related Articles</p>
+  <div style="display:flex;flex-direction:column;gap:12px">
+    <a href="/blog/eu-ai-act-risk-classification-guide/" style="color:var(--charcoal);text-decoration:none;font-family:Georgia,serif;font-size:15px;border-bottom:1px solid rgba(28,30,35,0.10);padding-bottom:12px">EU AI Act: Risk Classification Guide →</a>
+    <a href="/blog/iso-42001-governance-maturity/" style="color:var(--charcoal);text-decoration:none;font-family:Georgia,serif;font-size:15px;border-bottom:1px solid rgba(28,30,35,0.10);padding-bottom:12px">ISO 42001 and Governance Maturity: Where to Start? →</a>
+    <a href="/blog/gpai-rules-articles-51-56/" style="color:var(--charcoal);text-decoration:none;font-family:Georgia,serif;font-size:15px;border-bottom:1px solid rgba(28,30,35,0.10);padding-bottom:12px">GPAI Rules: What Changed in Articles 51–56? →</a>
+    <a href="/blog/digital-omnibus-eu-ai-act-delay/" style="color:var(--charcoal);text-decoration:none;font-family:Georgia,serif;font-size:15px">EU AI Act and the Digital Omnibus: What Should Companies Do Now? →</a>
+  </div>
+</div>
+
 <!-- BACK LINK -->
 <div style="max-width:720px;margin:0 auto 96px;padding:0 24px">
-  <a href="/" style="font-size:13px;color:var(--stone);text-decoration:none;font-family:Arial,sans-serif">
-    &larr; T&uuml;m yaz&#305;lar
+  <a href="/blog/" style="font-size:13px;color:var(--stone);text-decoration:none;font-family:Arial,sans-serif">
+    &larr; All posts
   </a>
 </div>
 
