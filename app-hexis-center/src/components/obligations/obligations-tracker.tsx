@@ -4,6 +4,7 @@ import { useState, useEffect, useCallback } from "react";
 import Link from "next/link";
 import { Card, Badge, Button, Separator, Progress } from "@/components/ui";
 import { getCategoryLabel, getCategoryOrder } from "@/lib/engines/obligation-engine";
+import { EvidencePanel } from "@/components/evidence/evidence-panel";
 import type { Database } from "@/types/database";
 
 // ━━━ TYPES ━━━
@@ -283,6 +284,7 @@ export function ObligationsTracker({
               <ObligationRow
                 key={obligation.id}
                 obligation={obligation}
+                systemId={systemId}
                 isExpanded={expandedId === obligation.id}
                 onToggle={() =>
                   setExpandedId(expandedId === obligation.id ? null : obligation.id)
@@ -322,6 +324,7 @@ export function ObligationsTracker({
 
 function ObligationRow({
   obligation,
+  systemId,
   isExpanded,
   onToggle,
   onStatusChange,
@@ -331,6 +334,7 @@ function ObligationRow({
   guidance,
 }: {
   obligation: Obligation;
+  systemId: string;
   isExpanded: boolean;
   onToggle: () => void;
   onStatusChange: (status: ObligationStatus) => void;
@@ -368,6 +372,16 @@ function ObligationRow({
             )}
           </p>
         </div>
+
+        {/* Evidence indicator */}
+        {(obligation.evidence_items_total ?? 0) > 0 && (
+          <span className="text-[10px] text-muted-foreground shrink-0">
+            {obligation.evidence_items_completed ?? 0}/{obligation.evidence_items_total}
+            {(obligation.evidence_attachments_count ?? 0) > 0 && (
+              <span className="ml-0.5">·{obligation.evidence_attachments_count}f</span>
+            )}
+          </span>
+        )}
 
         {/* Status badge */}
         <span className="text-[10px] uppercase tracking-wider text-muted-foreground shrink-0">
@@ -436,11 +450,20 @@ function ObligationRow({
             </div>
           </div>
 
+          {/* Evidence Panel — checklist + attachments */}
+          <EvidencePanel
+            obligationId={obligation.id}
+            systemId={systemId}
+            itemsTotal={obligation.evidence_items_total ?? 0}
+            itemsCompleted={obligation.evidence_items_completed ?? 0}
+            attachmentsCount={obligation.evidence_attachments_count ?? 0}
+          />
+
           {/* Notes */}
           <div>
             <div className="flex items-center justify-between mb-1">
               <p className="text-xs font-medium text-muted-foreground">
-                Evidence / Notes
+                Notes
               </p>
               {!editingNotes && (
                 <button
@@ -456,8 +479,8 @@ function ObligationRow({
                 <textarea
                   value={notesValue}
                   onChange={(e) => setNotesValue(e.target.value)}
-                  className="w-full p-2 text-sm bg-background border border-border rounded min-h-[80px] text-foreground placeholder:text-muted-foreground"
-                  placeholder="Document evidence, links to documentation, or implementation notes..."
+                  className="w-full p-2 text-sm bg-background border border-border min-h-[80px] text-foreground placeholder:text-muted-foreground"
+                  placeholder="Implementation notes, context, or observations..."
                 />
                 <div className="flex gap-2">
                   <Button
@@ -483,7 +506,7 @@ function ObligationRow({
               </div>
             ) : (
               obligation.evidence_notes && (
-                <p className="text-sm text-muted-foreground bg-card p-2 rounded border border-border">
+                <p className="text-sm text-muted-foreground bg-card p-2 border border-border">
                   {obligation.evidence_notes}
                 </p>
               )

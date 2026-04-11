@@ -14,6 +14,7 @@ export { Label } from './label';
 export { Separator } from './separator';
 export { Checkbox } from './checkbox';
 export { Progress } from './progress';
+export { EmptyState } from './empty-state';
 export {
   Select,
   SelectTrigger,

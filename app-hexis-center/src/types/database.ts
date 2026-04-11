@@ -230,6 +230,9 @@ export interface Database {
           completed_at: string | null;
           completed_by: string | null;
           sort_order: number;
+          evidence_items_total: number;
+          evidence_items_completed: number;
+          evidence_attachments_count: number;
           created_at: string;
           updated_at: string;
         };
@@ -499,6 +502,93 @@ export interface Database {
           output_tokens?: number;
           cached_tokens?: number;
           latency_ms?: number | null;
+          created_at?: string;
+        };
+        Relationships: [];
+      };
+      evidence_items: {
+        Row: {
+          id: string;
+          obligation_id: string;
+          title: string;
+          description: string | null;
+          is_completed: boolean;
+          completed_at: string | null;
+          completed_by: string | null;
+          source: 'user' | 'ai_suggested' | 'template';
+          ai_model: string | null;
+          sort_order: number;
+          created_at: string;
+          updated_at: string;
+        };
+        Insert: {
+          id?: string;
+          obligation_id: string;
+          title: string;
+          description?: string | null;
+          is_completed?: boolean;
+          completed_at?: string | null;
+          completed_by?: string | null;
+          source?: 'user' | 'ai_suggested' | 'template';
+          ai_model?: string | null;
+          sort_order?: number;
+        };
+        Update: {
+          id?: string;
+          obligation_id?: string;
+          title?: string;
+          description?: string | null;
+          is_completed?: boolean;
+          completed_at?: string | null;
+          completed_by?: string | null;
+          source?: 'user' | 'ai_suggested' | 'template';
+          ai_model?: string | null;
+          sort_order?: number;
+          created_at?: string;
+          updated_at?: string;
+        };
+        Relationships: [];
+      };
+      evidence_attachments: {
+        Row: {
+          id: string;
+          obligation_id: string;
+          evidence_item_id: string | null;
+          attachment_type: 'file' | 'link';
+          file_name: string;
+          file_type: string | null;
+          file_size: number | null;
+          storage_path: string | null;
+          external_url: string | null;
+          description: string | null;
+          uploaded_by: string | null;
+          created_at: string;
+        };
+        Insert: {
+          id?: string;
+          obligation_id: string;
+          evidence_item_id?: string | null;
+          attachment_type: 'file' | 'link';
+          file_name: string;
+          file_type?: string | null;
+          file_size?: number | null;
+          storage_path?: string | null;
+          external_url?: string | null;
+          description?: string | null;
+          uploaded_by?: string | null;
+        };
+        Update: {
+          id?: string;
+          obligation_id?: string;
+          evidence_item_id?: string | null;
+          attachment_type?: 'file' | 'link';
+          file_name?: string;
+          file_type?: string | null;
+          file_size?: number | null;
+          storage_path?: string | null;
+          external_url?: string | null;
+          description?: string | null;
+          uploaded_by?: string | null;
           created_at?: string;
         };
         Relationships: [];

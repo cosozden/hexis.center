@@ -666,9 +666,214 @@ Trust sayfası (hexis.center/trust) şunları içerecek:
 
 ---
 
-*Bu doküman, 20 Mart 2026 tarihli strateji tartışmasının kesinleşen kararlarını içermektedir. 27 Mart 2026'da "Claude IS the Consultant" paradigma revizyonu, güvenlik mimarisi, halüsinasyon önleme stratejisi ve revize MVP planı eklenmiştir. Aynı gün ikinci oturumda bütçe analizi, Claude API maliyet projeksiyonu, fiyatlama kararı ve açık soruların çözümü tamamlanmıştır. 28 Mart 2026'da UI/UX kararları, KVKK stratejik netleştirme ve sprint ilerleme durumu eklenmiştir. 8 Nisan 2026'da stratejik derinleştirme: AI-assisted ilkesi, Risk-Adaptive Flow, güvenilirlik katmanı, güvenlik mimarisi kesinleştirme, Regulatory Radar, Navigate/Track iterasyon stratejisi, şeffaflık kararı, yasal yapı ve revize zaman çizelgesi eklenmiştir. 9 Nisan 2026'da köklü stratejik yeniden konumlandırma: "AI Governance Engineering" disiplini, Üç Dönem çerçevesi, GovOps mimari altyapısı ve eğitim içerik önceliklendirmesi eklenmiştir.*
-
 ---
+
+## 10. REVİZYON — 11 Nisan 2026: MCP Server Mimari Analizi & Stratejik Kararlar
+
+**Bağlam:** Hexis AI Governance MCP Server'ın mimari analizi, avantaj/dezavantaj değerlendirmesi ve yasal uyum kontrol mekanizmaları.
+**Tam analiz raporu:** hexis-mcp-server-analiz.md
+
+### 10.1 MCP Server Nedir — Hexis Bağlamında
+
+MCP (Model Context Protocol), LLM'lerin dış sistemlerle yapılandırılmış etkileşim kurmasını sağlayan açık protokol. Hexis bağlamında: kullanıcı Claude oturumundan (Cowork, Claude Code, IDE) doğrudan app.hexis.center'a bağlanıp AI governance verilerini sorgular, analiz ettirir, işlem yapar — web dashboard'a girmeden.
+
+**Mimari:** Streamable HTTP transport, Vercel Edge Function üzerinde deploy, OAuth 2.1 (Supabase JWT), TypeScript SDK.
+
+### 10.2 Tool Tasarımı
+
+**v1 — Read-Only (5 tool, lansman sonrası Faz 5'te):**
+
+| Tool | Açıklama | readOnlyHint |
+|------|----------|-------------|
+| `hexis_list_ai_systems` | Organizasyon AI sistem envanteri | true |
+| `hexis_get_risk_classification` | Sistem risk sınıflandırma detayı | true |
+| `hexis_get_compliance_status` | Uyum skoru + checklist ilerleme | true |
+| `hexis_get_governance_matrix` | Matrix sonucu + boyut bazlı durum | true |
+| `hexis_get_action_items` | Önceliklendirilmiş açık görevler | true |
+
+**v2 — Read + Write (5 ek tool, ilk 50 kullanıcı sonrası):**
+
+| Tool | Açıklama | Kontrol |
+|------|----------|---------|
+| `hexis_add_ai_system` | Serbest metinden structured envanter kaydı | Claude structured output → kullanıcı onayı |
+| `hexis_run_classification` | Risk sınıflandırması tetikle | Deterministik engine |
+| `hexis_generate_report` | PDF rapor üretimi (board/DPO/auditor) | Async — kullanıcıya link döner |
+| `hexis_update_maturity` | Maturity seviyesi güncelle | Çift onay mekanizması |
+| `hexis_search_obligations` | Doğal dil ile yükümlülük sorgusu | Read-only NLP |
+
+### 10.3 Karar Matrisi & Optimizasyon
+
+**Başlangıç skoru: 4.00 / 5.00**
+
+3 stratejik hamle ile skor 4.50'ye yükseltildi:
+
+| Kriter | Ağırlık | Eski Skor | Yeni Skor | Hamle |
+|--------|---------|-----------|-----------|-------|
+| Pazar farklılaştırma | 0.25 | 5 | 5 | — |
+| Teknik fizibilite | 0.20 | 4 | 4 | — |
+| Gelir etkisi (kısa vade) | 0.15 | 2 | **4** | MCP = Pro-only özellik |
+| Gelir etkisi (uzun vade) | 0.15 | 5 | 5 | — |
+| Bakım yükü | 0.10 | 3 | **4** | Shared service layer + CI pipeline |
+| Yasal risk | 0.10 | 4 | **5** | Eat your own dogfood + trust sayfası |
+| Zamanlama uyumu | 0.05 | 4 | 4 | — |
+| **TOPLAM** | **1.00** | **4.00** | **4.50** | — |
+
+### 10.4 Kesinleşen 3 Stratejik Hamle
+
+**Hamle 1 — MCP = Pro-Only Özellik (Gelir etkisi: 2→4)**
+MCP Server erişimi sadece app.hexis.center Pro abonelerine ($29/ay) açık. Ücretsiz hexis.center kullanıcıları MCP'ye bağlanamaz. Bu, MCP'yi doğrudan gelir sürücüsüne dönüştürür. DevOps ekibi MCP'yi keşfettiğinde → Pro'ya abone olur. MCP kullanım metrikleri → Business planına ($79/ay) upsell sinyali.
+
+**Hamle 2 — Shared Service Layer (Bakım yükü: 3→4)**
+Web dashboard ve MCP Server aynı TypeScript fonksiyonlarını çağırır. Tek kaynak ilkesi — `getComplianceStatus()` fonksiyonu hem `/api/compliance/status` endpoint'i hem `hexis_get_compliance_status` MCP tool'u tarafından kullanılır. CI pipeline'da MCP Inspector otomatik test. Bakım yükü yarıya iner.
+
+**Hamle 3 — Eat Your Own Dogfood (Yasal risk: 4→5)**
+Hexis'in kendi AI kullanımı ORIENT çerçevesinden geçirilir ve sonuçları hexis.center/trust sayfasında yayınlanır. Bu, hem yasal uyum (self-assessment) hem pazarlama gücü ("Biz kendi aracımızı kendimize uyguladık"). 3 katmanlı madde doğrulama pipeline'ı ile birleşince yasal risk 5'e çıkar.
+
+### 10.5 Yasal Uyum Kontrol Mekanizmaları
+
+**AI Yönetişimini AI ile Denetleme Paradoksu — Cevap Mimarisi:**
+
+1. **Deterministik Motor Önceliği:** classifier-engine.ts, matrix-engine.ts kural-tabanlı. Claude sadece zenginleştirir.
+2. **Her MCP Response'da İki Katman:** "Kural-tabanlı sonuç" (deterministic_result) vs "AI yorumu" (ai_enrichment) — görsel ve yapısal ayrım.
+3. **4 Seviyeli Güven Göstergesi:** `certain` (mevzuat metni) → `high_confidence` (kural-tabanlı) → `moderate` (bağlamsal) → `interpretation` (hukuki danışmanlık gerekli).
+4. **Standart Disclaimer:** Her response'da "general compliance guidance, not legal advice" + mevzuat versiyonu + engine versiyonu.
+
+**3 Katmanlı Madde Doğrulama Pipeline'ı:**
+
+| Katman | Zaman | Mekanizma |
+|--------|-------|-----------|
+| Derleme | Build time | Madde referansları compile-time sabit, birim testleri, CI/CD |
+| Çalışma | Runtime | Claude cite'ları → mevzuat veritabanı çapraz kontrol, eşleşmeyen referanslar çıkarılır |
+| Periyodik | Haftalık | Mevzuat Takip Agent'ı (scheduled task) → değişiklik tespiti → güncelleme PR'ı |
+
+**GDPR Uyumu:**
+- Veri işleme temeli: Sözleşmenin ifası (Art. 6(1)(b))
+- Veri minimizasyonu: MCP sadece istenen alanları döndürür
+- Veri lokasyonu: Supabase Frankfurt + Vercel EU region
+- Denetim izi: Her MCP tool call loglanır (who, when, what)
+- CASCADE silme: Hesap silinince MCP erişimi otomatik kapanır
+
+**Hexis'in Kendi EU AI Act Uyumu:**
+- MCP Server kısmen AI sistemi (Claude enrichment katmanı)
+- Risk seviyesi: Minimal risk (bilgi sunar, karar vermez)
+- Art. 50 şeffaflık yükümlülüğü: Mevcut ("AI tarafından üretilmiştir" etiketi)
+- Self-assessment: ORIENT ile değerlendirilecek → trust sayfasında yayınlanacak
+
+### 10.6 Uygulama Yol Haritası
+
+| Faz | Zaman | İçerik |
+|-----|-------|--------|
+| Faz 1: API-Ready Tasarım | Şimdi (sprint devamı) | Endpoint'ler MCP-ready, rate limiting, denetim log tablosu |
+| Faz 2: MCP Server v1 | Faz 5 sonrası (QA döneminde) | 5 read-only tool, OAuth 2.1, Streamable HTTP, Anthropic Marketplace başvurusu |
+| Faz 3: MCP Server v2 | İlk 50 kullanıcı sonrası | 5 write tool, çift onay, NLP sorgulama |
+| Faz 4: Governance Agent | 6 ay sonrası | Agent SDK, multi-step workflow, proaktif bildirimler, CI/CD entegrasyonu |
+
+### 10.7 Maliyet
+
+Ek altyapı maliyeti: $0 (mevcut Vercel Pro planına dahil). Geliştirme süresi: ~20 saat (v1). Haftalık bakım: ~2 saat.
+
+### 10.8 AI Bağımlılık Risk Analizi — "AI'ı AI ile Denetlemek" (KESİNLEŞTİ)
+
+**Temel soru:** SaaS ürününü bu kadar AI'a bağlamak riskli mi? AI yönetişimi yapan bir platform AI kullanıyorsa, bu paradoks mu?
+
+**Cevap (kesinleşen pozisyon):** Hexis AI'a bağımlı değil — AI ile zenginleştirilmiş. Ayrım kritik.
+
+#### AI Bağımlılık Haritası
+
+| Katman | AI bağımlılığı | Claude çökerse ne olur? |
+|--------|---------------|------------------------|
+| Risk sınıflandırma (classifier-engine.ts) | **Yok** — tamamen kural-tabanlı | Çalışmaya devam eder |
+| Governance matrix (matrix-engine.ts) | **Yok** — tamamen kural-tabanlı | Çalışmaya devam eder |
+| Yükümlülük listesi (obligation-engine.ts) | **Yok** — tamamen kural-tabanlı | Çalışmaya devam eder |
+| MCP tool response'ları | **Yok** — deterministik motorlardan veri döndürür | Çalışmaya devam eder |
+| "Ön değerlendirme yorumu" | **Var** — Claude enrichment | Yorum gösterilmez, deterministik sonuç gösterilir |
+| Aksiyon planı önerisi | **Var** — Claude-driven | Boş kalır, kullanıcı manuel oluşturur |
+| PDF rapor | **Kısmen** — template + AI yorum | Template-based rapor üretilir, AI bölümü atlanır |
+
+**Sonuç:** Hexis'in çekirdek değer teklifi — "hangi risk seviyesindeyim, hangi yükümlülüklerim var, boşluklarım nerede" — tamamen deterministik. Claude API çökse bile ürün çalışır. "AI-assisted, not AI-dependent" ilkesi (Section 9.1) bunu garanti eder.
+
+#### İki Farklı Sorunun Ayrımı
+
+**Soru 1 — Mimari risk (teknik):** "Hexis'in ürünü AI'a bağımlı mı?"
+Cevap: Hayır. Deterministik omurga sağlam, AI katmanı opsiyonel. Manuel Mod ile tamamen kapatılabilir. Graceful degradation: Claude çökünce deterministik sonuçlar gösterilir, "AI yorumları şu an kullanılamıyor" notu eklenir.
+
+**Soru 2 — Algı riski (pazarlama):** "Müşteriler AI governance aracına güvenir mi, o araç AI kullanıyorsa?"
+Cevap: Şeffaflıkla evet. Hexis'in şeffaflık stratejisi (trust sayfası, Manuel Mod, görsel ayrım, güven göstergeleri) rakiplerden çok daha ileri. Paradoksu avantaja çevirir.
+
+#### Şüpheci Müşteriyi Kazanma Stratejisi (3 Mekanizma)
+
+1. **Trust sayfası (hexis.center/trust):** "Risk sınıflandırması, yükümlülük haritası ve governance matrix'i tamamen kural-tabanlıdır. AI yalnızca bağlamsal yorum katmanında kullanılır. Her AI çıktısı etiketlidir ve kapatılabilir."
+2. **Her ekranda görsel ayrım:** Deterministik sonuçlar = standart metin. AI yorumları = farklı stil + "AI Generated" etiketi. Kullanıcı neyin kural-tabanlı neyin AI olduğunu her zaman bilir.
+3. **Manuel Mod toggle:** Dashboard'da prominent "AI Yorumlarını Kapat" toggle'ı. Mesaj: "Biz AI'a güvenmenizi istemiyoruz. Biz size araçlar sunuyoruz."
+
+#### Pozisyonlama Cümlesi (kesinleşti)
+
+> "Evet, AI kullanıyoruz. Ve bunu nasıl kullandığımızı tam olarak gösteriyoruz — çünkü AI yönetişimi yapan bir şirketin kendisi şeffaf olmalı."
+
+**Hexis'in yaptığı:** Kural-tabanlı motorla denetlemek, AI ile yorumlamak. Bu ikisi arasında büyük fark var.
+
+### 10.9 MCP Server Risk Mitigasyon Stratejileri (KESİNLEŞTİ)
+
+#### Yüksek Riskler — Aksiyon Planları
+
+**Risk 1: Erken Optimizasyon (YÜKSEK → YÖNETİLEBİLİR)**
+
+Problem: Henüz ödeme yapan kullanıcı yok, MCP geliştirmek kaynak dağıtır.
+
+Mitigasyon:
+- MCP Server'ı inşa etme, ama hazır ol. Sprint boyunca her API endpoint'ine `@mcp-ready` etiketiyle Zod şeması + dual response format (JSON + Markdown) ekle. Endpoint başına ek efor: 15-20 dakika.
+- Faz 5'te (QA döneminde) MCP v1'i 2-3 gün yerine 1 günde sarma — altyapı hazır çünkü.
+- **Tetik noktası:** İlk 10 ödeme yapan kullanıcıya ulaşınca MCP v1'i başlat. 50 bekleme — MCP'nin kendisi yeni kullanıcı çekme kanalı.
+
+**Risk 2: Veri Sızıntısı via MCP (YÜKSEK → YÖNETİLEBİLİR)**
+
+Problem: MCP tool'ları Claude'a organizasyon verisi döndürür. Cross-server veri sızıntısı teorik olarak mümkün.
+
+Mitigasyon — 3 katmanlı savunma:
+1. **Response filtering:** Tool response'larında select listesi — `system_name`, `risk_level` döner, `internal_notes`, `responsible_person_email` asla döndürülmez.
+2. **Response header:** `X-Hexis-Data-Classification: internal` — MCP istemcisine veri sınıflandırma sinyali.
+3. **Anomali tespiti:** `mcp_audit_log` tablosunda her tool call kaydedilir. 5 dakika içinde tüm tool'ları sırayla çağıran kullanıcı (bulk extraction pattern) → rate limit tetiklenir.
+
+**Risk 3: Unauthorized Access (YÜKSEK → YÖNETİLEBİLİR)**
+
+Problem: MCP üzerinden gelen isteklerin doğru kullanıcıya ait olduğu garanti edilmeli.
+
+Mitigasyon:
+- OAuth 2.1 akışı: Kullanıcı MCP bağlarken Hexis login sayfasında authenticate olur → JWT token alır.
+- Her tool call'da Supabase JWT doğrulanır → RLS org_id bazlı izolasyon otomatik uygulanır.
+- **MCP-specific API scope:** v1'de MCP token'ı sadece read tool'larına erişim verir. v2 write tool'ları ayrı scope gerektirir — kullanıcı Hexis dashboard'undan açıkça aktive eder.
+- Session timeout: 1 saat inaktiflik → yeniden auth gerekir.
+
+#### Orta Riskler — Aksiyon Planları
+
+**Risk 4: Bakım Yükü (ORTA → DÜŞÜK)**
+
+Mitigasyon:
+- `tools.ts` tek kaynak dosyası: MCP tool tanımları (Zod şemaları + açıklamalar) buradan üretilir. Hem MCP registration hem API OpenAPI spec otomatik.
+- CI pipeline'da MCP health check: Her deploy sonrası 5 tool'a test isteği, response şeması doğrulama. Kırık tool → deploy rollback.
+
+**Risk 5: Kitle Uyumsuzluğu (ORTA → AVANTAJA ÇEVRİLDİ)**
+
+Problem: DPO'lar MCP kullanmıyor.
+
+Çözüm: MCP'nin birincil kitlesi DPO değil — DPO'nun teknik ekibi.
+- Senaryo: DevOps mühendisi CI/CD pipeline'ına `hexis_get_compliance_status` ekler → her deployment öncesi compliance check → skor düşükse deploy engellenir → DPO'ya bildirim.
+- "Compliance as code" yaklaşımı: DPO'nun MCP'yi bilmesine gerek yok.
+- İkinci kanal: Hexis Cowork plugin'i (hexis-ai-governance repo) MCP Server'ın frontend'i olarak çalışabilir. Plugin kullanıcıları dolaylı MCP kullanır.
+
+#### Gizli Risk — Mevzuat Takip Agent'ı (KRİTİK)
+
+Problem: Haftalık mevzuat agent'ı yanlış madde yorumlarsa ve bu bilgi classifier-engine'e yansırsa, deterministik motor yanlış sonuç üretir.
+
+**Kural (ihlal edilemez):** Agent raporları hiçbir zaman otomatik olarak engine'e yansımaz. Her rapor Özden'in onayından geçer. Engine güncellemeleri her zaman web-verified — Claude hafızasına güvenilmez.
+
+#### Düşük Riskler — Kısa Notlar
+
+| Risk | Mitigasyon |
+|------|-----------|
+| Versiyon uyumluluğu | TypeScript SDK (Anthropic birincil), Streamable HTTP transport |
+| Hata yönetimi | Actionable error messages: her hatada "ne yapmalı" önerisi |
+| Anthropic bağımlılığı | MCP açık protokol (VS Code, JetBrains, Cursor da destekliyor). Sigorta: MCP Server = temiz REST API wrapper, başka protokole adapte kolay |
 
 ---
 
@@ -836,3 +1041,188 @@ Invalidation kuralları `invalidation-config.ts`'de tanımlı:
 > **Yeni:** "Hexis, AI Governance Engineering disiplininin öncüsüdür. Bugünkü araçlarımız (ORIENT, Matrix, SaaS) bu disiplinin ilk uygulamalarıdır — yarının otonom yönetişim sistemlerinin temelini bugün inşa ediyoruz."
 
 ---
+
+---
+
+## 11. REVİZYON — 11 Nisan 2026: Platform Audit, Advisor Tamamlanması & Zaman Çizelgesi Güncellemesi
+
+**Bağlam:** Kapsamlı platform auditi (PLATFORM-AUDIT-2026-04-10.md) sonrası yapılan P0 geliştirmeler, güvenlik yamaları ve stratejik önceliklendirme güncellemesi. Platform skoru 7.9/10 olarak değerlendirildi.
+
+### 11.1 Tamamlanan P0 İşler (10-11 Nisan)
+
+| İş | Durum | Etki |
+|----|-------|------|
+| **Compliance Advisor component** (multi-turn UI) | ✅ Tamamlandı | "Claude IS the Consultant" vaadi gerçekleşti |
+| **Advisor API route** (/api/ai/advisor) | ✅ Tamamlandı | Multi-turn, context-aware, conversation persistence |
+| **5 ORIENT sayfasına Advisor entegrasyonu** | ✅ Tamamlandı | Risk, Identify, Evaluate, Navigate, Track sayfalarında erişilebilir |
+| **Seed data** (supabase/seed.sql, 573 satır) | ✅ Tamamlandı | 3 AI sistemi, farklı ORIENT aşamalarında demo verisi |
+| **6 güvenlik yaması** | ✅ Tamamlandı | cron, MCP, onboarding, PDF, email, auth sertleştirme |
+| **Platform audit dokümanı** | ✅ Tamamlandı | P0-P3 önceliklendirme, 7.9/10 genel skor |
+| **Vercel deployment stabilizasyonu** | ✅ Tamamlandı | Tüm build'ler geçiyor, production stabil |
+
+### 11.2 Compliance Advisor — Teknik Detaylar
+
+"Claude IS the Consultant" paradigmasının (Section 7.1) tam uygulaması:
+
+**Frontend (compliance-advisor.tsx — 326 satır):**
+- Floating panel — her ORIENT adımında sağ altta erişilebilir
+- Multi-turn conversation UI — mesaj geçmişi, auto-scroll, keyboard submit
+- Adım bazlı önerilen sorular (3 soru × 6 adım = 18 hazır soru)
+- Hexis dark theme — no border-radius, brass accent, system fonts
+- "New conversation" butonu, hata yönetimi, loading animasyonu
+
+**Backend (advisor/route.ts — 276 satır):**
+- Zod validation: systemId, orientStep, message, conversationId
+- Promise.all ile tam ORIENT context fetch (classification, assessment, obligations, actions)
+- STEP_CONTEXT: 6 adımın her biri için özelleştirilmiş Claude talimatları
+- Model: Haiku, 2048 max tokens, grounding dahil
+- advisor_conversations tablosuna conversation persistence
+- Graceful degradation: Claude çökerse 503, deterministik sonuçlar korunur
+
+**Entegrasyon noktaları:**
+- classify/page.tsx → `orientStep="risk"`, risk seviyesini contextHint'e yansıtır
+- obligations/page.tsx → `orientStep="identify"`, tamamlanan/toplam yükümlülüğü gösterir
+- assess/page.tsx → `orientStep="evaluate"`, mevcut maturity seviyelerini aktarır
+- roadmap/page.tsx → `orientStep="navigate"`, aksiyon planı ilerlemesini gösterir
+- track/page.tsx → `orientStep="track"`, compliance score ve snapshot sayısını aktarır
+
+### 11.3 Platform Audit Özeti (7.9/10)
+
+| Alan | Puan | Not |
+|------|------|-----|
+| Kod kalitesi | 8.5/10 | TypeScript strict, Zod validation, tutarlı pattern'ler |
+| EU AI Act sadakati | 8/10 | Classifier engine sadık, grounding metni mevcut |
+| Claude entegrasyonu | 8/10 | 6/6 ORIENT adımında, structured output + tool use |
+| ORIENT akış bütünlüğü | 9/10 | Tüm adımlar end-to-end çalışıyor, linear enforcement var |
+| Güvenlik | 8.5/10 | RLS tam, auth tutarlı, 6 güvenlik yaması uygulandı |
+| Bileşen tamamlanma | 7/10 | Empty states eksik, delta UI yok |
+| AI Gov Engineering vizyonu | 6.5/10 | Advisor tamamlandı ama Evidence ve Delta tracking eksik |
+
+### 11.4 Yeni P1 Öncelikleri (Platform Audit'ten Çıkan)
+
+Audit'te tespit edilen, mevcut planda olmayan kritik geliştirmeler:
+
+| Öncelik | İş | Tahmini Süre | Neden Önemli |
+|---------|-----|-------------|-------------|
+| P1 | Evidence framework (attachment + checklist per obligation) | 6-8 saat | "Audit-ready" vaadini gerçekleştirir. Art. 11 + Art. 43 gereksinimleri. |
+| P1 | Delta tracking UI (trend chart + assessment comparison) | 3-4 saat | computeDelta() mevcut ama hiçbir yerde çağrılmıyor. "Continuous improvement" görselleştirme. |
+| P1 | Governance events dashboard (event timeline + filter) | 4-5 saat | governance_events tablosu var ama UI yok. Audit trail görünür hale gelmeli. |
+
+**Karar gerekçesi:** Bu 3 özellik platform'u "compliance checklist aracı"ndan "AI Governance Engineering platformu"na kategorik olarak ayırır. Section 10.1'deki kimlik değişikliği (compliance şirketi → AI Governance Engineering öncüsü) bu özellikler olmadan yarım kalır.
+
+### 11.5 Revize Zaman Çizelgesi Analizi
+
+Section 9.11'deki 14 haftalık plan (8 Nisan — 15 Haziran) ile gerçek durum karşılaştırması:
+
+| Faz | Planlanan | Gerçek Durum | Fark |
+|-----|-----------|-------------|------|
+| Faz 1: Observe + Risk | H1-H3 (8-27 Nisan) | ✅ TAMAMLANDI (11 Nisan) | 16 gün önde |
+| Faz 2: Identify + Evaluate | H4-H6 (28 Nis-18 May) | ✅ TAMAMLANDI (11 Nisan) | 37 gün önde |
+| Faz 3: Navigate + Track | H7-H9 (19 May-8 Haz) | ✅ TAMAMLANDI (11 Nisan) | 58 gün önde |
+| Faz 4: Ödeme + Lansman | H10-H11 (9-22 Haz) | ⏳ BAŞLANMAYI BEKLİYOR | — |
+| Faz 5: QA + Soft Launch | H12-H14 (23 Haz-13 Tem) | ⏳ | — |
+
+**Sonuç:** Teknik geliştirme (Faz 1-3) planın 6-7 hafta önünde tamamlandı. Faz 4'e hemen geçilebilir. Ancak audit'ten çıkan P1 öncelikleri (Evidence, Delta, Dashboard) Faz 3 ile Faz 4 arasında ek bir "Derinleştirme" fazı gerektirebilir.
+
+**Önerilen revize zaman çizelgesi:**
+
+| Faz | Haftalar | Odak | Süre |
+|-----|----------|------|------|
+| Faz 1-3 | ✅ (8-11 Nisan) | Observe → Track + Advisor + Seed Data | TAMAMLANDI |
+| Faz 3.5: Derinleştirme | H2-H3 (12-25 Nisan) | Evidence framework + Delta UI + Governance dashboard + Empty states | 2 hafta |
+| Faz 4: Ödeme + Lansman Altyapısı | H4-H5 (26 Nisan-9 Mayıs) | Stripe, onboarding, landing page, trust sayfası | 2 hafta |
+| Faz 5: QA + Soft Launch | H6-H7 (10-23 Mayıs) | Test, bug fix, beta kullanıcılar, polish | 2 hafta |
+| **Lansman** | **~26 Mayıs 2026** | | **3 hafta erken** |
+
+### 11.6 Sprint Durumu (11 Nisan — Güncel)
+
+**ORIENT Adımları (SaaS):** ✅ 6/6 TAMAMLANDI
+- ✅ Observe — Sistem envanteri + Claude serbest metin parse
+- ✅ Risk — Deterministik wizard + Claude zenginleştirme
+- ✅ Identify — Yükümlülük eşleme + Claude multi-turn advisor
+- ✅ Evaluate — Governance Matrix + Claude gap analiz
+- ✅ Navigate — Claude aksiyon planı + navigate-engine + roadmap UI
+- ✅ Track — score-engine + compliance tracker + generate-report API
+
+**"Claude IS the Consultant" (Section 7):** ✅ TAMAMLANDI
+- ✅ Seviye 1: API temel (6 route)
+- ✅ Seviye 2: Structured Output + Tool Use (6 adımda)
+- ✅ Seviye 3: Multi-turn Conversation (Compliance Advisor — 5 sayfada entegre)
+- ⏳ Seviye 4: MCP Server v1 (Faz 5'te)
+- 🔮 Seviye 5: Agent SDK (Lansman sonrası)
+
+**GovOps Altyapı:**
+- ✅ invalidation-config.ts (etki haritası)
+- ✅ orient-guides.ts (adım rehberi)
+- ✅ 003_govops_foundation.sql (governance_events + next_review_date)
+- ✅ Seed data (3 AI sistemi, 14 yükümlülük, 8 aksiyon, 3 snapshot, 8 governance event)
+- ✅ 6 güvenlik yaması
+- ⏳ Supabase migration 003 çalıştırılacak
+
+**Yeni — P1 Öncelikleri:**
+- ⏳ Evidence framework (obligation attachment + checklist)
+- ⏳ Delta tracking UI (trend chart + assessment comparison)
+- ⏳ Governance events dashboard (timeline + filter)
+- ⏳ Empty states (tüm dashboard sayfaları)
+
+**Faz 4 — Lansman Altyapısı:**
+- ⏳ Stripe ödeme entegrasyonu (€9 intro → €29 geçiş)
+- ⏳ Onboarding akışı ("3 adımda başlayın")
+- ⏳ hexis.center/platform landing page
+- ⏳ hexis.center/trust sayfası
+
+**İçerik & Pazarlama:**
+- ⏳ AI Governance Engineering Manifesto makalesi
+- ⏳ Newsletter başlatma (Beehiiv)
+
+**Yasal & İdari:**
+- ⏳ Estonya e-Residency kart teslimi (2-4 hafta bekleniyor)
+- ⏳ Avukat danışmanlığı (657 + MoR model)
+
+### 11.7 Açık Kalan Konular (Güncel — 11 Nisan)
+
+| Konu | Durum | Öncelik | Not |
+|------|-------|---------|-----|
+| Evidence framework | ⏳ Başlanmadı | P1 | Art. 11 + Art. 43 kanıt yönetimi — audit-ready vaadi için kritik |
+| Delta tracking UI | ⏳ Başlanmadı | P1 | computeDelta() var ama UI yok — continuous improvement görselleştirme |
+| Governance events dashboard | ⏳ Başlanmadı | P1 | governance_events tablosu var ama UI yok |
+| Empty states | ⏳ Başlanmadı | P1 | Dashboard ilk giriş deneyimi |
+| Stripe ödeme entegrasyonu | ⏳ Başlanmadı | P0 (Faz 4) | Gelir akışı için zorunlu |
+| Onboarding akışı | ⏳ Başlanmadı | P0 (Faz 4) | Kullanıcı tutundurma |
+| hexis.center/platform landing | ⏳ Başlanmadı | P1 (Faz 4) | SaaS tanıtım sayfası |
+| hexis.center/trust | ⏳ Başlanmadı | P1 (Faz 4) | Güvenlik + şeffaflık vaadi |
+| FRIA template generator (Art. 27) | ⏳ Başlanmadı | P2 | Zorunlu yükümlülük aracı |
+| Rate limiting per-endpoint | ⏳ Başlanmadı | P2 | Tüm AI endpoint'leri 50 günlük kota paylaşıyor |
+| KVKK cross-reference | ⏳ Başlanmadı | P2 | classifier-engine KVKK params kabul ediyor ama kullanmıyor |
+| Streaming desteği | ⏳ Başlanmadı | P3 | UX iyileştirme — uzun Claude yanıtları için |
+| Supabase migration 003 | ⏳ Bekliyor | Teknik | Supabase dashboard'dan çalıştırılacak |
+| AI Governance Engineering Manifesto | ⏳ İçerik | Yüksek | Yeni pozisyonlamayı tanımlayan founding document |
+| Newsletter başlatma | ⏳ İçerik | Yüksek | Beehiiv — haftalık GovOps insights |
+| Estonya e-Residency | ⏳ İdari | Orta | Kart 2-4 hafta içinde gelecek |
+| Avukat danışmanlığı | ⏳ Yasal | Yüksek | 657 + MoR model — şablon satışı öncesi |
+
+### 11.8 Kesinleşen Kararlar (11 Nisan)
+
+**Karar 1 — Faz 3.5: EVET, kısıtlı kapsamla ✅**
+Evidence framework + Empty states → Faz 4'ten ÖNCE yapılacak. Delta tracking + Governance dashboard → lansman sonrasına. Gerekçe: Ödeme alan bir platforma gelen kullanıcı boş ekranlarla karşılaşmamalı ve kanıt yükleyebilmeli ("audit-ready" vaadi). Delta ve Dashboard lansman sonrası — ilk kullanıcıların henüz karşılaştıracak verisi olmayacak. Süre: ~1.5 hafta.
+
+**Karar 2 — Lansman hedef tarihi: 1 Haziran 2026 ✅**
+Eski hedef 15 Haziran. 26 Mayıs çok agresif, 15 Haziran gereksiz yere geç. 1 Haziran hem erken avantajını korur hem QA'ye zaman bırakır. Ağustos 2026 deadline'ına 2 ay kala "deadline'a 60 gün kala başlayın" mesajı aciliyet yaratır. Estonya kart + şirket kurulumu için de zaman kazandırır.
+
+**Karar 3 — Revenue model güncellemesi: Lansman öncesi, şimdi değil ✅**
+Section 4'teki "2 noktada Claude" açıklaması artık gerçeği yansıtmıyor (6 adımda Claude + multi-turn advisor). Ama landing page + trust sayfası hazırlanırken doğal olarak güncellenecek. Şimdi Faz 3.5'e odaklanılacak.
+
+### 11.9 Kesinleşen Yol Haritası (11 Nisan — 1 Haziran)
+
+| Faz | Tarih | Odak | Süre |
+|-----|-------|------|------|
+| ~~Faz 1-3~~ | ~~8-11 Nisan~~ | ~~Observe → Track + Advisor + Seed Data~~ | ✅ TAMAMLANDI |
+| **Faz 3.5: Derinleştirme** | **12-23 Nisan** | Evidence framework + Empty states + Migration 003 | 1.5 hafta |
+| **Faz 4: Ödeme + Lansman Altyapısı** | **24 Nisan - 9 Mayıs** | Stripe + Onboarding + Landing + Trust | 2 hafta |
+| **Faz 5: QA + Soft Launch** | **10-23 Mayıs** | Test, bug fix, beta kullanıcılar, polish | 2 hafta |
+| **🚀 LANSMAN** | **1 Haziran 2026** | | |
+| Post-lansman Hafta 1 | 1-7 Haziran | Delta tracking + Governance dashboard + Revenue model güncelleme | 1 hafta |
+
+---
+
+*Bu doküman, 20 Mart 2026 tarihli strateji tartışmasının kesinleşen kararlarını içermektedir. 27 Mart'ta "Claude IS the Consultant" paradigma revizyonu, 28 Mart'ta UI/UX kararları, 8 Nisan'da stratejik derinleştirme, 9 Nisan'da GovOps altyapısı ve kimlik değişikliği, 11 Nisan'da (Section 10) MCP Server mimari analizi, 11 Nisan'da (Section 11) platform audit sonuçları, Compliance Advisor tamamlanması, güvenlik yamaları, P1 öncelik güncellemesi ve revize zaman çizelgesi eklenmiştir.*
