@@ -15,6 +15,7 @@
 import { useState, useCallback, useEffect } from "react";
 import Link from "next/link";
 import { Card, Badge, Button, Separator, Progress } from "@/components/ui";
+import { handleApiError } from "@/lib/api/handle-api-error";
 
 // ━━━ TYPES ━━━
 
@@ -136,10 +137,8 @@ export function ComplianceTracker({
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ systemId }),
       });
-      if (!res.ok) {
-        const data = await res.json();
-        throw new Error(data.error || "Failed to create snapshot");
-      }
+      if (handleApiError(res)) return;
+
       const data = await res.json();
       setScore(data.score);
       setSnapshots((prev) => [data.snapshot, ...prev]);
@@ -169,10 +168,8 @@ export function ComplianceTracker({
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ systemId, audience: selectedAudience }),
       });
-      if (!res.ok) {
-        const data = await res.json();
-        throw new Error(data.error || "Failed to generate report");
-      }
+      if (handleApiError(res)) return;
+
       const data = await res.json();
       setReport(data.report);
       // Update score from report response (fresh calculation)
@@ -201,10 +198,8 @@ export function ComplianceTracker({
           score: score.overall,
         }),
       });
-      if (!res.ok) {
-        const data = await res.json().catch(() => ({}));
-        throw new Error((data as { error?: string }).error || "Failed to generate PDF");
-      }
+      if (handleApiError(res)) return;
+
       const blob = await res.blob();
       const url = URL.createObjectURL(blob);
       const a = document.createElement("a");

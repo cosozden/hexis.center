@@ -14,6 +14,7 @@
 import { useState, useCallback, useEffect } from "react";
 import Link from "next/link";
 import { Card, Badge, Button, Separator } from "@/components/ui";
+import { handleApiError } from "@/lib/api/handle-api-error";
 import {
   generateMatrix,
   MATURITY_LEVELS,
@@ -265,10 +266,7 @@ export function GovernanceMatrix({
         }),
       });
 
-      if (!res.ok) {
-        const data = await res.json().catch(() => ({}));
-        throw new Error(data.error || "Failed to get insight");
-      }
+      if (handleApiError(res)) return;
 
       const data = await res.json();
       setInsight(data.insight);
@@ -304,10 +302,7 @@ export function GovernanceMatrix({
         }),
       });
 
-      if (!res.ok) {
-        const data = await res.json().catch(() => ({}));
-        throw new Error(data.error || "Failed to save");
-      }
+      if (handleApiError(res)) return;
 
       setSaved(true);
     } catch (err) {

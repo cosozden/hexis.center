@@ -2,6 +2,7 @@
 
 import { useState, useCallback, useEffect, useRef } from "react";
 import { Card, Button, Separator } from "@/components/ui";
+import { handleApiError } from "@/lib/api/handle-api-error";
 import type { Database } from "@/types/database";
 
 // ━━━ TYPES ━━━
@@ -51,6 +52,7 @@ export function EvidencePanel({
         fetch(`/api/evidence/items?obligationId=${obligationId}`),
         fetch(`/api/evidence/attachments?obligationId=${obligationId}`),
       ]);
+      if (handleApiError(itemsResp) || handleApiError(attachResp)) return;
       if (itemsResp.ok) {
         const data = await itemsResp.json();
         setItems(data.items);

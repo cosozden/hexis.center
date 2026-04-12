@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { Card, Button } from "@/components/ui";
+import { handleApiError } from "@/lib/api/handle-api-error";
 
 /**
  * SubscriptionGuard — wraps dashboard content to enforce subscription status.
@@ -61,6 +62,7 @@ export function SubscriptionGuard({ subscriptionStatus, children }: Props) {
     setLoading(true);
     try {
       const resp = await fetch("/api/billing/checkout", { method: "POST" });
+      if (handleApiError(resp)) return;
       const data = await resp.json();
       if (data.url) {
         window.location.href = data.url;
@@ -74,6 +76,7 @@ export function SubscriptionGuard({ subscriptionStatus, children }: Props) {
     setLoading(true);
     try {
       const resp = await fetch("/api/billing/portal", { method: "POST" });
+      if (handleApiError(resp)) return;
       const data = await resp.json();
       if (data.url) {
         window.location.href = data.url;

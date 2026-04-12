@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { Card, Button } from "@/components/ui";
+import { handleApiError } from "@/lib/api/handle-api-error";
 
 /**
  * BillingSection — settings page billing card.
@@ -49,6 +50,7 @@ export function BillingSection({ subscriptionStatus, hasStripeCustomer }: Props)
         ? "/api/billing/portal"
         : "/api/billing/checkout";
       const resp = await fetch(endpoint, { method: "POST" });
+      if (handleApiError(resp)) return;
       const data = await resp.json();
       if (data.url) {
         window.location.href = data.url;

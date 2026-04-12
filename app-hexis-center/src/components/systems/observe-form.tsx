@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
+import { handleApiError } from "@/lib/api/handle-api-error";
 import {
   Button,
   Input,
@@ -94,10 +95,7 @@ export function ObserveForm() {
         }),
       });
 
-      if (!res.ok) {
-        const data = await res.json();
-        throw new Error(data.error || "Extraction failed");
-      }
+      if (handleApiError(res)) return;
 
       const { extracted } = await res.json();
 

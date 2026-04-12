@@ -17,6 +17,7 @@
 import { useState, useCallback } from "react";
 import Link from "next/link";
 import { Card, Badge, Button, Separator } from "@/components/ui";
+import { handleApiError } from "@/lib/api/handle-api-error";
 
 // ━━━ TYPES ━━━
 
@@ -114,10 +115,7 @@ export function ActionPlan({
           }),
         });
 
-        if (!res.ok) {
-          const data = await res.json().catch(() => ({}));
-          throw new Error(data.error || "Failed to generate plan");
-        }
+        if (handleApiError(res)) return;
 
         const data = await res.json();
         setPlan(data.plan);
@@ -151,13 +149,14 @@ export function ActionPlan({
         body: JSON.stringify({ status: newStatus }),
       });
 
-      if (!res.ok) {
+      if (handleApiError(res)) {
         // Revert on failure
         setActions((prev) =>
           prev.map((a) =>
             a.id === action.id ? { ...a, status: action.status } : a,
           ),
         );
+        return;
       }
     } catch {
       // Revert on failure

@@ -5,6 +5,7 @@ import Link from "next/link";
 import { Card, Badge, Button, Separator, Progress } from "@/components/ui";
 import { getCategoryLabel, getCategoryOrder } from "@/lib/engines/obligation-engine";
 import { EvidencePanel } from "@/components/evidence/evidence-panel";
+import { handleApiError } from "@/lib/api/handle-api-error";
 import type { Database } from "@/types/database";
 
 // ━━━ TYPES ━━━
@@ -94,6 +95,7 @@ export function ObligationsTracker({
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ systemId, force }),
       });
+      if (handleApiError(resp)) return;
       const data = await resp.json();
       if (!resp.ok) {
         setError(data.error || "Failed to create obligations");
@@ -123,6 +125,7 @@ export function ObligationsTracker({
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ status }),
       });
+      if (handleApiError(resp)) return;
       if (!resp.ok) {
         // Revert on error
         setObligations((prev) =>

@@ -21,6 +21,7 @@
 import { useState } from 'react';
 import { AlertTriangle, RefreshCw, X, ChevronDown, ChevronUp } from 'lucide-react';
 import type { OrientStep } from '@/lib/config/invalidation-config';
+import { handleApiError } from '@/lib/api/handle-api-error';
 
 // ━━━ PROPS ━━━
 
@@ -84,14 +85,17 @@ export function ChangeBanner({
         }),
       });
 
-      if (response.ok) {
-        const data = await response.json();
-        setAssessment(data.assessment);
+      if (handleApiError(response)) {
+        console.warn('[change-banner] Impact assessment failed');
+        return;
+      }
 
-        // Auto-dismiss if cosmetic
-        if (data.autoCleared) {
-          setTimeout(() => setDismissed(true), 3000);
-        }
+      const data = await response.json();
+      setAssessment(data.assessment);
+
+      // Auto-dismiss if cosmetic
+      if (data.autoCleared) {
+        setTimeout(() => setDismissed(true), 3000);
       }
     } catch {
       console.warn('[change-banner] Impact assessment failed');
