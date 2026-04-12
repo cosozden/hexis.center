@@ -5,15 +5,15 @@
 <meta name="google-site-verification" content="l1f4GpQVmDmn8s1lNDwVKlXjXimQOCjy96XgcnxMJYw" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Hexis — AI Governance | EU AI Act &amp; KVKK Compliance Tools</title>
-<meta name="description" content="EU AI Act risk classification, KVKK compliance, and FRIA tools for AI systems in Turkey. ORIENT methodology for structured AI governance. Free tools for organisations operating in or serving the Turkish market.">
+<meta name="description" content="Know your EU AI Act obligations in 5 minutes. Free risk classification, governance maturity assessment, FRIA, and compliance checklist for SMEs. ORIENT methodology. No signup required.">
 <meta property="og:title" content="Hexis — AI Governance | EU AI Act &amp; KVKK Compliance Tools">
-<meta property="og:description" content="Risk classification under Reg. (EU) 2024/1689, KVKK compliance assessment, and the ORIENT governance methodology. Free tools for organisations operating in or serving the Turkish market.">
+<meta property="og:description" content="Know your EU AI Act obligations in 5 minutes. Free risk classification, governance maturity assessment, and compliance checklist for SMEs. No signup required.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://hexis.center/">
 <meta property="og:image" content="https://hexis.center/assets/og-hexis.png">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Hexis — AI Governance | EU AI Act &amp; KVKK Compliance Tools">
-<meta name="twitter:description" content="Risk classification under Reg. (EU) 2024/1689, KVKK compliance assessment, and the ORIENT governance methodology. Free tools for organisations operating in or serving the Turkish market.">
+<meta name="twitter:description" content="Know your EU AI Act obligations in 5 minutes. Free risk classification, governance maturity assessment, and compliance checklist for SMEs. No signup required.">
 <meta name="twitter:image" content="https://hexis.center/assets/og-hexis.png">
 <link rel="canonical" href="https://hexis.center/">
 <link rel="preconnect" href="https://plausible.io">
@@ -182,49 +182,37 @@ section{position:relative;z-index:1;padding-block:72px}
 .prose p{line-height:1.75}
 
 /* ─── HERO ───────────────────────────────────────── */
-#hero{padding-block:100px 96px;text-align:center;overflow:hidden;position:relative}
+#hero{padding-block:100px 80px;text-align:center;overflow:hidden;position:relative}
 .hero-hex-bg{position:absolute;inset:0;pointer-events:none;display:flex;align-items:center;justify-content:center}
-.hero-brand{
+.hero-headline{
   font-family:Georgia,serif;
-  font-size:clamp(52px,9vw,108px);
+  font-size:clamp(28px,4.5vw,48px);
   font-weight:700;
-  letter-spacing:6px;
-  line-height:.95;
-  margin-bottom:10px;
+  line-height:1.15;
   color:var(--dark-type);
-  text-transform:uppercase;
+  max-width:720px;
+  margin:0 auto 20px;
+  letter-spacing:-.02em;
 }
-.hero-brand-bar{
-  display:block;
-  width:clamp(60px,10vw,120px);
-  height:2px;
-  background:var(--brass);
-  margin:12px auto 0;
-}
-.hero-sub-brand{
+.hero-desc{
   font-family:Arial,sans-serif;
-  font-size:clamp(10px,1.4vw,13px);
+  font-size:clamp(14px,1.6vw,17px);
   font-weight:400;
-  letter-spacing:.18em;
-  text-transform:uppercase;
+  color:var(--text2);
+  line-height:1.65;
+  max-width:600px;
+  margin:0 auto 36px;
+}
+.hero-kvkk-note{
+  font-family:Arial,sans-serif;
+  font-size:12px;
   color:var(--stone);
-  margin-bottom:44px;
-  margin-top:18px;
-}
-.hero-tagline{
-  font-family:Georgia,serif;
-  font-size:16px;
-  font-weight:700;
-  color:var(--text);
-  line-height:1.4;
-  max-width:480px;
-  margin:0 auto 10px;
+  line-height:1.6;
+  max-width:520px;
+  margin:0 auto;
   letter-spacing:.01em;
-  font-style:normal;
 }
-.hero-note{display:block;margin-top:10px;font-size:13px;color:var(--stone);line-height:1.8;letter-spacing:0;font-style:normal;font-family:Arial,sans-serif;margin-bottom:52px}
-.hero-tagline strong{color:var(--text);font-weight:700}
-.hero-actions{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-bottom:56px}
+.hero-actions{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-bottom:32px}
 
 .btn-primary{
   background:var(--dark-type);color:var(--charcoal);
@@ -263,23 +251,54 @@ section{position:relative;z-index:1;padding-block:72px}
 }
 .btn-secondary-sm:hover{color:var(--dark-type);border-color:var(--border2)}
 
-/* hero stats bar */
-.hero-stats{
+/* ─── PERSONA SEGMENTATION ──────────────────────── */
+.persona-section{margin-top:48px;padding-top:40px;border-top:1px solid var(--border)}
+.persona-label{
+  font-family:Arial,sans-serif;font-size:9px;font-weight:400;
+  letter-spacing:.18em;text-transform:uppercase;color:var(--brass);margin-bottom:20px;
+}
+.persona-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border)}
+.persona-card{
+  background:var(--dark-bg);padding:24px;
+  display:flex;flex-direction:column;gap:10px;
+}
+.persona-role{
+  font-family:Georgia,serif;font-weight:700;font-size:14px;
+  color:var(--text);line-height:1.3;
+}
+.persona-card p{
+  font-size:12px;color:var(--text2);line-height:1.65;
+  font-family:Arial,sans-serif;flex:1;
+}
+.persona-tools{
+  display:flex;gap:8px;flex-wrap:wrap;padding-top:10px;
+  border-top:1px solid var(--border);
+}
+.persona-tools a{
+  font-size:10px;color:var(--stone);text-decoration:none;
+  padding:4px 10px;border:1px solid var(--border2);
+  font-family:Arial,sans-serif;letter-spacing:.04em;
+  transition:color .15s,border-color .15s;
+}
+.persona-tools a:hover{color:var(--text);border-color:rgba(232,230,226,.35)}
+
+/* ─── TRUST SIGNALS ─────────────────────────────── */
+.trust-bar{
   display:flex;justify-content:center;align-items:stretch;
-  gap:0;border:1px solid rgba(178,152,108,.25);
+  gap:0;border:1px solid var(--border2);
   overflow:hidden;
-  max-width:700px;margin:0 auto;
+  max-width:780px;margin:0 auto;
 }
-.hstat{
-  flex:1;padding:20px 16px;text-align:center;
-  border-right:1px solid rgba(178,152,108,.18);
+.trust-item{
+  flex:1;padding:22px 16px;text-align:center;
+  border-right:1px solid var(--border);
 }
-.hstat:last-child{border-right:none}
-.hstat-num{
-  font-family:Georgia,serif;font-size:18px;font-weight:700;
-  color:var(--brass);line-height:1;margin-bottom:5px;letter-spacing:.02em;
+.trust-item:last-child{border-right:none}
+.trust-num{
+  font-family:Georgia,serif;font-size:16px;font-weight:700;
+  color:var(--brass);line-height:1;margin-bottom:6px;letter-spacing:.02em;
 }
-.hstat-lbl{font-size:10px;color:var(--stone);line-height:1.4;font-weight:400;letter-spacing:.04em;font-family:Arial,sans-serif}
+.trust-lbl{font-size:10px;color:var(--stone);line-height:1.4;font-weight:400;letter-spacing:.04em;font-family:Arial,sans-serif}
 
 /* ─── ABOUT / MISSION ────────────────────────────── */
 .about-grid{display:block;max-width:720px}
@@ -365,7 +384,7 @@ section{position:relative;z-index:1;padding-block:72px}
 .res-hdr h2 em{font-style:italic;color:var(--text)}
 
 /* tool grid cards */
-.res-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border)}
+.res-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--border)}
 .res-card{
   background:var(--dark-bg);border:none;
   padding:20px;transition:background .15s;text-decoration:none;color:inherit;
@@ -514,8 +533,11 @@ footer{
   .contact-grid{grid-template-columns:1fr}
   .res-grid{grid-template-columns:1fr}
   .thinking-grid{grid-template-columns:1fr}
-  .hstat{padding:16px 10px}
-  .hstat-num{font-size:15px}
+  .persona-grid{grid-template-columns:1fr}
+  .trust-bar{flex-wrap:wrap}
+  .trust-item{flex:1 1 45%;border-bottom:1px solid var(--border)}
+  .trust-item:nth-child(2){border-right:none}
+  .trust-item:nth-child(3),.trust-item:nth-child(4){border-bottom:none}
   footer{flex-direction:column;align-items:flex-start;padding:20px}
 }
 @media(max-width:480px){
@@ -558,78 +580,181 @@ footer{
 <section id="hero">
   <div class="hero-hex-bg" aria-hidden="true">
     <svg width="100%" height="100%" viewBox="0 0 900 600" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
-      <polygon fill="none" stroke="#B2986C" stroke-width="1.2" opacity=".13" points="450,170 530,216 530,308 450,354 370,308 370,216"/>
-      <polygon fill="none" stroke="#B2986C" stroke-width="1"   opacity=".08" points="450,110 570,178 570,314 450,382 330,314 330,178"/>
-      <polygon fill="none" stroke="#B2986C" stroke-width=".8"  opacity=".055" points="450,40  620,147 620,323 450,430 280,323 280,147"/>
-      <polygon fill="none" stroke="#B2986C" stroke-width=".6"  opacity=".035" points="450,-42 678,107 678,333 450,482 222,333 222,107"/>
-      <polygon fill="none" stroke="#B2986C" stroke-width=".5"  opacity=".022" points="450,-134 744,60 744,342 450,542 156,342 156,60"/>
-      <polygon fill="none" stroke="#B2986C" stroke-width=".4"  opacity=".013" points="450,-238 818,6  818,354 450,610 82,354  82,6"/>
+      <polygon fill="none" stroke="#B2986C" stroke-width="1.2" opacity=".10" points="450,170 530,216 530,308 450,354 370,308 370,216"/>
+      <polygon fill="none" stroke="#B2986C" stroke-width="1"   opacity=".06" points="450,110 570,178 570,314 450,382 330,314 330,178"/>
+      <polygon fill="none" stroke="#B2986C" stroke-width=".8"  opacity=".04" points="450,40  620,147 620,323 450,430 280,323 280,147"/>
+      <polygon fill="none" stroke="#B2986C" stroke-width=".6"  opacity=".025" points="450,-42 678,107 678,333 450,482 222,333 222,107"/>
+      <polygon fill="none" stroke="#B2986C" stroke-width=".5"  opacity=".015" points="450,-134 744,60 744,342 450,542 156,342 156,60"/>
     </svg>
   </div>
   <div class="section-inner" style="position:relative;z-index:2">
-    <div class="hero-brand">HEXIS<span class="hero-brand-bar"></span></div>
-    <div class="hero-sub-brand">Human &amp; Systems</div>
 
-    <p class="hero-tagline"
-      data-en="Human-Centered Governance for Intelligent Systems"
-      data-tr="Akıllı Sistemler için İnsan Merkezli Yönetişim"
-    >Human-Centered Governance for Intelligent Systems</p>
-    <span class="hero-note"
-      data-en="EU AI Act risk classification, KVKK cross-analysis, and governance tools — free."
-      data-tr="EU AI Act risk sınıflandırması, KVKK çapraz analizi ve yönetişim araçları. Ücretsiz."
-    >EU AI Act risk sınıflandırması, KVKK çapraz analizi ve yönetişim araçları. Ücretsiz.</span>
+    <h1 class="hero-headline"
+      data-en="Know your EU AI Act obligations in 5 minutes."
+      data-tr="EU AI Act yükümlülüklerinizi 5 dakikada öğrenin."
+    >Know your EU AI Act obligations in 5 minutes.</h1>
+
+    <p class="hero-desc"
+      data-en="Free risk classification, governance maturity assessment, and compliance checklist for SMEs. No signup required."
+      data-tr="KOBİ'ler için ücretsiz risk sınıflandırması, yönetişim olgunluk değerlendirmesi ve uyum kontrol listesi. Kayıt gerektirmez."
+    >Free risk classification, governance maturity assessment, and compliance checklist for SMEs. No signup required.</p>
 
     <div class="hero-actions">
       <a href="/generator/" class="btn-primary"
         data-en="Classify Your AI System →"
         data-tr="AI Sisteminizi Sınıflandırın →"
       >Classify Your AI System →</a>
+      <a href="/checklist/" class="btn-outline"
+        data-en="View Compliance Checklist"
+        data-tr="Kontrol Listesini İnceleyin"
+        data-en-href="/checklist/"
+        data-tr-href="/kvkk/"
+      >View Compliance Checklist</a>
     </div>
+
+    <p class="hero-kvkk-note"
+      data-en="Operating in Turkey? Our tools include KVKK cross-analysis for dual-jurisdiction compliance."
+      data-tr="Türkiye'de faaliyet mi gösteriyorsunuz? Araçlarımız çifte yetki alanı uyumu için KVKK çapraz analizini içerir."
+    >Operating in Turkey? Our tools include KVKK cross-analysis for dual-jurisdiction compliance.</p>
+
   </div>
 </section>
 
 <div class="sec-divider"><hr></div>
 
-<!-- ══════════ ABOUT / MISSION ══════════ -->
-<section id="about">
+<!-- ══════════ TOOLS ══════════ -->
+<section id="tools">
   <div class="section-inner">
-    <div class="about-grid">
-      <div class="about-left prose">
-        <div class="about-label" data-en="Mission" data-tr="Misyon">Mission</div>
+    <div class="res-hdr">
+      <div>
+        <div class="res-label" data-en="Tools" data-tr="Araçlar">Tools</div>
+        <h2 data-en="Free Governance <em>Tools</em>" data-tr="Ücretsiz Yönetişim <em>Araçları</em>">Free Governance <em>Tools</em></h2>
+      </div>
+    </div>
 
-        <!-- EN version -->
-        <h2 class="lang-en">Governance as a<br><em>design practice</em>.</h2>
-        <p class="lang-en" style="font-size:13px;color:var(--stone);font-style:italic;letter-spacing:.01em;margin-bottom:20px;line-height:1.75;font-family:Georgia,serif">
-          Hexis (ἕξις) — in ancient Greek philosophy, not a momentary reflex,<br>
-          but a stable, practiced disposition.
-        </p>
-        <p class="lang-en">
-          Hexis builds compliance infrastructure for AI systems. EU AI Act risk classification,
-          KVKK cross-analysis, and governance maturity assessment — all on one platform, free.
-          Our aim is to make compliance not a checklist, but <strong>an integral part of design
-          and organisational culture</strong>.
-        </p>
-        <p class="about-closing lang-en">
-          This is not a race for speed.<br>
-          <strong>It is knowing when to slow down and ask the right question.</strong>
-        </p>
+    <div class="res-grid" style="margin-top:1px">
 
-        <!-- TR version -->
-        <h2 class="lang-tr">Yönetişim,<br><em>tasarımın parçasıdır</em>.</h2>
-        <p class="lang-tr" style="font-size:13px;color:var(--stone);font-style:italic;letter-spacing:.01em;margin-bottom:20px;line-height:1.75;font-family:Georgia,serif">
-          Hexis (ἕξις): Antik Yunan felsefesinde anlık bir refleks değil,<br>
-          karaktere kazınmış, kalıcı bir yönelimi ifade eder.
-        </p>
-        <p class="lang-tr">
-          Hexis, yapay zeka sistemleri için uyum altyapısı kurar. EU AI Act risk sınıflandırması,
-          KVKK çapraz analizi ve yönetişim olgunluk değerlendirmesi: hepsi tek bir platformda, ücretsiz.
-          Amacımız uyumu bir kontrol listesi olmaktan çıkarıp <strong>tasarımın ve kurumsal kültürün
-          ayrılmaz bir boyutu</strong> haline getirmektir.
-        </p>
-        <p class="about-closing lang-tr">
-          Bu bir hız yarışı değil.<br>
-          <strong>Doğru soruyu sorabilmek için durmayı bilmektir.</strong>
-        </p>
+      <a href="/generator/" class="res-card" style="text-decoration:none;display:flex;border-left:2px solid var(--brass)">
+        <div class="tool-badge-live">Live</div>
+        <div class="res-card-icon" style="font-size:20px">⚙️</div>
+        <h3 data-en="AI System Risk Classifier &amp; Governance Report" data-tr="AI Sistem Risk Sınıflandırıcısı &amp; Yönetişim Raporu">AI System Risk Classifier &amp; Governance Report</h3>
+        <p data-en="Classify your AI system under Reg. (EU) 2024/1689 in minutes. Get your risk level, applicable obligations, and governance maturity profile."
+           data-tr="AI sisteminizi dakikalar içinde Reg. (EU) 2024/1689 kapsamında sınıflandırın. Risk seviyenizi, yükümlülüklerinizi ve yönetişim olgunluk profilinizi alın."
+        >Classify your AI system under Reg. (EU) 2024/1689 in minutes. Get your risk level, applicable obligations, and governance maturity profile.</p>
+        <div class="rc-footer">
+          <span class="rc-src">Observe → Risk → Evaluate</span>
+          <span class="rc-arr">→</span>
+        </div>
+      </a>
+
+      <a href="/checklist/" class="res-card" style="text-decoration:none;display:flex"
+        data-en-href="/checklist/"
+        data-tr-href="/kvkk/">
+        <div class="tool-badge-live">Live</div>
+        <div class="res-card-icon" style="font-size:20px">✓</div>
+        <h3 data-en="EU AI Act Compliance Checklist" data-tr="EU AI Act Uyum Kontrol Listesi">EU AI Act Compliance Checklist</h3>
+        <p data-en="23-item interactive checklist covering Reg. (EU) 2024/1689 obligations. Track progress and export as PDF."
+           data-tr="Reg. (EU) 2024/1689 yükümlülüklerini kapsayan 23 maddelik interaktif kontrol listesi. İlerlemenizi takip edin, PDF olarak dışa aktarın."
+        >23-item interactive checklist covering Reg. (EU) 2024/1689 obligations. Track progress and export as PDF.</p>
+        <div class="rc-footer">
+          <span class="rc-src">Identify → Navigate</span>
+          <span class="rc-arr">→</span>
+        </div>
+      </a>
+
+      <a href="/fria/" class="res-card" style="text-decoration:none;display:flex">
+        <div class="tool-badge-live">Live</div>
+        <div class="res-card-icon" style="font-size:20px">⚖️</div>
+        <h3 data-en="Fundamental Rights Impact Assessment (FRIA)" data-tr="Temel Haklar Etki Değerlendirmesi (FRIA)">Fundamental Rights Impact Assessment (FRIA)</h3>
+        <p data-en="Structured assessment for Article 27 obligations. Evaluate risks to fundamental rights before deploying high-risk AI systems."
+           data-tr="Madde 27 yükümlülükleri için yapılandırılmış değerlendirme. Yüksek riskli AI sistemlerini konuşlandırmadan önce temel hak risklerini değerlendirin."
+        >Structured assessment for Article 27 obligations. Evaluate risks to fundamental rights before deploying high-risk AI systems.</p>
+        <div class="rc-footer">
+          <span class="rc-src">Evaluate</span>
+          <span class="rc-arr">→</span>
+        </div>
+      </a>
+
+      <a href="/kvkk-eu-ai-act/" class="res-card" style="text-decoration:none;display:flex">
+        <div class="tool-badge-live">Live</div>
+        <div class="res-card-icon" style="font-size:20px">↔</div>
+        <h3 data-en="KVKK × EU AI Act Crosswalk" data-tr="KVKK × EU AI Act Karşılaştırması">KVKK × EU AI Act Crosswalk</h3>
+        <p data-en="Overlapping obligations, unique requirements, and key tension points between KVKK and EU AI Act — grounded in primary sources."
+           data-tr="İki çerçevenin örtüşen yükümlülükleri, sadece birinde olan gereksinimler ve pratik gerilim noktaları; birincil kaynaklara dayalı analiz."
+        >Overlapping obligations, unique requirements, and key tension points between KVKK and EU AI Act — grounded in primary sources.</p>
+        <div class="rc-footer">
+          <span class="rc-src">Identify</span>
+          <span class="rc-arr">→</span>
+        </div>
+      </a>
+
+    </div>
+
+    <!-- PERSONA SEGMENTATION -->
+    <div class="persona-section">
+      <div class="persona-label" data-en="Who is this for?" data-tr="Kimin için?">Who is this for?</div>
+      <div class="persona-grid">
+
+        <div class="persona-card">
+          <div class="persona-role" data-en="DPO / Compliance Officer" data-tr="DPO / Uyum Sorumlusu">DPO / Compliance Officer</div>
+          <p data-en="Map your obligations under the EU AI Act and assess fundamental rights impact before deployment."
+             data-tr="EU AI Act kapsamındaki yükümlülüklerinizi haritalandırın ve konuşlandırma öncesi temel hak etkisini değerlendirin."
+          >Map your obligations under the EU AI Act and assess fundamental rights impact before deployment.</p>
+          <div class="persona-tools">
+            <a href="/checklist/" data-en-href="/checklist/" data-tr-href="/kvkk/" data-en="Compliance Checklist" data-tr="Uyum Kontrol Listesi">Compliance Checklist</a>
+            <a href="/fria/" data-en="FRIA Tool" data-tr="FRIA Aracı">FRIA Tool</a>
+          </div>
+        </div>
+
+        <div class="persona-card">
+          <div class="persona-role" data-en="CTO / Technical Lead" data-tr="CTO / Teknik Lider">CTO / Technical Lead</div>
+          <p data-en="Classify your AI systems, understand your risk level, and benchmark governance maturity."
+             data-tr="AI sistemlerinizi sınıflandırın, risk seviyenizi anlayın ve yönetişim olgunluğunuzu ölçün."
+          >Classify your AI systems, understand your risk level, and benchmark governance maturity.</p>
+          <div class="persona-tools">
+            <a href="/generator/" data-en="Risk Classifier" data-tr="Risk Sınıflandırıcısı">Risk Classifier</a>
+            <a href="/generator/" data-en="Governance Report" data-tr="Yönetişim Raporu">Governance Report</a>
+          </div>
+        </div>
+
+        <div class="persona-card">
+          <div class="persona-role" data-en="CEO / Board Member" data-tr="CEO / Yönetim Kurulu">CEO / Board Member</div>
+          <p data-en="Get a clear picture of your organisation's AI governance posture and strategic compliance gaps."
+             data-tr="Organizasyonunuzun AI yönetişim duruşunu ve stratejik uyum açıklarını net olarak görün."
+          >Get a clear picture of your organisation's AI governance posture and strategic compliance gaps.</p>
+          <div class="persona-tools">
+            <a href="/generator/" data-en="Governance Report" data-tr="Yönetişim Raporu">Governance Report</a>
+            <a href="/kvkk-eu-ai-act/" data-en="KVKK × EU AI Act" data-tr="KVKK × EU AI Act">KVKK × EU AI Act</a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<div class="sec-divider"><hr></div>
+
+<!-- ══════════ TRUST SIGNALS ══════════ -->
+<section id="trust" style="padding-block:52px">
+  <div class="section-inner">
+    <div class="trust-bar">
+      <div class="trust-item">
+        <div class="trust-num">ISO 42001</div>
+        <div class="trust-lbl" data-en="Implementer Certified" data-tr="Implementer Sertifikalı">Implementer Certified</div>
+      </div>
+      <div class="trust-item">
+        <div class="trust-num">IAPP</div>
+        <div class="trust-lbl" data-en="Member" data-tr="Üye">Member</div>
+      </div>
+      <div class="trust-item">
+        <div class="trust-num">4</div>
+        <div class="trust-lbl" data-en="Free Live Tools" data-tr="Ücretsiz Canlı Araç">Free Live Tools</div>
+      </div>
+      <div class="trust-item">
+        <div class="trust-num">ORIENT</div>
+        <div class="trust-lbl" data-en="6-Stage Methodology" data-tr="6 Adımlı Metodoloji">6-Stage Methodology</div>
       </div>
     </div>
   </div>
@@ -812,140 +937,18 @@ footer{
   </div>
 </section>
 
-<div class="sec-divider"><hr></div>
-
-<!-- ══════════ TOOLS ══════════ -->
-<section id="tools">
-  <div class="section-inner">
-    <div class="res-hdr">
-      <div>
-        <div class="res-label" data-en="Tools" data-tr="Araçlar">Tools</div>
-        <h2 data-en="Governance <em>Tools</em>" data-tr="Yönetişim <em>Araçları</em>">Governance <em>Tools</em></h2>
-      </div>
-    </div>
-
-    <!-- HEXIS V1 TOOLS -->
-    <div class="res-grid" style="margin-top:1px">
-
-      <a href="/checklist/" class="res-card" style="text-decoration:none;display:flex;border-left:2px solid var(--brass)"
-        data-en-href="/checklist/"
-        data-tr-href="/kvkk/">
-        <div class="tool-badge-live">Live</div>
-        <div class="res-card-icon" style="font-size:20px">✓</div>
-        <h3 data-en="EU AI Act + KVKK Compliance Checklist" data-tr="EU AI Act + KVKK Hazırlık Kontrol Listesi">EU AI Act + KVKK Hazırlık Kontrol Listesi</h3>
-        <p data-en="23-item interactive checklist covering Reg. (EU) 2024/1689 and the KVKK Generative AI Guide. PDF report on completion."
-           data-tr="Reg. (EU) 2024/1689 ve KVKK Rehberi'ni kapsayan 23 maddelik interaktif kontrol listesi. Tamamladıktan sonra PDF rapor."
-        >Reg. (EU) 2024/1689 ve KVKK Rehberi'ni kapsayan 23 maddelik interaktif kontrol listesi. Tamamladıktan sonra PDF rapor.</p>
-        <div class="rc-footer">
-          <span class="rc-src">Checklist</span>
-          <span class="rc-arr">→</span>
-        </div>
-      </a>
-
-      <a href="/generator/" class="res-card" style="text-decoration:none;display:flex">
-        <div class="tool-badge-live">Live</div>
-        <div class="res-card-icon" style="font-size:20px">⚙️</div>
-        <h3 data-en="AI System Risk Classifier &amp; Governance Report" data-tr="AI Sistem Risk Sınıflandırıcısı &amp; Yönetişim Raporu">AI System Risk Classifier &amp; Governance Report</h3>
-        <p data-en="Define your system, classify its risk level, generate your governance profile. Observe → Risk → Governance Report."
-           data-tr="Sistemini tanımla, risk kategorisini belirle, yönetişim profilini oluştur. Observe → Risk → Yönetişim Raporu."
-        >Define your system, classify its risk level, generate your governance profile. Observe → Risk → Governance Report.</p>
-        <div class="rc-footer">
-          <span class="rc-src">Generator</span>
-          <span class="rc-arr">→</span>
-        </div>
-      </a>
-
-      <a href="/kvkk-eu-ai-act/" class="res-card" style="text-decoration:none;display:flex">
-        <div class="tool-badge-live">Live</div>
-        <div class="res-card-icon" style="font-size:20px">⚖️</div>
-        <h3 data-en="KVKK × EU AI Act Crosswalk" data-tr="KVKK × EU AI Act Karşılaştırması">KVKK × EU AI Act Karşılaştırması</h3>
-        <p data-en="Overlapping obligations, requirements unique to each framework, and key tension points — analysis grounded in primary sources."
-           data-tr="İki çerçevenin örtüşen yükümlülükleri, sadece birinde olan gereksinimler ve pratik gerilim noktaları; birincil kaynaklara dayalı analiz."
-        >İki çerçevenin örtüşen yükümlülükleri, sadece birinde olan gereksinimler ve pratik gerilim noktaları; birincil kaynaklara dayalı analiz.</p>
-        <div class="rc-footer">
-          <span class="rc-src">Identify</span>
-          <span class="rc-arr">→</span>
-        </div>
-      </a>
-
-    </div>
-
-
-
-  </div>
-</section>
-
-<div class="sec-divider"><hr></div>
-
-<!-- ══════════ CONTACT ══════════ -->
-<section id="contact">
-  <div class="section-inner">
-    <div class="contact-grid">
-
-      <div class="contact-left">
-        <div class="res-label" data-en="Contact" data-tr="İletişim">Contact</div>
-        <h2 class="lang-en"><em>Collaboration</em> &amp; Contact</h2>
-        <h2 class="lang-tr"><em>İşbirliği</em> &amp; İletişim</h2>
-        <p data-en="Hexis collaborates with organisations, researchers, and policy makers working on AI governance."
-           data-tr="Hexis, AI yönetişimi alanında çalışan kurumlar, araştırmacılar ve politika yapıcılarla işbirliği yapar."
-        >Hexis, AI yönetişimi alanında çalışan kurumlar, araştırmacılar ve politika yapıcılarla işbirliği yapar.</p>
-        <div class="contact-note">
-          <strong class="lang-en">Note: </strong><strong class="lang-tr">Not: </strong>
-          <span data-en="New content and tools are announced on LinkedIn. Framework updates can be followed here."
-                data-tr="Yazılar ve yeni içerikler LinkedIn üzerinden duyurulmaktadır. Araç ve çerçeve güncellemeleri bu siteden takip edilebilir."
-          >Yazılar ve yeni içerikler LinkedIn üzerinden duyurulmaktadır. Araç ve çerçeve güncellemeleri bu siteden takip edilebilir.</span>
-        </div>
-      </div>
-
-      <div class="contact-cards">
-
-        <a href="https://www.linkedin.com/in/ozden-coskun-8728a1301" target="_blank" rel="noopener noreferrer" class="cc-card">
-          <div class="cc-ico">
-            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
-          </div>
-          <div class="cc-body">
-            <div class="cc-label">LinkedIn</div>
-            <div class="cc-val">Hexis — Governance Thinking</div>
-            <div class="cc-desc"
-              data-en="Articles · Frameworks · Latest Content"
-              data-tr="Yazılar · Çerçeveler · Güncel İçerikler"
-            >Yazılar · Çerçeveler · Güncel İçerikler</div>
-          </div>
-          <div class="cc-arr">→</div>
-        </a>
-
-        <a href="/cdn-cgi/l/email-protection#34575b5a40555740745c514c5d471a57515a405146" class="cc-card">
-          <div class="cc-ico">
-            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" width="18" height="18">
-              <rect x="2" y="4" width="20" height="16" rx="0" stroke="#8A8884" stroke-width="1.5"/>
-              <path d="M2 7l10 7 10-7" stroke="#8A8884" stroke-width="1.5" stroke-linecap="square"/>
-            </svg>
-          </div>
-          <div class="cc-body">
-            <div class="cc-label" data-en="Email" data-tr="E-posta">E-posta</div>
-            <div class="cc-val"><span class="__cf_email__" data-cfemail="d0b3bfbea4b1b3a490b8b5a8b9a3feb3b5bea4b5a2">[email&#160;protected]</span></div>
-            <div class="cc-desc"
-              data-en="Collaboration · Institutional contact"
-              data-tr="İş birliği · Kurumsal temas"
-            >İş birliği · Kurumsal temas</div>
-          </div>
-          <div class="cc-arr">→</div>
-        </a>
-
-      </div>
-    </div>
-  </div>
-</section>
-
 <!-- ══════════ NEWSLETTER SIGNUP ══════════ -->
 <section class="nl-section">
   <div class="nl-inner">
     <div class="nl-text">
-      <h2 class="nl-title">AI Governance Türkiye</h2>
+      <h2 class="nl-title"
+        data-en="Stay Updated"
+        data-tr="AI Governance Türkiye"
+      >Stay Updated</h2>
       <p class="nl-desc"
-        data-en="Weekly AI governance news, KVKK &amp; EU AI Act analysis for companies operating in Turkey. Every Thursday."
+        data-en="Weekly EU AI Act &amp; KVKK analysis, governance insights, and tool updates. Published in Turkish with EU AI Act content in English coming soon."
         data-tr="Haftalık AI governance haberleri, KVKK &amp; EU AI Act analizi. Her Perşembe gelen kutunuzda."
-      >Haftalık AI governance haberleri, KVKK & EU AI Act analizi. Her Perşembe gelen kutunuzda.</p>
+      >Weekly EU AI Act &amp; KVKK analysis, governance insights, and tool updates. Published in Turkish with EU AI Act content in English coming soon.</p>
     </div>
     <form class="nl-form" action="https://aigovernanceturkiye.beehiiv.com/subscribe" method="post" target="_blank" onsubmit="if(typeof plausible!=='undefined')plausible('Newsletter Signup')">
       <input type="email" name="email"
@@ -962,6 +965,60 @@ footer{
       data-en="by Hexis · Your email is used only for newsletter delivery. Unsubscribe anytime."
       data-tr="by Hexis · Kişisel verileriniz yalnızca bülten gönderimi için kullanılır. İstediğiniz zaman abonelikten çıkabilirsiniz."
     >by Hexis · Kişisel verileriniz yalnızca bülten gönderimi için kullanılır. İstediğiniz zaman abonelikten çıkabilirsiniz.</p>
+  </div>
+</section>
+
+<!-- ══════════ CONTACT ══════════ -->
+<section id="contact">
+  <div class="section-inner">
+    <div class="contact-grid">
+
+      <div class="contact-left">
+        <div class="res-label" data-en="Contact" data-tr="İletişim">Contact</div>
+        <h2 class="lang-en"><em>Collaboration</em> &amp; Contact</h2>
+        <h2 class="lang-tr"><em>İşbirliği</em> &amp; İletişim</h2>
+        <p data-en="Hexis collaborates with organisations, researchers, and policy makers working on AI governance."
+           data-tr="Hexis, AI yönetişimi alanında çalışan kurumlar, araştırmacılar ve politika yapıcılarla işbirliği yapar."
+        >Hexis collaborates with organisations, researchers, and policy makers working on AI governance.</p>
+      </div>
+
+      <div class="contact-cards">
+
+        <a href="https://www.linkedin.com/in/ozden-coskun-8728a1301" target="_blank" rel="noopener noreferrer" class="cc-card">
+          <div class="cc-ico">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          </div>
+          <div class="cc-body">
+            <div class="cc-label">LinkedIn</div>
+            <div class="cc-val">Hexis — Governance Thinking</div>
+            <div class="cc-desc"
+              data-en="Articles · Frameworks · Latest Content"
+              data-tr="Yazılar · Çerçeveler · Güncel İçerikler"
+            >Articles · Frameworks · Latest Content</div>
+          </div>
+          <div class="cc-arr">→</div>
+        </a>
+
+        <a href="/cdn-cgi/l/email-protection#34575b5a40555740745c514c5d471a57515a405146" class="cc-card">
+          <div class="cc-ico">
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" width="18" height="18">
+              <rect x="2" y="4" width="20" height="16" rx="0" stroke="#8A8884" stroke-width="1.5"/>
+              <path d="M2 7l10 7 10-7" stroke="#8A8884" stroke-width="1.5" stroke-linecap="square"/>
+            </svg>
+          </div>
+          <div class="cc-body">
+            <div class="cc-label" data-en="Email" data-tr="E-posta">Email</div>
+            <div class="cc-val"><span class="__cf_email__" data-cfemail="d0b3bfbea4b1b3a490b8b5a8b9a3feb3b5bea4b5a2">[email&#160;protected]</span></div>
+            <div class="cc-desc"
+              data-en="Collaboration · Institutional contact"
+              data-tr="İş birliği · Kurumsal temas"
+            >Collaboration · Institutional contact</div>
+          </div>
+          <div class="cc-arr">→</div>
+        </a>
+
+      </div>
+    </div>
   </div>
 </section>
 
@@ -1029,7 +1086,7 @@ function setLang(lang){
   } else {
     document.title='Hexis \u2014 AI Governance | EU AI Act & KVKK Compliance Tools';
     var md=document.querySelector('meta[name="description"]');
-    if(md) md.content='EU AI Act risk classification, KVKK compliance, and FRIA tools for AI systems in Turkey. ORIENT methodology for structured AI governance. Free tools for organisations operating in or serving the Turkish market.';
+    if(md) md.content='Know your EU AI Act obligations in 5 minutes. Free risk classification, governance maturity assessment, and compliance checklist for SMEs. No signup required.';
   }
   /* button states */
   document.querySelectorAll('.lang-btn').forEach(function(b){

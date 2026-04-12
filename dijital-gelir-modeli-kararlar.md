@@ -1225,4 +1225,262 @@ Section 4'teki "2 noktada Claude" açıklaması artık gerçeği yansıtmıyor (
 
 ---
 
-*Bu doküman, 20 Mart 2026 tarihli strateji tartışmasının kesinleşen kararlarını içermektedir. 27 Mart'ta "Claude IS the Consultant" paradigma revizyonu, 28 Mart'ta UI/UX kararları, 8 Nisan'da stratejik derinleştirme, 9 Nisan'da GovOps altyapısı ve kimlik değişikliği, 11 Nisan'da (Section 10) MCP Server mimari analizi, 11 Nisan'da (Section 11) platform audit sonuçları, Compliance Advisor tamamlanması, güvenlik yamaları, P1 öncelik güncellemesi ve revize zaman çizelgesi eklenmiştir.*
+## 12. REVİZYON — 12 Nisan 2026: OneTrust Rekabet Analizi & Ürün Genişletme Kararları
+
+**Bağlam:** OneTrust ($5.1B, 14K müşteri) detaylı analizi, AB SME rekabet ortamı taraması (EU AI Compass, EuroComply), hexis.center web deneyimi kritik değerlendirmesi. Tüm kararlar Özden tarafından onaylandı.
+**Tam analiz raporu:** onetrust-rekabet-analizi-v2.docx
+
+### 12.1 Hedef Pazar Netleştirmesi (KESİNLEŞTİ)
+
+**Birincil hedef:** AB pazarındaki SME'ler (50-500 çalışan) — İngilizce
+**Stratejik niş:** AB ile ticaret yapan Türk şirketler — dual-jurisdiction (İngilizce + Türkçe)
+**İkincil hedef:** Türkiye iç pazarı — Türkçe (ertelendi, product-market fit sonrası)
+
+**Dil stratejisi değişikliği:**
+- İngilizce birincil, Türkçe destekleyici
+- hexis.center hero ve araçlar EN-first olacak
+- Blog: EN öncelikli, TR çevirisi
+- Newsletter: Mevcut TR newsletter'a ek olarak EN newsletter planlanacak ("AI Governance Europe by Hexis")
+
+### 12.2 Rekabet Ortamı Tespitleri
+
+**Enterprise segment (kapsam dışı):**
+- OneTrust: $500M+ ARR, $11.5K-500K+/yıl, Fortune 100'ün %75'i
+- Hexis bu segmente girmiyor — farklı pazar
+
+**AB SME segment (doğrudan rakipler):**
+
+| Rakip | Model | Tehdit | Hexis'te Olmayan |
+|---|---|---|---|
+| EU AI Compass (Move78) | 28 ücretsiz araç + $399-1,299 toolkit satışı | Yüksek | Shadow AI, vendor screening, oversight logging, sector validators |
+| EuroComply | €1,788/yıl SaaS, 5 AB regülasyonu | Orta-Yüksek | Annex IV doc taslağı, multi-regulation, deadline tracking |
+| ExactAI | Ücretsiz 5 dk assessment | Düşük | Kişiselleştirilmiş compliance roadmap |
+| ComplyAI Europe | Ücretsiz self-assessment | Düşük | — |
+
+**Hexis'in korunan avantajları (hiçbir rakipte yok):**
+1. ORIENT metodolojisi (uçtan uca 6 aşamalı governance çerçevesi)
+2. Governance Activation Matrix (maturity assessment)
+3. Dual-jurisdiction AB + KVKK crosswalk
+4. ISO 42001 Lead Implementer sertifikası ile yapılandırılmış araçlar
+5. "Claude IS the Consultant" AI advisor entegrasyonu
+
+### 12.3 Ürün Odağı Kararı (KESİNLEŞTİ)
+
+**Hexis'in işi: AI governance katmanı. GDPR privacy katmanı DEĞİL.**
+
+- DPIA (GDPR Art. 35) modülü **EKLENMEYECEK** — farklı hukuki alan, farklı rakip seti
+- KVKK VED modülü **EKLENMEYECEK** (ikinci ürüne ertelendi)
+- FRIA (EU AI Act Art. 27) **derinleştirilecek** + DPIA crosswalk referansı verilecek
+- "FRIA'nız bu sonuçları verdi → DPIA'nızda da bu riskleri değerlendirmeniz gerekiyor" yaklaşımı
+- Kullanıcı var olan DPIA araçlarına yönlendirilecek
+
+### 12.4 app.hexis.center SaaS — Yeni Modüller
+
+#### MVP'ye Dahil Edilenler (mevcut sprint planına entegre)
+
+**A) Vendor Assessment — Observe (Adım 1) Genişletmesi**
+
+| Özellik | Detay |
+|---|---|
+| Ne yapar | Envanterdeki AI sistemleri için "üçüncü taraf mı?" kontrolü → evet ise vendor assessment akışı |
+| Veri modeli | `ai_systems` tablosuna `source: internal \| third_party` field + `vendor_assessments` tablosu |
+| Akış | Sistem eklerken → kaynak seçimi → üçüncü taraf ise: provider'dan istenmesi gereken belgeler listesi (Annex IV, conformity beyanı, Art. 13 bilgilendirme), provider uyumluluk durumu |
+| Claude rolü | "Bu vendor GPAI model provider ise, Art. 53 kapsamında şu belgeleri talep etmeniz gerekiyor..." |
+| Geliştirme maliyeti | Düşük — mevcut Observe formuna ek adım + yeni tablo |
+| Sprint yeri | Faz 1 (Observe + Risk) kapsamında, mevcut Observe form genişletmesi |
+
+**B) FRIA Derinleştirme + DPIA Crosswalk — Evaluate (Adım 4) Genişletmesi**
+
+| Özellik | Detay |
+|---|---|
+| Ne yapar | Mevcut FRIA formunu genişletir, Observe + Risk verilerini pre-populate eder, DPIA gerektiren durumları işaretler |
+| DPIA yaklaşımı | DPIA formu üretmez — "Bu sistem kişisel veri işlediği için DPIA da gerekiyor" uyarısı + ilgili GDPR maddelerine crosswalk referansı |
+| Claude rolü | "FRIA sonuçlarınıza göre, DPIA'nızda özellikle şu riskleri değerlendirmeniz gerekiyor..." |
+| Geliştirme maliyeti | Orta — mevcut FRIA mantığı genişletilir, pre-population logic eklenir |
+| Sprint yeri | Faz 2 (Identify + Evaluate) kapsamında |
+
+**C) Deployer-Specific Obligations — Identify (Adım 3) Engine Güncellemesi**
+
+| Özellik | Detay |
+|---|---|
+| Ne yapar | obligation-engine.ts'e deployer-specific yükümlülük seti ekler |
+| Kapsam | Art. 26 yükümlülükleri: insan gözetimi, olay raporlama, veri governance, FRIA tamamlama |
+| Yeni modül DEĞİL | Mevcut Adım 3'ün doğal davranışı — role = deployer ise ilgili yükümlülükler gösterilir |
+| Geliştirme maliyeti | Düşük — engine'e ek kurallar + yükümlülük veritabanına yeni maddeler |
+| Sprint yeri | Faz 2 (Identify + Evaluate) kapsamında |
+
+**D) Shadow AI → Onboarding Entegrasyonu (Ayrı Modül DEĞİL)**
+
+| Özellik | Detay |
+|---|---|
+| Ne yapar | İlk kayıt/onboarding sırasında "departman bazlı AI kullanım taraması" anketi |
+| Akış | "Kuruluşunuzdaki AI kullanımını haritalayalım" → departman seçimi → her departman için AI araç soruları → sonuçlar envantere otomatik eklenir |
+| Neden ayrı modül değil | Otomatik keşif yapamaz, self-assessment — onboarding deneyiminin parçası olarak daha değerli |
+| Sprint yeri | Faz 4 (Ödeme + Lansman Altyapısı) — onboarding akışı kapsamında |
+
+#### Post-Lansman Modüller (Talep doğrulaması sonrası)
+
+**E) Annex IV Technical Documentation Generator — Navigate (Adım 5) Genişletmesi**
+
+| Özellik | Detay |
+|---|---|
+| Ne yapar | EU AI Act Annex IV'ün 13 bölümünü yapılandırılmış taslak olarak üretir |
+| Değer | Adım 1-4 verileri ile pre-populated alanlar: sistem açıklaması, risk sınıfı, veri türleri, gözetim mekanizmaları |
+| Claude rolü | Boş alanlar için rehberlik: "Bu alanı doldurmak için mühendislik ekibinizden şu bilgileri isteyin..." |
+| Neden post-lansman | 13 bölüm = yüksek geliştirme maliyeti. Lansmanda Navigate "önceliklendirilmiş görev listesi" olarak yeterli |
+| Zamanlama | Post-lansman Hafta 2-4, ilk büyük özellik güncellemesi |
+| Not | EuroComply bunu €1,788/yıl'a sunuyor — Hexis'te ORIENT entegrasyonu ile daha güçlü |
+
+**F) ISO 42001 ↔ EU AI Act Gap Assessment (Detaylı) — Evaluate (Adım 4) Genişletmesi**
+
+| Özellik | Detay |
+|---|---|
+| Ne yapar | ISO 42001 kontrolleri ↔ EU AI Act maddeleri kontrol bazlı mapping + gap tanımlama + aksiyon önerisi |
+| Teknik gereksinim | Yeni engine: `iso42001-gap-engine.ts` (40+ kontrol eşleştirmesi) |
+| Hexis avantajı | ISO 42001 Lead Implementer sertifikası — teori değil uygulama deneyimi |
+| Neden post-lansman | Yeni engine gerektirir, geliştirme maliyeti yüksek. hexis.center'daki ücretsiz quiz ile talep ölçülecek |
+| Zamanlama | Post-lansman Hafta 4-6 |
+
+**G) Oversight Logging (Art. 14) — Track (Adım 6) Genişletmesi**
+
+| Özellik | Detay |
+|---|---|
+| Ne yapar | İnsan gözetimi müdahale kaydı: tarih, sistem, karar (kabul/düzelt/reddet), operatör, gerekçe |
+| Değer | Denetçiye sunulabilir rapor, compliance kanıt dosyası |
+| Neden post-lansman | Operasyonel araç — kullanıcılar önce sistemi kurar, sonra operasyonelleştirir |
+| Zamanlama | Post-lansman Hafta 6-8 |
+
+### 12.5 hexis.center — Yeni Araçlar (2 adet)
+
+**A) AI Vendor Quick Check (YENİ SAYFA)**
+
+| Özellik | Detay |
+|---|---|
+| URL | hexis.center/vendor-check/ |
+| Ne yapar | "ChatGPT kullanıyorum, EU AI Act'a göre ne yapmalıyım?" sorusuna cevap |
+| Akış | AI aracı seç (dropdown) → 5-6 soru → sonuç kartı: rol (deployer), geçerli maddeler, aksiyonlar + deployer readiness özeti |
+| Dil | EN birincil, TR toggle |
+| SaaS funnel | "Tüm AI araçlarınızı tek bir yerden yönetin → app.hexis.center" CTA |
+| SEO hedefi | "ChatGPT EU AI Act compliance", "AI tool compliance check" |
+| Geliştirme maliyeti | Düşük — classifier-engine mantığını yeniden kullanır |
+| Not | Deployer Readiness Quiz ayrı araç DEĞİL — bu aracın çıktısına dahil |
+
+**B) ISO 42001 × EU AI Act Gap Quiz (YENİ SAYFA)**
+
+| Özellik | Detay |
+|---|---|
+| URL | hexis.center/iso42001-gap/ |
+| Ne yapar | 10 soruluk quiz → ISO 42001 kontrollerinin EU AI Act karşılığı + gap özeti |
+| Dil | EN birincil, TR toggle |
+| SaaS funnel | "Detaylı kontrol bazlı gap mapping → app.hexis.center" CTA |
+| SEO hedefi | "ISO 42001 EU AI Act gap analysis", "ISO 42001 AI Act compliance" |
+| Derinlik kontrolü | Özet sonuç verir, detay SaaS'ta — ücretsiz versiyon paid'i yamyamlaştırmaz |
+| Geliştirme maliyeti | Orta — 10 soru + scoring logic + sonuç kartı |
+
+### 12.6 hexis.center — Site İyileştirmeleri
+
+**A) Hero Yeniden Yazılması (EN-First)**
+
+| Mevcut | Yeni |
+|---|---|
+| "HEXIS" (devasa) + "Human & Systems" + ἕξις etimolojisi | Problem-first: "Know your EU AI Act obligations in 5 minutes." |
+| Marka kimliği ağırlıklı | Değer önerisi ağırlıklı — marka adı küçülür |
+| Jenerik tagline | Somut vaat: "Free risk classification, governance maturity assessment, and compliance checklist for SMEs. No signup required." |
+| Tek CTA: "Classify Your AI System" | Primer CTA + KVKK crosswalk referansı alt satırda (TR-AB şirketlerine sinyal) |
+
+**B) Sayfa Sıralama Değişikliği**
+
+| Mevcut Sıralama | Yeni Sıralama |
+|---|---|
+| Hero → Mission → ORIENT → Blog → Tools → Contact → Newsletter | Hero (problem+çözüm) → Tools (hemen altında) → Trust Signals → ORIENT (kısa özet) → Blog → Newsletter → Contact |
+
+**C) Mission/Felsefe Bölümü**
+- Ana sayfadan kaldır veya footer'a taşı
+- ἕξις etimolojisi about sayfasına (/about veya /methodology)
+- İlk izlenim değer önerisi olmalı, felsefe değil
+
+**D) Trust Signals Eklenmesi**
+- ISO/IEC 42001 Implementer sertifikası
+- IAPP üyeliği
+- Araç kullanım metrikleri (Plausible'dan)
+- Blog makale sayısı / haftalık newsletter
+
+**E) Her Araç İçin Ayrı Landing Page**
+
+| Araç | URL | SEO Hedefi |
+|---|---|---|
+| Risk Classifier | /classifier/ | "EU AI Act risk classification tool" |
+| Governance Report | /governance-report/ | "AI governance maturity assessment" |
+| Compliance Checklist | /checklist/ (mevcut) | "EU AI Act compliance checklist SME" |
+| FRIA | /fria/ (mevcut) | "fundamental rights impact assessment tool" |
+| Vendor Quick Check | /vendor-check/ (yeni) | "ChatGPT EU AI Act compliance" |
+| ISO 42001 Gap | /iso42001-gap/ (yeni) | "ISO 42001 EU AI Act gap analysis" |
+
+Her landing page yapısı: Problem tanımı → Aracın çözdüğü şey → Screenshot/demo → CTA → İlgili blog yazıları
+
+**F) Persona Segmentasyonu**
+- "Who is this for?" bölümü ekle
+- DPO / Compliance Officer → Checklist, FRIA
+- CTO / Technical Lead → Risk Classifier, Governance Report
+- CEO / Board → Governance Report, ISO 42001 Gap
+
+### 12.7 İptal Edilen / Birleştirilen Araçlar
+
+| Önerilen | Karar | Gerekçe |
+|---|---|---|
+| DPIA modülü (GDPR Art. 35) | ❌ İptal | Hexis AI governance, GDPR privacy değil. FRIA crosswalk yeterli |
+| KVKK VED modülü | ❌ Ertelendi | İkinci ürüne (TR pazarı) ertelendi |
+| Deployer Readiness Quiz (ayrı araç) | 🔀 Birleştirildi | Vendor Quick Check'in çıktısına dahil edildi |
+| Content Marking Checker (Art. 50) | 🔀 Birleştirildi | Ayrı araç değil, blog/bilgi sayfası + checklist'te madde olarak |
+| Shadow AI Discovery (ayrı modül) | 🔀 Birleştirildi | Onboarding akışının parçası olarak entegre |
+
+### 12.8 Move78 / EU AI Compass İş Modeli Tespiti
+
+Move78 International (Hong Kong) gelir modeli:
+- **28 ücretsiz browser aracı** → lead generation kanalı
+- **AI Controls Toolkit (ACT) Tier 1:** $399 tek seferlik — controls matrix, envanter, gap checklist
+- **AI Controls Toolkit (ACT) Tier 2:** $1,299 tek seferlik — Tier 1 + policy templates, FRIA, board reporting, agentic AI module
+- Abonelik yok, platform yok, downloadable governance pack
+
+**Hexis ile doğrudan örtüşme:** Move78'in toolkit satışı, Hexis'in şablon kitleri (€99-249) ile aynı strateji. Fiyat farkı: Move78 $399-1,299, Hexis €99-249. Hexis daha erişilebilir ama ISO sertifikası ile kalite sinyali vermeli.
+
+### 12.9 Revize Ürün Haritası Özeti
+
+**hexis.center (ücretsiz, kayıtsız):**
+
+| Araç | ORIENT Aşaması | Durum |
+|---|---|---|
+| Risk Classifier (7 adım wizard) | Observe → Risk | ✅ Canlı |
+| Governance Activation Matrix | Evaluate | ✅ Canlı |
+| EU AI Act Compliance Checklist | Identify → Navigate | ✅ Canlı |
+| FRIA (Art. 27) | Evaluate | ✅ Canlı |
+| KVKK × EU AI Act Crosswalk | Identify | ✅ Canlı |
+| **AI Vendor Quick Check** | **Risk + Identify** | **🆕 Yapılacak** |
+| **ISO 42001 × EU AI Act Gap Quiz** | **Evaluate** | **🆕 Yapılacak** |
+
+**app.hexis.center SaaS — MVP (1 Haziran 2026 lansmanı):**
+
+| Modül | ORIENT Adımı | Karar |
+|---|---|---|
+| AI System Inventory | Adım 1 (Observe) | Mevcut plan ✅ |
+| **+ Vendor Assessment** | **Adım 1 genişletme** | **🆕 MVP'ye dahil** |
+| **+ Shadow AI onboarding anketi** | **Adım 1 onboarding** | **🆕 MVP'ye dahil** |
+| Risk Classifier | Adım 2 (Risk) | Mevcut plan ✅ |
+| Obligation Map | Adım 3 (Identify) | Mevcut plan ✅ |
+| **+ Deployer-specific obligations** | **Adım 3 engine güncelleme** | **🆕 MVP'ye dahil** |
+| Governance Matrix | Adım 4 (Evaluate) | Mevcut plan ✅ |
+| **+ FRIA derinleştirme + DPIA crosswalk** | **Adım 4 genişletme** | **🆕 MVP'ye dahil** |
+| Action Plan | Adım 5 (Navigate) | Mevcut plan ✅ |
+| Dashboard + PDF | Adım 6 (Track) | Mevcut plan ✅ |
+
+**app.hexis.center SaaS — Post-Lansman:**
+
+| Modül | ORIENT Adımı | Zamanlama |
+|---|---|---|
+| **Annex IV Documentation Generator** | Navigate genişletme | Post-lansman Hafta 2-4 |
+| **ISO 42001 Gap Assessment (detaylı)** | Evaluate genişletme | Post-lansman Hafta 4-6 |
+| **Oversight Logging (Art. 14)** | Track genişletme | Post-lansman Hafta 6-8 |
+
+---
+
+*Bu doküman, 20 Mart 2026 tarihli strateji tartışmasının kesinleşen kararlarını içermektedir. 27 Mart'ta "Claude IS the Consultant" paradigma revizyonu, 28 Mart'ta UI/UX kararları, 8 Nisan'da stratejik derinleştirme, 9 Nisan'da GovOps altyapısı ve kimlik değişikliği, 11 Nisan'da (Section 10) MCP Server mimari analizi, 11 Nisan'da (Section 11) platform audit sonuçları, 12 Nisan'da (Section 12) OneTrust rekabet analizi, AB SME rekabet ortamı taraması, ürün genişletme kararları ve hexis.center site iyileştirme planı eklenmiştir.*

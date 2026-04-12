@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Governance Maturity Report — Free Tool | Hexis</title>
+<meta name="description" content="Assess your organisation's AI governance maturity across oversight, monitoring, and documentation. Generate a weighted governance activation matrix and actionable compliance roadmap. Free, no signup.">
+<meta property="og:title" content="AI Governance Maturity Report — Free Tool | Hexis">
+<meta property="og:description" content="Assess your AI governance maturity and get a weighted activation matrix with actionable next steps. Free for SMEs.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://hexis.center/governance-report/">
+<meta property="og:image" content="https://hexis.center/assets/og-hexis.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="AI Governance Maturity Report — Free Tool | Hexis">
+<meta name="twitter:description" content="Assess your AI governance maturity and get a weighted activation matrix with actionable next steps. Free for SMEs.">
+<link rel="canonical" href="https://hexis.center/governance-report/">
+<link rel="icon" href="/assets/favicon.ico">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+<script defer data-domain="hexis.center" src="https://plausible.io/js/script.js"></script>
+<style>.lang-tr{display:none}</style>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "AI Governance Maturity Report",
+  "applicationCategory": "BusinessApplication",
+  "operatingSystem": "Web",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "EUR" },
+  "description": "Assess AI governance maturity across oversight, monitoring, and documentation dimensions. Generates a weighted governance activation matrix with posture assessment and 30-day action targets.",
+  "url": "https://hexis.center/governance-report/",
+  "provider": {
+    "@type": "Organization",
+    "name": "Hexis AI Governance",
+    "url": "https://hexis.center"
+  }
+}
+</script>
+<style>
+:root{
+  --charcoal:#1C1E23;--brass:#B2986C;--stone:#8A8784;
+  --dark-bg:#16181C;--dark-type:#E8E6E2;--dark-sub:#8A8884;
+  --bg:var(--dark-bg);--text:var(--dark-type);--text2:var(--dark-sub);
+  --border:rgba(232,230,226,0.10);--border2:rgba(232,230,226,0.18);
+  --card:rgba(232,230,226,0.04);--card2:rgba(232,230,226,0.07);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;font-size:16px}
+body{font-family:Arial,sans-serif;-webkit-font-smoothing:antialiased;background:var(--bg);color:var(--text);line-height:1.55;min-height:100vh}
+p{line-height:1.75;color:var(--text2)}
+
+nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:0 48px;height:60px;background:var(--dark-bg);border-bottom:1px solid var(--border)}
+.nav-logo{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--text)}
+.nav-logo img{display:block;height:40px;width:auto}
+.nav-links{display:flex;gap:4px;align-items:center}
+.nav-links a{color:var(--dark-sub);text-decoration:none;font-size:12px;padding:6px 12px;transition:color .15s;letter-spacing:.04em}
+.nav-links a:hover{color:var(--brass)}
+.lang-switch{display:flex;align-items:center;gap:0;margin-left:8px;font-size:11px;letter-spacing:.06em;border:1px solid var(--border2);cursor:pointer}
+.lang-btn{padding:5px 10px;color:var(--dark-sub);background:none;border:none;cursor:pointer;font-family:inherit;font-size:inherit;letter-spacing:inherit;transition:color .15s,background .15s}
+.lang-btn:hover{color:var(--text2)}
+.lang-btn.active{color:var(--brass);background:rgba(178,152,108,0.1)}
+.lang-sep{color:var(--border2);font-size:10px;user-select:none}
+
+.wrap{max-width:960px;margin:0 auto;padding:0 48px}
+.hero{padding:80px 0 60px;text-align:center}
+.hero-label{font-size:9px;font-weight:400;letter-spacing:.18em;text-transform:uppercase;color:var(--brass);margin-bottom:16px}
+.hero h1{font-family:Georgia,serif;font-size:clamp(28px,4vw,44px);font-weight:700;line-height:1.15;color:var(--text);letter-spacing:-.02em;margin-bottom:18px}
+.hero-desc{font-size:clamp(14px,1.5vw,16px);color:var(--text2);line-height:1.7;max-width:620px;margin:0 auto 32px}
+.btn-primary{background:var(--dark-type);color:var(--charcoal);padding:12px 28px;font-weight:700;font-size:13px;border:none;cursor:pointer;transition:opacity .15s;text-decoration:none;display:inline-flex;align-items:center;gap:7px;letter-spacing:.04em}
+.btn-primary:hover{opacity:.88}
+.btn-outline{background:transparent;color:var(--text2);padding:12px 28px;font-weight:400;font-size:13px;border:1px solid var(--border2);cursor:pointer;transition:color .15s,border-color .15s;text-decoration:none;display:inline-flex;align-items:center;gap:7px;letter-spacing:.04em}
+.btn-outline:hover{border-color:rgba(232,230,226,.35);color:var(--text)}
+.hero-actions{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+
+.divider{border:none;border-top:1px solid var(--border);margin:0}
+
+.section{padding:64px 0}
+.section-label{font-size:9px;font-weight:400;letter-spacing:.18em;text-transform:uppercase;color:var(--brass);margin-bottom:14px}
+.section h2{font-family:Georgia,serif;font-size:clamp(22px,3vw,32px);font-weight:700;letter-spacing:-.5px;line-height:1.15;color:var(--text);margin-bottom:20px}
+.section h2 em{font-style:italic}
+
+.dim-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);margin-top:24px}
+.dim-card{background:var(--bg);padding:24px;display:flex;flex-direction:column;gap:10px}
+.dim-weight{font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--brass)}
+.dim-card h3{font-family:Georgia,serif;font-weight:700;font-size:15px;color:var(--text);line-height:1.3}
+.dim-card p{font-size:12px;color:var(--text2);line-height:1.65}
+
+.maturity-levels{display:flex;gap:0;margin-top:24px;border:1px solid var(--border2)}
+.mat-level{flex:1;padding:16px 12px;text-align:center;border-right:1px solid var(--border)}
+.mat-level:last-child{border-right:none}
+.mat-name{font-family:Georgia,serif;font-size:12px;font-weight:700;color:var(--text);margin-bottom:4px}
+.mat-desc{font-size:10px;color:var(--stone);line-height:1.5}
+
+.output-list{list-style:none;padding:0;display:flex;flex-direction:column;gap:12px;margin-top:16px}
+.output-list li{font-size:13px;color:var(--text2);line-height:1.6;padding-left:18px;position:relative}
+.output-list li::before{content:"—";position:absolute;left:0;color:var(--brass)}
+
+.blog-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--border);margin-top:20px}
+.blog-card{background:var(--bg);padding:20px;text-decoration:none;color:inherit;transition:background .15s;display:flex;flex-direction:column;gap:8px}
+.blog-card:hover{background:var(--card2)}
+.blog-tag{font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--stone)}
+.blog-card h3{font-family:Georgia,serif;font-weight:700;font-size:13px;color:var(--text);line-height:1.4}
+.blog-card p{font-size:11px;color:var(--text2);line-height:1.6}
+
+.cta-bar{text-align:center;padding:56px 0;border-top:1px solid var(--border)}
+.cta-bar h2{font-family:Georgia,serif;font-size:clamp(22px,3vw,30px);font-weight:700;color:var(--text);margin-bottom:16px;letter-spacing:-.02em}
+.cta-bar p{font-size:14px;color:var(--text2);margin-bottom:24px}
+
+footer{border-top:1px solid var(--border);padding:20px 48px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.footer-left{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.footer-logo{display:flex;align-items:center;text-decoration:none}
+.footer-logo img{display:block;max-height:18px}
+.footer-sep{color:var(--stone);margin:0 4px}
+.footer-txt{font-size:10px;color:var(--stone);letter-spacing:.02em}
+.footer-links{display:flex;gap:16px;flex-wrap:wrap}
+.footer-links a{font-size:10px;color:var(--stone);text-decoration:none;transition:color .15s;letter-spacing:.04em}
+.footer-links a:hover{color:var(--text2)}
+
+@media(max-width:860px){
+  nav{padding:0 20px}
+  .nav-links{display:none}
+  .wrap{padding:0 20px}
+  .hero{padding:48px 0 40px}
+  .dim-grid,.blog-grid{grid-template-columns:1fr}
+  .maturity-levels{flex-direction:column}
+  .mat-level{border-right:none;border-bottom:1px solid var(--border)}
+  .mat-level:last-child{border-bottom:none}
+  footer{flex-direction:column;align-items:flex-start;padding:20px}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="/" class="nav-logo"><img src="/assets/logo-light.png" alt="Hexis" width="72" height="40"></a>
+  <div class="nav-links">
+    <a href="/">Home</a>
+    <a href="/methodology/" data-en-href="/methodology/" data-tr-href="/metodoloji/">ORIENT</a>
+    <a href="/generator/">Generator</a>
+    <a href="/checklist/" data-en-href="/checklist/" data-tr-href="/kvkk/" data-en="Checklist" data-tr="Kontrol Listesi">Checklist</a>
+    <a href="/blog/">Blog</a>
+  </div>
+  <div class="lang-switch">
+    <button class="lang-btn" data-lang="tr" onclick="setLang('tr')">TR</button>
+    <span class="lang-sep">|</span>
+    <button class="lang-btn active" data-lang="en" onclick="setLang('en')">EN</button>
+  </div>
+</nav>
+
+<div class="wrap">
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-label" data-en="Free Tool · ORIENT: Evaluate" data-tr="Ücretsiz Araç · ORIENT: Evaluate">Free Tool · ORIENT: Evaluate</div>
+    <h1 data-en="Where does your AI governance stand today?"
+        data-tr="AI yönetişiminiz bugün nerede?">Where does your AI governance stand today?</h1>
+    <p class="hero-desc"
+       data-en="Rate your oversight, monitoring, and documentation maturity. Get a weighted governance activation matrix, your compliance posture, and a 30-day action target."
+       data-tr="Gözetim, izleme ve dokümantasyon olgunluğunuzu değerlendirin. Ağırlıklı yönetişim aktivasyon matrisinizi, uyum duruşunuzu ve 30 günlük aksiyon hedefinizi alın."
+    >Rate your oversight, monitoring, and documentation maturity. Get a weighted governance activation matrix, your compliance posture, and a 30-day action target.</p>
+    <div class="hero-actions">
+      <a href="/generator/" class="btn-primary"
+         data-en="Generate Your Report →" data-tr="Raporunuzu Oluşturun →">Generate Your Report →</a>
+      <a href="/classifier/" class="btn-outline"
+         data-en="Classify Risk Level First" data-tr="Önce Risk Seviyesini Belirleyin">Classify Risk Level First</a>
+    </div>
+  </div>
+
+</div>
+
+<hr class="divider">
+
+<div class="wrap">
+
+  <!-- THREE DIMENSIONS -->
+  <div class="section">
+    <div class="section-label" data-en="Dimensions" data-tr="Boyutlar">Dimensions</div>
+    <h2 data-en="Three governance <em>dimensions</em>, weighted" data-tr="Üç yönetişim <em>boyutu</em>, ağırlıklı">Three governance <em>dimensions</em>, weighted</h2>
+
+    <div class="dim-grid">
+      <div class="dim-card">
+        <div class="dim-weight" data-en="Weight: 1.5×" data-tr="Ağırlık: 1.5×">Weight: 1.5×</div>
+        <h3 data-en="Oversight" data-tr="Gözetim">Oversight</h3>
+        <p data-en="Human-in-the-loop controls, escalation protocols, and decision authority boundaries. The most critical dimension for EU AI Act compliance."
+           data-tr="İnsan gözetimi kontrolleri, eskalasyon protokolleri ve karar yetki sınırları. EU AI Act uyumu için en kritik boyut."
+        >Human-in-the-loop controls, escalation protocols, and decision authority boundaries. The most critical dimension for EU AI Act compliance.</p>
+      </div>
+      <div class="dim-card">
+        <div class="dim-weight" data-en="Weight: 1.4×" data-tr="Ağırlık: 1.4×">Weight: 1.4×</div>
+        <h3 data-en="Monitoring" data-tr="İzleme">Monitoring</h3>
+        <p data-en="Performance tracking, bias detection, drift monitoring, and incident logging. Essential for post-market surveillance under Article 72."
+           data-tr="Performans takibi, önyargı tespiti, kayma izleme ve olay kaydı. Madde 72 kapsamında pazar sonrası gözetim için temel."
+        >Performance tracking, bias detection, drift monitoring, and incident logging. Essential for post-market surveillance under Article 72.</p>
+      </div>
+      <div class="dim-card">
+        <div class="dim-weight" data-en="Weight: 1.0×" data-tr="Ağırlık: 1.0×">Weight: 1.0×</div>
+        <h3 data-en="Documentation" data-tr="Dokümantasyon">Documentation</h3>
+        <p data-en="Technical documentation, risk assessments, training data records, and audit trails. Baseline for Annex IV compliance."
+           data-tr="Teknik dokümantasyon, risk değerlendirmeleri, eğitim veri kayıtları ve denetim izleri. Ek IV uyumu için temel."
+        >Technical documentation, risk assessments, training data records, and audit trails. Baseline for Annex IV compliance.</p>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<hr class="divider">
+
+<div class="wrap">
+
+  <!-- MATURITY LEVELS -->
+  <div class="section">
+    <div class="section-label" data-en="Maturity Scale" data-tr="Olgunluk Ölçeği">Maturity Scale</div>
+    <h2 data-en="Five maturity <em>levels</em>" data-tr="Beş olgunluk <em>seviyesi</em>">Five maturity <em>levels</em></h2>
+
+    <div class="maturity-levels">
+      <div class="mat-level">
+        <div class="mat-name" data-en="Absent" data-tr="Yok">Absent</div>
+        <div class="mat-desc" data-en="No controls in place" data-tr="Kontrol yok">No controls in place</div>
+      </div>
+      <div class="mat-level">
+        <div class="mat-name" data-en="Ad Hoc" data-tr="Geçici">Ad Hoc</div>
+        <div class="mat-desc" data-en="Informal, person-dependent" data-tr="Resmi olmayan, kişiye bağlı">Informal, person-dependent</div>
+      </div>
+      <div class="mat-level">
+        <div class="mat-name" data-en="Structured" data-tr="Yapılandırılmış">Structured</div>
+        <div class="mat-desc" data-en="Documented processes" data-tr="Belgelenmiş süreçler">Documented processes</div>
+      </div>
+      <div class="mat-level">
+        <div class="mat-name" data-en="Continuous" data-tr="Sürekli">Continuous</div>
+        <div class="mat-desc" data-en="Measured and improved" data-tr="Ölçülen ve iyileştirilen">Measured and improved</div>
+      </div>
+      <div class="mat-level">
+        <div class="mat-name" data-en="Embedded" data-tr="Gömülü">Embedded</div>
+        <div class="mat-desc" data-en="Part of culture" data-tr="Kültürün parçası">Part of culture</div>
+      </div>
+    </div>
+
+    <p style="font-size:12px;color:var(--stone);font-style:italic;margin-top:16px;font-family:Georgia,serif"
+       data-en="Minimum safeguard principle: Absent in any dimension caps overall maturity at Ad Hoc, regardless of other scores."
+       data-tr="Asgari güvence ilkesi: Herhangi bir boyutta 'Yok' değeri, diğer puanlardan bağımsız olarak genel olgunluğu Geçici seviyede sınırlar."
+    >Minimum safeguard principle: Absent in any dimension caps overall maturity at Ad Hoc, regardless of other scores.</p>
+  </div>
+
+</div>
+
+<hr class="divider">
+
+<div class="wrap">
+
+  <!-- WHAT YOU GET -->
+  <div class="section">
+    <div class="section-label" data-en="Output" data-tr="Çıktı">Output</div>
+    <h2 data-en="Your governance <em>report</em> includes" data-tr="Yönetişim <em>raporunuz</em> şunları içerir">Your governance <em>report</em> includes</h2>
+    <ul class="output-list">
+      <li data-en="5×4 Governance Activation Matrix: maturity levels × risk exposure levels"
+          data-tr="5×4 Yönetişim Aktivasyon Matrisi: olgunluk seviyeleri × risk maruziyet seviyeleri">5×4 Governance Activation Matrix: maturity levels × risk exposure levels</li>
+      <li data-en="Activation posture assessment (e.g., 'Reactive', 'Structured', 'Proactive')"
+          data-tr="Aktivasyon duruş değerlendirmesi (ör. 'Reaktif', 'Yapılandırılmış', 'Proaktif')">Activation posture assessment (e.g., 'Reactive', 'Structured', 'Proactive')</li>
+      <li data-en="Immediate action recommendation + 30-day compliance target"
+          data-tr="Acil aksiyon önerisi + 30 günlük uyum hedefi">Immediate action recommendation + 30-day compliance target</li>
+      <li data-en="'Why this position?' — rule-based reasoning engine explaining your assessment"
+          data-tr="'Neden bu pozisyon?' — değerlendirmenizi açıklayan kural tabanlı gerekçe motoru">'Why this position?' — rule-based reasoning engine explaining your assessment</li>
+      <li data-en="PDF export optimised for A4 — ready for board presentations and audits"
+          data-tr="A4 için optimize edilmiş PDF — yönetim kurulu sunumları ve denetimler için hazır">PDF export optimised for A4 — ready for board presentations and audits</li>
+    </ul>
+  </div>
+
+</div>
+
+<hr class="divider">
+
+<div class="wrap">
+
+  <!-- RELATED BLOG -->
+  <div class="section">
+    <div class="section-label" data-en="Related Reading" data-tr="İlgili Yazılar">Related Reading</div>
+    <h2 data-en="Deepen your <em>understanding</em>" data-tr="Anlayışınızı <em>derinleştirin</em>">Deepen your <em>understanding</em></h2>
+
+    <div class="blog-grid">
+      <a href="/blog/iso-42001-governance-maturity/" class="blog-card">
+        <div class="blog-tag">ISO 42001</div>
+        <h3 data-en="ISO 42001 and Governance Maturity" data-tr="ISO 42001 ve Yönetişim Olgunluğu">ISO 42001 and Governance Maturity</h3>
+        <p data-en="How governance maturity levels map to ISO 42001 controls and EU AI Act requirements."
+           data-tr="Yönetişim olgunluk seviyeleri ISO 42001 kontrolleri ve EU AI Act gereksinimleriyle nasıl eşleşir."
+        >How governance maturity levels map to ISO 42001 controls and EU AI Act requirements.</p>
+      </a>
+      <a href="/blog/iso-42001-eu-ai-act-uyum-analizi/" class="blog-card">
+        <div class="blog-tag">ISO 42001</div>
+        <h3 data-en="Does ISO 42001 Certification Exempt You from EU AI Act?"
+            data-tr="ISO 42001 Sertifikam Varsa EU AI Act'tan Muaf mıyım?">Does ISO 42001 Certification Exempt You from EU AI Act?</h3>
+        <p data-en="Which articles overlap, and where are the critical gaps?"
+           data-tr="Hangi maddeler örtüşür, kritik boşluklar nerede?"
+        >Which articles overlap, and where are the critical gaps?</p>
+      </a>
+    </div>
+  </div>
+
+</div>
+
+<!-- CTA -->
+<div class="cta-bar">
+  <div class="wrap">
+    <h2 data-en="Assess your governance maturity now"
+        data-tr="Yönetişim olgunluğunuzu şimdi değerlendirin">Assess your governance maturity now</h2>
+    <p data-en="Free. No signup. Exportable as A4 PDF."
+       data-tr="Ücretsiz. Kayıt gerektirmez. A4 PDF olarak dışa aktarılabilir.">Free. No signup. Exportable as A4 PDF.</p>
+    <a href="/generator/" class="btn-primary"
+       data-en="Generate Your Report →" data-tr="Raporunuzu Oluşturun →">Generate Your Report →</a>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-left">
+    <a href="/" class="footer-logo"><img src="/assets/logo-light.png" alt="Hexis" width="32" height="18"></a>
+    <span class="footer-sep">·</span>
+    <span class="footer-txt">© 2026 Hexis · For informational purposes only. Does not constitute legal advice.</span>
+  </div>
+  <div class="footer-links">
+    <a href="/">Home</a>
+    <a href="/generator/">Generator</a>
+    <a href="/checklist/">Checklist</a>
+    <a href="/fria/">FRIA</a>
+    <a href="/blog/">Blog</a>
+  </div>
+</footer>
+
+<script>
+function setLang(lang){
+  document.documentElement.lang=lang==='tr'?'tr':'en';
+  document.querySelectorAll('.lang-btn').forEach(function(b){b.classList.toggle('active',b.dataset.lang===lang)});
+  document.querySelectorAll('[data-en]').forEach(function(el){
+    var t=el.dataset[lang];if(t!==undefined)el.innerHTML=t;
+    var h=el.dataset[lang+'Href'];if(h)el.href=h;
+  });
+  document.querySelectorAll('[data-en-placeholder]').forEach(function(el){var p=el.dataset[lang+'Placeholder'];if(p)el.placeholder=p});
+  document.querySelectorAll('.lang-tr').forEach(function(el){el.style.display=lang==='tr'?'':'none'});
+  document.querySelectorAll('.lang-en').forEach(function(el){el.style.display=lang==='en'?'':'none'});
+  try{localStorage.setItem('hexis-lang',lang)}catch(e){}
+}
+(function(){var s;try{s=localStorage.getItem('hexis-lang')}catch(e){}setLang(s||(/^tr/i.test(navigator.language)?'tr':'en'))})();
+</script>
+</body>
+</html>

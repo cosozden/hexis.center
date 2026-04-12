@@ -10,7 +10,7 @@
 **Repo:** github.com/cosozden/hexis.center
 **Sister Repo:** github.com/cosozden/hexis-ai-governance (Claude Cowork plugin — has its own CLAUDE.md)
 **Hosting:** GitHub Pages (custom domain: hexis.center)
-**Founder:** Özden — ISO/IEC 42001 Lead Implementer, IAPP AIGP candidate
+**Founder:** Özden — ISO/IEC 42001 Implementer, IAPP member
 **Web:** hexis.center
 
 **Language Policy:**
@@ -142,9 +142,13 @@ hexis.center/
 │   ├── apple-touch-icon.png
 │   ├── logo.png
 │   └── og-hexis.png
-├── _redirects
+├── mevzuat-raporlari/          # Haftalık mevzuat takip agent'ı raporları
+├── _headers                    # Cloudflare Pages HTTP headers
+├── _redirects                  # Cloudflare Pages redirects (301)
 ├── robots.txt
 ├── sitemap.xml
+├── dijital-gelir-modeli-kararlar.md  # Stratejik karar raporu (ana referans)
+├── hexis-mcp-server-analiz.md        # MCP Server mimari analiz raporu
 └── CLAUDE.md                   ← this file
 ```
 
@@ -262,6 +266,21 @@ The HEXIS ecosystem has two repos that share classification logic:
 **Sync rule:** Changes to classification logic, ORIENT terminology, or EU AI Act references must be reflected in BOTH repos.
 
 *Section numbers in respective CLAUDE.md files.
+
+### Strategic Documents (MUST READ for SaaS decisions)
+
+| Document | Location | Purpose |
+|----------|----------|---------|
+| **Karar Raporu** | `dijital-gelir-modeli-kararlar.md` | ALL strategic decisions — revenue model, pricing, architecture, Claude API integration, MCP Server, risk mitigations. Primary reference for any SaaS-related work. |
+| **MCP Server Analiz** | `hexis-mcp-server-analiz.md` | Detailed MCP Server architecture, tool specs, GDPR analysis, security design. Reference when building API endpoints or MCP tools. |
+| **Mevzuat Raporları** | `mevzuat-raporlari/` | Weekly EU AI Act regulatory scan reports (automated). Check before updating classifier-engine or obligation lists. |
+
+**Critical cross-repo decisions (from karar raporu, binding for app.hexis.center):**
+- **AI-assisted, not AI-dependent:** Deterministic engines decide, Claude enriches. Claude layer is optional (Manuel Mod).
+- **MCP = Pro-only:** MCP Server access requires paid subscription. API endpoints must be MCP-ready (Zod schema + dual JSON/Markdown response).
+- **Shared service layer:** Web dashboard and MCP Server call the same TypeScript functions. Single source of truth in `tools.ts`.
+- **3-layer article verification:** Compile-time tests → runtime cross-check → weekly Mevzuat Agent update.
+- **No auto-propagation:** Mevzuat Agent reports NEVER auto-update engines. Founder approval required for every engine change.
 
 ### hexis.center Live Tools
 | File | Tool | ORIENT Stage |

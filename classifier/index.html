@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EU AI Act Risk Classifier — Free Tool | Hexis</title>
+<meta name="description" content="Classify your AI system under the EU AI Act (Reg. 2024/1689) in minutes. 7-step wizard covering prohibited practices, high-risk classification, GPAI obligations, and transparency requirements. Free, no signup.">
+<meta property="og:title" content="EU AI Act Risk Classifier — Free Tool | Hexis">
+<meta property="og:description" content="Classify your AI system under the EU AI Act in minutes. 7-step wizard for risk classification. Free, no signup required.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://hexis.center/classifier/">
+<meta property="og:image" content="https://hexis.center/assets/og-hexis.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="EU AI Act Risk Classifier — Free Tool | Hexis">
+<meta name="twitter:description" content="Classify your AI system under the EU AI Act in minutes. 7-step wizard for risk classification. Free, no signup required.">
+<link rel="canonical" href="https://hexis.center/classifier/">
+<link rel="icon" href="/assets/favicon.ico">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+<script defer data-domain="hexis.center" src="https://plausible.io/js/script.js"></script>
+<style>.lang-tr{display:none}</style>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "EU AI Act Risk Classifier",
+  "applicationCategory": "BusinessApplication",
+  "operatingSystem": "Web",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "EUR" },
+  "description": "Classify your AI system under the EU AI Act (Reg. 2024/1689) with a 7-step guided wizard. Covers prohibited practices, high-risk classification, GPAI, and transparency obligations.",
+  "url": "https://hexis.center/classifier/",
+  "provider": {
+    "@type": "Organization",
+    "name": "Hexis AI Governance",
+    "url": "https://hexis.center"
+  }
+}
+</script>
+<style>
+:root{
+  --charcoal:#1C1E23;--brass:#B2986C;--stone:#8A8784;
+  --dark-bg:#16181C;--dark-type:#E8E6E2;--dark-sub:#8A8884;
+  --bg:var(--dark-bg);--text:var(--dark-type);--text2:var(--dark-sub);
+  --border:rgba(232,230,226,0.10);--border2:rgba(232,230,226,0.18);
+  --card:rgba(232,230,226,0.04);--card2:rgba(232,230,226,0.07);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;font-size:16px}
+body{font-family:Arial,sans-serif;-webkit-font-smoothing:antialiased;background:var(--bg);color:var(--text);line-height:1.55;min-height:100vh}
+p{line-height:1.75;color:var(--text2)}
+
+nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:0 48px;height:60px;background:var(--dark-bg);border-bottom:1px solid var(--border)}
+.nav-logo{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--text)}
+.nav-logo img{display:block;height:40px;width:auto}
+.nav-links{display:flex;gap:4px;align-items:center}
+.nav-links a{color:var(--dark-sub);text-decoration:none;font-size:12px;padding:6px 12px;transition:color .15s;letter-spacing:.04em}
+.nav-links a:hover{color:var(--brass)}
+.lang-switch{display:flex;align-items:center;gap:0;margin-left:8px;font-size:11px;letter-spacing:.06em;border:1px solid var(--border2);cursor:pointer}
+.lang-btn{padding:5px 10px;color:var(--dark-sub);background:none;border:none;cursor:pointer;font-family:inherit;font-size:inherit;letter-spacing:inherit;transition:color .15s,background .15s}
+.lang-btn:hover{color:var(--text2)}
+.lang-btn.active{color:var(--brass);background:rgba(178,152,108,0.1)}
+.lang-sep{color:var(--border2);font-size:10px;user-select:none}
+
+.wrap{max-width:960px;margin:0 auto;padding:0 48px}
+.hero{padding:80px 0 60px;text-align:center}
+.hero-label{font-size:9px;font-weight:400;letter-spacing:.18em;text-transform:uppercase;color:var(--brass);margin-bottom:16px}
+.hero h1{font-family:Georgia,serif;font-size:clamp(28px,4vw,44px);font-weight:700;line-height:1.15;color:var(--text);letter-spacing:-.02em;margin-bottom:18px}
+.hero-desc{font-size:clamp(14px,1.5vw,16px);color:var(--text2);line-height:1.7;max-width:620px;margin:0 auto 32px}
+.btn-primary{background:var(--dark-type);color:var(--charcoal);padding:12px 28px;font-weight:700;font-size:13px;border:none;cursor:pointer;transition:opacity .15s;text-decoration:none;display:inline-flex;align-items:center;gap:7px;letter-spacing:.04em}
+.btn-primary:hover{opacity:.88}
+.btn-outline{background:transparent;color:var(--text2);padding:12px 28px;font-weight:400;font-size:13px;border:1px solid var(--border2);cursor:pointer;transition:color .15s,border-color .15s;text-decoration:none;display:inline-flex;align-items:center;gap:7px;letter-spacing:.04em}
+.btn-outline:hover{border-color:rgba(232,230,226,.35);color:var(--text)}
+.hero-actions{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+
+.divider{border:none;border-top:1px solid var(--border);margin:0}
+
+.section{padding:64px 0}
+.section-label{font-size:9px;font-weight:400;letter-spacing:.18em;text-transform:uppercase;color:var(--brass);margin-bottom:14px}
+.section h2{font-family:Georgia,serif;font-size:clamp(22px,3vw,32px);font-weight:700;letter-spacing:-.5px;line-height:1.15;color:var(--text);margin-bottom:20px}
+.section h2 em{font-style:italic}
+
+.steps-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--border);margin-top:24px}
+.step-card{background:var(--bg);padding:24px;display:flex;flex-direction:column;gap:8px}
+.step-num{font-size:9px;font-weight:400;letter-spacing:.12em;text-transform:uppercase;color:var(--stone);display:flex;align-items:center;gap:7px}
+.step-num span{width:18px;height:18px;border:1px solid rgba(178,152,108,.5);display:flex;align-items:center;justify-content:center;font-size:9px;color:var(--brass)}
+.step-card h3{font-family:Georgia,serif;font-weight:700;font-size:14px;color:var(--text);line-height:1.3}
+.step-card p{font-size:12px;color:var(--text2);line-height:1.65}
+
+.output-list{list-style:none;padding:0;display:flex;flex-direction:column;gap:12px;margin-top:16px}
+.output-list li{font-size:13px;color:var(--text2);line-height:1.6;padding-left:18px;position:relative}
+.output-list li::before{content:"—";position:absolute;left:0;color:var(--brass)}
+
+.blog-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--border);margin-top:20px}
+.blog-card{background:var(--bg);padding:20px;text-decoration:none;color:inherit;transition:background .15s;display:flex;flex-direction:column;gap:8px}
+.blog-card:hover{background:var(--card2)}
+.blog-tag{font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--stone)}
+.blog-card h3{font-family:Georgia,serif;font-weight:700;font-size:13px;color:var(--text);line-height:1.4}
+.blog-card p{font-size:11px;color:var(--text2);line-height:1.6}
+
+.cta-bar{text-align:center;padding:56px 0;border-top:1px solid var(--border)}
+.cta-bar h2{font-family:Georgia,serif;font-size:clamp(22px,3vw,30px);font-weight:700;color:var(--text);margin-bottom:16px;letter-spacing:-.02em}
+.cta-bar p{font-size:14px;color:var(--text2);margin-bottom:24px}
+
+footer{border-top:1px solid var(--border);padding:20px 48px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.footer-left{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.footer-logo{display:flex;align-items:center;text-decoration:none}
+.footer-logo img{display:block;max-height:18px}
+.footer-sep{color:var(--stone);margin:0 4px}
+.footer-txt{font-size:10px;color:var(--stone);letter-spacing:.02em}
+.footer-links{display:flex;gap:16px;flex-wrap:wrap}
+.footer-links a{font-size:10px;color:var(--stone);text-decoration:none;transition:color .15s;letter-spacing:.04em}
+.footer-links a:hover{color:var(--text2)}
+
+@media(max-width:860px){
+  nav{padding:0 20px}
+  .nav-links{display:none}
+  .wrap{padding:0 20px}
+  .hero{padding:48px 0 40px}
+  .steps-grid,.blog-grid{grid-template-columns:1fr}
+  footer{flex-direction:column;align-items:flex-start;padding:20px}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="/" class="nav-logo"><img src="/assets/logo-light.png" alt="Hexis" width="72" height="40"></a>
+  <div class="nav-links">
+    <a href="/">Home</a>
+    <a href="/methodology/" data-en-href="/methodology/" data-tr-href="/metodoloji/">ORIENT</a>
+    <a href="/generator/">Generator</a>
+    <a href="/checklist/" data-en-href="/checklist/" data-tr-href="/kvkk/" data-en="Checklist" data-tr="Kontrol Listesi">Checklist</a>
+    <a href="/blog/">Blog</a>
+  </div>
+  <div class="lang-switch">
+    <button class="lang-btn" data-lang="tr" onclick="setLang('tr')">TR</button>
+    <span class="lang-sep">|</span>
+    <button class="lang-btn active" data-lang="en" onclick="setLang('en')">EN</button>
+  </div>
+</nav>
+
+<div class="wrap">
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-label" data-en="Free Tool · ORIENT: Risk" data-tr="Ücretsiz Araç · ORIENT: Risk">Free Tool · ORIENT: Risk</div>
+    <h1 data-en="What is your AI system's risk level under the EU AI Act?"
+        data-tr="AI sisteminizin EU AI Act kapsamında risk seviyesi nedir?">What is your AI system's risk level under the EU AI Act?</h1>
+    <p class="hero-desc"
+       data-en="Answer 7 guided questions and get your EU AI Act risk classification, applicable articles, obligation summary, and enforcement deadlines. Takes about 5 minutes."
+       data-tr="7 rehberli soruyu yanıtlayın: EU AI Act risk sınıflandırmanızı, geçerli maddeleri, yükümlülük özetini ve uygulama takvimini alın. Yaklaşık 5 dakika sürer."
+    >Answer 7 guided questions and get your EU AI Act risk classification, applicable articles, obligation summary, and enforcement deadlines. Takes about 5 minutes.</p>
+    <div class="hero-actions">
+      <a href="/generator/" class="btn-primary"
+         data-en="Start Risk Classification →" data-tr="Risk Sınıflandırmasını Başlat →">Start Risk Classification →</a>
+      <a href="/checklist/" class="btn-outline"
+         data-en="View Compliance Checklist" data-tr="Kontrol Listesini İnceleyin"
+         data-en-href="/checklist/" data-tr-href="/kvkk/">View Compliance Checklist</a>
+    </div>
+  </div>
+
+</div>
+
+<hr class="divider">
+
+<div class="wrap">
+
+  <!-- HOW IT WORKS -->
+  <div class="section">
+    <div class="section-label" data-en="How It Works" data-tr="Nasıl Çalışır">How It Works</div>
+    <h2 data-en="7-Step <em>Classification</em> Wizard" data-tr="7 Adımlı <em>Sınıflandırma</em> Sihirbazı">7-Step <em>Classification</em> Wizard</h2>
+
+    <div class="steps-grid">
+      <div class="step-card">
+        <div class="step-num"><span>1</span>Prohibited Practices</div>
+        <h3 data-en="Article 5 Check" data-tr="Madde 5 Kontrolü">Article 5 Check</h3>
+        <p data-en="Does your system fall under prohibited AI practices? Social scoring, real-time biometric identification, subliminal manipulation — if yes, classification stops here."
+           data-tr="Sisteminiz yasaklanmış AI uygulamalarına giriyor mu? Sosyal puanlama, gerçek zamanlı biyometrik tanımlama, bilinçaltı manipülasyon — evetse sınıflandırma burada durur."
+        >Does your system fall under prohibited AI practices? Social scoring, real-time biometric identification, subliminal manipulation — if yes, classification stops here.</p>
+      </div>
+      <div class="step-card">
+        <div class="step-num"><span>2</span>Product Safety</div>
+        <h3 data-en="Annex I — Article 6(1)" data-tr="Ek I — Madde 6(1)">Annex I — Article 6(1)</h3>
+        <p data-en="Is your AI a safety component of a product covered by EU harmonisation legislation? Machinery, medical devices, vehicles, toys, lifts, and more."
+           data-tr="AI'nız AB uyum mevzuatı kapsamında bir ürünün güvenlik bileşeni mi? Makine, tıbbi cihaz, araç, oyuncak, asansör ve daha fazlası."
+        >Is your AI a safety component of a product covered by EU harmonisation legislation? Machinery, medical devices, vehicles, toys, lifts, and more.</p>
+      </div>
+      <div class="step-card">
+        <div class="step-num"><span>3</span>High-Risk Domains</div>
+        <h3 data-en="Annex III — Article 6(2)" data-tr="Ek III — Madde 6(2)">Annex III — Article 6(2)</h3>
+        <p data-en="8 high-risk areas: biometrics, critical infrastructure, education, employment, essential services, law enforcement, migration, justice. Includes Article 6(3) exception check."
+           data-tr="8 yüksek riskli alan: biyometri, kritik altyapı, eğitim, istihdam, temel hizmetler, kolluk, göç, adalet. Madde 6(3) istisna kontrolü dahil."
+        >8 high-risk areas: biometrics, critical infrastructure, education, employment, essential services, law enforcement, migration, justice. Includes Article 6(3) exception check.</p>
+      </div>
+      <div class="step-card">
+        <div class="step-num"><span>4</span>Transparency</div>
+        <h3 data-en="Article 50 Obligations" data-tr="Madde 50 Yükümlülükleri">Article 50 Obligations</h3>
+        <p data-en="Chatbots, deepfakes, emotion recognition, biometric categorisation — specific disclosure requirements even for non-high-risk systems."
+           data-tr="Chatbot'lar, deepfake'ler, duygu tanıma, biyometrik kategorizasyon — yüksek riskli olmayan sistemler için bile özel bilgilendirme gereksinimleri."
+        >Chatbots, deepfakes, emotion recognition, biometric categorisation — specific disclosure requirements even for non-high-risk systems.</p>
+      </div>
+      <div class="step-card">
+        <div class="step-num"><span>5</span>GPAI</div>
+        <h3 data-en="Articles 51–56" data-tr="Madde 51–56">Articles 51–56</h3>
+        <p data-en="General-purpose AI model obligations: provider vs. deployer, systemic risk thresholds (10^25 FLOP), and downstream integration duties."
+           data-tr="Genel amaçlı AI model yükümlülükleri: sağlayıcı vs. konuşlandırıcı, sistemik risk eşikleri (10^25 FLOP) ve alt kullanıcı entegrasyon görevleri."
+        >General-purpose AI model obligations: provider vs. deployer, systemic risk thresholds (10^25 FLOP), and downstream integration duties.</p>
+      </div>
+      <div class="step-card">
+        <div class="step-num"><span>6–7</span>Assessment</div>
+        <h3 data-en="FRIA + Result Card" data-tr="FRIA + Sonuç Kartı">FRIA + Result Card</h3>
+        <p data-en="Fundamental rights impact screening and your complete result: risk level, applicable articles, obligation table, enforcement deadlines, and KVKK cross-reference (if applicable)."
+           data-tr="Temel haklar etki taraması ve tam sonuç kartınız: risk seviyesi, geçerli maddeler, yükümlülük tablosu, uygulama takvimleri ve KVKK çapraz referansı (varsa)."
+        >Fundamental rights impact screening and your complete result: risk level, applicable articles, obligation table, enforcement deadlines, and KVKK cross-reference (if applicable).</p>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<hr class="divider">
+
+<div class="wrap">
+
+  <!-- WHAT YOU GET -->
+  <div class="section">
+    <div class="section-label" data-en="Output" data-tr="Çıktı">Output</div>
+    <h2 data-en="What you <em>get</em>" data-tr="Ne <em>alırsınız</em>">What you <em>get</em></h2>
+    <ul class="output-list">
+      <li data-en="Risk level classification: Prohibited, High-Risk, Limited Risk (Transparency), GPAI, or Minimal"
+          data-tr="Risk seviyesi sınıflandırması: Yasaklanmış, Yüksek Riskli, Sınırlı Riskli (Şeffaflık), GPAI veya Minimal">Risk level classification: Prohibited, High-Risk, Limited Risk (Transparency), GPAI, or Minimal</li>
+      <li data-en="Applicable EU AI Act articles with direct links to the regulation text"
+          data-tr="Yönetmelik metnine doğrudan bağlantılarla geçerli EU AI Act maddeleri">Applicable EU AI Act articles with direct links to the regulation text</li>
+      <li data-en="Obligation summary table: what you must do, by when"
+          data-tr="Yükümlülük özet tablosu: ne yapmalısınız, ne zamana kadar">Obligation summary table: what you must do, by when</li>
+      <li data-en="Enforcement deadline countdown (February 2025 → August 2027)"
+          data-tr="Uygulama tarihi geri sayımı (Şubat 2025 → Ağustos 2027)">Enforcement deadline countdown (February 2025 → August 2027)</li>
+      <li data-en="KVKK cross-reference block for Turkey-operating organisations"
+          data-tr="Türkiye'de faaliyet gösteren kuruluşlar için KVKK çapraz referans bloğu">KVKK cross-reference block for Turkey-operating organisations</li>
+      <li data-en="Direct link to the Compliance Checklist filtered by your risk level"
+          data-tr="Risk seviyenize göre filtrelenmiş Uyum Kontrol Listesi bağlantısı">Direct link to the Compliance Checklist filtered by your risk level</li>
+    </ul>
+  </div>
+
+</div>
+
+<hr class="divider">
+
+<div class="wrap">
+
+  <!-- RELATED BLOG -->
+  <div class="section">
+    <div class="section-label" data-en="Related Reading" data-tr="İlgili Yazılar">Related Reading</div>
+    <h2 data-en="Deepen your <em>understanding</em>" data-tr="Anlayışınızı <em>derinleştirin</em>">Deepen your <em>understanding</em></h2>
+
+    <div class="blog-grid">
+      <a href="/blog/eu-ai-act-risk-classification/" class="blog-card">
+        <div class="blog-tag">EU AI Act</div>
+        <h3 data-en="EU AI Act Risk Classification: Complete Guide" data-tr="EU AI Act Risk Sınıflandırması: Kapsamlı Rehber">EU AI Act Risk Classification: Complete Guide</h3>
+        <p data-en="Understanding the four-tier risk framework under Regulation (EU) 2024/1689."
+           data-tr="Reg. (EU) 2024/1689 kapsamında dört katmanlı risk çerçevesini anlama."
+        >Understanding the four-tier risk framework under Regulation (EU) 2024/1689.</p>
+      </a>
+      <a href="/blog/digital-omnibus-eu-ai-act-delay/" class="blog-card"
+         data-en-href="/blog/digital-omnibus-eu-ai-act-delay/"
+         data-tr-href="/blog/digital-omnibus-eu-ai-act-erteleme/">
+        <div class="blog-tag">EU AI Act</div>
+        <h3 data-en="EU AI Act and the Digital Omnibus: What Should Companies Do Now?"
+            data-tr="Digital Omnibus ve EU AI Act: Şirketler Ne Yapmalı?">EU AI Act and the Digital Omnibus: What Should Companies Do Now?</h3>
+        <p data-en="Annex III deadline may shift to December 2027 — but nothing is final until trilogue closes."
+           data-tr="Ek III son tarihi Aralık 2027'ye ertelenebilir — üçlü müzakere kapanana kadar hiçbir şey kesinleşmiyor."
+        >Annex III deadline may shift to December 2027 — but nothing is final until trilogue closes.</p>
+      </a>
+    </div>
+  </div>
+
+</div>
+
+<!-- CTA -->
+<div class="cta-bar">
+  <div class="wrap">
+    <h2 data-en="Ready to classify your AI system?"
+        data-tr="AI sisteminizi sınıflandırmaya hazır mısınız?">Ready to classify your AI system?</h2>
+    <p data-en="Free. No signup. Takes 5 minutes."
+       data-tr="Ücretsiz. Kayıt gerektirmez. 5 dakika sürer.">Free. No signup. Takes 5 minutes.</p>
+    <a href="/generator/" class="btn-primary"
+       data-en="Start Risk Classification →" data-tr="Risk Sınıflandırmasını Başlat →">Start Risk Classification →</a>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-left">
+    <a href="/" class="footer-logo"><img src="/assets/logo-light.png" alt="Hexis" width="32" height="18"></a>
+    <span class="footer-sep">·</span>
+    <span class="footer-txt">© 2026 Hexis · For informational purposes only. Does not constitute legal advice.</span>
+  </div>
+  <div class="footer-links">
+    <a href="/">Home</a>
+    <a href="/generator/">Generator</a>
+    <a href="/checklist/">Checklist</a>
+    <a href="/fria/">FRIA</a>
+    <a href="/blog/">Blog</a>
+  </div>
+</footer>
+
+<script>
+function setLang(lang){
+  document.documentElement.lang=lang==='tr'?'tr':'en';
+  document.querySelectorAll('.lang-btn').forEach(function(b){b.classList.toggle('active',b.dataset.lang===lang)});
+  document.querySelectorAll('[data-en]').forEach(function(el){
+    var t=el.dataset[lang];if(t!==undefined)el.innerHTML=t;
+    var h=el.dataset[lang+'Href'];if(h)el.href=h;
+  });
+  document.querySelectorAll('[data-en-placeholder]').forEach(function(el){var p=el.dataset[lang+'Placeholder'];if(p)el.placeholder=p});
+  document.querySelectorAll('.lang-tr').forEach(function(el){el.style.display=lang==='tr'?'':'none'});
+  document.querySelectorAll('.lang-en').forEach(function(el){el.style.display=lang==='en'?'':'none'});
+  try{localStorage.setItem('hexis-lang',lang)}catch(e){}
+}
+(function(){var s;try{s=localStorage.getItem('hexis-lang')}catch(e){}setLang(s||(/^tr/i.test(navigator.language)?'tr':'en'))})();
+</script>
+</body>
+</html>
