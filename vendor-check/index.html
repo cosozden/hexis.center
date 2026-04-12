@@ -1,0 +1,1050 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Vendor Quick Check — EU AI Act Obligations | Hexis</title>
+<meta name="description" content="Using ChatGPT, Copilot, or Midjourney at work? Find your EU AI Act obligations as a deployer in 2 minutes. Free, no signup. Covers Art. 4, 26, 50 and high-risk rules.">
+<meta property="og:title" content="AI Vendor Quick Check — EU AI Act Obligations | Hexis">
+<meta property="og:description" content="Using AI tools at work? Find your EU AI Act deployer obligations in 2 minutes. Free.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://hexis.center/vendor-check/">
+<meta property="og:image" content="https://hexis.center/assets/og-hexis.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="AI Vendor Quick Check — EU AI Act Obligations | Hexis">
+<meta name="twitter:description" content="Using AI tools at work? Find your EU AI Act deployer obligations in 2 minutes. Free.">
+<link rel="canonical" href="https://hexis.center/vendor-check/">
+<link rel="icon" href="/assets/favicon.ico">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+<script defer data-domain="hexis.center" src="https://plausible.io/js/script.js"></script>
+<style>.lang-tr{display:none}</style>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "AI Vendor Quick Check",
+  "applicationCategory": "BusinessApplication",
+  "operatingSystem": "Web",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "EUR" },
+  "description": "Quick assessment for organisations using third-party AI tools. Identifies your role under Reg. (EU) 2024/1689, applicable obligations, and immediate actions as an AI deployer.",
+  "url": "https://hexis.center/vendor-check/",
+  "provider": {
+    "@type": "Organization",
+    "name": "Hexis AI Governance",
+    "url": "https://hexis.center"
+  }
+}
+</script>
+<style>
+:root{
+  --charcoal:#1C1E23;--brass:#B2986C;--stone:#8A8784;
+  --dark-bg:#16181C;--dark-type:#E8E6E2;--dark-sub:#8A8884;
+  --bg:var(--dark-bg);--text:var(--dark-type);--text2:var(--dark-sub);
+  --border:rgba(232,230,226,0.10);--border2:rgba(232,230,226,0.18);
+  --card:rgba(232,230,226,0.04);--card2:rgba(232,230,226,0.07);
+  --tag-red:rgba(220,80,60,0.15);--tag-yellow:rgba(200,170,60,0.15);--tag-green:rgba(80,180,100,0.15);
+  --tag-red-text:#E8A09A;--tag-yellow-text:#D4C88A;--tag-green-text:#8AC8A0;
+  --tag-blue:rgba(80,140,220,0.15);--tag-blue-text:#8AB8E8;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;font-size:16px}
+body{font-family:Arial,sans-serif;-webkit-font-smoothing:antialiased;background:var(--bg);color:var(--text);line-height:1.55;min-height:100vh}
+p{line-height:1.75;color:var(--text2)}
+
+nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:0 48px;height:60px;background:var(--dark-bg);border-bottom:1px solid var(--border)}
+.nav-logo{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--text)}
+.nav-logo img{display:block;height:40px;width:auto}
+.nav-links{display:flex;gap:4px;align-items:center}
+.nav-links a{color:var(--dark-sub);text-decoration:none;font-size:12px;padding:6px 12px;transition:color .15s;letter-spacing:.04em}
+.nav-links a:hover{color:var(--brass)}
+.nav-hamburger{display:none;background:none;border:1px solid var(--border2);color:var(--text2);font-size:18px;padding:4px 8px;cursor:pointer;line-height:1}
+.lang-switch{display:flex;align-items:center;gap:0;margin-left:8px;font-size:11px;letter-spacing:.06em;border:1px solid var(--border2);cursor:pointer}
+.lang-btn{padding:5px 10px;color:var(--dark-sub);background:none;border:none;cursor:pointer;font-family:inherit;font-size:inherit;letter-spacing:inherit;transition:color .15s,background .15s}
+.lang-btn:hover{color:var(--text2)}
+.lang-btn.active{color:var(--brass);background:rgba(178,152,108,0.1)}
+
+.wrap{max-width:960px;margin:0 auto;padding:0 48px}
+
+/* HERO */
+.hero{padding:72px 0 56px;text-align:center}
+.hero-label{font-size:9px;font-weight:400;letter-spacing:.18em;text-transform:uppercase;color:var(--brass);margin-bottom:16px}
+.hero h1{font-family:Georgia,serif;font-size:clamp(26px,4vw,42px);font-weight:700;line-height:1.15;color:var(--text);letter-spacing:-.02em;margin-bottom:16px}
+.hero-desc{font-size:clamp(14px,1.5vw,16px);color:var(--text2);line-height:1.7;max-width:620px;margin:0 auto}
+
+.divider{border:none;border-top:1px solid var(--border);margin:0}
+
+/* TOOL SELECT */
+.tool-section{padding:48px 0 20px}
+.tool-section-label{font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--brass);margin-bottom:20px}
+.tool-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:8px;margin-bottom:16px}
+.tool-card{
+  padding:14px 16px;border:1px solid var(--border2);cursor:pointer;
+  transition:border-color .15s,background .15s;text-align:center;
+}
+.tool-card:hover{border-color:rgba(232,230,226,.35);background:var(--card)}
+.tool-card.selected{border-color:var(--brass);background:rgba(178,152,108,0.08)}
+.tool-card-name{font-size:13px;font-weight:700;color:var(--text);margin-bottom:2px}
+.tool-card-type{font-size:10px;color:var(--stone);letter-spacing:.04em}
+.tool-other{padding:14px 16px;border:1px solid var(--border2);display:none;margin-bottom:16px}
+.tool-other.visible{display:block}
+.tool-other input{width:100%;background:transparent;border:1px solid var(--border2);padding:10px 14px;color:var(--text);font-size:13px;font-family:inherit;outline:none;transition:border-color .15s}
+.tool-other input:focus{border-color:var(--brass)}
+.tool-other input::placeholder{color:var(--stone)}
+.tool-other-label{font-size:11px;color:var(--stone);margin-bottom:8px}
+
+.tool-count{font-size:11px;color:var(--stone);letter-spacing:.04em;margin-bottom:8px;min-height:18px}
+.btn-start{display:none;margin:12px auto 0;padding:12px 32px;background:var(--dark-type);color:var(--charcoal);font-weight:700;font-size:13px;border:none;cursor:pointer;transition:opacity .15s;letter-spacing:.04em}
+.btn-start:hover{opacity:.88}
+.btn-start.visible{display:block}
+
+/* QUIZ */
+.quiz-section{padding:32px 0 64px;display:none}
+.quiz-section.active{display:block}
+.quiz-progress{display:flex;align-items:center;gap:12px;margin-bottom:32px}
+.quiz-progress-bar{flex:1;height:2px;background:var(--border2);position:relative}
+.quiz-progress-fill{position:absolute;left:0;top:0;height:100%;background:var(--brass);transition:width .3s}
+.quiz-progress-text{font-size:11px;color:var(--stone);letter-spacing:.04em;white-space:nowrap}
+
+.quiz-card{border:1px solid var(--border2);padding:32px;margin-bottom:20px;display:none}
+.quiz-card.active{display:block}
+.quiz-q-label{font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--brass);margin-bottom:12px}
+.quiz-question{font-family:Georgia,serif;font-size:17px;font-weight:700;color:var(--text);line-height:1.4;margin-bottom:8px}
+.quiz-context{font-size:12px;color:var(--text2);line-height:1.65;margin-bottom:24px}
+
+.quiz-options{display:flex;flex-direction:column;gap:8px}
+.quiz-opt{
+  padding:14px 18px;border:1px solid var(--border2);cursor:pointer;
+  transition:border-color .15s,background .15s;display:flex;align-items:center;gap:12px;
+}
+.quiz-opt:hover{border-color:rgba(232,230,226,.35);background:var(--card)}
+.quiz-opt.selected{border-color:var(--brass);background:rgba(178,152,108,0.08)}
+.quiz-opt-marker{width:16px;height:16px;border:1px solid var(--border2);flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:10px;color:transparent;transition:all .15s}
+.quiz-opt.selected .quiz-opt-marker{border-color:var(--brass);color:var(--brass)}
+.quiz-opt-label{font-size:13px;color:var(--text2);line-height:1.5}
+.quiz-opt.selected .quiz-opt-label{color:var(--text)}
+
+.quiz-nav{display:flex;justify-content:space-between;margin-top:24px}
+.btn-quiz{padding:10px 24px;font-size:12px;letter-spacing:.04em;cursor:pointer;transition:all .15s;font-family:Arial,sans-serif}
+.btn-quiz-next{background:var(--dark-type);color:var(--charcoal);border:none;font-weight:700}
+.btn-quiz-next:hover{opacity:.88}
+.btn-quiz-next:disabled{opacity:.3;cursor:not-allowed}
+.btn-quiz-back{background:transparent;color:var(--text2);border:1px solid var(--border2)}
+.btn-quiz-back:hover{border-color:rgba(232,230,226,.35);color:var(--text)}
+
+/* RESULTS */
+.results{display:none;padding:48px 0 64px}
+.results.visible{display:block}
+
+.result-role-card{border:1px solid var(--border2);padding:32px;margin-bottom:32px;text-align:center}
+.result-role-label{font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--brass);margin-bottom:8px}
+.result-role-value{font-family:Georgia,serif;font-size:clamp(22px,3.5vw,32px);font-weight:700;color:var(--text);margin-bottom:8px}
+.result-role-desc{font-size:13px;color:var(--text2);line-height:1.65;max-width:520px;margin:0 auto}
+.result-tool-name{font-size:11px;color:var(--stone);letter-spacing:.04em;margin-bottom:12px}
+
+.result-section{margin-bottom:32px}
+.result-section-label{font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--brass);margin-bottom:16px}
+
+.obligation-card{border:1px solid var(--border);padding:20px;margin-bottom:8px}
+.obligation-header{display:flex;align-items:center;gap:10px;margin-bottom:8px;flex-wrap:wrap}
+.obligation-art{font-family:Georgia,serif;font-size:14px;font-weight:700;color:var(--text)}
+.obligation-tag{padding:3px 10px;font-size:9px;letter-spacing:.06em;text-transform:uppercase;font-weight:400;display:inline-flex;align-items:center}
+.tag-mandatory{background:var(--tag-red);color:var(--tag-red-text)}
+.tag-conditional{background:var(--tag-yellow);color:var(--tag-yellow-text)}
+.tag-active{background:var(--tag-green);color:var(--tag-green-text)}
+.tag-upcoming{background:var(--tag-blue);color:var(--tag-blue-text)}
+.obligation-desc{font-size:12px;color:var(--text2);line-height:1.6;margin-bottom:8px}
+.obligation-action{font-size:12px;color:var(--text);line-height:1.5}
+.obligation-action strong{color:var(--brass);font-weight:400;font-size:10px;letter-spacing:.06em;text-transform:uppercase;display:block;margin-bottom:3px}
+.obligation-deadline{font-size:11px;color:var(--stone);margin-top:6px}
+
+.vendor-ask{border:1px solid var(--border2);padding:20px;margin-bottom:8px}
+.vendor-ask-label{font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--brass);margin-bottom:10px}
+.vendor-ask-list{list-style:none;padding:0}
+.vendor-ask-list li{font-size:12px;color:var(--text2);line-height:1.6;padding:6px 0;border-bottom:1px solid var(--border)}
+.vendor-ask-list li:last-child{border-bottom:none}
+.vendor-ask-list li::before{content:'→ ';color:var(--stone)}
+
+.shadow-ai-note{border:1px solid rgba(200,170,60,0.25);background:rgba(200,170,60,0.04);padding:16px 20px;margin-bottom:32px}
+.shadow-ai-note-label{font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--tag-yellow-text);margin-bottom:6px}
+.shadow-ai-note p{font-size:12px;color:var(--text2);line-height:1.6;margin:0}
+
+.omnibus-note{border:1px solid rgba(80,140,220,0.25);background:rgba(80,140,220,0.04);padding:16px 20px;margin-bottom:16px}
+.omnibus-note-label{font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--tag-blue-text);margin-bottom:6px}
+.omnibus-note p{font-size:12px;color:var(--text2);line-height:1.6;margin:0}
+
+.penalty-note{border:1px solid var(--border);padding:16px 20px;margin-bottom:32px}
+.penalty-note-label{font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--brass);margin-bottom:6px}
+.penalty-note p{font-size:12px;color:var(--text2);line-height:1.6;margin:0}
+
+.turkey-note{border:1px solid rgba(200,170,60,0.25);background:rgba(200,170,60,0.04);padding:16px 20px;margin-bottom:32px}
+.turkey-note-label{font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--tag-yellow-text);margin-bottom:6px}
+.turkey-note p{font-size:12px;color:var(--text2);line-height:1.6;margin:0}
+
+.readiness-bar{margin-bottom:32px}
+.readiness-label{font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--brass);margin-bottom:12px}
+.readiness-meter{display:flex;gap:2px;margin-bottom:8px}
+.readiness-seg{flex:1;height:6px;background:var(--border2)}
+.readiness-seg.filled{background:var(--brass)}
+.readiness-score{font-size:12px;color:var(--text2)}
+
+.results-cta{text-align:center;padding:40px 0;border-top:1px solid var(--border)}
+.results-cta h3{font-family:Georgia,serif;font-size:22px;color:var(--text);margin-bottom:10px}
+.results-cta p{font-size:13px;color:var(--text2);margin-bottom:20px;max-width:520px;margin-left:auto;margin-right:auto;line-height:1.65}
+.results-actions{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+.btn-primary{background:var(--dark-type);color:var(--charcoal);padding:12px 28px;font-weight:700;font-size:13px;border:none;cursor:pointer;transition:opacity .15s;text-decoration:none;display:inline-flex;align-items:center;gap:7px;letter-spacing:.04em}
+.btn-primary:hover{opacity:.88}
+.btn-outline{background:transparent;color:var(--text2);padding:12px 28px;font-weight:400;font-size:13px;border:1px solid var(--border2);cursor:pointer;transition:color .15s,border-color .15s;text-decoration:none;display:inline-flex;align-items:center;gap:7px;letter-spacing:.04em}
+.btn-outline:hover{border-color:rgba(232,230,226,.35);color:var(--text)}
+
+.tool-links{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px;justify-content:center}
+.tool-link{font-size:11px;color:var(--stone);text-decoration:none;padding:6px 14px;border:1px solid var(--border);transition:color .15s,border-color .15s;letter-spacing:.04em}
+.tool-link:hover{color:var(--text2);border-color:var(--border2)}
+
+footer{border-top:1px solid var(--border);padding:20px 48px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.footer-left{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.footer-logo{display:flex;align-items:center;text-decoration:none}
+.footer-logo img{display:block;max-height:18px}
+.footer-sep{color:var(--stone);margin:0 4px}
+.footer-txt{font-size:10px;color:var(--stone);letter-spacing:.02em}
+.footer-links{display:flex;gap:16px;flex-wrap:wrap}
+.footer-links a{font-size:10px;color:var(--stone);text-decoration:none;transition:color .15s;letter-spacing:.04em}
+.footer-links a:hover{color:var(--text2)}
+
+@media(max-width:860px){
+  nav{padding:0 20px;flex-wrap:wrap}
+  .nav-links{display:none;width:100%;padding:8px 0;border-top:1px solid var(--border)}
+  .nav-links.open{display:flex;flex-direction:column;gap:0}
+  .nav-links.open a{padding:10px 0}
+  .nav-hamburger{display:block}
+  .wrap{padding:0 20px}
+  .hero{padding:48px 0 36px}
+  .tool-grid{grid-template-columns:repeat(auto-fill,minmax(120px,1fr))}
+  .quiz-card{padding:20px}
+  .obligation-card{padding:16px}
+  footer{flex-direction:column;align-items:flex-start;padding:20px}
+}
+@media print{
+  nav,.tool-section,.quiz-section,.results-cta,footer{display:none}
+  .results{display:block!important;padding:20px 0}
+  .print-context{display:block!important}
+  body{background:#fff;color:#1C1E23}
+  .result-role-card,.obligation-card,.vendor-ask,.shadow-ai-note,.turkey-note,.omnibus-note,.penalty-note,.print-context{border-color:#ccc}
+  .shadow-ai-note,.turkey-note{background:transparent}
+  .omnibus-note{background:transparent}
+  .obligation-tag{border:1px solid #999;background:transparent;color:#333}
+  .readiness-seg{background:#ccc}
+  .readiness-seg.filled{background:#B2986C}
+  .shadow-ai-note-label,.turkey-note-label,.omnibus-note-label,.penalty-note-label{color:#333}
+  p,.result-role-desc,.obligation-desc,.obligation-action,.readiness-score,.shadow-ai-note p,.turkey-note p,.omnibus-note p,.penalty-note p{color:#333}
+  .obligation-deadline,.vendor-ask-list li{color:#555}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="/" class="nav-logo"><img src="/assets/logo-light.png" alt="Hexis" width="72" height="40"></a>
+  <div class="nav-links" id="navLinks">
+    <a href="/">Home</a>
+    <a href="/methodology/" data-en-href="/methodology/" data-tr-href="/metodoloji/">ORIENT</a>
+    <a href="/generator/">Generator</a>
+    <a href="/checklist/" data-en-href="/checklist/" data-tr-href="/kvkk/" data-en="Checklist" data-tr="Kontrol Listesi">Checklist</a>
+    <a href="/blog/">Blog</a>
+  </div>
+  <div style="display:flex;align-items:center;gap:8px">
+    <div class="lang-switch">
+      <button class="lang-btn" data-lang="tr" onclick="setLang('tr')">TR</button>
+      <span style="color:var(--border2);font-size:10px;user-select:none">|</span>
+      <button class="lang-btn active" data-lang="en" onclick="setLang('en')">EN</button>
+    </div>
+    <button class="nav-hamburger" id="navHamburger" onclick="document.getElementById('navLinks').classList.toggle('open')" aria-label="Menu">☰</button>
+  </div>
+</nav>
+
+<div class="wrap">
+  <div class="hero">
+    <div class="hero-label" data-en="Free Tool · EU AI Act" data-tr="Ucretsiz Arac · EU AI Act">Free Tool · EU AI Act</div>
+    <h1 data-en="Using AI tools at work? Know your obligations."
+        data-tr="Is yerinde AI araci mi kullaniyorsunuz? Yukumluluklerinizi bilin.">Using AI tools at work? Know your obligations.</h1>
+    <p class="hero-desc"
+       data-en="Select your AI tools. Answer 6 questions. Get your role under the EU AI Act, applicable articles, deadlines, and what to ask each vendor."
+       data-tr="AI araclarinizi secin. 6 soruyu cevaplayin. EU AI Act kapsamindaki rolunuzu, gecerli maddeleri, son tarihleri ve her tedarikcinizden istemeniz gerekenleri ogrenin."
+    >Select your AI tools. Answer 6 questions. Get your role under the EU AI Act, applicable articles, deadlines, and what to ask each vendor.</p>
+  </div>
+</div>
+
+<hr class="divider">
+
+<!-- TOOL SELECT -->
+<div class="wrap">
+  <div class="tool-section" id="toolSection">
+    <div class="tool-section-label" data-en="Step 1 — Select your AI tools (one or more)" data-tr="Adim 1: AI araclarinizi secin (bir veya daha fazla)">Step 1 — Select your AI tools (one or more)</div>
+    <div class="tool-grid" id="toolGrid" role="group" aria-label="AI tools"></div>
+    <div class="tool-count" id="toolCount"></div>
+    <div class="tool-other" id="toolOther">
+      <div class="tool-other-label" data-en="Enter the name of your AI tool:" data-tr="AI aracinizin adini girin:">Enter the name of your AI tool:</div>
+      <input type="text" id="toolOtherInput" placeholder="e.g. Internal ML model, Custom chatbot..."
+        data-en-placeholder="e.g. Internal ML model, Custom chatbot..."
+        data-tr-placeholder="orn. Dahili ML modeli, Ozel chatbot...">
+      <div class="tool-other-flags" id="toolOtherFlags" style="margin-top:10px">
+        <div class="tool-other-label" data-en="What type of AI is it? (select all that apply)" data-tr="Ne tur bir AI? (gecerli olanlari secin)">What type of AI is it? (select all that apply)</div>
+        <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:6px">
+          <label class="flag-chip" style="display:flex;align-items:center;gap:5px;padding:6px 12px;border:1px solid var(--border2);font-size:11px;color:var(--text2);cursor:pointer"><input type="checkbox" value="gpai" onchange="updateOtherFlags()" style="accent-color:var(--brass)"><span data-en="Uses a foundation model (GPT, Gemini, etc.)" data-tr="Temel model kullaniyor (GPT, Gemini, vb.)">Uses a foundation model (GPT, Gemini, etc.)</span></label>
+          <label class="flag-chip" style="display:flex;align-items:center;gap:5px;padding:6px 12px;border:1px solid var(--border2);font-size:11px;color:var(--text2);cursor:pointer"><input type="checkbox" value="chatbot" onchange="updateOtherFlags()" style="accent-color:var(--brass)"><span data-en="Chatbot / conversational" data-tr="Chatbot / konusma tabanli">Chatbot / conversational</span></label>
+          <label class="flag-chip" style="display:flex;align-items:center;gap:5px;padding:6px 12px;border:1px solid var(--border2);font-size:11px;color:var(--text2);cursor:pointer"><input type="checkbox" value="art50_deepfake" onchange="updateOtherFlags()" style="accent-color:var(--brass)"><span data-en="Generates images / audio / video" data-tr="Gorsel / ses / video uretiyor">Generates images / audio / video</span></label>
+        </div>
+      </div>
+    </div>
+    <button class="btn-start" id="btnStart" onclick="startQuiz()"
+      data-en="Continue →" data-tr="Devam →">Continue →</button>
+  </div>
+</div>
+
+<!-- QUIZ -->
+<div class="wrap">
+  <div class="quiz-section" id="quizSection">
+    <div class="quiz-progress">
+      <div class="quiz-progress-bar"><div class="quiz-progress-fill" id="progressFill" style="width:0%"></div></div>
+      <div class="quiz-progress-text" id="progressText">1 / 6</div>
+    </div>
+    <div id="quizContainer"></div>
+    <div class="quiz-nav">
+      <button class="btn-quiz btn-quiz-back" id="btnBack" onclick="prevQuestion()" style="visibility:hidden"
+        data-en="← Back" data-tr="← Geri">← Back</button>
+      <button class="btn-quiz btn-quiz-next" id="btnNext" onclick="nextQuestion()" disabled
+        data-en="Next →" data-tr="Sonraki →">Next →</button>
+    </div>
+  </div>
+</div>
+
+<!-- RESULTS -->
+<div class="wrap">
+  <div class="results" id="results">
+    <div class="print-context" id="printContext" style="display:none;border:1px solid var(--border);padding:16px 20px;margin-bottom:24px;font-size:11px;color:var(--text2);line-height:1.7"></div>
+    <div class="result-role-card">
+      <div class="result-tool-name" id="resultToolName"></div>
+      <div class="result-role-label" data-en="Your role under the EU AI Act" data-tr="EU AI Act kapsamindaki rolunuz">Your role under the EU AI Act</div>
+      <div class="result-role-value" id="resultRole">—</div>
+      <div class="result-role-desc" id="resultRoleDesc">—</div>
+    </div>
+
+    <div class="readiness-bar">
+      <div class="readiness-label" data-en="Deployer Readiness" data-tr="Konuslandirici Hazirlik Durumu">Deployer Readiness</div>
+      <div class="readiness-meter" id="readinessMeter"></div>
+      <div class="readiness-score" id="readinessScore"></div>
+    </div>
+
+    <div class="result-section">
+      <div class="result-section-label" data-en="Your obligations" data-tr="Yukumlulukleriniz">Your obligations</div>
+      <div id="obligationsList"></div>
+    </div>
+
+    <div class="result-section">
+      <div class="vendor-ask">
+        <div class="vendor-ask-label" data-en="Ask your vendor" data-tr="Tedarikcinizden isteyin">Ask your vendor</div>
+        <ul class="vendor-ask-list" id="vendorAskList"></ul>
+      </div>
+    </div>
+
+    <div class="shadow-ai-note" id="shadowAiNote" style="display:none">
+      <div class="shadow-ai-note-label" data-en="Shadow AI risk" data-tr="Golge AI riski">Shadow AI risk</div>
+      <p id="shadowAiText"></p>
+    </div>
+
+    <div class="turkey-note" id="turkeyNote" style="display:none">
+      <div class="turkey-note-label" data-en="Turkey-specific note" data-tr="Turkiye'ye ozel not">Turkey-specific note</div>
+      <p id="turkeyText"></p>
+    </div>
+
+    <div class="omnibus-note" id="omnibusNote" style="display:none">
+      <div class="omnibus-note-label" data-en="Timeline uncertainty" data-tr="Zaman cizelgesi belirsizligi">Timeline uncertainty</div>
+      <p id="omnibusText"></p>
+    </div>
+
+    <div class="penalty-note" id="penaltyNote">
+      <div class="penalty-note-label" data-en="Non-compliance penalties (Art. 99)" data-tr="Uyumsuzluk cezalari (Md. 99)">Non-compliance penalties (Art. 99)</div>
+      <p id="penaltyText"></p>
+    </div>
+
+    <div class="result-section" style="text-align:center">
+      <div class="result-section-label" data-en="Continue with Hexis tools" data-tr="Hexis araclariyla devam edin">Continue with Hexis tools</div>
+      <div class="tool-links" id="toolLinks"></div>
+    </div>
+
+    <div class="results-cta">
+      <h3 data-en="Managing multiple AI tools?"
+          data-tr="Birden fazla AI araci mi yonetiyorsunuz?">Managing multiple AI tools?</h3>
+      <p id="ctaText">You checked 1 tool. Most organisations use 5-10 AI tools. Manage your full AI inventory, track obligations, and generate compliance documentation from one platform.</p>
+      <div class="results-actions">
+        <a href="https://app.hexis.center" class="btn-primary" target="_blank"
+           data-en="Manage All AI Tools →" data-tr="Tum AI Araclarini Yonetin →">Manage All AI Tools →</a>
+        <button class="btn-outline" onclick="window.print()"
+           data-en="Print Results" data-tr="Sonuclari Yazdir">Print Results</button>
+        <button class="btn-outline" onclick="editAnswers()"
+           data-en="Edit Answers" data-tr="Cevaplari Duzenle">Edit Answers</button>
+        <button class="btn-outline" onclick="retake()"
+           data-en="Start Over" data-tr="Bastan Basla">Start Over</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-left">
+    <a href="/" class="footer-logo"><img src="/assets/logo-light.png" alt="Hexis" width="32" height="18"></a>
+    <span class="footer-sep">·</span>
+    <span class="footer-txt">© 2026 Hexis · For informational purposes only. Does not constitute legal advice.</span>
+  </div>
+  <div class="footer-links">
+    <a href="/">Home</a>
+    <a href="/generator/">Generator</a>
+    <a href="/checklist/">Checklist</a>
+    <a href="/fria/">FRIA</a>
+    <a href="/blog/">Blog</a>
+  </div>
+</footer>
+
+<script>
+/* ═══════════════════════════════════════════
+   AI VENDOR QUICK CHECK — ENGINE
+   ═══════════════════════════════════════════ */
+
+var lang='en';
+
+/* ── TOOL DATABASE ── */
+var TOOLS=[
+  {id:'chatgpt',name:'ChatGPT',provider:'OpenAI',type:{en:'GPAI-based chatbot',tr:'GPAI tabanli chatbot'},flags:['gpai','chatbot','art50']},
+  {id:'copilot',name:'Microsoft Copilot',provider:'Microsoft',type:{en:'GPAI-based assistant',tr:'GPAI tabanli asistan'},flags:['gpai','chatbot','art50','integrated']},
+  {id:'gemini',name:'Google Gemini',provider:'Google',type:{en:'GPAI-based chatbot',tr:'GPAI tabanli chatbot'},flags:['gpai','chatbot','art50']},
+  {id:'claude',name:'Claude',provider:'Anthropic',type:{en:'GPAI-based assistant',tr:'GPAI tabanli asistan'},flags:['gpai','chatbot','art50']},
+  {id:'midjourney',name:'Midjourney',provider:'Midjourney Inc.',type:{en:'Image generation',tr:'Gorsel uretimi'},flags:['gpai','generative','art50_deepfake']},
+  {id:'dall-e',name:'DALL-E',provider:'OpenAI',type:{en:'Image generation',tr:'Gorsel uretimi'},flags:['gpai','generative','art50_deepfake']},
+  {id:'stable-diffusion',name:'Stable Diffusion',provider:'Stability AI',type:{en:'Image generation',tr:'Gorsel uretimi'},flags:['gpai','generative','art50_deepfake']},
+  {id:'github-copilot',name:'GitHub Copilot',provider:'GitHub / Microsoft',type:{en:'Code assistant',tr:'Kod asistani'},flags:['gpai','integrated']},
+  {id:'jasper',name:'Jasper',provider:'Jasper AI',type:{en:'Marketing content AI',tr:'Pazarlama icerigi AI'},flags:['gpai','generative']},
+  {id:'grammarly',name:'Grammarly',provider:'Grammarly Inc.',type:{en:'Writing assistant',tr:'Yazma asistani'},flags:['ai_component']},
+  {id:'notion-ai',name:'Notion AI',provider:'Notion',type:{en:'Workspace AI assistant',tr:'Calisma alani AI asistani'},flags:['gpai','integrated']},
+  {id:'salesforce-einstein',name:'Salesforce Einstein',provider:'Salesforce',type:{en:'CRM AI',tr:'CRM AI'},flags:['ai_component','integrated','may_hr']},
+  {id:'other',name:{en:'Other',tr:'Diger'},provider:'—',type:{en:'Custom / Other',tr:'Ozel / Diger'},flags:[]}
+];
+
+/* ── QUESTIONS ── */
+var QUESTIONS=[
+  {
+    id:'purpose',
+    label:{en:'Question 1 of 6',tr:'Soru 1 / 6'},
+    q:{en:'What is the primary purpose of using this AI tool in your organisation?',tr:'Organizasyonunuzda bu AI aracini kullanmanin temel amaci nedir?'},
+    ctx:{en:'Your use case determines which EU AI Act obligations apply. Internal productivity tools have different requirements than customer-facing or decision-making systems.',tr:'Kullanim alaniniz hangi EU AI Act yukumluluklerinin gecerli oldugunu belirler. Dahili verimlilik araclari, musteriye donuk veya karar alma sistemlerinden farkli gereksinimlere sahiptir.'},
+    opts:[
+      {val:'internal',label:{en:'Internal productivity (drafting, research, summarisation)',tr:'Dahili verimlilik (taslak, arastirma, ozet)'}},
+      {val:'customer',label:{en:'Customer-facing (chatbot, content generation, support)',tr:'Musteriye donuk (chatbot, icerik uretimi, destek)'}},
+      {val:'decision',label:{en:'Decision-making or scoring (HR, credit, risk)',tr:'Karar alma veya puanlama (IK, kredi, risk)'}},
+      {val:'product',label:{en:'Embedded in a product we sell',tr:'Sattigimiz bir urune entegre'}}
+    ]
+  },
+  {
+    id:'personal_data',
+    label:{en:'Question 2 of 6',tr:'Soru 2 / 6'},
+    q:{en:'Does this AI tool process personal data (names, emails, images of people, employee data)?',tr:'Bu AI araci kisisel verileri isliyor mu (isimler, e-postalar, kisi gorselleri, calisan verileri)?'},
+    ctx:{en:'Processing personal data triggers additional obligations under both EU AI Act and GDPR/KVKK. Data governance requirements under Art. 10 become especially relevant.',tr:'Kisisel veri isleme, hem EU AI Act hem GDPR/KVKK kapsaminda ek yukumlulukler doturur. Md. 10 kapsamindaki veri yonetisimi gereksinimleri ozellikle ilgili hale gelir.'},
+    opts:[
+      {val:'yes',label:{en:'Yes — regularly processes personal data',tr:'Evet, duzenli olarak kisisel veri isliyor'}},
+      {val:'sometimes',label:{en:'Sometimes — depends on use case',tr:'Bazen, kullanim alanina bagli'}},
+      {val:'no',label:{en:'No — only non-personal data',tr:'Hayir, yalnizca kisisel olmayan veri'}}
+    ]
+  },
+  {
+    id:'eu_market',
+    label:{en:'Question 3 of 6',tr:'Soru 3 / 6'},
+    q:{en:'Does your organisation operate in the EU market or serve EU-based users?',tr:'Organizasyonunuz AB pazarinda faaliyet gosteriyor mu veya AB\'deki kullanicilara hizmet veriyor mu?'},
+    ctx:{en:'The EU AI Act applies to deployers placing AI systems on the EU market or whose AI output affects people in the EU, regardless of where the organisation is based (Art. 2).',tr:'EU AI Act, AI sistemlerini AB pazarina sunan veya AI ciktilari AB\'deki kisileri etkileyen konuslandiricilara, organizasyonun nerede bulunduguna bakilmaksizin uygulanir (Md. 2).'},
+    opts:[
+      {val:'yes',label:{en:'Yes — we operate in or serve the EU',tr:'Evet, AB\'de faaliyet gosteriyoruz veya AB\'ye hizmet veriyoruz'}},
+      {val:'turkey',label:{en:'Turkey only — but EU alignment planned',tr:'Yalnizca Turkiye, ancak AB uyumu planlaniyor'}},
+      {val:'no',label:{en:'No — no EU connection',tr:'Hayir, AB baglantisi yok'}}
+    ]
+  },
+  {
+    id:'high_risk',
+    label:{en:'Question 4 of 6',tr:'Soru 4 / 6'},
+    q:{en:'Is this AI tool used in any of these high-risk domains? (Annex III)',tr:'Bu AI araci asagidaki yuksek riskli alanlardan herhangi birinde kullaniyor mu? (Ek III)'},
+    ctx:{en:'These domains correspond to Annex III of the EU AI Act, which defines high-risk AI systems. Use in these areas triggers the strictest obligations including conformity assessment, risk management, and human oversight.',tr:'Bu alanlar, yuksek riskli AI sistemlerini tanimlayan EU AI Act Ek III\'e karsilik gelir. Bu alanlarda kullanim uygunluk degerlendirmesi, risk yonetimi ve insan gozetimi dahil en kati yukumlulukleri tetikler.'},
+    opts:[
+      {val:'hr',label:{en:'HR / recruitment / employee management',tr:'IK / ise alim / calisan yonetimi'}},
+      {val:'credit',label:{en:'Credit scoring / insurance / financial assessment',tr:'Kredi puanlama / sigorta / finansal degerlendirme'}},
+      {val:'law',label:{en:'Law enforcement / justice / migration / border control',tr:'Kolluk kuvvetleri / adalet / goc / sinir kontrolu'}},
+      {val:'education',label:{en:'Education / vocational training / assessment',tr:'Egitim / mesleki egitim / degerlendirme'}},
+      {val:'essential',label:{en:'Essential services (healthcare, utilities, public benefits)',tr:'Temel hizmetler (saglik, altyapi, kamu yardimlari)'}},
+      {val:'biometric',label:{en:'Biometric identification / categorisation',tr:'Biyometrik tanimlama / kategorilendirme'}},
+      {val:'infra',label:{en:'Critical infrastructure (transport, energy, water)',tr:'Kritik altyapi (ulasim, enerji, su)'}},
+      {val:'democratic',label:{en:'Democratic processes / electoral influence',tr:'Demokratik surecler / secim etkisi'}},
+      {val:'none',label:{en:'None of the above',tr:'Yukaridakilerin hicbiri'}}
+    ]
+  },
+  {
+    id:'scale',
+    label:{en:'Question 5 of 6',tr:'Soru 5 / 6'},
+    q:{en:'How widely is this AI tool used in your organisation?',tr:'Bu AI araci organizasyonunuzda ne kadar yaygin kullaniyor?'},
+    ctx:{en:'Scale affects governance complexity. Organisation-wide deployment requires formal policies, training records, and systematic monitoring — individual use may need lighter governance.',tr:'Olcek, yonetisim karmasikligini etkiler. Organizasyon capinda konuslandirma resmi politikalar, egitim kayitlari ve sistematik izleme gerektirir; bireysel kullanim daha hafif yonetisim gerektirebilir.'},
+    opts:[
+      {val:'individual',label:{en:'Individual use (1-5 people)',tr:'Bireysel kullanim (1-5 kisi)'}},
+      {val:'team',label:{en:'Team use (5-50 people)',tr:'Takim kullanimi (5-50 kisi)'}},
+      {val:'org',label:{en:'Organisation-wide (50+ people)',tr:'Organizasyon capinda (50+ kisi)'}}
+    ]
+  },
+  {
+    id:'it_approved',
+    label:{en:'Question 6 of 6',tr:'Soru 6 / 6'},
+    q:{en:'Is this AI tool formally approved and documented by your IT or compliance team?',tr:'Bu AI araci IT veya uyum ekibiniz tarafindan resmi olarak onaylanmis ve belgelenmis mi?'},
+    ctx:{en:'Shadow AI — tools adopted without formal approval — creates compliance blind spots. Art. 4 requires organisations to ensure AI literacy, which starts with knowing what AI tools are in use.',tr:'Golge AI (resmi onay olmadan benimsenen araclar) uyum kor noktalari olusturur. Md. 4, organizasyonlarin AI okuryazarligi saglamasini gerektirir ve bu, hangi AI araclarinin kullanildigini bilmekle baslar.'},
+    opts:[
+      {val:'yes',label:{en:'Yes — formally approved and documented',tr:'Evet, resmi olarak onaylanmis ve belgelenmis'}},
+      {val:'partial',label:{en:'Partially — known but not formally documented',tr:'Kismen, biliniyor ama resmi olarak belgelenmemis'}},
+      {val:'no',label:{en:'No — adopted informally / not sure',tr:'Hayir, gayri resmi olarak benimsenmis / emin degilim'}}
+    ]
+  }
+];
+
+/* ── STATE ── */
+var selectedTools=[];
+var currentQ=0;
+var answers={};
+var toolName=''; /* computed in showResults, used by buildObligations */
+
+/* ── TOOL SELECT ── */
+function renderTools(){
+  var grid=document.getElementById('toolGrid');
+  grid.innerHTML='';
+  TOOLS.forEach(function(t){
+    var isSelected=selectedTools.some(function(s){return s.id===t.id});
+    var card=document.createElement('div');
+    card.className='tool-card'+(isSelected?' selected':'');
+    card.setAttribute('role','checkbox');
+    card.setAttribute('aria-checked',isSelected?'true':'false');
+    card.setAttribute('tabindex','0');
+    card.onclick=function(){toggleTool(t)};
+    card.onkeydown=function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();toggleTool(t)}};
+    var name=typeof t.name==='object'?t.name[lang]:t.name;
+    var type=t.type[lang];
+    card.setAttribute('aria-label',name+' — '+type);
+    card.innerHTML='<div class="tool-card-name">'+name+'</div><div class="tool-card-type">'+type+'</div>';
+    grid.appendChild(card);
+  });
+}
+
+function toggleTool(t){
+  var idx=selectedTools.findIndex(function(s){return s.id===t.id});
+  if(idx>=0){
+    selectedTools.splice(idx,1);
+  } else {
+    /* If selecting "Other", deselect is fine; if selecting a named tool while Other is selected, keep both */
+    selectedTools.push(t);
+  }
+  renderTools();
+  var hasOther=selectedTools.some(function(s){return s.id==='other'});
+  document.getElementById('toolOther').classList.toggle('visible',hasOther);
+  document.getElementById('btnStart').classList.toggle('visible',selectedTools.length>0);
+  var countEl=document.getElementById('toolCount');
+  var n=selectedTools.length;
+  if(n===0) countEl.textContent='';
+  else if(n===1) countEl.textContent=lang==='tr'?'1 arac secildi':'1 tool selected';
+  else countEl.textContent=lang==='tr'?n+' arac secildi':n+' tools selected';
+  if(hasOther) document.getElementById('toolOtherInput').focus();
+}
+
+function updateOtherFlags(){
+  var cbs=document.querySelectorAll('#toolOtherFlags input[type=checkbox]');
+  var flags=[];
+  cbs.forEach(function(cb){if(cb.checked)flags.push(cb.value)});
+  /* Also add art50 if chatbot is checked */
+  if(flags.indexOf('chatbot')>=0&&flags.indexOf('art50')<0) flags.push('art50');
+  /* Update the Other tool in TOOLS array and selectedTools */
+  var otherTool=TOOLS.find(function(t){return t.id==='other'});
+  if(otherTool) otherTool.flags=flags;
+  var sel=selectedTools.find(function(t){return t.id==='other'});
+  if(sel) sel.flags=flags;
+}
+
+/* ── QUIZ ── */
+function startQuiz(){
+  if(selectedTools.length===0) return;
+  document.getElementById('toolSection').style.display='none';
+  var qs=document.getElementById('quizSection');
+  qs.classList.add('active');
+  renderQuiz();
+}
+
+function renderQuiz(){
+  var c=document.getElementById('quizContainer');
+  c.innerHTML='';
+  QUESTIONS.forEach(function(q,i){
+    var card=document.createElement('div');
+    card.className='quiz-card'+(i===0?' active':'');
+    card.id='q'+i;
+    card.innerHTML=
+      '<div class="quiz-q-label">'+q.label[lang]+'</div>'+
+      '<div class="quiz-question">'+q.q[lang]+'</div>'+
+      '<div class="quiz-context">'+q.ctx[lang]+'</div>'+
+      '<div class="quiz-options">'+
+        q.opts.map(function(o){
+          return '<div class="quiz-opt'+(answers[q.id]===o.val?' selected':'')+'" data-val="'+o.val+'" role="radio" aria-checked="'+(answers[q.id]===o.val?'true':'false')+'" tabindex="0" onclick="selectOpt(\''+q.id+'\',\''+o.val+'\','+i+')" onkeydown="if(event.key===\'Enter\'||event.key===\' \'){event.preventDefault();selectOpt(\''+q.id+'\',\''+o.val+'\','+i+')}">'+
+            '<div class="quiz-opt-marker">●</div>'+
+            '<div class="quiz-opt-label">'+o.label[lang]+'</div>'+
+          '</div>';
+        }).join('')+
+      '</div>';
+    c.appendChild(card);
+  });
+  showQuestion(currentQ);
+}
+
+function selectOpt(qid,val,qi){
+  answers[qid]=val;
+  var card=document.getElementById('q'+qi);
+  card.querySelectorAll('.quiz-opt').forEach(function(o){
+    o.classList.toggle('selected',o.dataset.val===val);
+  });
+  document.getElementById('btnNext').disabled=false;
+}
+
+function showQuestion(i){
+  document.querySelectorAll('.quiz-card').forEach(function(c,idx){
+    c.classList.toggle('active',idx===i);
+  });
+  document.getElementById('progressFill').style.width=((i+1)/QUESTIONS.length*100)+'%';
+  document.getElementById('progressText').textContent=(i+1)+' / '+QUESTIONS.length;
+  document.getElementById('btnBack').style.visibility=i===0?'hidden':'visible';
+  var isLast=i===QUESTIONS.length-1;
+  var btn=document.getElementById('btnNext');
+  btn.disabled=!answers[QUESTIONS[i].id];
+  btn.textContent=isLast?(lang==='tr'?'Sonuclari Gor':'See Results'):(lang==='tr'?'Sonraki →':'Next →');
+}
+
+function nextQuestion(){
+  if(currentQ<QUESTIONS.length-1){currentQ++;showQuestion(currentQ)}
+  else{showResults()}
+}
+function prevQuestion(){
+  if(currentQ>0){currentQ--;showQuestion(currentQ)}
+}
+
+/* ── RESULTS ENGINE ── */
+function showResults(){
+  document.getElementById('quizSection').classList.remove('active');
+  var r=document.getElementById('results');
+  r.classList.add('visible');
+
+  var toolNames=selectedTools.map(function(t){
+    if(t.id==='other') return document.getElementById('toolOtherInput').value||'Custom AI Tool';
+    return typeof t.name==='object'?t.name[lang]:t.name;
+  });
+  toolName=toolNames.join(', ');
+
+  /* Role determination */
+  var role,roleDesc;
+  if(answers.purpose==='product'){
+    role={en:'Provider',tr:'Saglayici'};
+    roleDesc={en:'You embed AI in a product you sell — you are classified as a provider under Art. 3(3). Providers carry the heaviest obligations including conformity assessment, technical documentation, and post-market monitoring.',tr:'AI\'yi sattiginiz bir urune gomuyorsunuz. Md. 3(3) kapsaminda saglayici olarak siniflandirilirsiniz. Saglayicilar uygunluk degerlendirmesi, teknik dokumantasyon ve pazar sonrasi izleme dahil en agir yukumlulukleri tasir.'};
+  } else {
+    role={en:'Deployer',tr:'Konuslandirici'};
+    roleDesc={en:'You use a third-party AI system in your operations — you are classified as a deployer under Art. 3(4). Deployers must ensure appropriate use, human oversight, and compliance monitoring.',tr:'Operasyonlarinizda ucuncu taraf AI sistemi kullaniyorsunuz. Md. 3(4) kapsaminda konuslandirici olarak siniflandirilirsiniz. Konuslandiricilar uygun kullanim, insan gozetimi ve uyum izlemesi saglamalidir.'};
+  }
+
+  document.getElementById('resultToolName').textContent=toolName;
+  document.getElementById('resultRole').textContent=role[lang];
+  document.getElementById('resultRoleDesc').textContent=roleDesc[lang];
+
+  /* Build obligations */
+  var obList=document.getElementById('obligationsList');
+  obList.innerHTML='';
+  var obligations=buildObligations();
+  obligations.forEach(function(ob){
+    var card=document.createElement('div');
+    card.className='obligation-card';
+    card.innerHTML=
+      '<div class="obligation-header">'+
+        '<span class="obligation-art">'+ob.art+'</span>'+
+        '<span class="obligation-tag '+ob.tagClass+'">'+ob.tag[lang]+'</span>'+
+        (ob.deadline?'<span class="obligation-deadline">'+ob.deadline[lang]+'</span>':'')+
+      '</div>'+
+      '<div class="obligation-desc">'+ob.desc[lang]+'</div>'+
+      '<div class="obligation-action"><strong>'+({en:'Action',tr:'Aksiyon'})[lang]+'</strong>'+ob.action[lang]+'</div>';
+    obList.appendChild(card);
+  });
+
+  /* Vendor ask list */
+  var vaList=document.getElementById('vendorAskList');
+  vaList.innerHTML='';
+  var vendorAsks=buildVendorAsks();
+  vendorAsks.forEach(function(v){
+    var li=document.createElement('li');
+    li.textContent=v[lang];
+    vaList.appendChild(li);
+  });
+
+  /* Shadow AI note */
+  var shadowNote=document.getElementById('shadowAiNote');
+  if(answers.it_approved!=='yes'){
+    shadowNote.style.display='block';
+    var shadowText=document.getElementById('shadowAiText');
+    if(answers.it_approved==='no'){
+      shadowText.textContent=lang==='tr'?
+        'Bu arac resmi olarak onaylanmamis gorunuyor. EU AI Act Md. 4 kapsaminda, organizasyonunuz kullanilan tum AI araclarini bilmeli ve AI okuryazarligi saglamalidir. IT/uyum ekibinize bu araci bildirin.':
+        'This tool appears to be used without formal approval. Under EU AI Act Art. 4, your organisation must be aware of all AI tools in use and ensure AI literacy. Report this tool to your IT/compliance team.';
+    } else {
+      shadowText.textContent=lang==='tr'?
+        'Bu arac biliniyor ancak resmi olarak belgelenmemis. AI envanterinize ekleyin ve Md. 4 AI okuryazarligi gereksinimlerini karsilayin.':
+        'This tool is known but not formally documented. Add it to your AI inventory and ensure Art. 4 AI literacy requirements are met.';
+    }
+  } else {
+    shadowNote.style.display='none';
+  }
+
+  /* Readiness score */
+  var readiness=calcReadiness();
+  var meter=document.getElementById('readinessMeter');
+  meter.innerHTML='';
+  for(var s=0;s<5;s++){
+    var seg=document.createElement('div');
+    seg.className='readiness-seg'+(s<readiness.level?' filled':'');
+    meter.appendChild(seg);
+  }
+  document.getElementById('readinessScore').textContent=readiness.label[lang];
+
+  /* Tool links */
+  var tl=document.getElementById('toolLinks');
+  tl.innerHTML='';
+  var links=[
+    {href:'/checklist/',label:{en:'Compliance Checklist',tr:'Uyum Kontrol Listesi'}},
+    {href:'/generator/',label:{en:'Risk Classifier',tr:'Risk Siniflandirici'}},
+    {href:'/fria/',label:{en:'FRIA Tool',tr:'FRIA Araci'},show:answers.high_risk!=='none'||answers.purpose==='decision'},
+    {href:'/iso42001-gap/',label:{en:'ISO 42001 Gap Quiz',tr:'ISO 42001 Bosluk Analizi'}}
+  ];
+  links.forEach(function(lk){
+    if(lk.show===false) return;
+    var a=document.createElement('a');
+    a.href=lk.href;a.className='tool-link';a.textContent=lk.label[lang];
+    tl.appendChild(a);
+  });
+
+  /* CTA text — dynamic tool count */
+  var n=selectedTools.length;
+  var ctaEl=document.getElementById('ctaText');
+  if(n===1){
+    ctaEl.textContent=lang==='tr'?
+      '1 araci kontrol ettiniz. Cogu organizasyon 5-10 AI araci kullaniyor. Tum AI envanterinizi yonetin, yukumlulukleri takip edin ve tek platformdan uyum dokumantasyonu uretin.':
+      'You checked 1 tool. Most organisations use 5-10 AI tools. Manage your full AI inventory, track obligations, and generate compliance documentation from one platform.';
+  } else {
+    ctaEl.textContent=lang==='tr'?
+      n+' araci kontrol ettiniz. Tum AI envanterinizi tek platformdan yonetin — yukumluluk takibi ve uyum dokumantasyonu dahil.':
+      'You checked '+n+' tools. Manage your full AI inventory from one platform — with obligation tracking and compliance documentation.';
+  }
+
+  /* Digital Omnibus warning */
+  var omnEl=document.getElementById('omnibusNote');
+  var isHighRisk=answers.high_risk!=='none';
+  if(isHighRisk||answers.purpose==='product'){
+    omnEl.style.display='block';
+    document.getElementById('omnibusText').textContent=lang==='tr'?
+      'Digital Omnibus paketi (Kasim 2025 onerisi) kabul edilirse, Ek III son tarihi en gec 2 Aralik 2027\'ye, Ek I son tarihi 2 Agustos 2028\'e uzayabilir. Bu oneri henuz kabul edilmemistir — durumu izleyin. Temkinli uyum planlamasi icin 2 Agustos 2026\'yi baglayici son tarih olarak kabul edin.':
+      'The Digital Omnibus package (proposed Nov 2025), if adopted, may extend the Annex III deadline to max 2 Dec 2027 and the Annex I deadline to 2 Aug 2028. This proposal is NOT YET ADOPTED — monitor its status. For prudent compliance planning, treat 2 Aug 2026 as the binding deadline.';
+  } else {
+    omnEl.style.display='none';
+  }
+
+  /* Penalty note */
+  var penEl=document.getElementById('penaltyNote');
+  var penText=document.getElementById('penaltyText');
+  if(isHighRisk){
+    penText.textContent=lang==='tr'?
+      'Yuksek riskli ihlaller: 15 milyon EUR veya kuresel cironun %3\'u (yuksek olan). KOBi\'ler ve startup\'lar: ayni tutarlar ancak dusuk olan gecerlidir (Md. 99(4), 99(6)). Yanlis bilgi sunma: 7,5 milyon EUR veya %1 (Md. 99(5)).':
+      'High-risk violations: \u20AC15M or 3% of global annual turnover, whichever is higher. SMEs and startups: same amounts but whichever is lower (Art. 99(4), 99(6)). Incorrect information to authorities: \u20AC7.5M or 1% (Art. 99(5)).';
+  } else {
+    penText.textContent=lang==='tr'?
+      'Operatör yukumluluk ihlalleri: 15 milyon EUR veya kuresel cironun %3\'u (yuksek olan). KOBi\'ler ve startup\'lar: ayni tutarlar ancak dusuk olan gecerlidir (Md. 99(4), 99(6)). AI okuryazarligi (Md. 4) ve seffaflik (Md. 50) ihlalleri bu kategori kapsamindadir.':
+      'Operator obligation violations: \u20AC15M or 3% of global annual turnover, whichever is higher. SMEs and startups: same amounts but whichever is lower (Art. 99(4), 99(6)). AI literacy (Art. 4) and transparency (Art. 50) violations fall under this category.';
+  }
+
+  /* Turkey-specific note */
+  var turkEl=document.getElementById('turkeyNote');
+  if(answers.eu_market==='turkey'){
+    turkEl.style.display='block';
+    document.getElementById('turkeyText').textContent=lang==='tr'?
+      'Turkiye henuz EU AI Act\'a dogrudan tabi degildir ancak AB uyum sureci kapsaminda benzer duzenlemeler beklenmektedir. KVKK (6698 sayili Kanun) kapsaminda AI sistemlerinde kisisel veri isleme zaten yukumluluk olusturur. AB pazarina ihracat veya AB vatandaslarina hizmet planliyorsaniz, tam EU AI Act uyumu gereklidir. Proaktif hazirlik onerilir.':
+      'Turkey is not directly subject to the EU AI Act yet, but similar regulations are expected as part of the EU alignment process. Under KVKK (Law No. 6698), personal data processing in AI systems already creates obligations. If you plan to export to the EU market or serve EU citizens, full EU AI Act compliance is required. Proactive preparation is recommended.';
+  } else {
+    turkEl.style.display='none';
+  }
+
+  /* Print context — summary of inputs for printed reports */
+  var pc=document.getElementById('printContext');
+  var pcLines=['<strong>AI Vendor Quick Check — hexis.center</strong> | '+(new Date()).toLocaleDateString()];
+  pcLines.push((lang==='tr'?'Araclar: ':'Tools: ')+toolName);
+  QUESTIONS.forEach(function(q){
+    var a=answers[q.id];if(!a) return;
+    var opt=q.opts.find(function(o){return o.val===a});
+    if(opt) pcLines.push(q.q[lang]+' <strong>'+opt.label[lang]+'</strong>');
+  });
+  pc.innerHTML=pcLines.join('<br>');
+
+  if(typeof plausible!=='undefined') plausible('Vendor Quick Check Complete',{props:{tools:toolName,count:n,role:role.en}});
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+/* ── OBLIGATION BUILDER ── */
+function buildObligations(){
+  var obs=[];
+  var isHighRisk=answers.high_risk!=='none';
+  var isProvider=answers.purpose==='product';
+  var hasPersonalData=answers.personal_data!=='no';
+  var isCustomerFacing=answers.purpose==='customer';
+  /* Merge flags from all selected tools */
+  var allFlags=[];
+  selectedTools.forEach(function(t){(t.flags||[]).forEach(function(f){if(allFlags.indexOf(f)<0)allFlags.push(f)})});
+  var isGPAI=allFlags.indexOf('gpai')>=0;
+  var isChatbot=allFlags.indexOf('chatbot')>=0||allFlags.indexOf('art50')>=0;
+  var isDeepfake=allFlags.indexOf('art50_deepfake')>=0;
+  /* Find which tools trigger specific obligations */
+  var chatbotTools=selectedTools.filter(function(t){return t.flags.indexOf('chatbot')>=0||t.flags.indexOf('art50')>=0}).map(function(t){return typeof t.name==='object'?t.name[lang]:t.name});
+  var deepfakeTools=selectedTools.filter(function(t){return t.flags.indexOf('art50_deepfake')>=0}).map(function(t){return typeof t.name==='object'?t.name[lang]:t.name});
+
+  /* Art. 4 — AI Literacy (always) */
+  obs.push({
+    art:'Article 4',
+    tag:{en:'Mandatory',tr:'Zorunlu'},tagClass:'tag-mandatory',
+    deadline:{en:'In force since 2 Feb 2025',tr:'2 Subat 2025\'ten itibaren yururlukte'},
+    desc:{en:'AI literacy: ensure staff using '+toolName+' understand capabilities, limitations, and risks of each tool.',tr:'AI okuryazarligi: '+toolName+' kullanan personelin her aracin yeteneklerini, sinirliliklerini ve risklerini anladigindan emin olun.'},
+    action:{en:'Document AI literacy training for all users. Include capabilities, known limitations, and appropriate use guidelines for each tool.',tr:'Tum kullanicilar icin AI okuryazarligi egitimini belgeleyin. Her arac icin yetenekleri, bilinen sinirliliklari ve uygun kullanim yonergelerini icerin.'}
+  });
+
+  /* Art. 26 — Deployer obligations (if deployer) */
+  if(!isProvider){
+    obs.push({
+      art:'Article 26',
+      tag:{en:'Mandatory',tr:'Zorunlu'},tagClass:'tag-mandatory',
+      deadline:{en:'From 2 Aug 2026',tr:'2 Agustos 2026\'dan itibaren'},
+      desc:{en:'Deployer obligations: use the AI system in accordance with instructions, ensure human oversight, monitor operations, retain auto-generated logs for at least 6 months (Art. 26(6)), and inform workers and their representatives before workplace deployment (Art. 26(7)).',tr:'Konuslandirici yukumlulukleri: AI sistemini talimatlara uygun kullanin, insan gozetimi saglayin, operasyonlari izleyin, otomatik uretilen kayitlari en az 6 ay saklayin (Md. 26(6)) ve is yerinde konuslandirma oncesinde calisanlari ve temsilcilerini bilgilendirin (Md. 26(7)).'},
+      action:{en:'Obtain and review the provider\'s instructions for use. Assign a responsible person for oversight. Establish a log retention policy (minimum 6 months). If deploying at the workplace, inform workers and worker representatives before use.',tr:'Saglayicinin kullanim talimatlarini edinin ve inceleyin. Gozetim icin sorumlu bir kisi atayin. Kayit saklama politikasi olusturun (minimum 6 ay). Is yerinde konuslandiriyorsaniz, kullanim oncesinde calisanlari ve calisan temsilcilerini bilgilendirin.'}
+    });
+  }
+
+  /* Provider-specific obligations (if provider) */
+  if(isProvider){
+    obs.push({
+      art:'Article 16',
+      tag:{en:'Mandatory',tr:'Zorunlu'},tagClass:'tag-mandatory',
+      deadline:{en:'From 2 Aug 2026 (Annex III) / 2 Aug 2027 (Annex I)',tr:'2 Agustos 2026 (Ek III) / 2 Agustos 2027 (Ek I)'},
+      desc:{en:'Provider obligations: you bear the heaviest regulatory burden. Ensure your AI system meets all requirements before placing it on the market — quality management, risk management, technical documentation, and conformity assessment.',tr:'Saglayici yukumlulukleri: en agir duzenleyici yuku tasiyorsunuz. AI sisteminizi pazara sunmadan once tum gereksinimleri karsiladigindan emin olun: kalite yonetimi, risk yonetimi, teknik dokumantasyon ve uygunluk degerlendirmesi.'},
+      action:{en:'Establish a quality management system (Art. 17). Implement a risk management system (Art. 9). Prepare technical documentation per Annex IV (Art. 11). Complete conformity assessment before market placement (Art. 43).',tr:'Kalite yonetim sistemi olusturun (Md. 17). Risk yonetim sistemi uygulayin (Md. 9). Ek IV\'e gore teknik dokumantasyon hazirlayin (Md. 11). Pazar yerlesiminden once uygunluk degerlendirmesini tamamlayin (Md. 43).'}
+    });
+    obs.push({
+      art:'Article 72',
+      tag:{en:'Mandatory',tr:'Zorunlu'},tagClass:'tag-mandatory',
+      deadline:{en:'From 2 Aug 2026',tr:'2 Agustos 2026\'dan itibaren'},
+      desc:{en:'Post-market monitoring: establish and document a post-market monitoring system proportionate to the nature of the AI system and its risks.',tr:'Pazar sonrasi izleme: AI sisteminin dogasina ve risklerine orantili bir pazar sonrasi izleme sistemi olusturun ve belgeleyin.'},
+      action:{en:'Design a post-market monitoring plan. Collect and analyse data on system performance. Report serious incidents within prescribed timelines (Art. 73).',tr:'Pazar sonrasi izleme plani tasarlayin. Sistem performansi hakkinda veri toplayin ve analiz edin. Ciddi olaylari belirlenen surelerde bildirin (Md. 73).'}
+    });
+  }
+
+  /* Art. 50 — Transparency (chatbots, deepfakes) */
+  if(isChatbot||isCustomerFacing){
+    var chatbotNote=chatbotTools.length>0?' ('+chatbotTools.join(', ')+')':'';
+    obs.push({
+      art:'Article 50(1)',
+      tag:{en:'Mandatory',tr:'Zorunlu'},tagClass:'tag-mandatory',
+      deadline:{en:'From 2 Aug 2026',tr:'2 Agustos 2026\'dan itibaren'},
+      desc:{en:'Chatbot disclosure'+chatbotNote+': inform users they are interacting with an AI system, unless this is obvious from the circumstances.',tr:'Chatbot ifsa yukumlulugu'+chatbotNote+': kullanicilari bir AI sistemiyle etkilesimde olduklari konusunda bilgilendirin, bu kosullardan acikca anlasilmadikca.'},
+      action:{en:'Add clear AI disclosure to all customer-facing interfaces. Example: "This response is generated by AI."',tr:'Tum musteriye donuk arayuzlere net AI ifsa bildirimi ekleyin. Ornek: "Bu yanit AI tarafindan uretilmistir."'}
+    });
+  }
+
+  if(isDeepfake){
+    var dfNote=deepfakeTools.length>0?' ('+deepfakeTools.join(', ')+')':'';
+    obs.push({
+      art:'Article 50(2)-(3)',
+      tag:{en:'Mandatory',tr:'Zorunlu'},tagClass:'tag-mandatory',
+      deadline:{en:'From 2 Aug 2026',tr:'2 Agustos 2026\'dan itibaren'},
+      desc:{en:'Synthetic content labelling'+dfNote+': AI-generated images, audio, and video must be labelled as artificially generated or manipulated in a machine-readable format.',tr:'Sentetik icerik etiketleme'+dfNote+': AI tarafindan uretilen gorseller, ses ve video, makine tarafindan okunabilir formatta yapay olarak uretilmis veya manipule edilmis olarak etiketlenmelidir.'},
+      action:{en:'Implement content labelling for all AI-generated media before publication or distribution. Use machine-readable metadata (C2PA or similar).',tr:'Yayin veya dagitim oncesinde tum AI tarafindan uretilen medya icin icerik etiketleme uygulayin. Makine tarafindan okunabilir meta veri (C2PA veya benzeri) kullanin.'}
+    });
+  }
+
+  /* GPAI awareness — Art. 53 (provider obligation, deployer should verify) */
+  if(isGPAI){
+    var gpaiNames=selectedTools.filter(function(t){return (t.flags||[]).indexOf('gpai')>=0}).map(function(t){return typeof t.name==='object'?t.name[lang]:t.name}).join(', ');
+    obs.push({
+      art:'Article 53',
+      tag:{en:'Awareness',tr:'Farkindalik'},tagClass:'tag-upcoming',
+      deadline:{en:'Applicable from 2 Aug 2025 (enforcement from Aug 2026)',tr:'2 Agustos 2025\'ten itibaren gecerli (yaptirimi Agustos 2026)'},
+      desc:{en:'GPAI provider obligations ('+gpaiNames+'): providers of general-purpose AI models must publish model cards, training data summaries, and comply with copyright rules. As a deployer, verify your provider meets these obligations.',tr:'GPAI saglayici yukumlulukleri ('+gpaiNames+'): genel amacli AI modeli saglayicilari model kartlari, egitim verisi ozetleri yayinlamali ve telif hakki kurallarina uymalidir. Konuslandirici olarak, saglayicinizin bu yukumlulukleri karsiladigini dogrulayin.'},
+      action:{en:'Request the GPAI model card from each provider. Verify they have published training data summaries and copyright compliance documentation as required by Art. 53.',tr:'Her saglayicidan GPAI model kartini talep edin. Md. 53 geregi egitim verisi ozetleri ve telif hakki uyum dokumantasyonu yayinladiklarini dogrulayin.'}
+    });
+  }
+
+  /* Scale-based governance (org-wide) */
+  if(answers.scale==='org'){
+    obs.push({
+      art:'Art. 4 + Art. 26',
+      tag:{en:'Governance',tr:'Yonetisim'},tagClass:'tag-conditional',
+      deadline:{en:'Ongoing',tr:'Surekli'},
+      desc:{en:'Organisation-wide AI deployment requires formal governance: AI usage policies, training records, responsible person designation, and systematic monitoring across all teams.',tr:'Organizasyon capinda AI konuslandirmasi resmi yonetisim gerektirir: AI kullanim politikalari, egitim kayitlari, sorumlu kisi atamasi ve tum ekiplerde sistematik izleme.'},
+      action:{en:'Establish an AI governance policy. Maintain a training log for all users. Designate an AI compliance officer or responsible person. Create an AI tool inventory.',tr:'Bir AI yonetisim politikasi olusturun. Tum kullanicilar icin egitim kaydi tutun. Bir AI uyum sorumlusu veya sorumlu kisi atayin. AI arac envanteri olusturun.'}
+    });
+  }
+
+  /* High-risk obligations */
+  if(isHighRisk){
+    obs.push({
+      art:'Article 9',
+      tag:{en:'High-risk',tr:'Yuksek risk'},tagClass:'tag-mandatory',
+      deadline:{en:'From 2 Aug 2026 (Annex III)',tr:'2 Agustos 2026\'dan itibaren (Ek III)'},
+      desc:{en:'Risk management system: as a deployer of a high-risk AI system, you must cooperate with the provider\'s risk management and report any risks identified during use.',tr:'Risk yonetim sistemi: yuksek riskli bir AI sisteminin konuslandiricisi olarak, saglayicinin risk yonetimiyle isbirligi yapmali ve kullanim sirasinda tespit edilen riskleri bildirmelisiniz.'},
+      action:{en:'Request the provider\'s risk management documentation. Establish your own risk monitoring for deployment context. Report anomalies to the provider.',tr:'Saglayicinin risk yonetimi dokumantasyonunu talep edin. Konuslandirma baginiz icin kendi risk izlemenizi olusturun. Anomalileri saglayiciya bildirin.'}
+    });
+
+    obs.push({
+      art:'Article 14',
+      tag:{en:'High-risk',tr:'Yuksek risk'},tagClass:'tag-mandatory',
+      deadline:{en:'From 2 Aug 2026 (Annex III)',tr:'2 Agustos 2026\'dan itibaren (Ek III)'},
+      desc:{en:'Human oversight: ensure competent individuals can understand, monitor, and override the AI system\'s outputs, with authority to decide not to use or override.',tr:'Insan gozetimi: yetkin kisilerin AI sisteminin ciktilarini anlayabilmesini, izleyebilmesini ve gecersiz kilabilmesini, kullanmama veya gecersiz kilma yetkisine sahip olmasini saglayin.'},
+      action:{en:'Designate qualified human overseers. Document override procedures. Ensure they can intervene in real-time when the system is used for decisions affecting individuals.',tr:'Nitelikli insan gozetmenleri atayin. Gecersiz kilma prosedurlerini belgeleyin. Sistem bireyleri etkileyen kararlar icin kullanildiginda gercek zamanli mudahale edebildiklerinden emin olun.'}
+    });
+
+    obs.push({
+      art:'Article 27',
+      tag:{en:'Conditional',tr:'Kosullu'},tagClass:'tag-conditional',
+      deadline:{en:'From 2 Aug 2026',tr:'2 Agustos 2026\'dan itibaren'},
+      desc:{en:'Fundamental rights impact assessment: required for public bodies and certain private deployers of high-risk AI systems before putting the system into use.',tr:'Temel haklar etki degerlendirmesi: yuksek riskli AI sistemlerinin kamu kurumlari ve belirli ozel konuslandiricilari icin sistemi kullanima sunmadan once zorunludur.'},
+      action:{en:'Conduct a FRIA using the Hexis FRIA tool. Document assessed risks and mitigation measures before deployment.',tr:'Hexis FRIA aracini kullanarak FRIA gerceklestirin. Degerlendirilen riskleri ve azaltma tedbirlerini konuslandirma oncesi belgeleyin.'}
+    });
+  }
+
+  /* Personal data → GDPR/KVKK crosswalk */
+  if(hasPersonalData){
+    obs.push({
+      art:'Art. 10 + GDPR',
+      tag:{en:'Data governance',tr:'Veri yonetisimi'},tagClass:'tag-conditional',
+      deadline:{en:'Ongoing',tr:'Surekli'},
+      desc:{en:'Data governance obligations apply. When personal data is processed by AI tools, both EU AI Act data quality requirements (Art. 10) and GDPR obligations apply concurrently.',tr:'Veri yonetisimi yukumlulukleri gecerlidir. AI araclari tarafindan kisisel veri islediginde, hem EU AI Act veri kalitesi gereksinimleri (Md. 10) hem de GDPR yukumlulukleri es zamanli uygulanir.'},
+      action:{en:'Review your data processing agreement (DPA) with the vendor. Ensure Art. 10 data quality requirements are met. Conduct a DPIA if processing is high-risk under GDPR.',tr:'Tedarikci ile veri isleme sozlesmenizi (DPA) inceleyin. Md. 10 veri kalitesi gereksinimlerinin karsilandigindan emin olun. GDPR kapsaminda isleme yuksek riskli ise DPIA gerceklestirin.'}
+    });
+  }
+
+  /* EU market → registration awareness */
+  if(answers.eu_market==='yes'&&isHighRisk){
+    obs.push({
+      art:'Article 49',
+      tag:{en:'Upcoming',tr:'Yaklasan'},tagClass:'tag-upcoming',
+      deadline:{en:'From 2 Aug 2026',tr:'2 Agustos 2026\'dan itibaren'},
+      desc:{en:'EU database registration: high-risk AI systems must be registered in the EU database before being put into service. As a deployer, verify your provider has completed registration.',tr:'AB veritabani kaydi: yuksek riskli AI sistemleri hizmete sunulmadan once AB veritabanina kaydedilmelidir. Konuslandirici olarak, saglayicinizin kaydi tamamladigini dogrulayin.'},
+      action:{en:'Ask your vendor to confirm their EU database registration status under Art. 49. Do not deploy unregistered high-risk systems after the deadline.',tr:'Tedarikcinizden Md. 49 kapsaminda AB veritabani kayit durumunu onaylamasini isteyin. Son tarihten sonra kayitsiz yuksek riskli sistemleri konuslandirmayin.'}
+    });
+  }
+
+  return obs;
+}
+
+/* ── VENDOR ASK LIST ── */
+function buildVendorAsks(){
+  var asks=[];
+  asks.push({en:'Technical documentation and instructions for use (Art. 13)',tr:'Teknik dokumantasyon ve kullanim talimatlari (Md. 13)'});
+  asks.push({en:'AI system risk classification and applicable conformity assessment (Art. 6, 43)',tr:'AI sistemi risk siniflandirmasi ve gecerli uygunluk degerlendirmesi (Md. 6, 43)'});
+
+  var gpaiTools=selectedTools.filter(function(t){return t.flags.indexOf('gpai')>=0}).map(function(t){return typeof t.name==='object'?t.name[lang]:t.name});
+  if(gpaiTools.length>0){
+    asks.push({en:'GPAI model card from '+gpaiTools.join(', ')+': training data summary, capabilities, limitations, and known risks (Art. 53)',tr:gpaiTools.join(', ')+' icin GPAI model karti: egitim verisi ozeti, yetenekler, sinirliliklar ve bilinen riskler (Md. 53)'});
+  }
+
+  if(answers.personal_data!=='no'){
+    asks.push({en:'Data processing agreement (DPA) compliant with GDPR Art. 28',tr:'GDPR Md. 28 uyumlu veri isleme sozlesmesi (DPA)'});
+    asks.push({en:'Data retention and deletion policies for your data',tr:'Verileriniz icin veri saklama ve silme politikalari'});
+  }
+
+  if(answers.high_risk!=='none'){
+    asks.push({en:'Risk management system documentation (Art. 9)',tr:'Risk yonetim sistemi dokumantasyonu (Md. 9)'});
+    asks.push({en:'EU database registration confirmation (Art. 49)',tr:'AB veritabani kayit onay (Md. 49)'});
+    asks.push({en:'Incident reporting procedures and contact point (Art. 73)',tr:'Olay raporlama prosedürleri ve irtibat noktasi (Md. 73)'});
+  }
+
+  if(answers.purpose==='customer'){
+    asks.push({en:'AI disclosure language and placement guidance for customer-facing use (Art. 50)',tr:'Musteriye donuk kullanim icin AI ifsa dili ve yerlesim rehberligi (Md. 50)'});
+  }
+
+  if(answers.scale==='org'||answers.scale==='team'){
+    asks.push({en:'Volume licensing terms and admin controls for team/org deployment',tr:'Takim/organizasyon konuslandirmasi icin toplu lisans sartlari ve yonetici kontrolleri'});
+  }
+
+  asks.push({en:'Security measures and vulnerability management',tr:'Guvenlik onlemleri ve zafiyet yonetimi'});
+  asks.push({en:'Service level agreement (SLA) and incident response time commitments',tr:'Hizmet seviyesi anlasmasi (SLA) ve olay mudahale suresi taahhutleri'});
+
+  return asks;
+}
+
+/* ── READINESS SCORE ── */
+function calcReadiness(){
+  var score=0;
+  if(answers.it_approved==='yes') score+=2;
+  else if(answers.it_approved==='partial') score+=1;
+  if(answers.eu_market==='yes') score+=1;
+  if(answers.purpose==='internal') score+=1;
+  else if(answers.purpose==='decision') score-=1;
+  if(answers.high_risk==='none') score+=1;
+
+  var level=score<=0?1:score===1?2:score===2?3:score===3?4:5;
+  var labels={
+    1:{en:'Low — significant gaps in deployer readiness',tr:'Dusuk: konuslandirici hazirliginda onemli bosluklar'},
+    2:{en:'Below average — key areas need attention',tr:'Ortanin altinda: kilit alanlar ilgi gerektiriyor'},
+    3:{en:'Moderate — foundation exists, gaps remain',tr:'Orta: temel mevcut, bosluklar var'},
+    4:{en:'Good — most areas covered',tr:'Iyi: cogu alan kapsamda'},
+    5:{en:'Strong — well-positioned for compliance',tr:'Guclu: uyum icin iyi konumlanmis'}
+  };
+  return {level:level,label:labels[level]};
+}
+
+/* ── EDIT ANSWERS ── */
+function editAnswers(){
+  document.getElementById('results').classList.remove('visible');
+  currentQ=0;
+  var qs=document.getElementById('quizSection');
+  qs.classList.add('active');
+  renderQuiz();
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+/* ── RETAKE ── */
+function retake(){
+  selectedTools=[];currentQ=0;answers={};
+  document.getElementById('results').classList.remove('visible');
+  document.getElementById('quizSection').classList.remove('active');
+  document.getElementById('toolSection').style.display='';
+  document.getElementById('btnStart').classList.remove('visible');
+  document.getElementById('toolOther').classList.remove('visible');
+  /* Reset Other tool flags */
+  var otherTool=TOOLS.find(function(t){return t.id==='other'});
+  if(otherTool) otherTool.flags=[];
+  document.querySelectorAll('#toolOtherFlags input[type=checkbox]').forEach(function(cb){cb.checked=false});
+  renderTools();
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+/* ── LANGUAGE ── */
+function setLang(l){
+  lang=l;
+  document.documentElement.lang=l==='tr'?'tr':'en';
+  document.querySelectorAll('.lang-btn').forEach(function(b){b.classList.toggle('active',b.dataset.lang===l)});
+  document.querySelectorAll('[data-en]').forEach(function(el){
+    var t=el.dataset[l];if(t!==undefined)el.innerHTML=t;
+    var h=el.dataset[l+'Href'];if(h)el.href=h;
+  });
+  document.querySelectorAll('.lang-tr').forEach(function(el){el.style.display=l==='tr'?'':'none'});
+  document.querySelectorAll('.lang-en').forEach(function(el){el.style.display=l==='en'?'':'none'});
+  var ph=document.getElementById('toolOtherInput');
+  if(ph){var p=ph.dataset[l+'Placeholder'];if(p)ph.placeholder=p;}
+  renderTools();
+  if(document.getElementById('quizSection').classList.contains('active')) renderQuiz();
+  try{localStorage.setItem('hexis-lang',l)}catch(e){}
+}
+(function(){var s;try{s=localStorage.getItem('hexis-lang')}catch(e){}setLang(s||(/^tr/i.test(navigator.language)?'tr':'en'))})();
+</script>
+</body>
+</html>
