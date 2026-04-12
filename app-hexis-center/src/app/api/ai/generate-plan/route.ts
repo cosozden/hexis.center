@@ -18,6 +18,12 @@ import { callClaude } from '@/lib/claude/client';
 import { GENERATE_ACTION_PLAN } from '@/lib/claude/tools';
 import { NAVIGATE_PROMPT, fillPrompt } from '@/lib/claude/prompts';
 import {
+  sanitizeInput,
+  buildSafetyPreamble,
+  runSafetyPipeline,
+  buildBlockedResponse,
+} from '@/lib/claude/safety';
+import {
   generateNavigateContext,
   type NavigateInput,
   type ObligationSummary,
@@ -170,16 +176,26 @@ export async function POST(request: Request) {
     `[${o.status}] ${o.title} (${o.article_reference})`
   ).join('\n');
 
-  // 8. Fill prompt
+  // 8. Input sanitization (Layer 1) — user constraints
+  let safeConstraints = input.userConstraints || '';
+  if (safeConstraints) {
+    const sanitization = sanitizeInput(safeConstraints);
+    if (sanitization.injectionDetected) {
+      safeConstraints = buildSafetyPreamble(safeConstraints, sanitization.riskLevel as 'medium' | 'high');
+      console.warn(`[generate-plan] Injection detected in constraints (${sanitization.riskLevel}):`, sanitization.detectedPatterns);
+    }
+  }
+
+  // 9. Fill prompt
   const prompt = fillPrompt(NAVIGATE_PROMPT, {
     SYSTEM_CONTEXT: navContext.formattedContext,
     RISK_CLASSIFICATION: navContext.riskSummary,
     OBLIGATIONS_STATUS: obligationsStatus,
     ASSESSMENT: `Posture: ${assessment.activation_posture} | Urgency: ${assessment.urgency_index} | Exposure: ${assessment.risk_exposure}`,
-    USER_CONSTRAINTS: input.userConstraints || 'No specific constraints provided. Assume SME with limited resources.',
+    USER_CONSTRAINTS: safeConstraints || 'No specific constraints provided. Assume SME with limited resources.',
   });
 
-  // 9. Call Claude (Sonnet for complex reasoning)
+  // 9. Call Claude (Sonnet + Extended Thinking for deep reasoning)
   try {
     const response = await callClaude({
       systemPrompt: prompt,
@@ -193,6 +209,10 @@ export async function POST(request: Request) {
       toolChoice: { type: 'tool', name: 'generate_action_plan' },
       model: 'sonnet',
       includeGrounding: true,
+      // Extended thinking: lets Claude reason deeply about priorities,
+      // dependencies, and regulatory deadlines before generating the plan
+      enableThinking: true,
+      thinkingBudget: 10000,
     });
 
     const plan = response.toolResult as {
@@ -222,7 +242,36 @@ export async function POST(request: Request) {
       );
     }
 
-    // 10. Delete existing actions if force=true
+    // 10. Safety pipeline (Layers 2-4)
+    const safetyResult = runSafetyPipeline({
+      inputText: input.userConstraints || '',
+      outputText: response.textContent,
+      toolResult: response.toolResult,
+      model: response.model,
+      orientStep: 'navigate',
+      usage: {
+        inputTokens: response.usage.inputTokens,
+        outputTokens: response.usage.outputTokens,
+        cacheReadTokens: response.usage.cacheReadTokens,
+      },
+      latencyMs: Date.now() - startTime,
+      usedThinking: true,
+      requiredOutputFields: ['executive_summary', 'actions'],
+    });
+
+    if (safetyResult.level !== 'green') {
+      console.warn(`[generate-plan] Safety ${safetyResult.level}:`, safetyResult.summary);
+    }
+
+    // Red-level: block AI output — don't save potentially hallucinated actions
+    if (safetyResult.shouldBlock) {
+      return NextResponse.json(
+        buildBlockedResponse(safetyResult),
+        { status: 422 },
+      );
+    }
+
+    // 10b. Delete existing actions if force=true
     if (input.force) {
       await ctx.supabase
         .from('actions')
@@ -318,6 +367,11 @@ export async function POST(request: Request) {
       },
       actions: savedActions || actionsToInsert.map((a, i) => ({ ...a, id: `temp-${i}` })),
       actionsCount: plan.actions.length,
+      safety: {
+        level: safetyResult.level,
+        outputId: safetyResult.metadata.outputId,
+        articleValidation: safetyResult.metadata.articleValidation,
+      },
       model: response.model,
     });
   } catch (err) {

@@ -22,6 +22,10 @@ import { MATRIX_INSIGHT } from '@/lib/claude/tools';
 import { EVALUATE_PROMPT, fillPrompt } from '@/lib/claude/prompts';
 import { authenticateRequest, checkRateLimit, logUsage } from '@/lib/api/auth';
 import {
+  runSafetyPipeline,
+  buildBlockedResponse,
+} from '@/lib/claude/safety';
+import {
   generateMatrix,
   MATURITY_LEVELS,
   MATURITY_LABELS,
@@ -162,8 +166,36 @@ export async function POST(request: Request) {
 
     const insight = response.toolResult as Record<string, string> | null;
 
-    // 10. Log usage (non-fatal)
+    // 10. Safety pipeline (Layers 2-4)
     const latencyMs = Date.now() - startTime;
+    const safetyResult = runSafetyPipeline({
+      inputText: `Matrix insight for ${system.name}`,
+      outputText: response.textContent,
+      toolResult: response.toolResult,
+      model: response.model,
+      orientStep: 'evaluate',
+      usage: {
+        inputTokens: response.usage.inputTokens,
+        outputTokens: response.usage.outputTokens,
+        cacheReadTokens: response.usage.cacheReadTokens,
+      },
+      latencyMs,
+      requiredOutputFields: ['critical_gaps', 'regulatory_perspective', 'improvement_targets'],
+    });
+
+    if (safetyResult.level !== 'green') {
+      console.warn(`[matrix-insight] Safety ${safetyResult.level}:`, safetyResult.summary);
+    }
+
+    // Red-level: block AI output, return null insight
+    if (safetyResult.shouldBlock) {
+      return NextResponse.json(
+        { ...buildBlockedResponse(safetyResult), insight: null },
+        { status: 422 },
+      );
+    }
+
+    // 11. Log usage (non-fatal)
     try {
       await logUsage(ctx, 'ai/matrix-insight', response.model, {
         inputTokens: response.usage.inputTokens,
@@ -176,6 +208,10 @@ export async function POST(request: Request) {
 
     return NextResponse.json({
       insight,
+      safety: {
+        level: safetyResult.level,
+        outputId: safetyResult.metadata.outputId,
+      },
       model: response.model,
       usage: {
         inputTokens: response.usage.inputTokens,

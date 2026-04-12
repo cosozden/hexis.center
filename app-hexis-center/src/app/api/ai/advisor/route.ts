@@ -21,6 +21,11 @@ import { NextResponse } from 'next/server';
 import { z } from 'zod';
 import { callClaude } from '@/lib/claude/client';
 import { authenticateRequest, checkRateLimit, logUsage } from '@/lib/api/auth';
+import {
+  sanitizeInput,
+  buildSafetyPreamble,
+  validateArticleReferences,
+} from '@/lib/claude/safety';
 import type { MessageParam } from '@anthropic-ai/sdk/resources/messages';
 
 // ━━━ INPUT VALIDATION ━━━
@@ -180,16 +185,24 @@ Rules:
 - Never invent article numbers or obligations that don't exist
 - If the user asks about something outside EU AI Act, acknowledge the boundary`;
 
-  // 8. Build message history for Claude
+  // 8. Input sanitization
+  const sanitization = sanitizeInput(body.message);
+  let safeMessage = body.message;
+  if (sanitization.injectionDetected) {
+    safeMessage = buildSafetyPreamble(body.message, sanitization.riskLevel as 'medium' | 'high');
+    console.warn(`[advisor] Injection detected (${sanitization.riskLevel}):`, sanitization.detectedPatterns);
+  }
+
+  // 9. Build message history for Claude
   const claudeMessages: MessageParam[] = [
     ...conversationMessages.map(m => ({
       role: m.role as 'user' | 'assistant',
       content: m.content,
     })),
-    { role: 'user' as const, content: body.message },
+    { role: 'user' as const, content: safeMessage },
   ];
 
-  // 9. Call Claude
+  // 10. Call Claude
   try {
     const claudeResponse = await callClaude({
       systemPrompt,
@@ -200,10 +213,16 @@ Rules:
     });
 
     // Extract text response
-    const assistantMessage = claudeResponse.content
+    const assistantMessage = claudeResponse.textContent || claudeResponse.content
       .filter((block): block is { type: 'text'; text: string } => block.type === 'text')
       .map(block => block.text)
       .join('\n');
+
+    // Article reference validation (Layer 2)
+    const articleCheck = validateArticleReferences(assistantMessage);
+    if (articleCheck.hasHallucinatedReferences) {
+      console.warn(`[advisor] Potentially hallucinated refs: ${articleCheck.invalidReferences.join(', ')}`);
+    }
 
     // 10. Save conversation
     const updatedMessages = [

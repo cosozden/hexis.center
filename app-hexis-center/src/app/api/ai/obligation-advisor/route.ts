@@ -18,6 +18,11 @@ import { NextResponse } from 'next/server';
 import { z } from 'zod';
 import { callClaude } from '@/lib/claude/client';
 import { authenticateRequest, checkRateLimit, logUsage } from '@/lib/api/auth';
+import {
+  sanitizeInput,
+  buildSafetyPreamble,
+  runSafetyPipeline,
+} from '@/lib/claude/safety';
 
 // ━━━ INPUT VALIDATION ━━━
 
@@ -184,16 +189,26 @@ Guidelines:
 - If the obligation is straightforward, say so — don't overcomplicate
 - If it requires specialist input (legal, technical), flag it clearly`;
 
-  // 8. Call Claude
+  // 8. Input sanitization (Layer 1)
+  const userInput = body.userContext ?? '';
+  const sanitization = sanitizeInput(userInput);
+
+  // Build user message — with safety preamble if injection detected
+  let userContent = `Provide practical implementation guidance for the obligation "${obligation.title}" (${obligation.article_reference}) for this ${system.organisation_role} organisation.`;
+  if (body.userContext) {
+    if (sanitization.injectionDetected) {
+      userContent += `\n\n${buildSafetyPreamble(body.userContext, sanitization.riskLevel as 'medium' | 'high')}`;
+      console.warn(`[obligation-advisor] Injection detected (${sanitization.riskLevel}):`, sanitization.detectedPatterns);
+    } else {
+      userContent += `\n\nAdditional context from user: ${body.userContext}`;
+    }
+  }
+
+  // 9. Call Claude
   try {
     const claudeResponse = await callClaude({
       systemPrompt,
-      messages: [
-        {
-          role: 'user',
-          content: `Provide practical implementation guidance for the obligation "${obligation.title}" (${obligation.article_reference}) for this ${system.organisation_role} organisation.${body.userContext ? `\n\nAdditional context from user: ${body.userContext}` : ''}`,
-        },
-      ],
+      messages: [{ role: 'user', content: userContent }],
       tools: [OBLIGATION_GUIDANCE_TOOL],
       toolChoice: { type: 'tool', name: 'obligation_guidance' },
       model: 'haiku',
@@ -202,7 +217,29 @@ Guidelines:
 
     const guidance = claudeResponse.toolResult;
 
-    // 9. Cache guidance in DB (non-fatal)
+    // 10. Safety pipeline (Layers 2-4)
+    const safetyResult = runSafetyPipeline({
+      inputText: userInput,
+      outputText: claudeResponse.textContent,
+      toolResult: guidance,
+      model: claudeResponse.model,
+      orientStep: 'identify',
+      usage: {
+        inputTokens: claudeResponse.usage.inputTokens,
+        outputTokens: claudeResponse.usage.outputTokens,
+        cacheReadTokens: claudeResponse.usage.cacheReadTokens,
+      },
+      latencyMs: Date.now() - startTime,
+      requiredOutputFields: ['summary', 'steps', 'confidence'],
+      confidenceLevel: (guidance as Record<string, unknown>)?.confidence as string,
+    });
+
+    // Log safety warnings (non-fatal)
+    if (safetyResult.level !== 'green') {
+      console.warn(`[obligation-advisor] Safety ${safetyResult.level}:`, safetyResult.summary);
+    }
+
+    // 11. Cache guidance in DB (non-fatal)
     try {
       await ctx.supabase
         .from('obligations')
@@ -212,7 +249,7 @@ Guidelines:
       console.warn('[obligation-advisor] Failed to cache guidance:', cacheErr);
     }
 
-    // 10. Log usage (non-fatal)
+    // 12. Log usage (non-fatal)
     try {
       await logUsage(ctx, 'ai/obligation-advisor', claudeResponse.model, {
         inputTokens: claudeResponse.usage.inputTokens,
@@ -226,10 +263,17 @@ Guidelines:
     return NextResponse.json({
       guidance,
       cached: false,
+      safety: {
+        level: safetyResult.level,
+        articleValidation: safetyResult.metadata.articleValidation,
+        disclaimer: safetyResult.metadata.disclaimer,
+      },
       meta: {
-        engine: 'obligation-advisor-v1',
+        engine: 'obligation-advisor-v2',
         model: claudeResponse.model,
         latencyMs: Date.now() - startTime,
+        cacheHit: claudeResponse.usage.cacheReadTokens > 0,
+        outputId: safetyResult.metadata.outputId,
       },
     });
   } catch (err) {

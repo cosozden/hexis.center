@@ -21,6 +21,11 @@ import { authenticateRequest, checkRateLimit, logUsage } from '@/lib/api/auth';
 import { callClaude } from '@/lib/claude/client';
 import { clearInvalidation } from '@/lib/governance/event-logger';
 import { getInvalidatedSteps, type OrientStep } from '@/lib/config/invalidation-config';
+import {
+  sanitizeInput,
+  buildSafetyPreamble,
+  runSafetyPipeline,
+} from '@/lib/claude/safety';
 
 // ━━━ INPUT SCHEMA ━━━
 
@@ -105,7 +110,15 @@ export async function POST(request: Request) {
 
   const invalidatedSteps = getInvalidatedSteps(input.sourceStep as OrientStep);
 
-  // 5. Call Claude Haiku (fast, cheap — appropriate for classification task)
+  // 5. Input sanitization (Layer 1)
+  const sanitization = sanitizeInput(input.changeDescription);
+  let safeChangeDesc = input.changeDescription;
+  if (sanitization.injectionDetected) {
+    safeChangeDesc = buildSafetyPreamble(input.changeDescription, sanitization.riskLevel as 'medium' | 'high');
+    console.warn(`[impact-assessment] Injection detected (${sanitization.riskLevel}):`, sanitization.detectedPatterns);
+  }
+
+  // 6. Call Claude Haiku (fast, cheap — appropriate for classification task)
   const prompt = `You are an AI governance expert evaluating whether a change to an AI system's compliance data is significant enough to require re-evaluation of downstream steps.
 
 CONTEXT:
@@ -115,7 +128,7 @@ CONTEXT:
 
 CHANGE DETAILS:
 - ORIENT step that changed: ${input.sourceStep}
-- Description of change: ${input.changeDescription}
+- Description of change: ${safeChangeDesc}
 ${input.previousValue ? `- Previous value: ${JSON.stringify(input.previousValue)}` : ''}
 ${input.newValue ? `- New value: ${JSON.stringify(input.newValue)}` : ''}
 
@@ -154,7 +167,27 @@ Use the assess_change_impact tool to provide your assessment.`;
       recommendation: string;
     };
 
-    // 6. If cosmetic, auto-clear invalidation flags
+    // 6b. Safety pipeline (Layers 2-4)
+    const safetyResult = runSafetyPipeline({
+      inputText: input.changeDescription,
+      outputText: response.textContent,
+      toolResult: response.toolResult,
+      model: response.model,
+      orientStep: input.sourceStep,
+      usage: {
+        inputTokens: response.usage.inputTokens,
+        outputTokens: response.usage.outputTokens,
+        cacheReadTokens: response.usage.cacheReadTokens,
+      },
+      latencyMs: Date.now() - startTime,
+      requiredOutputFields: ['significance', 'reasoning', 'recommendation'],
+    });
+
+    if (safetyResult.level !== 'green') {
+      console.warn(`[impact-assessment] Safety ${safetyResult.level}:`, safetyResult.summary);
+    }
+
+    // 7. If cosmetic, auto-clear invalidation flags
     if (assessment.significance === 'cosmetic') {
       for (const step of invalidatedSteps) {
         await clearInvalidation(ctx.supabase, {
@@ -186,6 +219,10 @@ Use the assess_change_impact tool to provide your assessment.`;
       assessment,
       invalidatedSteps,
       autoCleared: assessment.significance === 'cosmetic',
+      safety: {
+        level: safetyResult.level,
+        outputId: safetyResult.metadata.outputId,
+      },
     });
   } catch (err) {
     console.error('[impact-assessment] Claude call failed:', err);

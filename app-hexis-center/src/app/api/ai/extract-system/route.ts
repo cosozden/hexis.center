@@ -20,6 +20,12 @@ import { callClaude } from '@/lib/claude/client';
 import { EXTRACT_SYSTEM_INFO } from '@/lib/claude/tools';
 import { OBSERVE_PROMPT, fillPrompt } from '@/lib/claude/prompts';
 import { authenticateRequest, checkRateLimit, logUsage } from '@/lib/api/auth';
+import {
+  sanitizeInput,
+  buildSafetyPreamble,
+  runSafetyPipeline,
+  buildBlockedResponse,
+} from '@/lib/claude/safety';
 
 // ━━━ INPUT VALIDATION ━━━
 
@@ -70,7 +76,15 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: message }, { status: 400 });
   }
 
-  // 4. Build context for prompt
+  // 4. Input sanitization (Layer 1)
+  const sanitization = sanitizeInput(body.description);
+  let safeDescription = body.description;
+  if (sanitization.injectionDetected) {
+    safeDescription = buildSafetyPreamble(body.description, sanitization.riskLevel as 'medium' | 'high');
+    console.warn(`[extract-system] Injection detected (${sanitization.riskLevel}):`, sanitization.detectedPatterns);
+  }
+
+  // 5. Build context for prompt
   const contextParts: string[] = [];
   if (body.existingData?.name) {
     contextParts.push(`Known system name: ${body.existingData.name}`);
@@ -81,14 +95,14 @@ export async function POST(request: Request) {
     SYSTEM_CONTEXT: contextParts.join('\n'),
   });
 
-  // 5. Call Claude
+  // 6. Call Claude
   try {
     const response = await callClaude({
       systemPrompt,
       messages: [
         {
           role: 'user',
-          content: body.description,
+          content: sanitization.injectionDetected ? safeDescription : body.description,
         },
       ],
       tools: [EXTRACT_SYSTEM_INFO],
@@ -96,7 +110,35 @@ export async function POST(request: Request) {
       model: 'haiku', // Fast + cheap for extraction
     });
 
-    // 6. Log usage
+    // 7. Safety pipeline (Layers 2-4)
+    const safetyResult = runSafetyPipeline({
+      inputText: body.description,
+      outputText: response.textContent,
+      toolResult: response.toolResult,
+      model: response.model,
+      orientStep: 'observe',
+      usage: {
+        inputTokens: response.usage.inputTokens,
+        outputTokens: response.usage.outputTokens,
+        cacheReadTokens: response.usage.cacheReadTokens,
+      },
+      latencyMs: Date.now() - startTime,
+      requiredOutputFields: ['name', 'purpose'],
+    });
+
+    if (safetyResult.level !== 'green') {
+      console.warn(`[extract-system] Safety ${safetyResult.level}:`, safetyResult.summary);
+    }
+
+    // Red-level: block AI output
+    if (safetyResult.shouldBlock) {
+      return NextResponse.json(
+        buildBlockedResponse(safetyResult),
+        { status: 422 },
+      );
+    }
+
+    // 8. Log usage
     await logUsage(
       ctx,
       '/api/ai/extract-system',
@@ -109,10 +151,14 @@ export async function POST(request: Request) {
       Date.now() - startTime,
     );
 
-    // 7. Return extracted data
+    // 9. Return extracted data
     if (response.toolResult) {
       return NextResponse.json({
         extracted: response.toolResult,
+        safety: {
+          level: safetyResult.level,
+          outputId: safetyResult.metadata.outputId,
+        },
         meta: {
           engine: 'claude',
           model: response.model,

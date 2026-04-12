@@ -27,6 +27,7 @@ import { CLASSIFY_RISK_INSIGHT } from '@/lib/claude/tools';
 import { RISK_PROMPT, fillPrompt } from '@/lib/claude/prompts';
 import { authenticateRequest, checkRateLimit, logUsage } from '@/lib/api/auth';
 import { logGovernanceEvent, triggerInvalidation, EVENT_TYPES } from '@/lib/governance/event-logger';
+import { runSafetyPipeline, buildBlockedResponse } from '@/lib/claude/safety';
 
 // ━━━ INPUT VALIDATION ━━━
 
@@ -174,6 +175,41 @@ export async function POST(request: Request) {
         outputTokens: claudeResponse.usage.outputTokens,
         cacheReadTokens: claudeResponse.usage.cacheReadTokens,
       };
+
+      // Safety pipeline: validate article refs + check for deterministic override
+      const safetyResult = runSafetyPipeline({
+        inputText: `Classify ${system.name}`,
+        outputText: claudeResponse.textContent,
+        toolResult: claudeResponse.toolResult,
+        model: claudeResponse.model,
+        orientStep: 'risk',
+        usage: aiUsage,
+        latencyMs: Date.now() - startTime,
+        deterministicRiskLevel: classificationResult.riskLevel,
+        requiredOutputFields: ['validation_reasoning', 'confidence', 'next_steps'],
+      });
+
+      if (safetyResult.level !== 'green') {
+        console.warn(`[classify-insight] Safety ${safetyResult.level}:`, safetyResult.summary);
+      }
+
+      // Red-level: replace AI insight with blocked response
+      if (safetyResult.shouldBlock) {
+        console.error(`[classify-insight] RED safety — blocking AI insight. Issues: ${safetyResult.issues.join('; ')}`);
+        aiInsight = {
+          error: 'AI enrichment failed safety validation',
+          blocked: true,
+          issues: safetyResult.issues,
+          fallback: true,
+        };
+      } else if (aiInsight) {
+        // Attach safety metadata to insight
+        (aiInsight as Record<string, unknown>)._safety = {
+          level: safetyResult.level,
+          articleValidation: safetyResult.metadata.articleValidation,
+          outputId: safetyResult.metadata.outputId,
+        };
+      }
     } catch (err) {
       // Claude failure is non-fatal — deterministic result still returned
       console.error('[classify-insight] Claude API error:', err);

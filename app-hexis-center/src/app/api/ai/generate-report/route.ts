@@ -20,6 +20,10 @@ import { callClaude } from '@/lib/claude/client';
 import { GENERATE_REPORT } from '@/lib/claude/tools';
 import { TRACK_PROMPT, fillPrompt } from '@/lib/claude/prompts';
 import { calculateComplianceScore, type ScoreInput } from '@/lib/engines/score-engine';
+import {
+  runSafetyPipeline,
+  buildBlockedResponse,
+} from '@/lib/claude/safety';
 
 // ━━━ INPUT SCHEMA ━━━
 
@@ -206,7 +210,7 @@ ${trendData}
     TARGET_AUDIENCE: audienceLabel[input.audience],
   });
 
-  // 9. Call Claude (Sonnet for report quality)
+  // 9. Call Claude (Sonnet + Extended Thinking for report quality)
   try {
     const response = await callClaude({
       systemPrompt: prompt,
@@ -220,6 +224,10 @@ ${trendData}
       toolChoice: { type: 'tool', name: 'generate_compliance_report' },
       model: 'sonnet',
       includeGrounding: true,
+      // Extended thinking: lets Claude reason deeply about compliance gaps,
+      // risk interdependencies, and audience-specific framing
+      enableThinking: true,
+      thinkingBudget: 8000,
     });
 
     const report = response.toolResult as {
@@ -243,7 +251,39 @@ ${trendData}
       );
     }
 
-    // 10. Log usage
+    // 10. Safety pipeline (Layers 2-4) — CRITICAL for customer-facing reports
+    const safetyResult = runSafetyPipeline({
+      inputText: `Generate ${input.audience} report for ${system.name}`,
+      outputText: response.textContent,
+      toolResult: response.toolResult,
+      model: response.model,
+      orientStep: 'track',
+      usage: {
+        inputTokens: response.usage.inputTokens,
+        outputTokens: response.usage.outputTokens,
+        cacheReadTokens: response.usage.cacheReadTokens,
+      },
+      latencyMs: Date.now() - startTime,
+      usedThinking: true,
+      requiredOutputFields: ['title', 'executive_summary', 'recommendations'],
+    });
+
+    if (safetyResult.level !== 'green') {
+      console.warn(`[generate-report] Safety ${safetyResult.level}:`, safetyResult.summary);
+    }
+
+    // Red-level: BLOCK — never send hallucinated content in a compliance report
+    if (safetyResult.shouldBlock) {
+      return NextResponse.json(
+        {
+          ...buildBlockedResponse(safetyResult),
+          score: complianceScore, // Still return the deterministic score
+        },
+        { status: 422 },
+      );
+    }
+
+    // 10b. Log usage
     const latencyMs = Date.now() - startTime;
     try {
       await logUsage(ctx, 'ai/generate-report', response.model, {
@@ -276,6 +316,12 @@ ${trendData}
     return NextResponse.json({
       report,
       score: complianceScore,
+      safety: {
+        level: safetyResult.level,
+        outputId: safetyResult.metadata.outputId,
+        articleValidation: safetyResult.metadata.articleValidation,
+        disclaimer: safetyResult.metadata.disclaimer,
+      },
       model: response.model,
     });
   } catch (err) {
