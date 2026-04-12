@@ -1,11 +1,11 @@
 import { createServerSupabaseClient, getUserProfile } from '@/lib/supabase/server';
 import { Card } from '@/components/ui';
+import { BillingSection } from '@/components/billing/billing-section';
 
 export const dynamic = 'force-dynamic';
 
 /**
- * Settings — account and organisation settings
- * Shows basic profile and org info. Full implementation in a later sprint.
+ * Settings — account, organisation, and billing management
  */
 export default async function SettingsPage() {
   let profile;
@@ -15,9 +15,10 @@ export default async function SettingsPage() {
     return null;
   }
 
-  const orgName = profile?.organizations
-    ? String((profile.organizations as Record<string, string>).name)
-    : 'My Organisation';
+  const org = profile?.organizations as Record<string, unknown> | null;
+  const orgName = org ? String(org.name) : 'My Organisation';
+  const subscriptionStatus = org?.subscription_status as string | null;
+  const stripeCustomerId = org?.stripe_customer_id as string | null;
 
   return (
     <div className="max-w-3xl">
@@ -26,7 +27,7 @@ export default async function SettingsPage() {
           Settings
         </h1>
         <p className="text-muted-foreground mt-3">
-          Manage your account and organisation preferences.
+          Manage your account, billing, and organisation preferences.
         </p>
       </div>
 
@@ -55,12 +56,19 @@ export default async function SettingsPage() {
         </div>
       </Card>
 
-      <Card accent className="text-center py-8 px-6">
+      {/* Billing */}
+      <BillingSection
+        subscriptionStatus={subscriptionStatus}
+        hasStripeCustomer={!!stripeCustomerId}
+      />
+
+      {/* Coming soon */}
+      <Card accent className="text-center py-6 px-6 mt-4">
         <p className="text-[9px] uppercase tracking-[0.1em] text-primary mb-3">
           Coming Soon
         </p>
-        <p className="text-muted-foreground max-w-md mx-auto">
-          Profile editing, team management, billing, and notification preferences
+        <p className="text-muted-foreground max-w-md mx-auto text-sm">
+          Profile editing, team management, and notification preferences
           will be available in a future update.
         </p>
       </Card>

@@ -102,7 +102,22 @@ export default function OnboardingPage() {
         throw new Error(result.error || "Onboarding failed");
       }
 
-      // Redirect to dashboard
+      // Start checkout flow — redirect to Stripe
+      try {
+        const checkoutRes = await fetch("/api/billing/checkout", {
+          method: "POST",
+        });
+        const checkoutData = await checkoutRes.json();
+        if (checkoutData.url) {
+          window.location.href = checkoutData.url;
+          return;
+        }
+      } catch {
+        // If checkout fails, still proceed to dashboard
+        console.warn("Checkout redirect failed — proceeding to dashboard");
+      }
+
+      // Fallback: redirect to dashboard
       router.push("/dashboard");
       router.refresh();
     } catch (err) {
