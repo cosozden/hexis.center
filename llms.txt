@@ -1,7 +1,7 @@
 # Hexis AI Governance
 
 > Türkiye'de AI governance, EU AI Act ve KVKK uyumu için bağımsız platform.
-> Kurucu: Özden Coşkun — ISO/IEC 42001 Lead Implementer, IAPP AIGP Candidate
+> Kurucu: Özden Coşkun — ISO/IEC 42001 Implementer, IAPP member
 
 ## Platform
 

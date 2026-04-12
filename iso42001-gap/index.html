@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ISO 42001 × EU AI Act Gap Quiz — Free Tool | Hexis</title>
+<meta name="description" content="How much does your ISO 42001 implementation cover EU AI Act obligations? 10-question assessment mapping ISO 42001 controls to EU AI Act articles. Find your gaps in 3 minutes. Free, no signup.">
+<meta property="og:title" content="ISO 42001 × EU AI Act Gap Quiz — Free Tool | Hexis">
+<meta property="og:description" content="10-question gap assessment: ISO 42001 controls vs EU AI Act obligations. Find where your AIMS falls short. Free.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://hexis.center/iso42001-gap/">
+<meta property="og:image" content="https://hexis.center/assets/og-hexis.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="ISO 42001 × EU AI Act Gap Quiz — Free Tool | Hexis">
+<meta name="twitter:description" content="10-question gap assessment: ISO 42001 controls vs EU AI Act obligations. Free.">
+<link rel="canonical" href="https://hexis.center/iso42001-gap/">
+<link rel="icon" href="/assets/favicon.ico">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+<script defer data-domain="hexis.center" src="https://plausible.io/js/script.js"></script>
+<style>.lang-tr{display:none}</style>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "ISO 42001 × EU AI Act Gap Quiz",
+  "applicationCategory": "BusinessApplication",
+  "operatingSystem": "Web",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "EUR" },
+  "description": "10-question gap assessment mapping ISO/IEC 42001 AI management system controls to EU AI Act (Reg. 2024/1689) obligations. Identifies coverage, partial alignment, and critical gaps.",
+  "url": "https://hexis.center/iso42001-gap/",
+  "provider": {
+    "@type": "Organization",
+    "name": "Hexis AI Governance",
+    "url": "https://hexis.center"
+  }
+}
+</script>
+<style>
+:root{
+  --charcoal:#1C1E23;--brass:#B2986C;--stone:#8A8784;
+  --dark-bg:#16181C;--dark-type:#E8E6E2;--dark-sub:#8A8884;
+  --bg:var(--dark-bg);--text:var(--dark-type);--text2:var(--dark-sub);
+  --border:rgba(232,230,226,0.10);--border2:rgba(232,230,226,0.18);
+  --card:rgba(232,230,226,0.04);--card2:rgba(232,230,226,0.07);
+  --gap-red:rgba(220,80,60,0.15);--gap-yellow:rgba(200,170,60,0.15);--gap-green:rgba(80,180,100,0.15);
+  --gap-red-text:#E8A09A;--gap-yellow-text:#D4C88A;--gap-green-text:#8AC8A0;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;font-size:16px}
+body{font-family:Arial,sans-serif;-webkit-font-smoothing:antialiased;background:var(--bg);color:var(--text);line-height:1.55;min-height:100vh}
+p{line-height:1.75;color:var(--text2)}
+
+nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:0 48px;height:60px;background:var(--dark-bg);border-bottom:1px solid var(--border)}
+.nav-logo{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--text)}
+.nav-logo img{display:block;height:40px;width:auto}
+.nav-links{display:flex;gap:4px;align-items:center}
+.nav-links a{color:var(--dark-sub);text-decoration:none;font-size:12px;padding:6px 12px;transition:color .15s;letter-spacing:.04em}
+.nav-links a:hover{color:var(--brass)}
+.lang-switch{display:flex;align-items:center;gap:0;margin-left:8px;font-size:11px;letter-spacing:.06em;border:1px solid var(--border2);cursor:pointer}
+.lang-btn{padding:5px 10px;color:var(--dark-sub);background:none;border:none;cursor:pointer;font-family:inherit;font-size:inherit;letter-spacing:inherit;transition:color .15s,background .15s}
+.lang-btn:hover{color:var(--text2)}
+.lang-btn.active{color:var(--brass);background:rgba(178,152,108,0.1)}
+.lang-sep{color:var(--border2);font-size:10px;user-select:none}
+
+.wrap{max-width:960px;margin:0 auto;padding:0 48px}
+
+/* HERO */
+.hero{padding:72px 0 56px;text-align:center}
+.hero-label{font-size:9px;font-weight:400;letter-spacing:.18em;text-transform:uppercase;color:var(--brass);margin-bottom:16px}
+.hero h1{font-family:Georgia,serif;font-size:clamp(26px,4vw,42px);font-weight:700;line-height:1.15;color:var(--text);letter-spacing:-.02em;margin-bottom:16px}
+.hero-desc{font-size:clamp(14px,1.5vw,16px);color:var(--text2);line-height:1.7;max-width:600px;margin:0 auto 0}
+
+.divider{border:none;border-top:1px solid var(--border);margin:0}
+
+/* QUIZ */
+.quiz-section{padding:48px 0 64px}
+.quiz-progress{display:flex;align-items:center;gap:12px;margin-bottom:32px}
+.quiz-progress-bar{flex:1;height:2px;background:var(--border2);position:relative}
+.quiz-progress-fill{position:absolute;left:0;top:0;height:100%;background:var(--brass);transition:width .3s}
+.quiz-progress-text{font-size:11px;color:var(--stone);letter-spacing:.04em;white-space:nowrap}
+
+.quiz-card{border:1px solid var(--border2);padding:32px;margin-bottom:20px;display:none}
+.quiz-card.active{display:block}
+.quiz-iso-ref{font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--brass);margin-bottom:8px}
+.quiz-euai-ref{font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--stone);margin-bottom:16px}
+.quiz-question{font-family:Georgia,serif;font-size:17px;font-weight:700;color:var(--text);line-height:1.4;margin-bottom:8px}
+.quiz-context{font-size:12px;color:var(--text2);line-height:1.65;margin-bottom:24px}
+
+.quiz-options{display:flex;flex-direction:column;gap:8px}
+.quiz-opt{
+  padding:14px 18px;border:1px solid var(--border2);cursor:pointer;
+  transition:border-color .15s,background .15s;display:flex;align-items:center;gap:12px;
+}
+.quiz-opt:hover{border-color:rgba(232,230,226,.35);background:var(--card)}
+.quiz-opt.selected{border-color:var(--brass);background:rgba(178,152,108,0.08)}
+.quiz-opt-marker{width:16px;height:16px;border:1px solid var(--border2);flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:10px;color:transparent;transition:all .15s}
+.quiz-opt.selected .quiz-opt-marker{border-color:var(--brass);color:var(--brass)}
+.quiz-opt-label{font-size:13px;color:var(--text2);line-height:1.5}
+.quiz-opt.selected .quiz-opt-label{color:var(--text)}
+
+.quiz-nav{display:flex;justify-content:space-between;margin-top:24px}
+.btn-quiz{padding:10px 24px;font-size:12px;letter-spacing:.04em;cursor:pointer;transition:all .15s;font-family:Arial,sans-serif}
+.btn-quiz-next{background:var(--dark-type);color:var(--charcoal);border:none;font-weight:700}
+.btn-quiz-next:hover{opacity:.88}
+.btn-quiz-next:disabled{opacity:.3;cursor:not-allowed}
+.btn-quiz-back{background:transparent;color:var(--text2);border:1px solid var(--border2)}
+.btn-quiz-back:hover{border-color:rgba(232,230,226,.35);color:var(--text)}
+
+/* RESULTS */
+.results{display:none;padding:48px 0 64px}
+.results.visible{display:block}
+.results-header{text-align:center;margin-bottom:40px}
+.results-score{font-family:Georgia,serif;font-size:clamp(48px,8vw,72px);font-weight:700;color:var(--brass);line-height:1}
+.results-score-label{font-size:12px;color:var(--stone);margin-top:8px;letter-spacing:.06em;text-transform:uppercase}
+.results-posture{font-family:Georgia,serif;font-size:20px;color:var(--text);margin-top:16px;font-weight:700}
+.results-posture-desc{font-size:13px;color:var(--text2);max-width:560px;margin:8px auto 0;line-height:1.65}
+
+.results-label{font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--brass);margin-bottom:16px}
+.gap-table{width:100%;border-collapse:collapse;margin-bottom:40px;table-layout:fixed}
+.gap-table th{text-align:left;font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--stone);padding:10px 14px;border-bottom:1px solid var(--border2);font-weight:400}
+.gap-table th:nth-child(1){width:16%}
+.gap-table th:nth-child(2){width:22%}
+.gap-table th:nth-child(3){width:10%}
+.gap-table th:nth-child(4){width:52%}
+.gap-table td{padding:12px 14px;border-bottom:1px solid var(--border);font-size:12px;color:var(--text2);line-height:1.5;vertical-align:top}
+.gap-table td:first-child{color:var(--text);font-weight:700;font-family:Georgia,serif;font-size:13px;white-space:nowrap}
+.gap-status{display:inline-flex;align-items:center;gap:5px;padding:3px 10px;font-size:10px;letter-spacing:.06em;text-transform:uppercase;font-weight:400}
+.gap-status.covered{background:var(--gap-green);color:var(--gap-green-text)}
+.gap-status.partial{background:var(--gap-yellow);color:var(--gap-yellow-text)}
+.gap-status.gap{background:var(--gap-red);color:var(--gap-red-text)}
+
+.results-cta{text-align:center;padding:40px 0;border-top:1px solid var(--border)}
+.results-cta h3{font-family:Georgia,serif;font-size:22px;color:var(--text);margin-bottom:10px}
+.results-cta p{font-size:13px;color:var(--text2);margin-bottom:20px;max-width:480px;margin-left:auto;margin-right:auto;line-height:1.65}
+.btn-primary{background:var(--dark-type);color:var(--charcoal);padding:12px 28px;font-weight:700;font-size:13px;border:none;cursor:pointer;transition:opacity .15s;text-decoration:none;display:inline-flex;align-items:center;gap:7px;letter-spacing:.04em}
+.btn-primary:hover{opacity:.88}
+.btn-outline{background:transparent;color:var(--text2);padding:12px 28px;font-weight:400;font-size:13px;border:1px solid var(--border2);cursor:pointer;transition:color .15s,border-color .15s;text-decoration:none;display:inline-flex;align-items:center;gap:7px;letter-spacing:.04em}
+.btn-outline:hover{border-color:rgba(232,230,226,.35);color:var(--text)}
+
+.results-actions{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+
+footer{border-top:1px solid var(--border);padding:20px 48px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.footer-left{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.footer-logo{display:flex;align-items:center;text-decoration:none}
+.footer-logo img{display:block;max-height:18px}
+.footer-sep{color:var(--stone);margin:0 4px}
+.footer-txt{font-size:10px;color:var(--stone);letter-spacing:.02em}
+.footer-links{display:flex;gap:16px;flex-wrap:wrap}
+.footer-links a{font-size:10px;color:var(--stone);text-decoration:none;transition:color .15s;letter-spacing:.04em}
+.footer-links a:hover{color:var(--text2)}
+
+@media(max-width:860px){
+  nav{padding:0 20px}
+  .nav-links{display:none}
+  .wrap{padding:0 20px}
+  .hero{padding:48px 0 36px}
+  .quiz-card{padding:20px}
+  .gap-table{font-size:11px;table-layout:auto}
+  .gap-table td,.gap-table th{padding:8px 10px}
+  .gap-table td:first-child{white-space:normal}
+  footer{flex-direction:column;align-items:flex-start;padding:20px}
+}
+@media print{
+  nav,.quiz-section,.results-cta,footer{display:none}
+  .results{display:block!important;padding:20px 0}
+  .results-header{margin-bottom:20px}
+  body{background:#fff;color:#1C1E23}
+  .results-score{color:#B2986C}
+  .gap-table td,.gap-table th{color:#1C1E23;border-color:#ccc}
+  .gap-status.covered{background:#d4edda;color:#155724}
+  .gap-status.partial{background:#fff3cd;color:#856404}
+  .gap-status.gap{background:#f8d7da;color:#721c24}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="/" class="nav-logo"><img src="/assets/logo-light.png" alt="Hexis" width="72" height="40"></a>
+  <div class="nav-links">
+    <a href="/">Home</a>
+    <a href="/methodology/" data-en-href="/methodology/" data-tr-href="/metodoloji/">ORIENT</a>
+    <a href="/generator/">Generator</a>
+    <a href="/checklist/" data-en-href="/checklist/" data-tr-href="/kvkk/" data-en="Checklist" data-tr="Kontrol Listesi">Checklist</a>
+    <a href="/blog/">Blog</a>
+  </div>
+  <div class="lang-switch">
+    <button class="lang-btn" data-lang="tr" onclick="setLang('tr')">TR</button>
+    <span class="lang-sep">|</span>
+    <button class="lang-btn active" data-lang="en" onclick="setLang('en')">EN</button>
+  </div>
+</nav>
+
+<div class="wrap">
+  <div class="hero">
+    <div class="hero-label" data-en="Free Tool · ISO 42001 × EU AI Act" data-tr="Ücretsiz Araç · ISO 42001 × EU AI Act">Free Tool · ISO 42001 × EU AI Act</div>
+    <h1 data-en="Does your ISO 42001 cover the EU AI Act?"
+        data-tr="ISO 42001'iniz EU AI Act'ı karşılıyor mu?">Does your ISO 42001 cover the EU AI Act?</h1>
+    <p class="hero-desc"
+       data-en="10 questions. 3 minutes. See where your AI management system aligns with Reg. (EU) 2024/1689 — and where the critical gaps are."
+       data-tr="10 soru. 3 dakika. AI yönetim sisteminizin Reg. (EU) 2024/1689 ile nerede uyumlu olduğunu ve kritik boşlukların nerede olduğunu görün."
+    >10 questions. 3 minutes. See where your AI management system aligns with Reg. (EU) 2024/1689 — and where the critical gaps are.</p>
+  </div>
+</div>
+
+<hr class="divider">
+
+<!-- QUIZ -->
+<div class="wrap">
+  <div class="quiz-section" id="quizSection">
+    <div class="quiz-progress">
+      <div class="quiz-progress-bar"><div class="quiz-progress-fill" id="progressFill" style="width:10%"></div></div>
+      <div class="quiz-progress-text" id="progressText">1 / 10</div>
+    </div>
+
+    <div id="quizContainer"></div>
+
+    <div class="quiz-nav">
+      <button class="btn-quiz btn-quiz-back" id="btnBack" onclick="prevQuestion()" style="visibility:hidden"
+        data-en="← Back" data-tr="← Geri">← Back</button>
+      <button class="btn-quiz btn-quiz-next" id="btnNext" onclick="nextQuestion()" disabled
+        data-en="Next →" data-tr="Sonraki →">Next →</button>
+    </div>
+  </div>
+</div>
+
+<!-- RESULTS -->
+<div class="wrap">
+  <div class="results" id="results">
+    <div class="results-header">
+      <div class="results-score" id="scoreValue">—</div>
+      <div class="results-score-label" data-en="Coverage Score" data-tr="Kapsam Skoru">Coverage Score</div>
+      <div class="results-posture" id="postureLabel">—</div>
+      <div class="results-posture-desc" id="postureDesc">—</div>
+    </div>
+
+    <div class="results-label" data-en="Gap Mapping: ISO 42001 → EU AI Act" data-tr="Boşluk Haritası: ISO 42001 → EU AI Act">Gap Mapping: ISO 42001 → EU AI Act</div>
+    <table class="gap-table">
+      <thead>
+        <tr>
+          <th data-en="ISO 42001 Control" data-tr="ISO 42001 Kontrol">ISO 42001 Control</th>
+          <th data-en="EU AI Act Article" data-tr="EU AI Act Madde">EU AI Act Article</th>
+          <th data-en="Status" data-tr="Durum">Status</th>
+          <th data-en="Note" data-tr="Not">Note</th>
+        </tr>
+      </thead>
+      <tbody id="gapTableBody"></tbody>
+    </table>
+
+    <div class="results-cta">
+      <h3 data-en="Want control-level gap analysis?"
+          data-tr="Kontrol bazlı gap analizi ister misiniz?">Want control-level gap analysis?</h3>
+      <p data-en="This quiz covers 10 key areas. The full assessment on app.hexis.center maps 40+ individual ISO 42001 controls to specific EU AI Act articles — with prioritised remediation actions and deadline tracking."
+         data-tr="Bu quiz 10 temel alanı kapsar. app.hexis.center'daki tam değerlendirme, 40'tan fazla bireysel ISO 42001 kontrolünü belirli EU AI Act maddeleriyle eşleştirir — önceliklendirilmiş düzeltme aksiyonları ve süre takibi ile."
+      >This quiz covers 10 key areas. The full assessment on app.hexis.center maps 40+ individual controls to specific EU AI Act articles with prioritised remediation actions.</p>
+      <div class="results-actions">
+        <a href="https://app.hexis.center" class="btn-primary" target="_blank"
+           data-en="Full Gap Analysis →" data-tr="Tam Boşluk Analizi →">Full Gap Analysis →</a>
+        <a href="/generator/" class="btn-outline"
+           data-en="Classify Your AI System" data-tr="AI Sisteminizi Sınıflandırın">Classify Your AI System</a>
+        <button class="btn-outline" onclick="window.print()"
+           data-en="Print Results" data-tr="Sonuçları Yazdır">Print Results</button>
+        <button class="btn-outline" onclick="retakeQuiz()"
+           data-en="Retake Quiz" data-tr="Tekrar Çöz">Retake Quiz</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-left">
+    <a href="/" class="footer-logo"><img src="/assets/logo-light.png" alt="Hexis" width="32" height="18"></a>
+    <span class="footer-sep">·</span>
+    <span class="footer-txt">© 2026 Hexis · For informational purposes only. Does not constitute legal advice.</span>
+  </div>
+  <div class="footer-links">
+    <a href="/">Home</a>
+    <a href="/generator/">Generator</a>
+    <a href="/checklist/">Checklist</a>
+    <a href="/fria/">FRIA</a>
+    <a href="/blog/">Blog</a>
+  </div>
+</footer>
+
+<script>
+/* ── QUIZ DATA ── */
+var QUESTIONS=[
+{
+  iso:'A.2 / A.3',
+  isoLabel:{en:'AI Policy & Leadership',tr:'AI Politikası & Liderlik'},
+  euai:{en:'Article 4 (AI Literacy) + Article 26 (Deployer Obligations)',tr:'Madde 4 (AI Okuryazarlığı) + Madde 26 (Konuşlandırıcı Yükümlülükleri)'},
+  q:{en:'Does your organisation have a formal AI policy with defined leadership accountability for AI systems?',tr:'Organizasyonunuzda AI sistemleri için tanımlanmış liderlik sorumluluğu olan resmi bir AI politikası var mı?'},
+  ctx:{en:'ISO 42001 requires an AI policy (A.2) and leadership commitment (A.3). The EU AI Act requires AI literacy programmes (Art. 4) and deployer accountability (Art. 26).',tr:'ISO 42001 AI politikası (A.2) ve liderlik taahhüdü (A.3) gerektirir. EU AI Act AI okuryazarlığı programları (Md. 4) ve konuşlandırıcı hesap verebilirliği (Md. 26) gerektirir.'},
+  gap:{en:'EU AI Act Art. 4 mandates AI literacy training by Feb 2025 — ISO 42001 covers policy but not the specific literacy obligation.',tr:'EU AI Act Md. 4, Şubat 2025\'e kadar AI okuryazarlığı eğitimi zorunlu kılıyor — ISO 42001 politikayı kapsıyor ancak spesifik okuryazarlık yükümlülüğünü kapsamıyor.'}
+},
+{
+  iso:'A.4',
+  isoLabel:{en:'AI Risk Assessment',tr:'AI Risk Değerlendirmesi'},
+  euai:{en:'Article 6 + Article 9 (Risk Management)',tr:'Madde 6 + Madde 9 (Risk Yönetimi)'},
+  q:{en:'Do you have a structured AI-specific risk assessment process that classifies systems by risk level?',tr:'Sistemleri risk seviyesine göre sınıflandıran yapılandırılmış, AI\'ye özgü bir risk değerlendirme süreciniz var mı?'},
+  ctx:{en:'ISO 42001 A.4 requires AI risk assessment. The EU AI Act defines a 4-tier classification (Art. 6) and mandates continuous risk management for high-risk systems (Art. 9).',tr:'ISO 42001 A.4 AI risk değerlendirmesi gerektirir. EU AI Act 4 katmanlı sınıflandırma (Md. 6) tanımlar ve yüksek riskli sistemler için sürekli risk yönetimi (Md. 9) zorunlu kılar.'},
+  gap:{en:'ISO 42001 risk assessment is broader. EU AI Act requires specific 4-tier classification with different obligations per level — this granularity is not in ISO 42001.',tr:'ISO 42001 risk değerlendirmesi daha geniştir. EU AI Act seviye bazlı farklı yükümlülüklerle 4 katmanlı sınıflandırma gerektirir — bu detay ISO 42001\'de yoktur.'}
+},
+{
+  iso:'A.5',
+  isoLabel:{en:'AI System Impact Assessment',tr:'AI Sistem Etki Değerlendirmesi'},
+  euai:{en:'Article 27 (FRIA) + Article 9(2)(a)',tr:'Madde 27 (FRIA) + Madde 9(2)(a)'},
+  q:{en:'Do you conduct impact assessments that specifically evaluate effects on fundamental rights?',tr:'Temel haklara etkiyi özellikle değerlendiren etki değerlendirmeleri yapıyor musunuz?'},
+  ctx:{en:'ISO 42001 A.5 covers AI impact assessment. The EU AI Act requires Fundamental Rights Impact Assessment (Art. 27) for high-risk systems used by public bodies or specific private deployers.',tr:'ISO 42001 A.5 AI etki değerlendirmesini kapsar. EU AI Act, kamu kurumları veya belirli özel konuşlandırıcılar tarafından kullanılan yüksek riskli sistemler için Temel Haklar Etki Değerlendirmesi (Md. 27) gerektirir.'},
+  gap:{en:'FRIA under Art. 27 has specific scope and structure requirements that go beyond ISO 42001\'s general impact assessment framework.',tr:'Md. 27 kapsamındaki FRIA, ISO 42001\'in genel etki değerlendirme çerçevesinin ötesinde spesifik kapsam ve yapı gereksinimleri içerir.'}
+},
+{
+  iso:'A.6',
+  isoLabel:{en:'AI System Life Cycle',tr:'AI Sistem Yaşam Döngüsü'},
+  euai:{en:'Article 9 (Risk Management System)',tr:'Madde 9 (Risk Yönetim Sistemi)'},
+  q:{en:'Is your AI system life cycle management documented with defined stages from design to decommissioning?',tr:'AI sistem yaşam döngüsü yönetiminiz, tasarımdan kullanım dışı bırakmaya kadar tanımlanmış aşamalarla belgelenmiş mi?'},
+  ctx:{en:'ISO 42001 A.6 addresses AI system life cycle processes. The EU AI Act Art. 9 requires a risk management system that operates throughout the entire life cycle of high-risk AI systems.',tr:'ISO 42001 A.6 AI sistem yaşam döngüsü süreçlerini ele alır. EU AI Act Md. 9, yüksek riskli AI sistemlerinin tüm yaşam döngüsü boyunca işleyen bir risk yönetim sistemi gerektirir.'},
+  gap:{en:'Strong overlap. Main gap: EU AI Act Art. 9 requires risk management to be iterative, updated, and documented at each stage — ISO 42001 provides framework but less prescriptive detail.',tr:'Güçlü örtüşme. Ana boşluk: EU AI Act Md. 9 risk yönetiminin her aşamada yinelemeli, güncel ve belgelenmiş olmasını gerektirir — ISO 42001 çerçeve sağlar ama daha az kuralcı detay içerir.'}
+},
+{
+  iso:'A.7',
+  isoLabel:{en:'Data for AI Systems',tr:'AI Sistemleri İçin Veri'},
+  euai:{en:'Article 10 (Data Governance)',tr:'Madde 10 (Veri Yönetişimi)'},
+  q:{en:'Do you have documented data governance practices covering training data quality, bias testing, and representativeness?',tr:'Eğitim veri kalitesi, önyargı testi ve temsiliyet kapsayan belgelenmiş veri yönetişimi uygulamalarınız var mı?'},
+  ctx:{en:'ISO 42001 A.7 covers data management for AI. EU AI Act Art. 10 sets specific requirements for training, validation, and testing datasets including bias detection and representativeness.',tr:'ISO 42001 A.7 AI için veri yönetimini kapsar. EU AI Act Md. 10, önyargı tespiti ve temsiliyet dahil eğitim, doğrulama ve test veri kümeleri için spesifik gereksinimler belirler.'},
+  gap:{en:'Art. 10 is one of the most detailed EU AI Act articles. It requires explicit bias testing, data relevance verification, and statistical property examination — more prescriptive than ISO 42001 A.7.',tr:'Md. 10, EU AI Act\'ın en detaylı maddelerinden biridir. Açık önyargı testi, veri uygunluk doğrulaması ve istatistiksel özellik incelemesi gerektirir — ISO 42001 A.7\'den daha kuralcıdır.'}
+},
+{
+  iso:'A.8',
+  isoLabel:{en:'Transparency & Explainability',tr:'Şeffaflık & Açıklanabilirlik'},
+  euai:{en:'Article 13 (Transparency) + Article 50',tr:'Madde 13 (Şeffaflık) + Madde 50'},
+  q:{en:'Can you explain to end-users how your AI systems make decisions, and do you disclose AI-generated content?',tr:'Son kullanıcılara AI sistemlerinizin nasıl karar verdiğini açıklayabiliyor musunuz ve AI tarafından üretilen içeriği ifşa ediyor musunuz?'},
+  ctx:{en:'ISO 42001 A.8 addresses transparency. The EU AI Act has both Art. 13 (transparency for high-risk) and Art. 50 (specific obligations: chatbot disclosure, deepfake labelling, emotion recognition notice).',tr:'ISO 42001 A.8 şeffaflığı ele alır. EU AI Act hem Md. 13 (yüksek risk için şeffaflık) hem de Md. 50 (spesifik yükümlülükler: chatbot ifşası, deepfake etiketleme, duygu tanıma bildirimi) içerir.'},
+  gap:{en:'Art. 50 obligations are very specific (chatbots, deepfakes, emotion recognition) and apply even to non-high-risk systems. ISO 42001 covers transparency principles but not these specific disclosure duties.',tr:'Md. 50 yükümlülükleri çok spesifiktir (chatbot, deepfake, duygu tanıma) ve yüksek riskli olmayan sistemlere bile uygulanır. ISO 42001 şeffaflık ilkelerini kapsar ama bu spesifik ifşa görevlerini kapsamaz.'}
+},
+{
+  iso:'A.9',
+  isoLabel:{en:'Human Oversight',tr:'İnsan Gözetimi'},
+  euai:{en:'Article 14 (Human Oversight)',tr:'Madde 14 (İnsan Gözetimi)'},
+  q:{en:'Do you have defined human oversight mechanisms including ability to override, intervene, or shut down AI system outputs?',tr:'AI sistem çıktılarını geçersiz kılma, müdahale etme veya kapatma yeteneği dahil tanımlanmış insan gözetimi mekanizmalarınız var mı?'},
+  ctx:{en:'ISO 42001 A.9 covers human oversight controls. EU AI Act Art. 14 requires specific human oversight measures for high-risk systems: ability to understand, monitor, interpret, and override the system.',tr:'ISO 42001 A.9 insan gözetimi kontrollerini kapsar. EU AI Act Md. 14, yüksek riskli sistemler için spesifik insan gözetimi tedbirleri gerektirir: sistemi anlama, izleme, yorumlama ve geçersiz kılma yeteneği.'},
+  gap:{en:'Good alignment. Gap: Art. 14 specifies override capability, real-time intervention, and "stop button" requirements — ISO 42001 is principle-based, not this prescriptive.',tr:'İyi uyum. Boşluk: Md. 14 geçersiz kılma yeteneği, gerçek zamanlı müdahale ve "durdurma düğmesi" gereksinimleri belirtir — ISO 42001 ilke bazlıdır, bu kadar kuralcı değildir.'}
+},
+{
+  iso:'A.10',
+  isoLabel:{en:'Technical Documentation',tr:'Teknik Dokümantasyon'},
+  euai:{en:'Article 11 + Annex IV',tr:'Madde 11 + Ek IV'},
+  q:{en:'Do you maintain technical documentation covering system architecture, training procedures, validation results, and risk mitigation measures?',tr:'Sistem mimarisi, eğitim prosedürleri, doğrulama sonuçları ve risk azaltma tedbirlerini kapsayan teknik dokümantasyon tutuyor musunuz?'},
+  ctx:{en:'ISO 42001 A.10 requires documentation. EU AI Act Art. 11 + Annex IV specifies 13 mandatory documentation sections for high-risk systems, including detailed technical specifications.',tr:'ISO 42001 A.10 dokümantasyon gerektirir. EU AI Act Md. 11 + Ek IV, yüksek riskli sistemler için detaylı teknik spesifikasyonlar dahil 13 zorunlu dokümantasyon bölümü belirtir.'},
+  gap:{en:'Significant gap. Annex IV requires 13 specific documentation sections with prescribed content. ISO 42001 requires documentation but does not prescribe the EU AI Act\'s specific structure.',tr:'Önemli boşluk. Ek IV, öngörülen içerikle 13 spesifik dokümantasyon bölümü gerektirir. ISO 42001 dokümantasyon gerektirir ama EU AI Act\'ın spesifik yapısını öngörmez.'}
+},
+{
+  iso:'B.3 / B.4',
+  isoLabel:{en:'Post-Market Monitoring & Incidents',tr:'Pazar Sonrası İzleme & Olaylar'},
+  euai:{en:'Article 72 (Post-Market Monitoring) + Article 73 (Incident Reporting)',tr:'Madde 72 (Pazar Sonrası İzleme) + Madde 73 (Olay Raporlama)'},
+  q:{en:'Do you have a post-deployment monitoring system and an incident reporting procedure for AI-related issues?',tr:'AI ile ilgili sorunlar için konuşlandırma sonrası izleme sisteminiz ve olay raporlama prosedürünüz var mı?'},
+  ctx:{en:'ISO 42001 B.3/B.4 cover monitoring and incident management. EU AI Act Art. 72 mandates post-market monitoring systems and Art. 73 requires reporting serious incidents to authorities within specific timeframes.',tr:'ISO 42001 B.3/B.4 izleme ve olay yönetimini kapsar. EU AI Act Md. 72 pazar sonrası izleme sistemleri zorunlu kılar ve Md. 73, ciddi olayların belirli zaman dilimlerinde yetkililere bildirilmesini gerektirir.'},
+  gap:{en:'Critical gap: Art. 73 requires reporting serious incidents to market surveillance authorities — ISO 42001 has no equivalent regulatory reporting obligation.',tr:'Kritik boşluk: Md. 73, ciddi olayların pazar gözetimi otoritelerine bildirilmesini gerektirir — ISO 42001\'de eşdeğer bir düzenleyici raporlama yükümlülüğü yoktur.'}
+},
+{
+  iso:'B.6 / B.7',
+  isoLabel:{en:'Conformity & Registration',tr:'Uygunluk & Kayıt'},
+  euai:{en:'Article 43 (Conformity Assessment) + Article 49 (EU Database)',tr:'Madde 43 (Uygunluk Değerlendirmesi) + Madde 49 (AB Veritabanı)'},
+  q:{en:'Are you prepared for conformity assessment procedures and registration of your AI systems in a public database?',tr:'AI sistemlerinizin uygunluk değerlendirme prosedürlerine ve kamuya açık bir veritabanına kaydına hazır mısınız?'},
+  ctx:{en:'ISO 42001 B.6/B.7 address conformity and continual improvement. EU AI Act Art. 43 defines conformity assessment routes and Art. 49 requires high-risk AI system registration in the EU database before market placement.',tr:'ISO 42001 B.6/B.7 uygunluk ve sürekli iyileştirmeyi ele alır. EU AI Act Md. 43, uygunluk değerlendirme yollarını tanımlar ve Md. 49, yüksek riskli AI sistemlerinin piyasaya sürülmeden önce AB veritabanına kaydını gerektirir.'},
+  gap:{en:'No ISO 42001 equivalent for EU database registration (Art. 49) or the specific conformity assessment procedures under Art. 43. This is a purely regulatory requirement.',tr:'AB veritabanı kaydı (Md. 49) veya Md. 43 kapsamındaki spesifik uygunluk değerlendirme prosedürleri için ISO 42001\'de eşdeğer yoktur. Bu tamamen düzenleyici bir gereksinimdir.'}
+}
+];
+
+/* ── QUIZ ENGINE ── */
+var currentQ=0,answers=[];
+var lang='en';
+
+function renderQuiz(){
+  var c=document.getElementById('quizContainer');
+  c.innerHTML='';
+  QUESTIONS.forEach(function(q,i){
+    var opts=['yes','partial','no'];
+    var optLabels={
+      yes:{en:'Yes — fully implemented',tr:'Evet — tam olarak uygulanıyor'},
+      partial:{en:'Partially — some elements in place',tr:'Kısmen — bazı unsurlar mevcut'},
+      no:{en:'No — not implemented',tr:'Hayır — uygulanmıyor'}
+    };
+    var card=document.createElement('div');
+    card.className='quiz-card'+(i===0?' active':'');
+    card.id='q'+i;
+    card.innerHTML=
+      '<div class="quiz-iso-ref">ISO 42001 '+q.iso+' — '+q.isoLabel[lang]+'</div>'+
+      '<div class="quiz-euai-ref">↔ '+q.euai[lang]+'</div>'+
+      '<div class="quiz-question">'+q.q[lang]+'</div>'+
+      '<div class="quiz-context">'+q.ctx[lang]+'</div>'+
+      '<div class="quiz-options">'+
+        opts.map(function(o){
+          return '<div class="quiz-opt'+(answers[i]===o?' selected':'')+'" data-val="'+o+'" onclick="selectOpt('+i+',\''+o+'\')">'+
+            '<div class="quiz-opt-marker">●</div>'+
+            '<div class="quiz-opt-label">'+optLabels[o][lang]+'</div>'+
+          '</div>';
+        }).join('')+
+      '</div>';
+    c.appendChild(card);
+  });
+  showQuestion(currentQ);
+}
+
+function selectOpt(qi,val){
+  answers[qi]=val;
+  var card=document.getElementById('q'+qi);
+  card.querySelectorAll('.quiz-opt').forEach(function(o){
+    o.classList.toggle('selected',o.dataset.val===val);
+  });
+  document.getElementById('btnNext').disabled=false;
+}
+
+function showQuestion(i){
+  document.querySelectorAll('.quiz-card').forEach(function(c,idx){
+    c.classList.toggle('active',idx===i);
+  });
+  document.getElementById('progressFill').style.width=((i+1)/QUESTIONS.length*100)+'%';
+  document.getElementById('progressText').textContent=(i+1)+' / '+QUESTIONS.length;
+  document.getElementById('btnBack').style.visibility=i===0?'hidden':'visible';
+  var isLast=i===QUESTIONS.length-1;
+  var btn=document.getElementById('btnNext');
+  btn.disabled=!answers[i];
+  btn.textContent=isLast?(lang==='tr'?'Sonuçları Gör':'See Results'):(lang==='tr'?'Sonraki →':'Next →');
+}
+
+function nextQuestion(){
+  if(currentQ<QUESTIONS.length-1){currentQ++;showQuestion(currentQ)}
+  else{showResults()}
+}
+function prevQuestion(){
+  if(currentQ>0){currentQ--;showQuestion(currentQ)}
+}
+
+function showResults(){
+  document.getElementById('quizSection').style.display='none';
+  var r=document.getElementById('results');
+  r.classList.add('visible');
+
+  var score=0,max=QUESTIONS.length*2;
+  var tbody=document.getElementById('gapTableBody');
+  tbody.innerHTML='';
+
+  answers.forEach(function(a,i){
+    var q=QUESTIONS[i];
+    var pts=a==='yes'?2:a==='partial'?1:0;
+    score+=pts;
+    var status=a==='yes'?'covered':a==='partial'?'partial':'gap';
+    var statusLabel={
+      covered:{en:'Covered',tr:'Kapsanıyor'},
+      partial:{en:'Partial',tr:'Kısmi'},
+      gap:{en:'Gap',tr:'Boşluk'}
+    };
+    var tr=document.createElement('tr');
+    tr.innerHTML=
+      '<td>'+q.iso+'<br><span style="font-weight:400;font-family:Arial,sans-serif;font-size:11px;color:var(--text2)">'+q.isoLabel[lang]+'</span></td>'+
+      '<td>'+q.euai[lang]+'</td>'+
+      '<td><span class="gap-status '+status+'">'+statusLabel[status][lang]+'</span></td>'+
+      '<td>'+q.gap[lang]+'</td>';
+    tbody.appendChild(tr);
+  });
+
+  var pct=Math.round(score/max*100);
+  document.getElementById('scoreValue').textContent=pct+'%';
+
+  var postures={
+    high:{en:'Strong Foundation',tr:'Güçlü Temel',desc:{en:'Your ISO 42001 implementation provides strong coverage. Focus on the EU AI Act-specific gaps: conformity assessment, database registration, and Art. 50 transparency obligations.',tr:'ISO 42001 uygulamanız güçlü bir kapsam sağlıyor. EU AI Act\'a özgü boşluklara odaklanın: uygunluk değerlendirmesi, veritabanı kaydı ve Md. 50 şeffaflık yükümlülükleri.'}},
+    mid:{en:'Partial Alignment',tr:'Kısmi Uyum',desc:{en:'Your AIMS covers several areas but significant gaps remain. Prioritise: data governance (Art. 10), technical documentation (Annex IV), and human oversight mechanisms (Art. 14).',tr:'AIMS\'iniz birkaç alanı kapsıyor ancak önemli boşluklar var. Öncelik verin: veri yönetişimi (Md. 10), teknik dokümantasyon (Ek IV) ve insan gözetimi mekanizmaları (Md. 14).'}},
+    low:{en:'Significant Gaps',tr:'Önemli Boşluklar',desc:{en:'Your current implementation has substantial gaps relative to EU AI Act requirements. Consider starting with risk classification (Art. 6) and AI literacy (Art. 4) as foundational steps.',tr:'Mevcut uygulamanızda EU AI Act gereksinimlerine göre önemli boşluklar var. Temel adımlar olarak risk sınıflandırması (Md. 6) ve AI okuryazarlığı (Md. 4) ile başlamayı düşünün.'}}
+  };
+  var tier=pct>=70?'high':pct>=40?'mid':'low';
+  document.getElementById('postureLabel').textContent=postures[tier][lang];
+  document.getElementById('postureDesc').textContent=postures[tier].desc[lang];
+
+  if(typeof plausible!=='undefined') plausible('ISO42001 Gap Quiz Complete',{props:{score:pct}});
+  window.scrollTo({top:0,behavior:'smooth'});
+
+  /* score count-up animation */
+  var el=document.getElementById('scoreValue');
+  var cur=0;
+  var step=Math.max(1,Math.round(pct/30));
+  var iv=setInterval(function(){
+    cur+=step;
+    if(cur>=pct){cur=pct;clearInterval(iv)}
+    el.textContent=cur+'%';
+  },30);
+}
+
+function retakeQuiz(){
+  currentQ=0;answers=[];
+  document.getElementById('results').classList.remove('visible');
+  document.getElementById('quizSection').style.display='';
+  renderQuiz();
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+/* ── LANGUAGE ── */
+function setLang(l){
+  lang=l;
+  document.documentElement.lang=l==='tr'?'tr':'en';
+  document.querySelectorAll('.lang-btn').forEach(function(b){b.classList.toggle('active',b.dataset.lang===l)});
+  document.querySelectorAll('[data-en]').forEach(function(el){
+    var t=el.dataset[l];if(t!==undefined)el.innerHTML=t;
+    var h=el.dataset[l+'Href'];if(h)el.href=h;
+  });
+  document.querySelectorAll('.lang-tr').forEach(function(el){el.style.display=l==='tr'?'':'none'});
+  document.querySelectorAll('.lang-en').forEach(function(el){el.style.display=l==='en'?'':'none'});
+  renderQuiz();
+  try{localStorage.setItem('hexis-lang',l)}catch(e){}
+}
+(function(){var s;try{s=localStorage.getItem('hexis-lang')}catch(e){}setLang(s||(/^tr/i.test(navigator.language)?'tr':'en'))})();
+</script>
+</body>
+</html>

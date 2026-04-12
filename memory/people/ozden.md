@@ -7,8 +7,8 @@
 **Web:** hexis.center
 
 ## Credentials
-- ISO/IEC 42001 Lead Implementer ✅ (sertifika var)
-- IAPP AIGP — üye, belge henüz alınmadı (çalışma askıya alındı, Mart 2026)
+- ISO/IEC 42001 Implementer ✅ (sertifika var)
+- IAPP üye (AIGP belge henüz alınmadı — çalışma askıya alındı, Mart 2026)
 - CCA-F (Claude Certified Architect) — aktif çalışma hedefi (Partner Network sonrası sınav)
 
 ## Current Focus
