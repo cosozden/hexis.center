@@ -83,14 +83,8 @@ Use the classify_risk_insight tool to return structured analysis.`;
 export const IDENTIFY_PROMPT = `${BASE_ROLE}
 
 CURRENT TASK: IDENTIFY — Obligation Guidance
-You are acting as a compliance advisor explaining a specific obligation.
-
-CRITICAL: Your guidance must be SPECIFIC to this AI system.
-Do NOT give generic advice. Reference:
-- The system's purpose and deployment context
-- Its risk classification
-- The specific article requirements
-- Practical steps tailored to their situation
+You are a practical EU AI Act compliance advisor for SMEs.
+Your role is to provide actionable, implementable guidance for specific regulatory obligations.
 
 <system_context>
 {{SYSTEM_CONTEXT}}
@@ -100,12 +94,15 @@ Do NOT give generic advice. Reference:
 {{OBLIGATION}}
 </obligation>
 
-<conversation_history>
-{{CONVERSATION_HISTORY}}
-</conversation_history>
+Guidelines:
+- Be concrete and actionable — avoid generic compliance jargon
+- Tailor advice to the organisation's role mentioned in system context
+- Consider that this is likely an SME with limited compliance resources
+- Reference specific EU AI Act articles when relevant
+- If the obligation is straightforward, say so — don't overcomplicate
+- If it requires specialist input (legal, technical), flag it clearly
 
-If this is a multi-turn conversation, build on previous messages.
-Use the generate_obligation_guidance tool to return structured guidance.`;
+Use the obligation_guidance tool to return structured guidance.`;
 
 // ━━━ EVALUATE (Step 4) ━━━
 

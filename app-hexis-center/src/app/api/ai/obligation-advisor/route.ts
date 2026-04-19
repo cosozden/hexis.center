@@ -17,6 +17,8 @@
 import { NextResponse } from 'next/server';
 import { z } from 'zod';
 import { callClaude } from '@/lib/claude/client';
+import { OBLIGATION_GUIDANCE } from '@/lib/claude/tools';
+import { IDENTIFY_PROMPT, fillPrompt } from '@/lib/claude/prompts';
 import { authenticateRequest, checkRateLimit, logUsage } from '@/lib/api/auth';
 import {
   sanitizeInput,
@@ -33,55 +35,6 @@ const AdvisorRequestSchema = z.object({
   // Force refresh (ignore cached guidance)
   forceRefresh: z.boolean().optional().default(false),
 });
-
-// ━━━ TOOL DEFINITION ━━━
-
-const OBLIGATION_GUIDANCE_TOOL = {
-  name: 'obligation_guidance' as const,
-  description: 'Provide practical implementation guidance for an EU AI Act obligation',
-  input_schema: {
-    type: 'object' as const,
-    properties: {
-      summary: {
-        type: 'string',
-        description: 'One-paragraph summary of what this obligation requires and why it matters (2-3 sentences)',
-      },
-      steps: {
-        type: 'array',
-        items: {
-          type: 'object',
-          properties: {
-            step: { type: 'number', description: 'Step number' },
-            action: { type: 'string', description: 'Concrete action to take' },
-            details: { type: 'string', description: 'How to implement this step practically' },
-          },
-          required: ['step', 'action', 'details'],
-        },
-        description: 'Practical implementation steps (3-7 steps)',
-      },
-      evidence_suggestions: {
-        type: 'array',
-        items: { type: 'string' },
-        description: 'What evidence/documentation to keep for compliance demonstration',
-      },
-      common_pitfalls: {
-        type: 'array',
-        items: { type: 'string' },
-        description: 'Common mistakes or oversights to avoid (2-4 items)',
-      },
-      sme_tip: {
-        type: 'string',
-        description: 'Practical tip specifically for SMEs with limited compliance resources',
-      },
-      confidence: {
-        type: 'string',
-        enum: ['clear_guidance', 'general_guidance', 'seek_specialist'],
-        description: 'How confident this guidance is — clear_guidance for well-established obligations, seek_specialist for complex edge cases',
-      },
-    },
-    required: ['summary', 'steps', 'evidence_suggestions', 'common_pitfalls', 'sme_tip', 'confidence'],
-  },
-};
 
 // ━━━ HANDLER ━━━
 
@@ -154,7 +107,7 @@ export async function POST(request: Request) {
     .limit(1)
     .single();
 
-  // 7. Build prompt
+  // 7. Build prompt using shared templates
   const systemContext = [
     `AI System: "${system.name}"`,
     system.purpose ? `Purpose: ${system.purpose}` : null,
@@ -173,21 +126,10 @@ export async function POST(request: Request) {
     body.userContext ? `User Question: ${body.userContext}` : null,
   ].filter(Boolean).join('\n');
 
-  const systemPrompt = `You are a practical EU AI Act compliance advisor for SMEs. Your role is to provide actionable, implementable guidance for specific regulatory obligations.
-
-Context:
-${systemContext}
-
-Obligation Details:
-${obligationContext}
-
-Guidelines:
-- Be concrete and actionable — avoid generic compliance jargon
-- Tailor advice to the organisation's role (${system.organisation_role})
-- Consider that this is likely an SME with limited compliance resources
-- Reference specific EU AI Act articles when relevant
-- If the obligation is straightforward, say so — don't overcomplicate
-- If it requires specialist input (legal, technical), flag it clearly`;
+  const systemPrompt = fillPrompt(IDENTIFY_PROMPT, {
+    SYSTEM_CONTEXT: systemContext,
+    OBLIGATION: obligationContext,
+  });
 
   // 8. Input sanitization (Layer 1)
   const userInput = body.userContext ?? '';
@@ -209,7 +151,7 @@ Guidelines:
     const claudeResponse = await callClaude({
       systemPrompt,
       messages: [{ role: 'user', content: userContent }],
-      tools: [OBLIGATION_GUIDANCE_TOOL],
+      tools: [OBLIGATION_GUIDANCE],
       toolChoice: { type: 'tool', name: 'obligation_guidance' },
       model: 'haiku',
       includeGrounding: true,

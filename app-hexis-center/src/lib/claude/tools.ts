@@ -122,48 +122,51 @@ export const CLASSIFY_RISK_INSIGHT: Tool = {
 // ━━━ IDENTIFY (Step 3) ━━━
 
 export const OBLIGATION_GUIDANCE: Tool = {
-  name: 'generate_obligation_guidance',
+  name: 'obligation_guidance',
   description:
-    'Generate context-specific guidance for a compliance obligation. ' +
+    'Provide practical implementation guidance for an EU AI Act obligation. ' +
     'Explain what the obligation means for THIS specific AI system, not generic advice.',
   input_schema: {
     type: 'object' as const,
     properties: {
-      obligation_title: {
+      summary: {
         type: 'string',
-        description: 'Title of the obligation being explained',
+        description: 'One-paragraph summary of what this obligation requires and why it matters (2-3 sentences)',
       },
-      what_it_means: {
-        type: 'string',
-        description: 'What this obligation specifically means for the user\'s AI system',
-      },
-      practical_steps: {
+      steps: {
         type: 'array',
         items: {
           type: 'object',
           properties: {
-            step: { type: 'string' },
-            estimated_effort: { type: 'string' },
+            step: { type: 'number', description: 'Step number' },
+            action: { type: 'string', description: 'Concrete action to take' },
+            details: { type: 'string', description: 'How to implement this step practically' },
           },
-          required: ['step'],
+          required: ['step', 'action', 'details'],
         },
-        description: 'Concrete steps to fulfill this obligation',
+        description: 'Practical implementation steps (3-7 steps)',
       },
-      common_mistakes: {
+      evidence_suggestions: {
         type: 'array',
         items: { type: 'string' },
-        description: 'Common pitfalls organizations make with this obligation',
+        description: 'What evidence/documentation to keep for compliance demonstration',
       },
-      template_suggestion: {
+      common_pitfalls: {
+        type: 'array',
+        items: { type: 'string' },
+        description: 'Common mistakes or oversights to avoid (2-4 items)',
+      },
+      sme_tip: {
         type: 'string',
-        description: 'Which Hexis template or tool can help with this obligation',
+        description: 'Practical tip specifically for SMEs with limited compliance resources',
       },
       confidence: {
         type: 'string',
-        enum: ['clearly_required', 'likely_applies', 'gray_area', 'seek_legal_counsel'],
+        enum: ['clear_guidance', 'general_guidance', 'seek_specialist'],
+        description: 'How confident this guidance is — clear_guidance for well-established obligations, seek_specialist for complex edge cases',
       },
     },
-    required: ['what_it_means', 'practical_steps', 'confidence'],
+    required: ['summary', 'steps', 'evidence_suggestions', 'common_pitfalls', 'sme_tip', 'confidence'],
   },
 };
 
@@ -320,7 +323,7 @@ export const GENERATE_REPORT: Tool = {
 export const ALL_TOOLS = {
   extract_system_info: EXTRACT_SYSTEM_INFO,
   classify_risk_insight: CLASSIFY_RISK_INSIGHT,
-  generate_obligation_guidance: OBLIGATION_GUIDANCE,
+  obligation_guidance: OBLIGATION_GUIDANCE,
   analyze_governance_gap: MATRIX_INSIGHT,
   generate_action_plan: GENERATE_ACTION_PLAN,
   generate_compliance_report: GENERATE_REPORT,
