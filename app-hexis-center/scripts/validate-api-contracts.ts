@@ -139,13 +139,38 @@ function scanFileForContracts(
   const lines = content.split("\n");
   const relPath = relative(ROOT, filePath);
 
+  // Helper: detect if a `.from('X')` call is actually a Supabase Storage
+  // bucket reference (`supabase.storage.from('bucket')`) rather than a DB
+  // table call. Storage bucket names are not listed in database.ts, so
+  // flagging them as "missing tables" is a false positive.
+  //
+  // Matches both single-line (`supabase.storage.from('evidence')`) and
+  // multi-line fluent chains where `.storage` appears on an earlier line.
+  const isStorageBucketCall = (currentLine: string, currentIndex: number): boolean => {
+    // Same line: `supabase.storage.from(` or any `.storage.from(` chain
+    const fromIdx = currentLine.indexOf(".from(");
+    if (fromIdx > 0) {
+      const prefix = currentLine.slice(0, fromIdx);
+      if (/\.storage\b/.test(prefix)) return true;
+    }
+    // Previous non-empty line ends with `.storage` (fluent chain continues on next line)
+    for (let k = currentIndex - 1; k >= Math.max(0, currentIndex - 3); k--) {
+      const prev = lines[k].trim();
+      if (prev === "") continue;
+      if (/\.storage\s*$/.test(prev)) return true;
+      // If we hit a meaningful statement before `.storage`, it's a DB call
+      break;
+    }
+    return false;
+  };
+
   for (let i = 0; i < lines.length; i++) {
     const line = lines[i];
     const lineNum = i + 1;
 
-    // Check .from('table_name')
+    // Check .from('table_name') — but skip Supabase Storage bucket references
     const fromMatch = line.match(/\.from\(\s*['"](\w+)['"]\s*\)/);
-    if (fromMatch) {
+    if (fromMatch && !isStorageBucketCall(line, i)) {
       const tableName = fromMatch[1];
       if (!validTables.has(tableName)) {
         violations.push({
