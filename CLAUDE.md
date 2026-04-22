@@ -118,6 +118,27 @@ HEXIS has two visual palettes. This repo uses the **Web Palette**.
 
 **DO NOT** use Plugin Palette colors on the hexis.center website.
 
+### 3C. Editorial Principles (Yön A — active since 22 Apr 2026)
+
+**Applies to:** hexis.center public pages (landing, methodology, metodoloji).
+
+**Visual formula**
+- **Hero**: oversized serif H1 (clamp 40–72px) with italic brass focal word; thesis structure "X is [Y], not [Z]" (negative-then-positive); etymology block anchoring *hexis* (ἕξις); version block on right rail
+- **Section dividers** (body): oversized brass serif `§` numeral + hairline top-rule + small meta chip. Classes: `.section-divider` → `.section-num` + `.section-meta`. Preface variant = `.preface` modifier (no number, flush meta)
+- **Meta chip copy** = semantic context (e.g., "Overview · Six Stages"), NOT "Section NN" restate
+- **Scroll reveal** via IntersectionObserver on `.reveal` class (graceful fallback for no-IO browsers)
+
+**Content rules**
+
+| Rule | What it means |
+|------|---------------|
+| **Bilingual parity** | Any copy change in one language triggers sister-language check (EN ↔ TR). Sister pairs: `index.html` (data-tr/data-en toggle), `methodology/` ↔ `metodoloji/` |
+| **Refrain discipline** | Max 1 hero-weight thesis per page. Supporting copy (pull-quote, CTA, manifesto) must shift angle, not restate. Red flag: same key phrase ("yönelim/orientation/destination") 3+ times on one page |
+| **Concrete > abstract** | Prefer metric (5 dakika, bir öğle sonrası, 100 sistem) over metaphor (yönelim, duruş biçimi). Prefer verbs (sor, karar ver, gözden geçir) over abstract nouns (disposition, posture) |
+| **CTA pre-button copy** | Remove friction (no signup, 5 minutes), not philosophy. Pre-button = action eşiği düşürme, closer = değer teyidi |
+
+**Dead-CSS tolerance:** When removing a Yön A element from HTML, leaving its CSS class defined is acceptable (easy restore). Schedule cleanup as a separate commit.
+
 ---
 
 ## 4. Site Architecture
