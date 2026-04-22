@@ -113,12 +113,12 @@
   .hero { padding: 72px 0 56px; border-bottom: 1px solid var(--rule); }
   .hero-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 32px; }
   .hero-badge { display: inline-block; font-size: 9px; letter-spacing: 0.14em; text-transform: uppercase; border: 1px solid var(--rule); padding: 4px 10px; color: var(--ink-muted); margin-bottom: 16px; }
-  .hero-title { font-family: Georgia, 'Times New Roman', serif; font-size: 36px; font-weight: 700; letter-spacing: -0.02em; line-height: 1.15; max-width: 560px; }
-  .hero-sub { font-size: 12px; color: var(--ink-muted); letter-spacing: 0.06em; margin-top: 12px; font-style: italic; font-family: Georgia, 'Times New Roman', serif; }
+  .hero-title { font-family: Georgia, 'Times New Roman', serif; font-size: clamp(40px, 6vw, 72px); font-weight: 700; letter-spacing: -0.02em; line-height: 1.05; max-width: 720px; margin: 20px 0 16px; color: var(--ink); }
+  .hero-sub { font-size: 14px; color: var(--ink-muted); letter-spacing: 0.01em; margin-top: 12px; font-style: italic; font-family: Georgia, 'Times New Roman', serif; max-width: 560px; }
   .normative-note { display: inline-block; background: var(--charcoal); color: var(--paper); font-size: 10px; letter-spacing: 0.08em; padding: 10px 18px; margin-top: 24px; font-style: italic; font-family: Georgia, 'Times New Roman', serif; }
   .etymology { margin-top: 20px; font-size: 11px; color: var(--ink-muted); font-style: italic; font-family: Georgia, 'Times New Roman', serif; line-height: 1.7; }
   .version-block { text-align: right; }
-  .version-main { font-family: Georgia, 'Times New Roman', serif; font-size: 15px; font-weight: 700; color: var(--charcoal); }
+  .version-main { font-family: Georgia, 'Times New Roman', serif; font-size: 15px; font-weight: 700; color: var(--brass); }
   .version-meta { font-size: 10px; color: var(--ink-muted); letter-spacing: 0.08em; line-height: 1.8; margin-top: 4px; }
 
   /* ── INTRO ── */
@@ -292,7 +292,8 @@
     .nav-secondary-links { display: none; }
     .hero-top { flex-direction: column; gap: 24px; }
     .version-block { text-align: left; }
-    .hero-title { font-size: 28px; }
+    .hero-etymology { grid-template-columns: 1fr; gap: 8px; }
+    .hero-manifesto { margin: 40px 0 32px; padding: 24px 0; }
     .orient-flow { grid-template-columns: 1fr 1fr; }
     .orient-stage:nth-child(2n) { border-right: 1.5px solid var(--ink); }
     .orient-stage:nth-child(3) { border-right: none; }
@@ -319,6 +320,90 @@
     .orient-flow { grid-template-columns: repeat(6, 1fr); }
     a { color: inherit; text-decoration: none; }
   }
+
+  /* ─────────────────────────────────────────── */
+  /*  Yon A editorial energy extensions          */
+  /* ─────────────────────────────────────────── */
+
+  .hero-lead { max-width: 720px; }
+
+  .brass-focal {
+    font-style: italic;
+    color: var(--brass);
+    font-weight: 700;
+  }
+
+  /* Manifesto pull-quote */
+  .hero-manifesto {
+    margin: 56px 0 48px;
+    padding: 32px 0;
+    border-top: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+    max-width: 720px;
+  }
+  .hero-manifesto-q {
+    display: block;
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: clamp(18px, 2.4vw, 24px);
+    font-style: italic;
+    font-weight: 400;
+    line-height: 1.45;
+    color: var(--ink);
+    quotes: "\201C" "\201D";
+  }
+  .hero-manifesto-q::before { content: open-quote; color: var(--brass); margin-right: 2px; }
+  .hero-manifesto-q::after  { content: close-quote; color: var(--brass); margin-left: 2px; }
+  .hero-manifesto-attr {
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+    margin-top: 16px;
+  }
+
+  /* Etymology block */
+  .hero-etymology {
+    display: grid;
+    grid-template-columns: 120px 1fr;
+    gap: 24px;
+    max-width: 720px;
+    padding-top: 8px;
+  }
+  .hero-etymology-label {
+    font-size: 9px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--brass);
+    padding-top: 4px;
+    font-weight: 700;
+  }
+  .hero-etymology-body {
+    font-size: 13px;
+    line-height: 1.75;
+    color: var(--ink-soft);
+  }
+  .hero-etymology-body em {
+    color: var(--brass);
+    font-style: italic;
+    font-weight: 600;
+  }
+  .hero-etymology-body .greek {
+    font-family: Georgia, 'Times New Roman', serif;
+    color: var(--ink);
+    font-size: 15px;
+  }
+
+  /* Scroll reveal */
+  .reveal {
+    opacity: 0;
+    transform: translateY(16px);
+    transition: opacity 900ms cubic-bezier(.2,.7,.2,1), transform 900ms cubic-bezier(.2,.7,.2,1);
+  }
+  .reveal.in { opacity: 1; transform: none; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .reveal { opacity: 1; transform: none; transition: none; }
+  }
 </style>
 </head>
 <body>
@@ -342,16 +427,18 @@
   <a href="/methodology/" class="nav-cta" style="background:transparent;border:1px solid rgba(248,247,245,0.2);color:rgba(248,247,245,0.55);margin-left:4px" title="View in English">EN</a>
 </nav>
 
-<!-- HERO -->
-<section class="hero">
+<!-- HERO / Yon A -->
+<section class="hero reveal">
   <div class="container">
     <div class="hero-top">
-      <div>
-        <div class="hero-badge">Kamuya Açık Metodoloji Belgesi</div>
-        <div class="hero-title">ORIENT<br>Metodolojisi</div>
+      <div class="hero-lead">
+        <div class="hero-badge">ORIENT Metodolojisi &middot; v1.0</div>
+        <h1 class="hero-title">
+          Uyum bir<br>
+          <em class="brass-focal">yönelim</em>dir,<br>
+          kontrol listesi değil.
+        </h1>
         <div class="hero-sub">AI sistemleri için altı aşamalı yönetişim çerçevesi.</div>
-        <div class="normative-note">"Uyum bir kontrol listesi değil, bir pratik yönelimdir. Yönetişim bir teslimat değil, bir duruş biçimidir."</div>
-        <div class="etymology">Antik Yunanca ἕξις (hexis) &mdash; tekrar ve pratikle kazanılan kararlı bir yönelim. ORIENT yapılandırılmış pratiği sağlar; hexis bu pratiğin ürettiği yönetişim kapasitesidir.</div>
       </div>
       <div class="version-block">
         <div class="version-main">Versiyon 1.0</div>
@@ -360,8 +447,22 @@
           Son gözden geçirme: Mart 2026<br>
           Sonraki planlı gözden geçirme: Eylül 2026<br>
           Güncelleme modeli: Dahili inceleme<br>
-          Geri bildirim: contact@hexis.center
+          Geri bildirim: <a href="mailto:contact@hexis.center" style="color:inherit;">contact@hexis.center</a>
         </div>
+      </div>
+    </div>
+
+    <!-- Manifesto pull-quote (promoted from normative-note) -->
+    <figure class="hero-manifesto">
+      <q class="hero-manifesto-q">Uyum bir kontrol listesi değil, bir pratik yönelimdir. Yönetişim bir teslimat değil, bir duruş biçimidir.</q>
+      <figcaption class="hero-manifesto-attr">Hexis Manifestosu</figcaption>
+    </figure>
+
+    <!-- Etymology (promoted editorial block) -->
+    <div class="hero-etymology">
+      <div class="hero-etymology-label">Etimoloji</div>
+      <div class="hero-etymology-body">
+        Antik Yunanca <em>hexis</em> (<span class="greek">&#7941;&xi;&iota;&sigmaf;</span>): tekrar ve pratikle kazanılan kararlı bir yönelim. ORIENT yapılandırılmış pratiği sağlar; <em>hexis</em> bu pratiğin ürettiği yönetişim kapasitesidir.
       </div>
     </div>
   </div>
@@ -1058,6 +1159,26 @@
   <a href="/" class="pf-brand"><img src="/assets/logo.png" alt="Hexis" width="32" height="18"></a>
   <div class="pf-meta">ORIENT Metodolojisi v1.0 &middot; Mart 2026<br>hexis.center/metodoloji &middot; <a href="/gizlilik/" style="color:inherit;text-decoration:underline;">Gizlilik</a></div>
 </footer>
+
+<script>
+  /* Yon A scroll reveal */
+  (function(){
+    var els = document.querySelectorAll('.reveal');
+    if (!('IntersectionObserver' in window)) {
+      els.forEach(function(e){ e.classList.add('in'); });
+      return;
+    }
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if (e.isIntersecting) {
+          e.target.classList.add('in');
+          io.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+    els.forEach(function(e){ io.observe(e); });
+  })();
+</script>
 
 </body>
 </html>
