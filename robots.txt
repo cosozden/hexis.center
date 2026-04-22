@@ -1,5 +1,6 @@
 User-agent: *
 Allow: /
+Disallow: /_internal/
 Disallow: /assets/
 Disallow: /blog/_drafts/
 Disallow: /blog/_linkedin/
