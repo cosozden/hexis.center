@@ -35,3 +35,8 @@ checklist/gsc-credentials.json
 **/gsc-credentials.json
 checklist/gsc-indexing-log.json
 hexis-indexnow-key.txt
+
+# Design drafts (local-only, not deployed)
+design-mockup.html
+design-critique-raporu.md
+_drafts/

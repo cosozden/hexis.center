@@ -54,6 +54,7 @@
 :root{
   --charcoal:  #1C1E23;
   --brass:     #B2986C;
+  --brass-br:  #C9AF80;
   --stone:     #8A8784;
   --paper:     #F8F7F5;
   --dark-bg:   #16181C;
@@ -67,6 +68,7 @@
 
   --border:    rgba(232,230,226,0.10);
   --border2:   rgba(232,230,226,0.18);
+  --border3:   rgba(232,230,226,0.28);
   --card:      rgba(232,230,226,0.04);
   --card2:     rgba(232,230,226,0.07);
 }
@@ -100,30 +102,11 @@ nav{
   text-decoration:none;color:var(--text);
   flex-shrink:0;
 }
-.nav-logo img{
-  display:block;
-  height:40px;
-  width:auto;
-}
-@media(max-width:768px){
-  .nav-logo img{ height:32px; }
-}
-.nav-logo:focus-visible{
-  outline:2px solid rgba(232,230,226,0.5);
-  outline-offset:4px;
-}
-/* Fallback text wordmark (hidden when img loads) */
-.nav-wordmark{
-  font-family:Georgia,serif;font-weight:700;font-size:17px;letter-spacing:3px;
-  text-transform:uppercase;
-}
-.nav-wordmark-dot{
-  display:inline-block;
-  width:6px;height:2px;
-  background:var(--brass);
-  margin:0 1px 3px 1px;
-  vertical-align:middle;
-}
+.nav-logo img{display:block;height:40px;width:auto;}
+@media(max-width:768px){.nav-logo img{height:32px;}}
+.nav-logo:focus-visible{outline:2px solid rgba(232,230,226,0.5);outline-offset:4px;}
+.nav-wordmark{font-family:Georgia,serif;font-weight:700;font-size:17px;letter-spacing:3px;text-transform:uppercase;}
+.nav-wordmark-dot{display:inline-block;width:6px;height:2px;background:var(--brass);margin:0 1px 3px 1px;vertical-align:middle;}
 .nav-links{display:flex;gap:4px;align-items:center}
 .nav-links a{
   color:var(--muted);text-decoration:none;font-size:12px;font-weight:400;
@@ -177,165 +160,580 @@ nav{
 section{position:relative;z-index:1;padding-block:72px}
 @media(min-width:900px){section{padding-block:88px}}
 @media(max-width:860px){section{padding-block:52px}}
-.section-inner{max-width:960px;margin:0 auto;padding:0 48px}
+.section-inner{max-width:1120px;margin:0 auto;padding:0 48px}
 .prose{max-width:72ch;margin-inline:0}
 .prose p{line-height:1.75}
 
-/* ─── HERO ───────────────────────────────────────── */
-#hero{padding-block:100px 80px;text-align:center;overflow:hidden;position:relative}
-.hero-hex-bg{position:absolute;inset:0;pointer-events:none;display:flex;align-items:center;justify-content:center}
-.hero-headline{
-  font-family:Georgia,serif;
-  font-size:clamp(28px,4.5vw,48px);
-  font-weight:700;
-  line-height:1.15;
-  color:var(--dark-type);
-  max-width:720px;
-  margin:0 auto 20px;
-  letter-spacing:-.02em;
+/* ─── SCROLL REVEAL UTILITY ──────────────────────── */
+.reveal{opacity:0;transform:translateY(24px);transition:opacity .9s ease, transform .9s ease;}
+.reveal.in{opacity:1;transform:translateY(0);}
+@media(prefers-reduced-motion:reduce){
+  .reveal{opacity:1;transform:none;transition:none;}
 }
-.hero-desc{
-  font-family:Arial,sans-serif;
-  font-size:clamp(14px,1.6vw,17px);
-  font-weight:400;
-  color:var(--text2);
-  line-height:1.65;
-  max-width:600px;
-  margin:0 auto 36px;
-}
-.hero-kvkk-note{
-  font-family:Arial,sans-serif;
-  font-size:12px;
-  color:var(--stone);
-  line-height:1.6;
-  max-width:520px;
-  margin:0 auto;
-  letter-spacing:.01em;
-}
-.hero-actions{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-bottom:32px}
 
-.btn-primary{
-  background:var(--dark-type);color:var(--charcoal);
-  padding:11px 24px;border-radius:2px;
-  font-weight:700;font-size:12px;border:none;cursor:pointer;
-  transition:opacity .15s;font-family:Arial,sans-serif;
-  text-decoration:none;display:inline-flex;align-items:center;gap:7px;
-  letter-spacing:.04em;
+/* ═══════════════════════════════════════════════════
+   YÖN A — EDITORIAL ENERGY
+   ═══════════════════════════════════════════════════ */
+
+/* ─── HERO A ─────────────────────────────────────── */
+.a-hero{
+  position:relative;
+  min-height:calc(100vh - 60px);
+  display:flex;align-items:center;justify-content:center;
+  padding:60px 48px 80px;
+  overflow:hidden;
 }
-.btn-primary:hover{opacity:.88}
-.btn-outline{
-  background:transparent;color:var(--text2);
-  padding:11px 24px;border-radius:2px;
-  font-weight:400;font-size:12px;
-  border:1px solid var(--border2);cursor:pointer;
-  transition:color .15s, border-color .15s;font-family:Arial,sans-serif;
-  text-decoration:none;display:inline-flex;align-items:center;gap:7px;
-  letter-spacing:.04em;
+.a-hero-cycle-bg{
+  position:absolute;
+  top:50%;left:50%;
+  transform:translate(-50%,-50%);
+  width:min(720px, 72vw);
+  height:min(720px, 72vw);
+  pointer-events:none;
+  opacity:.95;
 }
-.btn-outline:hover{border-color:rgba(232,230,226,.35);color:var(--text)}
-/* btn-primary-tr, btn-primary-en, btn-sub-tr, btn-sub-en removed — replaced by toggle-aware CTA */
-.btn-secondary-sm{
-  background:transparent;
-  color:var(--stone);
-  padding:8px 18px;
-  font-size:11px;
-  font-weight:400;
-  border:1px solid var(--border);
-  cursor:pointer;
-  transition:color .15s,border-color .15s;
+.a-hero-cycle-bg svg{width:100%;height:100%;}
+.a-hex-outer{
+  fill:none;stroke:var(--brass);stroke-width:1.2;opacity:.22;
+  animation:rotateSlow 80s linear infinite;
+  transform-origin:center;
+}
+.a-hex-mid{
+  fill:none;stroke:var(--brass);stroke-width:1;opacity:.14;
+  animation:rotateSlow 120s linear infinite reverse;
+  transform-origin:center;
+}
+.a-hex-inner{
+  fill:none;stroke:var(--brass);stroke-width:.8;opacity:.08;
+}
+@keyframes rotateSlow{
+  from{transform:rotate(0deg)}
+  to{transform:rotate(360deg)}
+}
+.a-hero-stage-dot{
+  fill:var(--brass);opacity:.65;
+}
+
+.a-hero-content{
+  position:relative;z-index:2;
+  text-align:center;
+  max-width:900px;
+  margin:0 auto;
+}
+.a-hero-eyebrow{
   font-family:Arial,sans-serif;
+  font-size:11px;letter-spacing:.22em;text-transform:uppercase;
+  color:var(--brass);margin-bottom:28px;
+  font-weight:400;
+  display:inline-block;padding:6px 14px;
+  border:1px solid rgba(178,152,108,0.3);
+  animation:fadeUp 0.8s ease .1s both;
+}
+.a-hero-headline{
+  font-family:Georgia,serif;
+  font-size:clamp(36px, 6.5vw, 80px);
+  font-weight:700;
+  line-height:1.06;
+  letter-spacing:-.022em;
+  color:var(--dark-type);
+  margin-bottom:32px;
+  animation:fadeUp 1s ease .2s both;
+}
+.a-hero-headline .brass-word{
+  color:var(--brass);
+  font-style:italic;
+  position:relative;
+  display:inline-block;
+}
+.a-hero-headline .brass-word::after{
+  content:'';
+  position:absolute;
+  left:0;bottom:-2px;right:0;
+  height:3px;background:var(--brass);
+  transform:scaleX(0);transform-origin:left;
+  animation:underlineGrow 1.2s ease 1.4s both;
+}
+@keyframes underlineGrow{to{transform:scaleX(1)}}
+
+.a-hero-desc{
+  font-size:clamp(15px,1.5vw,18px);
+  color:var(--dark-sub);line-height:1.7;
+  max-width:640px;margin:0 auto 40px;
+  animation:fadeUp 1s ease .4s both;
+}
+.a-hero-cta-row{
+  display:flex;gap:14px;justify-content:center;flex-wrap:wrap;
+  animation:fadeUp 1s ease .6s both;
+}
+.a-btn-primary{
+  background:var(--brass);color:var(--charcoal);
+  padding:15px 30px;font-size:13px;font-weight:700;
+  letter-spacing:.06em;text-transform:uppercase;
+  border:1px solid var(--brass);cursor:pointer;
+  text-decoration:none;display:inline-flex;align-items:center;gap:10px;
+  transition:background .25s ease, border-color .25s ease, transform .25s ease;
+}
+.a-btn-primary:hover{
+  background:var(--brass-br);border-color:var(--brass-br);
+  transform:translateY(-2px);
+}
+.a-btn-primary .arr{transition:transform .25s;display:inline-block;}
+.a-btn-primary:hover .arr{transform:translateX(5px);}
+.a-btn-ghost{
+  background:transparent;color:var(--dark-type);
+  padding:15px 28px;font-size:13px;font-weight:400;
+  letter-spacing:.06em;
+  border:1px solid var(--border3);cursor:pointer;
+  text-decoration:none;display:inline-flex;align-items:center;gap:8px;
+  transition:border-color .25s, color .25s;
+}
+.a-btn-ghost:hover{border-color:var(--brass);color:var(--brass)}
+
+.a-kvkk-chip{
+  margin-top:40px;
+  display:inline-flex;align-items:center;gap:10px;
+  padding:8px 16px;
+  border:1px solid var(--border2);
+  font-size:11px;color:var(--dark-sub);
   letter-spacing:.04em;
-  text-decoration:none;
-  display:inline-flex;
+  animation:fadeUp 1s ease .8s both;
+}
+.a-kvkk-chip::before{content:'◆';color:var(--brass);font-size:9px;}
+
+@keyframes fadeUp{
+  from{opacity:0;transform:translateY(20px)}
+  to{opacity:1;transform:translateY(0)}
+}
+
+/* Scroll indicator */
+.a-scroll-cue{
+  position:absolute;bottom:32px;left:50%;
+  transform:translateX(-50%);
+  color:var(--stone);font-size:10px;
+  letter-spacing:.18em;text-transform:uppercase;
+  writing-mode:vertical-lr;
+  animation:scrollBob 2s ease infinite;
+  opacity:.7;
+}
+@keyframes scrollBob{
+  0%,100%{transform:translateX(-50%) translateY(0)}
+  50%{transform:translateX(-50%) translateY(6px)}
+}
+
+/* ─── PULL QUOTE MOMENT ──────────────────────────── */
+.a-pullquote{
+  padding:110px 48px;
+  text-align:center;
+  border-top:1px solid var(--border);
+  border-bottom:1px solid var(--border);
+  background:linear-gradient(180deg, var(--dark-bg) 0%, rgba(178,152,108,0.02) 50%, var(--dark-bg) 100%);
+}
+.a-pullquote-inner{max-width:820px;margin:0 auto}
+.a-pullquote q{
+  font-family:Georgia,serif;
+  font-size:clamp(22px,3.2vw,38px);
+  font-weight:400;
+  font-style:italic;
+  color:var(--dark-type);
+  line-height:1.38;
+  display:block;quotes:none;
+  letter-spacing:-.01em;
+}
+.a-pullquote q::before{content:'"';color:var(--brass);font-size:1.2em;margin-right:.1em;}
+.a-pullquote q::after{content:'"';color:var(--brass);font-size:1.2em;margin-left:.1em;}
+.a-pullquote-attr{
+  margin-top:24px;font-size:11px;color:var(--stone);
+  letter-spacing:.18em;text-transform:uppercase;
+}
+
+/* ─── PRODUCT PREVIEW (Animated Matrix) ──────────── */
+.a-preview{padding:120px 48px;border-top:1px solid var(--border)}
+.a-preview-inner{max-width:1120px;margin:0 auto}
+.a-preview-header{
+  margin-bottom:56px;
+}
+.a-eyebrow{
+  font-family:Arial,sans-serif;font-size:10px;
+  letter-spacing:.22em;text-transform:uppercase;
+  color:var(--brass);margin-bottom:16px;font-weight:400;
+}
+.a-section-title{
+  font-family:Georgia,serif;
+  font-size:clamp(28px,3.8vw,46px);
+  font-weight:700;letter-spacing:-.015em;
+  line-height:1.12;color:var(--dark-type);
+  max-width:760px;
+}
+.a-section-title em{color:var(--brass);font-style:italic}
+
+.a-preview-grid{
+  display:grid;
+  grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);
+  gap:48px;align-items:center;
+}
+@media(max-width:900px){
+  .a-preview-grid{grid-template-columns:1fr;gap:36px}
+}
+
+.a-matrix-demo{
+  position:relative;
+  background:rgba(232,230,226,0.02);
+  border:1px solid var(--border2);
+  padding:28px;
+}
+.a-matrix-label{
+  font-size:10px;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--brass);margin-bottom:12px;
+}
+.a-matrix-title{
+  font-family:Georgia,serif;font-size:18px;font-weight:700;
+  color:var(--dark-type);margin-bottom:4px;
+}
+.a-matrix-sub{
+  font-size:12px;color:var(--dark-sub);margin-bottom:22px;
+  line-height:1.5;
+}
+.a-matrix-grid{
+  display:grid;
+  grid-template-columns:110px repeat(4,1fr);
+  gap:2px;background:var(--border);
+  border:1px solid var(--border2);
+  font-size:10px;
+}
+.a-matrix-grid > div{
+  background:var(--dark-bg);
+  padding:10px 6px;text-align:center;
+  min-height:42px;
+  display:flex;align-items:center;justify-content:center;
+  color:var(--dark-sub);
+  letter-spacing:.04em;
+}
+.a-matrix-grid .mh{font-weight:700;color:var(--brass);text-transform:uppercase;font-size:9px;}
+.a-matrix-grid .mr{text-align:left;padding-left:12px;justify-content:flex-start;color:var(--dark-type);font-family:Georgia,serif;font-size:11px;font-weight:700;}
+.a-matrix-grid .cell{
+  transition:background .4s ease, color .4s;
+}
+.a-matrix-grid .cell.lvl1{background:rgba(232,230,226,0.03)}
+.a-matrix-grid .cell.lvl2{background:rgba(232,230,226,0.06);color:var(--dark-sub)}
+.a-matrix-grid .cell.lvl3{background:rgba(232,230,226,0.10);color:var(--dark-type)}
+.a-matrix-grid .cell.lvl4{background:rgba(232,230,226,0.15);color:var(--dark-type)}
+.a-matrix-grid .cell.focal{
+  background:var(--brass);color:var(--charcoal);
+  font-weight:700;
+  animation:focalPulse 3s ease-in-out infinite;
+}
+@keyframes focalPulse{
+  0%,100%{box-shadow:0 0 0 0 rgba(178,152,108,0)}
+  50%{box-shadow:inset 0 0 0 2px rgba(232,230,226,0.4)}
+}
+
+.a-matrix-footnote{
+  display:flex;justify-content:space-between;align-items:center;
+  margin-top:16px;font-size:10px;color:var(--stone);
+  letter-spacing:.05em;flex-wrap:wrap;gap:10px;
+}
+.a-matrix-footnote-badge{
+  display:inline-flex;align-items:center;gap:6px;
+  padding:4px 10px;border:1px solid var(--brass);
+  color:var(--brass);font-size:9px;
+  text-transform:uppercase;letter-spacing:.1em;
+}
+.a-matrix-footnote-badge::before{content:'●';font-size:8px;}
+
+.a-preview-text h3{
+  font-family:Georgia,serif;font-size:clamp(20px,2.4vw,26px);font-weight:700;
+  color:var(--dark-type);margin-bottom:16px;line-height:1.25;
+}
+.a-preview-text p{
+  font-size:15px;color:var(--dark-sub);
+  line-height:1.75;margin-bottom:16px;
+}
+.a-preview-text .highlight{color:var(--brass);font-weight:700;}
+.a-preview-bullets{
+  list-style:none;margin-top:24px;
+  display:flex;flex-direction:column;gap:14px;
+}
+.a-preview-bullets li{
+  font-size:14px;color:var(--dark-type);
+  padding-left:22px;position:relative;line-height:1.6;
+}
+.a-preview-bullets li::before{
+  content:'';position:absolute;left:0;top:10px;
+  width:10px;height:1px;background:var(--brass);
+}
+.a-preview-bullets li strong{color:var(--brass);font-weight:400;letter-spacing:.04em;text-transform:uppercase;font-size:12px;margin-right:6px;}
+
+/* ─── ORIENT HEX CYCLE ───────────────────────────── */
+.a-orient{
+  padding:130px 48px;
+  border-top:1px solid var(--border);
+  position:relative;
+  overflow:hidden;
+}
+.a-orient-inner{max-width:1120px;margin:0 auto}
+.a-orient-header{text-align:center;margin-bottom:72px}
+.a-orient-header .a-eyebrow{text-align:center;margin-bottom:20px;display:inline-block;}
+.a-orient-header h2{
+  font-family:Georgia,serif;
+  font-size:clamp(30px,3.8vw,50px);
+  font-weight:700;letter-spacing:-.015em;line-height:1.1;
+  margin-bottom:20px;color:var(--dark-type);
+}
+.a-orient-header h2 em{color:var(--brass);font-style:italic}
+.a-orient-header p{
+  font-size:16px;color:var(--dark-sub);max-width:600px;margin:0 auto;
+  line-height:1.7;
+}
+
+.a-orient-interactive{
+  display:grid;grid-template-columns:1fr 1fr;gap:64px;
   align-items:center;
 }
-.btn-secondary-sm:hover{color:var(--dark-type);border-color:var(--border2)}
+@media(max-width:900px){
+  .a-orient-interactive{grid-template-columns:1fr;gap:40px}
+}
+.a-hex-cycle{
+  position:relative;aspect-ratio:1;
+  width:100%;max-width:480px;margin:0 auto;
+}
+.a-hex-cycle svg{width:100%;height:100%;overflow:visible;}
+.a-hex-edge{
+  fill:none;stroke:var(--border3);stroke-width:1;
+}
+.a-hex-core{
+  fill:none;stroke:var(--brass);stroke-width:1.5;opacity:.3;
+}
+.a-hex-vertex{
+  cursor:pointer;
+  transition:all .3s ease;
+}
+.a-hex-vertex-circle{
+  fill:var(--dark-bg);stroke:var(--brass);stroke-width:1.5;
+  transition:all .3s;
+}
+.a-hex-vertex.active .a-hex-vertex-circle,
+.a-hex-vertex:hover .a-hex-vertex-circle{
+  fill:var(--brass);
+  stroke:var(--brass);
+}
+.a-hex-vertex-letter{
+  font-family:Georgia,serif;font-size:22px;font-weight:700;
+  fill:var(--brass);
+  pointer-events:none;
+  transition:fill .3s;
+}
+.a-hex-vertex.active .a-hex-vertex-letter,
+.a-hex-vertex:hover .a-hex-vertex-letter{
+  fill:var(--charcoal);
+}
+.a-hex-vertex-label{
+  font-family:Arial,sans-serif;font-size:11px;
+  letter-spacing:.12em;text-transform:uppercase;
+  fill:var(--dark-sub);
+  pointer-events:none;
+  transition:fill .3s;
+}
+.a-hex-vertex.active .a-hex-vertex-label{fill:var(--brass);font-weight:700}
 
-/* ─── PERSONA SEGMENTATION ──────────────────────── */
-.persona-section{margin-top:48px;padding-top:40px;border-top:1px solid var(--border)}
-.persona-label{
-  font-family:Arial,sans-serif;font-size:9px;font-weight:400;
-  letter-spacing:.18em;text-transform:uppercase;color:var(--brass);margin-bottom:20px;
+.a-orient-detail{
+  min-height:340px;display:flex;flex-direction:column;justify-content:center;
 }
-.persona-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border)}
-.persona-card{
-  background:var(--dark-bg);padding:24px;
-  display:flex;flex-direction:column;gap:10px;
+.a-stage-badge{
+  display:inline-flex;align-items:center;gap:10px;
+  padding:6px 14px;border:1px solid var(--brass);
+  color:var(--brass);font-size:10px;letter-spacing:.2em;
+  text-transform:uppercase;margin-bottom:20px;align-self:flex-start;
 }
-.persona-role{
-  font-family:Georgia,serif;font-weight:700;font-size:14px;
-  color:var(--text);line-height:1.3;
+.a-stage-badge-num{
+  display:inline-flex;align-items:center;justify-content:center;
+  width:20px;height:20px;background:var(--brass);color:var(--charcoal);
+  font-weight:700;font-size:11px;
 }
-.persona-card p{
-  font-size:12px;color:var(--text2);line-height:1.65;
-  font-family:Arial,sans-serif;flex:1;
+.a-stage-title{
+  font-family:Georgia,serif;font-size:clamp(28px,3.2vw,38px);font-weight:700;
+  color:var(--dark-type);letter-spacing:-.015em;margin-bottom:14px;
+  line-height:1.12;
 }
-.persona-tools{
-  display:flex;gap:8px;flex-wrap:wrap;padding-top:10px;
+.a-stage-desc{
+  font-size:16px;color:var(--dark-sub);
+  line-height:1.7;margin-bottom:24px;
+}
+.a-stage-meta{
+  display:flex;gap:24px;padding-top:20px;border-top:1px solid var(--border2);
+  font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--stone);
+  flex-wrap:wrap;
+}
+.a-stage-meta strong{color:var(--dark-type);font-weight:700;margin-left:6px;}
+
+.a-orient-footnote{
+  text-align:center;margin-top:56px;
+  font-size:13px;color:var(--stone);
+  font-style:italic;font-family:Georgia,serif;
+}
+.a-orient-footnote a{color:var(--dark-type);text-decoration:underline;text-underline-offset:3px;transition:color .2s;}
+.a-orient-footnote a:hover{color:var(--brass)}
+
+/* ─── TOOLS (Featured + Secondary) ───────────────── */
+.a-tools{
+  padding:130px 48px;
   border-top:1px solid var(--border);
 }
-.persona-tools a{
-  font-size:10px;color:var(--stone);text-decoration:none;
-  padding:4px 10px;border:1px solid var(--border2);
-  font-family:Arial,sans-serif;letter-spacing:.04em;
-  transition:color .15s,border-color .15s;
-}
-.persona-tools a:hover{color:var(--text);border-color:rgba(232,230,226,.35)}
+.a-tools-inner{max-width:1120px;margin:0 auto}
+.a-tools-header{margin-bottom:56px}
+.a-tools-header .a-section-title{max-width:540px}
 
-/* ─── TRUST SIGNALS ─────────────────────────────── */
-.trust-bar{
-  display:flex;justify-content:center;align-items:stretch;
-  gap:0;border:1px solid var(--border2);
+.a-tool-featured{
+  display:grid;grid-template-columns:1fr minmax(280px,360px);gap:40px;
+  padding:44px;border:1px solid var(--brass);
+  background:rgba(178,152,108,0.03);
+  margin-bottom:2px;
+  transition:background .4s, border-color .4s;
+  position:relative;
+  text-decoration:none;color:inherit;
+}
+.a-tool-featured::before{
+  content:'FEATURED · LIVE';
+  position:absolute;top:-11px;left:40px;
+  background:var(--brass);color:var(--charcoal);
+  font-size:10px;font-weight:700;letter-spacing:.18em;
+  padding:5px 12px;
+}
+.a-tool-featured:hover{background:rgba(178,152,108,0.06);border-color:var(--brass-br)}
+.a-tool-featured h3{
+  font-family:Georgia,serif;font-size:clamp(22px,2.6vw,30px);font-weight:700;
+  color:var(--dark-type);margin-bottom:16px;line-height:1.2;
+}
+.a-tool-featured p{font-size:15px;color:var(--dark-sub);line-height:1.7;margin-bottom:20px;}
+.a-tool-stages{display:flex;gap:6px;margin-bottom:20px;flex-wrap:wrap;}
+.a-tool-stage-pill{
+  padding:5px 10px;border:1px solid var(--border2);
+  font-size:10px;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--dark-sub);
+}
+.a-tool-stage-pill.active{color:var(--brass);border-color:var(--brass);}
+.a-tool-cta{
+  display:inline-flex;align-items:center;gap:8px;
+  color:var(--brass);font-size:12px;letter-spacing:.06em;text-transform:uppercase;
+  font-weight:700;
+}
+.a-tool-cta .arr{transition:transform .25s;}
+.a-tool-featured:hover .a-tool-cta .arr{transform:translateX(5px);}
+
+.a-tool-mini-matrix{
+  border:1px solid var(--border2);
+  padding:16px;
+  background:rgba(0,0,0,0.2);
+  display:grid;grid-template-columns:repeat(4,1fr);gap:2px;
+  align-content:center;
+}
+.a-tool-mini-matrix > div{
+  aspect-ratio:1;
+  background:rgba(232,230,226,0.05);
+  display:flex;align-items:center;justify-content:center;
+  font-size:9px;color:var(--dark-sub);
+  letter-spacing:.04em;
+}
+.a-tool-mini-matrix > div.f{background:var(--brass);color:var(--charcoal);font-weight:700;}
+
+.a-tool-secondary-grid{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:2px;
+  background:var(--border);
+  margin-top:2px;
+}
+@media(max-width:900px){
+  .a-tool-featured{grid-template-columns:1fr}
+  .a-tool-secondary-grid{grid-template-columns:1fr}
+}
+.a-tool-card{
+  background:var(--dark-bg);padding:28px 24px;
+  text-decoration:none;color:inherit;
+  display:flex;flex-direction:column;gap:12px;
+  transition:background .3s, border-top-color .3s, transform .3s;
+  border-top:3px solid transparent;
+}
+.a-tool-card:hover{
+  background:rgba(232,230,226,0.04);
+  border-top-color:var(--brass);
+  transform:translateY(-3px);
+}
+.a-tool-card .a-tool-name{
+  font-family:Georgia,serif;font-size:15px;font-weight:700;
+  color:var(--dark-type);line-height:1.3;
+}
+.a-tool-card p{font-size:12px;color:var(--dark-sub);line-height:1.65;flex:1;}
+.a-tool-card-footer{
+  display:flex;justify-content:space-between;align-items:center;
+  padding-top:12px;border-top:1px solid var(--border);
+  font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--stone);
+}
+.a-tool-card-footer .arr{color:var(--brass);font-size:14px;transition:transform .3s;}
+.a-tool-card:hover .a-tool-card-footer .arr{transform:translateX(4px);}
+
+/* ─── TRUST BAR (counter animation) ──────────────── */
+.a-trust{
+  padding:80px 48px;
+  border-top:1px solid var(--border);
+  background:rgba(0,0,0,0.3);
+}
+.a-trust-inner{max-width:960px;margin:0 auto}
+.a-trust-label{
+  text-align:center;font-size:10px;letter-spacing:.22em;
+  text-transform:uppercase;color:var(--stone);margin-bottom:36px;
+}
+.a-trust-grid{
+  display:grid;grid-template-columns:repeat(4,1fr);gap:2px;
+  background:var(--border2);
+  border:1px solid var(--border2);
+}
+@media(max-width:760px){.a-trust-grid{grid-template-columns:repeat(2,1fr)}}
+.a-trust-item{
+  background:var(--dark-bg);padding:28px 16px;
+  text-align:center;
+}
+.a-trust-num{
+  font-family:Georgia,serif;font-size:clamp(22px,2.6vw,30px);font-weight:700;
+  color:var(--brass);line-height:1;margin-bottom:10px;letter-spacing:.01em;
+}
+.a-trust-lbl{
+  font-size:11px;color:var(--dark-sub);
+  letter-spacing:.06em;line-height:1.4;
+}
+
+/* ─── FINAL CTA ──────────────────────────────────── */
+.a-final-cta{
+  padding:130px 48px;
+  text-align:center;
+  border-top:1px solid var(--border);
+  position:relative;
   overflow:hidden;
-  max-width:780px;margin:0 auto;
 }
-.trust-item{
-  flex:1;padding:22px 16px;text-align:center;
-  border-right:1px solid var(--border);
+.a-final-cta::before{
+  content:'';position:absolute;top:50%;left:50%;
+  transform:translate(-50%,-50%);
+  width:800px;height:800px;
+  background:radial-gradient(circle, rgba(178,152,108,0.06) 0%, transparent 60%);
+  pointer-events:none;
 }
-.trust-item:last-child{border-right:none}
-.trust-num{
-  font-family:Georgia,serif;font-size:16px;font-weight:700;
-  color:var(--brass);line-height:1;margin-bottom:6px;letter-spacing:.02em;
+.a-final-cta h2{
+  font-family:Georgia,serif;
+  font-size:clamp(30px,4.8vw,54px);
+  font-weight:700;letter-spacing:-.02em;
+  color:var(--dark-type);margin-bottom:20px;line-height:1.12;
+  position:relative;z-index:1;
 }
-.trust-lbl{font-size:10px;color:var(--stone);line-height:1.4;font-weight:400;letter-spacing:.04em;font-family:Arial,sans-serif}
+.a-final-cta h2 em{color:var(--brass);font-style:italic;font-weight:700;}
+.a-final-cta p{
+  font-size:17px;color:var(--dark-sub);
+  max-width:540px;margin:0 auto 36px;line-height:1.7;
+  position:relative;z-index:1;
+}
+.a-final-cta .a-btn-primary{position:relative;z-index:1;}
 
-/* ─── ABOUT / MISSION ────────────────────────────── */
-.about-grid{display:block;max-width:720px}
-.about-label{
-  font-family:Arial,sans-serif;font-size:9px;font-weight:400;
-  letter-spacing:.18em;text-transform:uppercase;color:var(--brass);
-  margin-bottom:14px;
-}
-.about-left h2{
-  font-family:Georgia,serif;font-size:clamp(24px,3vw,34px);
-  font-weight:700;letter-spacing:-.5px;line-height:1.15;margin-bottom:18px;color:var(--text);
-}
-.about-left h2 em{color:var(--text);font-style:italic}
-.about-left p{
-  font-size:13px;color:var(--text2);line-height:1.8;margin-bottom:14px;font-weight:400;
-  font-family:Arial,sans-serif;
-}
-.about-left p strong{color:var(--text);font-weight:700}
-.about-manifesto{
-  display:flex;flex-direction:column;gap:8px;
-  border-left:1px solid var(--border2);
-  padding-left:18px;margin:22px 0;
-}
-.am-line{display:flex;align-items:center;gap:10px;font-size:12px;font-weight:400;color:var(--text2);font-family:Arial,sans-serif}
-.am-check{color:var(--stone);font-weight:400;font-size:12px;flex-shrink:0}
-.about-closing{
-  font-size:14px;color:var(--text2);line-height:1.75;
-  font-weight:400;font-style:italic;font-family:Georgia,serif;
-  margin-top:0;margin-bottom:22px;
-}
-.about-closing strong{color:var(--text);font-weight:700;font-style:normal;font-family:Georgia,serif}
-
-/* ─── THINKING ───────────────────────────────────── */
+/* ─── THINKING (preserved, tuned) ────────────────── */
 .thinking-hdr{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:36px;gap:14px;flex-wrap:wrap}
 .thinking-label{
-  font-family:Arial,sans-serif;font-size:9px;font-weight:400;
-  letter-spacing:.18em;text-transform:uppercase;color:var(--brass);margin-bottom:14px;
+  font-family:Arial,sans-serif;font-size:10px;font-weight:400;
+  letter-spacing:.22em;text-transform:uppercase;color:var(--brass);margin-bottom:14px;
 }
 .thinking-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--border)}
 .thinking-card{
@@ -363,46 +761,16 @@ section{position:relative;z-index:1;padding-block:72px}
 }
 .thinking-card-arrow{font-size:13px;color:var(--text2);transition:color .15s}
 .thinking-card:hover .thinking-card-arrow{color:var(--text)}
-.thinking-note{
-  background:transparent;border:1px solid var(--border);
-  padding:14px 18px;margin-top:1px;
-  font-size:11px;color:var(--stone);line-height:1.6;font-style:italic;
-  font-family:Georgia,serif;
+.btn-outline{
+  background:transparent;color:var(--text2);
+  padding:11px 24px;border-radius:2px;
+  font-weight:400;font-size:12px;
+  border:1px solid var(--border2);cursor:pointer;
+  transition:color .15s, border-color .15s;font-family:Arial,sans-serif;
+  text-decoration:none;display:inline-flex;align-items:center;gap:7px;
+  letter-spacing:.04em;
 }
-
-/* ─── DIVIDER ────────────────────────────────────── */
-.sec-divider{position:relative;z-index:1;padding:0 48px;}
-.sec-divider hr{border:none;border-top:1px solid var(--border)}
-
-/* ─── TOOLS ──────────────────────────────────────── */
-.res-label{
-  font-family:Arial,sans-serif;font-size:9px;font-weight:400;
-  letter-spacing:.18em;text-transform:uppercase;color:var(--brass);margin-bottom:14px;
-}
-.res-hdr{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:36px;gap:14px;flex-wrap:wrap}
-.res-hdr h2{font-family:Georgia,serif;font-size:clamp(22px,3vw,32px);font-weight:700;letter-spacing:-.5px;line-height:1.1;color:var(--text)}
-.res-hdr h2 em{font-style:italic;color:var(--text)}
-
-/* tool grid cards */
-.res-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--border)}
-.res-card{
-  background:var(--dark-bg);border:none;
-  padding:20px;transition:background .15s;text-decoration:none;color:inherit;
-  display:flex;flex-direction:column;gap:10px;
-}
-.res-card:hover{background:var(--card2)}
-.res-card-icon{width:32px;height:32px;display:flex;align-items:center;justify-content:center;font-size:16px}
-.res-card h3{font-family:Georgia,serif;font-weight:700;font-size:13px;line-height:1.4;color:var(--text)}
-.res-card p{font-size:11px;color:var(--text2);line-height:1.6;flex:1;font-family:Arial,sans-serif}
-.rc-footer{display:flex;align-items:center;justify-content:space-between;margin-top:auto;padding-top:10px;border-top:1px solid var(--border)}
-.rc-src{font-size:9px;font-weight:400;letter-spacing:.1em;text-transform:uppercase;color:var(--stone);font-family:Arial,sans-serif}
-.rc-arr{font-size:13px;color:var(--text2);transition:color .15s}
-.res-card:hover .rc-arr{color:var(--text)}
-.tool-badge-live{
-  display:inline-flex;align-items:center;gap:5px;
-  font-size:9px;font-weight:400;color:var(--text2);letter-spacing:.08em;text-transform:uppercase;
-  margin-bottom:6px;font-family:Arial,sans-serif;
-}
+.btn-outline:hover{border-color:rgba(232,230,226,.35);color:var(--text)}
 
 /* ─── CONTACT ────────────────────────────────────── */
 #contact{padding-bottom:32px}
@@ -411,12 +779,10 @@ section{position:relative;z-index:1;padding-block:72px}
 .contact-left h2 em{font-style:italic;color:var(--text)}
 .contact-left p{font-size:13px;color:var(--text2);line-height:1.8;font-weight:400;margin-bottom:12px;font-family:Arial,sans-serif}
 .contact-left p strong{color:var(--text);font-weight:700}
-.contact-note{
-  background:transparent;border:1px solid var(--border);
-  padding:16px 18px;margin-top:24px;
-  font-size:12px;color:var(--text2);line-height:1.6;font-family:Arial,sans-serif;
+.res-label{
+  font-family:Arial,sans-serif;font-size:10px;font-weight:400;
+  letter-spacing:.22em;text-transform:uppercase;color:var(--brass);margin-bottom:14px;
 }
-.contact-note strong{color:var(--text2);font-weight:700}
 .contact-cards{display:flex;flex-direction:column;gap:1px;background:var(--border)}
 .cc-card{
   background:var(--dark-bg);border:none;
@@ -467,7 +833,6 @@ footer{
 .footer-logo{display:flex;align-items:center;flex-shrink:0;text-decoration:none;}
 .footer-logo img{display:block;height:auto;width:auto;max-height:18px;}
 .footer-logo:focus-visible{outline:2px solid rgba(232,230,226,0.5);outline-offset:4px;}
-/* Fallback */
 .footer-wordmark{font-family:Georgia,serif;font-weight:700;font-size:13px;letter-spacing:2px;text-transform:uppercase;color:var(--text)}
 .footer-wordmark-dot{display:inline-block;width:5px;height:1px;background:var(--brass);margin:0 1px 2px 1px;vertical-align:middle}
 .footer-sep{color:var(--stone);margin:0 4px}
@@ -476,50 +841,9 @@ footer{
 .footer-links a{font-size:10px;color:var(--stone);text-decoration:none;transition:color .15s;font-family:Arial,sans-serif;letter-spacing:.04em}
 .footer-links a:hover{color:var(--text2)}
 
-/* ─── HEXIS MODEL ────────────────────────────────── */
-.model-label{
-  font-family:Arial,sans-serif;font-size:9px;font-weight:400;
-  letter-spacing:.18em;text-transform:uppercase;color:var(--brass);margin-bottom:10px;
-}
-.model-subtitle{
-  font-size:12px;color:var(--stone);font-style:italic;
-  line-height:1.5;margin-bottom:32px;font-weight:400;font-family:Georgia,serif;
-}
-.model-grid{
-  display:grid;grid-template-columns:repeat(2,1fr);gap:1px;
-  background:var(--border);
-}
-@media(max-width:640px){.model-grid{grid-template-columns:1fr}}
-.model-card{
-  background:var(--dark-bg);
-  padding:28px 26px;
-  display:flex;flex-direction:column;gap:10px;
-  transition:background .15s;
-}
-.model-card:hover{background:var(--card2)}
-.model-step{
-  display:inline-flex;align-items:center;gap:7px;
-  font-family:Arial,sans-serif;font-size:9px;font-weight:400;
-  letter-spacing:.12em;text-transform:uppercase;
-  color:var(--stone);
-}
-.model-step-num{
-  width:18px;height:18px;
-  border:1px solid rgba(178,152,108,.5);
-  display:flex;align-items:center;justify-content:center;
-  font-size:9px;font-weight:400;color:var(--brass);font-family:Arial,sans-serif;
-}
-.model-card h3{
-  font-family:Georgia,serif;font-weight:700;
-  font-size:14px;line-height:1.3;color:var(--text);
-}
-.model-card p{
-  font-size:12px;color:var(--text2);line-height:1.72;margin-bottom:0;font-family:Arial,sans-serif;
-}
-.model-footer-note{
-  font-size:11px;color:var(--stone);margin-top:20px;
-  font-style:italic;letter-spacing:.02em;font-family:Georgia,serif;
-}
+/* ─── SEC DIVIDER ────────────────────────────────── */
+.sec-divider{position:relative;z-index:1;padding:0 48px;}
+.sec-divider hr{border:none;border-top:1px solid var(--border)}
 
 /* ─── RESPONSIVE ─────────────────────────────────── */
 @media(max-width:860px){
@@ -529,20 +853,24 @@ footer{
   .hamburger{display:flex}
   .section-inner{padding:0 20px}
   .sec-divider{padding:0 20px}
-  #hero{padding:60px 0 40px}
+  .a-hero{padding:40px 20px 60px;min-height:auto}
+  .a-pullquote{padding:80px 24px}
+  .a-preview{padding:80px 20px}
+  .a-orient{padding:80px 20px}
+  .a-tools{padding:80px 20px}
+  .a-trust{padding:60px 20px}
+  .a-final-cta{padding:80px 20px}
+  .a-tool-featured{padding:32px 24px}
+  .a-tool-featured::before{left:24px}
   .contact-grid{grid-template-columns:1fr}
-  .res-grid{grid-template-columns:1fr}
   .thinking-grid{grid-template-columns:1fr}
-  .persona-grid{grid-template-columns:1fr}
-  .trust-bar{flex-wrap:wrap}
-  .trust-item{flex:1 1 45%;border-bottom:1px solid var(--border)}
-  .trust-item:nth-child(2){border-right:none}
-  .trust-item:nth-child(3),.trust-item:nth-child(4){border-bottom:none}
   footer{flex-direction:column;align-items:flex-start;padding:20px}
 }
 @media(max-width:480px){
-  .hero-actions{gap:8px}
-  .btn-primary,.btn-outline{padding:10px 16px;font-size:12px}
+  .a-hero-cta-row{gap:10px}
+  .a-btn-primary,.a-btn-ghost{padding:13px 20px;font-size:12px}
+  .a-stage-meta{gap:14px}
+  .a-hero-cycle-bg{width:min(360px, 90vw);height:min(360px, 90vw);}
 }
 </style>
 </head>
@@ -576,35 +904,50 @@ footer{
   <a href="/blog/" onclick="closeMenu()">Blog</a>
 </div>
 
-<!-- ══════════ HERO ══════════ -->
-<section id="hero">
-  <div class="hero-hex-bg" aria-hidden="true">
-    <svg width="100%" height="100%" viewBox="0 0 900 600" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
-      <polygon fill="none" stroke="#B2986C" stroke-width="1.2" opacity=".10" points="450,170 530,216 530,308 450,354 370,308 370,216"/>
-      <polygon fill="none" stroke="#B2986C" stroke-width="1"   opacity=".06" points="450,110 570,178 570,314 450,382 330,314 330,178"/>
-      <polygon fill="none" stroke="#B2986C" stroke-width=".8"  opacity=".04" points="450,40  620,147 620,323 450,430 280,323 280,147"/>
-      <polygon fill="none" stroke="#B2986C" stroke-width=".6"  opacity=".025" points="450,-42 678,107 678,333 450,482 222,333 222,107"/>
-      <polygon fill="none" stroke="#B2986C" stroke-width=".5"  opacity=".015" points="450,-134 744,60 744,342 450,542 156,342 156,60"/>
+<!-- ══════════ HERO (Yön A) ══════════ -->
+<section class="a-hero" id="hero">
+  <div class="a-hero-cycle-bg" aria-hidden="true">
+    <svg viewBox="-250 -250 500 500" xmlns="http://www.w3.org/2000/svg">
+      <g class="a-hex-outer">
+        <polygon points="220,0 110,190.5 -110,190.5 -220,0 -110,-190.5 110,-190.5"/>
+      </g>
+      <g class="a-hex-mid">
+        <polygon points="165,0 82.5,142.9 -82.5,142.9 -165,0 -82.5,-142.9 82.5,-142.9"/>
+      </g>
+      <g class="a-hex-inner">
+        <polygon points="110,0 55,95.3 -55,95.3 -110,0 -55,-95.3 55,-95.3"/>
+      </g>
+      <circle cx="220" cy="0" r="6" class="a-hero-stage-dot"/>
+      <circle cx="110" cy="-190.5" r="6" class="a-hero-stage-dot"/>
+      <circle cx="-110" cy="-190.5" r="6" class="a-hero-stage-dot"/>
+      <circle cx="-220" cy="0" r="6" class="a-hero-stage-dot"/>
+      <circle cx="-110" cy="190.5" r="6" class="a-hero-stage-dot"/>
+      <circle cx="110" cy="190.5" r="6" class="a-hero-stage-dot"/>
     </svg>
   </div>
-  <div class="section-inner" style="position:relative;z-index:2">
 
-    <h1 class="hero-headline"
-      data-en="AI governance isn't a checklist. It's an orientation."
-      data-tr="AI Governance bir kontrol listesi değil, bir yönelimdir."
-    >AI governance isn't a checklist. It's an orientation.</h1>
+  <div class="a-hero-content">
+    <div class="a-hero-eyebrow"
+      data-en="◆ AI Governance · EU AI Act · KVKK"
+      data-tr="◆ AI Governance · EU AI Act · KVKK"
+    >◆ AI Governance · EU AI Act · KVKK</div>
 
-    <p class="hero-desc"
-      data-en="Structured methodology for compliance teams. The ORIENT framework helps you classify, assess, and document AI systems under EU AI Act and KVKK — turning regulatory complexity into defensible decisions. Your judgment. Our framework."
+    <h1 class="a-hero-headline"
+      data-en='AI governance isn&#39;t a checklist. It&#39;s an <span class="brass-word">orientation</span>.'
+      data-tr='AI Governance bir kontrol listesi değil, bir <span class="brass-word">yönelimdir</span>.'
+    >AI governance isn't a checklist. It's an <span class="brass-word">orientation</span>.</h1>
+
+    <p class="a-hero-desc"
+      data-en="Structured methodology for compliance teams. The ORIENT framework helps you classify, assess, and document AI systems under EU AI Act and KVKK. Your judgment. Our framework."
       data-tr="Uyum ve yönetişim ekipleri için yapılandırılmış metodoloji. ORIENT çerçevesi, AI sistemlerinizi EU AI Act ve KVKK kapsamında sınıflandırmanıza, değerlendirmenize ve belgelemenize yardımcı olur."
-    >Structured methodology for compliance teams. The ORIENT framework helps you classify, assess, and document AI systems under EU AI Act and KVKK — turning regulatory complexity into defensible decisions. Your judgment. Our framework.</p>
+    >Structured methodology for compliance teams. The ORIENT framework helps you classify, assess, and document AI systems under EU AI Act and KVKK. Your judgment. Our framework.</p>
 
-    <div class="hero-actions">
-      <a href="/generator/" class="btn-primary"
-        data-en="Classify Your AI System →"
-        data-tr="AI Sisteminizi Sınıflandırın →"
-      >Classify Your AI System →</a>
-      <a href="/methodology/" class="btn-outline"
+    <div class="a-hero-cta-row">
+      <a href="/generator/" class="a-btn-primary"
+        data-en='Classify Your AI System <span class="arr">→</span>'
+        data-tr='AI Sisteminizi Sınıflandırın <span class="arr">→</span>'
+      >Classify Your AI System <span class="arr">→</span></a>
+      <a href="/methodology/" class="a-btn-ghost"
         data-en="See how ORIENT works"
         data-tr="ORIENT nasıl çalışır?"
         data-en-href="/methodology/"
@@ -612,285 +955,418 @@ footer{
       >See how ORIENT works</a>
     </div>
 
-    <p class="hero-kvkk-note"
-      data-en="Operating in Turkey? Our tools include KVKK cross-analysis for dual-jurisdiction compliance."
-      data-tr="Türkiye'de faaliyet mi gösteriyorsunuz? Araçlarımız çifte yetki alanı uyumu için KVKK çapraz analizini içerir."
-    >Operating in Turkey? Our tools include KVKK cross-analysis for dual-jurisdiction compliance.</p>
+    <div class="a-kvkk-chip"
+      data-en="Operating in Turkey? KVKK cross-analysis included."
+      data-tr="Türkiye'de faaliyet mi gösteriyorsunuz? KVKK çapraz analizi dahil."
+    >Operating in Turkey? KVKK cross-analysis included.</div>
+  </div>
 
+  <div class="a-scroll-cue"
+    data-en="Scroll"
+    data-tr="Kaydır"
+  >Scroll</div>
+</section>
+
+<!-- ══════════ PULL QUOTE ══════════ -->
+<section class="a-pullquote reveal">
+  <div class="a-pullquote-inner">
+    <q
+      data-en="Compliance isn&#39;t a state, it&#39;s an orientation. Hexis classifies AI systems under the EU AI Act: minutes for a single system, hours for a hundred-system portfolio."
+      data-tr="Uyum bir durum değil, bir yönelimdir. Hexis, AI sistemlerinizi EU AI Act kapsamında sınıflandırır; tek sistem için dakikalar, yüz sistemlik portföy için saatler."
+    >Compliance isn't a state, it's an orientation. Hexis classifies AI systems under the EU AI Act: minutes for a single system, hours for a hundred-system portfolio.</q>
+    <div class="a-pullquote-attr"
+      data-en="— Hexis Manifesto"
+      data-tr="Hexis Manifestosu"
+    >— Hexis Manifesto</div>
   </div>
 </section>
 
-<div class="sec-divider"><hr></div>
+<!-- ══════════ PRODUCT PREVIEW ══════════ -->
+<section class="a-preview">
+  <div class="a-preview-inner">
+    <div class="a-preview-header reveal">
+      <div class="a-eyebrow"
+        data-en="What Hexis delivers"
+        data-tr="Hexis size ne kazandırır?"
+      >What Hexis delivers</div>
+      <h2 class="a-section-title"
+        data-en='Governance Activation Matrix: <em>concrete output</em>, not commentary.'
+        data-tr='Governance Activation Matrix: <em>somut çıktı</em>, yorum değil.'
+      >Governance Activation Matrix: <em>concrete output</em>, not commentary.</h2>
+    </div>
 
-<!-- ══════════ WHAT HEXIS IS ══════════ -->
-<section id="what-hexis-is" style="padding-block:70px 70px">
-  <div class="section-inner">
-    <div class="res-label" data-en="Positioning" data-tr="Konumlanma" style="margin-bottom:12px">Positioning</div>
-    <h2 style="font-family:Georgia,serif;font-size:clamp(24px,3.2vw,34px);font-weight:700;letter-spacing:-.01em;line-height:1.15;color:var(--dark-type);margin-bottom:24px;max-width:720px"
-      data-en="What Hexis is — and what it isn't."
-      data-tr="Hexis size ne kazandırır?"
-    >What Hexis is — and what it isn't.</h2>
+    <div class="a-preview-grid reveal">
+      <!-- Live-feel matrix demo -->
+      <div class="a-matrix-demo" aria-hidden="true">
+        <div class="a-matrix-label"
+          data-en="Sample Output · Credit Scoring AI System"
+          data-tr="Örnek Çıktı · Kredi Skorlama AI Sistemi"
+        >Sample Output · Credit Scoring AI System</div>
+        <div class="a-matrix-title"
+          data-en="Governance Activation Matrix"
+          data-tr="Yönetişim Aktivasyon Matrisi"
+        >Governance Activation Matrix</div>
+        <div class="a-matrix-sub"
+          data-en="Maturity level × Risk Exposure. The focal cell (brass) marks your current position."
+          data-tr="Maturity seviyesi × Risk Exposure. Focal cell (altın), organizasyonun mevcut durumunu gösterir."
+        >Maturity level × Risk Exposure. The focal cell (brass) marks your current position.</div>
 
-    <div style="max-width:680px">
-      <p style="font-family:Arial,sans-serif;font-size:clamp(14px,1.5vw,16px);line-height:1.75;color:var(--text2);margin-bottom:18px"
-        data-en="Hexis is not your legal advisor. Hexis is not your DPO. Hexis is not your auditor."
-        data-tr="AI sistemlerinizi EU AI Act kapsamında sınıflandırır: tek bir sistem için dakikalar, yüzlerce sistemden oluşan bir portföy için saatler. Risk seviyesine göre 23 maddelik uyum kontrol listesi, temel hak etki değerlendirmesi (FRIA, Madde 27) ve KVKK × EU AI Act çapraz analizini otomatik üretir."
-      >Hexis is not your legal advisor. Hexis is not your DPO. Hexis is not your auditor.</p>
+        <div class="a-matrix-grid">
+          <div class="mh"></div>
+          <div class="mh" data-en="Low" data-tr="Düşük">Low</div>
+          <div class="mh" data-en="Moderate" data-tr="Orta">Moderate</div>
+          <div class="mh" data-en="Elevated" data-tr="Elevated">Elevated</div>
+          <div class="mh" data-en="High" data-tr="Yüksek">High</div>
 
-      <p style="font-family:Arial,sans-serif;font-size:clamp(14px,1.5vw,16px);line-height:1.75;color:var(--text2);margin-bottom:18px"
-        data-en="Hexis is the framework your DPO references, the methodology your legal team validates, and the evidence trail your auditor expects."
-        data-tr="Her çıktı madde referansı ve tarih damgasıyla gelir. Denetçinize, yönetim kuruluna ve müşterilerinize savunabileceğiniz PDF raporları üretirsiniz."
-      >Hexis is the framework your DPO references, the methodology your legal team validates, and the evidence trail your auditor expects.</p>
+          <div class="mr">Absent</div>
+          <div class="cell lvl1">Cur.</div>
+          <div class="cell lvl2">Cur.</div>
+          <div class="cell lvl3">Cur.</div>
+          <div class="cell lvl4">Cur.</div>
 
-      <p style="font-family:Arial,sans-serif;font-size:clamp(14px,1.5vw,16px);line-height:1.75;color:var(--text2);margin-bottom:0"
-        data-en="Every decision remains yours. With Hexis, it's structured, documented, and defensible."
-        data-tr="Sonuç: Statik bir envanter değil; mevzuat güncellendikçe kendini yenileyen, kanıta dayalı bir yönetişim katmanı."
-      >Every decision remains yours. With Hexis, it's structured, documented, and defensible.</p>
+          <div class="mr">Ad Hoc</div>
+          <div class="cell lvl1">Rep.</div>
+          <div class="cell lvl2">Rep.</div>
+          <div class="cell lvl3">Rep.</div>
+          <div class="cell lvl4">Rep.</div>
+
+          <div class="mr">Structured</div>
+          <div class="cell lvl1">Def.</div>
+          <div class="cell lvl2">Def.</div>
+          <div class="cell lvl3 focal">Def.</div>
+          <div class="cell lvl4">Def.</div>
+
+          <div class="mr">Continuous</div>
+          <div class="cell lvl1">Opt.</div>
+          <div class="cell lvl2">Opt.</div>
+          <div class="cell lvl3">Opt.</div>
+          <div class="cell lvl4">Opt.</div>
+
+          <div class="mr">Embedded</div>
+          <div class="cell lvl1">Emb.</div>
+          <div class="cell lvl2">Emb.</div>
+          <div class="cell lvl3">Emb.</div>
+          <div class="cell lvl4">Emb.</div>
+        </div>
+
+        <div class="a-matrix-footnote">
+          <span data-en="Source: Reg. (EU) 2024/1689 · Annex III" data-tr="Kaynak: Reg. (EU) 2024/1689 · Ek III">Source: Reg. (EU) 2024/1689 · Annex III</span>
+          <span class="a-matrix-footnote-badge"
+            data-en="Live Report"
+            data-tr="Canlı Rapor"
+          >Live Report</span>
+        </div>
+      </div>
+
+      <!-- Explainer -->
+      <div class="a-preview-text">
+        <h3
+          data-en="Minutes for a single system. Hours for a portfolio."
+          data-tr="Tek sistem için dakikalar. Yüzlerce sistem için saatler."
+        >Minutes for a single system. Hours for a portfolio.</h3>
+        <p
+          data-en="The analysis that would take three weeks to build manually, Hexis produces in four minutes. Risk classification, maturity assessment, compliance gaps — every output cites the article."
+          data-tr="Matrisi manuel kurmak için 3 hafta harcayacağınız analizi, Hexis 4 dakikada yapar. Risk sınıflandırması, maturity assessment, uyum boşlukları; hepsi madde referansıyla."
+        >The analysis that would take three weeks to build manually, Hexis produces in four minutes.</p>
+        <ul class="a-preview-bullets">
+          <li>
+            <strong data-en="Output 1" data-tr="Çıktı 1">Output 1</strong>
+            <span data-en="Risk level + applicable obligations (Reg. (EU) 2024/1689 Art. 5–27)"
+                  data-tr="Risk seviyesi + geçerli yükümlülükler (Reg. (EU) 2024/1689 Md. 5-27)"
+            >Risk level + applicable obligations (Reg. (EU) 2024/1689 Art. 5–27)</span>
+          </li>
+          <li>
+            <strong data-en="Output 2" data-tr="Çıktı 2">Output 2</strong>
+            <span data-en="23-item compliance checklist (sectoral filter)"
+                  data-tr="23-maddelik uyum kontrol listesi (sectoral filter)"
+            >23-item compliance checklist (sectoral filter)</span>
+          </li>
+          <li>
+            <strong data-en="Output 3" data-tr="Çıktı 3">Output 3</strong>
+            <span data-en="FRIA draft (Article 27), an audit-ready PDF"
+                  data-tr="FRIA taslağı (Madde 27); denetçiye sunulabilir PDF"
+            >FRIA draft (Article 27), an audit-ready PDF</span>
+          </li>
+          <li>
+            <strong data-en="Output 4" data-tr="Çıktı 4">Output 4</strong>
+            <span data-en="KVKK × EU AI Act crosswalk for dual-jurisdiction compliance"
+                  data-tr="KVKK × EU AI Act çapraz analizi; çifte yetki alanı uyumu"
+            >KVKK × EU AI Act crosswalk for dual-jurisdiction compliance</span>
+          </li>
+        </ul>
+      </div>
     </div>
   </div>
 </section>
 
-<div class="sec-divider"><hr></div>
+<!-- ══════════ ORIENT HEX CYCLE ══════════ -->
+<section class="a-orient" id="model">
+  <div class="a-orient-inner">
+    <div class="a-orient-header reveal">
+      <div class="a-eyebrow"
+        data-en="ORIENT Framework"
+        data-tr="ORIENT Çerçevesi"
+      >ORIENT Framework</div>
+      <h2
+        data-en='Six stages to <em>manageable</em> governance.'
+        data-tr='6 aşamada <em>yönetilebilir</em> yönetişim.'
+      >Six stages to <em>manageable</em> governance.</h2>
+      <p
+        data-en="Hexis's proprietary six-stage methodology. From observation to tracking: cyclical, sustainable, auditable."
+        data-tr="Hexis'in tescilli altı aşamalı metodolojisi. Gözlemden izlemeye; döngüsel, sürdürülebilir, denetlenebilir."
+      >Hexis's proprietary six-stage methodology. From observation to tracking: cyclical, sustainable, auditable.</p>
+    </div>
 
-<!-- ══════════ TOOLS ══════════ -->
-<section id="tools">
-  <div class="section-inner">
-    <div class="res-hdr">
-      <div>
-        <div class="res-label" data-en="Tools" data-tr="Araçlar">Tools</div>
-        <h2 data-en="Free Governance <em>Tools</em>" data-tr="Ücretsiz Yönetişim <em>Araçları</em>">Free Governance <em>Tools</em></h2>
+    <div class="a-orient-interactive reveal">
+      <div class="a-hex-cycle">
+        <svg viewBox="-280 -280 560 560" id="orientHex" xmlns="http://www.w3.org/2000/svg" aria-label="ORIENT framework hexagon">
+          <polygon class="a-hex-edge" points="220,0 110,-190.5 -110,-190.5 -220,0 -110,190.5 110,190.5"/>
+          <polygon class="a-hex-core" points="110,0 55,-95.3 -55,-95.3 -110,0 -55,95.3 55,95.3"/>
+
+          <g class="a-hex-vertex active" data-stage="O" tabindex="0" role="button" aria-label="Observe stage">
+            <circle cx="220" cy="0" r="32" class="a-hex-vertex-circle"/>
+            <text x="220" y="0" text-anchor="middle" dominant-baseline="central" class="a-hex-vertex-letter">O</text>
+            <text x="270" y="6" text-anchor="start" class="a-hex-vertex-label">Observe</text>
+          </g>
+          <g class="a-hex-vertex" data-stage="R" tabindex="0" role="button" aria-label="Risk stage">
+            <circle cx="110" cy="-190.5" r="32" class="a-hex-vertex-circle"/>
+            <text x="110" y="-190.5" text-anchor="middle" dominant-baseline="central" class="a-hex-vertex-letter">R</text>
+            <text x="110" y="-238" text-anchor="middle" class="a-hex-vertex-label">Risk</text>
+          </g>
+          <g class="a-hex-vertex" data-stage="I" tabindex="0" role="button" aria-label="Identify stage">
+            <circle cx="-110" cy="-190.5" r="32" class="a-hex-vertex-circle"/>
+            <text x="-110" y="-190.5" text-anchor="middle" dominant-baseline="central" class="a-hex-vertex-letter">I</text>
+            <text x="-110" y="-238" text-anchor="middle" class="a-hex-vertex-label">Identify</text>
+          </g>
+          <g class="a-hex-vertex" data-stage="E" tabindex="0" role="button" aria-label="Evaluate stage">
+            <circle cx="-220" cy="0" r="32" class="a-hex-vertex-circle"/>
+            <text x="-220" y="0" text-anchor="middle" dominant-baseline="central" class="a-hex-vertex-letter">E</text>
+            <text x="-270" y="6" text-anchor="end" class="a-hex-vertex-label">Evaluate</text>
+          </g>
+          <g class="a-hex-vertex" data-stage="N" tabindex="0" role="button" aria-label="Navigate stage">
+            <circle cx="-110" cy="190.5" r="32" class="a-hex-vertex-circle"/>
+            <text x="-110" y="190.5" text-anchor="middle" dominant-baseline="central" class="a-hex-vertex-letter">N</text>
+            <text x="-110" y="240" text-anchor="middle" class="a-hex-vertex-label">Navigate</text>
+          </g>
+          <g class="a-hex-vertex" data-stage="T" tabindex="0" role="button" aria-label="Track stage">
+            <circle cx="110" cy="190.5" r="32" class="a-hex-vertex-circle"/>
+            <text x="110" y="190.5" text-anchor="middle" dominant-baseline="central" class="a-hex-vertex-letter">T</text>
+            <text x="110" y="240" text-anchor="middle" class="a-hex-vertex-label">Track</text>
+          </g>
+        </svg>
+      </div>
+
+      <div class="a-orient-detail" id="orientDetail">
+        <div class="a-stage-badge"><span class="a-stage-badge-num" id="stageNum">1</span><span id="stageName">Observe</span></div>
+        <h3 class="a-stage-title" id="stageTitle">Map the AI system.</h3>
+        <p class="a-stage-desc" id="stageDesc">
+          Identify the system's purpose, operational context, role (provider/deployer) and personal-data processing profile. This is where governance begins.
+        </p>
+        <div class="a-stage-meta" id="stageMeta">
+          <span data-label-en="Duration" data-label-tr="Süre">Duration <strong>5–10 min</strong></span>
+          <span data-label-en="Output" data-label-tr="Çıktı">Output <strong>System Card</strong></span>
+          <span data-label-en="Refs" data-label-tr="Referans">Refs <strong>Art. 3, Art. 26</strong></span>
+        </div>
       </div>
     </div>
 
-    <div class="res-grid" style="margin-top:1px">
+    <div class="a-orient-footnote">
+      <a
+        href="/methodology/"
+        data-en="Explore the ORIENT Framework for detailed guidance on each stage →"
+        data-tr="Her adımın ayrıntılı açıklaması için ORIENT Çerçevesi sayfasını inceleyin →"
+        data-en-href="/methodology/"
+        data-tr-href="/metodoloji/"
+      >Explore the ORIENT Framework for detailed guidance on each stage →</a>
+    </div>
+  </div>
+</section>
 
-      <a href="/generator/" class="res-card" style="text-decoration:none;display:flex;border-left:2px solid var(--brass)">
-        <div class="tool-badge-live">Live</div>
-        <div class="res-card-icon" style="font-size:20px">⚙️</div>
-        <h3 data-en="AI System Risk Classifier &amp; Governance Report" data-tr="AI Sistem Risk Sınıflandırıcısı &amp; Yönetişim Raporu">AI System Risk Classifier &amp; Governance Report</h3>
-        <p data-en="Classify your AI system under Reg. (EU) 2024/1689 in minutes. Get your risk level, applicable obligations, and governance maturity profile."
-           data-tr="AI sisteminizi dakikalar içinde Reg. (EU) 2024/1689 kapsamında sınıflandırın. Risk seviyenizi, yükümlülüklerinizi ve yönetişim olgunluk profilinizi alın."
-        >Classify your AI system under Reg. (EU) 2024/1689 in minutes. Get your risk level, applicable obligations, and governance maturity profile.</p>
-        <div class="rc-footer">
-          <span class="rc-src">Observe → Risk → Evaluate</span>
-          <span class="rc-arr">→</span>
+<!-- ══════════ TOOLS (Featured + Secondary) ══════════ -->
+<section class="a-tools" id="tools">
+  <div class="a-tools-inner">
+    <div class="a-tools-header reveal">
+      <div class="a-eyebrow"
+        data-en="Free tools"
+        data-tr="Ücretsiz Araçlar"
+      >Free tools</div>
+      <h2 class="a-section-title"
+        data-en='A framework, <em>applied</em>.'
+        data-tr='Uygulamaya dönüşen <em>çerçeve</em>.'
+      >A framework, <em>applied</em>.</h2>
+    </div>
+
+    <!-- Featured tool -->
+    <a href="/generator/" class="a-tool-featured reveal">
+      <div>
+        <div class="a-tool-stages">
+          <span class="a-tool-stage-pill active">Observe</span>
+          <span class="a-tool-stage-pill active">Risk</span>
+          <span class="a-tool-stage-pill active">Evaluate</span>
         </div>
-      </a>
+        <h3
+          data-en="AI System Risk Classifier &amp; Governance Report"
+          data-tr="AI Sistem Risk Sınıflandırıcısı &amp; Yönetişim Raporu"
+        >AI System Risk Classifier &amp; Governance Report</h3>
+        <p
+          data-en="Classify your AI system under Reg. (EU) 2024/1689 in minutes. Risk level, applicable obligations, and governance maturity profile — delivered as an article-referenced PDF report."
+          data-tr="AI sisteminizi dakikalar içinde Reg. (EU) 2024/1689 kapsamında sınıflandırın. Risk seviyeniz, yükümlülükleriniz ve yönetişim olgunluk profiliniz; madde referanslı PDF raporla."
+        >Classify your AI system under Reg. (EU) 2024/1689 in minutes.</p>
+        <div class="a-tool-cta"
+          data-en='Open tool <span class="arr">→</span>'
+          data-tr='Aracı Aç <span class="arr">→</span>'
+        >Open tool <span class="arr">→</span></div>
+      </div>
+      <div class="a-tool-mini-matrix" aria-hidden="true">
+        <div>A</div><div>B</div><div>C</div><div>D</div>
+        <div>E</div><div>F</div><div class="f">FOCAL</div><div>H</div>
+        <div>I</div><div>J</div><div>K</div><div>L</div>
+        <div>M</div><div>N</div><div>O</div><div>P</div>
+      </div>
+    </a>
 
-      <a href="/checklist/" class="res-card" style="text-decoration:none;display:flex"
+    <!-- Secondary tools (3 x 2 grid) -->
+    <div class="a-tool-secondary-grid">
+
+      <a href="/checklist/" class="a-tool-card"
         data-en-href="/checklist/"
         data-tr-href="/kvkk/">
-        <div class="tool-badge-live">Live</div>
-        <div class="res-card-icon" style="font-size:20px">✓</div>
-        <h3 data-en="EU AI Act Compliance Checklist" data-tr="EU AI Act Uyum Kontrol Listesi">EU AI Act Compliance Checklist</h3>
-        <p data-en="23-item interactive checklist covering Reg. (EU) 2024/1689 obligations. Track progress and export as PDF."
-           data-tr="Reg. (EU) 2024/1689 yükümlülüklerini kapsayan 23 maddelik interaktif kontrol listesi. İlerlemenizi takip edin, PDF olarak dışa aktarın."
-        >23-item interactive checklist covering Reg. (EU) 2024/1689 obligations. Track progress and export as PDF.</p>
-        <div class="rc-footer">
-          <span class="rc-src">Identify → Navigate</span>
-          <span class="rc-arr">→</span>
+        <div class="a-tool-name"
+          data-en="EU AI Act Compliance Checklist"
+          data-tr="EU AI Act Kontrol Listesi"
+        >EU AI Act Compliance Checklist</div>
+        <p
+          data-en="23-item interactive checklist covering Reg. (EU) 2024/1689 obligations. Progress tracking and PDF export."
+          data-tr="23 maddelik interaktif kontrol. İlerleme takibi, PDF export. Risk seviyesine göre filtreli."
+        >23-item interactive checklist covering Reg. (EU) 2024/1689 obligations.</p>
+        <div class="a-tool-card-footer">
+          <span>Identify → Navigate</span>
+          <span class="arr">→</span>
         </div>
       </a>
 
-      <a href="/fria/" class="res-card" style="text-decoration:none;display:flex">
-        <div class="tool-badge-live">Live</div>
-        <div class="res-card-icon" style="font-size:20px">⚖️</div>
-        <h3 data-en="Fundamental Rights Impact Assessment (FRIA)" data-tr="Temel Haklar Etki Değerlendirmesi (FRIA)">Fundamental Rights Impact Assessment (FRIA)</h3>
-        <p data-en="Structured assessment for Article 27 obligations. Evaluate risks to fundamental rights before deploying high-risk AI systems."
-           data-tr="Madde 27 yükümlülükleri için yapılandırılmış değerlendirme. Yüksek riskli AI sistemlerini konuşlandırmadan önce temel hak risklerini değerlendirin."
-        >Structured assessment for Article 27 obligations. Evaluate risks to fundamental rights before deploying high-risk AI systems.</p>
-        <div class="rc-footer">
-          <span class="rc-src">Evaluate</span>
-          <span class="rc-arr">→</span>
+      <a href="/fria/" class="a-tool-card">
+        <div class="a-tool-name"
+          data-en="Fundamental Rights Impact Assessment (FRIA)"
+          data-tr="Temel Haklar Etki Değerlendirmesi (FRIA)"
+        >Fundamental Rights Impact Assessment (FRIA)</div>
+        <p
+          data-en="Structured assessment for Article 27 obligations. Evaluate fundamental-rights risks before deploying high-risk AI systems."
+          data-tr="Madde 27 yükümlülüğü için yapılandırılmış değerlendirme. Yüksek risk sistemleri için."
+        >Structured assessment for Article 27 obligations.</p>
+        <div class="a-tool-card-footer">
+          <span>Evaluate</span>
+          <span class="arr">→</span>
         </div>
       </a>
 
-      <a href="/kvkk-eu-ai-act/" class="res-card" style="text-decoration:none;display:flex">
-        <div class="tool-badge-live">Live</div>
-        <div class="res-card-icon" style="font-size:20px">↔</div>
-        <h3 data-en="KVKK × EU AI Act Crosswalk" data-tr="KVKK × EU AI Act Karşılaştırması">KVKK × EU AI Act Crosswalk</h3>
-        <p data-en="Overlapping obligations, unique requirements, and key tension points between KVKK and EU AI Act — grounded in primary sources."
-           data-tr="İki çerçevenin örtüşen yükümlülükleri, sadece birinde olan gereksinimler ve pratik gerilim noktaları; birincil kaynaklara dayalı analiz."
-        >Overlapping obligations, unique requirements, and key tension points between KVKK and EU AI Act — grounded in primary sources.</p>
-        <div class="rc-footer">
-          <span class="rc-src">Identify</span>
-          <span class="rc-arr">→</span>
+      <a href="/kvkk-eu-ai-act/" class="a-tool-card">
+        <div class="a-tool-name"
+          data-en="KVKK × EU AI Act Crosswalk"
+          data-tr="KVKK × EU AI Act Karşılaştırması"
+        >KVKK × EU AI Act Crosswalk</div>
+        <p
+          data-en="Overlapping obligations, unique requirements, and practical tension points — grounded in primary sources."
+          data-tr="İki çerçevenin örtüşen yükümlülükleri, gerilim noktaları. Çifte yetki alanı uyumu için."
+        >Overlapping obligations, unique requirements, and practical tension points.</p>
+        <div class="a-tool-card-footer">
+          <span>Identify</span>
+          <span class="arr">→</span>
         </div>
       </a>
 
-      <a href="/iso42001-gap/" class="res-card" style="text-decoration:none;display:flex">
-        <div class="tool-badge-live">Live</div>
-        <div class="res-card-icon" style="font-size:20px">🔍</div>
-        <h3 data-en="ISO 42001 × EU AI Act Gap Quiz" data-tr="ISO 42001 × EU AI Act Boşluk Analizi">ISO 42001 × EU AI Act Gap Quiz</h3>
-        <p data-en="10-question assessment mapping your ISO 42001 controls to EU AI Act obligations. Find coverage gaps in 3 minutes."
-           data-tr="ISO 42001 kontrollerinizi EU AI Act yükümlülükleriyle eşleştiren 10 soruluk değerlendirme. 3 dakikada boşluk analizi yapın."
-        >10-question assessment mapping your ISO 42001 controls to EU AI Act obligations. Find coverage gaps in 3 minutes.</p>
-        <div class="rc-footer">
-          <span class="rc-src">Evaluate</span>
-          <span class="rc-arr">→</span>
+      <a href="/iso42001-gap/" class="a-tool-card">
+        <div class="a-tool-name"
+          data-en="ISO 42001 × EU AI Act Gap Quiz"
+          data-tr="ISO 42001 × EU AI Act Boşluk Analizi"
+        >ISO 42001 × EU AI Act Gap Quiz</div>
+        <p
+          data-en="10-question assessment mapping ISO 42001 controls to EU AI Act obligations. Coverage gaps in 3 minutes."
+          data-tr="ISO 42001 kontrollerinizi EU AI Act yükümlülükleriyle eşleştiren 10 soruluk değerlendirme. 3 dakikada boşluk analizi."
+        >10-question assessment mapping ISO 42001 controls to EU AI Act obligations.</p>
+        <div class="a-tool-card-footer">
+          <span>Evaluate</span>
+          <span class="arr">→</span>
         </div>
       </a>
 
-      <a href="/vendor-check/" class="res-card" style="text-decoration:none;display:flex">
-        <div class="tool-badge-live">Live</div>
-        <div class="res-card-icon" style="font-size:20px">⚡</div>
-        <h3 data-en="AI Vendor Quick Check" data-tr="AI Tedarikçi Hızlı Kontrol">AI Vendor Quick Check</h3>
-        <p data-en="Using ChatGPT, Copilot, or Midjourney at work? Find your deployer obligations, applicable articles, and what to ask your vendor."
-           data-tr="İş yerinde ChatGPT, Copilot veya Midjourney mi kullanıyorsunuz? Konuşlandırıcı yükümlülüklerinizi, geçerli maddeleri ve tedarikçinizden istemeniz gerekenleri bulun."
-        >Using ChatGPT, Copilot, or Midjourney at work? Find your deployer obligations, applicable articles, and what to ask your vendor.</p>
-        <div class="rc-footer">
-          <span class="rc-src">Risk → Identify</span>
-          <span class="rc-arr">→</span>
+      <a href="/vendor-check/" class="a-tool-card">
+        <div class="a-tool-name"
+          data-en="AI Vendor Quick Check"
+          data-tr="AI Tedarikçi Hızlı Kontrol"
+        >AI Vendor Quick Check</div>
+        <p
+          data-en="Using ChatGPT, Copilot, or Midjourney at work? Find your deployer obligations and what to ask your vendor."
+          data-tr="İş yerinde ChatGPT, Copilot veya Midjourney mi kullanıyorsunuz? Konuşlandırıcı yükümlülüklerinizi ve tedarikçinize sormanız gerekenleri bulun."
+        >Using ChatGPT, Copilot, or Midjourney at work?</p>
+        <div class="a-tool-card-footer">
+          <span>Risk → Identify</span>
+          <span class="arr">→</span>
         </div>
       </a>
 
-    </div>
-
-    <!-- PERSONA SEGMENTATION -->
-    <div class="persona-section">
-      <div class="persona-label" data-en="Who is this for?" data-tr="Kimin için?">Who is this for?</div>
-      <div class="persona-grid">
-
-        <div class="persona-card">
-          <div class="persona-role" data-en="DPO / Compliance Officer" data-tr="DPO / Uyum Sorumlusu">DPO / Compliance Officer</div>
-          <p data-en="Map your obligations under the EU AI Act and assess fundamental rights impact before deployment."
-             data-tr="EU AI Act kapsamındaki yükümlülüklerinizi haritalandırın ve konuşlandırma öncesi temel hak etkisini değerlendirin."
-          >Map your obligations under the EU AI Act and assess fundamental rights impact before deployment.</p>
-          <div class="persona-tools">
-            <a href="/checklist/" data-en-href="/checklist/" data-tr-href="/kvkk/" data-en="Compliance Checklist" data-tr="Uyum Kontrol Listesi">Compliance Checklist</a>
-            <a href="/fria/" data-en="FRIA Tool" data-tr="FRIA Aracı">FRIA Tool</a>
-          </div>
+      <a href="/methodology/" class="a-tool-card"
+        data-en-href="/methodology/"
+        data-tr-href="/metodoloji/">
+        <div class="a-tool-name"
+          data-en="ORIENT Methodology"
+          data-tr="ORIENT Metodolojisi"
+        >ORIENT Methodology</div>
+        <p
+          data-en="The normative six-stage framework. Detailed guidance on each stage with EU AI Act article mappings."
+          data-tr="Tescilli altı aşamalı metodoloji. Her aşamanın EU AI Act madde eşleştirmeleriyle ayrıntılı rehberi."
+        >The normative six-stage framework.</p>
+        <div class="a-tool-card-footer">
+          <span>O → R → I → E → N → T</span>
+          <span class="arr">→</span>
         </div>
+      </a>
 
-        <div class="persona-card">
-          <div class="persona-role" data-en="CTO / Technical Lead" data-tr="CTO / Teknik Lider">CTO / Technical Lead</div>
-          <p data-en="Classify your AI systems, understand your risk level, and benchmark governance maturity."
-             data-tr="AI sistemlerinizi sınıflandırın, risk seviyenizi anlayın ve yönetişim olgunluğunuzu ölçün."
-          >Classify your AI systems, understand your risk level, and benchmark governance maturity.</p>
-          <div class="persona-tools">
-            <a href="/generator/" data-en="Risk Classifier" data-tr="Risk Sınıflandırıcısı">Risk Classifier</a>
-            <a href="/vendor-check/" data-en="Vendor Quick Check" data-tr="Tedarikçi Hızlı Kontrol">Vendor Quick Check</a>
-          </div>
-        </div>
-
-        <div class="persona-card">
-          <div class="persona-role" data-en="CEO / Board Member" data-tr="CEO / Yönetim Kurulu">CEO / Board Member</div>
-          <p data-en="Get a clear picture of your organisation's AI governance posture and strategic compliance gaps."
-             data-tr="Organizasyonunuzun AI yönetişim duruşunu ve stratejik uyum açıklarını net olarak görün."
-          >Get a clear picture of your organisation's AI governance posture and strategic compliance gaps.</p>
-          <div class="persona-tools">
-            <a href="/generator/" data-en="Governance Report" data-tr="Yönetişim Raporu">Governance Report</a>
-            <a href="/iso42001-gap/" data-en="ISO 42001 Gap Quiz" data-tr="ISO 42001 Boşluk Analizi">ISO 42001 Gap Quiz</a>
-          </div>
-        </div>
-
-      </div>
-    </div>
-
-  </div>
-</section>
-
-<div class="sec-divider"><hr></div>
-
-<!-- ══════════ TRUST SIGNALS ══════════ -->
-<section id="trust" style="padding-block:52px">
-  <div class="section-inner">
-    <div class="trust-bar">
-      <div class="trust-item">
-        <div class="trust-num">ISO 42001</div>
-        <div class="trust-lbl" data-en="Implementer Certified" data-tr="Implementer Sertifikalı">Implementer Certified</div>
-      </div>
-      <div class="trust-item">
-        <div class="trust-num">IAPP</div>
-        <div class="trust-lbl" data-en="Member" data-tr="Üye">Member</div>
-      </div>
-      <div class="trust-item">
-        <div class="trust-num">7</div>
-        <div class="trust-lbl" data-en="Free Live Tools" data-tr="Ücretsiz Canlı Araç">Free Live Tools</div>
-      </div>
-      <div class="trust-item">
-        <div class="trust-num">ORIENT</div>
-        <div class="trust-lbl" data-en="6-Stage Methodology" data-tr="6 Adımlı Metodoloji">6-Stage Methodology</div>
-      </div>
     </div>
   </div>
 </section>
 
-<div class="sec-divider"><hr></div>
-
-<!-- ══════════ ORIENT FRAMEWORK ══════════ -->
-<section id="model">
-  <div class="section-inner">
-    <div class="model-label"
-      data-en="ORIENT Framework"
-      data-tr="ORIENT Çerçevesi"
-    >ORIENT Çerçevesi</div>
-    <p class="model-subtitle"
-      data-en="Hexis's six-stage AI governance methodology. From observation to tracking: cyclical, sustainable, actionable."
-      data-tr="Hexis'in tescilli altı adımlı AI yönetişim metodolojisi. Gözlemden izlemeye: döngüsel, sürdürülebilir, uygulanabilir."
-    >Hexis'in tescilli altı adımlı AI yönetişim metodolojisi. Gözlemden izlemeye: döngüsel, sürdürülebilir, uygulanabilir.</p>
-
-    <div class="model-grid">
-
-      <div class="model-card">
-        <div class="model-step"><span class="model-step-num">O</span>Observe</div>
-        <p data-en="Map the AI system, its role, and operational context. This is where governance begins."
-           data-tr="AI sistemini, rolünü ve operasyonel bağlamını haritalandır. Yönetişimin temeli burada atılır."
-        >AI sistemini, rolünü ve operasyonel bağlamını haritalandır. Yönetişimin temeli burada atılır.</p>
+<!-- ══════════ TRUST BAR ══════════ -->
+<section class="a-trust">
+  <div class="a-trust-inner">
+    <div class="a-trust-label"
+      data-en="Trust signals"
+      data-tr="Güven sinyalleri"
+    >Trust signals</div>
+    <div class="a-trust-grid reveal">
+      <div class="a-trust-item">
+        <div class="a-trust-num" data-counter="6">6</div>
+        <div class="a-trust-lbl"
+          data-en="Free Live Tools"
+          data-tr="Ücretsiz Canlı Araç"
+        >Free Live Tools</div>
       </div>
-
-      <div class="model-card">
-        <div class="model-step"><span class="model-step-num">R</span>Risk</div>
-        <p data-en="Classify the risk level per the EU AI Act: prohibited, high-risk, limited risk, or minimal."
-           data-tr="AB AI Yasası çerçevesinde risk seviyesini sınıflandır. Yasak, yüksek riskli, sınırlı riskli veya minimal."
-        >AB AI Yasası çerçevesinde risk seviyesini sınıflandır. Yasak, yüksek riskli, sınırlı riskli veya minimal.</p>
+      <div class="a-trust-item">
+        <div class="a-trust-num" data-counter="23">23</div>
+        <div class="a-trust-lbl"
+          data-en="Checklist Articles"
+          data-tr="Madde · Kontrol Listesi"
+        >Checklist Articles</div>
       </div>
-
-      <div class="model-card">
-        <div class="model-step"><span class="model-step-num">I</span>Identify</div>
-        <p data-en="Map applicable legal obligations. Provider or deployer? Which articles apply?"
-           data-tr="Uygulanabilir yasal yükümlülükleri haritalandır. Sağlayıcı mı, konuşlandırıcı mı? Hangi maddeler geçerli?"
-        >Uygulanabilir yasal yükümlülükleri haritalandır. Sağlayıcı mı, konuşlandırıcı mı? Hangi maddeler geçerli?</p>
+      <div class="a-trust-item">
+        <div class="a-trust-num">ISO 42001</div>
+        <div class="a-trust-lbl"
+          data-en="Implementer Certified"
+          data-tr="Implementer Sertifikalı"
+        >Implementer Certified</div>
       </div>
-
-      <div class="model-card">
-        <div class="model-step"><span class="model-step-num">E</span>Evaluate</div>
-        <p data-en="Compare existing controls against obligations. Identify and prioritise compliance gaps."
-           data-tr="Mevcut kontrolleri yükümlülüklerle karşılaştır. Uyum açıklarını tespit et, önceliklendir."
-        >Mevcut kontrolleri yükümlülüklerle karşılaştır. Uyum açıklarını tespit et, önceliklendir.</p>
+      <div class="a-trust-item">
+        <div class="a-trust-num">IAPP</div>
+        <div class="a-trust-lbl"
+          data-en="Member"
+          data-tr="Üye"
+        >Member</div>
       </div>
-
-      <div class="model-card">
-        <div class="model-step"><span class="model-step-num">N</span>Navigate</div>
-        <p data-en="Build a prioritised action roadmap suited to the organisation's maturity level and resources."
-           data-tr="Organizasyonun olgunluk seviyesine ve kaynaklarına göre önceliklendirilmiş aksiyon haritası oluştur."
-        >Organizasyonun olgunluk seviyesine ve kaynaklarına göre önceliklendirilmiş aksiyon haritası oluştur.</p>
-      </div>
-
-      <div class="model-card">
-        <div class="model-step"><span class="model-step-num">T</span>Track</div>
-        <p data-en="Continuous monitoring and improvement cycle. Track loops back to Observe — the cycle closes."
-           data-tr="Sürekli izleme ve iyileştirme döngüsü. Track adımı Observe'e geri döner; döngü kapanır."
-        >Sürekli izleme ve iyileştirme döngüsü. Track adımı Observe'e geri döner; döngü kapanır.</p>
-      </div>
-
     </div>
-
-    <p class="model-footer-note"><a
-      href="/metodoloji/"
-      style="color:inherit;text-decoration:underline;text-underline-offset:3px;"
-      data-en="Explore the ORIENT Framework for detailed guidance on each stage →"
-      data-tr="Her adımın ayrıntılı açıklaması için ORIENT Çerçevesi sayfasını inceleyin →"
-      data-en-href="/methodology/"
-      data-tr-href="/metodoloji/"
-    >Her adımın ayrıntılı açıklaması için ORIENT Çerçevesi sayfasını inceleyin →</a></p>
-
   </div>
 </section>
 
-<div class="sec-divider"><hr></div>
-
-<!-- ══════════ THINKING ══════════ -->
+<!-- ══════════ THINKING (Blog) ══════════ -->
 <section id="thinking">
   <div class="section-inner">
     <div class="thinking-hdr">
@@ -904,7 +1380,7 @@ footer{
       <a href="https://www.linkedin.com/in/ozden-coskun-8728a1301" target="_blank" rel="noopener noreferrer" class="btn-outline" style="font-size:11px;padding:8px 16px"
         data-en="Follow on LinkedIn →"
         data-tr="LinkedIn'de Takip Et →"
-      >LinkedIn'de Takip Et →</a>
+      >Follow on LinkedIn →</a>
     </div>
 
     <div class="thinking-grid">
@@ -913,7 +1389,7 @@ footer{
         <h3>Bias Audit with Linear Regression: A Practical Method for EU AI Act Article 10</h3>
         <p>Detecting gender and age bias in a credit scoring model using linear regression coefficients. A data-driven approach for EU AI Act Article 10 compliance.</p>
         <div class="thinking-card-footer">
-          <span>Nisan 2026</span>
+          <span data-en="April 2026" data-tr="Nisan 2026">April 2026</span>
           <span class="thinking-card-arrow">→</span>
         </div>
       </a>
@@ -923,7 +1399,7 @@ footer{
         <h3>Lineer Regresyonla Bias Audit: EU AI Act Madde 10 İçin Pratik Bir Yöntem</h3>
         <p>Kredi skorlama modelinde cinsiyet ve yaş önyargısını lineer regresyon katsayılarıyla tespit etme. EU AI Act Madde 10 uyumu için veri odaklı bir yaklaşım.</p>
         <div class="thinking-card-footer">
-          <span>Nisan 2026</span>
+          <span data-en="April 2026" data-tr="Nisan 2026">Nisan 2026</span>
           <span class="thinking-card-arrow">→</span>
         </div>
       </a>
@@ -939,7 +1415,7 @@ footer{
         <p
           data-en="AI governance is fragmented. This article maps AI Governance Engineering as a new discipline and proposes a four-layer competency model."
           data-tr="AI governance parçalanmış durumda. Bu makale AI Governance Engineering disiplinini haritalıyor ve dört katmanlı bir yetkinlik modeli öneriyor."
-        >AI governance is fragmented. This article maps AI Governance Engineering as a new discipline and proposes a four-layer competency model.</p>
+        >AI governance is fragmented.</p>
         <div class="thinking-card-footer">
           <span data-en="April 2026" data-tr="Nisan 2026">April 2026</span>
           <span class="thinking-card-arrow">→</span>
@@ -947,41 +1423,20 @@ footer{
       </a>
 
       <a href="/blog/digital-omnibus-eu-ai-act-erteleme/" class="thinking-card" data-en-href="/blog/digital-omnibus-eu-ai-act-delay/" data-tr-href="/blog/digital-omnibus-eu-ai-act-erteleme/">
-        <div class="thinking-card-tag"
-          data-en="EU AI Act" data-tr="EU AI Act"
-        >EU AI Act</div>
+        <div class="thinking-card-tag">EU AI Act</div>
         <h3
           data-en="EU AI Act and the Digital Omnibus: What Should Companies Do Now?"
           data-tr="Digital Omnibus ve EU AI Act: Şirketler Ne Yapmalı?"
-        >Digital Omnibus ve EU AI Act: Şirketler Ne Yapmalı?</h3>
+        >EU AI Act and the Digital Omnibus: What Should Companies Do Now?</h3>
         <p
           data-en="The European Parliament approved the Digital Omnibus on 26 March 2026. Annex III deadline may shift to December 2027 — but nothing is final until trilogue closes."
           data-tr="Avrupa Parlamentosu 26 Mart 2026'da Digital Omnibus'u onayladı. Ek III son tarihi Aralık 2027'ye ertelenebilir; ancak üçlü müzakere kapanana kadar hiçbir şey kesinleşmiyor."
-        >Avrupa Parlamentosu 26 Mart 2026'da Digital Omnibus'u onayladı. Ek III son tarihi Aralık 2027'ye ertelenebilir; ancak üçlü müzakere kapanana kadar hiçbir şey kesinleşmiyor.</p>
+        >The European Parliament approved the Digital Omnibus on 26 March 2026.</p>
         <div class="thinking-card-footer">
-          <span data-en="April 2026" data-tr="Nisan 2026">Nisan 2026</span>
+          <span data-en="April 2026" data-tr="Nisan 2026">April 2026</span>
           <span class="thinking-card-arrow">→</span>
         </div>
       </a>
-
-      <a href="/blog/iso-42001-eu-ai-act-uyum-analizi/" class="thinking-card">
-        <div class="thinking-card-tag">ISO 42001</div>
-        <h3
-          data-en="Does ISO 42001 Certification Exempt You from EU AI Act?"
-          data-tr="ISO 42001 Sertifikam Varsa EU AI Act&#x27;tan Muaf miyim?"
-        >ISO 42001 Sertifikam Varsa EU AI Act&#x27;tan Muaf miyim?</h3>
-        <p
-          data-en="How much does ISO 42001 cover EU AI Act obligations? Which articles overlap, and where are the critical gaps?"
-          data-tr="ISO 42001 sertifikası EU AI Act yükümlülüklerini ne kadar karşılar? Hangi maddeler örtüşür, kritik boşluklar nerede?"
-        >ISO 42001 sertifikası EU AI Act yükümlülüklerini ne kadar karşılar? Hangi maddeler örtüşür, kritik boşluklar nerede?</p>
-        <div class="thinking-card-footer">
-          <span data-en="April 2026" data-tr="Nisan 2026">Nisan 2026</span>
-          <span class="thinking-card-arrow">→</span>
-        </div>
-      </a>
-
-      <!-- Older articles available at /blog/ -->
-
     </div>
 
     <div style="text-align:center;margin-top:24px">
@@ -1004,7 +1459,7 @@ footer{
       <p class="nl-desc"
         data-en="Weekly EU AI Act &amp; KVKK analysis, governance insights, and tool updates. Published in Turkish with EU AI Act content in English coming soon."
         data-tr="Haftalık AI governance haberleri, KVKK &amp; EU AI Act analizi. Her Perşembe gelen kutunuzda."
-      >Weekly EU AI Act &amp; KVKK analysis, governance insights, and tool updates. Published in Turkish with EU AI Act content in English coming soon.</p>
+      >Weekly EU AI Act &amp; KVKK analysis, governance insights, and tool updates.</p>
     </div>
     <form class="nl-form" action="https://aigovernanceturkiye.beehiiv.com/subscribe" method="post" target="_blank" onsubmit="if(typeof plausible!=='undefined')plausible('Newsletter Signup')">
       <input type="email" name="email"
@@ -1015,13 +1470,29 @@ footer{
       <button type="submit" class="nl-btn"
         data-en="Subscribe"
         data-tr="Abone Ol"
-      >Abone Ol</button>
+      >Subscribe</button>
     </form>
     <p class="nl-note"
       data-en="by Hexis · Your email is used only for newsletter delivery. Unsubscribe anytime."
       data-tr="by Hexis · Kişisel verileriniz yalnızca bülten gönderimi için kullanılır. İstediğiniz zaman abonelikten çıkabilirsiniz."
-    >by Hexis · Kişisel verileriniz yalnızca bülten gönderimi için kullanılır. İstediğiniz zaman abonelikten çıkabilirsiniz.</p>
+    >by Hexis · Your email is used only for newsletter delivery. Unsubscribe anytime.</p>
   </div>
+</section>
+
+<!-- ══════════ FINAL CTA ══════════ -->
+<section class="a-final-cta">
+  <h2
+    data-en='Governance is not a state,<br>it&#39;s an <em>orientation</em>.'
+    data-tr='Yönetişim bir durum değil,<br>bir <em>yönelim</em>dir.'
+  >Governance is not a state,<br>it's an <em>orientation</em>.</h2>
+  <p
+    data-en="Classify your first AI system in 5 minutes. No signup. Download your result as PDF."
+    data-tr="İlk AI sisteminizi 5 dakikada sınıflandırın. Kayıt gerekmez. Çıktınızı PDF olarak indirin."
+  >Classify your first AI system in 5 minutes. No signup. Download your result as PDF.</p>
+  <a href="/generator/" class="a-btn-primary"
+    data-en='Classify Now <span class="arr">→</span>'
+    data-tr='Şimdi Sınıflandır <span class="arr">→</span>'
+  >Classify Now <span class="arr">→</span></a>
 </section>
 
 <!-- ══════════ CONTACT ══════════ -->
@@ -1089,7 +1560,7 @@ footer{
     <a href="/metodoloji/"
       data-en="ORIENT Methodology" data-tr="ORIENT Metodoloji"
       data-en-href="/methodology/" data-tr-href="/metodoloji/"
-    >ORIENT Metodoloji</a>
+    >ORIENT Methodology</a>
     <a href="/generator/">Generator</a>
     <a href="/checklist/"
       data-en="Checklist" data-tr="Kontrol Listesi"
@@ -1100,7 +1571,7 @@ footer{
     <a href="https://www.linkedin.com/in/ozden-coskun-8728a1301" target="_blank" rel="noopener noreferrer">LinkedIn</a>
     <a href="/gizlilik/"
       data-en="Privacy" data-tr="Gizlilik"
-    >Gizlilik</a>
+    >Privacy</a>
     <span class="footer-sep" style="opacity:.3">|</span>
     <a href="https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R1689" target="_blank" rel="noopener noreferrer"
       data-en="EU AI Act ↗" data-tr="EU AI Act ↗"
@@ -1109,11 +1580,13 @@ footer{
     >EU AI Act ↗</a>
     <a href="https://www.kvkk.gov.tr/Icerik/8547/uretken-yapay-zeka-ve-kisisel-verilerin-korunmasi-rehberi-15-soruda" target="_blank" rel="noopener noreferrer"
       data-en="KVKK Guide ↗" data-tr="KVKK Rehberi ↗"
-    >KVKK Rehberi ↗</a>
+    >KVKK Guide ↗</a>
   </div>
 </footer>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
+<script>
+/* ─── NAV / MOBILE MENU ─────────────────────────── */
 function toggleMenu(){
   document.getElementById('hamburger').classList.toggle('open');
   document.getElementById('mobileMenu').classList.toggle('open');
@@ -1130,55 +1603,208 @@ document.addEventListener('click',function(e){
   }
 });
 
-/* ── Language Switch ── */
-function setLang(lang){
-  /* html lang attribute for accessibility/SEO */
-  document.documentElement.lang=lang==='tr'?'tr':'en';
-  /* page title + meta description */
-  if(lang==='tr'){
-    document.title='Hexis \u2014 Yapay Zeka Y\u00f6neti\u015fim | EU AI Act & KVKK Uyum Ara\u00e7lar\u0131';
-    var md=document.querySelector('meta[name="description"]');
-    if(md) md.content='EU AI Act risk s\u0131n\u0131fland\u0131rma, KVKK uyumu ve FRIA ara\u00e7lar\u0131. ORIENT metodolojisi ile g\u00fcvenilir yapay zeka y\u00f6neti\u015fimi. T\u00fcrk \u015firketler i\u00e7in \u00fccretsiz.';
-  } else {
-    document.title='Hexis \u2014 AI Governance | EU AI Act & KVKK Compliance Tools';
-    var md=document.querySelector('meta[name="description"]');
-    if(md) md.content='Know your EU AI Act obligations in 5 minutes. Free risk classification, governance maturity assessment, and compliance checklist for SMEs. No signup required.';
+/* ─── ORIENT STAGE DATA ─────────────────────────── */
+var ORIENT_STAGES = {
+  O: {
+    num:'1', name:{en:'Observe', tr:'Observe'},
+    title:{en:'Map the AI system.', tr:'AI sistemini haritala.'},
+    desc:{
+      en:"Identify the system's purpose, operational context, role (provider/deployer) and personal-data processing profile. This is where governance begins.",
+      tr:'Sistemin amacını, operasyonel bağlamını, kullanım rolünü (sağlayıcı/konuşlandırıcı) ve kişisel veri işleme durumunu belirle. Yönetişimin ilk temeli burada atılır.'
+    },
+    meta:{
+      en:['Duration <strong>5–10 min</strong>','Output <strong>System Card</strong>','Refs <strong>Art. 3, Art. 26</strong>'],
+      tr:['Süre <strong>5-10 dk</strong>','Çıktı <strong>System Card</strong>','Referans <strong>Md. 3, Md. 26</strong>']
+    }
+  },
+  R: {
+    num:'2', name:{en:'Risk', tr:'Risk'},
+    title:{en:'Classify the risk.', tr:'Riski sınıflandır.'},
+    desc:{
+      en:'Classify the risk level under the EU AI Act: prohibited, high-risk, limited risk, or minimal. Annex III / Art. 6 drives the outcome.',
+      tr:'EU AI Act çerçevesinde risk seviyesini sınıflandır. Yasak, yüksek riskli, sınırlı riskli veya minimal. Ek III ve Md. 6 çıktıyı belirler.'
+    },
+    meta:{
+      en:['Duration <strong>5 min</strong>','Output <strong>Risk Card</strong>','Refs <strong>Art. 5, 6, Annex III</strong>'],
+      tr:['Süre <strong>5 dk</strong>','Çıktı <strong>Risk Card</strong>','Referans <strong>Md. 5, 6, Ek III</strong>']
+    }
+  },
+  I: {
+    num:'3', name:{en:'Identify', tr:'Identify'},
+    title:{en:'Map the obligations.', tr:'Yükümlülükleri belirle.'},
+    desc:{
+      en:'Map applicable legal obligations. Provider or deployer? Which articles apply? KVKK overlap flagged automatically.',
+      tr:'Uygulanabilir yasal yükümlülükleri haritala. Sağlayıcı mı, konuşlandırıcı mı? Hangi maddeler geçerli? KVKK örtüşmesi otomatik işaretlenir.'
+    },
+    meta:{
+      en:['Duration <strong>10 min</strong>','Output <strong>Obligation Matrix</strong>','Refs <strong>Art. 16, 26, 50</strong>'],
+      tr:['Süre <strong>10 dk</strong>','Çıktı <strong>Obligation Matrix</strong>','Referans <strong>Md. 16, 26, 50</strong>']
+    }
+  },
+  E: {
+    num:'4', name:{en:'Evaluate', tr:'Evaluate'},
+    title:{en:'Assess current controls.', tr:'Mevcut durumu değerlendir.'},
+    desc:{
+      en:'Compare existing controls against obligations. Prioritise compliance gaps. FRIA draft for high-risk systems (Art. 27).',
+      tr:'Mevcut kontrolleri yükümlülüklerle karşılaştır. Uyum açıklarını önceliklendir. Yüksek risk sistemler için FRIA taslağı (Md. 27).'
+    },
+    meta:{
+      en:['Duration <strong>15–30 min</strong>','Output <strong>Gap Report + FRIA</strong>','Refs <strong>Art. 9, 10, 27</strong>'],
+      tr:['Süre <strong>15-30 dk</strong>','Çıktı <strong>Gap Report + FRIA</strong>','Referans <strong>Md. 9, 10, 27</strong>']
+    }
+  },
+  N: {
+    num:'5', name:{en:'Navigate', tr:'Navigate'},
+    title:{en:'Chart the path.', tr:'Eylem haritasını çiz.'},
+    desc:{
+      en:"Build a prioritised action roadmap suited to the organisation's maturity level and resources. Risk-weighted deadlines.",
+      tr:'Organizasyonun olgunluk seviyesine ve kaynaklarına uygun önceliklendirilmiş aksiyon haritası oluştur. Risk-ağırlıklı son tarihler.'
+    },
+    meta:{
+      en:['Duration <strong>30 min</strong>','Output <strong>Action Plan</strong>','Refs <strong>Art. 72, 73, 85</strong>'],
+      tr:['Süre <strong>30 dk</strong>','Çıktı <strong>Action Plan</strong>','Referans <strong>Md. 72, 73, 85</strong>']
+    }
+  },
+  T: {
+    num:'6', name:{en:'Track', tr:'Track'},
+    title:{en:'Monitor the cycle.', tr:'Sürekli izle.'},
+    desc:{
+      en:'Continuous monitoring and improvement cycle. Track loops back to Observe — the cycle closes and begins again.',
+      tr:'Sürekli izleme ve iyileştirme döngüsü. Track adımı Observe\u2019e geri döner; döngü kapanır ve yeniden başlar.'
+    },
+    meta:{
+      en:['Duration <strong>continuous</strong>','Output <strong>Review triggers</strong>','Refs <strong>Art. 72, 79</strong>'],
+      tr:['Süre <strong>sürekli</strong>','Çıktı <strong>Gözden geçirme tetikleyicileri</strong>','Referans <strong>Md. 72, 79</strong>']
+    }
   }
-  /* button states */
+};
+
+function updateOrientDetail(stageKey, lang){
+  var s = ORIENT_STAGES[stageKey];
+  if(!s) return;
+  var activeLang = lang || document.documentElement.lang || 'en';
+  if(activeLang !== 'tr') activeLang = 'en';
+  document.getElementById('stageNum').textContent = s.num;
+  document.getElementById('stageName').textContent = s.name[activeLang];
+  document.getElementById('stageTitle').textContent = s.title[activeLang];
+  document.getElementById('stageDesc').textContent = s.desc[activeLang];
+  var metaEl = document.getElementById('stageMeta');
+  metaEl.innerHTML = s.meta[activeLang].map(function(m){ return '<span>'+m+'</span>'; }).join('');
+}
+
+/* Hex vertex interaction */
+(function(){
+  var currentStage = 'O';
+  var vertices = document.querySelectorAll('.a-hex-vertex');
+  vertices.forEach(function(v){
+    var setActive = function(){
+      vertices.forEach(function(x){ x.classList.remove('active'); });
+      v.classList.add('active');
+      currentStage = v.dataset.stage;
+      updateOrientDetail(currentStage);
+    };
+    v.addEventListener('click', setActive);
+    v.addEventListener('keydown', function(e){
+      if(e.key === 'Enter' || e.key === ' '){ e.preventDefault(); setActive(); }
+    });
+  });
+  window._orientCurrentStage = function(){ return currentStage; };
+})();
+
+/* ─── SCROLL REVEAL ─────────────────────────────── */
+(function(){
+  if(!('IntersectionObserver' in window)){
+    document.querySelectorAll('.reveal').forEach(function(el){ el.classList.add('in'); });
+    return;
+  }
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(en){
+      if(en.isIntersecting){
+        en.target.classList.add('in');
+        io.unobserve(en.target);
+      }
+    });
+  }, { threshold:0.12, rootMargin:'0px 0px -40px 0px' });
+  document.querySelectorAll('.reveal').forEach(function(el){ io.observe(el); });
+})();
+
+/* ─── COUNTER ANIMATION ─────────────────────────── */
+(function(){
+  var counters = document.querySelectorAll('[data-counter]');
+  if(!counters.length || !('IntersectionObserver' in window)) return;
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(en){
+      if(!en.isIntersecting) return;
+      var el = en.target;
+      var target = parseInt(el.dataset.counter, 10);
+      if(isNaN(target)){ io.unobserve(el); return; }
+      var start = 0;
+      var duration = 1200;
+      var t0 = performance.now();
+      function tick(now){
+        var p = Math.min(1, (now - t0) / duration);
+        var eased = 1 - Math.pow(1 - p, 3);
+        el.textContent = Math.round(start + (target - start) * eased);
+        if(p < 1) requestAnimationFrame(tick);
+      }
+      requestAnimationFrame(tick);
+      io.unobserve(el);
+    });
+  }, { threshold:0.4 });
+  counters.forEach(function(c){ io.observe(c); });
+})();
+
+/* ─── LANGUAGE SWITCH ───────────────────────────── */
+function setLang(lang){
+  document.documentElement.lang = lang === 'tr' ? 'tr' : 'en';
+  if(lang === 'tr'){
+    document.title = 'Hexis \u2014 Yapay Zeka Y\u00f6neti\u015fim | EU AI Act & KVKK Uyum Ara\u00e7lar\u0131';
+    var md = document.querySelector('meta[name="description"]');
+    if(md) md.content = 'EU AI Act risk s\u0131n\u0131fland\u0131rma, KVKK uyumu ve FRIA ara\u00e7lar\u0131. ORIENT metodolojisi ile g\u00fcvenilir yapay zeka y\u00f6neti\u015fimi. T\u00fcrk \u015firketler i\u00e7in \u00fccretsiz.';
+  } else {
+    document.title = 'Hexis \u2014 AI Governance | EU AI Act & KVKK Compliance Tools';
+    var md = document.querySelector('meta[name="description"]');
+    if(md) md.content = 'Know your EU AI Act obligations in 5 minutes. Free risk classification, governance maturity assessment, and compliance checklist for SMEs. No signup required.';
+  }
   document.querySelectorAll('.lang-btn').forEach(function(b){
-    b.classList.toggle('active',b.dataset.lang===lang);
+    b.classList.toggle('active', b.dataset.lang === lang);
   });
   /* data-en / data-tr: text + href */
   document.querySelectorAll('[data-en]').forEach(function(el){
-    var txt=el.dataset[lang];
-    if(txt!==undefined) el.innerHTML=txt;
-    var href=el.dataset[lang+'Href'];
-    if(href) el.href=href;
+    var txt = el.dataset[lang];
+    if(txt !== undefined) el.innerHTML = txt;
+    var href = el.dataset[lang + 'Href'];
+    if(href) el.href = href;
   });
   /* placeholder attributes */
   document.querySelectorAll('[data-en-placeholder]').forEach(function(el){
-    var ph=el.dataset[lang+'Placeholder'];
-    if(ph) el.placeholder=ph;
+    var ph = el.dataset[lang + 'Placeholder'];
+    if(ph) el.placeholder = ph;
   });
-  /* data-en-href / data-tr-href: href-only elements (no text swap) */
+  /* href-only elements */
   document.querySelectorAll('[data-en-href]:not([data-en])').forEach(function(el){
-    var href=el.dataset[lang+'Href'];
-    if(href) el.href=href;
+    var href = el.dataset[lang + 'Href'];
+    if(href) el.href = href;
   });
-  /* .lang-tr / .lang-en block show/hide */
+  /* block show/hide */
   document.querySelectorAll('.lang-tr').forEach(function(el){
-    el.style.display=lang==='tr'?'':'none';
+    el.style.display = lang === 'tr' ? '' : 'none';
   });
   document.querySelectorAll('.lang-en').forEach(function(el){
-    el.style.display=lang==='en'?'':'none';
+    el.style.display = lang === 'en' ? '' : 'none';
   });
-  try{localStorage.setItem('hexis-lang',lang);}catch(e){}
+  /* refresh ORIENT stage detail in the current language */
+  try{
+    var st = typeof window._orientCurrentStage === 'function' ? window._orientCurrentStage() : 'O';
+    updateOrientDetail(st, lang);
+  }catch(e){}
+
+  try{localStorage.setItem('hexis-lang', lang);}catch(e){}
 }
 (function(){
   var saved;
-  try{saved=localStorage.getItem('hexis-lang');}catch(e){}
-  /* default: detect from browser language */
-  setLang(saved||(/^tr/i.test(navigator.language)?'tr':'en'));
+  try{saved = localStorage.getItem('hexis-lang');}catch(e){}
+  setLang(saved || (/^tr/i.test(navigator.language) ? 'tr' : 'en'));
 })();
 </script>
 </body>
