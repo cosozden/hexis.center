@@ -513,7 +513,8 @@
     margin-bottom: 20px;
   }
   .clf-brand { font-size: 9px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-muted); margin-bottom: 4px; }
-  .clf-title { font-family: Georgia, 'Times New Roman', serif; font-size: 18px; font-weight: 700; color: var(--ink); line-height: 1.2; }
+  .clf-title { font-family: Georgia, 'Times New Roman', serif; font-size: clamp(20px, 2.4vw, 26px); font-weight: 700; color: var(--ink); line-height: 1.2; letter-spacing: -0.01em; }
+  .clf-title em { font-style: italic; color: var(--brass); font-weight: 500; }
   .clf-subtitle { font-size: 11px; color: var(--ink-muted); margin-top: 4px; letter-spacing: 0.04em; }
   .clf-skip {
     font-size: 9px; letter-spacing: 0.1em; text-transform: uppercase;
@@ -686,7 +687,11 @@
   }
   .obs-title {
     font-family: Georgia, 'Times New Roman', serif;
-    font-size: 18px; font-weight: 700; color: var(--ink); line-height: 1.2;
+    font-size: clamp(20px, 2.4vw, 26px); font-weight: 700;
+    color: var(--ink); line-height: 1.2; letter-spacing: -0.01em;
+  }
+  .obs-title em {
+    font-style: italic; color: var(--brass); font-weight: 500;
   }
   .obs-subtitle {
     font-size: 11px; color: var(--ink-muted); margin-top: 4px;
@@ -1290,7 +1295,7 @@
     <div class="obs-header">
       <div>
         <div class="obs-brand">Hexis · ORIENT Framework · Stage 1</div>
-        <div class="obs-title" data-en="Observe — Define Your AI System" data-tr="Observe — AI Sisteminizi Tanımlayın">Observe — Define Your AI System</div>
+        <div class="obs-title" data-en="Observe &middot; Define <em>your</em> AI system." data-tr="Observe &middot; AI <em>sisteminizi</em> tanımlayın.">Observe &middot; Define <em>your</em> AI system.</div>
         <div class="obs-subtitle" data-en="Compliance begins with knowing what your system actually does." data-tr="Uyum süreci doğru soruyla başlar: bu sistem ne yapıyor, kim için yapıyor, ne zaman yanlış gidebilir?">Compliance begins with knowing what your system actually does.</div>
       </div>
       <div class="obs-lang-toggle">
@@ -1543,7 +1548,7 @@
     <div class="clf-header">
       <div>
         <div class="clf-brand">Hexis · EU AI Act Risk Classifier</div>
-        <div class="clf-title" data-en="Risk — Determine Your System's Legal Position" data-tr="Risk — Sisteminizin Yasal Konumunu Belirleyin">Risk — Determine Your System's Legal Position</div>
+        <div class="clf-title" data-en="Risk &middot; Determine your system&rsquo;s <em>legal position</em>." data-tr="Risk &middot; Sisteminizin <em>yasal konumunu</em> belirleyin.">Risk &middot; Determine your system&rsquo;s <em>legal position</em>.</div>
         <div class="clf-subtitle" data-en="An unclassified system cannot be governed. This stage establishes which obligations apply to you — and which do not." data-tr="Sınıflandırılmamış bir sistem yönetilemez. Bu aşama, hangi yükümlülüklerin sizin için geçerli olduğunu netleştirir.">An unclassified system cannot be governed. This stage establishes which obligations apply to you — and which do not.</div>
       </div>
       <button class="clf-skip" onclick="toggleSkipPanel()" data-en="I know my risk level →" data-tr="Risk seviyemi biliyorum →">I know my risk level &#x2192;</button>
