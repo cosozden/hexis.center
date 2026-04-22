@@ -424,21 +424,38 @@ For EVERY new or modified file, verify:
 - Plugin: risk-classify command + SKILL.md ✅
 - Web: Risk Classifier wizard in generator ✅
 
-**Sprint 2 (Compliance Documenter + Platform Integration):** ⏳ CURRENT
+**Sprint 2 (Compliance Documenter + Platform Integration):** ⏳ CURRENT — closing April/May 2026
 - ✅ Observe form v2 (4 groups + KVKK block)
 - ✅ Risk Classifier v2 (Art. 6(3) exception, Art. 50(3), Observe→Risk data flow, KVKK risk block, Identify link)
+- ✅ Landing page v2 (hero + "What Hexis Is" positioning, 22 Apr 2026)
+- ⏳ Claude-Optional flag on 7 AI endpoints (new baseline — see karar raporu Sec. 8.5)
+- ⏳ Jurisdiction-aware onboarding (`jurisdiction_scope` field — see karar raporu Sec. 8.3)
 - ⏳ Identify stage tool analysis (EU AI Act Checklist — risk-level filtering)
 - ⏳ Evaluate stage tool analysis (FRIA + Governance Activation Matrix)
-- Navigate stage tool — NO TOOL EXISTS, needs creation
-- Track stage tool — NO TOOL EXISTS, needs creation
 - FRIA template generator (Art. 27)
+- Three-tool integration: Classifier → Generator → Checklist
+
+**Sprint 2.5 (AI Risk Triage — KILLER FEATURE):** 🆕 Planned May-June 2026
+- Playbook schema (`playbooks`, `system_playbook_applications`, `triage_batches`, `ai_systems`)
+- API endpoints: `/api/triage/upload`, `/api/triage/run`, `/api/triage/export` (MCP-ready)
+- CSV → xlsx/pdf bulk risk classification
+- Pro-only feature (ARR driver)
+- Full spec: `ai-risk-triage-urun-spec.md`
+
+**Sprint 3 (AI Literacy + KVKK Crosswalk):** Planned Q3 2026
+**Sprint 4 (Launch + Community):** Planned Q3 2026 (around 2 Aug Annex III enforcement)
+
+### Deferred to Q2 2027 (22 Apr 2026 decision)
+- Navigate stage tool — existing `navigate-engine.ts` + `action-plan.tsx` kept as deep links
+- Track stage tool — existing `compliance-tracker.tsx` kept as deep link
 - Technical documentation template (Art. 11 + Annex IV)
 - Conformity assessment guidance (Art. 43)
 - Post-market monitoring plan template (Art. 72)
-- Three-tool integration: Classifier → Generator → Checklist
 
-**Sprint 3 (AI Literacy + KVKK Crosswalk):** Planned
-**Sprint 4 (Launch + Community):** Planned
+Rationale: Risk Triage + Observe/Risk/Identify/Evaluate close the "orient → deliverable" loop without Navigate/Track. Sales signal will re-open these.
+
+### Q1 2027 Separate Product
+- **agency.hexis.center** — Consultancy-focused product, same backend, multi-client UI. NOT merged into Pro tier.
 
 ---
 

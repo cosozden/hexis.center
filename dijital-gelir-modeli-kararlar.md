@@ -497,12 +497,59 @@ Eski "v2'ye bırak" kararları revize edildi:
 
 hexis.center ana sitesi de aynı shadcn/ui + Hexis theme component'lerini kullanacak şekilde revize edilecek. Bu tutarlı bir UX sağlar — ücretsiz araçlardan SaaS'a geçiş kullanıcı için seamless olur.
 
-### 8.3 KVKK Stratejik Netleştirme
+### 8.3 KVKK Stratejik Netleştirme (REVİZE — 22 Nisan 2026)
 
-**Karar (kesinleşti):** İlk ürün (app.hexis.center) SADECE EU AI Act compliance için geliştirilecek.
-- classifier-engine.ts'den KVKK entegrasyonu kaldırıldı ✅
-- prompts.ts ve tools.ts'den KVKK referansları temizlendi ✅
-- İkinci ürün (Türkiye pazarı): KVKK + Türkçe — ayrı modül olarak geliştirilecek
+**Orijinal karar (28 Mart 2026):** İlk ürün (app.hexis.center) SADECE EU AI Act compliance için geliştirilecek. classifier-engine.ts'den KVKK entegrasyonu kaldırıldı, prompts.ts ve tools.ts temizlendi.
+
+**Revizyon gerekçesi (22 Nisan 2026):** Stratejik niş "AB ile ticaret yapan Türk şirketler" (dual-jurisdiction) olarak netleştiği için, KVKK'nın tamamen kaldırılması bu nişe hizmet edememe sorunu yaratıyordu. Üç farklı KVKK bileşenini ayırt etmek kritik:
+
+| Bileşen | Ne İşe Yarar | SaaS'a Girecek mi? |
+|---|---|---|
+| KVKK VED modülü | Veri İşleme Envanteri (KVKK m.16) | ❌ Hayır (OneTrust rakibi, farklı alan) |
+| KVKK DPIA modülü | Genel privacy impact (KVKK Aydınlatma + VERBİS) | ❌ Hayır (GDPR privacy, AI governance değil) |
+| KVKK × EU AI Act crosswalk | AI sistemlerde çift rejim eşleştirmesi | ✅ Evet (AI governance core) |
+
+**Revize karar (kesinleşti):** SaaS **jurisdiction-aware** tasarlanacaktır.
+
+**Onboarding akışı:** Kullanıcı hesap oluştururken jurisdiction context seçer:
+- European Union only
+- Turkey only
+- Turkey with EU market access (dual jurisdiction)
+- Outside EU and Turkey (serving EU customers)
+
+**UI davranışı:**
+
+| Seçim | KVKK Görünürlüğü |
+|---|---|
+| EU only | Hiç görünmez. Saf EU AI Act deneyimi. |
+| Turkey only | KVKK crosswalk her aşamada görünür, EU AI Act paralelde |
+| Dual jurisdiction | EU AI Act primary + "Additional TR considerations" sidebar |
+| Outside both | EU AI Act primary, KVKK gizli |
+
+**Teknik uygulama:**
+- React context provider + feature flag sistemi
+- Her component `useJurisdiction()` hook'u ile render kararı verir
+- Settings sayfasından sonradan değiştirilebilir (jurisdiction genişleyince)
+
+**Kapsam dışı kalanlar (değişmedi):**
+- KVKK VED modülü dahil DEĞİL
+- KVKK DPIA modülü dahil DEĞİL
+- Genel KVKK aydınlatma/VERBİS fonksiyonları dahil DEĞİL
+
+**Sadece dahil olan:** AI sistemleri için EU AI Act madde referanslarıyla eşlenmiş KVKK çapraz referansları. Örneğin:
+- EU AI Act Art. 10 (veri yönetişimi) → KVKK m.12 (teknik-idari tedbirler)
+- EU AI Act Art. 13 (şeffaflık) → KVKK m.10 (aydınlatma)
+- EU AI Act Art. 27 (FRIA) → KVKK m.11 (ilgili kişi hakları)
+
+**Pazarlama etkileri:**
+- Landing page primary mesaj EU AI Act (değişmedi)
+- KVKK dual-jurisdiction sinyali sub-message olarak kalır
+- Türkçe content (blog, LinkedIn TR) KVKK'yı öne çıkarır
+- EU pazarlama materyallerinde KVKK kelimesi geçmez
+
+**Engineering effort:** ~2-3 hafta (crosswalk verisi zaten hexis.center ücretsiz sitesinde mevcut; SaaS'a taşımak entegrasyon işi)
+
+---
 
 ### 8.4 Sprint İlerleme Durumu (28 Mart)
 
@@ -523,6 +570,64 @@ hexis.center ana sitesi de aynı shadcn/ui + Hexis theme component'lerini kullan
 - ✅ API auth helper (auth + rate limiting + usage logging)
 - ⏳ Observe form UI (AI sistem ekleme)
 - ⏳ Risk wizard UI (frontend → engine bağlantısı)
+
+### 8.5 Claude-Optional Architecture (22 Nisan 2026 — Baseline Karar)
+
+**Bağlam:** Türkiye'de veri hassas 5 sektör (bankacılık, sigorta, sağlık, kamu, telekom) bulut LLM'e veri gönderemez (KVKK veri ikameti, BDDK, BTK, ISO 27001 kısıtları). Bu sektörler Türkiye pazarının ~%60'ını oluşturur. Hexis "Claude-only" konumunda kalırsa bu segmenti kaybeder.
+
+**Ayrıca Anthropic'in 21 Nisan 2026 "Claude for Legal" webinar'ı göstermiştir ki Anthropic dikey pazarlara agresif giriyor ve Claude-dependent skill'ler zorunlu hale geliyor. Hexis'in Claude-optional pozisyonu, Anthropic'in yaklaşamayacağı bir moat oluşturur.**
+
+**Karar (kesinleşti):** Tüm SaaS feature'ları **iki katmanlı** tasarlanacak.
+
+**Katman 1 — Deterministik Çekirdek (zorunlu):**
+- Kural tabanlı motor, hiçbir LLM çağrısı yapmaz
+- Risk classification (classifier-engine.ts)
+- FRIA template üretimi (conditional form logic)
+- Checklist filtreleme (risk-level mapping)
+- Rapor şablonları (template engine)
+- AI Risk Triage (deterministik risk sınıflandırma + kural tabanlı flag'ler)
+- Müşteri verisi Hexis sunucularından LLM'e gönderilmez
+
+**Katman 2 — AI Enrichment (opsiyonel):**
+- Claude API çağrıları sadece müşteri aktive ederse çalışır
+- Doc comprehension (yüklenen PDF/DOCX analizi)
+- Natural language queries ("bu sistemde Art. 27 gerekir mi?")
+- Risk Triage enrichment ("intended purpose" serbest metin analizi)
+- Pre-assessment signals (AI System Card sezgisel flag'leri)
+
+**Müşteri kontrolü:**
+- Hesap ayarları: "Enable AI enrichment" toggle (default OFF)
+- Per-feature toggle (Doc comprehension ayrı, Triage ayrı)
+- Enterprise tier: IT approval workflow + audit log of Claude calls
+- Banka/kamu segmenti: Claude'suz tam fonksiyonalite garantisi
+
+**"Playbook" terminolojisi ("Skill" yerine):**
+
+Anthropic'in "Skill" kavramı Claude-dependent. Hexis'in eşdeğeri **Playbook** olacak ve Claude'suz çalışacak:
+- JSON/YAML config dosyası
+- Risk eşikleri (örn. "credit scoring = her zaman high-risk flag")
+- Karar ağacı dalları
+- Rapor şablonu (Markdown/HTML)
+- Onay akışı (plain text workflow)
+- Organizasyon içi paylaşım = config paylaşımı, AI paylaşımı değil
+
+Banka genel müdürlüğü "TR Banking Playbook" yazar. Tüm şubeler indirir. Hiçbir şube Claude'a bağlanmaz. Bu, Anthropic'in "Share with team" modelinin veri-güvenli eşdeğeri.
+
+**Fiyatlama etkileri:**
+- Pro tier: Default Claude OFF — müşteri kendi API key'i veya Hexis quota ile açar
+- Enterprise tier: Default Claude OFF — IT approval sonrası açılabilir, audit log zorunlu
+- Playbook paylaşımı tüm tier'larda mevcut (Claude bağımlılığı olmadığı için)
+
+**Pazarlama pozisyonlaması:**
+> *"Hexis works with Claude. Or without it. Your infrastructure, your choice."*
+
+Bu mesaj landing page'de subtil olarak, security/compliance sayfasında belirgin olarak yer alacak.
+
+**Engineering implikasyonu:**
+- Her feature iki code path ile test edilir (deterministic + Claude)
+- Abstraction layer: `EnrichmentService` interface'i + `ClaudeEnrichment` + `NullEnrichment` implementations
+- Test coverage: %100 deterministic path, %80+ Claude path
+- Retrofit maliyeti yüksek — bu yüzden baseline karar olarak ŞİMDİ alınıyor
 
 ---
 
