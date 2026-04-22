@@ -1343,6 +1343,32 @@
     .section-divider { gap: 14px; padding-top: 24px; margin-bottom: 20px; }
     .section-num { font-size: 40px; }
   }
+
+  /* Yön A section pull-quote (medium weight) */
+  .section-pullquote {
+    max-width: 640px;
+    margin: 32px auto 40px;
+    padding: 28px 0;
+    border-top: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+    text-align: center;
+  }
+  .section-pullquote-q {
+    display: block;
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: clamp(16px, 2vw, 22px);
+    font-style: italic;
+    font-weight: 400;
+    line-height: 1.5;
+    color: var(--ink);
+    letter-spacing: -0.005em;
+    quotes: "\201C" "\201D";
+  }
+  .section-pullquote-q::before { content: open-quote; color: var(--brass); margin-right: 3px; }
+  .section-pullquote-q::after  { content: close-quote; color: var(--brass); margin-left: 3px; }
+  @media (max-width: 640px) {
+    .section-pullquote { margin: 24px auto 32px; padding: 22px 0; }
+  }
 </style>
 </head>
 <body>
@@ -1410,6 +1436,7 @@
     </div>
     <div class="sec-title">The ORIENT Framework</div>
     <div class="sec-lead">ORIENT applies governance reasoning in six sequential stages. Each stage produces a defined output that feeds the next. The cycle is continuous &mdash; Track feeds back into Observe as systems, contexts, and regulations evolve.</div>
+    <figure class="section-pullquote"><q class="section-pullquote-q">A system you cannot describe is a system you cannot govern.</q></figure>
 
     <div class="orient-flow">
 
@@ -1601,6 +1628,7 @@
     </div>
     <div class="sec-title">Stage Definitions</div>
     <div class="sec-lead">Each ORIENT stage has defined inputs, processes, outputs, legal references, and transition conditions. This structure ensures traceability and repeatability across different organizations and risk levels.</div>
+    <figure class="section-pullquote"><q class="section-pullquote-q">Each stage names a decision. Skip one and the next becomes guesswork.</q></figure>
 
     <!-- OBSERVE -->
     <div class="stage-detail">
@@ -1940,6 +1968,7 @@
     </div>
     <div class="sec-title">Dual Lens: EU AI Act &times; KVKK</div>
     <div class="sec-lead">ORIENT operates as a single process with two concurrent perspectives. At each stage, both EU AI Act and KVKK requirements are evaluated in parallel &mdash; not as separate workflows but as two lenses on the same governance question.</div>
+    <figure class="section-pullquote"><q class="section-pullquote-q">Compliance in one framework can be non-compliance in another.</q></figure>
 
     <div class="dual-lens">
       <div class="dl-header">
@@ -2176,6 +2205,7 @@
     </div>
     <div class="sec-title">Limitations &amp; Feedback</div>
     <div class="sec-lead">ORIENT v1.0 is designed for transparency about what it does and does not do.</div>
+    <figure class="section-pullquote"><q class="section-pullquote-q">ORIENT is not legal advice. It is where legal advice begins.</q></figure>
 
     <div class="limits-grid">
       <div class="limit-cell">
