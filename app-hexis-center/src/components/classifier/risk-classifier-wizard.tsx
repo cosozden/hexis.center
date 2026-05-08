@@ -195,6 +195,25 @@ export function RiskClassifierWizard({ systemId, systemName }: Props) {
 
       if (dbError) throw dbError;
 
+      // Bug D fix: seed obligations once classification is persisted.
+      // Idempotent — endpoint returns existing rows if already seeded.
+      // We only log and skip on failure so a 500 in obligation seeding
+      // never blocks the user from leaving the wizard; obligations can
+      // be re-seeded via POST /api/obligations/seed { force: true }.
+      try {
+        const seedRes = await fetch('/api/obligations/seed', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ systemId }),
+        });
+        if (!seedRes.ok) {
+          const detail = await seedRes.json().catch(() => ({}));
+          console.error('[wizard] obligations/seed non-OK:', seedRes.status, detail);
+        }
+      } catch (seedErr) {
+        console.error('[wizard] obligations/seed network error:', seedErr);
+      }
+
       // Navigate to system detail
       router.push(`/dashboard/systems/${systemId}`);
       router.refresh();

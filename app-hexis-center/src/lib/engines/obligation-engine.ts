@@ -472,6 +472,42 @@ const MINIMAL_OBLIGATIONS: ObligationSeed[] = [
   },
 ];
 
+// ━━━ TRANSPARENCY CATEGORY → OBLIGATION KEY MAPPING ━━━
+// Bug A fix: the wizard's Step 4 lets the user pick which Art. 50
+// trigger applies to their system. Engine should return only the
+// matching sub-paragraph rather than all four.
+//
+// Mapping (verified against Regulation (EU) 2024/1689 Art. 50):
+//   chatbot           → Art. 50(1) provider obligation
+//   public_content    → Art. 50(2) provider obligation
+//   emotion_biometric → Art. 50(3) deployer obligation
+//   deepfake          → Art. 50(4) deployer obligation
+
+const TRANSPARENCY_CATEGORY_TO_KEY: Record<string, string> = {
+  chatbot: 'transparency_art50_1_ai_interaction',
+  public_content: 'transparency_art50_2_ai_generated_content',
+  emotion_biometric: 'transparency_art50_3_emotion_biometric',
+  deepfake: 'transparency_art50_4_deepfake',
+};
+
+/**
+ * Bug A fix helper: return TRANSPARENCY_ALL filtered to the specific
+ * sub-paragraph(s) implied by `category`. If category is unknown or
+ * 'none', returns an empty array. If `category` is `undefined` (legacy
+ * call site), returns the full TRANSPARENCY_ALL list (backwards
+ * compatible behaviour).
+ */
+function transparencyObligationsForCategory(
+  category: string | null | undefined,
+): ObligationSeed[] {
+  // Backwards compatible: undefined caller → return full set.
+  if (category === undefined) return TRANSPARENCY_ALL;
+  if (category === null || category === 'none') return [];
+  const key = TRANSPARENCY_CATEGORY_TO_KEY[category];
+  if (!key) return [];
+  return TRANSPARENCY_ALL.filter((t) => t.obligationKey === key);
+}
+
 // ━━━ AI LITERACY (Art. 4) — ALL RISK LEVELS, ALL ROLES ━━━
 
 const AI_LITERACY: ObligationSeed = {
@@ -492,6 +528,10 @@ const AI_LITERACY: ObligationSeed = {
  * @param riskLevel — from classifier engine result
  * @param organisationRole — from ai_systems table ('provider' | 'deployer' | 'both')
  * @param options.includeTransparency — if classification also has transparency obligations
+ * @param options.transparencyCategory — Bug A fix: which Art. 50 sub-paragraph the
+ *   user selected in Step 4 (chatbot / public_content / emotion_biometric / deepfake).
+ *   If supplied, only the matching obligation is added; if omitted (legacy callers),
+ *   all four sub-paragraphs are added (backwards compatible).
  * @param options.isGPAI — if system also involves GPAI
  * @param options.isGPAISystemic — if GPAI model has systemic risk
  */
@@ -500,12 +540,20 @@ export function getObligationsForRisk(
   organisationRole: OrganisationRole,
   options?: {
     includeTransparency?: boolean;
+    transparencyCategory?: string | null;
     isGPAI?: boolean;
     isGPAISystemic?: boolean;
   },
 ): ObligationSeed[] {
-  const { includeTransparency, isGPAI, isGPAISystemic } = options ?? {};
+  const { includeTransparency, transparencyCategory, isGPAI, isGPAISystemic } = options ?? {};
   const obligations: ObligationSeed[] = [];
+
+  // Pre-compute the transparency obligations the system actually triggers
+  // (Bug A fix). If `transparencyCategory` is specified, it's a narrow
+  // single-sub-paragraph list. If undefined, fall back to the full set.
+  const transparencyObligations = transparencyObligationsForCategory(
+    transparencyCategory,
+  );
 
   // ── AI Literacy is universal (Art. 4) — in force since 2 Feb 2025 ──
   obligations.push(AI_LITERACY);
@@ -550,7 +598,7 @@ export function getObligationsForRisk(
       break;
 
     case 'limited':
-      obligations.push(...filterByRole(TRANSPARENCY_ALL, organisationRole));
+      obligations.push(...filterByRole(transparencyObligations, organisationRole));
       break;
 
     case 'minimal':
@@ -559,11 +607,11 @@ export function getObligationsForRisk(
       break;
   }
 
-  // ── Cross-cutting: Transparency overlay ──
+  // ── Cross-cutting: Transparency overlay (when not already a limited-risk system) ──
   if (includeTransparency && riskLevel !== 'limited') {
-    const transparencyKeys = new Set(obligations.map((o) => o.obligationKey));
-    for (const t of TRANSPARENCY_ALL) {
-      if (!transparencyKeys.has(t.obligationKey)) {
+    const seenKeys = new Set(obligations.map((o) => o.obligationKey));
+    for (const t of transparencyObligations) {
+      if (!seenKeys.has(t.obligationKey)) {
         obligations.push(t);
       }
     }

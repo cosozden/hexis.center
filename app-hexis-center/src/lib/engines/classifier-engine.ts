@@ -116,6 +116,38 @@ export const TRANSPARENCY_OBLIGATIONS = [
   { title: 'Label deepfake content with machine-readable disclosure', article: 'Art. 50(4)' },
 ] as const;
 
+/**
+ * Per-category transparency obligation mapping (Bug A fix).
+ * The wizard's Step 4 asks which Art. 50 trigger applies — the engine
+ * should return only the matching sub-paragraph, not all four.
+ *
+ * EUR-Lex Article 50 (Regulation (EU) 2024/1689):
+ *   50(1) — provider obligation: chatbot disclosure
+ *   50(2) — provider obligation: synthetic-content marking
+ *   50(3) — deployer obligation: emotion recognition / biometric categorisation disclosure
+ *   50(4) — deployer obligation: deepfake / artistic-content disclosure
+ */
+export const TRANSPARENCY_OBLIGATIONS_BY_CATEGORY: Record<
+  Exclude<TransparencyCategory, 'none'>,
+  { title: string; article: string }
+> = {
+  chatbot:           { title: 'Inform persons they are interacting with an AI system', article: 'Art. 50(1)' },
+  public_content:    { title: 'Mark AI-generated content as artificially generated',  article: 'Art. 50(2)' },
+  emotion_biometric: { title: 'Disclose emotion recognition or biometric categorisation', article: 'Art. 50(3)' },
+  deepfake:          { title: 'Label deepfake content with machine-readable disclosure', article: 'Art. 50(4)' },
+};
+
+/**
+ * Article 4 — AI Literacy obligation (Bug C fix).
+ * Applies to every provider AND deployer of an AI system, regardless of
+ * risk level, since 2 February 2025. Must be present in every classifier
+ * output.
+ */
+export const AI_LITERACY_OBLIGATION = {
+  title: 'Ensure sufficient AI literacy of staff operating or using the AI system',
+  article: 'Art. 4',
+} as const;
+
 export const GPAI_OBLIGATIONS = [
   { title: 'Technical documentation for the model', article: 'Art. 53(1)(a)' },
   { title: 'Information and documentation to downstream providers', article: 'Art. 53(1)(b)' },
@@ -225,10 +257,15 @@ export interface ClassificationResult {
 }
 
 // ━━━ PENALTIES ━━━
+// Art. 99 paragraph mapping (verified against Regulation (EU) 2024/1689):
+//   99(3) — prohibited practices (Art. 5)            → €35M / 7%
+//   99(4) — non-compliance with any other provision  → €15M / 3%   ← high-risk, transparency, GPAI
+//   99(5) — supply of incorrect information to       → €7.5M / 1%
+//          notified bodies / competent authorities
 
 const PENALTY = {
   prohibited: 'Up to €35 million or 7% of total worldwide annual turnover, whichever is higher (Art. 99(3))',
-  highRisk: 'Up to €15 million or 3% of total worldwide annual turnover, whichever is higher (Art. 99(4))',
+  nonCompliance: 'Up to €15 million or 3% of total worldwide annual turnover, whichever is higher (Art. 99(4))',
   incorrectInfo: 'Up to €7.5 million or 1% of total worldwide annual turnover, whichever is higher (Art. 99(5))',
 } as const;
 
@@ -293,7 +330,7 @@ export function classifyRisk(input: ClassificationInput): ClassificationResult {
       articleReferences: [`Article 6(2)`, `Annex III Area ${annexIIIArea}`],
       deadline: DEADLINE.annexIII.iso,
       deadlineLabel: DEADLINE.annexIII.label,
-      penalty: PENALTY.highRisk,
+      penalty: PENALTY.nonCompliance,
       obligations: [...HIGH_RISK_OBLIGATIONS],
       supplementary,
       exposureMapping: 'high',
@@ -317,7 +354,7 @@ export function classifyRisk(input: ClassificationInput): ClassificationResult {
         articleReferences: ['Article 6(1)', 'Article 6(3)', `Annex I + Annex III Area ${annexIIIArea}`],
         deadline: DEADLINE.annexIII.iso,
         deadlineLabel: DEADLINE.annexIII.label,
-        penalty: PENALTY.highRisk,
+        penalty: PENALTY.nonCompliance,
         obligations: [
           ...HIGH_RISK_OBLIGATIONS,
           { title: 'Document Art. 6(3) assessment for Annex III component', article: 'Art. 6(4)' },
@@ -341,7 +378,7 @@ export function classifyRisk(input: ClassificationInput): ClassificationResult {
       articleReferences: ['Article 6(3)', `Annex III Area ${annexIIIArea}`],
       deadline: DEADLINE.annexIII.iso,
       deadlineLabel: DEADLINE.annexIII.label,
-      penalty: PENALTY.incorrectInfo,
+      penalty: PENALTY.nonCompliance,
       obligations: [...ART6_3_OBLIGATIONS],
       supplementary,
       exposureMapping: 'moderate',
@@ -361,7 +398,7 @@ export function classifyRisk(input: ClassificationInput): ClassificationResult {
       articleReferences: ['Article 6(1)', 'Annex I'],
       deadline: DEADLINE.annexI.iso,
       deadlineLabel: DEADLINE.annexI.label,
-      penalty: PENALTY.highRisk,
+      penalty: PENALTY.nonCompliance,
       obligations: [...HIGH_RISK_OBLIGATIONS],
       supplementary,
       exposureMapping: 'high',
@@ -381,7 +418,7 @@ export function classifyRisk(input: ClassificationInput): ClassificationResult {
       articleReferences: ['Articles 51–55'],
       deadline: DEADLINE.gpai.iso,
       deadlineLabel: DEADLINE.gpai.label,
-      penalty: PENALTY.highRisk,
+      penalty: PENALTY.nonCompliance,
       obligations: [...GPAI_SYSTEMIC_OBLIGATIONS],
       supplementary,
       exposureMapping: 'high',
@@ -401,7 +438,7 @@ export function classifyRisk(input: ClassificationInput): ClassificationResult {
       articleReferences: ['Articles 51–53'],
       deadline: DEADLINE.gpai.iso,
       deadlineLabel: DEADLINE.gpai.label,
-      penalty: PENALTY.highRisk,
+      penalty: PENALTY.nonCompliance,
       obligations: [...GPAI_OBLIGATIONS],
       supplementary,
       exposureMapping: 'elevated',
@@ -423,8 +460,8 @@ export function classifyRisk(input: ClassificationInput): ClassificationResult {
       articleReferences: ['Article 50'],
       deadline: DEADLINE.transparency.iso,
       deadlineLabel: DEADLINE.transparency.label,
-      penalty: PENALTY.incorrectInfo,
-      obligations: [...TRANSPARENCY_OBLIGATIONS],
+      penalty: PENALTY.nonCompliance,
+      obligations: transparencyObligationsFor(transparencyCategory),
       supplementary,
       exposureMapping: 'moderate',
       checklistRisk: 'limited',
@@ -455,6 +492,21 @@ export function classifyRisk(input: ClassificationInput): ClassificationResult {
 
 // ━━━ HELPERS ━━━
 
+/**
+ * Bug A fix: return only the Art. 50 sub-paragraph(s) that match the
+ * transparency category the user selected in Step 4. Previously the
+ * engine dumped all four sub-paragraphs unconditionally.
+ *
+ * If category is 'none' (engine should not call this in that case but
+ * defensive), returns an empty array. Multi-select support: when
+ * `transparencyCategory` becomes an array in a future revision, switch
+ * this to `.flatMap()`.
+ */
+function transparencyObligationsFor(category: TransparencyCategory): Obligation[] {
+  if (category === 'none') return [];
+  return [{ ...TRANSPARENCY_OBLIGATIONS_BY_CATEGORY[category] }];
+}
+
 interface BuildResultArgs {
   riskLevel: RiskLevel;
   displayLevel: string;
@@ -471,6 +523,15 @@ interface BuildResultArgs {
 }
 
 function buildResult(args: BuildResultArgs): ClassificationResult {
+  // Bug C fix: Art. 4 (AI literacy) applies to every provider/deployer of
+  // an AI system regardless of risk level. Prepend it if not already
+  // present in the supplied obligations array.
+  const obligationsWithLiteracy = args.obligations.some(
+    (o) => o.article === AI_LITERACY_OBLIGATION.article
+  )
+    ? args.obligations
+    : [{ ...AI_LITERACY_OBLIGATION }, ...args.obligations];
+
   const result: ClassificationResult = {
     riskLevel: args.riskLevel,
     displayLevel: args.displayLevel,
@@ -479,7 +540,7 @@ function buildResult(args: BuildResultArgs): ClassificationResult {
     deadline: args.deadline,
     deadlineLabel: args.deadlineLabel,
     penalty: args.penalty,
-    obligations: args.obligations,
+    obligations: obligationsWithLiteracy,
     supplementary: args.supplementary,
     exposureMapping: args.exposureMapping,
     checklistRisk: args.checklistRisk,

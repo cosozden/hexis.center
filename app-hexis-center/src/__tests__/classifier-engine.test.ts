@@ -68,7 +68,10 @@ describe('Annex III High-Risk (Art. 6(2))', () => {
     expect(result.displayLevel).toBe('HIGH RISK');
     expect(result.deadline).toBe('2026-08-02');
     expect(result.exposureMapping).toBe('high');
-    expect(result.obligations.length).toBe(8); // HIGH_RISK_OBLIGATIONS
+    // Bug C fix: Art. 4 (AI literacy) is now prepended to every result.
+    // High-risk → 8 HIGH_RISK_OBLIGATIONS + 1 AI literacy = 9.
+    expect(result.obligations.length).toBe(9);
+    expect(result.obligations[0].article).toBe('Art. 4');
   });
 
   it('all 8 Annex III areas produce high risk', () => {
@@ -104,7 +107,11 @@ describe('Art. 6(3) Exception', () => {
     expect(result.riskLevel).toBe('not_high_risk');
     expect(result.displayLevel).toContain('Art. 6(3)');
     expect(result.exposureMapping).toBe('moderate');
-    expect(result.penalty).toContain('€7.5 million');
+    // Bug B fix: non-prohibited compliance failures (transparency, Art. 6(3)
+    // documentation, etc.) fall under Art. 99(4) — €15M / 3% — not Art. 99(5)
+    // (which is only for misleading info to authorities).
+    expect(result.penalty).toContain('€15 million');
+    expect(result.penalty).toContain('Art. 99(4)');
   });
 
   it('all 4 exception types produce not_high_risk', () => {
@@ -164,14 +171,16 @@ describe('GPAI Classification (Art. 51-56)', () => {
     expect(result.riskLevel).toBe('gpai_systemic');
     expect(result.deadline).toBe('2025-08-02');
     expect(result.exposureMapping).toBe('high');
-    expect(result.obligations.length).toBe(8); // 4 GPAI + 4 systemic
+    // Bug C: 4 GPAI + 4 systemic + 1 AI literacy = 9
+    expect(result.obligations.length).toBe(9);
   });
 
   it('GPAI provider → elevated exposure', () => {
     const result = classifyRisk(baseInput({ gpaiRole: 'gpai_provider' }));
     expect(result.riskLevel).toBe('gpai');
     expect(result.exposureMapping).toBe('elevated');
-    expect(result.obligations.length).toBe(4); // GPAI_OBLIGATIONS
+    // Bug C: 4 GPAI_OBLIGATIONS + 1 AI literacy = 5
+    expect(result.obligations.length).toBe(5);
   });
 
   it('GPAI deployer alone → minimal risk + supplementary note', () => {
@@ -204,6 +213,91 @@ describe('Transparency Obligations (Art. 50)', () => {
     }));
     expect(result.riskLevel).toBe('high'); // High risk takes precedence
     expect(result.supplementary.some(s => s.includes('Art. 50'))).toBe(true);
+  });
+
+  // Bug A regression guard: Step 4 selection must filter Art. 50
+  // sub-paragraphs. Selecting "chatbot" yields ONLY Art. 50(1), not
+  // 50(2)/50(3)/50(4). Multi-select support TBD.
+  it('chatbot → only Art. 50(1) obligation (Bug A)', () => {
+    const result = classifyRisk(baseInput({ transparencyCategory: 'chatbot' }));
+    const transparencyObligations = result.obligations.filter((o) =>
+      o.article.startsWith('Art. 50'),
+    );
+    expect(transparencyObligations.length).toBe(1);
+    expect(transparencyObligations[0].article).toBe('Art. 50(1)');
+  });
+
+  it('deepfake → only Art. 50(4) obligation (Bug A)', () => {
+    const result = classifyRisk(baseInput({ transparencyCategory: 'deepfake' }));
+    const transparencyObligations = result.obligations.filter((o) =>
+      o.article.startsWith('Art. 50'),
+    );
+    expect(transparencyObligations.length).toBe(1);
+    expect(transparencyObligations[0].article).toBe('Art. 50(4)');
+  });
+
+  it('emotion_biometric → only Art. 50(3) obligation (Bug A)', () => {
+    const result = classifyRisk(
+      baseInput({ transparencyCategory: 'emotion_biometric' }),
+    );
+    const transparencyObligations = result.obligations.filter((o) =>
+      o.article.startsWith('Art. 50'),
+    );
+    expect(transparencyObligations.length).toBe(1);
+    expect(transparencyObligations[0].article).toBe('Art. 50(3)');
+  });
+
+  it('public_content → only Art. 50(2) obligation (Bug A)', () => {
+    const result = classifyRisk(
+      baseInput({ transparencyCategory: 'public_content' }),
+    );
+    const transparencyObligations = result.obligations.filter((o) =>
+      o.article.startsWith('Art. 50'),
+    );
+    expect(transparencyObligations.length).toBe(1);
+    expect(transparencyObligations[0].article).toBe('Art. 50(2)');
+  });
+
+  // Bug B regression guard: limited risk uses Art. 99(4), not 99(5).
+  it('limited risk uses Art. 99(4) penalty (Bug B)', () => {
+    const result = classifyRisk(baseInput({ transparencyCategory: 'chatbot' }));
+    expect(result.penalty).toContain('Art. 99(4)');
+    expect(result.penalty).toContain('€15 million');
+    expect(result.penalty).not.toContain('Art. 99(5)');
+  });
+});
+
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// AI LITERACY (Bug C)
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+describe('AI Literacy (Art. 4) — universal obligation', () => {
+  // Art. 4 has applied to every provider AND deployer of an AI system
+  // since 2 February 2025. Must be present in every classifier output
+  // regardless of risk level. Regression guard for Bug C.
+  it('high risk includes Art. 4', () => {
+    const result = classifyRisk(baseInput({ annexIIIArea: 4 }));
+    expect(result.obligations.some((o) => o.article === 'Art. 4')).toBe(true);
+  });
+
+  it('limited risk includes Art. 4', () => {
+    const result = classifyRisk(baseInput({ transparencyCategory: 'chatbot' }));
+    expect(result.obligations.some((o) => o.article === 'Art. 4')).toBe(true);
+  });
+
+  it('GPAI provider includes Art. 4', () => {
+    const result = classifyRisk(baseInput({ gpaiRole: 'gpai_provider' }));
+    expect(result.obligations.some((o) => o.article === 'Art. 4')).toBe(true);
+  });
+
+  it('minimal risk includes Art. 4', () => {
+    const result = classifyRisk(baseInput());
+    expect(result.obligations.some((o) => o.article === 'Art. 4')).toBe(true);
+  });
+
+  it('Art. 4 is the first obligation in the list (most universal)', () => {
+    const result = classifyRisk(baseInput({ annexIIIArea: 4 }));
+    expect(result.obligations[0].article).toBe('Art. 4');
   });
 });
 

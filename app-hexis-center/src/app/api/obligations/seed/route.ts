@@ -122,8 +122,12 @@ export async function POST(request: Request) {
 
   // 7. Determine obligation engine options from classification path
   const classPath = classification.classification_path as Record<string, unknown>;
+  const transparencyCategoryRaw = classPath?.transparencyCategory;
+  const transparencyCategory =
+    typeof transparencyCategoryRaw === 'string' ? transparencyCategoryRaw : null;
   const engineOptions = {
-    includeTransparency: classPath?.transparencyCategory !== 'none' && classPath?.transparencyCategory != null,
+    includeTransparency: transparencyCategory !== null && transparencyCategory !== 'none',
+    transparencyCategory,
     isGPAI: classPath?.gpaiRole === 'gpai_provider',
     isGPAISystemic: classPath?.gpaiRole === 'gpai_systemic',
   };

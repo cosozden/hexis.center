@@ -7,14 +7,14 @@
 
 ---
 
-## 🔴 Engine Bugs — CRITICAL (production blocker)
+## 🔴 Engine Bugs — RESOLVED (commit `a52d448` + Block 1 follow-up)
 
-| ID | Area | Issue |
-|----|------|-------|
-| **A** | Risk wizard → Obligations engine | Step 4 (Transparency) checkbox selection is not propagated. Only `chatbot` was selected, but the result lists all 4 sub-paragraphs of Art. 50: 50(1), 50(2), 50(3), 50(4). Engine must filter obligations based on which transparency triggers were marked. |
-| **B** | Risk result → penalty article mapping | Result shows "Up to €7.5M / 1% turnover (Art. 99(5))". Art. 99(5) is for *incorrect/incomplete information* violations. Transparency obligation violations fall under Art. 99(4) — **€15M / 3% turnover**. Web-search verify and correct (hexis-qa-protocol Faz 2). |
-| **C** | Obligations engine | **Art. 4 (AI literacy)** is missing from the obligation list. Art. 4 has applied to *every* AI deployer since 2 Feb 2025, regardless of risk level. Must be auto-attached to every classified system. |
-| **D** | Risk wizard persistence | Result screen shows "Obligations (4)" but `obligations` table is not populated — `mcp__hexis-governance__get_obligations` returns empty after Save Classification. Either the wizard payload must INSERT into `obligations`, or the UI must clarify these are *previews* until Identify step (ORIENT 3). Decide which is the intended behaviour, then make UI/data consistent. |
+| ID | Area | Issue | Status |
+|----|------|-------|--------|
+| **A** | Risk wizard → Obligations engine | Step 4 (Transparency) checkbox selection is not propagated. Only `chatbot` was selected, but the result lists all 4 sub-paragraphs of Art. 50. | ✅ **Resolved.** `transparencyCategory` now drives a per-category mapping in both `classifier-engine.ts` (`TRANSPARENCY_OBLIGATIONS_BY_CATEGORY` + `transparencyObligationsFor`) and `obligation-engine.ts` (`transparencyObligationsForCategory`). 4 regression tests added. |
+| **B** | Risk result → penalty article mapping | Result showed "Art. 99(5) — €7.5M / 1%" for limited risk. Verified against EUR-Lex: Art. 99(4) (€15M / 3%) is correct for non-prohibited violations including transparency obligations. | ✅ **Resolved.** Renamed `PENALTY.highRisk` → `PENALTY.nonCompliance` and reused for `limited` risk + `not_high_risk` (Art. 6(3) exception). 1 regression test added. |
+| **C** | Obligations engine | Art. 4 (AI literacy) was returned by `obligation-engine.ts` but missing from `classifier-engine.ts` output that the wizard renders. | ✅ **Resolved.** `AI_LITERACY_OBLIGATION` is now prepended to every `classifyRisk()` result inside `buildResult`, regardless of risk level. 5 regression tests added. |
+| **D** | Risk wizard persistence | Result screen showed "Obligations (4)" but `obligations` table was not populated; `get_obligations` MCP tool returned empty after Save Classification. | ✅ **Resolved.** Wizard `handleSave` now POSTs to `/api/obligations/seed` after a successful `risk_classifications` insert. Idempotent endpoint already existed; failure is non-fatal so the user can still leave the wizard. |
 
 ---
 
