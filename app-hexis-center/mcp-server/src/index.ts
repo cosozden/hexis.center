@@ -16,6 +16,7 @@ import { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
 import { StdioServerTransport } from '@modelcontextprotocol/sdk/server/stdio.js';
 import { z } from 'zod';
 import { createClient, SupabaseClient } from '@supabase/supabase-js';
+import { hashApiToken, hasValidTokenShape } from './token-hash.js';
 
 // ━━━ CONFIG ━━━
 
@@ -36,34 +37,63 @@ if (!SUPABASE_URL || !SUPABASE_SERVICE_KEY || !USER_API_TOKEN) {
 const supabase: SupabaseClient = createClient(SUPABASE_URL, SUPABASE_SERVICE_KEY);
 
 // ━━━ AUTH: Resolve API token → org_id ━━━
-// Token format: hexis_{user_id}_{random_hex}
-// Stored in profiles.settings->>'api_token'
-// Each token maps to exactly one user → one org
+// Token format: hexis_<24-random-url-safe-chars>
+// Stored in api_tokens.token_hash (SHA-256 hex digest — plain text never stored)
+// Each token maps to exactly one user + org and carries scopes + expiry.
 
 let cachedOrgId: string | null = null;
+let cachedTokenId: string | null = null;
 
 async function getOrgId(): Promise<string> {
   if (cachedOrgId) return cachedOrgId;
 
-  if (!USER_API_TOKEN.startsWith('hexis_')) {
-    throw new Error('Invalid API token format — must start with hexis_');
-  }
-
-  // Look up the profile whose settings.api_token matches
-  const { data: profile, error } = await supabase
-    .from('profiles')
-    .select('org_id')
-    .eq('settings->>api_token', USER_API_TOKEN)
-    .not('org_id', 'is', null)
-    .single();
-
-  if (error || !profile?.org_id) {
+  if (!hasValidTokenShape(USER_API_TOKEN)) {
     throw new Error(
-      'API token not recognized — generate a new token from Settings in the Hexis platform'
+      'Invalid API token format — must be hexis_ followed by 24 characters'
     );
   }
 
-  cachedOrgId = profile.org_id as string;
+  const tokenHash = hashApiToken(USER_API_TOKEN);
+
+  const { data: tokenRow, error } = await supabase
+    .from('api_tokens')
+    .select('id, org_id, revoked_at, expires_at, scopes')
+    .eq('token_hash', tokenHash)
+    .maybeSingle();
+
+  if (error || !tokenRow) {
+    throw new Error(
+      'API token not recognized — generate a new token at https://app.hexis.center/dashboard/settings/tokens'
+    );
+  }
+
+  if (tokenRow.revoked_at) {
+    throw new Error('API token has been revoked');
+  }
+
+  if (tokenRow.expires_at && new Date(tokenRow.expires_at) < new Date()) {
+    throw new Error('API token has expired');
+  }
+
+  if (!Array.isArray(tokenRow.scopes) || !tokenRow.scopes.includes('read')) {
+    throw new Error('API token missing required scope: read');
+  }
+
+  cachedOrgId = tokenRow.org_id as string;
+  cachedTokenId = tokenRow.id as string;
+
+  // Fire-and-forget: update last_used_at so the user can see activity
+  // in the Settings UI. Failure is non-fatal — never blocks a tool call.
+  void supabase
+    .from('api_tokens')
+    .update({ last_used_at: new Date().toISOString() })
+    .eq('id', cachedTokenId)
+    .then(({ error: updateErr }) => {
+      if (updateErr) {
+        console.error('[mcp] failed to update last_used_at:', updateErr.message);
+      }
+    });
+
   return cachedOrgId;
 }
 

@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import { createServerSupabaseClient, getUserProfile } from '@/lib/supabase/server';
 import { Card } from '@/components/ui';
 import { BillingSection } from '@/components/billing/billing-section';
@@ -61,6 +62,30 @@ export default async function SettingsPage() {
         subscriptionStatus={subscriptionStatus}
         hasStripeCustomer={!!stripeCustomerId}
       />
+
+      {/* API Tokens */}
+      <Card className="p-5 mb-4">
+        <div className="flex items-start justify-between gap-4">
+          <div>
+            <p className="text-[9px] uppercase tracking-[0.1em] text-primary mb-3">
+              API Tokens
+            </p>
+            <p className="text-foreground text-sm mb-1">
+              Connect Claude Desktop and other clients
+            </p>
+            <p className="text-muted-foreground text-xs max-w-md">
+              Create read-only tokens for the Hexis MCP Server. Hashed at rest;
+              revocable at any time.
+            </p>
+          </div>
+          <Link
+            href="/dashboard/settings/tokens"
+            className="text-xs text-foreground border border-primary px-3 py-2 hover:bg-primary hover:text-background transition-colors"
+          >
+            Manage tokens →
+          </Link>
+        </div>
+      </Card>
 
       {/* Coming soon */}
       <Card accent className="text-center py-6 px-6 mt-4">

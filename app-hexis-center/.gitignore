@@ -10,6 +10,9 @@ out/
 # production
 build/
 
+# mcp-server build output (compile via `npm run build`)
+mcp-server/dist/
+
 # debug
 npm-debug.log*
 yarn-debug.log*

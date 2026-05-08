@@ -506,6 +506,50 @@ export interface Database {
         };
         Relationships: [];
       };
+      api_tokens: {
+        Row: {
+          id: string;
+          user_id: string;
+          org_id: string;
+          token_hash: string;
+          token_prefix: string;
+          name: string;
+          scopes: string[];
+          expires_at: string | null;
+          revoked_at: string | null;
+          last_used_at: string | null;
+          created_at: string;
+          created_by: string | null;
+        };
+        Insert: {
+          id?: string;
+          user_id: string;
+          org_id: string;
+          token_hash: string;
+          token_prefix: string;
+          name?: string;
+          scopes?: string[];
+          expires_at?: string | null;
+          revoked_at?: string | null;
+          last_used_at?: string | null;
+          created_by?: string | null;
+        };
+        Update: {
+          id?: string;
+          user_id?: string;
+          org_id?: string;
+          token_hash?: string;
+          token_prefix?: string;
+          name?: string;
+          scopes?: string[];
+          expires_at?: string | null;
+          revoked_at?: string | null;
+          last_used_at?: string | null;
+          created_at?: string;
+          created_by?: string | null;
+        };
+        Relationships: [];
+      };
       evidence_items: {
         Row: {
           id: string;
