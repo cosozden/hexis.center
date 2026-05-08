@@ -117,24 +117,29 @@ def md_to_html(md_text):
             continue
 
         # Headings
-        h2_match = re.match(r"^##\s+(.+)$", stripped)
+        # Supports Pandoc/MkDocs anchor syntax: ## Heading {#anchor-id}
+        h2_match = re.match(r"^##\s+(.+?)(?:\s*\{#([a-z0-9][a-z0-9-]*)\})?\s*$", stripped)
         if h2_match:
             flush_list()
-            title = inline_format(h2_match.group(1))
+            title = inline_format(h2_match.group(1).strip())
+            anchor_id = h2_match.group(2)
+            id_attr = f' id="{anchor_id}"' if anchor_id else ''
             html_parts.append(
-                f'  <h2 style="font-family:Georgia,serif;font-size:24px;font-weight:700;'
+                f'  <h2{id_attr} style="font-family:Georgia,serif;font-size:24px;font-weight:700;'
                 f'color:var(--text);margin:48px 0 16px">\n'
                 f"    {title}\n"
                 f"  </h2>"
             )
             continue
 
-        h3_match = re.match(r"^###\s+(.+)$", stripped)
+        h3_match = re.match(r"^###\s+(.+?)(?:\s*\{#([a-z0-9][a-z0-9-]*)\})?\s*$", stripped)
         if h3_match:
             flush_list()
-            title = inline_format(h3_match.group(1))
+            title = inline_format(h3_match.group(1).strip())
+            anchor_id = h3_match.group(2)
+            id_attr = f' id="{anchor_id}"' if anchor_id else ''
             html_parts.append(
-                f'  <h3 style="font-family:Georgia,serif;font-size:20px;font-weight:700;'
+                f'  <h3{id_attr} style="font-family:Georgia,serif;font-size:20px;font-weight:700;'
                 f'color:var(--text);margin:36px 0 12px">\n'
                 f"    {title}\n"
                 f"  </h3>"
@@ -189,6 +194,45 @@ def inline_format(text):
         text,
     )
     return text
+
+
+# ──────────────────────────────────────────────
+# POST-CONVERSION QA — DETECT UNRENDERED MARKDOWN
+# ──────────────────────────────────────────────
+
+def post_conversion_check(content_html):
+    """Detect markdown leftovers that escaped the converter.
+
+    Returns a list of issue descriptions. Empty list = clean output.
+    Triggered after md_to_html() and before HTML page generation.
+    """
+    issues = []
+
+    # Pandoc/MkDocs anchor syntax not consumed by H2/H3 parser
+    if "{#" in content_html:
+        issues.append(
+            "Anchor sentaksı {#...} HTML çıktısında literal kaldı — "
+            "muhtemelen H2/H3 dışı bir konumda kullanıldı (örn. paragraf içinde)"
+        )
+
+    # Bold markdown not converted (excluding HTML attributes)
+    if re.search(r"(?<![\w\"=])\*\*[^*]+\*\*", content_html):
+        issues.append("Bold markdown **...** çevrilmemiş — inline_format atladı")
+
+    # Markdown links not converted (exclude existing href attributes)
+    md_link_pattern = re.compile(r"(?<!=\")(?<!=\')\[[^\]]+\]\([^)]+\)")
+    if md_link_pattern.search(content_html):
+        issues.append("Markdown bağlantı [text](url) çıktıda literal kaldı")
+
+    # Italic markdown not converted (single asterisks, exclude **bold**)
+    if re.search(r"(?<!\*)\*(?!\*)[^\*\n]+(?<!\*)\*(?!\*)", content_html):
+        issues.append("İtalik *...* çevrilmemiş olabilir — inline_format kontrol gerekli")
+
+    # Heading marks left in body
+    if re.search(r"^##+\s+", content_html, re.MULTILINE):
+        issues.append("## başlık işareti HTML çıktısında kaldı")
+
+    return issues
 
 
 # ──────────────────────────────────────────────
@@ -669,6 +713,18 @@ def main():
 
     # Convert markdown to HTML
     content_html = md_to_html(body)
+
+    # Post-conversion QA: detect unrendered markdown leftovers
+    leftovers = post_conversion_check(content_html)
+    if leftovers:
+        print("─── HTML Çıktı Doğrulaması ───")
+        print("⛔ HATA: Çevrilmemiş markdown sentaksı tespit edildi:")
+        for issue in leftovers:
+            print(f"   ❌ {issue}")
+        print("\nÇıktı yazılmadı. Markdown taslağını gözden geçirin.")
+        sys.exit(2)
+    print("✅ HTML çıktı doğrulaması: temiz")
+    print()
 
     # Extract FAQ JSON-LD schema
     faq_jsonld = extract_faq_jsonld(body)
