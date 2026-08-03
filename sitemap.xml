@@ -118,6 +118,13 @@
 
   <!-- ─── Blog Yazıları ─── -->
   <url>
+    <loc>https://hexis.center/blog/meb-eylem-4-4-1-duygu-cikarimi-siniri/</loc>
+    <lastmod>2026-08-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <url>
     <loc>https://hexis.center/blog/digital-omnibus-eu-ai-act-erteleme/</loc>
     <lastmod>2026-04-03</lastmod>
     <changefreq>weekly</changefreq>

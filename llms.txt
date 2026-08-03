@@ -14,6 +14,7 @@
 
 ## Eğitimde Yapay Zekâ
 
+- [Algılamak ile Çıkarsamak Arasındaki Çizgi: MEB Eylem 4.4.1](https://hexis.center/blog/meb-eylem-4-4-1-duygu-cikarimi-siniri/): MEB Eylem Planı'ndaki özel eğitim maddesinin EU AI Act Madde 5(1)(f) duygu çıkarımı yasağı sınırındaki konumu. Madde 3(39), Madde 3(34), Gerekçe 18 ve Gerekçe 44 temelli iki koşullu okuma; üç tasarım senaryosu; şartname aşamasında sorulacak dört soru.
 - [Eğitimde Yapay Zekâ Yönetişimi](https://hexis.center/egitim/): MEB Etik Kılavuzu ve YAZEK, KVKK ve EU AI Act Ek III(3) karşılaştırması. Okullar için roller, dört yüksek riskli sistem türü, eğitim kurumlarında duygu çıkarımı yasağı (Md. 5(1)(f)), MEB Eylem Planı × Ek III(3) haritası.
 
 ## Metodoloji
