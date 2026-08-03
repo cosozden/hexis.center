@@ -350,7 +350,8 @@ The HEXIS ecosystem has two repos that share classification logic:
 - **Adopted:** 8 July 2026 · **Published OJ:** 24 July 2026 · **In force:** 27 July 2026
 - **Amends:** Reg. (EU) 2024/1689, 2018/1139, 2023/1230
 - **What moved:** Annex III 2 Aug 2026 → 2 Dec 2027; Annex I 2 Aug 2027 → 2 Aug 2028
-- **What did NOT move:** Art. 4 AI literacy, Art. 5 original prohibitions, Chapter V GPAI (Art. 51–55), Art. 50 transparency (2 Aug 2026)
+- **What did NOT move (dates):** Art. 4 AI literacy, Art. 5 original prohibitions, Chapter V GPAI (Art. 51–55), Art. 50 transparency (2 Aug 2026)
+- ⚠️ **Art. 4 was rewritten, not just left alone.** From 27 July 2026 the obligation changed from *ensuring* a sufficient level of AI literacy to *taking measures to support its development*, and the new text states it does not require guaranteeing any specific level for any individual. Obligation of effort, not of result. The date did not move; the substance was softened. Never describe Art. 4 as "unchanged" — say "date unchanged, wording amended".
 - **Nuance to preserve:** Art. 50(2) machine-readable marking has a transition to 2 Dec 2026 — *only* for generative systems already placed on the EU market before 2 Aug 2026. Systems placed on market on/after 2 Aug 2026 comply immediately. Content generated before 2 Aug 2026 needs no retroactive labelling.
 - **Substance unchanged:** only application dates moved. Do not describe this as a weakening of obligations.
 - ⚠️ **NEVER** describe the Digital Omnibus as "proposed", "under negotiation", or "not yet adopted". That language was correct until 8 July 2026 and is now a factual error.

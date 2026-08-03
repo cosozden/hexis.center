@@ -1,0 +1,699 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Eğitimde Yapay Zekâ Yönetişimi — MEB Çerçevesi, KVKK ve EU AI Act | Hexis</title>
+<meta name="description" content="Eğitimde yapay zekâ yönetişiminin Türkçe kavram haritası. MEB Etik Kılavuzu, KVKK ve EU AI Act Ek III(3) üç ayrı soru sorar. Okullar için roller, yüksek riskli sistem türleri ve eğitim kurumlarındaki duygu çıkarımı yasağı.">
+<meta property="og:title" content="Eğitimde Yapay Zekâ Yönetişimi — MEB Çerçevesi, KVKK ve EU AI Act | Hexis">
+<meta property="og:description" content="Etik uygunluk, risk sınıflandırmasının yerine geçmez. Eğitimde yapay zekâ yönetişimi için üç çerçevenin karşılaştırmalı haritası.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://hexis.center/egitim/">
+<meta property="og:image" content="https://hexis.center/assets/og-hexis.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Eğitimde Yapay Zekâ Yönetişimi | Hexis">
+<meta name="twitter:description" content="Etik uygunluk, risk sınıflandırmasının yerine geçmez. MEB çerçevesi, KVKK ve EU AI Act Ek III(3) karşılaştırması.">
+<meta name="twitter:image" content="https://hexis.center/assets/og-hexis.png">
+<link rel="canonical" href="https://hexis.center/egitim/">
+<link rel="icon" href="/assets/favicon.ico">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+<script defer data-domain="hexis.center" src="https://plausible.io/js/script.js"></script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Article",
+      "headline": "Eğitimde Yapay Zekâ Yönetişimi: MEB Çerçevesi, KVKK ve EU AI Act",
+      "datePublished": "2026-08-03",
+      "dateModified": "2026-08-03",
+      "inLanguage": "tr",
+      "keywords": "eğitimde yapay zeka, MEB yapay zeka politika belgesi, YAZEK, EU AI Act Ek III, Annex III education, KVKK öğrenci verisi, yapay zeka yönetişimi",
+      "author": { "@type": "Person", "name": "Özden Coşkun", "url": "https://hexis.center" },
+      "publisher": { "@type": "Organization", "name": "Hexis", "url": "https://hexis.center" },
+      "mainEntityOfPage": "https://hexis.center/egitim/"
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Hexis", "item": "https://hexis.center/" },
+        { "@type": "ListItem", "position": 2, "name": "Eğitimde Yapay Zekâ Yönetişimi" }
+      ]
+    }
+  ]
+}
+</script>
+<style>
+  :root {
+    --charcoal: #1C1E23;
+    --brass:    #B2986C;
+    --stone:    #686662;
+    --paper:    #F8F7F5;
+    --ink:      #1C1E23;
+    --ink-soft: #444240;
+    --ink-muted:#686662;
+    --rule:     rgba(28,30,35,0.14);
+    --rule-s:   rgba(28,30,35,0.08);
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--paper); color: var(--ink);
+    font-family: Arial, Helvetica, sans-serif;
+    line-height: 1.7; font-size: 15px;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── NAV ── */
+  .nav {
+    position: sticky; top: 0; z-index: 100;
+    background: var(--charcoal); color: var(--paper);
+    padding: 0 40px; height: 48px;
+    display: flex; align-items: center; justify-content: space-between;
+    border-bottom: 1px solid rgba(248,247,245,0.08);
+  }
+  .nav-brand { display: flex; align-items: center; text-decoration: none; flex-shrink: 0; }
+  .nav-brand img { display: block; height: 36px; width: auto; }
+  .nav-links { display: flex; gap: 24px; list-style: none; }
+  .nav-links a {
+    color: rgba(248,247,245,0.6); text-decoration: none;
+    font-size: 11px; letter-spacing: 0.06em; transition: color .15s;
+  }
+  .nav-links a:hover { color: var(--paper); }
+  .nav-cta {
+    background: var(--paper); color: var(--charcoal);
+    font-size: 11px; letter-spacing: 0.06em; padding: 7px 14px;
+    text-decoration: none; transition: opacity .15s;
+  }
+  .nav-cta:hover { opacity: 0.85; }
+
+  .wrap { max-width: 860px; margin: 0 auto; padding: 0 40px; }
+
+  /* ── HERO ── */
+  .hero { padding: 72px 0 48px; }
+  .hero-grid { display: flex; align-items: flex-start; justify-content: space-between; gap: 40px; }
+  .eyebrow {
+    font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--brass); margin-bottom: 20px;
+  }
+  h1 {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: clamp(32px, 5.5vw, 56px); font-weight: 700;
+    line-height: 1.1; letter-spacing: -0.02em; margin-bottom: 24px;
+  }
+  h1 em { font-style: italic; color: var(--brass); }
+  .hero-lead { font-size: 15px; line-height: 1.8; color: var(--ink-soft); max-width: 620px; }
+  .version-block { text-align: right; flex-shrink: 0; }
+  .version-main { font-family: Georgia, serif; font-size: 15px; font-weight: 700; color: var(--brass); }
+  .version-meta { font-size: 10px; color: var(--ink-muted); letter-spacing: 0.08em; line-height: 1.8; margin-top: 4px; }
+  .etymology { margin-top: 24px; font-size: 12px; color: var(--ink-muted); font-style: italic; font-family: Georgia, serif; line-height: 1.7; max-width: 560px; }
+
+  /* ── SECTION DIVIDER (Yön A) ── */
+  .section-divider {
+    display: flex; align-items: baseline; gap: clamp(16px, 3vw, 28px);
+    padding-top: 40px; margin-bottom: 28px; border-top: 1px solid var(--rule);
+  }
+  .section-num {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: clamp(40px, 6vw, 64px); font-weight: 400; line-height: 1;
+    color: var(--brass); letter-spacing: -0.02em; flex-shrink: 0;
+  }
+  .section-meta {
+    font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase;
+    color: var(--ink-muted); border-left: 1px solid var(--rule);
+    padding-left: clamp(12px, 2vw, 18px); align-self: center; flex: 1;
+  }
+  .section-divider.preface .section-meta { border-left: none; padding-left: 0; }
+  section { padding-bottom: 48px; }
+  h2 {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: clamp(22px, 3.2vw, 30px); font-weight: 700;
+    line-height: 1.2; letter-spacing: -0.01em; margin-bottom: 18px;
+  }
+  h2 em { font-style: italic; }
+  h3 {
+    font-family: Georgia, serif; font-size: 17px; font-weight: 700;
+    margin: 32px 0 10px; line-height: 1.3;
+  }
+  p { margin-bottom: 16px; color: var(--ink-soft); }
+  p strong { color: var(--ink); font-weight: 700; }
+  a { color: var(--ink); }
+
+  /* ── TABLE ── */
+  .tbl { width: 100%; border-collapse: collapse; margin: 24px 0; font-size: 13px; }
+  .tbl th {
+    text-align: left; font-size: 9px; letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--ink-muted); font-weight: 400; padding: 10px 12px 8px 0;
+    border-bottom: 1px solid var(--ink); vertical-align: bottom;
+  }
+  .tbl td {
+    padding: 14px 12px 14px 0; border-bottom: 1px solid var(--rule-s);
+    vertical-align: top; color: var(--ink-soft); line-height: 1.6;
+  }
+  .tbl td strong { color: var(--ink); }
+  .tbl code { font-family: Arial, sans-serif; font-size: 12px; color: var(--brass); white-space: nowrap; }
+
+  /* ── CALLOUT ── */
+  .callout {
+    border-left: 2px solid var(--brass); background: rgba(178,152,108,0.07);
+    padding: 20px 24px; margin: 28px 0;
+  }
+  .callout-label {
+    font-size: 9px; letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--brass); margin-bottom: 10px;
+  }
+  .callout p:last-child { margin-bottom: 0; }
+
+  .warn { border-left-color: var(--charcoal); background: rgba(28,30,35,0.04); }
+  .warn .callout-label { color: var(--charcoal); }
+
+  /* ── CARD LIST ── */
+  .cards { display: grid; gap: 1px; background: var(--rule); margin: 24px 0; border: 1px solid var(--rule); }
+  .card { background: var(--paper); padding: 20px 22px; }
+  .card-ref { font-size: 9px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--brass); margin-bottom: 8px; }
+  .card h4 { font-family: Georgia, serif; font-size: 15px; font-weight: 700; margin-bottom: 8px; line-height: 1.35; }
+  .card p { font-size: 13px; margin-bottom: 8px; }
+  .card p:last-child { margin-bottom: 0; }
+  .card-eg { font-size: 12px; color: var(--ink-muted); font-style: italic; }
+
+  ul.plain { list-style: none; margin: 16px 0; }
+  ul.plain li {
+    position: relative; padding-left: 20px; margin-bottom: 10px;
+    font-size: 14px; color: var(--ink-soft); line-height: 1.7;
+  }
+  ul.plain li::before { content: "—"; position: absolute; left: 0; color: var(--brass); }
+  ul.plain li strong { color: var(--ink); }
+
+  ol.src { margin: 16px 0 0 18px; font-size: 12px; color: var(--ink-muted); line-height: 1.9; }
+  ol.src a { color: var(--ink-muted); }
+
+  /* ── REVEAL ── */
+  .reveal { opacity: 0; transform: translateY(12px); transition: opacity .5s ease, transform .5s ease; }
+  .reveal.in { opacity: 1; transform: none; }
+  @media (prefers-reduced-motion: reduce) { .reveal { opacity: 1; transform: none; transition: none; } }
+
+  /* ── FOOTER ── */
+  .page-footer {
+    border-top: 1px solid var(--rule); margin-top: 24px; padding: 24px 40px;
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 16px; flex-wrap: wrap; max-width: 860px; margin-left: auto; margin-right: auto;
+  }
+  .pf-meta { font-size: 10px; color: var(--ink-muted); letter-spacing: 0.04em; line-height: 1.8; text-align: right; }
+
+  @media (max-width: 720px) {
+    .nav { padding: 0 20px; } .nav-links { display: none; }
+    .wrap { padding: 0 20px; }
+    .hero-grid { flex-direction: column; gap: 20px; }
+    .version-block { text-align: left; }
+    .page-footer { padding: 24px 20px; }
+    .tbl { font-size: 12px; }
+  }
+  @media print {
+    .nav { position: static; } .reveal { opacity: 1; transform: none; }
+    body { font-size: 11pt; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <a href="/" class="nav-brand"><img src="/assets/logo-light.png" alt="Hexis" width="65" height="36"></a>
+  <ul class="nav-links">
+    <li><a href="#cerceveler">Üç Çerçeve</a></li>
+    <li><a href="#baglayici">Ne Bağlayıcı?</a></li>
+    <li><a href="#ekiii">Ek III(3)</a></li>
+    <li><a href="#yasak">Yasak Uygulama</a></li>
+    <li><a href="#harita">MEB Haritası</a></li>
+    <li><a href="#roller">Roller</a></li>
+  </ul>
+  <a href="/generator/" class="nav-cta">Risk Sınıflandırıcı</a>
+</nav>
+
+<div class="wrap">
+
+<!-- ══════════ HERO ══════════ -->
+<header class="hero">
+  <div class="hero-grid">
+    <div>
+      <div class="eyebrow">Eğitimde Yapay Zekâ · Yönetişim Çerçevesi</div>
+      <h1>Etik uygunluk, risk sınıflandırmasının <em>yerine geçmez</em>.</h1>
+      <p class="hero-lead">
+        Türkiye'de eğitimde yapay zekâ için bir etik çerçeve var, bir veri koruma çerçevesi var.
+        Eksik olan üçüncüsü: <strong>hangi sistemin ne kadar risk taşıdığını ve bunun hangi
+        yükümlülükleri doğurduğunu belirleyen sınıflandırma katmanı.</strong>
+        Bu sayfa üç çerçeveyi yan yana koyar ve nerede örtüştüklerini, nerede birbirinin
+        yerine geçemeyeceklerini gösterir.
+      </p>
+    </div>
+    <div class="version-block">
+      <div class="version-main">v0.1</div>
+      <div class="version-meta">
+        Ağustos 2026<br>
+        Kaynaklar doğrulandı:<br>3 Ağustos 2026
+      </div>
+    </div>
+  </div>
+  <p class="etymology">
+    Bir okul, bir sınav puanlama sistemi kurduğunda üç ayrı soru doğar: Bu etik mi?
+    Bu veri hukukuna uygun mu? Bu sistem hangi risk sınıfında? Üçü de meşru sorudur,
+    ama üçü aynı soru değildir — ve birine verilen cevap diğerlerini cevaplamaz.
+  </p>
+</header>
+
+<!-- ══════════ 01 · ÜÇ ÇERÇEVE ══════════ -->
+<div class="section-divider reveal">
+  <div class="section-num">§ 01</div>
+  <div class="section-meta">Genel Görünüm · Üç Çerçeve</div>
+</div>
+<section id="cerceveler" class="reveal">
+  <h2>Üç çerçeve, üç <em>ayrı</em> soru.</h2>
+  <p>
+    Türkiye'de bir okulun ya da Bakanlık biriminin yapay zekâ kullanımını değerlendirirken
+    başvurabileceği üç ayrı düzenleyici mantık var. Bunlar rakip değil, tamamlayıcıdır —
+    ancak sordukları soru, ürettikleri çıktı ve yakaladıkları risk türü farklıdır.
+  </p>
+
+  <table class="tbl">
+    <thead>
+      <tr>
+        <th style="width:26%">Çerçeve</th>
+        <th style="width:30%">Sorduğu soru</th>
+        <th style="width:22%">Ürettiği çıktı</th>
+        <th style="width:22%">Yakalayamadığı</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>MEB Etik Kılavuzu ve YAZEK</strong><br><span class="card-eg">Etik Kurul Yönergesi, 22 Ekim 2025</span></td>
+        <td>Bu kullanım etik ilkelere uygun mu?</td>
+        <td>Etik beyan formu, etik ihlal bildirimi</td>
+        <td>Sistemin risk sınıfı ve buna bağlı teknik yükümlülükler</td>
+      </tr>
+      <tr>
+        <td><strong>KVKK</strong><br><span class="card-eg">6698 sayılı Kanun</span></td>
+        <td>Bu veri işleme hukuka uygun mu?</td>
+        <td>Aydınlatma metni, hukuki sebep, VERBİS kaydı</td>
+        <td>Kişisel veri işlemeyen ama karar üreten sistemler</td>
+      </tr>
+      <tr>
+        <td><strong>EU AI Act</strong><br><span class="card-eg">Reg. (EU) 2024/1689 — referans çerçeve</span></td>
+        <td>Bu sistem hangi risk sınıfında ve hangi yükümlülükleri doğuruyor?</td>
+        <td>Risk sınıfı, rol tanımı, madde bazlı yükümlülük listesi</td>
+        <td>Pedagojik uygunluk ve eğitsel değer</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="callout">
+    <div class="callout-label">Pratikteki sonuç</div>
+    <p>
+      YAZEK üzerinden etik beyan formu doldurmuş bir öğretmen, kullandığı aracın
+      <em>risk sınıflandırmasını yapmış olmaz</em>. Etik beyan "bu kullanım ilkelere uygun mu"
+      sorusunu cevaplar; risk sınıflandırması ise "bu sistem bir öğrencinin eğitim
+      yolunu belirliyor mu, belirliyorsa hangi güvenceler zorunlu" sorusunu cevaplar.
+      İkincisi yapılmadığında, birinci soruya verilen "evet" cevabı eksik kalır.
+    </p>
+  </div>
+</section>
+
+<!-- ══════════ 02 · BAĞLAYICILIK ══════════ -->
+<div class="section-divider reveal">
+  <div class="section-num">§ 02</div>
+  <div class="section-meta">Kapsam · Hukuki Statü</div>
+</div>
+<section id="baglayici" class="reveal">
+  <h2>Türkiye'de hangisi <em>bağlayıcı</em>?</h2>
+  <p>
+    Bu ayrımı baştan netleştirmek gerekiyor, çünkü alandaki en yaygın hata burada yapılıyor.
+  </p>
+
+  <ul class="plain">
+    <li><strong>KVKK (6698 sayılı Kanun) — bağlayıcı.</strong> Türkiye'de öğrenci, veli ve
+        öğretmen verisi işleyen her yapay zekâ uygulaması doğrudan kapsamdadır.</li>
+    <li><strong>MEB düzenlemeleri — MEB teşkilatı için bağlayıcı.</strong> Eğitimde Yapay Zekâ
+        Politika Belgesi ve Eylem Planı (2025–2029), Yapay Zekâ Uygulamaları Etik Kurulu
+        Yönergesi ve Etik Kılavuz, Bakanlık merkez ve taşra teşkilatı ile eğitim kurumlarını
+        bağlayan idari düzenlemelerdir.</li>
+    <li><strong>EU AI Act — Türkiye'de doğrudan bağlayıcı değildir.</strong> Bu sayfa onu bir
+        hukuk kaynağı olarak değil, <em>analitik çerçeve</em> olarak kullanır.</li>
+  </ul>
+
+  <h3>Peki bağlayıcı değilse neden önemli?</h3>
+  <p>Üç somut nedenle:</p>
+  <ul class="plain">
+    <li><strong>Tedarik zinciri.</strong> AB pazarına ürün veya hizmet sunan Türk eğitim
+        teknolojisi firmaları EU AI Act kapsamındadır. Bir okulun kullandığı yazılımın
+        sağlayıcısı bu kapsamda ise, yükümlülükler sözleşme yoluyla okula da yansır.</li>
+    <li><strong>Kavram altyapısı.</strong> "Yüksek riskli sistem", "sağlayıcı ve konuşlandırıcı
+        ayrımı", "insan gözetimi", "temel haklar etki değerlendirmesi" gibi kavramların
+        operasyonel tanımı bu metinde yapılmıştır. Türkçe alanda karşılığı henüz oluşmamıştır.</li>
+    <li><strong>Olası ulusal düzenleme.</strong> Türkiye'de kabul edilmiş bir yapay zekâ kanunu
+        yoktur; TBMM'ye sunulmuş kanun teklifleri ve TBMM Yapay Zekâ Araştırma Komisyonu'nun
+        Mart 2026 tarihli nihai raporu bulunmaktadır. Rapor, sektörel düzenleyicilerle
+        koordineli çalışacak, bağımsız denetim ve rehberlik işlevi üstlenecek bir yapay zekâ
+        koordinasyon kurumu önermektedir — mevcut düzenleyicilerin yetkisini devralan değil,
+        onlarla eşgüdüm kuran bir yapı. Ulusal çerçeve şekillendiğinde, hazırlıklı kurumların
+        avantajlı olacağı bir alandır.</li>
+  </ul>
+
+  <div class="callout warn">
+    <div class="callout-label">Dikkat</div>
+    <p>
+      Bu sayfada geçen EU AI Act madde ve tarih referansları, Türkiye'deki kurumlar için
+      bir uyum zorunluluğu doğurmaz. Amaç, mevcut MEB ve KVKK çerçevelerinin yanına
+      karşılaştırmalı bir risk okuması koymaktır. Yalnızca bilgilendirme amaçlıdır;
+      hukuki danışmanlık niteliği taşımaz.
+    </p>
+  </div>
+</section>
+
+<!-- ══════════ 03 · EK III(3) ══════════ -->
+<div class="section-divider reveal">
+  <div class="section-num">§ 03</div>
+  <div class="section-meta">Sınıflandırma · Dört Sistem Türü</div>
+</div>
+<section id="ekiii" class="reveal">
+  <h2>Eğitimde <em>yüksek riskli</em> sayılan dört sistem türü.</h2>
+  <p>
+    EU AI Act, eğitimi ve mesleki eğitimi yüksek riskli alanlardan biri olarak listeler
+    (Ek III, 3. başlık). Gerekçe metni bunun nedenini açıkça söyler: bu sistemler
+    <strong>bir kişinin eğitim ve meslek yaşamının seyrini belirleyebilir</strong> ve
+    yanlış tasarlandıklarında eğitim hakkını ve ayrımcılığa uğramama hakkını ihlal ederek
+    tarihsel ayrımcılık örüntülerini sürdürebilirler.
+  </p>
+  <p>
+    Ek III(3) dört alt başlıktan oluşur. Aşağıda her biri için Türkiye'den somut karşılıklar
+    verilmiştir — bunlar örnektir, resmî bir sınıflandırma değildir.
+  </p>
+
+  <div class="cards">
+    <div class="card">
+      <div class="card-ref">Ek III · 3(a)</div>
+      <h4>Erişim, kabul ve yerleştirme</h4>
+      <p>Kişileri her düzeydeki eğitim ve mesleki eğitim kurumlarına <strong>kabul etmek,
+         erişimini belirlemek veya yerleştirmek</strong> amacıyla kullanılan sistemler.</p>
+      <p class="card-eg">Muhtemel karşılıklar: sınavla öğrenci alan kurumlara yerleştirme,
+         BİLSEM tanılama ve yerleştirme süreçleri, özel yetenek sınavı değerlendirmesi,
+         kayıt ve nakil önceliklendirmesi.</p>
+    </div>
+    <div class="card">
+      <div class="card-ref">Ek III · 3(b)</div>
+      <h4>Öğrenme çıktılarının değerlendirilmesi</h4>
+      <p><strong>Öğrenme çıktılarını değerlendiren</strong> sistemler — bu çıktılar kişinin
+         öğrenme sürecini yönlendirmek için kullanıldığında da kapsamdadır.</p>
+      <p class="card-eg">Muhtemel karşılıklar: otomatik sınav ve açık uçlu cevap
+         değerlendirme, yapay zekâ destekli kompozisyon puanlama, öğrenme analitiğine
+         dayalı içerik önerme ve seviye yönlendirme.</p>
+    </div>
+    <div class="card">
+      <div class="card-ref">Ek III · 3(c)</div>
+      <h4>Uygun eğitim seviyesinin belirlenmesi</h4>
+      <p>Bir bireyin <strong>alacağı veya erişebileceği eğitimin uygun düzeyini</strong>
+         değerlendirmek amacıyla kullanılan sistemler.</p>
+      <p class="card-eg">Muhtemel karşılıklar: yapay zekâ destekli rehberlik ve kariyer
+         yönlendirme, alan ve ders seçimi tavsiye sistemleri, akademik yönelim tahmini.</p>
+    </div>
+    <div class="card">
+      <div class="card-ref">Ek III · 3(d)</div>
+      <h4>Sınav sırasında davranış izleme</h4>
+      <p>Sınavlar sırasında öğrencilerin <strong>yasaklanmış davranışlarını izlemek ve tespit
+         etmek</strong> amacıyla kullanılan sistemler.</p>
+      <p class="card-eg">Muhtemel karşılıklar: çevrim içi sınav gözetim (proctoring)
+         yazılımları, kamera tabanlı kopya tespiti, ekran ve klavye davranışı izleme.</p>
+    </div>
+  </div>
+
+  <div class="callout">
+    <div class="callout-label">Yürürlük</div>
+    <p>
+      Ek III kapsamındaki bağımsız yüksek riskli sistemler için yürürlük tarihi
+      <strong>2 Aralık 2027</strong>'dir. Bu tarih, 27 Temmuz 2026'da yürürlüğe giren
+      <em>Regulation (EU) 2026/1744</em> (Digital Omnibus on AI) ile 2 Ağustos 2026'dan
+      ertelenmiştir. Yükümlülüklerin içeriği değişmemiştir; yalnızca uygulama tarihi ileri alınmıştır.
+    </p>
+  </div>
+</section>
+
+<!-- ══════════ 04 · YASAK ══════════ -->
+<div class="section-divider reveal">
+  <div class="section-num">§ 04</div>
+  <div class="section-meta">Yasak Uygulama · Duygu Çıkarımı</div>
+</div>
+<section id="yasak" class="reveal">
+  <h2>Eğitim kurumlarında duygu çıkarımı: <em>yasak</em>, ertelenmedi.</h2>
+  <p>
+    Yüksek risk tartışmasının gölgesinde kalan ama eğitim açısından en keskin hüküm budur.
+    EU AI Act Madde 5(1)(f), <strong>iş yerlerinde ve eğitim kurumlarında bir gerçek kişinin
+    duygularını çıkarsamaya yönelik yapay zekâ sistemlerini yasaklar.</strong> Tıbbi veya
+    güvenlik amaçlı kullanımlar istisnadır. Yasağın kapsamı, Madde 3(39)'daki tanım gereği
+    <strong>biyometrik veriye dayalı</strong> çıkarımlarla sınırlıdır — yüz ifadesi, ses,
+    beden hareketi gibi.
+  </p>
+  <p>
+    Bu hüküm <strong>2 Şubat 2025'ten beri yürürlüktedir</strong> ve Digital Omnibus ile
+    ertelenmemiştir. Ayrıca yüksek risk kategorisinde değil, <em>yasaklı uygulama</em>
+    kategorisindedir — yani güvence ekleyerek meşrulaştırılamaz.
+    §02'de belirtildiği gibi bu yasak Türkiye'deki kurumlar için doğrudan bağlayıcı değildir;
+    aşağıdaki liste, AB pazarına ürün sunan tedarikçilerin ve karşılaştırmalı bir okuma yapmak
+    isteyen kurumların bakması gereken noktaları gösterir.
+  </p>
+
+  <h3>Eğitimde neye denk geliyor?</h3>
+  <ul class="plain">
+    <li>Kamerayla öğrencinin <strong>dikkat, ilgi veya katılım düzeyini</strong> yüz ifadesinden
+        çıkaran sınıf içi analiz araçları</li>
+    <li>Sesli yanıtlardan <strong>duygu durumu veya stres</strong> çıkarımı yapan sistemler</li>
+    <li>Çevrim içi derslerde kamera ya da mikrofon verisinden <strong>"öğrenci sıkıldı mı"</strong>
+        sinyali üreten gösterge panelleri. Aynı paneli tıklama ve etkileşim verisinden üreten bir
+        sistem yasağın dışındadır — ayrım, girdinin biyometrik olup olmadığındadır.</li>
+    <li>Sınav gözetim yazılımlarının yüz veya ses analizinden <strong>kaygı</strong> çıkarımı
+        yapan bileşenleri. Aynı yazılımın "şüpheli davranış" tespiti ise yasak değil,
+        Ek III 3(d) kapsamında <em>yüksek riskli</em> sayılır.</li>
+  </ul>
+
+  <div class="callout warn">
+    <div class="callout-label">Ayrım noktası</div>
+    <p>
+      Duygu <em>çıkarımı</em> ile davranış <em>gözlemi</em> aynı şey değildir. Bir sistemin
+      "öğrenci 12 dakikadır ekrana dokunmadı" demesi gözlemdir. "Öğrenci ilgisiz görünüyor"
+      demesi duygu çıkarımıdır. Türkçe pazarda "dikkat analizi" ve "katılım ölçümü" adıyla
+      sunulan araçların hangi tarafa düştüğü, çoğu zaman ürün tanıtımından anlaşılmaz —
+      teknik dokümantasyonun istenmesi bu ayrımı görmenin tek yoludur.
+    </p>
+  </div>
+</section>
+
+<!-- ══════════ 05 · MEB HARİTASI ══════════ -->
+<div class="section-divider reveal">
+  <div class="section-num">§ 05</div>
+  <div class="section-meta">Karşılaştırma · MEB Eylem Planı × Ek III(3)</div>
+</div>
+<section id="harita" class="reveal">
+  <h2>MEB'in kendi eylem planı, <em>hangi risk sınıflarına</em> denk düşüyor?</h2>
+  <p>
+    Eğitimde Yapay Zekâ Politika Belgesi ve Eylem Planı (2025–2029), 17 Haziran 2025'te
+    yürürlüğe girdi. Dört hedef, on beş politika ve kırk eylem adımından oluşuyor;
+    izleme ve değerlendirmeden YEĞİTEK sorumlu.
+  </p>
+  <p>
+    Eylem adımlarının bir kısmı, EU AI Act'in yüksek riskli saydığı sistem türleriyle
+    doğrudan örtüşüyor. Aşağıdaki tablo bu örtüşmeyi gösterir. <strong>Bu bir uyumsuzluk
+    tespiti değildir</strong> — planın hedefleri meşru ve büyük ölçüde kapsayıcılığı
+    artırmaya yöneliktir. Tablonun amacı, hangi eylem adımlarının ek güvence tasarımı
+    gerektirdiğini görünür kılmaktır.
+  </p>
+
+  <table class="tbl">
+    <thead>
+      <tr>
+        <th style="width:44%">Eylem planında geçen sistem</th>
+        <th style="width:20%">Ek III(3) karşılığı</th>
+        <th style="width:36%">Gerekebilecek ek güvence</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Otomatik sınav değerlendirme sistemleri</td>
+        <td><code>3(b)</code></td>
+        <td>Değerlendirme doğruluğunun izlenmesi, itiraz ve insan incelemesi yolu, alt gruplar arası hata farkı analizi</td>
+      </tr>
+      <tr>
+        <td>Öğrenme analitiği platformu; EBA, ÖBA, HEMBA ve DİLİM'e içerik önerme ve gelişim takibi</td>
+        <td><code>3(b)</code></td>
+        <td>Öneri mantığının açıklanabilirliği, öğrencinin yönlendirmeye bağlı kalmama imkânı, veri asgariliği</td>
+      </tr>
+      <tr>
+        <td>Yapay zekâ destekli rehberlik sistemleri ile akademik ve kariyer yönelimi</td>
+        <td><code>3(c)</code></td>
+        <td>Yönlendirmenin tavsiye niteliğinde kalması, rehber öğretmenin gözetim yetkisi, örüntü ayrımcılığı kontrolü</td>
+      </tr>
+      <tr>
+        <td>Türkçe ve yabancı dil için bireysel eksik tespiti yapan, kişiselleştirilmiş plan üreten uygulamalar</td>
+        <td><code>3(b)</code> · <code>3(c)</code></td>
+        <td>Seviye atamasının geri alınabilirliği, dil değişkeni ile sosyoekonomik köken korelasyonunun izlenmesi</td>
+      </tr>
+      <tr>
+        <td>Özel eğitim ihtiyacı olan öğrencilerin davranışlarını algılayıp yanıt üreten sistemler</td>
+        <td>—</td>
+        <td><strong>Öncelikli inceleme:</strong> "davranış algılama" biyometrik veriye dayalı duygu çıkarımına dönüşüyorsa, EU AI Act kapsamındaki bir kurumda Madde 5(1)(f) yasağına girerdi. Tıbbi ve güvenlik istisnasının uygulanıp uygulanmadığının belgelenmesi beklenir.</td>
+      </tr>
+      <tr>
+        <td>Erken uyarı, örüntü tanıma ve öneri üreten yapay zekâ destekli veri ambarı</td>
+        <td><code>3(a)</code> · <code>3(c)</code> (kullanıma göre)</td>
+        <td>Erken uyarı çıktısının bireysel karara mı yoksa politika analizine mi bağlandığının netleştirilmesi; anonimleştirmenin doğrulanması</td>
+      </tr>
+      <tr>
+        <td>Merkez teşkilat personeline yönelik makine öğrenmesi ve veri analitiği eğitimleri</td>
+        <td>—</td>
+        <td>EU AI Act Madde 4 (yapay zekâ okuryazarlığı) ile örtüşür. Hüküm 2 Şubat 2025'ten beri yürürlüktedir ve tarihi ertelenmemiştir; ancak <em>Regulation (EU) 2026/1744</em> maddeyi 27 Temmuz 2026'dan itibaren yeniden yazmıştır: "yeterli düzeyi sağlama" yükümlülüğü, "gelişimini destekleyecek önlem alma" yükümlülüğüne dönüşmüştür — sonuç yükümlülüğü değil, çaba yükümlülüğü.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="callout">
+    <div class="callout-label">Yöntem notu</div>
+    <p>
+      Tablodaki eşleştirmeler, MEB'in kamuya açık politika belgesi duyurusundaki eylem
+      tanımlarına dayanır ve <strong>yorum niteliğindedir</strong>. Bir sistemin gerçekten
+      Ek III(3) kapsamına girip girmediği, o sistemin amaçlanan kullanımına (Madde 3(12))
+      ve çıktısının bireysel karara bağlanma biçimine göre belirlenir. Kesin sınıflandırma
+      için sistem bazında değerlendirme gerekir.
+    </p>
+  </div>
+</section>
+
+<!-- ══════════ 06 · ROLLER ══════════ -->
+<div class="section-divider reveal">
+  <div class="section-num">§ 06</div>
+  <div class="section-meta">Sorumluluk · Roller ve Etkilenen Kişiler</div>
+</div>
+<section id="roller" class="reveal">
+  <h2>Okul hangi rolde, <em>kim etkilenen kişi</em>?</h2>
+  <p>
+    Yükümlülükler role göre dağılır. Eğitim bağlamında bu ayrım, kurumsal bağlamda
+    olduğundan daha karmaşıktır çünkü aynı kurum farklı sistemlerde farklı rollerde olabilir.
+  </p>
+
+  <table class="tbl">
+    <thead>
+      <tr>
+        <th style="width:22%">Rol</th>
+        <th style="width:38%">Eğitimde kim olur?</th>
+        <th style="width:40%">Temel sorumluluk</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Sağlayıcı</strong><br><span class="card-eg">provider</span></td>
+        <td>Sistemi geliştiren veya kendi adıyla piyasaya süren taraf. Bakanlık kendi sistemini geliştirdiğinde bu role girer; hazır ürün alındığında rol tedarikçidedir.</td>
+        <td>Teknik dokümantasyon, risk yönetim sistemi, veri yönetişimi, uygunluk değerlendirmesi, piyasaya arz sonrası izleme</td>
+      </tr>
+      <tr>
+        <td><strong>Konuşlandırıcı</strong><br><span class="card-eg">deployer</span></td>
+        <td>Sistemi kendi yetkisi altında kullanan taraf. Okul, il müdürlüğü veya öğretmen çoğu senaryoda bu roldedir.</td>
+        <td>Kullanım talimatına uygunluk, insan gözetiminin sağlanması, girdi verisinin amaca uygunluğu, etkilenen kişilerin bilgilendirilmesi</td>
+      </tr>
+      <tr>
+        <td><strong>Belirsiz alan</strong></td>
+        <td>Öğretmenin genel amaçlı bir sohbet aracını kendi hazırladığı yönergeyle bir değerlendirme aracına dönüştürmesi.</td>
+        <td>Amaçlanan kullanım değiştirildiğinde rol de değişebilir. Bu, kurum içi politikayla netleştirilmesi gereken bir boşluktur.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>Etkilenen kişiler</h3>
+  <ul class="plain">
+    <li><strong>Öğrenci.</strong> Çoğu durumda çocuk. KVKK açısından özel dikkat gerektirir;
+        rıza temelli işlemede veli ile öğrenci arasındaki ilişki ve okul–veli arasındaki
+        güç dengesizliği, rızanın özgür iradeye dayanıp dayanmadığını tartışmalı hale getirir.</li>
+    <li><strong>Veli.</strong> Aydınlatma yükümlülüğünün muhatabı, bazı durumlarda rızanın kaynağı.
+        Ancak velinin rızası, öğrencinin kendi hakları üzerindeki etkisini ortadan kaldırmaz.</li>
+    <li><strong>Öğretmen.</strong> Sıklıkla atlanan taraf. Öğretmen performansını değerlendiren
+        veya görev dağılımı yapan bir yapay zekâ sistemi, eğitim başlığına değil
+        <strong>Ek III(4) — istihdam ve çalışan yönetimi</strong> başlığına girer.
+        EU AI Act'in eğitim kurumlarındaki duygu çıkarımı yasağı da öğretmenleri kapsar;
+        Madde 5(1)(f) hem iş yerlerini hem eğitim kurumlarını sayar.</li>
+  </ul>
+
+  <div class="callout">
+    <div class="callout-label">KVKK köprüsü</div>
+    <p>
+      KVKK Madde 11(1)(g), kişiye "münhasıran otomatik sistemler vasıtasıyla analiz edilmesi
+      suretiyle kişinin kendisi aleyhine bir sonucun ortaya çıkmasına itiraz etme" hakkı verir.
+      Bir öğrencinin seviye grubunu, ders programını veya yönelimini yalnızca otomatik bir
+      sistemin belirlediği her senaryoda bu hüküm devrededir — EU AI Act'ten bağımsız olarak,
+      bugün ve doğrudan.
+    </p>
+  </div>
+</section>
+
+<!-- ══════════ 07 · SINIRLILIKLAR ══════════ -->
+<div class="section-divider reveal preface">
+  <div class="section-num">§</div>
+  <div class="section-meta">Sınırlılıklar · Kaynaklar</div>
+</div>
+<section class="reveal">
+  <h2>Bu sayfanın <em>yapmadıkları</em>.</h2>
+  <ul class="plain">
+    <li><strong>Hukuki görüş değildir.</strong> Yapılandırılmış bir yönetişim okumasıdır.
+        Kuruma özgü değerlendirme için hukuk ve uyum birimine başvurulmalıdır.</li>
+    <li><strong>Resmî sınıflandırma değildir.</strong> §05'teki eşleştirmeler kamuya açık
+        politika metinlerine dayanan yorumlardır; MEB'in veya herhangi bir düzenleyicinin
+        görüşünü yansıtmaz.</li>
+    <li><strong>Tamamlanmış değildir.</strong> v0.1 sürümüdür. Mesleki eğitim, özel öğretim
+        kurumları, yükseköğretime geçiş ve sınav güvenliği başlıkları henüz ayrıntılandırılmamıştır.</li>
+    <li><strong>Kaynak doğrulaması tarihlidir.</strong> Tüm mevzuat referansları 3 Ağustos 2026
+        itibarıyla birincil kaynaklardan teyit edilmiştir. Mevzuat değişir; tarihi geçmiş
+        bir sayfayı kullanmadan önce güncel metne bakınız.</li>
+  </ul>
+
+  <h3>Kaynaklar</h3>
+  <ol class="src">
+    <li>Regulation (EU) 2024/1689 (Yapay Zekâ Yasası), Ek III(3), Ek III(4), Madde 3(12), Madde 3(39), Madde 4, Madde 5(1)(f), Madde 26, Gerekçe 56 — <a href="https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R1689" target="_blank" rel="noopener">EUR-Lex</a></li>
+    <li>Regulation (EU) 2026/1744 (Digital Omnibus on AI), yürürlük 27 Temmuz 2026 — <a href="https://eur-lex.europa.eu/eli/reg/2026/1744/oj/eng" target="_blank" rel="noopener">EUR-Lex</a></li>
+    <li>MEB, "Eğitimde Yapay Zekâ Politika Belgesi ve Eylem Planı (2025-2029) Yürürlüğe Girdi", 17 Haziran 2025 — <a href="https://www.meb.gov.tr/egitimde-yapay-zeka-politika-belgesi-ve-eylem-plani-yururluge-girdi/haber/37531/tr" target="_blank" rel="noopener">meb.gov.tr</a></li>
+    <li>MEB Talim ve Terbiye Kurulu Başkanlığı, "Eğitimde Yapay Zekâ Uygulamaları Etik Kılavuzu", 10 Ocak 2026 — <a href="https://ttkb.meb.gov.tr/www/quotegitimde-yapay-zeka-uygulamalari-etik-kilavuzuquot-yayimlandi/icerik/854" target="_blank" rel="noopener">ttkb.meb.gov.tr</a></li>
+    <li>6698 sayılı Kişisel Verilerin Korunması Kanunu, Madde 6 ve Madde 11 — <a href="https://www.kvkk.gov.tr/" target="_blank" rel="noopener">kvkk.gov.tr</a></li>
+    <li>KVKK, "Üretken Yapay Zekâ ve Kişisel Verilerin Korunması Rehberi (15 Soruda)" — <a href="https://www.kvkk.gov.tr/Icerik/8547/uretken-yapay-zeka-ve-kisisel-verilerin-korunmasi-rehberi-15-soruda" target="_blank" rel="noopener">kvkk.gov.tr</a></li>
+  </ol>
+
+  <div class="callout" style="margin-top:32px">
+    <div class="callout-label">Sonraki adım</div>
+    <p>
+      Belirli bir sistemi değerlendirmek için <a href="/generator/">Risk Sınıflandırıcı</a>'yı
+      kullanabilir, yükümlülük listesi için <a href="/checklist/">Uyum Kontrol Listesi</a>'ne,
+      KVKK karşılaştırması için <a href="/kvkk-eu-ai-act/">KVKK × EU AI Act</a> sayfasına
+      geçebilirsiniz. Yöntemin bütünü: <a href="/metodoloji/">ORIENT Metodolojisi</a>.
+    </p>
+  </div>
+</section>
+
+</div>
+
+<footer class="page-footer">
+  <a href="/" class="nav-brand"><img src="/assets/logo.png" alt="Hexis" width="32" height="18"></a>
+  <div class="pf-meta">
+    Eğitimde Yapay Zekâ Yönetişimi v0.1 &middot; Ağustos 2026<br>
+    hexis.center/egitim &middot; <a href="/gizlilik/" style="color:inherit">Gizlilik</a><br>
+    Yalnızca bilgilendirme amaçlıdır; hukuki danışmanlık niteliği taşımaz.
+  </div>
+</footer>
+
+<script>
+  (function(){
+    var els = document.querySelectorAll('.reveal');
+    if (!('IntersectionObserver' in window)) {
+      els.forEach(function(e){ e.classList.add('in'); });
+      return;
+    }
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+      });
+    }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+    els.forEach(function(e){ io.observe(e); });
+  })();
+</script>
+
+</body>
+</html>

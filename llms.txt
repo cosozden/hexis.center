@@ -12,6 +12,10 @@
 - [FRIA Şablonu](https://hexis.center/fria/): Temel Haklar Etki Değerlendirmesi (Madde 27)
 - [KVKK × EU AI Act](https://hexis.center/kvkk-eu-ai-act/): KVKK ve EU AI Act karşılaştırmalı rehber
 
+## Eğitimde Yapay Zekâ
+
+- [Eğitimde Yapay Zekâ Yönetişimi](https://hexis.center/egitim/): MEB Etik Kılavuzu ve YAZEK, KVKK ve EU AI Act Ek III(3) karşılaştırması. Okullar için roller, dört yüksek riskli sistem türü, eğitim kurumlarında duygu çıkarımı yasağı (Md. 5(1)(f)), MEB Eylem Planı × Ek III(3) haritası.
+
 ## Metodoloji
 
 - [ORIENT Framework — Türkçe](https://hexis.center/metodoloji/): Hexis AI governance metodolojisi (TR)
