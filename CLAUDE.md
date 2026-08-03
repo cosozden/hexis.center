@@ -35,6 +35,22 @@
 
 **Framing test before publishing anything about a named institution:** does this position Hexis as an auditor of that institution, or as someone who can support its implementation? The second framing is required.
 
+**Rhythm, not formality — read `uslup-rehberi.md` before writing any Turkish prose.**
+
+The dominant failure mode in Turkish output is not over-formality; it is English breathing rendered in Turkish words. English expository prose moves in short, punchy sentences with hard stops. Turkish expository prose flows: clauses join with semicolons and connectives, and the reader is carried rather than halted. Measured on one article before correction: connective density 0.00 per sentence, average sentence 11.2 words. After correction: 0.22 and 14.5. Note that the `-dır` rate *rose* from 23% to 47% and the prose improved. Formality was never the problem.
+
+| Requirement | Target |
+|---|---|
+| Connective density (oysa, ne var ki, üstelik, elbette, nitekim, kaldı ki…) | ≥ 0.10 per sentence |
+| Average sentence length (prose paragraphs only) | ≥ 14 words |
+| Sentences opening with "Bu/Bunun" | ≤ 6% |
+| Sentence-internal dashes | 0 |
+| Law name in running Turkish prose | **AB Yapay Zeka Yasası** (not "EU AI Act", not "tüzük"). Article numbers stay as-is. |
+
+**Mandatory before publishing Turkish content:** `python3 tools/uslup-kontrol.py <file>` must exit 0.
+
+Full guide with before/after pairs: `uslup-rehberi.md`. When Özden edits a draft, record the delta there as a new pair. The rule list should not grow; the example list should.
+
 ---
 
 ## 2. ORIENT Framework (v0.2.1) — CRITICAL REFERENCE
