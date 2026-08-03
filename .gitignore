@@ -43,3 +43,7 @@ _drafts/
 
 # Claude Code worktree artefaktlari
 .claude/worktrees/
+
+# Blog ic calisma dosyalari
+blog/_linkedin/
+blog/seo-report-*.md

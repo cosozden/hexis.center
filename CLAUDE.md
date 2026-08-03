@@ -19,10 +19,21 @@
 - Legal/technical terms always in English regardless of page language
 
 **Brand Voice:**
-- Clear, authoritative, practical — no hype
-- "Compliance as orientation, not checklist" (ἕξις — Hexis)
-- Minimal, corporate aesthetic — substance over style
+- Clear, authoritative, practical. No hype.
+- "Compliance as orientation, not checklist" (ἕξις, Hexis)
+- Minimal, corporate aesthetic. Substance over style.
 - Never use "revolutionary", "game-changing", "cutting-edge" or similar AI hype language
+
+**Turkish Writing Rules — BINDING**
+
+| Rule | Detail |
+|------|--------|
+| **No sentence-internal dashes** | Never use `—` (em dash) or ` - ` inside a Turkish sentence. Restructure with a comma, semicolon, parentheses, or split into two sentences. Date/number ranges in tables (`1-3`, `2025-2029`) are data, not prose, and are acceptable; in running prose write "1 ila 3 yıl". This rule applies to headings, meta descriptions, JSON-LD and body text alike. |
+| **No invented words** | `çıkarsamak` is not standard Turkish. Use `çıkarım yapmak`, `sonucuna varmak` or the noun `çıkarım` (as in `duygu çıkarımı`). When unsure whether a word is standard, choose the plainer alternative. |
+| **Analysis, not critique** | Hexis writes analyses, not audits. When examining a public institution's document, the centre of gravity must be the technical distinction being explained, not a gap being exposed. State what a decision depends on; do not grade the decision-maker. Named institutions get the most charitable accurate reading. |
+| **Legal/technical terms** | Stay in English regardless of page language (`deployer`, `provider`, `high-risk`, `Annex III`). |
+
+**Framing test before publishing anything about a named institution:** does this position Hexis as an auditor of that institution, or as someone who can support its implementation? The second framing is required.
 
 ---
 

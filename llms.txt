@@ -1,7 +1,7 @@
 # Hexis AI Governance
 
 > Türkiye'de AI governance, EU AI Act ve KVKK uyumu için bağımsız platform.
-> Kurucu: Özden Coşkun — ISO/IEC 42001 Implementer, IAPP member
+> Yürütücü: Özden Coşkun. ISO/IEC 42001 Implementer, IAPP üyesi.
 
 ## Platform
 
@@ -14,7 +14,7 @@
 
 ## Eğitimde Yapay Zekâ
 
-- [Algılamak ile Çıkarsamak Arasındaki Çizgi: MEB Eylem 4.4.1](https://hexis.center/blog/meb-eylem-4-4-1-duygu-cikarimi-siniri/): MEB Eylem Planı'ndaki özel eğitim maddesinin EU AI Act Madde 5(1)(f) duygu çıkarımı yasağı sınırındaki konumu. Madde 3(39), Madde 3(34), Gerekçe 18 ve Gerekçe 44 temelli iki koşullu okuma; üç tasarım senaryosu; şartname aşamasında sorulacak dört soru.
+- [Eğitimde Davranış Algılayan Yapay Zekâ Sistemleri](https://hexis.center/blog/egitimde-davranis-algilama-ve-duygu-cikarimi/): Davranış gözlemi ile duygu çıkarımı arasındaki ayrım ve bu ayrımın risk sınıfını nasıl belirlediği. Madde 3(39), Madde 3(34), Gerekçe 18 ve Gerekçe 44 temelli iki koşullu okuma; üç tasarım senaryosu; MEB Eylem 4.4.1 örneği; şartname aşamasında sorulacak dört soru.
 - [Eğitimde Yapay Zekâ Yönetişimi](https://hexis.center/egitim/): MEB Etik Kılavuzu ve YAZEK, KVKK ve EU AI Act Ek III(3) karşılaştırması. Okullar için roller, dört yüksek riskli sistem türü, eğitim kurumlarında duygu çıkarımı yasağı (Md. 5(1)(f)), MEB Eylem Planı × Ek III(3) haritası.
 
 ## Metodoloji
@@ -29,7 +29,7 @@
 - [ISO 42001 Governance Olgunluğu](https://hexis.center/blog/iso-42001-governance-olgunlugu/): ISO 42001, EU AI Act ve KVKK entegre yönetim
 - [KVKK Etken Yapay Zeka Rehberi](https://hexis.center/blog/kvkk-etken-yapay-zeka-rehberi-sirketler-nasil-hazirlanmali/): KVKK agentic AI rehberi şirketler için
 - [Etken Yapay Zeka Kişisel Verilere Etkisi](https://hexis.center/blog/etken-yapay-zeka-kisisel-verilere-etkisi/): Agentic AI sistemleri ve KVKK
-- [Gölge Yapay Zeka](https://hexis.center/blog/golge-yapay-zeka-kobilerin-gorunmeyen-riski/): Shadow AI riski — KOBİ'ler için
+- [Gölge Yapay Zeka](https://hexis.center/blog/golge-yapay-zeka-kobilerin-gorunmeyen-riski/): Shadow AI riski, KOBİ'ler için
 - [AI Okuryazarlığı Madde 4](https://hexis.center/blog/ai-okuryazarligi-madde-4/): EU AI Act AI literacy yükümlülüğü
 - [KVKK Yapay Zeka 5 Yıl 12 Yükümlülük](https://hexis.center/blog/kvkk-yapay-zeka-bes-yil-on-iki-yukumluluk/): KVKK'nın yürürlük sürecinde yapay zeka yükümlülükleri
 - [ChatGPT KVKK Yurt Dışı Aktarım](https://hexis.center/blog/chatgpt-kvkk-yurt-disi-aktarim/): ChatGPT kullanımı ve KVKK aktarım hükümleri
@@ -39,7 +39,7 @@
 
 ## Hakkında
 
-Hexis, yapay zeka yönetişimini "uyum listesi" değil, kurumsal yönelim (ἕξις — hexis) olarak ele alır.
+Hexis, yapay zeka yönetişimini "uyum listesi" değil, kurumsal yönelim (ἕξις, hexis) olarak ele alır.
 Bağımsız bir araştırma, içerik ve araç geliştirme projesidir.
 Tüm araçlar ve içerikler ücretsizdir; kayıt gerektirmez.
 Yalnızca bilgilendirme amaçlıdır, hukuki danışmanlık niteliği taşımaz.
