@@ -531,15 +531,43 @@ Rationale: Risk Triage + Observe/Risk/Identify/Evaluate close the "orient → de
 
 ---
 
+## 12b. Automated Checks — RUN THESE, DO NOT RELY ON MEMORY
+
+Two scripts guard every change. They are not optional and they are not a substitute for judgment; they catch the classes of error that judgment reliably misses.
+
+```bash
+bash tools/kontrol.sh            # both checks, changed files
+bash tools/kontrol.sh a.html     # specific files
+```
+
+| Script | Catches |
+|--------|---------|
+| `tools/site-kontrol.py` | HTML syntax, unbalanced comments, invalid or commercial JSON-LD, broken internal links, inline JS syntax, commercial residue (lemonsqueezy / app.hexis.center / removed pages), dead sitemap URLs |
+| `tools/uslup-kontrol.py` | Turkish rhythm: connective density, average sentence length, sentence-internal dashes, invented words, English calque patterns, "Bu" sentence-opening rate |
+
+**Git enforcement.** `tools/hook-kur.sh` installs a pre-commit hook that runs `tools/kontrol.sh` and blocks the commit on failure. Hooks are not versioned by git, so run the installer once per machine or after a fresh clone:
+
+```bash
+bash tools/hook-kur.sh
+```
+
+Bypass is `git commit --no-verify` and requires a stated reason. If a check produces a false positive, fix the script rather than bypassing it.
+
+**First action of every session that touches site files:** run `bash tools/kontrol.sh` to establish a clean baseline before editing. A failure inherited from a previous session is much cheaper to find at the start than at commit time.
+
+---
+
 ## 13. Session Start Checklist
 
 At the beginning of each Claude Code session:
 
+0. ✅ **Run `bash tools/kontrol.sh`** — establish a clean baseline before touching anything
 1. ✅ Read this CLAUDE.md
 2. ✅ Confirm which page/component we're working on
 3. ✅ Verify ORIENT terminology is v0.2.1 (Navigate, not Normalize)
 4. ✅ Check which theme applies (light = generator/methodology, dark = homepage/checklist/blog)
 5. ✅ Confirm Web Palette is being used (never Plugin Palette on this site)
-6. ✅ Ask if there are new decisions from claude.ai chat sessions to incorporate
+6. ✅ Confirm the pre-commit hook is installed: `test -x .git/hooks/pre-commit && grep -q kontrol.sh .git/hooks/pre-commit && echo ok || bash tools/hook-kur.sh`
+7. ✅ Ask if there are new decisions from claude.ai chat sessions to incorporate
    - Trigger phrase from chat: "Oturumu kapat" → decisions summarized + memory updated
    - Session open template: "Oturum: [topic] / Durum: [where we left off] / Hedef: [goal]"

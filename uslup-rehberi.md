@@ -120,3 +120,19 @@ Kontrol edilenler: bağlaç dokusu, cümle içi tire, yasak kelime, ortalama cü
 ## 6. Bu rehber nasıl gelişir
 
 Her yeni yazıdan sonra, Özden'in yaptığı düzeltmeler buraya önce ve sonra çifti olarak işlenir. Kural listesi büyümez; örnek listesi büyür. Talimat değil, örnek öğretir.
+
+---
+
+## 7. Otomatik çalıştırma
+
+Bu rehber ve ölçüm betiği, hatırlanmaya bağlı değildir.
+
+```bash
+bash tools/kontrol.sh            # yapısal + üslup, değişen dosyalar
+bash tools/kontrol.sh a.html     # belirli dosyalar
+bash tools/hook-kur.sh           # pre-commit hook kurulumu (makine başına bir kez)
+```
+
+Pre-commit hook, `tools/kontrol.sh` başarısız olursa commit'i durdurur. Git hook'ları repoda saklanmadığı için, makine değiştiğinde veya repo yeniden klonlandığında `hook-kur.sh` bir kez çalıştırılmalıdır.
+
+Bir kontrol yanlış alarm veriyorsa, hook'u atlamak yerine betiği düzeltin. Zorunlu hâllerde `git commit --no-verify` kullanılabilir; ancak gerekçesi commit mesajında belirtilmelidir.
