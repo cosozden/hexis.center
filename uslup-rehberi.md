@@ -136,3 +136,46 @@ bash tools/hook-kur.sh           # pre-commit hook kurulumu (makine başına bir
 Pre-commit hook, `tools/kontrol.sh` başarısız olursa commit'i durdurur. Git hook'ları repoda saklanmadığı için, makine değiştiğinde veya repo yeniden klonlandığında `hook-kur.sh` bir kez çalıştırılmalıdır.
 
 Bir kontrol yanlış alarm veriyorsa, hook'u atlamak yerine betiği düzeltin. Zorunlu hâllerde `git commit --no-verify` kullanılabilir; ancak gerekçesi commit mesajında belirtilmelidir.
+
+---
+
+## 8. Arayüz metinleri (v1.1, 3 Ağustos 2026)
+
+Ana sayfa metinleri Özden'in düzeltmeleriyle elden geçirildi. Çıkan kurallar:
+
+### 8.1 Marka adı akan metinde Türkçe
+
+`AI Governance` → **Yapay Zeka Yönetişimi**. `AI sistemi` → **yapay zeka sistemi**.
+`EU AI Act`, `ISO 42001`, `KVKK`, `FRIA`, `ORIENT` özel ad olarak kalır.
+
+### 8.2 Soyut kavram yerine somut karşılık
+
+> **Önce:** Yapay Zeka Yönetişimi bir kontrol listesi değil, bir yönelimdir.
+
+> **Sonra:** Yapay Zeka Yönetişimi bir kontrol listesi değil, kesintisiz bir süreçtir.
+
+`yönelim`, İngilizce *orientation*'ın birebir karşılığıdır ama Türkçede "eğilim" çağrışımı taşır ve marka iddiasını taşımaz. Soyut adın Türkçede karşılığı yoksa somut olanı seçin.
+
+### 8.3 Zayıf yüklemi güçlendirin
+
+> **Önce:** ...sınıflandırmanıza, değerlendirmenize ve belgelemenize yardımcı olur.
+
+> **Sonra:** ...sınıflandırmanızı, değerlendirmenizi ve belgelemenizi sağlar.
+
+`yardımcı olur` özür diler gibi durur; `sağlar` iddiayı üstlenir.
+
+### 8.4 Karma terim kullanmayın
+
+> **Önce:** Maturity seviyesi × Risk Exposure. Focal cell (altın), organizasyonun mevcut durumunu gösterir.
+
+> **Sonra:** Olgunluk düzeyi ile risk maruziyetinin kesişimi. Altın renkli hücre, kurumun bulunduğu noktayı gösterir.
+
+Aynı biçimde: `PDF export` → `PDF olarak dışa aktarır`, `sectoral filter` → `sektöre göre filtrelenebilir`, `interaktif` → `etkileşimli`, `organizasyon` → `kurum`.
+
+### 8.5 Kısa etiketlerde de akış aranır
+
+> **Önce:** 23 maddelik interaktif kontrol. İlerleme takibi, PDF export. Risk seviyesine göre filtreli.
+
+> **Sonra:** 23 maddelik etkileşimli kontrol listesi; ilerlemenizi izler, risk seviyesine göre filtreler, PDF olarak dışa aktarır.
+
+Üç kesik parça yerine noktalı virgülle bağlanmış tek bir cümle.
