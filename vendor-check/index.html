@@ -23,9 +23,8 @@
   "@context": "https://schema.org",
   "@type": "SoftwareApplication",
   "name": "AI Vendor Quick Check",
-  "applicationCategory": "BusinessApplication",
+  "applicationCategory": "EducationalApplication",
   "operatingSystem": "Web",
-  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "EUR" },
   "description": "Quick assessment for organisations using third-party AI tools. Identifies your role under Reg. (EU) 2024/1689, applicable obligations, and immediate actions as an AI deployer.",
   "url": "https://hexis.center/vendor-check/",
   "provider": {
@@ -263,7 +262,7 @@ footer{border-top:1px solid var(--border);padding:20px 48px;display:flex;align-i
 
 <div class="wrap">
   <div class="hero">
-    <div class="hero-label" data-en="Free Tool · EU AI Act" data-tr="Ucretsiz Arac · EU AI Act">Free Tool · EU AI Act</div>
+    <div class="hero-label" data-en="Open Access · EU AI Act" data-tr="Acik Erisim · EU AI Act">Open Access · EU AI Act</div>
     <h1 data-en="Using AI tools at work? Know your obligations."
         data-tr="Is yerinde AI araci mi kullaniyorsunuz? Yukumluluklerinizi bilin.">Using AI tools at work? Know your obligations.</h1>
     <p class="hero-desc"
@@ -367,17 +366,17 @@ footer{border-top:1px solid var(--border);padding:20px 48px;display:flex;align-i
     </div>
 
     <div class="result-section" style="text-align:center">
-      <div class="result-section-label" data-en="Continue with Hexis tools" data-tr="Hexis araclariyla devam edin">Continue with Hexis tools</div>
+      <div class="result-section-label" data-en="Related tools" data-tr="Ilgili araclar">Related tools</div>
       <div class="tool-links" id="toolLinks"></div>
     </div>
 
     <div class="results-cta">
-      <h3 data-en="Managing multiple AI tools?"
-          data-tr="Birden fazla AI araci mi yonetiyorsunuz?">Managing multiple AI tools?</h3>
-      <p id="ctaText">You checked 1 tool. Most organisations use 5-10 AI tools. Manage your full AI inventory, track obligations, and generate compliance documentation from one platform.</p>
+      <h3 data-en="Each tool is assessed separately"
+          data-tr="Her arac ayri degerlendirilir">Each tool is assessed separately</h3>
+      <p id="ctaText">You checked 1 tool. The EU AI Act assesses each AI system separately, so every tool you use needs its own risk classification.</p>
       <div class="results-actions">
-        <a href="https://app.hexis.center" class="btn-primary" target="_blank"
-           data-en="Manage All AI Tools →" data-tr="Tum AI Araclarini Yonetin →">Manage All AI Tools →</a>
+        <a href="/generator/" class="btn-primary"
+           data-en="Classify Your AI System →" data-tr="AI Sisteminizi Siniflandirin →">Classify Your AI System →</a>
         <button class="btn-outline" onclick="window.print()"
            data-en="Print Results" data-tr="Sonuclari Yazdir">Print Results</button>
         <button class="btn-outline" onclick="editAnswers()"
@@ -732,12 +731,12 @@ function showResults(){
   var ctaEl=document.getElementById('ctaText');
   if(n===1){
     ctaEl.textContent=lang==='tr'?
-      '1 araci kontrol ettiniz. Cogu organizasyon 5-10 AI araci kullaniyor. Tum AI envanterinizi yonetin, yukumlulukleri takip edin ve tek platformdan uyum dokumantasyonu uretin.':
-      'You checked 1 tool. Most organisations use 5-10 AI tools. Manage your full AI inventory, track obligations, and generate compliance documentation from one platform.';
+      '1 araci kontrol ettiniz. EU AI Act her AI sistemini ayri degerlendirir; kullandiginiz her arac icin ayri bir risk siniflandirmasi gerekir.':
+      'You checked 1 tool. The EU AI Act assesses each AI system separately, so every tool you use needs its own risk classification.';
   } else {
     ctaEl.textContent=lang==='tr'?
-      n+' araci kontrol ettiniz. Tum AI envanterinizi tek platformdan yonetin — yukumluluk takibi ve uyum dokumantasyonu dahil.':
-      'You checked '+n+' tools. Manage your full AI inventory from one platform — with obligation tracking and compliance documentation.';
+      n+' araci kontrol ettiniz. Her araci ayri ayri siniflandirin ve yukumluluk listenizi cikarin.':
+      'You checked '+n+' tools. Classify each one separately and map its obligations.';
   }
 
   /* Digital Omnibus warning */
@@ -746,8 +745,8 @@ function showResults(){
   if(isHighRisk||answers.purpose==='product'){
     omnEl.style.display='block';
     document.getElementById('omnibusText').textContent=lang==='tr'?
-      'Digital Omnibus paketi (Kasim 2025 onerisi) kabul edilirse, Ek III son tarihi en gec 2 Aralik 2027\'ye, Ek I son tarihi 2 Agustos 2028\'e uzayabilir. Bu oneri henuz kabul edilmemistir — durumu izleyin. Temkinli uyum planlamasi icin 2 Agustos 2026\'yi baglayici son tarih olarak kabul edin.':
-      'The Digital Omnibus package (proposed Nov 2025), if adopted, may extend the Annex III deadline to max 2 Dec 2027 and the Annex I deadline to 2 Aug 2028. This proposal is NOT YET ADOPTED — monitor its status. For prudent compliance planning, treat 2 Aug 2026 as the binding deadline.';
+      'Regulation (EU) 2026/1744 (Digital Omnibus on AI) 27 Temmuz 2026\'da yururluge girdi. Ek III bagimsiz yuksek riskli sistemlerde son tarih 2 Aralik 2027\'ye, Ek I uruene gomulu sistemlerde 2 Agustos 2028\'e ertelendi. Yukumluluklerin icerigi degismedi — yalnizca uygulama tarihi ileri alindi.':
+      'Regulation (EU) 2026/1744 (Digital Omnibus on AI) entered into force on 27 July 2026. The Annex III deadline for stand-alone high-risk systems moved to 2 December 2027, and the Annex I deadline for product-embedded systems to 2 August 2028. The substance of the obligations is unchanged — only the application date moved.';
   } else {
     omnEl.style.display='none';
   }
@@ -822,7 +821,7 @@ function buildObligations(){
     obs.push({
       art:'Article 26',
       tag:{en:'Mandatory',tr:'Zorunlu'},tagClass:'tag-mandatory',
-      deadline:{en:'From 2 Aug 2026',tr:'2 Agustos 2026\'dan itibaren'},
+      deadline:{en:'From 2 Dec 2027',tr:'2 Aralik 2027\'den itibaren'},
       desc:{en:'Deployer obligations: use the AI system in accordance with instructions, ensure human oversight, monitor operations, retain auto-generated logs for at least 6 months (Art. 26(6)), and inform workers and their representatives before workplace deployment (Art. 26(7)).',tr:'Konuslandirici yukumlulukleri: AI sistemini talimatlara uygun kullanin, insan gozetimi saglayin, operasyonlari izleyin, otomatik uretilen kayitlari en az 6 ay saklayin (Md. 26(6)) ve is yerinde konuslandirma oncesinde calisanlari ve temsilcilerini bilgilendirin (Md. 26(7)).'},
       action:{en:'Obtain and review the provider\'s instructions for use. Assign a responsible person for oversight. Establish a log retention policy (minimum 6 months). If deploying at the workplace, inform workers and worker representatives before use.',tr:'Saglayicinin kullanim talimatlarini edinin ve inceleyin. Gozetim icin sorumlu bir kisi atayin. Kayit saklama politikasi olusturun (minimum 6 ay). Is yerinde konuslandiriyorsaniz, kullanim oncesinde calisanlari ve calisan temsilcilerini bilgilendirin.'}
     });
@@ -833,14 +832,14 @@ function buildObligations(){
     obs.push({
       art:'Article 16',
       tag:{en:'Mandatory',tr:'Zorunlu'},tagClass:'tag-mandatory',
-      deadline:{en:'From 2 Aug 2026 (Annex III) / 2 Aug 2027 (Annex I)',tr:'2 Agustos 2026 (Ek III) / 2 Agustos 2027 (Ek I)'},
+      deadline:{en:'From 2 Dec 2027 (Annex III) / 2 Aug 2028 (Annex I)',tr:'2 Aralik 2027 (Ek III) / 2 Agustos 2028 (Ek I)'},
       desc:{en:'Provider obligations: you bear the heaviest regulatory burden. Ensure your AI system meets all requirements before placing it on the market — quality management, risk management, technical documentation, and conformity assessment.',tr:'Saglayici yukumlulukleri: en agir duzenleyici yuku tasiyorsunuz. AI sisteminizi pazara sunmadan once tum gereksinimleri karsiladigindan emin olun: kalite yonetimi, risk yonetimi, teknik dokumantasyon ve uygunluk degerlendirmesi.'},
       action:{en:'Establish a quality management system (Art. 17). Implement a risk management system (Art. 9). Prepare technical documentation per Annex IV (Art. 11). Complete conformity assessment before market placement (Art. 43).',tr:'Kalite yonetim sistemi olusturun (Md. 17). Risk yonetim sistemi uygulayin (Md. 9). Ek IV\'e gore teknik dokumantasyon hazirlayin (Md. 11). Pazar yerlesiminden once uygunluk degerlendirmesini tamamlayin (Md. 43).'}
     });
     obs.push({
       art:'Article 72',
       tag:{en:'Mandatory',tr:'Zorunlu'},tagClass:'tag-mandatory',
-      deadline:{en:'From 2 Aug 2026',tr:'2 Agustos 2026\'dan itibaren'},
+      deadline:{en:'From 2 Dec 2027',tr:'2 Aralik 2027\'den itibaren'},
       desc:{en:'Post-market monitoring: establish and document a post-market monitoring system proportionate to the nature of the AI system and its risks.',tr:'Pazar sonrasi izleme: AI sisteminin dogasina ve risklerine orantili bir pazar sonrasi izleme sistemi olusturun ve belgeleyin.'},
       action:{en:'Design a post-market monitoring plan. Collect and analyse data on system performance. Report serious incidents within prescribed timelines (Art. 73).',tr:'Pazar sonrasi izleme plani tasarlayin. Sistem performansi hakkinda veri toplayin ve analiz edin. Ciddi olaylari belirlenen surelerde bildirin (Md. 73).'}
     });
@@ -863,7 +862,7 @@ function buildObligations(){
     obs.push({
       art:'Article 50(2)-(3)',
       tag:{en:'Mandatory',tr:'Zorunlu'},tagClass:'tag-mandatory',
-      deadline:{en:'From 2 Aug 2026',tr:'2 Agustos 2026\'dan itibaren'},
+      deadline:{en:'From 2 Aug 2026 (marking transition to 2 Dec 2026 for systems already on the EU market before 2 Aug 2026)',tr:'2 Agustos 2026\'dan itibaren (2 Agustos 2026 oncesi AB pazarindaki sistemler icin isaretleme gecisi 2 Aralik 2026)'},
       desc:{en:'Synthetic content labelling'+dfNote+': AI-generated images, audio, and video must be labelled as artificially generated or manipulated in a machine-readable format.',tr:'Sentetik icerik etiketleme'+dfNote+': AI tarafindan uretilen gorseller, ses ve video, makine tarafindan okunabilir formatta yapay olarak uretilmis veya manipule edilmis olarak etiketlenmelidir.'},
       action:{en:'Implement content labelling for all AI-generated media before publication or distribution. Use machine-readable metadata (C2PA or similar).',tr:'Yayin veya dagitim oncesinde tum AI tarafindan uretilen medya icin icerik etiketleme uygulayin. Makine tarafindan okunabilir meta veri (C2PA veya benzeri) kullanin.'}
     });
@@ -897,7 +896,7 @@ function buildObligations(){
     obs.push({
       art:'Article 9',
       tag:{en:'High-risk',tr:'Yuksek risk'},tagClass:'tag-mandatory',
-      deadline:{en:'From 2 Aug 2026 (Annex III)',tr:'2 Agustos 2026\'dan itibaren (Ek III)'},
+      deadline:{en:'From 2 Dec 2027 (Annex III)',tr:'2 Aralik 2027\'den itibaren (Ek III)'},
       desc:{en:'Risk management system: as a deployer of a high-risk AI system, you must cooperate with the provider\'s risk management and report any risks identified during use.',tr:'Risk yonetim sistemi: yuksek riskli bir AI sisteminin konuslandiricisi olarak, saglayicinin risk yonetimiyle isbirligi yapmali ve kullanim sirasinda tespit edilen riskleri bildirmelisiniz.'},
       action:{en:'Request the provider\'s risk management documentation. Establish your own risk monitoring for deployment context. Report anomalies to the provider.',tr:'Saglayicinin risk yonetimi dokumantasyonunu talep edin. Konuslandirma baginiz icin kendi risk izlemenizi olusturun. Anomalileri saglayiciya bildirin.'}
     });
@@ -905,7 +904,7 @@ function buildObligations(){
     obs.push({
       art:'Article 14',
       tag:{en:'High-risk',tr:'Yuksek risk'},tagClass:'tag-mandatory',
-      deadline:{en:'From 2 Aug 2026 (Annex III)',tr:'2 Agustos 2026\'dan itibaren (Ek III)'},
+      deadline:{en:'From 2 Dec 2027 (Annex III)',tr:'2 Aralik 2027\'den itibaren (Ek III)'},
       desc:{en:'Human oversight: ensure competent individuals can understand, monitor, and override the AI system\'s outputs, with authority to decide not to use or override.',tr:'Insan gozetimi: yetkin kisilerin AI sisteminin ciktilarini anlayabilmesini, izleyebilmesini ve gecersiz kilabilmesini, kullanmama veya gecersiz kilma yetkisine sahip olmasini saglayin.'},
       action:{en:'Designate qualified human overseers. Document override procedures. Ensure they can intervene in real-time when the system is used for decisions affecting individuals.',tr:'Nitelikli insan gozetmenleri atayin. Gecersiz kilma prosedurlerini belgeleyin. Sistem bireyleri etkileyen kararlar icin kullanildiginda gercek zamanli mudahale edebildiklerinden emin olun.'}
     });
@@ -913,7 +912,7 @@ function buildObligations(){
     obs.push({
       art:'Article 27',
       tag:{en:'Conditional',tr:'Kosullu'},tagClass:'tag-conditional',
-      deadline:{en:'From 2 Aug 2026',tr:'2 Agustos 2026\'dan itibaren'},
+      deadline:{en:'From 2 Dec 2027',tr:'2 Aralik 2027\'den itibaren'},
       desc:{en:'Fundamental rights impact assessment: required for public bodies and certain private deployers of high-risk AI systems before putting the system into use.',tr:'Temel haklar etki degerlendirmesi: yuksek riskli AI sistemlerinin kamu kurumlari ve belirli ozel konuslandiricilari icin sistemi kullanima sunmadan once zorunludur.'},
       action:{en:'Conduct a FRIA using the Hexis FRIA tool. Document assessed risks and mitigation measures before deployment.',tr:'Hexis FRIA aracini kullanarak FRIA gerceklestirin. Degerlendirilen riskleri ve azaltma tedbirlerini konuslandirma oncesi belgeleyin.'}
     });
@@ -935,7 +934,7 @@ function buildObligations(){
     obs.push({
       art:'Article 49',
       tag:{en:'Upcoming',tr:'Yaklasan'},tagClass:'tag-upcoming',
-      deadline:{en:'From 2 Aug 2026',tr:'2 Agustos 2026\'dan itibaren'},
+      deadline:{en:'From 2 Dec 2027',tr:'2 Aralik 2027\'den itibaren'},
       desc:{en:'EU database registration: high-risk AI systems must be registered in the EU database before being put into service. As a deployer, verify your provider has completed registration.',tr:'AB veritabani kaydi: yuksek riskli AI sistemleri hizmete sunulmadan once AB veritabanina kaydedilmelidir. Konuslandirici olarak, saglayicinizin kaydi tamamladigini dogrulayin.'},
       action:{en:'Ask your vendor to confirm their EU database registration status under Art. 49. Do not deploy unregistered high-risk systems after the deadline.',tr:'Tedarikcinizden Md. 49 kapsaminda AB veritabani kayit durumunu onaylamasini isteyin. Son tarihten sonra kayitsiz yuksek riskli sistemleri konuslandirmayin.'}
     });

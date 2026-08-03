@@ -333,18 +333,30 @@ The HEXIS ecosystem has two repos that share classification logic:
 - **Minimal risk** — Voluntary codes of conduct (Art. 95)
 
 ### Enforcement Timeline
+*Last verified: 3 August 2026 against EUR-Lex.*
+
 | Date | What | Status |
 |------|------|--------|
 | 2 Feb 2025 | Prohibited practices (Art. 5) + AI literacy (Art. 4) | **In force** |
-| 2 Aug 2025 | GPAI obligations (Chapter V) | **In force** |
-| 2 Aug 2026 | High-risk systems — Annex III | Upcoming |
-| 2 Aug 2027 | High-risk systems — Annex I (product safety) | Upcoming |
+| 2 Aug 2025 | GPAI obligations (Chapter V, Art. 51–55) | **In force** |
+| 2 Aug 2026 | Transparency obligations (Art. 50) | **In force** |
+| 2 Dec 2026 | Art. 50(2) machine-readable marking — transition ends *(pre-existing generative systems only)* | Upcoming |
+| 2 Dec 2026 | Two new Art. 5 prohibitions (non-consensual intimate imagery; AI-generated CSAM) | Upcoming |
+| **2 Dec 2027** | High-risk systems — Annex III *(was 2 Aug 2026)* | Upcoming |
+| **2 Aug 2028** | High-risk systems — Annex I, product safety *(was 2 Aug 2027)* | Upcoming |
 
-### Digital Omnibus (proposed Nov 2025)
-- **Status:** Under ordinary legislative procedure — NOT YET ADOPTED
-- **If adopted:** May extend Annex III deadline to max 2 Dec 2027, Annex I to max 2 Aug 2028
-- **AI literacy:** Proposal may shift responsibility from providers/deployers to Commission/Member States
-- Always flag as uncertain: "Digital Omnibus (proposed): If adopted, may extend deadlines — monitor status"
+### Digital Omnibus — ADOPTED, IN FORCE
+- **Instrument:** Regulation (EU) 2026/1744 (Digital Omnibus on AI)
+- **Adopted:** 8 July 2026 · **Published OJ:** 24 July 2026 · **In force:** 27 July 2026
+- **Amends:** Reg. (EU) 2024/1689, 2018/1139, 2023/1230
+- **What moved:** Annex III 2 Aug 2026 → 2 Dec 2027; Annex I 2 Aug 2027 → 2 Aug 2028
+- **What did NOT move:** Art. 4 AI literacy, Art. 5 original prohibitions, Chapter V GPAI (Art. 51–55), Art. 50 transparency (2 Aug 2026)
+- **Nuance to preserve:** Art. 50(2) machine-readable marking has a transition to 2 Dec 2026 — *only* for generative systems already placed on the EU market before 2 Aug 2026. Systems placed on market on/after 2 Aug 2026 comply immediately. Content generated before 2 Aug 2026 needs no retroactive labelling.
+- **Substance unchanged:** only application dates moved. Do not describe this as a weakening of obligations.
+- ⚠️ **NEVER** describe the Digital Omnibus as "proposed", "under negotiation", or "not yet adopted". That language was correct until 8 July 2026 and is now a factual error.
+
+### Source Verification Rule
+Regulatory dates and statuses must be verified against EUR-Lex or an official EU source before publication — never from memory or from a previous version of this file. Record the verification date next to any timeline table.
 
 ### Citation Format
 Always cite with article numbers: "Article 6(1)(a) Regulation (EU) 2024/1689"

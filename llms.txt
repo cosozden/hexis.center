@@ -35,5 +35,6 @@
 ## Hakkında
 
 Hexis, yapay zeka yönetişimini "uyum listesi" değil, kurumsal yönelim (ἕξις — hexis) olarak ele alır.
-Hedef kitle: Türk KOBİ'leri, teknoloji şirketleri, hukuk ve danışmanlık firmaları.
-Tüm araçlar ücretsizdir. Ticari platform: app.hexis.center
+Bağımsız bir araştırma, içerik ve araç geliştirme projesidir.
+Tüm araçlar ve içerikler ücretsizdir; kayıt gerektirmez.
+Yalnızca bilgilendirme amaçlıdır, hukuki danışmanlık niteliği taşımaz.

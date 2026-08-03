@@ -1,3 +1,9 @@
 /methodology  /methodology/  301
 /generator    /generator/    301
 /eu-ai-act-checklist.html  /checklist/  301
+
+# Kaldırılan ticari sayfalar (Ağustos 2026 — bağımsız proje sitesine geçiş)
+/platform/*  /            301
+/terms/*     /            301
+/refund/*    /            301
+/trust/*     /privacy/    301
