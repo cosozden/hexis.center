@@ -14,7 +14,7 @@
 
 ## Eğitimde Yapay Zekâ
 
-- [Eğitimde Davranış Algılayan Yapay Zekâ Sistemleri](https://hexis.center/blog/egitimde-davranis-algilama-ve-duygu-cikarimi/): Davranış gözlemi ile duygu çıkarımı arasındaki ayrım ve bu ayrımın risk sınıfını nasıl belirlediği. Madde 3(39), Madde 3(34), Gerekçe 18 ve Gerekçe 44 temelli iki koşullu okuma; üç tasarım senaryosu; MEB Eylem 4.4.1 örneği; şartname aşamasında sorulacak dört soru.
+- [Eğitimde Davranış Algılayan Yapay Zekâ Sistemleri](https://hexis.center/blog/egitimde-davranis-algilama-ve-duygu-cikarimi/): Eğitimde yüksek risk yükümlülükleri 2 Aralık 2027'ye ertelendi, Madde 5(1)(f) duygu çıkarımı yasağı ertelenmedi. Gerekçe 44'ün iki gerekçesi (güvenilirlik ve güç dengesizliği) ile MEB Etik Kılavuzu'nun sekiz ilkesinin karşılaştırması. Madde 3(39), Madde 3(34) ve Gerekçe 18 temelli iki koşullu okuma; üç tasarım senaryosu; MEB Eylem 4.4.1 örneği; Etik Beyan Formu eşiği; şartname aşamasında sorulacak dört soru.
 - [Eğitimde Yapay Zekâ Yönetişimi](https://hexis.center/egitim/): MEB Etik Kılavuzu ve YAZEK, KVKK ve EU AI Act Ek III(3) karşılaştırması. Okullar için roller, dört yüksek riskli sistem türü, eğitim kurumlarında duygu çıkarımı yasağı (Md. 5(1)(f)), MEB Eylem Planı × Ek III(3) haritası.
 
 ## Metodoloji
